@@ -79,10 +79,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Entities\TempleEyeTrackingMadeline.cs" />
     <Compile Include="Module\MaxHelpingHandModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Ahorn\entities\templeEyeTrackingMadeline.jl" />
     <None Include="everest.yaml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

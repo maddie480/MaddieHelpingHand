@@ -1,12 +1,13 @@
-﻿
+﻿using Celeste.Mod.MaxHelpingHand.Entities;
+
 namespace Celeste.Mod.MaxHelpingHand.Module {
     public class MaxHelpingHandModule : EverestModule {
         public override void Load() {
-            // TODO make stuff
+            TempleEyeTrackingMadeline.Load();
         }
 
         public override void Unload() {
-            // TODO make stuff
+            TempleEyeTrackingMadeline.Unload();
         }
     }
 }
