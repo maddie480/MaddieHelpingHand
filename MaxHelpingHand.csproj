@@ -82,9 +82,18 @@
     <Compile Include="Entities\TempleEyeTrackingMadeline.cs" />
     <Compile Include="Module\MaxHelpingHandModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Triggers\CameraCatchupSpeedTrigger.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Ahorn\entities\templeEyeTrackingMadeline.jl" />
+    <None Include="Ahorn\entities\templeEyeTrackingMadeline.jl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Ahorn\lang\en_gb.lang">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Ahorn\triggers\cameraCatchupSpeed.jl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="everest.yaml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
