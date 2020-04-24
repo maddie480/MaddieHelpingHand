@@ -79,12 +79,21 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Entities\FlagSwitchGate.cs" />
+    <Compile Include="Entities\FlagTouchSwitch.cs" />
     <Compile Include="Entities\TempleEyeTrackingMadeline.cs" />
+    <Compile Include="Module\MaxHelpingHandMapDataProcessor.cs" />
     <Compile Include="Module\MaxHelpingHandModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Triggers\CameraCatchupSpeedTrigger.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Ahorn\entities\flagSwitchGate.jl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Ahorn\entities\flagTouchSwitch.jl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="Ahorn\entities\templeEyeTrackingMadeline.jl">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -105,6 +114,8 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Graphics\Atlases\Gameplay\objects\MaxHelpingHand\" />
+  </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>
