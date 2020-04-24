@@ -81,6 +81,7 @@
   <ItemGroup>
     <Compile Include="Entities\FlagSwitchGate.cs" />
     <Compile Include="Entities\FlagTouchSwitch.cs" />
+    <Compile Include="Entities\OneUseCrumblePlatform.cs" />
     <Compile Include="Entities\TempleEyeTrackingMadeline.cs" />
     <Compile Include="Module\MaxHelpingHandMapDataProcessor.cs" />
     <Compile Include="Module\MaxHelpingHandModule.cs" />
@@ -92,6 +93,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Ahorn\entities\flagTouchSwitch.jl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Ahorn\entities\oneUseCrumblePlatform.jl">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Ahorn\entities\templeEyeTrackingMadeline.jl">
