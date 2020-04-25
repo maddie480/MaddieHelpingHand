@@ -82,7 +82,9 @@
     <Compile Include="Entities\FlagSwitchGate.cs" />
     <Compile Include="Entities\FlagTouchSwitch.cs" />
     <Compile Include="Entities\CustomizableCrumblePlatform.cs" />
+    <Compile Include="Entities\SidewaysJumpThru.cs" />
     <Compile Include="Entities\TempleEyeTrackingMadeline.cs" />
+    <Compile Include="Entities\UpsideDownJumpThru.cs" />
     <Compile Include="Module\MaxHelpingHandMapDataProcessor.cs" />
     <Compile Include="Module\MaxHelpingHandModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -98,7 +100,13 @@
     <None Include="Ahorn\entities\customizableCrumblePlatform.jl">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="Ahorn\entities\sidewaysJumpThru.jl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="Ahorn\entities\templeEyeTrackingMadeline.jl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Ahorn\entities\upsideDownJumpThru.jl">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Ahorn\lang\en_gb.lang">
