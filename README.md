@@ -14,4 +14,4 @@ Provides the following things:
     - have persistent touch switches (touch switches that stay collected even if you die / change screens and didn't collect the whole group)
     - have a mix of persistent and non-persistent switch gates
     - _if all touch switches or all switch gates are persistent_, the flag associated to them will activate once you complete the group, so you can use it to activate other entities.
-- **One-Use Crumble Blocks**: crumble blocks that don't respawn after they crumbled.
+- **Customizable Crumble Blocks**: crumble blocks that don't respawn after they crumbled, or that respawn after a custom delay.

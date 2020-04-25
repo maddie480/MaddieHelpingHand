@@ -21,5 +21,7 @@ placements.entities.MaxHelpingHand/FlagSwitchGate.tooltips.activeColor=The gate 
 placements.entities.MaxHelpingHand/FlagSwitchGate.tooltips.finishColor=The gate icon colour when the group is complete.
 placements.entities.MaxHelpingHand/FlagSwitchGate.tooltips.sprite=The texture for the gate block.
 
-# One-Use Crumble Platform
-placements.entities.MaxHelpingHand/OneUseCrumblePlatform.tooltips.texture=What texture to use for the crumble block.
+# Customizable Crumble Platform
+placements.entities.MaxHelpingHand/CustomizableCrumblePlatform.tooltips.texture=What texture to use for the crumble block.
+placements.entities.MaxHelpingHand/CustomizableCrumblePlatform.tooltips.oneUse=If checked, the platform will not respawn once it crumbled.
+placements.entities.MaxHelpingHand/CustomizableCrumblePlatform.tooltips.respawnDelay=The delay in seconds before the platform respawns after it crumbled (vanilla is 2 seconds).

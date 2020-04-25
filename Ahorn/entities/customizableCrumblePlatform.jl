@@ -1,12 +1,13 @@
-﻿module MaxHelpingHandOneUseCrumblePlatform
+﻿module MaxHelpingHandCustomizableCrumblePlatform
 
 using ..Ahorn, Maple
 
-@mapdef Entity "MaxHelpingHand/OneUseCrumblePlatform" OneUseCrumblePlatform(x::Integer, y::Integer, width::Integer=Maple.defaultBlockWidth, texture::String="default")
+@mapdef Entity "MaxHelpingHand/CustomizableCrumblePlatform" CustomizableCrumblePlatform(x::Integer, y::Integer, width::Integer=Maple.defaultBlockWidth,
+    texture::String="default", oneUse::Bool=false, respawnDelay::Number=2.0)
 
 const placements = Ahorn.PlacementDict(
-    "Crumble Blocks ($(uppercasefirst(texture)), One Use) (max480's Helping Hand)" => Ahorn.EntityPlacement(
-        OneUseCrumblePlatform,
+    "Crumble Blocks ($(uppercasefirst(texture)), Customizable) (max480's Helping Hand)" => Ahorn.EntityPlacement(
+        CustomizableCrumblePlatform,
         "rectangle",
         Dict{String, Any}(
             "texture" => texture
@@ -14,21 +15,21 @@ const placements = Ahorn.PlacementDict(
     ) for texture in Maple.crumble_block_textures
 )
 
-Ahorn.editingOptions(entity::OneUseCrumblePlatform) = Dict{String, Any}(
+Ahorn.editingOptions(entity::CustomizableCrumblePlatform) = Dict{String, Any}(
     "texture" => Maple.crumble_block_textures
 )
 
-Ahorn.minimumSize(entity::OneUseCrumblePlatform) = 8, 0
-Ahorn.resizable(entity::OneUseCrumblePlatform) = true, false
+Ahorn.minimumSize(entity::CustomizableCrumblePlatform) = 8, 0
+Ahorn.resizable(entity::CustomizableCrumblePlatform) = true, false
 
-function Ahorn.selection(entity::OneUseCrumblePlatform)
+function Ahorn.selection(entity::CustomizableCrumblePlatform)
     x, y = Ahorn.position(entity)
     width = Int(get(entity.data, "width", 8))
 
     return Ahorn.Rectangle(x, y, width, 8)
 end
 
-function Ahorn.render(ctx::Ahorn.Cairo.CairoContext, entity::OneUseCrumblePlatform, room::Maple.Room)
+function Ahorn.render(ctx::Ahorn.Cairo.CairoContext, entity::CustomizableCrumblePlatform, room::Maple.Room)
     texture = get(entity.data, "texture", "default")
     texture = "objects/crumbleBlock/$texture"
 
