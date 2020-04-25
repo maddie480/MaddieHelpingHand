@@ -15,3 +15,4 @@ Provides the following things:
     - have a mix of persistent and non-persistent switch gates
     - _if all touch switches or all switch gates are persistent_, the flag associated to them will activate once you complete the group, so you can use it to activate other entities.
 - **Customizable Crumble Blocks**: crumble blocks that don't respawn after they crumbled, or that respawn after a custom delay.
+- **Upside-Down and Sideways Jumpthroughs**: platforms you can only cross in one direction (left to right, right to left, or up to down).
