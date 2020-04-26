@@ -25,23 +25,20 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
         private static readonly Hitbox normalHitbox = new Hitbox(8f, 11f, -4f, -11f);
 
         public static void Load() {
-            Everest.Events.Level.OnEnter += onLevelEnter;
-            Everest.Events.Level.OnExit += onLevelExit;
+            On.Celeste.LevelLoader.ctor += onLevelLoad;
         }
 
         public static void Unload() {
-            Everest.Events.Level.OnEnter -= onLevelEnter;
-            Everest.Events.Level.OnExit -= onLevelExit;
+            On.Celeste.LevelLoader.ctor -= onLevelLoad;
+            deactivateHooks();
         }
 
-        private static void onLevelEnter(Session session, bool fromSaveData) {
+        private static void onLevelLoad(On.Celeste.LevelLoader.orig_ctor orig, LevelLoader self, Session session, Vector2? startPosition) {
+            orig(self, session, startPosition);
+
             if (session.MapData?.Levels?.Any(level => level.Entities?.Any(entity => entity.Name == "MaxHelpingHand/UpsideDownJumpThru") ?? false) ?? false) {
                 activateHooks();
-            }
-        }
-
-        private static void onLevelExit(Level level, LevelExit exit, LevelExit.Mode mode, Session session, HiresSnow snow) {
-            if (mode != LevelExit.Mode.GoldenBerryRestart && mode != LevelExit.Mode.Restart) {
+            } else {
                 deactivateHooks();
             }
         }
@@ -51,6 +48,8 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
                 return;
             }
             hooksActive = true;
+
+            Logger.Log("MaxHelpingHand/UpsideDownJumpThru", "=== Activating upside-down jumpthru hooks");
 
             using (new DetourContext { Before = { "*" } }) { // these don't always call the orig methods, better apply them first.
                 // fix general actor/platform behavior to make them comply with jumpthrus.
@@ -82,6 +81,8 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
                 return;
             }
             hooksActive = false;
+
+            Logger.Log("MaxHelpingHand/UpsideDownJumpThru", "=== Deactivating upside-down jumpthru hooks");
 
             On.Celeste.Actor.MoveVExact -= onActorMoveVExact;
             On.Celeste.Platform.MoveVExactCollideSolids -= onPlatformMoveVExactCollideSolids;
@@ -357,13 +358,6 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
 
             // shift the hitbox a bit to match the graphic
             Collider.Top += 3;
-        }
-
-        public override void Added(Scene scene) {
-            base.Added(scene);
-
-            // activate hooks if not done already.
-            activateHooks();
         }
 
         public override void Awake(Scene scene) {

@@ -21,23 +21,20 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
         private static bool hooksActive = false;
 
         public static void Load() {
-            Everest.Events.Level.OnEnter += onLevelEnter;
-            Everest.Events.Level.OnExit += onLevelExit;
+            On.Celeste.LevelLoader.ctor += onLevelLoad;
         }
 
         public static void Unload() {
-            Everest.Events.Level.OnEnter -= onLevelEnter;
-            Everest.Events.Level.OnExit -= onLevelExit;
+            On.Celeste.LevelLoader.ctor -= onLevelLoad;
+            deactivateHooks();
         }
 
-        private static void onLevelEnter(Session session, bool fromSaveData) {
+        private static void onLevelLoad(On.Celeste.LevelLoader.orig_ctor orig, LevelLoader self, Session session, Vector2? startPosition) {
+            orig(self, session, startPosition);
+
             if (session.MapData?.Levels?.Any(level => level.Entities?.Any(entity => entity.Name == "MaxHelpingHand/SidewaysJumpThru") ?? false) ?? false) {
                 activateHooks();
-            }
-        }
-
-        private static void onLevelExit(Level level, LevelExit exit, LevelExit.Mode mode, Session session, HiresSnow snow) {
-            if (mode != LevelExit.Mode.GoldenBerryRestart && mode != LevelExit.Mode.Restart) {
+            } else {
                 deactivateHooks();
             }
         }
@@ -47,6 +44,8 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
                 return;
             }
             hooksActive = true;
+
+            Logger.Log("MaxHelpingHand/SidewaysJumpThru", "=== Activating sideways jumpthru hooks");
 
             string updateSpriteMethodToPatch = Everest.Loader.DependencyLoaded(new EverestModuleMetadata { Name = "Everest", Version = new Version(1, 1432) }) ?
                 "orig_UpdateSprite" : "UpdateSprite";
@@ -83,6 +82,8 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
                 return;
             }
             hooksActive = false;
+
+            Logger.Log("MaxHelpingHand/SidewaysJumpThru", "=== Deactivating sideways jumpthru hooks");
 
             On.Celeste.Actor.MoveHExact -= onActorMoveHExact;
             On.Celeste.Platform.MoveHExactCollideSolids -= onPlatformMoveHExactCollideSolids;
@@ -291,13 +292,6 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
 
         public SidewaysJumpThru(EntityData data, Vector2 offset)
             : this(data.Position + offset, data.Height, !data.Bool("left"), data.Attr("texture", "default"), data.Float("animationDelay", 0f)) {
-        }
-
-        public override void Added(Scene scene) {
-            base.Added(scene);
-
-            // activate hooks if not done already.
-            activateHooks();
         }
 
         public override void Awake(Scene scene) {
