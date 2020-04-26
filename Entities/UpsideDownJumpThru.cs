@@ -63,13 +63,15 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
                 On.Celeste.Player.OnCollideV += onPlayerOnCollideV;
             }
 
-            // block player if they try to climb past an upside-down jumpthru.
-            IL.Celeste.Player.ClimbUpdate += patchPlayerClimbUpdate;
+            using (new DetourContext { Before = { "*" } }) { // let's take over Spring Collab 2020, we can break it, this is not a collab map!
+                // block player if they try to climb past an upside-down jumpthru.
+                IL.Celeste.Player.ClimbUpdate += patchPlayerClimbUpdate;
 
-            // ignore upside-down jumpthrus in select places.
-            playerOrigUpdateHook = new ILHook(typeof(Player).GetMethod("orig_Update"), filterOutJumpThrusFromCollideChecks);
-            IL.Celeste.Player.DashUpdate += filterOutJumpThrusFromCollideChecks;
-            IL.Celeste.Player.RedDashUpdate += filterOutJumpThrusFromCollideChecks;
+                // ignore upside-down jumpthrus in select places.
+                playerOrigUpdateHook = new ILHook(typeof(Player).GetMethod("orig_Update"), filterOutJumpThrusFromCollideChecks);
+                IL.Celeste.Player.DashUpdate += filterOutJumpThrusFromCollideChecks;
+                IL.Celeste.Player.RedDashUpdate += filterOutJumpThrusFromCollideChecks;
+            }
 
             // listen for the player unducking, to knock the player down before they would go through upside down jumpthrus.
             On.Celeste.Player.Update += onPlayerUpdate;

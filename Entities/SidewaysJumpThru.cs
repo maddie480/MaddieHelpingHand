@@ -60,17 +60,19 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             // block "climb hopping" on top of sideways jumpthrus, because this just looks weird.
             On.Celeste.Player.ClimbHopBlockedCheck += onPlayerClimbHopBlockedCheck;
 
-            // mod collide checks to include sideways jumpthrus, so that the player behaves with them like with walls.
-            IL.Celeste.Player.WallJumpCheck += modCollideChecks; // allow player to walljump off them
-            IL.Celeste.Player.ClimbCheck += modCollideChecks; // allow player to climb on them
-            IL.Celeste.Player.ClimbBegin += modCollideChecks; // if not applied, the player will clip through jumpthrus if trying to climb on them
-            IL.Celeste.Player.ClimbUpdate += modCollideChecks; // when climbing, jumpthrus are handled like walls
-            IL.Celeste.Player.SlipCheck += modCollideChecks; // make climbing on jumpthrus not slippery
-            IL.Celeste.Player.NormalUpdate += modCollideChecks; // get the wall slide effect
-            IL.Celeste.Player.OnCollideH += modCollideChecks; // handle dashes against jumpthrus properly, without "shifting" down
+            using (new DetourContext { Before = { "*" } }) { // let's take over Spring Collab 2020, we can break it, this is not a collab map!
+                // mod collide checks to include sideways jumpthrus, so that the player behaves with them like with walls.
+                IL.Celeste.Player.WallJumpCheck += modCollideChecks; // allow player to walljump off them
+                IL.Celeste.Player.ClimbCheck += modCollideChecks; // allow player to climb on them
+                IL.Celeste.Player.ClimbBegin += modCollideChecks; // if not applied, the player will clip through jumpthrus if trying to climb on them
+                IL.Celeste.Player.ClimbUpdate += modCollideChecks; // when climbing, jumpthrus are handled like walls
+                IL.Celeste.Player.SlipCheck += modCollideChecks; // make climbing on jumpthrus not slippery
+                IL.Celeste.Player.NormalUpdate += modCollideChecks; // get the wall slide effect
+                IL.Celeste.Player.OnCollideH += modCollideChecks; // handle dashes against jumpthrus properly, without "shifting" down
 
-            // have the push animation when Madeline runs against a jumpthru for example
-            hookOnUpdateSprite = new ILHook(typeof(Player).GetMethod(updateSpriteMethodToPatch, BindingFlags.NonPublic | BindingFlags.Instance), modCollideChecks);
+                // have the push animation when Madeline runs against a jumpthru for example
+                hookOnUpdateSprite = new ILHook(typeof(Player).GetMethod(updateSpriteMethodToPatch, BindingFlags.NonPublic | BindingFlags.Instance), modCollideChecks);
+            }
 
             // one extra hook that kills the player momentum when hitting a jumpthru so that they don't get "stuck" on them.
             On.Celeste.Player.NormalUpdate += onPlayerNormalUpdate;
