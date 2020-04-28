@@ -91,28 +91,28 @@
     <Compile Include="Triggers\CameraCatchupSpeedTrigger.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Ahorn\entities\flagSwitchGate.jl">
+    <None Include="Ahorn\entities\maxHelpingHandFlagSwitchGate.jl">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Ahorn\entities\flagTouchSwitch.jl">
+    <None Include="Ahorn\entities\maxHelpingHandFlagTouchSwitch.jl">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Ahorn\entities\customizableCrumblePlatform.jl">
+    <None Include="Ahorn\entities\maxHelpingHandCustomizableCrumblePlatform.jl">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Ahorn\entities\sidewaysJumpThru.jl">
+    <None Include="Ahorn\entities\maxHelpingHandSidewaysJumpThru.jl">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Ahorn\entities\templeEyeTrackingMadeline.jl">
+    <None Include="Ahorn\entities\maxHelpingHandTempleEyeTrackingMadeline.jl">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Ahorn\entities\upsideDownJumpThru.jl">
+    <None Include="Ahorn\entities\maxHelpingHandUpsideDownJumpThru.jl">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Ahorn\lang\en_gb.lang">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Ahorn\triggers\cameraCatchupSpeed.jl">
+    <None Include="Ahorn\triggers\maxHelpingHandCameraCatchupSpeed.jl">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="everest.yaml">
