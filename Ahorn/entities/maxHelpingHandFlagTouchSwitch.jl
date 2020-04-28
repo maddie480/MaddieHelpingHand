@@ -3,7 +3,8 @@
 using ..Ahorn, Maple
 
 @mapdef Entity "MaxHelpingHand/FlagTouchSwitch" FlagTouchSwitch(x::Integer, y::Integer, 
-    flag::String="flag_touch_switch", icon::String="vanilla", persistent::Bool=false, inactiveColor::String="5FCDE4", activeColor::String="FFFFFF", finishColor::String="F141DF")
+    flag::String="flag_touch_switch", icon::String="vanilla", persistent::Bool=false,
+    inactiveColor::String="5FCDE4", activeColor::String="FFFFFF", finishColor::String="F141DF", smoke::Bool=true)
 
 const bundledIcons = String["vanilla", "tall", "triangle", "circle"]
 

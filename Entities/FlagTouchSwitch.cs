@@ -86,6 +86,8 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
         private Color activeColor;
         private Color finishColor;
 
+        private bool smoke;
+
         private float ease;
 
         private Wiggler wiggler;
@@ -110,6 +112,8 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             inactiveColor = Calc.HexToColor(data.Attr("inactiveColor", "5FCDE4"));
             activeColor = Calc.HexToColor(data.Attr("activeColor", "FFFFFF"));
             finishColor = Calc.HexToColor(data.Attr("finishColor", "F141DF"));
+
+            smoke = data.Bool("smoke", true);
 
             P_RecoloredFire = new ParticleType(TouchSwitch.P_Fire) {
                 Color = finishColor
@@ -271,7 +275,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
                         icon.Play("idle");
                         level.Displacement.AddBurst(Position, 0.6f, 4f, 28f, 0.2f);
                     }
-                } else if (Scene.OnInterval(0.03f)) {
+                } else if (Scene.OnInterval(0.03f) && smoke) {
                     Vector2 position = Position + new Vector2(0f, 1f) + Calc.AngleToVector(Calc.Random.NextAngle(), 5f);
                     level.ParticlesBG.Emit(P_RecoloredFire, position);
                 }
