@@ -214,6 +214,9 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
         private static void modCollideChecks(ILContext il) {
             ILCursor cursor = new ILCursor(il);
 
+            bool isClimb = il.Method.Name.Contains("Climb");
+            bool isWallJump = il.Method.Name.Contains("WallJump") || il.Method.Name.Contains("NormalUpdate");
+
             while (cursor.Next != null) {
                 Instruction next = cursor.Next;
 
@@ -236,7 +239,8 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
                         // and we are checking the collision on the left side of the player for example.
                         bool collideOnLeftSideOfPlayer = (self.Position.X > checkAtPosition.X);
                         SidewaysJumpThru jumpthru = self.CollideFirstOutside<SidewaysJumpThru>(checkAtPosition);
-                        return jumpthru != null && self is Player player && (jumpthru.AllowLeftToRight == collideOnLeftSideOfPlayer);
+                        return jumpthru != null && self is Player player && (jumpthru.AllowLeftToRight == collideOnLeftSideOfPlayer
+                            && (!isWallJump || jumpthru.allowWallJumping) && (!isClimb || jumpthru.allowClimbing));
                     });
                 }
 
@@ -244,7 +248,16 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
                     Logger.Log("MaxHelpingHand/SidewaysJumpThru", $"Patching Scene.CollideCheck to include sideways jumpthrus at {cursor.Index} in IL for {il.Method.Name}");
 
                     cursor.Remove();
-                    cursor.EmitDelegate<Func<Scene, Vector2, bool>>((self, vector) => self.CollideCheck<Solid>(vector) || self.CollideCheck<SidewaysJumpThru>(vector));
+                    cursor.EmitDelegate<Func<Scene, Vector2, bool>>((self, vector) => {
+                        if (self.CollideCheck<Solid>(vector)) {
+                            return true;
+                        }
+                        SidewaysJumpThru jumpthru;
+                        if ((jumpthru = self.CollideFirst<SidewaysJumpThru>(vector)) != null) {
+                            return (!isWallJump || jumpthru.allowWallJumping) && (!isClimb || jumpthru.allowClimbing);
+                        }
+                        return false;
+                    });
                 }
 
                 cursor.Index++;
@@ -274,6 +287,9 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
 
         public bool AllowLeftToRight;
 
+        private bool allowClimbing;
+        private bool allowWallJumping;
+
         public SidewaysJumpThru(Vector2 position, int height, bool allowLeftToRight, string overrideTexture, float animationDelay)
             : base(position) {
 
@@ -292,6 +308,9 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
 
         public SidewaysJumpThru(EntityData data, Vector2 offset)
             : this(data.Position + offset, data.Height, !data.Bool("left"), data.Attr("texture", "default"), data.Float("animationDelay", 0f)) {
+
+            allowClimbing = data.Bool("allowClimbing", true);
+            allowWallJumping = data.Bool("allowWallJumping", true);
         }
 
         public override void Awake(Scene scene) {

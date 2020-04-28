@@ -35,3 +35,5 @@ placements.entities.MaxHelpingHand/UpsideDownJumpThru.tooltips.animationDelay=Th
 placements.entities.MaxHelpingHand/SidewaysJumpThru.tooltips.texture=Changes the appearance of the platform. Should be in the same format as vanilla for static jumpthrus, and a 8x8 image for animated ones.
 placements.entities.MaxHelpingHand/SidewaysJumpThru.tooltips.animationDelay=The delay in seconds between 2 frames of animation. Leave to 0 for no animation.
 placements.entities.MaxHelpingHand/SidewaysJumpThru.tooltips.left=Whether the solid side of the jumpthru is the left side.
+placements.entities.MaxHelpingHand/SidewaysJumpThru.tooltips.allowWallJumping=Whether the player can wall jump off the jumpthru.
+placements.entities.MaxHelpingHand/SidewaysJumpThru.tooltips.allowClimbing=Whether the player can climb on the jumpthru.
