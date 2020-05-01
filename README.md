@@ -16,3 +16,4 @@ Provides the following things:
     - _if all touch switches or all switch gates are persistent_, the flag associated to them will activate once you complete the group, so you can use it to activate other entities.
 - **Customizable Crumble Blocks**: crumble blocks that don't respawn after they crumbled, or that respawn after a custom delay.
 - **Upside-Down and Sideways Jumpthroughs**: platforms you can only cross in one direction (left to right, right to left, or up to down).
+- **One-Way Invisible Barriers**: barriers that you can only cross left to right, or right to left. As opposed to sideways jumpthrus, you cannot climb on them, or walljump off them.

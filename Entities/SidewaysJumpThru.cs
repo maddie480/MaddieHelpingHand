@@ -10,7 +10,10 @@ using System.Linq;
 using System.Reflection;
 
 namespace Celeste.Mod.MaxHelpingHand.Entities {
-    [CustomEntity("MaxHelpingHand/SidewaysJumpThru")]
+    [CustomEntity(
+        "MaxHelpingHand/SidewaysJumpThru = CreateSidewaysJumpThru",
+        "MaxHelpingHand/OneWayInvisibleBarrierHorizontal = CreateOneWayInvisibleBarrierHorizontal"
+    )]
     [Tracked]
     class SidewaysJumpThru : Entity {
 
@@ -280,6 +283,17 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
         }
 
         // ======== Begin of entity code ========
+
+        public static Entity CreateSidewaysJumpThru(Level level, LevelData levelData, Vector2 offset, EntityData entityData)
+            => new SidewaysJumpThru(entityData, offset);
+
+        public static Entity CreateOneWayInvisibleBarrierHorizontal(Level level, LevelData levelData, Vector2 offset, EntityData entityData) {
+            // horizontal one-way barriers are really just invisible sideways jumpthrus you can't climb or walljump on...
+            entityData.Values["allowClimbing"] = false;
+            entityData.Values["allowWallJumping"] = false;
+            entityData.Values["texture"] = "MaxHelpingHand/invisible";
+            return new SidewaysJumpThru(entityData, offset);
+        }
 
         private int lines;
         private string overrideTexture;
