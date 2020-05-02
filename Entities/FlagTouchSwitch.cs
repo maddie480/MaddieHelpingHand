@@ -158,6 +158,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
                 icon.Play("idle");
                 icon.Color = finishColor;
                 ease = 1f;
+                bloom.Alpha = 1f;
             } else if (level.Session.GetFlag(flag + "_switch" + id)) {
                 // only that switch is activated, not the whole group.
                 activated = true;
@@ -165,6 +166,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
                 icon.Rate = 4f;
                 icon.Color = activeColor;
                 ease = 1f;
+                bloom.Alpha = 1f;
             }
         }
 
