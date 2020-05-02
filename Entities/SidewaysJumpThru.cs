@@ -35,7 +35,9 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
         private static void onLevelLoad(On.Celeste.LevelLoader.orig_ctor orig, LevelLoader self, Session session, Vector2? startPosition) {
             orig(self, session, startPosition);
 
-            if (session.MapData?.Levels?.Any(level => level.Entities?.Any(entity => entity.Name == "MaxHelpingHand/SidewaysJumpThru") ?? false) ?? false) {
+            if (session.MapData?.Levels?.Any(level => level.Entities?.Any(entity =>
+                entity.Name == "MaxHelpingHand/SidewaysJumpThru" || entity.Name == "MaxHelpingHand/OneWayInvisibleBarrierHorizontal") ?? false) ?? false) {
+
                 activateHooks();
             } else {
                 deactivateHooks();
@@ -107,7 +109,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
 
         private static bool onActorMoveHExact(On.Celeste.Actor.orig_MoveHExact orig, Actor self, int moveH, Collision onCollide, Solid pusher) {
             // fall back to vanilla if no sideways jumpthru is in the room.
-            if (self.SceneAs<Level>().Tracker.CountEntities<SidewaysJumpThru>() == 0)
+            if (self.Scene == null || self.Scene.Tracker.CountEntities<SidewaysJumpThru>() == 0)
                 return orig(self, moveH, onCollide, pusher);
 
             Vector2 targetPosition = self.Position + Vector2.UnitX * moveH;
@@ -155,7 +157,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
         private static bool onPlatformMoveHExactCollideSolids(On.Celeste.Platform.orig_MoveHExactCollideSolids orig, Platform self,
             int moveH, bool thruDashBlocks, Action<Vector2, Vector2, Platform> onCollide) {
             // fall back to vanilla if no sideways jumpthru is in the room.
-            if (self.SceneAs<Level>().Tracker.CountEntities<SidewaysJumpThru>() == 0)
+            if (self.Scene == null || self.Scene.Tracker.CountEntities<SidewaysJumpThru>() == 0)
                 return orig(self, moveH, thruDashBlocks, onCollide);
 
             float x = self.X;

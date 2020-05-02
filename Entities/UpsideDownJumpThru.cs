@@ -99,7 +99,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
 
         private static bool onActorMoveVExact(On.Celeste.Actor.orig_MoveVExact orig, Actor self, int moveV, Collision onCollide, Solid pusher) {
             // fall back to vanilla if no upside-down jumpthru is in the room.
-            if (self.SceneAs<Level>().Tracker.CountEntities<UpsideDownJumpThru>() == 0)
+            if (self.Scene == null || self.Scene.Tracker.CountEntities<UpsideDownJumpThru>() == 0)
                 return orig(self, moveV, onCollide, pusher);
 
             Vector2 targetPosition = self.Position + Vector2.UnitY * moveV;
@@ -158,7 +158,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             Platform self, int moveV, bool thruDashBlocks, Action<Vector2, Vector2, Platform> onCollide) {
 
             // fall back to vanilla if no upside-down jumpthru is in the room.
-            if (self.SceneAs<Level>().Tracker.CountEntities<UpsideDownJumpThru>() == 0)
+            if (self.Scene == null || self.Scene.Tracker.CountEntities<UpsideDownJumpThru>() == 0)
                 return orig(self, moveV, thruDashBlocks, onCollide);
 
             float y = self.Y;
