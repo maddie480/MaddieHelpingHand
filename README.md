@@ -17,3 +17,4 @@ Provides the following things:
 - **Customizable Crumble Blocks**: crumble blocks that don't respawn after they crumbled, or that respawn after a custom delay.
 - **Upside-Down and Sideways Jumpthroughs**: platforms you can only cross in one direction (left to right, right to left, or up to down).
 - **One-Way Invisible Barriers**: barriers that you can only cross left to right, or right to left. As opposed to sideways jumpthrus, you cannot climb on them, or walljump off them.
+- **Custom Summit Checkpoints**: summit checkpoints that can display more than just numbers. You can have minuses, question marks, or make your own digits!

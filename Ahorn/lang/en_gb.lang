@@ -38,3 +38,7 @@ placements.entities.MaxHelpingHand/SidewaysJumpThru.tooltips.left=Whether the so
 
 # One-Way Invisible Barrier (Horizontal)
 placements.entities.MaxHelpingHand/OneWayInvisibleBarrierHorizontal.tooltips.left=Whether the solid side of the barrier is the left side.
+
+# Custom Summit Checkpoints
+placements.entities.MaxHelpingHand/CustomSummitCheckpoint.tooltips.firstDigit=The first digit to display. (You can make your own by dropping textures in the Graphics/Atlases/Gameplay/MaxHelpingHand/summitcheckpoints/texturename folder.)
+placements.entities.MaxHelpingHand/CustomSummitCheckpoint.tooltips.secondDigit=The second digit to display. (You can make your own by dropping textures in the Graphics/Atlases/Gameplay/MaxHelpingHand/summitcheckpoints/texturename folder.)
