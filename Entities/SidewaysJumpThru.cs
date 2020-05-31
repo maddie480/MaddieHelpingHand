@@ -268,13 +268,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
                         if (self.Position.X == checkAtPosition.X)
                             return false;
 
-                        // our entity also collides if this is with a jumpthru and we are colliding with the solid side of it.
-                        // we are in this case if the jumpthru is left to right (the "solid" side of it is the right one) 
-                        // and we are checking the collision on the left side of the player for example.
-                        bool collideOnLeftSideOfPlayer = (self.Position.X > checkAtPosition.X);
-                        SidewaysJumpThru jumpthru = self.CollideFirstOutside<SidewaysJumpThru>(checkAtPosition);
-                        return jumpthru != null && self is Player player && (jumpthru.AllowLeftToRight == collideOnLeftSideOfPlayer
-                            && (!isWallJump || jumpthru.allowWallJumping) && (!isClimb || jumpthru.allowClimbing));
+                        return EntityCollideCheckWithSidewaysJumpthrus(self, checkAtPosition, isClimb, isWallJump);
                     });
                 }
 
@@ -286,16 +280,30 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
                         if (self.CollideCheck<Solid>(vector)) {
                             return true;
                         }
-                        SidewaysJumpThru jumpthru;
-                        if ((jumpthru = self.CollideFirst<SidewaysJumpThru>(vector)) != null) {
-                            return (!isWallJump || jumpthru.allowWallJumping) && (!isClimb || jumpthru.allowClimbing);
-                        }
-                        return false;
+                        return SceneCollideCheckWithSidewaysJumpthrus(self, vector, isClimb, isWallJump);
                     });
                 }
 
                 cursor.Index++;
             }
+        }
+
+        public static bool EntityCollideCheckWithSidewaysJumpthrus(Entity self, Vector2 checkAtPosition, bool isClimb, bool isWallJump) {
+            // our entity collides if this is with a jumpthru and we are colliding with the solid side of it.
+            // we are in this case if the jumpthru is left to right (the "solid" side of it is the right one) 
+            // and we are checking the collision on the left side of the player for example.
+            bool collideOnLeftSideOfPlayer = (self.Position.X > checkAtPosition.X);
+            SidewaysJumpThru jumpthru = self.CollideFirstOutside<SidewaysJumpThru>(checkAtPosition);
+            return jumpthru != null && self is Player player && (jumpthru.AllowLeftToRight == collideOnLeftSideOfPlayer
+                && (!isWallJump || jumpthru.allowWallJumping) && (!isClimb || jumpthru.allowClimbing));
+        }
+
+        public static bool SceneCollideCheckWithSidewaysJumpthrus(Scene self, Vector2 vector, bool isClimb, bool isWallJump) {
+            SidewaysJumpThru jumpthru;
+            if ((jumpthru = self.CollideFirst<SidewaysJumpThru>(vector)) != null) {
+                return (!isWallJump || jumpthru.allowWallJumping) && (!isClimb || jumpthru.allowClimbing);
+            }
+            return false;
         }
 
         private static int onPlayerNormalUpdate(On.Celeste.Player.orig_NormalUpdate orig, Player self) {
