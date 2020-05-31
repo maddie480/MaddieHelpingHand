@@ -38,6 +38,24 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
                 flash.ClearAnimations();
                 flash.Add("flash", "", 0.05f);
             }
+
+            if (!string.IsNullOrEmpty(data.Attr("shatterParticleColor1")) && !string.IsNullOrEmpty(data.Attr("shatterParticleColor2"))) {
+                self["p_shatter"] = new ParticleType(P_Shatter) {
+                    Color = Calc.HexToColor(data.Attr("shatterParticleColor1")),
+                    Color2 = Calc.HexToColor(data.Attr("shatterParticleColor2"))
+                };
+            }
+
+            if (!string.IsNullOrEmpty(data.Attr("glowParticleColor1")) && !string.IsNullOrEmpty(data.Attr("glowParticleColor2"))) {
+                self["p_glow"] = new ParticleType(P_Glow) {
+                    Color = Calc.HexToColor(data.Attr("glowParticleColor1")),
+                    Color2 = Calc.HexToColor(data.Attr("glowParticleColor2"))
+                };
+                self["p_regen"] = new ParticleType(P_Regen) {
+                    Color = Calc.HexToColor(data.Attr("glowParticleColor1")),
+                    Color2 = Calc.HexToColor(data.Attr("glowParticleColor2"))
+                };
+            }
         }
     }
 }

@@ -23,4 +23,4 @@ Provides the following things:
 - **Lit Blue Torch**: a blue torch (as found in Mirror Temple), except it starts out already lit... and that's it.
 - **Rainbow Spinner Color Controller**: a controller that changes the color gradient of all rainbow spinners in the room.
 - **Strawberry Collection Field**: a zone where strawberries are collected, even if Madeline is not on the ground. The opposite of Strawberry Blockfield, if you want.
-- **Customizable Refill**: refill with customizable sprite and respawn time.
+- **Customizable Refill**: refill with customizable sprite, particle colors and respawn time.
