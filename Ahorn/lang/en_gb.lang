@@ -57,3 +57,7 @@ placements.entities.MaxHelpingHand/GroupedTriggerSpikesRight.tooltips.type=Chang
 # Rainbow Spinner Color Controller
 placements.entities.MaxHelpingHand/RainbowSpinnerColorController.tooltips.colors=The colours the rainbow spinners in the room will take, separated by commas. For example, if 3 colours A, B and C are specified, the colours will cycle in the following order: A > B > C > B > A.
 placements.entities.MaxHelpingHand/RainbowSpinnerColorController.tooltips.gradientSize=The distance required to achieve a complete loop across all colours.
+
+# Strawberry Collection Field
+placements.triggers.MaxHelpingHand/StrawberryCollectionField.tooltips.delayBetweenBerries=Whether there should be a 0.3 second delay between each berry collection (like when berries are collected on the ground).
+placements.triggers.MaxHelpingHand/StrawberryCollectionField.tooltips.includeGoldens=Whether this trigger should collect golden strawberries and other berries that block normal collection.

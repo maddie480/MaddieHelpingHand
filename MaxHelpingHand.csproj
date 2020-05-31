@@ -88,6 +88,7 @@
     <Compile Include="Entities\RainbowSpinnerColorController.cs" />
     <Compile Include="Entities\RespawningJellyfish.cs" />
     <Compile Include="Entities\SidewaysJumpThru.cs" />
+    <Compile Include="Entities\StrawberryCollectionField.cs" />
     <Compile Include="Entities\TempleEyeTrackingMadeline.cs" />
     <Compile Include="Entities\UpsideDownJumpThru.cs" />
     <Compile Include="Module\MaxHelpingHandMapDataProcessor.cs" />
@@ -136,6 +137,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Ahorn\triggers\maxHelpingHandCameraCatchupSpeed.jl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Ahorn\triggers\maxHelpingHandStrawberryCollectionField.jl">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="everest.yaml">

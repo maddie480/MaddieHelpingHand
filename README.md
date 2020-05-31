@@ -22,3 +22,4 @@ Provides the following things:
 - **Grouped Trigger Spikes**: trigger spikes that all come out at the same time once the player leaves the group.
 - **Lit Blue Torch**: a blue torch (as found in Mirror Temple), except it starts out already lit... and that's it.
 - **Rainbow Spinner Color Controller**: a controller that changes the color gradient of all rainbow spinners in the room.
+- **Strawberry Collection Field**: a zone where strawberries are collected, even if Madeline is not on the ground. The opposite of Strawberry Blockfield, if you want.
