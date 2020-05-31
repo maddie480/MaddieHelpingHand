@@ -18,5 +18,6 @@ Provides the following things:
 - **Upside-Down and Sideways Jumpthroughs**: platforms you can only cross in one direction (left to right, right to left, or up to down).
 - **One-Way Invisible Barriers**: barriers that you can only cross left to right, or right to left. As opposed to sideways jumpthrus, you cannot climb on them, or walljump off them.
 - **Custom Summit Checkpoints**: summit checkpoints that can display more than just numbers. You can have minuses, question marks, or make your own digits!
-- **Respawning Jellyfish**: Jellyfish that respawns at its initial position after a small delay once it is destroyed (squished, destroyed by a seeker barrier, or fallen off-screen).
-- **Grouped Trigger Spikes**: Trigger spikes that all come out at the same time once the player leaves the group.
+- **Respawning Jellyfish**: jellyfish that respawns at its initial position after a small delay once it is destroyed (squished, destroyed by a seeker barrier, or fallen off-screen).
+- **Grouped Trigger Spikes**: trigger spikes that all come out at the same time once the player leaves the group.
+- **Lit Blue Torch**: a blue torch (as found in Mirror Temple), except it starts out already lit... and that's it.
