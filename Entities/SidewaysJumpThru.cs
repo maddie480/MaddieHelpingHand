@@ -15,7 +15,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
         "MaxHelpingHand/OneWayInvisibleBarrierHorizontal = CreateOneWayInvisibleBarrierHorizontal"
     )]
     [Tracked]
-    class SidewaysJumpThru : Entity {
+    public class SidewaysJumpThru : Entity {
 
         private static ILHook hookOnUpdateSprite;
 
