@@ -41,7 +41,9 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
 
                 activateHooks();
 
-                if (session.MapData?.Levels?.Any(level => level.Entities?.Any(entity => entity.Name == "JungleHelper/ClimbableOneWayPlatform") ?? false) ?? false) {
+                if (Everest.Loader.DependencyLoaded(new EverestModuleMetadata() { Name = "JungleHelper", Version = new Version(1, 0, 0) })
+                    && (session.MapData?.Levels?.Any(level => level.Entities?.Any(entity => entity.Name == "JungleHelper/ClimbableOneWayPlatform") ?? false) ?? false)) {
+
                     deactivateHooksNoJungleHelper();
                 } else {
                     activateHooksNoJungleHelper();
