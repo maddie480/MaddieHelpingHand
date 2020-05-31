@@ -21,3 +21,4 @@ Provides the following things:
 - **Respawning Jellyfish**: jellyfish that respawns at its initial position after a small delay once it is destroyed (squished, destroyed by a seeker barrier, or fallen off-screen).
 - **Grouped Trigger Spikes**: trigger spikes that all come out at the same time once the player leaves the group.
 - **Lit Blue Torch**: a blue torch (as found in Mirror Temple), except it starts out already lit... and that's it.
+- **Rainbow Spinner Color Controller**: a controller that changes the color gradient of all rainbow spinners in the room.
