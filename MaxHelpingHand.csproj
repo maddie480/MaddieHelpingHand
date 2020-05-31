@@ -83,6 +83,7 @@
     <Compile Include="Entities\FlagSwitchGate.cs" />
     <Compile Include="Entities\FlagTouchSwitch.cs" />
     <Compile Include="Entities\CustomizableCrumblePlatform.cs" />
+    <Compile Include="Entities\GroupedTriggerSpikes.cs" />
     <Compile Include="Entities\RespawningJellyfish.cs" />
     <Compile Include="Entities\SidewaysJumpThru.cs" />
     <Compile Include="Entities\TempleEyeTrackingMadeline.cs" />
@@ -103,6 +104,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Ahorn\entities\maxHelpingHandCustomizableCrumblePlatform.jl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Ahorn\entities\maxHelpingHandGroupedTriggerSpikes.jl">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Ahorn\entities\maxHelpingHandOneWayInvisibleBarrierHorizontal.jl">
