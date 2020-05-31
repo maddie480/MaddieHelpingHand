@@ -79,6 +79,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Entities\CustomizableRefill.cs" />
     <Compile Include="Entities\CustomSummitCheckpoint.cs" />
     <Compile Include="Entities\FlagSwitchGate.cs" />
     <Compile Include="Entities\FlagTouchSwitch.cs" />
@@ -97,6 +98,9 @@
     <Compile Include="Triggers\CameraCatchupSpeedTrigger.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Ahorn\entities\maxHelpingHandCustomizableRefill.jl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="Ahorn\entities\maxHelpingHandCustomSummitCheckpoint.jl">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

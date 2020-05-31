@@ -61,3 +61,9 @@ placements.entities.MaxHelpingHand/RainbowSpinnerColorController.tooltips.gradie
 # Strawberry Collection Field
 placements.triggers.MaxHelpingHand/StrawberryCollectionField.tooltips.delayBetweenBerries=Whether there should be a 0.3 second delay between each berry collection (like when berries are collected on the ground).
 placements.triggers.MaxHelpingHand/StrawberryCollectionField.tooltips.includeGoldens=Whether this trigger should collect golden strawberries and other berries that block normal collection.
+
+# Customizable Refill
+placements.entities.MaxHelpingHand/CustomizableRefill.tooltips.twoDash=Whether the refill should give two dashes.
+placements.entities.MaxHelpingHand/CustomizableRefill.tooltips.oneUse=Whether the refill should respawn after being used.
+placements.entities.MaxHelpingHand/CustomizableRefill.tooltips.respawnTime=The delay (in seconds) before the refill respawns after being collected.
+placements.entities.MaxHelpingHand/CustomizableRefill.tooltips.sprite=The name of the custom sprite to use for the refill. Leave empty to use vanilla sprites.\nTo create one:\n- copy the Graphics/Atlases/Gameplay/objects/refill directory from the graphics dump\n- copy it to Mods/yourmod/Graphics/Atlases/Gameplay/objects/MaxHelpingHand/refill/myRefillName\n- input "myRefillName" in this field
