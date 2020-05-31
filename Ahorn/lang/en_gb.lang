@@ -42,3 +42,8 @@ placements.entities.MaxHelpingHand/OneWayInvisibleBarrierHorizontal.tooltips.lef
 # Custom Summit Checkpoints
 placements.entities.MaxHelpingHand/CustomSummitCheckpoint.tooltips.firstDigit=The first digit to display. (You can make your own by dropping textures in the Graphics/Atlases/Gameplay/MaxHelpingHand/summitcheckpoints/texturename folder.)
 placements.entities.MaxHelpingHand/CustomSummitCheckpoint.tooltips.secondDigit=The second digit to display. (You can make your own by dropping textures in the Graphics/Atlases/Gameplay/MaxHelpingHand/summitcheckpoints/texturename folder.)
+
+# Respawning Jellyfish
+placements.entities.MaxHelpingHand/RespawningJellyfish.tooltips.bubble=Whether the entity should hover in the air before being grabbed.
+placements.entities.MaxHelpingHand/RespawningJellyfish.tooltips.tutorial=Whether the entity should show the usage tutorial.
+placements.entities.MaxHelpingHand/RespawningJellyfish.tooltips.respawnTime=The jellyfish will respawn at its starting location after this amount of time (in seconds) after being destroyed.

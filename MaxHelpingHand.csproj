@@ -83,6 +83,7 @@
     <Compile Include="Entities\FlagSwitchGate.cs" />
     <Compile Include="Entities\FlagTouchSwitch.cs" />
     <Compile Include="Entities\CustomizableCrumblePlatform.cs" />
+    <Compile Include="Entities\RespawningJellyfish.cs" />
     <Compile Include="Entities\SidewaysJumpThru.cs" />
     <Compile Include="Entities\TempleEyeTrackingMadeline.cs" />
     <Compile Include="Entities\UpsideDownJumpThru.cs" />
@@ -105,6 +106,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Ahorn\entities\maxHelpingHandOneWayInvisibleBarrierHorizontal.jl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Ahorn\entities\maxHelpingHandRespawningJellyfish.jl">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Ahorn\entities\maxHelpingHandSidewaysJumpThru.jl">
@@ -316,6 +320,30 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Graphics\Atlases\Gameplay\objects\jumpthru\MaxHelpingHand\invisible.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Graphics\Atlases\Gameplay\objects\MaxHelpingHand\glider\respawn00.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Graphics\Atlases\Gameplay\objects\MaxHelpingHand\glider\respawn01.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Graphics\Atlases\Gameplay\objects\MaxHelpingHand\glider\respawn02.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Graphics\Atlases\Gameplay\objects\MaxHelpingHand\glider\respawn03.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Graphics\Atlases\Gameplay\objects\MaxHelpingHand\glider\respawn04.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Graphics\Atlases\Gameplay\objects\MaxHelpingHand\glider\respawn05.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Graphics\Atlases\Gameplay\objects\MaxHelpingHand\glider\respawn06.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Graphics\Atlases\Gameplay\objects\MaxHelpingHand\glider\respawn07.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
