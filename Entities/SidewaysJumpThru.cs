@@ -26,11 +26,15 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
 
         public static void Load() {
             On.Celeste.LevelLoader.ctor += onLevelLoad;
+            On.Celeste.OverworldLoader.ctor += onOverworldLoad;
         }
 
         public static void Unload() {
             On.Celeste.LevelLoader.ctor -= onLevelLoad;
+            On.Celeste.OverworldLoader.ctor -= onOverworldLoad;
+
             deactivateHooks();
+            deactivateHooksNoJungleHelper();
         }
 
         private static void onLevelLoad(On.Celeste.LevelLoader.orig_ctor orig, LevelLoader self, Session session, Vector2? startPosition) {
@@ -52,6 +56,13 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
                 deactivateHooks();
                 deactivateHooksNoJungleHelper();
             }
+        }
+
+        private static void onOverworldLoad(On.Celeste.OverworldLoader.orig_ctor orig, OverworldLoader self, Overworld.StartMode startMode, HiresSnow snow) {
+            orig(self, startMode, snow);
+
+            deactivateHooks();
+            deactivateHooksNoJungleHelper();
         }
 
         public static void activateHooks() {
