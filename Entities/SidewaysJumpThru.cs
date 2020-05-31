@@ -22,6 +22,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
         private static FieldInfo actorMovementCounter = typeof(Actor).GetField("movementCounter", BindingFlags.Instance | BindingFlags.NonPublic);
 
         private static bool hooksActive = false;
+        private static bool hooksActiveNoJungleHelper = false;
 
         public static void Load() {
             On.Celeste.LevelLoader.ctor += onLevelLoad;
@@ -39,8 +40,15 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
                 entity.Name == "MaxHelpingHand/SidewaysJumpThru" || entity.Name == "MaxHelpingHand/OneWayInvisibleBarrierHorizontal") ?? false) ?? false) {
 
                 activateHooks();
+
+                if (session.MapData?.Levels?.Any(level => level.Entities?.Any(entity => entity.Name == "JungleHelper/ClimbableOneWayPlatform") ?? false) ?? false) {
+                    deactivateHooksNoJungleHelper();
+                } else {
+                    activateHooksNoJungleHelper();
+                }
             } else {
                 deactivateHooks();
+                deactivateHooksNoJungleHelper();
             }
         }
 
@@ -51,9 +59,6 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             hooksActive = true;
 
             Logger.Log("MaxHelpingHand/SidewaysJumpThru", "=== Activating sideways jumpthru hooks");
-
-            string updateSpriteMethodToPatch = Everest.Loader.DependencyLoaded(new EverestModuleMetadata { Name = "Everest", Version = new Version(1, 1432) }) ?
-                "orig_UpdateSprite" : "UpdateSprite";
 
             // implement the basic collision between actors/platforms and sideways jumpthrus.
             using (new DetourContext { Before = { "*" } }) { // these don't always call the orig methods, better apply them first.
@@ -67,19 +72,32 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             using (new DetourContext { Before = { "*" } }) { // let's take over Spring Collab 2020, we can break it, this is not a collab map!
                 // mod collide checks to include sideways jumpthrus, so that the player behaves with them like with walls.
                 IL.Celeste.Player.WallJumpCheck += modCollideChecks; // allow player to walljump off them
-                IL.Celeste.Player.ClimbCheck += modCollideChecks; // allow player to climb on them
-                IL.Celeste.Player.ClimbBegin += modCollideChecks; // if not applied, the player will clip through jumpthrus if trying to climb on them
-                IL.Celeste.Player.ClimbUpdate += modCollideChecks; // when climbing, jumpthrus are handled like walls
-                IL.Celeste.Player.SlipCheck += modCollideChecks; // make climbing on jumpthrus not slippery
                 IL.Celeste.Player.NormalUpdate += modCollideChecks; // get the wall slide effect
                 IL.Celeste.Player.OnCollideH += modCollideChecks; // handle dashes against jumpthrus properly, without "shifting" down
-
-                // have the push animation when Madeline runs against a jumpthru for example
-                hookOnUpdateSprite = new ILHook(typeof(Player).GetMethod(updateSpriteMethodToPatch, BindingFlags.NonPublic | BindingFlags.Instance), modCollideChecks);
             }
 
             // one extra hook that kills the player momentum when hitting a jumpthru so that they don't get "stuck" on them.
             On.Celeste.Player.NormalUpdate += onPlayerNormalUpdate;
+        }
+
+        public static void activateHooksNoJungleHelper() {
+            if (hooksActiveNoJungleHelper) {
+                return;
+            }
+            hooksActiveNoJungleHelper = true;
+
+            Logger.Log("MaxHelpingHand/SidewaysJumpThru", "=== Activating non Jungle Helper sideways jumpthru hooks");
+
+            using (new DetourContext { Before = { "*" } }) { // let's take over Spring Collab 2020, we can break it, this is not a collab map!
+                // mod collide checks to include sideways jumpthrus, so that the player behaves with them like with walls.
+                IL.Celeste.Player.ClimbCheck += modCollideChecks; // allow player to climb on them
+                IL.Celeste.Player.ClimbBegin += modCollideChecks; // if not applied, the player will clip through jumpthrus if trying to climb on them
+                IL.Celeste.Player.ClimbUpdate += modCollideChecks; // when climbing, jumpthrus are handled like walls
+                IL.Celeste.Player.SlipCheck += modCollideChecks; // make climbing on jumpthrus not slippery
+
+                // have the push animation when Madeline runs against a jumpthru for example
+                hookOnUpdateSprite = new ILHook(typeof(Player).GetMethod("orig_UpdateSprite", BindingFlags.NonPublic | BindingFlags.Instance), modCollideChecks);
+            }
         }
 
         public static void deactivateHooks() {
@@ -96,15 +114,26 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             On.Celeste.Player.ClimbHopBlockedCheck -= onPlayerClimbHopBlockedCheck;
 
             IL.Celeste.Player.WallJumpCheck -= modCollideChecks;
+            IL.Celeste.Player.NormalUpdate -= modCollideChecks;
+            IL.Celeste.Player.OnCollideH -= modCollideChecks;
+
+            On.Celeste.Player.NormalUpdate -= onPlayerNormalUpdate;
+        }
+
+        public static void deactivateHooksNoJungleHelper() {
+            if (!hooksActiveNoJungleHelper) {
+                return;
+            }
+            hooksActiveNoJungleHelper = false;
+
+            Logger.Log("MaxHelpingHand/SidewaysJumpThru", "=== Deactivating non Jungle Helper sideways jumpthru hooks");
+
             IL.Celeste.Player.ClimbCheck -= modCollideChecks;
             IL.Celeste.Player.ClimbBegin -= modCollideChecks;
             IL.Celeste.Player.ClimbUpdate -= modCollideChecks;
             IL.Celeste.Player.SlipCheck -= modCollideChecks;
-            IL.Celeste.Player.NormalUpdate -= modCollideChecks;
-            IL.Celeste.Player.OnCollideH -= modCollideChecks;
-            hookOnUpdateSprite?.Dispose();
 
-            On.Celeste.Player.NormalUpdate -= onPlayerNormalUpdate;
+            hookOnUpdateSprite?.Dispose();
         }
 
         private static bool onActorMoveHExact(On.Celeste.Actor.orig_MoveHExact orig, Actor self, int moveH, Collision onCollide, Solid pusher) {
