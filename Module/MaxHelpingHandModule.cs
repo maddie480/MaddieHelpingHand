@@ -1,5 +1,7 @@
-﻿using Celeste.Mod.MaxHelpingHand.Entities;
+﻿using Celeste.Mod.MaxHelpingHand.Effects;
+using Celeste.Mod.MaxHelpingHand.Entities;
 using Celeste.Mod.MaxHelpingHand.Triggers;
+using System;
 
 namespace Celeste.Mod.MaxHelpingHand.Module {
     public class MaxHelpingHandModule : EverestModule {
@@ -9,6 +11,8 @@ namespace Celeste.Mod.MaxHelpingHand.Module {
             FlagTouchSwitch.Load();
             UpsideDownJumpThru.Load();
             SidewaysJumpThru.Load();
+
+            Everest.Events.Level.OnLoadBackdrop += onLoadBackdrop;
         }
 
         public override void Unload() {
@@ -17,6 +21,15 @@ namespace Celeste.Mod.MaxHelpingHand.Module {
             FlagTouchSwitch.Unload();
             UpsideDownJumpThru.Unload();
             SidewaysJumpThru.Unload();
+
+            Everest.Events.Level.OnLoadBackdrop -= onLoadBackdrop;
+        }
+
+        private Backdrop onLoadBackdrop(MapData map, BinaryPacker.Element child, BinaryPacker.Element above) {
+            if (child.Name.Equals("MaxHelpingHand/HeatWaveNoColorGrade", StringComparison.OrdinalIgnoreCase)) {
+                return new HeatWaveNoColorGrade(child.AttrBool("controlColorGradeWhenActive"));
+            }
+            return null;
         }
 
         public override void PrepareMapDataProcessors(MapDataFixup context) {
