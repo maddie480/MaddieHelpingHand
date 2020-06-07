@@ -100,7 +100,9 @@
     <Compile Include="Triggers\CameraCatchupSpeedTrigger.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Ahorn\effects\maxHelpingHandHeatWaveNoColorGrade.jl" />
+    <None Include="Ahorn\effects\maxHelpingHandHeatWaveNoColorGrade.jl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="Ahorn\entities\maxHelpingHandCustomizableRefill.jl">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
