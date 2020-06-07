@@ -34,7 +34,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
         public int ID { get; private set; }
         public string Flag { get; private set; }
 
-        private bool triggered;
+        public bool Triggered { get; private set; }
 
         private Color inactiveColor;
         private Color activeColor;
@@ -110,13 +110,13 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
         }
 
         public void Trigger() {
-            triggered = true;
+            Triggered = true;
         }
 
         private IEnumerator Sequence(Vector2 node) {
             Vector2 start = Position;
 
-            while (!triggered && !SceneAs<Level>().Session.GetFlag(Flag)) {
+            while (!Triggered && !SceneAs<Level>().Session.GetFlag(Flag)) {
                 yield return null;
             }
 

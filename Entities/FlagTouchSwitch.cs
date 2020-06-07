@@ -72,8 +72,8 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
         // contains all the touch switches in the room
         private List<FlagTouchSwitch> allTouchSwitchesInRoom;
 
-        private bool activated = false;
-        private bool finished = false;
+        public bool Activated { get; private set; } = false;
+        public bool Finished { get; private set; } = false;
 
         private SoundSource touchSfx;
 
@@ -151,8 +151,8 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
 
             if (level.Session.GetFlag(flag)) {
                 // start directly finished, since the session flag is already set.
-                activated = true;
-                finished = true;
+                Activated = true;
+                Finished = true;
 
                 icon.Rate = 0.1f;
                 icon.Play("idle");
@@ -161,7 +161,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
                 bloom.Alpha = 1f;
             } else if (level.Session.GetFlag(flag + "_switch" + id)) {
                 // only that switch is activated, not the whole group.
-                activated = true;
+                Activated = true;
 
                 icon.Rate = 4f;
                 icon.Color = activeColor;
@@ -193,10 +193,10 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
         }
 
         private void turnOn() {
-            if (!activated) {
+            if (!Activated) {
                 touchSfx.Play("event:/game/general/touchswitch_any");
 
-                activated = true;
+                Activated = true;
 
                 // animation
                 wiggler.Start();
@@ -213,7 +213,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
 
                 if (MaxHelpingHandMapDataProcessor.FlagTouchSwitches[level.Session.Area.ID][(int) level.Session.Area.Mode][flag]
                     .All(touchSwitchID => touchSwitchID.Level == level.Session.Level || level.Session.GetFlag(flag + "_switch" + touchSwitchID.ID))
-                    && allTouchSwitchesInRoom.All(touchSwitch => touchSwitch.activated)) {
+                    && allTouchSwitchesInRoom.All(touchSwitch => touchSwitch.Activated)) {
 
                     // all switches in the room are enabled, and all session flags for switches outside the room are enabled.
                     // so, the group is complete.
@@ -256,19 +256,19 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
         }
 
         private void finish() {
-            finished = true;
+            Finished = true;
             ease = 0f;
         }
 
         public override void Update() {
             timer += Engine.DeltaTime * 8f;
-            ease = Calc.Approach(ease, (finished || activated) ? 1f : 0f, Engine.DeltaTime * 2f);
+            ease = Calc.Approach(ease, (Finished || Activated) ? 1f : 0f, Engine.DeltaTime * 2f);
 
-            icon.Color = Color.Lerp(inactiveColor, finished ? finishColor : activeColor, ease);
+            icon.Color = Color.Lerp(inactiveColor, Finished ? finishColor : activeColor, ease);
             icon.Color *= 0.5f + ((float) Math.Sin(timer) + 1f) / 2f * (1f - ease) * 0.5f + 0.5f * ease;
 
             bloom.Alpha = ease;
-            if (finished) {
+            if (Finished) {
                 if (icon.Rate > 0.1f) {
                     icon.Rate -= 2f * Engine.DeltaTime;
                     if (icon.Rate <= 0.1f) {
