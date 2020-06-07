@@ -16,14 +16,33 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
     )]
     public class GroupedTriggerSpikes : Entity {
 
-        public static Entity LoadUp(Level level, LevelData levelData, Vector2 offset, EntityData entityData)
-            => new GroupedTriggerSpikes(entityData, offset, Directions.Up);
-        public static Entity LoadDown(Level level, LevelData levelData, Vector2 offset, EntityData entityData)
-            => new GroupedTriggerSpikes(entityData, offset, Directions.Down);
-        public static Entity LoadLeft(Level level, LevelData levelData, Vector2 offset, EntityData entityData)
-            => new GroupedTriggerSpikes(entityData, offset, Directions.Left);
-        public static Entity LoadRight(Level level, LevelData levelData, Vector2 offset, EntityData entityData)
-            => new GroupedTriggerSpikes(entityData, offset, Directions.Right);
+        public static Entity LoadUp(Level level, LevelData levelData, Vector2 offset, EntityData entityData) {
+            if (entityData.Attr("type", "default") == "dust") {
+                return new GroupedDustTriggerSpikes(entityData, offset, TriggerSpikes.Directions.Up);
+            }
+            return new GroupedTriggerSpikes(entityData, offset, Directions.Up);
+        }
+
+        public static Entity LoadDown(Level level, LevelData levelData, Vector2 offset, EntityData entityData) {
+            if (entityData.Attr("type", "default") == "dust") {
+                return new GroupedDustTriggerSpikes(entityData, offset, TriggerSpikes.Directions.Down);
+            }
+            return new GroupedTriggerSpikes(entityData, offset, Directions.Down);
+        }
+
+        public static Entity LoadLeft(Level level, LevelData levelData, Vector2 offset, EntityData entityData) {
+            if (entityData.Attr("type", "default") == "dust") {
+                return new GroupedDustTriggerSpikes(entityData, offset, TriggerSpikes.Directions.Left);
+            }
+            return new GroupedTriggerSpikes(entityData, offset, Directions.Left);
+        }
+
+        public static Entity LoadRight(Level level, LevelData levelData, Vector2 offset, EntityData entityData) {
+            if (entityData.Attr("type", "default") == "dust") {
+                return new GroupedDustTriggerSpikes(entityData, offset, TriggerSpikes.Directions.Right);
+            }
+            return new GroupedTriggerSpikes(entityData, offset, Directions.Right);
+        }
 
         private const float DelayTime = 0.4f;
 

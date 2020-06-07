@@ -16,25 +16,37 @@ groupedTriggerSpikes = Dict{String, Type}(
     "right" => GroupedTriggerSpikesRight
 )
 
+const spikeTypes = String[
+    "default",
+    "outline",
+    "cliffside",
+    "dust",
+    "reflection"
+]
+
+const triggerSpikeColors = [
+    (242, 90, 16, 255) ./ 255,
+    (255, 0, 0, 255) ./ 255,
+    (242, 16, 103, 255) ./ 255
+]
+
 groupedTriggerSpikesUnion = Union{GroupedTriggerSpikesUp, GroupedTriggerSpikesDown, GroupedTriggerSpikesLeft, GroupedTriggerSpikesRight}
 
-for variant in Maple.spike_types
-    if variant != "tentacles"
-        for (dir, entity) in groupedTriggerSpikes
-            key = "Grouped Trigger Spikes ($(uppercasefirst(dir)), $(uppercasefirst(variant))) (max480's Helping Hand)"
-            placements[key] = Ahorn.EntityPlacement(
-                entity,
-                "rectangle",
-                Dict{String, Any}(
-                    "type" => variant
-                )
+for variant in spikeTypes
+    for (dir, entity) in groupedTriggerSpikes
+        key = "Grouped Trigger Spikes ($(uppercasefirst(dir)), $(uppercasefirst(variant))) (max480's Helping Hand)"
+        placements[key] = Ahorn.EntityPlacement(
+            entity,
+            "rectangle",
+            Dict{String, Any}(
+                "type" => variant
             )
-        end
+        )
     end
 end
 
 Ahorn.editingOptions(entity::groupedTriggerSpikesUnion) = Dict{String, Any}(
-    "type" => String[variant for variant in Maple.spike_types if variant != "tentacles"]
+    "type" => spikeTypes
 )
 
 directions = Dict{String, String}(
@@ -63,6 +75,13 @@ rotations = Dict{String, Number}(
     "right" => pi / 2,
     "down" => pi,
     "left" => pi * 3 / 2
+)
+
+triggerRotationOffsets = Dict{String, Tuple{Number, Number}}(
+    "up" => (3, -1),
+    "right" => (4, 3),
+    "down" => (5, 5),
+    "left" => (-1, 4),
 )
 
 resizeDirections = Dict{String, Tuple{Bool, Bool}}(
@@ -116,12 +135,33 @@ function Ahorn.render(ctx::Ahorn.Cairo.CairoContext, entity::groupedTriggerSpike
         direction = get(directions, entity.name, "up")
         groupedTriggerSpikesOffset = groupedTriggerSpikesOffsets[direction]
 
-        width = get(entity.data, "width", 8)
-        height = get(entity.data, "height", 8)
+        if variant == "dust"
+            rng = Ahorn.getSimpleEntityRng(entity)
 
-        for ox in 0:8:width - 8, oy in 0:8:height - 8
-            drawX, drawY = (ox, oy) .+ offsets[direction] .+ groupedTriggerSpikesOffset
-            Ahorn.drawSprite(ctx, "danger/spikes/$(variant)_$(direction)00", drawX, drawY)
+            width = get(entity.data, "width", 8)
+            height = get(entity.data, "height", 8)
+
+            updown = direction == "up" || direction == "down"
+
+            for ox in 0:8:width - 8, oy in 0:8:height - 8
+                color1 = rand(rng, triggerSpikeColors)
+                color2 = rand(rng, triggerSpikeColors)
+
+                drawX = ox + triggerRotationOffsets[direction][1]
+                drawY = oy + triggerRotationOffsets[direction][2]
+
+                Ahorn.drawSprite(ctx, "danger/triggertentacle/wiggle_v06", drawX, drawY, rot=rotations[direction], tint=color1)
+                Ahorn.drawSprite(ctx, "danger/triggertentacle/wiggle_v03", drawX + 3 * updown, drawY + 3 * !updown, rot=rotations[direction], tint=color2)
+            end
+        else
+
+            width = get(entity.data, "width", 8)
+            height = get(entity.data, "height", 8)
+
+            for ox in 0:8:width - 8, oy in 0:8:height - 8
+                drawX, drawY = (ox, oy) .+ offsets[direction] .+ groupedTriggerSpikesOffset
+                Ahorn.drawSprite(ctx, "danger/spikes/$(variant)_$(direction)00", drawX, drawY)
+            end
         end
     end
 end

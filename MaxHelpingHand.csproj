@@ -85,6 +85,7 @@
     <Compile Include="Entities\FlagSwitchGate.cs" />
     <Compile Include="Entities\FlagTouchSwitch.cs" />
     <Compile Include="Entities\CustomizableCrumblePlatform.cs" />
+    <Compile Include="Entities\GroupedDustTriggerSpikes.cs" />
     <Compile Include="Entities\GroupedTriggerSpikes.cs" />
     <Compile Include="Entities\LitBlueTorch.cs" />
     <Compile Include="Entities\RainbowSpinnerColorController.cs" />
