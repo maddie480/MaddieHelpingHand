@@ -12,6 +12,7 @@ namespace Celeste.Mod.MaxHelpingHand.Module {
             UpsideDownJumpThru.Load();
             SidewaysJumpThru.Load();
             GroupedDustTriggerSpikes.Load();
+            StaticPuffer.Load();
 
             Everest.Events.Level.OnLoadBackdrop += onLoadBackdrop;
         }
@@ -23,6 +24,7 @@ namespace Celeste.Mod.MaxHelpingHand.Module {
             UpsideDownJumpThru.Unload();
             SidewaysJumpThru.Unload();
             GroupedDustTriggerSpikes.Unload();
+            StaticPuffer.Unload();
 
             Everest.Events.Level.OnLoadBackdrop -= onLoadBackdrop;
         }

@@ -74,3 +74,6 @@ placements.entities.MaxHelpingHand/CustomizableRefill.tooltips.glowParticleColor
 
 # Heat Wave not affecting color grade
 placements.effects.MaxHelpingHand/HeatWaveNoColorGrade.tooltips.controlColorGradeWhenActive=If checked, this Heat Wave effect will change the color grade when it is visible. In all cases, it won't affect color grading when hidden, unlike the vanilla Heat Wave effect.
+
+# Static Puffer
+placements.entities.MaxHelpingHand/StaticPuffer.tooltips.right=The initial direction of the puffer.
