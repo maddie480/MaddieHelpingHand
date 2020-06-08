@@ -25,3 +25,4 @@ Provides the following things:
 - **Strawberry Collection Field**: a zone where strawberries are collected, even if Madeline is not on the ground. The opposite of Strawberry Blockfield, if you want.
 - **Customizable Refill**: refill with customizable sprite, particle colors and respawn time.
 - **Heat Wave not affecting color grade**: same as the vanilla Heat Wave effect, except it does not change the color grade, allowing you to set your own color grade instead.
+- **Static Puffer**: just like puffer fish, except it doesn't wave around randomly.
