@@ -21,6 +21,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
         // the parameters for this spinner controller.
         private Color[] colors;
         private float gradientSize;
+        private bool loopColors;
 
         public RainbowSpinnerColorController(EntityData data, Vector2 offset) : base(data.Position + offset) {
             // convert the color list to Color objects
@@ -31,6 +32,17 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             }
 
             gradientSize = data.Float("gradientSize", 280);
+            loopColors = data.Bool("loopColors");
+
+            if (loopColors) {
+                // let's cheat a bit and add A back at the end of the list
+                Color[] newColors = new Color[colors.Length + 1];
+                for (int i = 0; i < colors.Length; i++) {
+                    newColors[i] = colors[i];
+                }
+                newColors[colors.Length] = colors[0];
+                colors = newColors;
+            }
 
             Add(new TransitionListener {
                 OnIn = progress => transitionProgress = progress,
@@ -91,12 +103,12 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
                     nextSpinnerController = null;
                 }
 
-                return getModHue(spinnerControllerOnScreen.colors, spinnerControllerOnScreen.gradientSize, self.Scene, self.Position);
+                return getModHue(spinnerControllerOnScreen.colors, spinnerControllerOnScreen.gradientSize, self.Scene, self.Position, spinnerControllerOnScreen.loopColors);
             } else {
                 // get the spinner color in the room we're coming from.
                 Color fromRoomColor;
                 if (spinnerControllerOnScreen != null) {
-                    fromRoomColor = getModHue(spinnerControllerOnScreen.colors, spinnerControllerOnScreen.gradientSize, self.Scene, self.Position);
+                    fromRoomColor = getModHue(spinnerControllerOnScreen.colors, spinnerControllerOnScreen.gradientSize, self.Scene, self.Position, spinnerControllerOnScreen.loopColors);
                 } else {
                     fromRoomColor = orig(self, position);
                 }
@@ -104,7 +116,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
                 // get the spinner color in the room we're going to.
                 Color toRoomColor;
                 if (nextSpinnerController != null) {
-                    toRoomColor = getModHue(nextSpinnerController.colors, nextSpinnerController.gradientSize, self.Scene, self.Position);
+                    toRoomColor = getModHue(nextSpinnerController.colors, nextSpinnerController.gradientSize, self.Scene, self.Position, nextSpinnerController.loopColors);
                 } else {
                     toRoomColor = orig(self, position);
                 }
@@ -114,8 +126,14 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             }
         }
 
-        internal static Color getModHue(Color[] colors, float gradientSize, Scene scene, Vector2 position) {
-            float progress = Calc.YoYo((position.Length() + scene.TimeActive * 50f) % gradientSize / gradientSize);
+        internal static Color getModHue(Color[] colors, float gradientSize, Scene scene, Vector2 position, bool loopColors) {
+            float progress;
+            if (loopColors) {
+                progress = (position.Length() + scene.TimeActive * 50f) % gradientSize / gradientSize;
+            } else {
+                progress = Calc.YoYo((position.Length() + scene.TimeActive * 50f) % gradientSize / gradientSize);
+            }
+
             if (progress == 1) {
                 return colors[colors.Length - 1];
             }

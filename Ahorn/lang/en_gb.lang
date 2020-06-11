@@ -59,8 +59,9 @@ placements.entities.MaxHelpingHand/GroupedTriggerSpikesLeft.tooltips.behindMoveB
 placements.entities.MaxHelpingHand/GroupedTriggerSpikesRight.tooltips.behindMoveBlocks=Whether the spikes should be deeper than normal in order to appear behind move blocks. Not supported for dust spikes.
 
 # Rainbow Spinner Color Controller
-placements.entities.MaxHelpingHand/RainbowSpinnerColorController.tooltips.colors=The colours the rainbow spinners in the room will take, separated by commas. For example, if 3 colours A, B and C are specified, the colours will cycle in the following order: A > B > C > B > A.
+placements.entities.MaxHelpingHand/RainbowSpinnerColorController.tooltips.colors=The colours the rainbow spinners in the room will take, separated by commas.
 placements.entities.MaxHelpingHand/RainbowSpinnerColorController.tooltips.gradientSize=The distance required to achieve a complete loop across all colours.
+placements.entities.MaxHelpingHand/RainbowSpinnerColorController.tooltips.loopColors=Determines how the colors loop. For example, if 3 colours A, B and C are specified:\n- when unchecked, the colours will cycle in the following order: A > B > C > B > A\n- when checked, the colours will cycle in the following order: A > B > C > A > B > C
 
 # Strawberry Collection Field
 placements.triggers.MaxHelpingHand/StrawberryCollectionField.tooltips.delayBetweenBerries=Whether there should be a 0.3 second delay between each berry collection (like when berries are collected on the ground).
