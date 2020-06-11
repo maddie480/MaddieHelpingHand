@@ -79,6 +79,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Effects\BlackholeCustomColors.cs" />
     <Compile Include="Effects\HeatWaveNoColorGrade.cs" />
     <Compile Include="Entities\CustomizableRefill.cs" />
     <Compile Include="Entities\CustomSummitCheckpoint.cs" />
@@ -101,6 +102,9 @@
     <Compile Include="Triggers\CameraCatchupSpeedTrigger.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Ahorn\effects\maxHelpingHandBlackholeCustomColors.jl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="Ahorn\effects\maxHelpingHandHeatWaveNoColorGrade.jl">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

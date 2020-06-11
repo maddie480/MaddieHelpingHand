@@ -26,3 +26,4 @@ Provides the following things:
 - **Customizable Refill**: refill with customizable sprite, particle colors and respawn time.
 - **Heat Wave not affecting color grade**: same as the vanilla Heat Wave effect, except it does not change the color grade, allowing you to set your own color grade instead.
 - **Static Puffer**: just like puffer fish, except it doesn't wave around randomly.
+- **Blackhole with Custom Colors**: just like the vanilla blackhole effect, except you can change all the colors!

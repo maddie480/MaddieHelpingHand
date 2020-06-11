@@ -13,6 +13,7 @@ namespace Celeste.Mod.MaxHelpingHand.Module {
             SidewaysJumpThru.Load();
             GroupedDustTriggerSpikes.Load();
             StaticPuffer.Load();
+            BlackholeCustomColors.Load();
 
             Everest.Events.Level.OnLoadBackdrop += onLoadBackdrop;
         }
@@ -25,6 +26,7 @@ namespace Celeste.Mod.MaxHelpingHand.Module {
             SidewaysJumpThru.Unload();
             GroupedDustTriggerSpikes.Unload();
             StaticPuffer.Unload();
+            BlackholeCustomColors.Unload();
 
             Everest.Events.Level.OnLoadBackdrop -= onLoadBackdrop;
         }
@@ -32,6 +34,9 @@ namespace Celeste.Mod.MaxHelpingHand.Module {
         private Backdrop onLoadBackdrop(MapData map, BinaryPacker.Element child, BinaryPacker.Element above) {
             if (child.Name.Equals("MaxHelpingHand/HeatWaveNoColorGrade", StringComparison.OrdinalIgnoreCase)) {
                 return new HeatWaveNoColorGrade(child.AttrBool("controlColorGradeWhenActive"));
+            }
+            if (child.Name.Equals("MaxHelpingHand/BlackholeCustomColors", StringComparison.OrdinalIgnoreCase)) {
+                return BlackholeCustomColors.CreateBlackholeWithCustomColors(child);
             }
             return null;
         }
