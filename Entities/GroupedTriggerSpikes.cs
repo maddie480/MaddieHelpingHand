@@ -66,10 +66,10 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
         private bool blockingLedge = false;
 
         public GroupedTriggerSpikes(EntityData data, Vector2 offset, Directions dir)
-            : this(data.Position + offset, GetSize(data, dir), dir, data.Attr("type", "default")) {
+            : this(data.Position + offset, GetSize(data, dir), dir, data.Attr("type", "default"), data.Bool("behindMoveBlocks", false)) {
         }
 
-        public GroupedTriggerSpikes(Vector2 position, int size, Directions direction, string overrideType)
+        public GroupedTriggerSpikes(Vector2 position, int size, Directions direction, string overrideType, bool behindMoveBlocks)
             : base(position) {
 
             this.size = size;
@@ -114,7 +114,11 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
                 JumpThruChecker = IsRiding
             });
 
-            Depth = -50;
+            if (behindMoveBlocks) {
+                Depth = 0; // move blocks have Depth = -1.
+            } else {
+                Depth = -50;
+            }
         }
 
         public override void Added(Scene scene) {

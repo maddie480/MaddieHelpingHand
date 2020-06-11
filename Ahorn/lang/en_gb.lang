@@ -53,6 +53,10 @@ placements.entities.MaxHelpingHand/GroupedTriggerSpikesUp.tooltips.type=Changes 
 placements.entities.MaxHelpingHand/GroupedTriggerSpikesDown.tooltips.type=Changes the visual appearance of the spikes.
 placements.entities.MaxHelpingHand/GroupedTriggerSpikesLeft.tooltips.type=Changes the visual appearance of the spikes.
 placements.entities.MaxHelpingHand/GroupedTriggerSpikesRight.tooltips.type=Changes the visual appearance of the spikes.
+placements.entities.MaxHelpingHand/GroupedTriggerSpikesUp.tooltips.behindMoveBlocks=Whether the spikes should be deeper than normal in order to appear behind move blocks. Not supported for dust spikes.
+placements.entities.MaxHelpingHand/GroupedTriggerSpikesDown.tooltips.behindMoveBlocks=Whether the spikes should be deeper than normal in order to appear behind move blocks. Not supported for dust spikes.
+placements.entities.MaxHelpingHand/GroupedTriggerSpikesLeft.tooltips.behindMoveBlocks=Whether the spikes should be deeper than normal in order to appear behind move blocks. Not supported for dust spikes.
+placements.entities.MaxHelpingHand/GroupedTriggerSpikesRight.tooltips.behindMoveBlocks=Whether the spikes should be deeper than normal in order to appear behind move blocks. Not supported for dust spikes.
 
 # Rainbow Spinner Color Controller
 placements.entities.MaxHelpingHand/RainbowSpinnerColorController.tooltips.colors=The colours the rainbow spinners in the room will take, separated by commas. For example, if 3 colours A, B and C are specified, the colours will cycle in the following order: A > B > C > B > A.
