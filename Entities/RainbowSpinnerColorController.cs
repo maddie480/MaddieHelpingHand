@@ -94,11 +94,22 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             };
         }
 
-        private static Color getRainbowSpinnerHue(On.Celeste.CrystalStaticSpinner.orig_GetHue orig, CrystalStaticSpinner self, Vector2 position) {
-            if (transitionProgress == -1f) {
+        public override void Update() {
+            base.Update();
+
+            if (transitionProgress == -1f && spinnerControllerOnScreen == null) {
                 // no transition is ongoing.
                 // if only nextSpinnerController is defined, move it into spinnerControllerOnScreen.
+                spinnerControllerOnScreen = nextSpinnerController;
+                nextSpinnerController = null;
+            }
+        }
+
+        private static Color getRainbowSpinnerHue(On.Celeste.CrystalStaticSpinner.orig_GetHue orig, CrystalStaticSpinner self, Vector2 position) {
+            if (transitionProgress == -1f) {
                 if (spinnerControllerOnScreen == null) {
+                    // no transition is ongoing.
+                    // if only nextSpinnerController is defined, move it into spinnerControllerOnScreen.
                     spinnerControllerOnScreen = nextSpinnerController;
                     nextSpinnerController = null;
                 }
