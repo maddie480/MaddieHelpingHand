@@ -5,6 +5,15 @@ using System;
 
 namespace Celeste.Mod.MaxHelpingHand.Module {
     public class MaxHelpingHandModule : EverestModule {
+        public static MaxHelpingHandModule Instance { get; private set; }
+
+        public override Type SessionType => typeof(MaxHelpingHandSession);
+        public MaxHelpingHandSession Session => (MaxHelpingHandSession) _Session;
+
+        public MaxHelpingHandModule() {
+            Instance = this;
+        }
+
         public override void Load() {
             TempleEyeTrackingMadeline.Load();
             CameraCatchupSpeedTrigger.Load();
@@ -15,6 +24,7 @@ namespace Celeste.Mod.MaxHelpingHand.Module {
             StaticPuffer.Load();
             BlackholeCustomColors.Load();
             ColorGradeFadeTrigger.Load();
+            RainbowSpinnerColorController.Load();
 
             Everest.Events.Level.OnLoadBackdrop += onLoadBackdrop;
         }
@@ -29,6 +39,7 @@ namespace Celeste.Mod.MaxHelpingHand.Module {
             StaticPuffer.Unload();
             BlackholeCustomColors.Unload();
             ColorGradeFadeTrigger.Unload();
+            RainbowSpinnerColorController.Unload();
 
             Everest.Events.Level.OnLoadBackdrop -= onLoadBackdrop;
         }

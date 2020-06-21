@@ -3,7 +3,7 @@
 using ..Ahorn, Maple
 
 @mapdef Entity "MaxHelpingHand/RainbowSpinnerColorController" RainbowSpinnerColorController(x::Integer, y::Integer,
-    colors::String="89E5AE,88E0E0,87A9DD,9887DB,D088E2", gradientSize::Number=280.0, loopColors::Bool=false)
+    colors::String="89E5AE,88E0E0,87A9DD,9887DB,D088E2", gradientSize::Number=280.0, loopColors::Bool=false, persistent::Bool=false)
 
 const placements = Ahorn.PlacementDict(
     "Rainbow Spinner Colour Controller (max480's Helping Hand)" => Ahorn.EntityPlacement(

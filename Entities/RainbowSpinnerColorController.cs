@@ -1,6 +1,9 @@
 ﻿using Celeste.Mod.Entities;
+using Celeste.Mod.MaxHelpingHand.Module;
 using Microsoft.Xna.Framework;
 using Monocle;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Celeste.Mod.MaxHelpingHand.Entities {
     /// <summary>
@@ -8,6 +11,36 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
     /// </summary>
     [CustomEntity("MaxHelpingHand/RainbowSpinnerColorController")]
     class RainbowSpinnerColorController : Entity {
+        public static void Load() {
+            On.Celeste.Level.LoadLevel += onLoadLevel;
+        }
+
+        public static void Unload() {
+            On.Celeste.Level.LoadLevel -= onLoadLevel;
+        }
+
+        private static void onLoadLevel(On.Celeste.Level.orig_LoadLevel orig, Level self, Player.IntroTypes playerIntro, bool isFromLoader) {
+            orig(self, playerIntro, isFromLoader);
+
+            if (MaxHelpingHandModule.Instance.Session.RainbowSpinnerCurrentColors != null
+                && !self.Session.LevelData.Entities.Any(entity =>
+                    entity.Name == "MaxHelpingHand/RainbowSpinnerColorController" || entity.Name == "MaxHelpingHand/RainbowSpinnerColorControllerDisabler")) {
+
+                // we have spinner colors in session, and are entering a room with no controller: spawn one.
+                EntityData restoredData = new EntityData();
+                restoredData.Values = new Dictionary<string, object>() {
+                    { "colors", MaxHelpingHandModule.Instance.Session.RainbowSpinnerCurrentColors.Colors },
+                    { "gradientSize", MaxHelpingHandModule.Instance.Session.RainbowSpinnerCurrentColors.GradientSize },
+                    { "loopColors", MaxHelpingHandModule.Instance.Session.RainbowSpinnerCurrentColors.LoopColors },
+                    { "persistent", true }
+                };
+
+                self.Add(new RainbowSpinnerColorController(restoredData, Vector2.Zero));
+                self.Entities.UpdateLists();
+            }
+        }
+
+
         private static bool rainbowSpinnerHueHooked = false;
 
         // the spinner controller on the current screen.
@@ -22,6 +55,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
         private Color[] colors;
         private float gradientSize;
         private bool loopColors;
+        private bool persistent;
 
         public RainbowSpinnerColorController(EntityData data, Vector2 offset) : base(data.Position + offset) {
             // convert the color list to Color objects
@@ -33,6 +67,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
 
             gradientSize = data.Float("gradientSize", 280);
             loopColors = data.Bool("loopColors");
+            persistent = data.Bool("persistent");
 
             if (loopColors) {
                 // let's cheat a bit and add A back at the end of the list
@@ -50,6 +85,17 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
                 OnInBegin = () => transitionProgress = 0f,
                 OnInEnd = () => transitionProgress = -1f
             });
+
+            // update session
+            if (persistent) {
+                MaxHelpingHandModule.Instance.Session.RainbowSpinnerCurrentColors = new MaxHelpingHandSession.RainbowSpinnerColorState() {
+                    Colors = data.Attr("colors", "89E5AE,88E0E0,87A9DD,9887DB,D088E2"),
+                    GradientSize = gradientSize,
+                    LoopColors = loopColors
+                };
+            } else {
+                MaxHelpingHandModule.Instance.Session.RainbowSpinnerCurrentColors = null;
+            }
         }
 
         public override void Awake(Scene scene) {
