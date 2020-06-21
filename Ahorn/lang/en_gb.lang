@@ -89,3 +89,8 @@ placements.effects.MaxHelpingHand/BlackholeCustomColors.tooltips.colorsWild=Colo
 placements.effects.MaxHelpingHand/BlackholeCustomColors.tooltips.bgColorInner=The color used for the background at the center of the screen.
 placements.effects.MaxHelpingHand/BlackholeCustomColors.tooltips.bgColorOuterMild=The color used for the background at the edges of the screen, when the blackhole strength is Mild.
 placements.effects.MaxHelpingHand/BlackholeCustomColors.tooltips.bgColorOuterWild=The color used for the background at the edges of the screen, when the blackhole strength is Wild.
+
+# Color Grade Fade Trigger
+placements.triggers.MaxHelpingHand/ColorGradeFadeTrigger.tooltips.colorGradeA=The color grade to fade from.
+placements.triggers.MaxHelpingHand/ColorGradeFadeTrigger.tooltips.colorGradeB=The color grade to fade to.
+placements.triggers.MaxHelpingHand/ColorGradeFadeTrigger.tooltips.direction=The direction of the fade. For example, if set to LeftToRight, the color grade will fade from color grade A to color grade B when the player crosses the trigger from left to right.

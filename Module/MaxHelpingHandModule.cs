@@ -14,6 +14,7 @@ namespace Celeste.Mod.MaxHelpingHand.Module {
             GroupedDustTriggerSpikes.Load();
             StaticPuffer.Load();
             BlackholeCustomColors.Load();
+            ColorGradeFadeTrigger.Load();
 
             Everest.Events.Level.OnLoadBackdrop += onLoadBackdrop;
         }
@@ -27,6 +28,7 @@ namespace Celeste.Mod.MaxHelpingHand.Module {
             GroupedDustTriggerSpikes.Unload();
             StaticPuffer.Unload();
             BlackholeCustomColors.Unload();
+            ColorGradeFadeTrigger.Unload();
 
             Everest.Events.Level.OnLoadBackdrop -= onLoadBackdrop;
         }
