@@ -54,6 +54,7 @@ namespace Celeste.Mod.MaxHelpingHand.Effects {
             blackholeData["bgColorInner"] = Calc.HexToColor(effectData.Attr("bgColorInner", "000000"));
             blackholeData["bgColorOuterMild"] = Calc.HexToColor(effectData.Attr("bgColorOuterMild", "512a8b"));
             blackholeData["bgColorOuterWild"] = Calc.HexToColor(effectData.Attr("bgColorOuterWild", "bd2192"));
+            blackhole.Alpha = effectData.AttrFloat("alpha", 1f);
 
             return blackhole;
         }
