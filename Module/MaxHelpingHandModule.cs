@@ -53,6 +53,9 @@ namespace Celeste.Mod.MaxHelpingHand.Module {
             if (child.Name.Equals("MaxHelpingHand/BlackholeCustomColors", StringComparison.OrdinalIgnoreCase)) {
                 return BlackholeCustomColors.CreateBlackholeWithCustomColors(child);
             }
+            if (child.Name.Equals("MaxHelpingHand/CustomPlanets", StringComparison.OrdinalIgnoreCase)) {
+                return new CustomPlanets(child.AttrInt("count", 32), child.Attr("directory", "MaxHelpingHand/customplanets/bigstars"), child.AttrFloat("animationDelay", 0.1f));
+            }
             return null;
         }
 

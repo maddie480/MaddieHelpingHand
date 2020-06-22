@@ -98,3 +98,17 @@ placements.triggers.MaxHelpingHand/ColorGradeFadeTrigger.tooltips.direction=The 
 
 # Reskinnable Swap Block
 placements.entities.MaxHelpingHand/ReskinnableSwapBlock.tooltips.spriteDirectory=The directory containing all the swap block sprites.\nTo make your own, copy Graphics/Atlases/Gameplay/objects/swapblock (or objects/swapblock/moon) to Mods/yourmod/Graphics/Atlases/Gameplay/MyMap/myswapblock and type MyMap/myswapblock in this field.
+
+# Custom Planets
+placements.effects.MaxHelpingHand/CustomPlanets.names.scrollx=Scroll X
+placements.effects.MaxHelpingHand/CustomPlanets.names.scrolly=Scroll Y
+placements.effects.MaxHelpingHand/CustomPlanets.names.speedx=Speed X
+placements.effects.MaxHelpingHand/CustomPlanets.names.speedy=Speed Y
+placements.effects.MaxHelpingHand/CustomPlanets.tooltips.count=The amount of planets to render.
+placements.effects.MaxHelpingHand/CustomPlanets.tooltips.color=The colour of the planets.
+placements.effects.MaxHelpingHand/CustomPlanets.tooltips.scrollx=Determines the parallax scrolling of the planets along the X axis.
+placements.effects.MaxHelpingHand/CustomPlanets.tooltips.scrolly=Determines the parallax scrolling of the planets along the Y axis.
+placements.effects.MaxHelpingHand/CustomPlanets.tooltips.speedx=Determines the scrolling speed of the planets (in pixels per second) along the X axis.
+placements.effects.MaxHelpingHand/CustomPlanets.tooltips.speedy=Determines the scrolling speed of the planets (in pixels per second) along the Y axis.
+placements.effects.MaxHelpingHand/CustomPlanets.tooltips.directory=The directory to read the planet sprites from (in Graphics/Atlases/Gameplay).
+placements.effects.MaxHelpingHand/CustomPlanets.tooltips.animationDelay=The delay between 2 frames (in seconds) for the planets animations.
