@@ -27,3 +27,6 @@ Provides the following things:
 - **Heat Wave not affecting color grade**: same as the vanilla Heat Wave effect, except it does not change the color grade, allowing you to set your own color grade instead.
 - **Static Puffer**: just like puffer fish, except it doesn't wave around randomly.
 - **Blackhole with Custom Colors**: just like the vanilla blackhole effect, except you can change all the colors!
+- **Color Grade Fade Trigger**: a trigger allowing to fade between two color grades in a similar way as Light Fade Trigger (color grade A on the left, color grade B on the right).
+- **Reskinnable Swap Block**: like a regular Swap Block, except you can change all its textures.
+- **Custom Planets**: much like the Planets effect, but allowing to make planets scroll and be animated. Multiple examples of custom planets directories can be found in the mod zip, in `Graphics/Atlases/Gameplay/MaxHelpingHand/customplanets`.
