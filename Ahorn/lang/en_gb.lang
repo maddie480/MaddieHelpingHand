@@ -95,3 +95,6 @@ placements.effects.MaxHelpingHand/BlackholeCustomColors.tooltips.bgColorOuterWil
 placements.triggers.MaxHelpingHand/ColorGradeFadeTrigger.tooltips.colorGradeA=The color grade to fade from.
 placements.triggers.MaxHelpingHand/ColorGradeFadeTrigger.tooltips.colorGradeB=The color grade to fade to.
 placements.triggers.MaxHelpingHand/ColorGradeFadeTrigger.tooltips.direction=The direction of the fade. For example, if set to LeftToRight, the color grade will fade from color grade A to color grade B when the player crosses the trigger from left to right.
+
+# Reskinnable Swap Block
+placements.entities.MaxHelpingHand/ReskinnableSwapBlock.tooltips.spriteDirectory=The directory containing all the swap block sprites.\nTo make your own, copy Graphics/Atlases/Gameplay/objects/swapblock (or objects/swapblock/moon) to Mods/yourmod/Graphics/Atlases/Gameplay/MyMap/myswapblock and type MyMap/myswapblock in this field.

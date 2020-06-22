@@ -91,6 +91,7 @@
     <Compile Include="Entities\LitBlueTorch.cs" />
     <Compile Include="Entities\RainbowSpinnerColorController.cs" />
     <Compile Include="Entities\RainbowSpinnerColorControllerDisabler.cs" />
+    <Compile Include="Entities\ReskinnableSwapBlock.cs" />
     <Compile Include="Entities\RespawningJellyfish.cs" />
     <Compile Include="Entities\SidewaysJumpThru.cs" />
     <Compile Include="Entities\StaticPuffer.cs" />
@@ -145,6 +146,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Ahorn\entities\maxHelpingHandSidewaysJumpThru.jl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Ahorn\entities\maxHelpingHandReskinnableSwapBlock.jl">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Ahorn\entities\maxHelpingHandStaticPuffer.jl">
