@@ -3,7 +3,7 @@
 using ..Ahorn, Maple
 
 @mapdef Entity "MaxHelpingHand/CustomizableCrumblePlatform" CustomizableCrumblePlatform(x::Integer, y::Integer, width::Integer=Maple.defaultBlockWidth,
-    texture::String="default", oneUse::Bool=false, respawnDelay::Number=2.0)
+    texture::String="default", oneUse::Bool=false, respawnDelay::Number=2.0, grouped::Bool=false)
 
 const placements = Ahorn.PlacementDict(
     "Crumble Blocks ($(uppercasefirst(texture)), Customizable) (max480's Helping Hand)" => Ahorn.EntityPlacement(

@@ -26,6 +26,7 @@ placements.entities.MaxHelpingHand/FlagSwitchGate.tooltips.sprite=The texture fo
 placements.entities.MaxHelpingHand/CustomizableCrumblePlatform.tooltips.texture=What texture to use for the crumble block.
 placements.entities.MaxHelpingHand/CustomizableCrumblePlatform.tooltips.oneUse=If checked, the platform will not respawn once it crumbled.
 placements.entities.MaxHelpingHand/CustomizableCrumblePlatform.tooltips.respawnDelay=The delay in seconds before the platform respawns after it crumbled (vanilla is 2 seconds).
+placements.entities.MaxHelpingHand/CustomizableCrumblePlatform.tooltips.grouped=Whether this crumble platform should be "grouped" with crumble platforms that are next to it and also have the option enabled.\nAll crumble platforms in a "group" crumble together when the player steps on / grabs one of them.
 
 # Upside Down Jump Thru
 placements.entities.MaxHelpingHand/UpsideDownJumpThru.tooltips.texture=Changes the appearance of the platform. Should be in the same format as vanilla for static jumpthrus, and a 8x8 image for animated ones.

@@ -4,10 +4,12 @@ using Monocle;
 using MonoMod.Utils;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 
 namespace Celeste.Mod.MaxHelpingHand.Entities {
     [CustomEntity("MaxHelpingHand/CustomizableCrumblePlatform")]
+    [Tracked]
     class CustomizableCrumblePlatform : CrumblePlatform {
         private static MethodInfo crumblePlatformOutlineFade = typeof(CrumblePlatform).GetMethod("OutlineFade", BindingFlags.NonPublic | BindingFlags.Instance);
         private static MethodInfo crumblePlatformTileOut = typeof(CrumblePlatform).GetMethod("TileOut", BindingFlags.NonPublic | BindingFlags.Instance);
@@ -20,15 +22,18 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
         private ShakerList shaker;
         private LightOcclude occluder;
         private List<Image> images;
-        private List<Image> outline;
 
         private bool oneUse;
         private float respawnDelay;
+        private bool grouped;
+
+        private HashSet<CustomizableCrumblePlatform> groupedCrumblePlatforms = new HashSet<CustomizableCrumblePlatform>();
 
         public CustomizableCrumblePlatform(EntityData data, Vector2 offset) : base(data, offset) {
             OverrideTexture = data.Attr("texture", null);
             oneUse = data.Bool("oneUse", false);
             respawnDelay = data.Float("respawnDelay", 2f);
+            grouped = data.Bool("grouped", false);
         }
 
         public override void Added(Scene scene) {
@@ -41,7 +46,6 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             shaker = self.Get<ShakerList>("shaker");
             occluder = self.Get<LightOcclude>("occluder");
             images = self.Get<List<Image>>("images");
-            outline = self.Get<List<Image>>("outline");
 
             foreach (Component component in this) {
                 if (component is Coroutine coroutine && coroutine != outlineFader && !falls.Contains(coroutine)) {
@@ -58,16 +62,42 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             }
         }
 
+        private void addRange(HashSet<CustomizableCrumblePlatform> set, IEnumerable<CustomizableCrumblePlatform> elements) {
+            foreach (CustomizableCrumblePlatform element in elements) {
+                set.Add(element);
+            }
+        }
+
+        public override void Awake(Scene scene) {
+            base.Awake(scene);
+
+            // add ourselves to our group.
+            groupedCrumblePlatforms.Add(this);
+
+            if (grouped) {
+                // get surrounding grouped crumble blocks: above, below, on left and on right.
+                addRange(groupedCrumblePlatforms, CollideAll<CustomizableCrumblePlatform>(Position + Vector2.UnitX).OfType<CustomizableCrumblePlatform>().Where(p => p.grouped));
+                addRange(groupedCrumblePlatforms, CollideAll<CustomizableCrumblePlatform>(Position - Vector2.UnitX).OfType<CustomizableCrumblePlatform>().Where(p => p.grouped));
+                addRange(groupedCrumblePlatforms, CollideAll<CustomizableCrumblePlatform>(Position + Vector2.UnitY).OfType<CustomizableCrumblePlatform>().Where(p => p.grouped));
+                addRange(groupedCrumblePlatforms, CollideAll<CustomizableCrumblePlatform>(Position - Vector2.UnitY).OfType<CustomizableCrumblePlatform>().Where(p => p.grouped));
+
+                // share the set of platforms in the group with the group.
+                foreach (CustomizableCrumblePlatform platform in groupedCrumblePlatforms) {
+                    platform.groupedCrumblePlatforms = groupedCrumblePlatforms;
+                }
+            }
+        }
+
         private IEnumerator customSequence() {
             while (true) {
                 // wait until player is on top
-                Player player = GetPlayerOnTop();
+                Player player = getOnePlayerOnTop();
                 bool onTop;
                 if (player != null) {
                     onTop = true;
                     Input.Rumble(RumbleStrength.Medium, RumbleLength.Medium);
                 } else {
-                    player = GetPlayerClimbing();
+                    player = getOnePlayerClimbing();
                     if (player == null) {
                         yield return null;
                         continue;
@@ -92,7 +122,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
                 // wait for a bit more
                 float timer = 0.4f;
                 if (onTop) {
-                    while (timer > 0f && GetPlayerOnTop() != null) {
+                    while (timer > 0f && getOnePlayerOnTop() != null) {
                         yield return null;
                         timer -= Engine.DeltaTime;
                     }
@@ -143,6 +173,26 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
                     }
                 }
             }
+        }
+
+        private Player getOnePlayerOnTop() {
+            foreach (CustomizableCrumblePlatform platform in groupedCrumblePlatforms) {
+                Player p = platform.GetPlayerOnTop();
+                if (p != null) {
+                    return p;
+                }
+            }
+            return null;
+        }
+
+        private Player getOnePlayerClimbing() {
+            foreach (CustomizableCrumblePlatform platform in groupedCrumblePlatforms) {
+                Player p = platform.GetPlayerClimbing();
+                if (p != null) {
+                    return p;
+                }
+            }
+            return null;
         }
     }
 }
