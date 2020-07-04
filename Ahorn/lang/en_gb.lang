@@ -113,3 +113,9 @@ placements.effects.MaxHelpingHand/CustomPlanets.tooltips.speedx=Determines the s
 placements.effects.MaxHelpingHand/CustomPlanets.tooltips.speedy=Determines the scrolling speed of the planets (in pixels per second) along the Y axis.
 placements.effects.MaxHelpingHand/CustomPlanets.tooltips.directory=The directory to read the planet sprites from (in Graphics/Atlases/Gameplay).
 placements.effects.MaxHelpingHand/CustomPlanets.tooltips.animationDelay=The delay between 2 frames (in seconds) for the planets animations.
+
+# Reskinnable Crush Block
+placements.entities.MaxHelpingHand/ReskinnableCrushBlock.tooltips.axes=Determines which sides of the Kevin block are hittable.
+placements.entities.MaxHelpingHand/ReskinnableCrushBlock.tooltips.chillout=Whether the block should have the large face and get tired after being hit.
+placements.entities.MaxHelpingHand/ReskinnableCrushBlock.tooltips.spriteDirectory=The directory containing all the Kevin sprites.\nTo make your own, copy Graphics/Atlases/Gameplay/objects/crushblock to Mods/yourmod/Graphics/Atlases/Gameplay/MyMap/mycrushblock and type MyMap/mycrushblock in this field.
+placements.entities.MaxHelpingHand/ReskinnableCrushBlock.tooltips.fillColor=The color used to fill the Kevin, used between the face sprite and the borders.

@@ -26,6 +26,7 @@ namespace Celeste.Mod.MaxHelpingHand.Module {
             ColorGradeFadeTrigger.Load();
             RainbowSpinnerColorController.Load();
             ReskinnableSwapBlock.Load();
+            ReskinnableCrushBlock.Load();
 
             Everest.Events.Level.OnLoadBackdrop += onLoadBackdrop;
         }
@@ -42,6 +43,7 @@ namespace Celeste.Mod.MaxHelpingHand.Module {
             ColorGradeFadeTrigger.Unload();
             RainbowSpinnerColorController.Unload();
             ReskinnableSwapBlock.Unload();
+            ReskinnableCrushBlock.Unload();
 
             Everest.Events.Level.OnLoadBackdrop -= onLoadBackdrop;
         }
