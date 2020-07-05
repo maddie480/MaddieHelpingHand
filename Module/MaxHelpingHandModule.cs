@@ -62,7 +62,8 @@ namespace Celeste.Mod.MaxHelpingHand.Module {
             }
             if (child.Name.Equals("MaxHelpingHand/CustomStars", StringComparison.OrdinalIgnoreCase)) {
                 CustomStars.StarsDirectory = child.Attr("spriteDirectory", "bgs/02/stars");
-                return new CustomStars();
+                CustomStars.TintingDisabled = child.AttrBool("disableTinting", false);
+                return new CustomStars(CustomStars.TintingDisabled);
             }
             return null;
         }
