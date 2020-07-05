@@ -27,6 +27,7 @@ namespace Celeste.Mod.MaxHelpingHand.Module {
             RainbowSpinnerColorController.Load();
             ReskinnableSwapBlock.Load();
             ReskinnableCrushBlock.Load();
+            CustomStars.Load();
 
             Everest.Events.Level.OnLoadBackdrop += onLoadBackdrop;
         }
@@ -44,6 +45,7 @@ namespace Celeste.Mod.MaxHelpingHand.Module {
             RainbowSpinnerColorController.Unload();
             ReskinnableSwapBlock.Unload();
             ReskinnableCrushBlock.Unload();
+            CustomStars.Unload();
 
             Everest.Events.Level.OnLoadBackdrop -= onLoadBackdrop;
         }
@@ -57,6 +59,10 @@ namespace Celeste.Mod.MaxHelpingHand.Module {
             }
             if (child.Name.Equals("MaxHelpingHand/CustomPlanets", StringComparison.OrdinalIgnoreCase)) {
                 return new CustomPlanets(child.AttrInt("count", 32), child.Attr("directory", "MaxHelpingHand/customplanets/bigstars"), child.AttrFloat("animationDelay", 0.1f));
+            }
+            if (child.Name.Equals("MaxHelpingHand/CustomStars", StringComparison.OrdinalIgnoreCase)) {
+                CustomStars.StarsDirectory = child.Attr("spriteDirectory", "bgs/02/stars");
+                return new CustomStars();
             }
             return null;
         }

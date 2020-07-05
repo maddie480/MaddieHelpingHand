@@ -30,6 +30,11 @@ namespace Celeste.Mod.MaxHelpingHand.Effects {
                 planetTextures.Add(texture);
             }
 
+            // be sure that the planet sprites are ordered.
+            foreach (List<MTexture> list in planetList.Values) {
+                list.Sort((a, b) => a.AtlasPath.CompareTo(b.AtlasPath));
+            }
+
             // now, pick planets from the pool and place them.
             planets = new Planet[count];
             for (int i = 0; i < planets.Length; i++) {

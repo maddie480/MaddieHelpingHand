@@ -79,9 +79,13 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Effects\CustomStars.cs" />
     <Compile Include="Entities\GoldenStrawberryCustomConditions.cs" />
     <Compile Include="Entities\HorizontalRoomWrapController.cs" />
     <Compile Include="Triggers\CustomSandwichLavaSettingsTrigger.cs" />
+    <None Include="Ahorn\effects\maxHelpingHandCustomStars.jl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="Ahorn\entities\maxHelpingHandCustomSandwichLava.jl">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

@@ -140,3 +140,6 @@ placements.triggers.MaxHelpingHand/CustomSandwichLavaSettingsTrigger.tooltips.sp
 placements.entities.MaxHelpingHand/GoldenStrawberryCustomConditions.tooltips.mustNotDieAndVisitFurtherRooms=If enabled, the golden strawberry will disappear if the player visited further rooms and died at least once.
 placements.entities.MaxHelpingHand/GoldenStrawberryCustomConditions.tooltips.mustHaveUnlockedCSides=If enabled, the golden strawberry will not appear if the player did not unlock C-Sides. The strawberry will still appear if debug mode or cheat mode is enabled.
 placements.entities.MaxHelpingHand/GoldenStrawberryCustomConditions.tooltips.mustHaveCompletedLevel=If enabled, the golden strawberry will not appear if the player did not complete the level yet. The strawberry will still appear if cheat mode is enabled.
+
+# Custom Stars
+placements.effects.MaxHelpingHand/CustomStars.tooltips.spriteDirectory=The directory containing all the star sprites.\nTo make your own, you can take example on Graphics/Atlases/Gameplay/bgs/02/stars, and drop your sprites in Mods/yourmod/Graphics/Atlases/Gameplay/MyMap/mystars. Then, type MyMap/mystars in this field.
