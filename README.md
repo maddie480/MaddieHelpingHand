@@ -2,6 +2,8 @@
 
 Just a grab bag of Celeste code mods that were requested to me, and that could be useful for others as well.
 
+You can download it [on GameBanana](https://gamebanana.com/gamefiles/11423).
+
 Provides the following things:
 - **Temple Eye tracking Madeline**: a temple eye that follows Madeline instead of Theo.
 - **Camera Catchup Speed Trigger**: allows to set how fast the camera reaches its target. This is useful for _really_ fast sections, where growing offsets would be necessary otherwise.
@@ -14,7 +16,7 @@ Provides the following things:
     - have persistent touch switches (touch switches that stay collected even if you die / change screens and didn't collect the whole group)
     - have a mix of persistent and non-persistent switch gates
     - _if all touch switches or all switch gates are persistent_, the flag associated to them will activate once you complete the group, so you can use it to activate other entities.
-- **Customizable Crumble Blocks**: crumble blocks that don't respawn after they crumbled, or that respawn after a custom delay.
+- **Customizable Crumble Blocks**: crumble blocks that don't respawn after they crumbled, or that respawn after a custom delay. They can also be grouped, so that crumble platforms next to each other crumble together.
 - **Upside-Down and Sideways Jumpthroughs**: platforms you can only cross in one direction (left to right, right to left, or up to down).
 - **One-Way Invisible Barriers**: barriers that you can only cross left to right, or right to left. As opposed to sideways jumpthrus, you cannot climb on them, or walljump off them.
 - **Custom Summit Checkpoints**: summit checkpoints that can display more than just numbers. You can have minuses, question marks, or make your own digits!
@@ -28,5 +30,9 @@ Provides the following things:
 - **Static Puffer**: just like puffer fish, except it doesn't wave around randomly.
 - **Blackhole with Custom Colors**: just like the vanilla blackhole effect, except you can change all the colors!
 - **Color Grade Fade Trigger**: a trigger allowing to fade between two color grades in a similar way as Light Fade Trigger (color grade A on the left, color grade B on the right).
-- **Reskinnable Swap Block**: like a regular Swap Block, except you can change all its textures.
+- **Reskinnable Swap Block** and **Reskinnable Kevin**: like regular Swap Blocks and Kevins, except you can change all their textures.
 - **Custom Planets**: much like the Planets effect, but allowing to make planets scroll and be animated. Multiple examples of custom planets directories can be found in the mod zip, in `Graphics/Atlases/Gameplay/MaxHelpingHand/customplanets`.
+- **Custom Sandwich Lava**: sandwich lava with customizable direction, speed, gap and colors. You can also change these settings mid-room by placing a Custom Sandwich Lava Settings Trigger!
+- **Golden Strawberry with Custom Conditions**: a golden berry that can appear even if the player didn't finish the map, didn't unlock C-sides yet and/or died if you want it to.
+- **Horizontal Room Wrap Controller**: drop this controller in a room, and Madeline will reappear on the left if she goes off-screen on the right! For this to work, be sure to lock the camera horizontally by using a Camera Target Trigger with lerp = 1 and X Only enabled. Pulled from Celsius by 0x0ade.
+- **Custom Stars effect**: much like the vanilla Stars effect, except you can use your own sprites for the stars.
