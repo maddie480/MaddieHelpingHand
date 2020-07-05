@@ -135,3 +135,8 @@ placements.entities.MaxHelpingHand/CustomSandwichLava.tooltips.coldCenterColor=T
 placements.triggers.MaxHelpingHand/CustomSandwichLavaSettingsTrigger.tooltips.onlyOnce=If enabled, the settings will change only on the first time the player enters the trigger.
 placements.triggers.MaxHelpingHand/CustomSandwichLavaSettingsTrigger.tooltips.direction=Changes the sandwich lava direction. CoreModeBased is the same behaviour as vanilla, depending on core mode.
 placements.triggers.MaxHelpingHand/CustomSandwichLavaSettingsTrigger.tooltips.speed=Changes the speed the lava is moving at, in pixels per second. Vanilla value is 20.
+
+# Golden Strawberry with Custom Conditions
+placements.entities.MaxHelpingHand/GoldenStrawberryCustomConditions.tooltips.mustNotDieAndVisitFurtherRooms=If enabled, the golden strawberry will disappear if the player visited further rooms and died at least once.
+placements.entities.MaxHelpingHand/GoldenStrawberryCustomConditions.tooltips.mustHaveUnlockedCSides=If enabled, the golden strawberry will not appear if the player did not unlock C-Sides. The strawberry will still appear if debug mode or cheat mode is enabled.
+placements.entities.MaxHelpingHand/GoldenStrawberryCustomConditions.tooltips.mustHaveCompletedLevel=If enabled, the golden strawberry will not appear if the player did not complete the level yet. The strawberry will still appear if cheat mode is enabled.
