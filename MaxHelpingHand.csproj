@@ -80,6 +80,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Entities\GoldenStrawberryCustomConditions.cs" />
+    <Compile Include="Entities\HorizontalRoomWrapController.cs" />
     <Compile Include="Triggers\CustomSandwichLavaSettingsTrigger.cs" />
     <None Include="Ahorn\entities\maxHelpingHandCustomSandwichLava.jl">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -144,6 +145,7 @@
     <None Include="Ahorn\entities\maxHelpingHandGoldenStrawberryCustomConditions.jl">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="Ahorn\entities\maxHelpingHandHorizontalRoomWrapController.jl" />
     <None Include="Ahorn\entities\maxHelpingHandLitBlueTorch.jl">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -205,6 +207,9 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
+    <Content Include="Graphics\Atlases\Gameplay\ahorn\MaxHelpingHand\horizontal_room_wrap.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Graphics\Atlases\Gameplay\ahorn\MaxHelpingHand\lava_sandwich_down.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
