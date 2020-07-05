@@ -149,7 +149,9 @@
     <None Include="Ahorn\entities\maxHelpingHandGoldenStrawberryCustomConditions.jl">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Ahorn\entities\maxHelpingHandHorizontalRoomWrapController.jl" />
+    <None Include="Ahorn\entities\maxHelpingHandHorizontalRoomWrapController.jl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="Ahorn\entities\maxHelpingHandLitBlueTorch.jl">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
