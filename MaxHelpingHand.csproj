@@ -79,10 +79,15 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Triggers\CustomSandwichLavaSettingsTrigger.cs" />
+    <None Include="Ahorn\entities\maxHelpingHandCustomSandwichLava.jl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <Compile Include="Effects\BlackholeCustomColors.cs" />
     <Compile Include="Effects\CustomPlanets.cs" />
     <Compile Include="Effects\HeatWaveNoColorGrade.cs" />
     <Compile Include="Entities\CustomizableRefill.cs" />
+    <Compile Include="Entities\CustomSandwichLava.cs" />
     <Compile Include="Entities\CustomSummitCheckpoint.cs" />
     <Compile Include="Entities\FlagSwitchGate.cs" />
     <Compile Include="Entities\FlagTouchSwitch.cs" />
@@ -177,6 +182,9 @@
     <None Include="Ahorn\triggers\maxHelpingHandColorGradeFade.jl">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="Ahorn\triggers\maxHelpingHandCustomSandwichLavaSettings.jl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="Ahorn\triggers\maxHelpingHandStrawberryCollectionField.jl">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -193,6 +201,12 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
+    <Content Include="Graphics\Atlases\Gameplay\ahorn\MaxHelpingHand\lava_sandwich_down.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Graphics\Atlases\Gameplay\ahorn\MaxHelpingHand\lava_sandwich_up.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Graphics\Atlases\Gameplay\ahorn\MaxHelpingHand\rainbowSpinnerColorControllerDisable.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
