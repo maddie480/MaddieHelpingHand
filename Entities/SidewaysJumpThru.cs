@@ -85,7 +85,6 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
                 // mod collide checks to include sideways jumpthrus, so that the player behaves with them like with walls.
                 IL.Celeste.Player.WallJumpCheck += modCollideChecks; // allow player to walljump off them
                 IL.Celeste.Player.NormalUpdate += modCollideChecks; // get the wall slide effect
-                IL.Celeste.Player.OnCollideH += modCollideChecks; // handle dashes against jumpthrus properly, without "shifting" down
             }
 
             // one extra hook that kills the player momentum when hitting a jumpthru so that they don't get "stuck" on them.
@@ -111,6 +110,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
                 IL.Celeste.Player.ClimbBegin += modCollideChecks; // if not applied, the player will clip through jumpthrus if trying to climb on them
                 IL.Celeste.Player.ClimbUpdate += modCollideChecks; // when climbing, jumpthrus are handled like walls
                 IL.Celeste.Player.SlipCheck += modCollideChecks; // make climbing on jumpthrus not slippery
+                IL.Celeste.Player.OnCollideH += modCollideChecks; // handle dashes against jumpthrus properly, without "shifting" down
 
                 // have the push animation when Madeline runs against a jumpthru for example
                 hookOnUpdateSprite = new ILHook(typeof(Player).GetMethod("orig_UpdateSprite", BindingFlags.NonPublic | BindingFlags.Instance), modCollideChecks);
@@ -131,7 +131,6 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
 
             IL.Celeste.Player.WallJumpCheck -= modCollideChecks;
             IL.Celeste.Player.NormalUpdate -= modCollideChecks;
-            IL.Celeste.Player.OnCollideH -= modCollideChecks;
 
             On.Celeste.Player.NormalUpdate -= onPlayerNormalUpdate;
         }
@@ -150,6 +149,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             IL.Celeste.Player.ClimbBegin -= modCollideChecks;
             IL.Celeste.Player.ClimbUpdate -= modCollideChecks;
             IL.Celeste.Player.SlipCheck -= modCollideChecks;
+            IL.Celeste.Player.OnCollideH -= modCollideChecks;
 
             hookOnUpdateSprite?.Dispose();
         }
