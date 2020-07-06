@@ -322,8 +322,9 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             // and we are checking the collision on the left side of the player for example.
             bool collideOnLeftSideOfPlayer = (self.Position.X > checkAtPosition.X);
             SidewaysJumpThru jumpthru = self.CollideFirstOutside<SidewaysJumpThru>(checkAtPosition);
-            return jumpthru != null && self is Player player && (jumpthru.AllowLeftToRight == collideOnLeftSideOfPlayer
-                && (!isWallJump || jumpthru.allowWallJumping) && (!isClimb || jumpthru.allowClimbing));
+            return jumpthru != null && self is Player && (jumpthru.AllowLeftToRight == collideOnLeftSideOfPlayer
+                && (!isWallJump || jumpthru.allowWallJumping) && (!isClimb || jumpthru.allowClimbing))
+                && jumpthru.Top <= checkAtPosition.Y && jumpthru.Bottom >= checkAtPosition.Y;
         }
 
         public static bool SceneCollideCheckWithSidewaysJumpthrus(Scene self, Vector2 vector, bool isClimb, bool isWallJump) {
