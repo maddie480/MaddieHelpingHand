@@ -75,7 +75,6 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
 
             // implement the basic collision between actors/platforms and sideways jumpthrus.
             using (new DetourContext { Before = { "*" } }) { // these don't always call the orig methods, better apply them first.
-                On.Celeste.Actor.MoveHExact += onActorMoveHExact;
                 On.Celeste.Platform.MoveHExactCollideSolids += onPlatformMoveHExactCollideSolids;
             }
 
@@ -101,6 +100,11 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
 
             Logger.Log("MaxHelpingHand/SidewaysJumpThru", "=== Activating non Jungle Helper sideways jumpthru hooks");
 
+            // implement the basic collision between actors/platforms and sideways jumpthrus.
+            using (new DetourContext { Before = { "*" } }) { // these don't always call the orig methods, better apply them first.
+                On.Celeste.Actor.MoveHExact += onActorMoveHExact;
+            }
+
             using (new DetourContext { Before = { "*" } }) { // let's take over Spring Collab 2020, we can break it, this is not a collab map!
                 // mod collide checks to include sideways jumpthrus, so that the player behaves with them like with walls.
                 IL.Celeste.Player.ClimbCheck += modCollideChecks; // allow player to climb on them
@@ -121,7 +125,6 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
 
             Logger.Log("MaxHelpingHand/SidewaysJumpThru", "=== Deactivating sideways jumpthru hooks");
 
-            On.Celeste.Actor.MoveHExact -= onActorMoveHExact;
             On.Celeste.Platform.MoveHExactCollideSolids -= onPlatformMoveHExactCollideSolids;
 
             On.Celeste.Player.ClimbHopBlockedCheck -= onPlayerClimbHopBlockedCheck;
@@ -141,6 +144,8 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
 
             Logger.Log("MaxHelpingHand/SidewaysJumpThru", "=== Deactivating non Jungle Helper sideways jumpthru hooks");
 
+            On.Celeste.Actor.MoveHExact -= onActorMoveHExact;
+
             IL.Celeste.Player.ClimbCheck -= modCollideChecks;
             IL.Celeste.Player.ClimbBegin -= modCollideChecks;
             IL.Celeste.Player.ClimbUpdate -= modCollideChecks;
@@ -151,7 +156,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
 
         private static bool onActorMoveHExact(On.Celeste.Actor.orig_MoveHExact orig, Actor self, int moveH, Collision onCollide, Solid pusher) {
             // fall back to vanilla if no sideways jumpthru is in the room.
-            if (self.Scene == null || self.Scene.Tracker.CountEntities<SidewaysJumpThru>() == 0)
+            if (self.Scene == null || RoomContainsSidewaysJumpThrus(self))
                 return orig(self, moveH, onCollide, pusher);
 
             Vector2 targetPosition = self.Position + Vector2.UnitX * moveH;
@@ -166,12 +171,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
                 if (solid != null) {
                     didCollide = true;
                 } else {
-                    // check if colliding with a sideways jumpthru
-                    SidewaysJumpThru jumpThru = self.CollideFirstOutside<SidewaysJumpThru>(self.Position + Vector2.UnitX * moveDirection);
-                    if (jumpThru != null && jumpThru.AllowLeftToRight != movingLeftToRight) {
-                        // there is a sideways jump-thru and we are moving in the opposite direction => collision
-                        didCollide = true;
-                    }
+                    didCollide = CheckCollisionWithSidewaysJumpthruWhileMoving(self, moveDirection, movingLeftToRight);
                 }
 
                 if (didCollide) {
@@ -193,6 +193,21 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
                 moveH -= moveDirection;
                 self.X += moveDirection;
             }
+            return false;
+        }
+
+        public static bool RoomContainsSidewaysJumpThrus(Actor self) {
+            return self.Scene.Tracker.CountEntities<SidewaysJumpThru>() == 0;
+        }
+
+        public static bool CheckCollisionWithSidewaysJumpthruWhileMoving(Actor self, int moveDirection, bool movingLeftToRight) {
+            // check if colliding with a sideways jumpthru
+            SidewaysJumpThru jumpThru = self.CollideFirstOutside<SidewaysJumpThru>(self.Position + Vector2.UnitX * moveDirection);
+            if (jumpThru != null && jumpThru.AllowLeftToRight != movingLeftToRight) {
+                // there is a sideways jump-thru and we are moving in the opposite direction => collision
+                return true;
+            }
+
             return false;
         }
 
