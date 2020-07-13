@@ -2,16 +2,17 @@
 
 using ..Ahorn, Maple
 
-@mapdef Entity "MaxHelpingHand/CoreModeSpikesUp" CoreModeSpikesUp(x::Integer, y::Integer, width::Integer=Maple.defaultSpikeWidth, hotType::String="default", coldType::String="default")
-@mapdef Entity "MaxHelpingHand/CoreModeSpikesDown" CoreModeSpikesDown(x::Integer, y::Integer, width::Integer=Maple.defaultSpikeWidth, hotType::String="default", coldType::String="default")
-@mapdef Entity "MaxHelpingHand/CoreModeSpikesLeft" CoreModeSpikesLeft(x::Integer, y::Integer, height::Integer=Maple.defaultSpikeHeight, hotType::String="default", coldType::String="default")
-@mapdef Entity "MaxHelpingHand/CoreModeSpikesRight" CoreModeSpikesRight(x::Integer, y::Integer, height::Integer=Maple.defaultSpikeHeight, hotType::String="default", coldType::String="default")
+@mapdef Entity "MaxHelpingHand/CoreModeSpikesUp" CoreModeSpikesUp(x::Integer, y::Integer, width::Integer=Maple.defaultSpikeWidth, hotType::String="MaxHelpingHand/heatspike", coldType::String="cliffside")
+@mapdef Entity "MaxHelpingHand/CoreModeSpikesDown" CoreModeSpikesDown(x::Integer, y::Integer, width::Integer=Maple.defaultSpikeWidth, hotType::String="MaxHelpingHand/heatspike", coldType::String="cliffside")
+@mapdef Entity "MaxHelpingHand/CoreModeSpikesLeft" CoreModeSpikesLeft(x::Integer, y::Integer, height::Integer=Maple.defaultSpikeHeight, hotType::String="MaxHelpingHand/heatspike", coldType::String="cliffside")
+@mapdef Entity "MaxHelpingHand/CoreModeSpikesRight" CoreModeSpikesRight(x::Integer, y::Integer, height::Integer=Maple.defaultSpikeHeight, hotType::String="MaxHelpingHand/heatspike", coldType::String="cliffside")
 
 const spikeTypes = String[
     "default",
     "outline",
     "cliffside",
-    "reflection"
+    "reflection",
+    "MaxHelpingHand/heatspike"
 ]
 
 const entities = Dict{String, Type}(

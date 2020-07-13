@@ -32,11 +32,14 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
         private string hotType;
         private string coldType;
 
+        private int randomSeed;
+
         public CoreModeSpikes(EntityData data, Vector2 offset, Directions dir) : base(data, offset, dir) {
             hotType = data.Attr("hotType", "default");
             coldType = data.Attr("coldType", "default");
 
             Add(new CoreModeListener(onCoreModeChange));
+            randomSeed = Calc.Random.Next();
         }
 
         public override void Added(Scene scene) {
@@ -53,9 +56,13 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             string spikeType = target == Session.CoreModes.Cold ? coldType : hotType;
             string direction = Direction.ToString().ToLower();
             List<MTexture> spikeTextures = GFX.Game.GetAtlasSubtextures("danger/spikes/" + spikeType + "_" + direction);
+
+            // be sure to use the same seed to pick the same spike indices when switching.
+            Calc.PushRandom(randomSeed);
             foreach (Image image in Components.GetAll<Image>()) {
                 image.Texture = Calc.Random.Choose(spikeTextures);
             }
+            Calc.PopRandom();
         }
     }
 }
