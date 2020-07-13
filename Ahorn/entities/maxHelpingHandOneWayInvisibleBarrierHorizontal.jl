@@ -3,7 +3,7 @@
 using ..Ahorn, Maple
 
 @mapdef Entity "MaxHelpingHand/OneWayInvisibleBarrierHorizontal" OneWayInvisibleBarrierHorizontal(x::Integer, y::Integer, height::Integer=Maple.defaultBlockHeight, 
-    left::Bool=true)
+    left::Bool=true, letSeekersThrough::Bool=false)
 
 
 const placements = Ahorn.PlacementDict(

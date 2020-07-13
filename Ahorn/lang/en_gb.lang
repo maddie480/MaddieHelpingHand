@@ -36,9 +36,11 @@ placements.entities.MaxHelpingHand/UpsideDownJumpThru.tooltips.animationDelay=Th
 placements.entities.MaxHelpingHand/SidewaysJumpThru.tooltips.texture=Changes the appearance of the platform. Should be in the same format as vanilla for static jumpthrus, and a 8x8 image for animated ones.
 placements.entities.MaxHelpingHand/SidewaysJumpThru.tooltips.animationDelay=The delay in seconds between 2 frames of animation. Leave to 0 for no animation.
 placements.entities.MaxHelpingHand/SidewaysJumpThru.tooltips.left=Whether the solid side of the jumpthru is the left side.
+placements.entities.MaxHelpingHand/SidewaysJumpThru.tooltips.letSeekersThrough=Whether the seekers should be able to go through the jumpthru, like vanilla ones.
 
 # One-Way Invisible Barrier (Horizontal)
 placements.entities.MaxHelpingHand/OneWayInvisibleBarrierHorizontal.tooltips.left=Whether the solid side of the barrier is the left side.
+placements.entities.MaxHelpingHand/OneWayInvisibleBarrierHorizontal.tooltips.letSeekersThrough=Whether the seekers should be able to go through the barrier.
 
 # Custom Summit Checkpoints
 placements.entities.MaxHelpingHand/CustomSummitCheckpoint.tooltips.firstDigit=The first digit to display. (You can make your own by dropping textures in the Graphics/Atlases/Gameplay/MaxHelpingHand/summitcheckpoints/texturename folder.)

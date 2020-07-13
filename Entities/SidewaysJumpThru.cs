@@ -156,7 +156,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
 
         private static bool onActorMoveHExact(On.Celeste.Actor.orig_MoveHExact orig, Actor self, int moveH, Collision onCollide, Solid pusher) {
             // fall back to vanilla if no sideways jumpthru is in the room.
-            if (self.Scene == null || RoomContainsSidewaysJumpThrus(self))
+            if (self.Scene == null || !RoomContainsSidewaysJumpThrus(self))
                 return orig(self, moveH, onCollide, pusher);
 
             Vector2 targetPosition = self.Position + Vector2.UnitX * moveH;
@@ -197,13 +197,13 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
         }
 
         public static bool RoomContainsSidewaysJumpThrus(Actor self) {
-            return self.Scene.Tracker.CountEntities<SidewaysJumpThru>() == 0;
+            return self.Scene.Tracker.CountEntities<SidewaysJumpThru>() != 0;
         }
 
         public static bool CheckCollisionWithSidewaysJumpthruWhileMoving(Actor self, int moveDirection, bool movingLeftToRight) {
             // check if colliding with a sideways jumpthru
             SidewaysJumpThru jumpThru = self.CollideFirstOutside<SidewaysJumpThru>(self.Position + Vector2.UnitX * moveDirection);
-            if (jumpThru != null && jumpThru.AllowLeftToRight != movingLeftToRight) {
+            if (jumpThru != null && jumpThru.AllowLeftToRight != movingLeftToRight && (!(self is Seeker) || !jumpThru.letSeekersThrough)) {
                 // there is a sideways jump-thru and we are moving in the opposite direction => collision
                 return true;
             }
@@ -372,6 +372,8 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
         private bool allowClimbing;
         private bool allowWallJumping;
 
+        private bool letSeekersThrough;
+
         public SidewaysJumpThru(Vector2 position, int height, bool allowLeftToRight, string overrideTexture, float animationDelay)
             : base(position) {
 
@@ -393,6 +395,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
 
             allowClimbing = data.Bool("allowClimbing", true);
             allowWallJumping = data.Bool("allowWallJumping", true);
+            letSeekersThrough = data.Bool("letSeekersThrough", false);
         }
 
         public override void Awake(Scene scene) {

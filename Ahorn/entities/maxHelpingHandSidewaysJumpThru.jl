@@ -3,7 +3,7 @@
 using ..Ahorn, Maple
 
 @mapdef Entity "MaxHelpingHand/SidewaysJumpThru" SidewaysJumpThru(x::Integer, y::Integer, height::Integer=Maple.defaultBlockHeight, 
-    left::Bool=true, texture::String="wood", animationDelay::Number=0.0)
+    left::Bool=true, texture::String="wood", animationDelay::Number=0.0, letSeekersThrough::Bool=false)
 
 textures = ["wood", "dream", "temple", "templeB", "cliffside", "reflection", "core", "moon"]
 const placements = Ahorn.PlacementDict(
