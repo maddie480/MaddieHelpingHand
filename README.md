@@ -36,3 +36,4 @@ Provides the following things:
 - **Golden Strawberry with Custom Conditions**: a golden berry that can appear even if the player didn't finish the map, didn't unlock C-sides yet and/or died if you want it to.
 - **Horizontal Room Wrap Controller**: drop this controller in a room, and Madeline will reappear on the left if she goes off-screen on the right! For this to work, be sure to lock the camera horizontally by using a Camera Target Trigger with lerp = 1 and X Only enabled. Pulled from Celsius by 0x0ade.
 - **Custom Stars effect**: much like the vanilla Stars effect, except you can use your own sprites for the stars.
+- **Core Mode Spikes**: spikes that change textures depending on core mode. Reskinnable in the same way as vanilla ones.

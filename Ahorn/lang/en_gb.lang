@@ -146,3 +146,13 @@ placements.entities.MaxHelpingHand/GoldenStrawberryCustomConditions.tooltips.mus
 # Custom Stars
 placements.effects.MaxHelpingHand/CustomStars.tooltips.spriteDirectory=The directory containing all the star sprites.\nTo make your own, you can take example on Graphics/Atlases/Gameplay/bgs/02/stars, and drop your sprites in Mods/yourmod/Graphics/Atlases/Gameplay/MyMap/mystars. Then, type MyMap/mystars in this field.
 placements.effects.MaxHelpingHand/CustomStars.tooltips.disableTinting=If enabled, the stars won't be teal tinted when in Dreaming mode like vanilla ones are.
+
+# Core Mode Spikes
+placements.entities.MaxHelpingHand/CoreModeSpikesUp.tooltips.hotType=Changes the visual appearance of the spikes while in Hot or None core mode.
+placements.entities.MaxHelpingHand/CoreModeSpikesUp.tooltips.coldType=Changes the visual appearance of the spikes while in Cold core mode.
+placements.entities.MaxHelpingHand/CoreModeSpikesDown.tooltips.hotType=Changes the visual appearance of the spikes while in Hot or None core mode.
+placements.entities.MaxHelpingHand/CoreModeSpikesDown.tooltips.coldType=Changes the visual appearance of the spikes while in Cold core mode.
+placements.entities.MaxHelpingHand/CoreModeSpikesLeft.tooltips.hotType=Changes the visual appearance of the spikes while in Hot or None core mode.
+placements.entities.MaxHelpingHand/CoreModeSpikesLeft.tooltips.coldType=Changes the visual appearance of the spikes while in Cold core mode.
+placements.entities.MaxHelpingHand/CoreModeSpikesRight.tooltips.hotType=Changes the visual appearance of the spikes while in Hot or None core mode.
+placements.entities.MaxHelpingHand/CoreModeSpikesRight.tooltips.coldType=Changes the visual appearance of the spikes while in Cold core mode.
