@@ -12,6 +12,7 @@ namespace Celeste.Mod.MaxHelpingHand.Effects {
     class CustomStars : StarsBG {
         internal static string StarsDirectory;
         internal static bool TintingDisabled;
+        internal static int StarCount;
 
         public static void Load() {
             IL.Celeste.StarsBG.ctor += modStarsBGConstructor;
@@ -77,6 +78,20 @@ namespace Celeste.Mod.MaxHelpingHand.Effects {
                     return orig;
                 });
             }
+
+            // mod the star count.
+            cursor.Index = 0;
+            if (cursor.TryGotoNext(MoveType.After, instr => instr.MatchLdcI4(100))) {
+                Logger.Log("MaxHelpingHand/CustomStars", $"Injecting call to customize star count at {cursor.Index} in IL for the StarsBG constructor");
+
+                cursor.Emit(OpCodes.Ldarg_0);
+                cursor.EmitDelegate<Func<int, StarsBG, int>>((orig, self) => {
+                    if (self is CustomStars) {
+                        return StarCount;
+                    }
+                    return orig;
+                });
+            }
         }
 
         private static void modStarsBGRender(ILContext il) {
@@ -94,12 +109,28 @@ namespace Celeste.Mod.MaxHelpingHand.Effects {
                     return orig;
                 });
             }
+
+            // mod the star count.
+            cursor.Index = 0;
+            if (cursor.TryGotoNext(MoveType.After, instr => instr.MatchLdcI4(100))) {
+                Logger.Log("MaxHelpingHand/CustomStars", $"Injecting call to customize star count at {cursor.Index} in IL for StarsBG.Render");
+
+                cursor.Emit(OpCodes.Ldarg_0);
+                cursor.EmitDelegate<Func<int, StarsBG, int>>((orig, self) => {
+                    if (self is CustomStars customStars) {
+                        return customStars.starCount;
+                    }
+                    return orig;
+                });
+            }
         }
 
         private bool tintingDisabled;
+        private int starCount;
 
-        public CustomStars(bool tintingDisabled) : base() {
+        public CustomStars(bool tintingDisabled, int starCount) : base() {
             this.tintingDisabled = tintingDisabled;
+            this.starCount = starCount;
         }
     }
 }
