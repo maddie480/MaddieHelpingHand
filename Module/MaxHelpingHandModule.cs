@@ -28,6 +28,7 @@ namespace Celeste.Mod.MaxHelpingHand.Module {
             ReskinnableSwapBlock.Load();
             ReskinnableCrushBlock.Load();
             CustomStars.Load();
+            KevinBarrier.Load();
 
             Everest.Events.Level.OnLoadBackdrop += onLoadBackdrop;
         }
@@ -46,6 +47,7 @@ namespace Celeste.Mod.MaxHelpingHand.Module {
             ReskinnableSwapBlock.Unload();
             ReskinnableCrushBlock.Unload();
             CustomStars.Unload();
+            KevinBarrier.Unload();
 
             Everest.Events.Level.OnLoadBackdrop -= onLoadBackdrop;
         }
