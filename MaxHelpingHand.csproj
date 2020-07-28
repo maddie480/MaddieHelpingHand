@@ -79,12 +79,14 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Ahorn\entities\maxHelpingHandReskinnableStarTrackSpinner.jl" />
     <Compile Include="Effects\CustomStars.cs" />
     <Compile Include="Entities\CoreModeSpikes.cs" />
     <Compile Include="Entities\GoldenStrawberryCustomConditions.cs" />
     <Compile Include="Entities\HorizontalRoomWrapController.cs" />
     <Compile Include="Entities\KevinBarrier.cs" />
     <Compile Include="Entities\KevinBarrierRenderer.cs" />
+    <Compile Include="Entities\ReskinnableStarTrackSpinner.cs" />
     <Compile Include="Triggers\CustomSandwichLavaSettingsTrigger.cs" />
     <None Include="Ahorn\effects\maxHelpingHandCustomStars.jl">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -232,6 +234,69 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Graphics\Atlases\Gameplay\ahorn\MaxHelpingHand\rainbowSpinnerColorControllerDisable.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Graphics\Atlases\Gameplay\danger\MaxHelpingHand\starSpinner\idle0_00.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Graphics\Atlases\Gameplay\danger\MaxHelpingHand\starSpinner\spin0_00.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Graphics\Atlases\Gameplay\danger\MaxHelpingHand\starSpinner\spin0_01.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Graphics\Atlases\Gameplay\danger\MaxHelpingHand\starSpinner\spin0_02.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Graphics\Atlases\Gameplay\danger\MaxHelpingHand\starSpinner\spin0_03.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Graphics\Atlases\Gameplay\danger\MaxHelpingHand\starSpinner\spin0_04.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Graphics\Atlases\Gameplay\danger\MaxHelpingHand\starSpinner\spin0_05.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Graphics\Atlases\Gameplay\danger\MaxHelpingHand\starSpinner\idle1_00.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Graphics\Atlases\Gameplay\danger\MaxHelpingHand\starSpinner\spin1_00.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Graphics\Atlases\Gameplay\danger\MaxHelpingHand\starSpinner\spin1_01.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Graphics\Atlases\Gameplay\danger\MaxHelpingHand\starSpinner\spin1_02.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Graphics\Atlases\Gameplay\danger\MaxHelpingHand\starSpinner\spin1_03.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Graphics\Atlases\Gameplay\danger\MaxHelpingHand\starSpinner\spin1_04.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Graphics\Atlases\Gameplay\danger\MaxHelpingHand\starSpinner\spin1_05.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Graphics\Atlases\Gameplay\danger\MaxHelpingHand\starSpinner\idle2_00.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Graphics\Atlases\Gameplay\danger\MaxHelpingHand\starSpinner\spin2_00.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Graphics\Atlases\Gameplay\danger\MaxHelpingHand\starSpinner\spin2_01.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Graphics\Atlases\Gameplay\danger\MaxHelpingHand\starSpinner\spin2_02.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Graphics\Atlases\Gameplay\danger\MaxHelpingHand\starSpinner\spin2_03.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Graphics\Atlases\Gameplay\danger\MaxHelpingHand\starSpinner\spin2_04.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Graphics\Atlases\Gameplay\danger\MaxHelpingHand\starSpinner\spin2_05.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Graphics\Atlases\Gameplay\danger\spikes\MaxHelpingHand\heatspike_down00.png">

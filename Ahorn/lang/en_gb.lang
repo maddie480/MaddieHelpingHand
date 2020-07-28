@@ -157,3 +157,9 @@ placements.entities.MaxHelpingHand/CoreModeSpikesLeft.tooltips.hotType=Changes t
 placements.entities.MaxHelpingHand/CoreModeSpikesLeft.tooltips.coldType=Changes the visual appearance of the spikes while in Cold core mode.
 placements.entities.MaxHelpingHand/CoreModeSpikesRight.tooltips.hotType=Changes the visual appearance of the spikes while in Hot or None core mode.
 placements.entities.MaxHelpingHand/CoreModeSpikesRight.tooltips.coldType=Changes the visual appearance of the spikes while in Cold core mode.
+
+# Reskinnable Star Track Spinner
+placements.entities.MaxHelpingHand/ReskinnableStarTrackSpinner.tooltips.speed=Changes the speed of the spinner's rotation.
+placements.entities.MaxHelpingHand/ReskinnableStarTrackSpinner.tooltips.startCenter=The spinner will start at the end of the track.
+placements.entities.MaxHelpingHand/ReskinnableStarTrackSpinner.tooltips.spriteFolder=The folder containing the star sprites. You can make your own by taking example on the Graphics/Atlases/Gameplay/danger/MaxHelpingHand/starSpinner folder that ships with the mod.
+placements.entities.MaxHelpingHand/ReskinnableStarTrackSpinner.tooltips.particleColors=The colors for the particles following the stars, in the format color1|color2,color1|color2... There should be the same amount of color pairs as there are different sprites for the star spinners.
