@@ -37,3 +37,6 @@ Provides the following things:
 - **Horizontal Room Wrap Controller**: drop this controller in a room, and Madeline will reappear on the left if she goes off-screen on the right! For this to work, be sure to lock the camera horizontally by using a Camera Target Trigger with lerp = 1 and X Only enabled. Pulled from Celsius by 0x0ade.
 - **Custom Stars effect**: much like the vanilla Stars effect, except you can use your own sprites for the stars.
 - **Core Mode Spikes**: spikes that change textures depending on core mode. Reskinnable in the same way as vanilla ones.
+- **Kevin Barrier**: a barrier blocking Kevins, but letting everything else go through.
+- **Reskinnable Star Track Spinner**: star track spinners from chapter 9, except you can change their textures and particle colors.
+- **Gradient Dust Trigger**: gives the dust sprites in your rooms a color gradient, similarly to rainbow spinners.
