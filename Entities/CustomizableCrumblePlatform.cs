@@ -82,7 +82,8 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
                 addRange(groupedCrumblePlatforms, CollideAll<CustomizableCrumblePlatform>(Position - Vector2.UnitY).OfType<CustomizableCrumblePlatform>().Where(p => p.grouped));
 
                 // share the set of platforms in the group with the group.
-                foreach (CustomizableCrumblePlatform platform in groupedCrumblePlatforms) {
+                foreach (CustomizableCrumblePlatform platform in new HashSet<CustomizableCrumblePlatform>(groupedCrumblePlatforms)) {
+                    addRange(groupedCrumblePlatforms, platform.groupedCrumblePlatforms);
                     platform.groupedCrumblePlatforms = groupedCrumblePlatforms;
                 }
             }
