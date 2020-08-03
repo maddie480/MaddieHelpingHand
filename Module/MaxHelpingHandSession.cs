@@ -8,5 +8,8 @@ namespace Celeste.Mod.MaxHelpingHand.Module {
         }
 
         public RainbowSpinnerColorState RainbowSpinnerCurrentColors { get; set; } = null;
+
+        public string GradientDustImagePath { get; set; } = null;
+        public float GradientDustScrollSpeed { get; set; } = 0f;
     }
 }

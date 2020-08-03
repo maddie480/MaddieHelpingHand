@@ -83,6 +83,7 @@
     <Compile Include="Effects\CustomStars.cs" />
     <Compile Include="Entities\CoreModeSpikes.cs" />
     <Compile Include="Entities\GoldenStrawberryCustomConditions.cs" />
+    <Compile Include="Entities\GradientDustTrigger.cs" />
     <Compile Include="Entities\HorizontalRoomWrapController.cs" />
     <Compile Include="Entities\KevinBarrier.cs" />
     <Compile Include="Entities\KevinBarrierRenderer.cs" />
@@ -200,6 +201,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Ahorn\triggers\maxHelpingHandCameraCatchupSpeed.jl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Ahorn\triggers\maxHelpingHandGradientDust.jl">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Ahorn\triggers\maxHelpingHandColorGradeFade.jl">
@@ -639,6 +643,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Graphics\Atlases\Gameplay\objects\MaxHelpingHand\glider\respawn07.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Graphics\Atlases\Gameplay\MaxHelpingHand\gradientdustbunnies\bluegreen.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
