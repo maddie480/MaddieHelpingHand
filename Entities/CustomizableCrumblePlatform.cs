@@ -157,7 +157,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
                 }
 
                 // wait if something is where the platform is supposed to respawn
-                while (CollideCheck<Actor>() || CollideCheck<Solid>()) {
+                while (CollideCheck<Actor>() || CollideCheck<Solid>() || isGroupCollidingWithSomething()) {
                     yield return null;
                 }
 
@@ -193,6 +193,15 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
                 }
             }
             return null;
+        }
+
+        private bool isGroupCollidingWithSomething() {
+            foreach (CustomizableCrumblePlatform platform in groupedCrumblePlatforms) {
+                if (platform.CollideCheck<Actor>() || platform.CollideCheck<Solid>()) {
+                    return true;
+                }
+            }
+            return false;
         }
     }
 }
