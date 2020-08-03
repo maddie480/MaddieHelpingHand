@@ -6,6 +6,7 @@ using Monocle;
 using MonoMod.Cil;
 using MonoMod.RuntimeDetour;
 using System;
+using System.IO;
 using System.Reflection;
 using static Celeste.DustStyles;
 
@@ -23,11 +24,19 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
         private static BlendState substractive = new BlendState() {
             ColorSourceBlend = Blend.One,
             AlphaSourceBlend = Blend.One,
-            ColorDestinationBlend = Blend.InverseSourceAlpha,
-            AlphaDestinationBlend = Blend.InverseSourceAlpha,
+            ColorDestinationBlend = Blend.One,
+            AlphaDestinationBlend = Blend.One,
             ColorBlendFunction = BlendFunction.Min,
             AlphaBlendFunction = BlendFunction.Min
         };
+
+        static GradientDustTrigger() {
+            if (File.Exists("BuildIsXNA.txt")) {
+                // I... don't get it. why **max** to get it to subtract? anyway, this works.
+                substractive.ColorBlendFunction = BlendFunction.Max;
+                substractive.AlphaBlendFunction = BlendFunction.Max;
+            }
+        }
 
         public static void Load() {
             On.Celeste.Level.LoadLevel += onLoadLevel;
