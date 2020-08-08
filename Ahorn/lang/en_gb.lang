@@ -167,3 +167,9 @@ placements.entities.MaxHelpingHand/ReskinnableStarTrackSpinner.tooltips.particle
 # Gradient Dust Trigger
 placements.triggers.MaxHelpingHand/GradientDustTrigger.tooltips.gradientImage=Path to a gradient image in Mods/yourmod/Graphics/Atlases/Gameplay. This should be a horizontal gradient image with a height of 180 pixels. Check Graphics/Atlases/Gameplay/MaxHelpingHand/gradientdustbunnies/bluegreen.png in the mod zip for an example.\nLeave the field blank to revert the dust to its vanilla color.
 placements.triggers.MaxHelpingHand/GradientDustTrigger.tooltips.scrollSpeed=The gradient scrolling speed in pixels/second.
+
+# Kevin Barrier
+placements.entities.MaxHelpingHand/KevinBarrier.tooltips.color=Changes the color of the barrier.
+placements.entities.MaxHelpingHand/KevinBarrier.tooltips.particleColor=Changes the color of the particles moving inside the barrier.
+placements.entities.MaxHelpingHand/KevinBarrier.tooltips.flashOnHit=Determines whether the barrier flashes when it is hit by a Kevin.
+placements.entities.MaxHelpingHand/KevinBarrier.tooltips.invisible=If checked, the Kevin barrier will be invisible (doesn't apply to the flashing).

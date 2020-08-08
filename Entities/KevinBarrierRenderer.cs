@@ -166,12 +166,12 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
 
         private void OnRenderBloom() {
             foreach (KevinBarrier barrier in list) {
-                if (barrier.Visible) {
+                if (barrier.Visible && !barrier.Invisible) {
                     Draw.Rect(barrier.X, barrier.Y, barrier.Width, barrier.Height, barrier.Color);
                 }
             }
             foreach (Edge edge in edges) {
-                if (edge.Visible) {
+                if (edge.Visible && !edge.Parent.Invisible) {
                     Vector2 position = edge.Parent.Position + edge.A;
                     for (int i = 0; i <= edge.Length; i++) {
                         Vector2 positionPlusNormal = position + edge.Normal * i;
@@ -186,7 +186,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
                 return;
             }
             foreach (KevinBarrier barrier in list) {
-                if (barrier.Visible) {
+                if (barrier.Visible && !barrier.Invisible) {
                     Draw.Rect(barrier.Collider, barrier.Color);
                 }
             }
@@ -194,7 +194,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
                 return;
             }
             foreach (Edge edge in edges) {
-                if (edge.Visible) {
+                if (edge.Visible && !edge.Parent.Invisible) {
                     Vector2 position = edge.Parent.Position + edge.A;
                     for (int i = 0; i <= edge.Length; i++) {
                         Vector2 positionPlusNormal = position + edge.Normal * i;

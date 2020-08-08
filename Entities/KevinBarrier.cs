@@ -77,6 +77,9 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
         internal float Solidify = 0f;
         private float solidifyDelay = 0f;
         internal Color Color;
+        private Color particleColor;
+        private bool flashOnHit;
+        internal bool Invisible;
 
         private List<Vector2> particles = new List<Vector2>();
         private List<KevinBarrier> adjacent = new List<KevinBarrier>();
@@ -92,6 +95,9 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             }
 
             Color = Calc.HexToColor(data.Attr("color", "62222b"));
+            particleColor = Calc.HexToColor(data.Attr("particleColor", "ffffff"));
+            flashOnHit = data.Bool("flashOnHit", true);
+            Invisible = data.Bool("invisible", false);
         }
 
         public override void Added(Scene scene) {
@@ -143,11 +149,13 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
         }
 
         public override void Render() {
-            Color color = Color.White * 0.5f;
-            foreach (Vector2 particle in particles) {
-                Draw.Pixel.Draw(Position + particle, Vector2.Zero, color);
+            if (!Invisible) {
+                Color color = particleColor * 0.5f;
+                foreach (Vector2 particle in particles) {
+                    Draw.Pixel.Draw(Position + particle, Vector2.Zero, color);
+                }
             }
-            if (flashing) {
+            if (flashing && flashOnHit) {
                 Draw.Rect(Collider, Color.White * flash * 0.5f);
             }
         }

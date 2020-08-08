@@ -2,7 +2,8 @@
 
 using ..Ahorn, Maple
 
-@mapdef Entity "MaxHelpingHand/KevinBarrier" KevinBarrier(x::Integer, y::Integer, width::Integer=Maple.defaultBlockWidth, height::Integer=Maple.defaultBlockHeight, color::String="62222b")
+@mapdef Entity "MaxHelpingHand/KevinBarrier" KevinBarrier(x::Integer, y::Integer, width::Integer=Maple.defaultBlockWidth, height::Integer=Maple.defaultBlockHeight,
+    color::String="62222b", particleColor::String="ffffff", flashOnHit::Bool=true, invisible::Bool=false)
 
 const placements = Ahorn.PlacementDict(
     "Kevin Barrier (max480's Helping Hand)" => Ahorn.EntityPlacement(
