@@ -79,7 +79,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Ahorn\entities\maxHelpingHandReskinnableStarTrackSpinner.jl" />
+    <None Include="Ahorn\entities\maxHelpingHandReskinnableStarTrackSpinner.jl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <Compile Include="Effects\CustomStars.cs" />
     <Compile Include="Entities\CoreModeSpikes.cs" />
     <Compile Include="Entities\GoldenStrawberryCustomConditions.cs" />
