@@ -1,4 +1,5 @@
 ﻿using Celeste.Mod.Entities;
+using Celeste.Mod.MaxHelpingHand.Module;
 using Microsoft.Xna.Framework;
 using Mono.Cecil.Cil;
 using Monocle;
@@ -39,16 +40,26 @@ namespace Celeste.Mod.MaxHelpingHand.Triggers {
                     if (trigger != null) {
                         return trigger.catchupSpeed;
                     }
-                    return orig;
+                    return MaxHelpingHandModule.Instance.Session.CameraCatchupSpeed ?? orig;
                 });
             }
         }
 
 
         private float catchupSpeed;
+        private bool revertOnLeave;
 
         public CameraCatchupSpeedTrigger(EntityData data, Vector2 offset) : base(data, offset) {
             catchupSpeed = data.Float("catchupSpeed", 1f);
+            revertOnLeave = data.Bool("revertOnLeave", true);
+        }
+
+        public override void OnEnter(Player player) {
+            base.OnEnter(player);
+
+            if (!revertOnLeave) {
+                MaxHelpingHandModule.Instance.Session.CameraCatchupSpeed = catchupSpeed;
+            }
         }
     }
 }

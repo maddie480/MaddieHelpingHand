@@ -11,5 +11,6 @@ namespace Celeste.Mod.MaxHelpingHand.Module {
 
         public string GradientDustImagePath { get; set; } = null;
         public float GradientDustScrollSpeed { get; set; } = 0f;
+        public float? CameraCatchupSpeed { get; set; } = null;
     }
 }
