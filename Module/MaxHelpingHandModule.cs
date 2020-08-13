@@ -1,6 +1,8 @@
 ﻿using Celeste.Mod.MaxHelpingHand.Effects;
 using Celeste.Mod.MaxHelpingHand.Entities;
 using Celeste.Mod.MaxHelpingHand.Triggers;
+using Monocle;
+using Microsoft.Xna.Framework;
 using System;
 
 namespace Celeste.Mod.MaxHelpingHand.Module {
@@ -27,7 +29,6 @@ namespace Celeste.Mod.MaxHelpingHand.Module {
             RainbowSpinnerColorController.Load();
             ReskinnableSwapBlock.Load();
             ReskinnableCrushBlock.Load();
-            CustomStars.Load();
             KevinBarrier.Load();
             GradientDustTrigger.Load();
 
@@ -47,7 +48,6 @@ namespace Celeste.Mod.MaxHelpingHand.Module {
             RainbowSpinnerColorController.Unload();
             ReskinnableSwapBlock.Unload();
             ReskinnableCrushBlock.Unload();
-            CustomStars.Unload();
             KevinBarrier.Unload();
             GradientDustTrigger.Unload();
 
@@ -65,10 +65,15 @@ namespace Celeste.Mod.MaxHelpingHand.Module {
                 return new CustomPlanets(child.AttrInt("count", 32), child.Attr("directory", "MaxHelpingHand/customplanets/bigstars"), child.AttrFloat("animationDelay", 0.1f));
             }
             if (child.Name.Equals("MaxHelpingHand/CustomStars", StringComparison.OrdinalIgnoreCase)) {
-                CustomStars.StarsDirectory = child.Attr("spriteDirectory", "bgs/02/stars");
-                CustomStars.TintingDisabled = child.AttrBool("disableTinting", false);
-                CustomStars.StarCount = child.AttrInt("starCount", 100);
-                return new CustomStars(CustomStars.TintingDisabled, CustomStars.StarCount);
+                int? starCount = null;
+                if (int.TryParse(child.Attr("starCount", ""), out int starCountParsed)) {
+                    starCount = starCountParsed;
+                }
+                string tint = child.Attr("tint", "");
+                if (child.AttrBool("disableTinting", false)) {
+                    tint = "ffffff"; // approximative backwards compatibility
+                }
+                return new CustomStars(starCount, string.IsNullOrEmpty(tint) ? (Color?) null : Calc.HexToColor(tint), child.Attr("spriteDirectory", "bgs/02/stars"));
             }
             return null;
         }
