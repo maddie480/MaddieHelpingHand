@@ -165,6 +165,11 @@ placements.entities.MaxHelpingHand/ReskinnableStarTrackSpinner.tooltips.startCen
 placements.entities.MaxHelpingHand/ReskinnableStarTrackSpinner.tooltips.spriteFolder=The folder containing the star sprites. You can make your own by taking example on the Graphics/Atlases/Gameplay/danger/MaxHelpingHand/starSpinner folder that ships with the mod.
 placements.entities.MaxHelpingHand/ReskinnableStarTrackSpinner.tooltips.particleColors=The colors for the particles following the stars, in the format color1|color2,color1|color2... There should be the same amount of color pairs as there are different sprites for the star spinners.
 
+# Reskinnable Star Rotate Spinner
+placements.entities.MaxHelpingHand/ReskinnableStarRotateSpinner.tooltips.clockwise=The spinning star will run clockwise.
+placements.entities.MaxHelpingHand/ReskinnableStarRotateSpinner.tooltips.spriteFolder=The folder containing the star sprites. You can make your own by taking example on the Graphics/Atlases/Gameplay/danger/MaxHelpingHand/starSpinner folder that ships with the mod.
+placements.entities.MaxHelpingHand/ReskinnableStarRotateSpinner.tooltips.particleColors=The colors for the particles following the stars, in the format color1|color2,color1|color2... There should be the same amount of color pairs as there are different sprites for the star spinners.
+
 # Gradient Dust Trigger
 placements.triggers.MaxHelpingHand/GradientDustTrigger.tooltips.gradientImage=Path to a gradient image in Mods/yourmod/Graphics/Atlases/Gameplay. This should be a horizontal gradient image with a height of 180 pixels. Check Graphics/Atlases/Gameplay/MaxHelpingHand/gradientdustbunnies/bluegreen.png in the mod zip for an example.\nLeave the field blank to revert the dust to its vanilla color.
 placements.triggers.MaxHelpingHand/GradientDustTrigger.tooltips.scrollSpeed=The gradient scrolling speed in pixels/second.

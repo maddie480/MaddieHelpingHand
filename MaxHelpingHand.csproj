@@ -79,6 +79,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Ahorn\entities\maxHelpingHandReskinnableStarRotateSpinner.jl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="Ahorn\entities\maxHelpingHandReskinnableStarTrackSpinner.jl">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -89,6 +92,7 @@
     <Compile Include="Entities\HorizontalRoomWrapController.cs" />
     <Compile Include="Entities\KevinBarrier.cs" />
     <Compile Include="Entities\KevinBarrierRenderer.cs" />
+    <Compile Include="Entities\ReskinnableStarRotateSpinner.cs" />
     <Compile Include="Entities\ReskinnableStarTrackSpinner.cs" />
     <Compile Include="Triggers\CustomSandwichLavaSettingsTrigger.cs" />
     <None Include="Ahorn\effects\maxHelpingHandCustomStars.jl">
