@@ -184,6 +184,11 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
         }
 
         internal static Color getModHue(Color[] colors, float gradientSize, Scene scene, Vector2 position, bool loopColors) {
+            if (colors.Length == 1) {
+                // edge case: there is 1 color, just return it!
+                return colors[0];
+            }
+
             float progress;
             if (loopColors) {
                 progress = (position.Length() + scene.TimeActive * 50f) % gradientSize / gradientSize;
