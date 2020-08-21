@@ -10,7 +10,7 @@ using System.IO;
 using System.Reflection;
 using static Celeste.DustStyles;
 
-namespace Celeste.Mod.MaxHelpingHand.Entities {
+namespace Celeste.Mod.MaxHelpingHand.Triggers {
     [CustomEntity("MaxHelpingHand/GradientDustTrigger")]
     class GradientDustTrigger : Trigger {
         // a white dust style.
