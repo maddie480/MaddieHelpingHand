@@ -3,7 +3,7 @@
 using ..Ahorn, Maple
 
 @mapdef Entity "MaxHelpingHand/GoldenStrawberryCustomConditions" GoldenStrawberryCustomConditions(x::Integer, y::Integer,
-    mustNotDieAndVisitFurtherRooms::Bool=true, mustHaveUnlockedCSides::Bool=true, mustHaveCompletedLevel::Bool=true)
+    mustNotDieAndVisitFurtherRooms::Bool=true, mustHaveUnlockedCSides::Bool=true, mustHaveCompletedLevel::Bool=true, showGoldenChapterCard::Bool=true)
 
 const placements = Ahorn.PlacementDict(
     "Golden Strawberry (Custom Conditions) (max480's Helping Hand)" => Ahorn.EntityPlacement(

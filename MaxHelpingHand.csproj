@@ -88,7 +88,7 @@
     <Compile Include="Effects\CustomStars.cs" />
     <Compile Include="Entities\CoreModeSpikes.cs" />
     <Compile Include="Entities\GoldenStrawberryCustomConditions.cs" />
-    <Compile Include="Entities\GradientDustTrigger.cs" />
+    <Compile Include="Triggers\GradientDustTrigger.cs" />
     <Compile Include="Entities\HorizontalRoomWrapController.cs" />
     <Compile Include="Entities\KevinBarrier.cs" />
     <Compile Include="Entities\KevinBarrierRenderer.cs" />

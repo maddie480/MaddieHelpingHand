@@ -31,6 +31,7 @@ namespace Celeste.Mod.MaxHelpingHand.Module {
             ReskinnableCrushBlock.Load();
             KevinBarrier.Load();
             GradientDustTrigger.Load();
+            GoldenStrawberryCustomConditions.Load();
 
             Everest.Events.Level.OnLoadBackdrop += onLoadBackdrop;
         }
@@ -50,6 +51,7 @@ namespace Celeste.Mod.MaxHelpingHand.Module {
             ReskinnableCrushBlock.Unload();
             KevinBarrier.Unload();
             GradientDustTrigger.Unload();
+            GoldenStrawberryCustomConditions.Unload();
 
             Everest.Events.Level.OnLoadBackdrop -= onLoadBackdrop;
         }
