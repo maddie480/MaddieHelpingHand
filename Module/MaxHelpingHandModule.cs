@@ -77,6 +77,15 @@ namespace Celeste.Mod.MaxHelpingHand.Module {
                 }
                 return new CustomStars(starCount, string.IsNullOrEmpty(tint) ? (Color?) null : Calc.HexToColor(tint), child.Attr("spriteDirectory", "bgs/02/stars"));
             }
+            if (child.Name.Equals("MaxHelpingHand/SnowCustomColors", StringComparison.OrdinalIgnoreCase)) {
+                string[] colorsAsStrings = child.Attr("colors").Split(',');
+                Color[] colors = new Color[colorsAsStrings.Length];
+                for (int i = 0; i < colors.Length; i++) {
+                    colors[i] = Calc.HexToColor(colorsAsStrings[i]);
+                }
+
+                return new SnowCustomColors(colors, child.AttrBool("foreground"));
+            }
             return null;
         }
 

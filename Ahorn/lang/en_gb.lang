@@ -180,3 +180,6 @@ placements.entities.MaxHelpingHand/KevinBarrier.tooltips.color=Changes the color
 placements.entities.MaxHelpingHand/KevinBarrier.tooltips.particleColor=Changes the color of the particles moving inside the barrier.
 placements.entities.MaxHelpingHand/KevinBarrier.tooltips.flashOnHit=Determines whether the barrier flashes when it is hit by a Kevin.
 placements.entities.MaxHelpingHand/KevinBarrier.tooltips.invisible=If checked, the Kevin barrier will be invisible (doesn't apply to the flashing).
+
+# Snow with Custom Colors
+placements.effects.MaxHelpingHand/SnowCustomColors.tooltips.colors=Comma-separated list of all colors the particles can take from.
