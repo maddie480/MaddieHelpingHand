@@ -160,7 +160,11 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
                     nextSpinnerController = null;
                 }
 
-                return getModHue(spinnerControllerOnScreen.colors, spinnerControllerOnScreen.gradientSize, self.Scene, self.Position, spinnerControllerOnScreen.loopColors);
+                if (spinnerControllerOnScreen != null) {
+                    return getModHue(spinnerControllerOnScreen.colors, spinnerControllerOnScreen.gradientSize, self.Scene, self.Position, spinnerControllerOnScreen.loopColors);
+                } else {
+                    return orig(self, position);
+                }
             } else {
                 // get the spinner color in the room we're coming from.
                 Color fromRoomColor;
