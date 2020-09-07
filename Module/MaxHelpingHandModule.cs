@@ -17,6 +17,8 @@ namespace Celeste.Mod.MaxHelpingHand.Module {
         }
 
         public override void Load() {
+            Logger.SetLogLevel("MaxHelpingHand", LogLevel.Info);
+
             TempleEyeTrackingMadeline.Load();
             CameraCatchupSpeedTrigger.Load();
             FlagTouchSwitch.Load();
