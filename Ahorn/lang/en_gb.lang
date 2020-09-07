@@ -183,3 +183,10 @@ placements.entities.MaxHelpingHand/KevinBarrier.tooltips.invisible=If checked, t
 
 # Snow with Custom Colors
 placements.effects.MaxHelpingHand/SnowCustomColors.tooltips.colors=Comma-separated list of all colors the particles can take from.
+
+# Customizable Glass Block
+placements.entities.MaxHelpingHand/CustomizableGlassBlock.tooltips.behindFgTiles=Whether the glass block outline should appear behind foreground tiles.
+
+# Customizable Glass Block Controller
+placements.entities.MaxHelpingHand/CustomizableGlassBlockController.tooltips.starColors=A comma-separated list of all star colours visible in glass blocks in the room.
+placements.entities.MaxHelpingHand/CustomizableGlassBlockController.tooltips.bgColor=The background colour for glass blocks in the room.
