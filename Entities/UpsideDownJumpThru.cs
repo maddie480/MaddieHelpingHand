@@ -56,7 +56,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             }
             hooksActive = true;
 
-            Logger.Log("MaxHelpingHand/UpsideDownJumpThru", "=== Activating upside-down jumpthru hooks");
+            Logger.Log(LogLevel.Info, "MaxHelpingHand/UpsideDownJumpThru", "=== Activating upside-down jumpthru hooks");
 
             using (new DetourContext { Before = { "*" } }) { // these don't always call the orig methods, better apply them first.
                 // fix general actor/platform behavior to make them comply with jumpthrus.
@@ -89,7 +89,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             }
             hooksActive = false;
 
-            Logger.Log("MaxHelpingHand/UpsideDownJumpThru", "=== Deactivating upside-down jumpthru hooks");
+            Logger.Log(LogLevel.Info, "MaxHelpingHand/UpsideDownJumpThru", "=== Deactivating upside-down jumpthru hooks");
 
             On.Celeste.Actor.MoveVExact -= onActorMoveVExact;
             On.Celeste.Platform.MoveVExactCollideSolids -= onPlatformMoveVExactCollideSolids;

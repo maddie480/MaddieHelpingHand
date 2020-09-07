@@ -92,7 +92,7 @@ namespace Celeste.Mod.MaxHelpingHand.Triggers {
         // ==== end non-static stuff
 
         private static void applyGradient(string imagePath, float scrollSpeed) {
-            Logger.Log("MaxHelpingHand/GradientDustTrigger", "Applying gradient dust with path: " + imagePath + " and scroll speed " + scrollSpeed);
+            Logger.Log(LogLevel.Info, "MaxHelpingHand/GradientDustTrigger", "Applying gradient dust with path: " + imagePath + " and scroll speed " + scrollSpeed);
 
             image = GFX.Game[imagePath];
             speed = scrollSpeed;
@@ -109,7 +109,7 @@ namespace Celeste.Mod.MaxHelpingHand.Triggers {
         }
 
         private static void discardGradient() {
-            Logger.Log("MaxHelpingHand/GradientDustTrigger", "Discarding gradient dust");
+            Logger.Log(LogLevel.Info, "MaxHelpingHand/GradientDustTrigger", "Discarding gradient dust");
 
             unhook();
 

@@ -71,7 +71,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             }
             hooksActive = true;
 
-            Logger.Log("MaxHelpingHand/SidewaysJumpThru", "=== Activating sideways jumpthru hooks");
+            Logger.Log(LogLevel.Info, "MaxHelpingHand/SidewaysJumpThru", "=== Activating sideways jumpthru hooks");
 
             // implement the basic collision between actors/platforms and sideways jumpthrus.
             using (new DetourContext { Before = { "*" } }) { // these don't always call the orig methods, better apply them first.
@@ -97,7 +97,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             }
             hooksActiveNoJungleHelper = true;
 
-            Logger.Log("MaxHelpingHand/SidewaysJumpThru", "=== Activating non Jungle Helper sideways jumpthru hooks");
+            Logger.Log(LogLevel.Debug, "MaxHelpingHand/SidewaysJumpThru", "=== Activating non Jungle Helper sideways jumpthru hooks");
 
             // implement the basic collision between actors/platforms and sideways jumpthrus.
             using (new DetourContext { Before = { "*" } }) { // these don't always call the orig methods, better apply them first.
@@ -123,7 +123,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             }
             hooksActive = false;
 
-            Logger.Log("MaxHelpingHand/SidewaysJumpThru", "=== Deactivating sideways jumpthru hooks");
+            Logger.Log(LogLevel.Info, "MaxHelpingHand/SidewaysJumpThru", "=== Deactivating sideways jumpthru hooks");
 
             On.Celeste.Platform.MoveHExactCollideSolids -= onPlatformMoveHExactCollideSolids;
 
@@ -141,7 +141,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             }
             hooksActiveNoJungleHelper = false;
 
-            Logger.Log("MaxHelpingHand/SidewaysJumpThru", "=== Deactivating non Jungle Helper sideways jumpthru hooks");
+            Logger.Log(LogLevel.Debug, "MaxHelpingHand/SidewaysJumpThru", "=== Deactivating non Jungle Helper sideways jumpthru hooks");
 
             On.Celeste.Actor.MoveHExact -= onActorMoveHExact;
 
