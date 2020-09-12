@@ -306,6 +306,276 @@
     <Content Include="Graphics\Atlases\Gameplay\bgs\MaxHelpingHand\graystars\c03.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Graphics\Atlases\Gameplay\characters\player_playback\death_h00.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Graphics\Atlases\Gameplay\characters\player_playback\death_h01.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Graphics\Atlases\Gameplay\characters\player_playback\death_h02.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Graphics\Atlases\Gameplay\characters\player_playback\death_h03.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Graphics\Atlases\Gameplay\characters\player_playback\death_h04.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Graphics\Atlases\Gameplay\characters\player_playback\death_h05.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Graphics\Atlases\Gameplay\characters\player_playback\death_h06.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Graphics\Atlases\Gameplay\characters\player_playback\death_h07.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Graphics\Atlases\Gameplay\characters\player_playback\death_h08.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Graphics\Atlases\Gameplay\characters\player_playback\death_h09.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Graphics\Atlases\Gameplay\characters\player_playback\death_h10.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Graphics\Atlases\Gameplay\characters\player_playback\death_h11.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Graphics\Atlases\Gameplay\characters\player_playback\death_h12.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Graphics\Atlases\Gameplay\characters\player_playback\death_h13.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Graphics\Atlases\Gameplay\characters\player_playback\death_h14.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Graphics\Atlases\Gameplay\characters\player_playback\edge_back00.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Graphics\Atlases\Gameplay\characters\player_playback\edge_back01.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Graphics\Atlases\Gameplay\characters\player_playback\edge_back02.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Graphics\Atlases\Gameplay\characters\player_playback\edge_back03.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Graphics\Atlases\Gameplay\characters\player_playback\edge_back04.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Graphics\Atlases\Gameplay\characters\player_playback\edge_back05.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Graphics\Atlases\Gameplay\characters\player_playback\edge_back06.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Graphics\Atlases\Gameplay\characters\player_playback\edge_back07.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Graphics\Atlases\Gameplay\characters\player_playback\edge_back08.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Graphics\Atlases\Gameplay\characters\player_playback\edge_back09.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Graphics\Atlases\Gameplay\characters\player_playback\edge_back10.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Graphics\Atlases\Gameplay\characters\player_playback\edge_back11.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Graphics\Atlases\Gameplay\characters\player_playback\edge_back12.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Graphics\Atlases\Gameplay\characters\player_playback\edge_back13.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Graphics\Atlases\Gameplay\characters\player_playback\flip00.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Graphics\Atlases\Gameplay\characters\player_playback\flip01.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Graphics\Atlases\Gameplay\characters\player_playback\flip02.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Graphics\Atlases\Gameplay\characters\player_playback\flip03.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Graphics\Atlases\Gameplay\characters\player_playback\flip04.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Graphics\Atlases\Gameplay\characters\player_playback\flip05.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Graphics\Atlases\Gameplay\characters\player_playback\flip06.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Graphics\Atlases\Gameplay\characters\player_playback\flip07.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Graphics\Atlases\Gameplay\characters\player_playback\flip08.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Graphics\Atlases\Gameplay\characters\player_playback\idle_carry00.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Graphics\Atlases\Gameplay\characters\player_playback\idle_carry01.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Graphics\Atlases\Gameplay\characters\player_playback\idle_carry02.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Graphics\Atlases\Gameplay\characters\player_playback\idle_carry03.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Graphics\Atlases\Gameplay\characters\player_playback\idle_carry04.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Graphics\Atlases\Gameplay\characters\player_playback\idle_carry05.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Graphics\Atlases\Gameplay\characters\player_playback\idle_carry06.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Graphics\Atlases\Gameplay\characters\player_playback\idle_carry07.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Graphics\Atlases\Gameplay\characters\player_playback\idle_carry08.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Graphics\Atlases\Gameplay\characters\player_playback\jump_carry00.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Graphics\Atlases\Gameplay\characters\player_playback\jump_carry01.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Graphics\Atlases\Gameplay\characters\player_playback\jump_carry02.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Graphics\Atlases\Gameplay\characters\player_playback\jump_carry03.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Graphics\Atlases\Gameplay\characters\player_playback\pickup00.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Graphics\Atlases\Gameplay\characters\player_playback\pickup01.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Graphics\Atlases\Gameplay\characters\player_playback\pickup02.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Graphics\Atlases\Gameplay\characters\player_playback\pickup03.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Graphics\Atlases\Gameplay\characters\player_playback\pickup04.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Graphics\Atlases\Gameplay\characters\player_playback\run_carry00.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Graphics\Atlases\Gameplay\characters\player_playback\run_carry01.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Graphics\Atlases\Gameplay\characters\player_playback\run_carry02.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Graphics\Atlases\Gameplay\characters\player_playback\run_carry03.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Graphics\Atlases\Gameplay\characters\player_playback\run_carry04.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Graphics\Atlases\Gameplay\characters\player_playback\run_carry05.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Graphics\Atlases\Gameplay\characters\player_playback\run_carry06.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Graphics\Atlases\Gameplay\characters\player_playback\run_carry07.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Graphics\Atlases\Gameplay\characters\player_playback\run_carry08.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Graphics\Atlases\Gameplay\characters\player_playback\run_carry09.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Graphics\Atlases\Gameplay\characters\player_playback\run_carry10.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Graphics\Atlases\Gameplay\characters\player_playback\run_carry11.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Graphics\Atlases\Gameplay\characters\player_playback\swim00.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Graphics\Atlases\Gameplay\characters\player_playback\swim01.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Graphics\Atlases\Gameplay\characters\player_playback\swim02.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Graphics\Atlases\Gameplay\characters\player_playback\swim03.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Graphics\Atlases\Gameplay\characters\player_playback\swim04.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Graphics\Atlases\Gameplay\characters\player_playback\swim05.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Graphics\Atlases\Gameplay\characters\player_playback\swim06.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Graphics\Atlases\Gameplay\characters\player_playback\swim07.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Graphics\Atlases\Gameplay\characters\player_playback\swim08.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Graphics\Atlases\Gameplay\characters\player_playback\swim09.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Graphics\Atlases\Gameplay\characters\player_playback\swim10.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Graphics\Atlases\Gameplay\characters\player_playback\swim11.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Graphics\Atlases\Gameplay\characters\player_playback\Swim12.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Graphics\Atlases\Gameplay\characters\player_playback\Swim13.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Graphics\Atlases\Gameplay\characters\player_playback\Swim14.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Graphics\Atlases\Gameplay\characters\player_playback\Swim15.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Graphics\Atlases\Gameplay\characters\player_playback\Swim16.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Graphics\Atlases\Gameplay\characters\player_playback\Swim17.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Graphics\Atlases\Gameplay\characters\player_playback\throw00.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Graphics\Atlases\Gameplay\characters\player_playback\throw01.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Graphics\Atlases\Gameplay\characters\player_playback\throw02.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Graphics\Atlases\Gameplay\characters\player_playback\throw03.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Graphics\Atlases\Gameplay\danger\MaxHelpingHand\starSpinner\idle0_00.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
