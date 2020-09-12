@@ -197,3 +197,6 @@ placements.entities.MaxHelpingHand/MultiNodeMovingPlatform.tooltips.pauseTime=Th
 placements.entities.MaxHelpingHand/MultiNodeMovingPlatform.tooltips.mode=Determines the way the platform will move between its nodes. For example, with 3 nodes A, B, C:\n- Loop: A > B > C > A\n- LoopNoPause: A > A (going through B and C)\n- BackAndForth: A > B > C > B > A\n- BackAndForthNoPause: A > C > A (going through B)\n- TeleportBack: A > B > C, then the platform teleports to A upon reaching C
 placements.entities.MaxHelpingHand/MultiNodeMovingPlatform.tooltips.texture=What texture to use for the platform.
 placements.entities.MaxHelpingHand/MultiNodeMovingPlatform.tooltips.easing=Whether the platform movement should be eased (speedup/slowdown around each position).
+
+# Madeline Silhouette Trigger
+placements.triggers.MaxHelpingHand/MadelineSilhouetteTrigger.tooltips.enable=If checked, the trigger will turn Madeline into a silhouette. If unchecked, it will turn Madeline back to normal.
