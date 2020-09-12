@@ -190,3 +190,10 @@ placements.entities.MaxHelpingHand/CustomizableGlassBlock.tooltips.behindFgTiles
 # Customizable Glass Block Controller
 placements.entities.MaxHelpingHand/CustomizableGlassBlockController.tooltips.starColors=A comma-separated list of all star colours visible in glass blocks in the room.
 placements.entities.MaxHelpingHand/CustomizableGlassBlockController.tooltips.bgColor=The background colour for glass blocks in the room.
+
+# Multi-Node Moving Platform
+placements.entities.MaxHelpingHand/MultiNodeMovingPlatform.tooltips.moveTime=The time the platform takes to move between two successive positions. Default is 2 seconds.
+placements.entities.MaxHelpingHand/MultiNodeMovingPlatform.tooltips.pauseTime=The time the platform stops at each position. Default is 0 seconds.
+placements.entities.MaxHelpingHand/MultiNodeMovingPlatform.tooltips.mode=Determines the way the platform will move between its nodes. For example, with 3 nodes A, B, C:\n- Loop: A > B > C > A\n- LoopNoPause: A > A (going through B and C)\n- BackAndForth: A > B > C > B > A\n- BackAndForthNoPause: A > C > A (going through B)\n- TeleportBack: A > B > C, then the platform teleports to A upon reaching C
+placements.entities.MaxHelpingHand/MultiNodeMovingPlatform.tooltips.texture=What texture to use for the platform.
+placements.entities.MaxHelpingHand/MultiNodeMovingPlatform.tooltips.easing=Whether the platform movement should be eased (speedup/slowdown around each position).

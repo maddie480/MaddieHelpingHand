@@ -88,6 +88,9 @@
     <None Include="Ahorn\entities\maxHelpingHandCustomizableGlassBlock.jl">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="Ahorn\entities\maxHelpingHandMultiNodeMovingPlatform.jl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="Ahorn\entities\maxHelpingHandParallaxFadeOutController.jl">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -103,6 +106,7 @@
     <Compile Include="Entities\CustomizableGlassBlock.cs" />
     <Compile Include="Entities\CustomizableGlassBlockController.cs" />
     <Compile Include="Entities\GoldenStrawberryCustomConditions.cs" />
+    <Compile Include="Entities\MultiNodeMovingPlatform.cs" />
     <Compile Include="Entities\ParallaxFadeOutController.cs" />
     <Compile Include="Triggers\GradientDustTrigger.cs" />
     <Compile Include="Entities\HorizontalRoomWrapController.cs" />
