@@ -80,6 +80,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Triggers\MadelineSilhouetteTrigger.cs" />
+    <Compile Include="Triggers\PauseBadelineBossesTrigger.cs" />
     <None Include="Ahorn\effects\maxHelpingHandSnowCustomColors.jl">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -239,7 +240,10 @@
     <None Include="Ahorn\triggers\maxHelpingHandCustomSandwichLavaSettings.jl">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Ahorn\triggers\maxHelpingHandMadelineSilhouetteTrigger.jl">
+    <None Include="Ahorn\triggers\maxHelpingHandMadelineSilhouette.jl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Ahorn\triggers\maxHelpingHandPauseBadelineBosses.jl">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Ahorn\triggers\maxHelpingHandStrawberryCollectionField.jl">
