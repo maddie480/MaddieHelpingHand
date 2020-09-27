@@ -30,8 +30,6 @@ end
 
 function Ahorn.renderAbs(ctx::Ahorn.Cairo.CairoContext, entity::RotatingBumper, room::Maple.Room)
     x, y = Ahorn.position(entity)
-
-    texture = get(entity.data, "texture", "default")
     
     Ahorn.drawSprite(ctx, sprite, x, y)
 end

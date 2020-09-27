@@ -114,10 +114,6 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             }
         }
 
-        public override void Awake(Scene scene) {
-            base.Awake(scene);
-        }
-
         public override void Render() {
             textures[0].Draw(Position);
             for (int i = 8; i < Width - 8f; i += 8) {
