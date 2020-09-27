@@ -80,6 +80,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Entities\MultiNodeBumper.cs" />
+    <Compile Include="Entities\RotatingBumper.cs" />
     <Compile Include="Triggers\MadelineSilhouetteTrigger.cs" />
     <Compile Include="Triggers\PauseBadelineBossesTrigger.cs" />
     <None Include="Ahorn\effects\maxHelpingHandSnowCustomColors.jl">
@@ -89,6 +90,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Ahorn\entities\maxHelpingHandCustomizableGlassBlock.jl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Ahorn\entities\maxHelpingHandRotatingBumper.jl">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Ahorn\entities\maxHelpingHandMultiNodeBumper.jl">

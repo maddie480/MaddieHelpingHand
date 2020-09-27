@@ -114,6 +114,10 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             }
         }
 
+        public override void Awake(Scene scene) {
+            base.Awake(scene);
+        }
+
         public override void Render() {
             textures[0].Draw(Position);
             for (int i = 8; i < Width - 8f; i += 8) {
@@ -134,11 +138,16 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
         internal void AnimateObject(StaticMover staticMover) {
             staticMovers.Add(staticMover);
             Visible = false;
-            Collidable = false;
+
+            Collider.Width = 8f;
+            Collider.Position -= new Vector2(4f, 2f);
         }
 
         public override void Update() {
             base.Update();
+
+            // the platform can only be interacted with if visible.
+            Collidable = Visible;
 
             // manage the "sinking" effect when the player is on the platform
             if (HasPlayerRider()) {

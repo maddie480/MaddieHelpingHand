@@ -17,7 +17,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
 
         private static void onBumperWiggle(On.Celeste.Bumper.orig_UpdatePosition orig, Bumper self) {
             // please don't make my bumpers wiggle.
-            if (!(self is MultiNodeBumper)) {
+            if (!(self is MultiNodeBumper) && !(self is RotatingBumper)) {
                 orig(self);
             }
         }
