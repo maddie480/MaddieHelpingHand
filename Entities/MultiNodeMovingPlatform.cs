@@ -99,15 +99,17 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             }
 
             // draw lines between all nodes
-            Vector2 lineOffset = new Vector2(Width, Height + 4f) / 2f;
-            scene.Add(new MovingPlatformLine(nodes[0] + lineOffset, nodes[1] + lineOffset));
-            if (nodes.Length > 2) {
-                for (int i = 1; i < nodes.Length - 1; i++) {
-                    scene.Add(new MovingPlatformLine(nodes[i] + lineOffset, nodes[i + 1] + lineOffset));
-                }
+            if (Visible) {
+                Vector2 lineOffset = new Vector2(Width, Height + 4f) / 2f;
+                scene.Add(new MovingPlatformLine(nodes[0] + lineOffset, nodes[1] + lineOffset));
+                if (nodes.Length > 2) {
+                    for (int i = 1; i < nodes.Length - 1; i++) {
+                        scene.Add(new MovingPlatformLine(nodes[i] + lineOffset, nodes[i + 1] + lineOffset));
+                    }
 
-                if (mode == Mode.Loop || mode == Mode.LoopNoPause) {
-                    scene.Add(new MovingPlatformLine(nodes[nodes.Length - 1] + lineOffset, nodes[0] + lineOffset));
+                    if (mode == Mode.Loop || mode == Mode.LoopNoPause) {
+                        scene.Add(new MovingPlatformLine(nodes[nodes.Length - 1] + lineOffset, nodes[0] + lineOffset));
+                    }
                 }
             }
         }
@@ -123,6 +125,16 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
 
         public override void OnStaticMoverTrigger(StaticMover sm) {
             sinkTimer = 0.4f;
+        }
+
+        /// <summary>
+        /// Makes this platform animate another entity, instead of ... serving as a platform.
+        /// </summary>
+        /// <param name="staticMover">The static mover associated to the entity to animate</param>
+        internal void AnimateObject(StaticMover staticMover) {
+            staticMovers.Add(staticMover);
+            Visible = false;
+            Collidable = false;
         }
 
         public override void Update() {
@@ -147,7 +159,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
                 MoveTo(nodes[prevNodeIndex] + new Vector2(0f, addY));
                 return;
             } else {
-                if (percent == 0) {
+                if (percent == 0 && Visible) {
                     // the platform started moving. play sound
                     if (lastSfx == "event:/game/03_resort/platform_horiz_left") {
                         sfx.Play(lastSfx = "event:/game/03_resort/platform_horiz_right");
