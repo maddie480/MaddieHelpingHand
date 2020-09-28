@@ -5,14 +5,14 @@ using System;
 
 namespace Celeste.Mod.MaxHelpingHand.Entities {
     [CustomEntity("MaxHelpingHand/RotatingBumper")]
-    class RotatingBumper : Bumper {
+    class RotatingBumper : BumperNotCoreMode {
         private Vector2 center;
         private readonly float radius;
         private readonly float speed; // in rad/s
 
         private float currentAngle;
 
-        public RotatingBumper(EntityData data, Vector2 offset) : base(data.Position + offset, null) {
+        public RotatingBumper(EntityData data, Vector2 offset) : base(data.Position + offset, null, data.Bool("notCoreMode", false)) {
             Vector2 startingPosition = Position;
 
             center = data.NodesOffset(offset)[0];

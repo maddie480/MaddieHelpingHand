@@ -79,6 +79,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Entities\BumperNotCoreMode.cs" />
     <Compile Include="Entities\MultiNodeBumper.cs" />
     <Compile Include="Entities\RotatingBumper.cs" />
     <Compile Include="Triggers\MadelineSilhouetteTrigger.cs" />

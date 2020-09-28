@@ -203,6 +203,7 @@ placements.entities.MaxHelpingHand/MultiNodeBumper.tooltips.moveTime=The time th
 placements.entities.MaxHelpingHand/MultiNodeBumper.tooltips.pauseTime=The time the bumper stops at each position. Default is 0 seconds.
 placements.entities.MaxHelpingHand/MultiNodeBumper.tooltips.mode=Determines the way the bumper will move between its nodes. For example, with 3 nodes A, B, C:\n- Loop: A > B > C > A\n- LoopNoPause: A > A (going through B and C)\n- BackAndForth: A > B > C > B > A\n- BackAndForthNoPause: A > C > A (going through B)\n- TeleportBack: A > B > C, then the platform teleports to A upon reaching C
 placements.entities.MaxHelpingHand/MultiNodeBumper.tooltips.easing=Whether the bumper movement should be eased (speedup/slowdown around each position).
+placements.entities.MaxHelpingHand/MultiNodeBumper.tooltips.notCoreMode=If checked, this bumper will never take the "fire" form that kills the player.
 
 # Madeline Silhouette Trigger
 placements.triggers.MaxHelpingHand/MadelineSilhouetteTrigger.tooltips.enable=If checked, the trigger will turn Madeline into a silhouette. If unchecked, it will turn Madeline back to normal.
@@ -210,3 +211,4 @@ placements.triggers.MaxHelpingHand/MadelineSilhouetteTrigger.tooltips.enable=If 
 # Rotating Bumper
 placements.entities.MaxHelpingHand/RotatingBumper.tooltips.speed=The rotating speed in degrees per second. Use a negative number for counterclockwise rotation.
 placements.entities.MaxHelpingHand/RotatingBumper.tooltips.attachToCenter=Whether the spinner should attach to any solid colliding with the rotation center.
+placements.entities.MaxHelpingHand/RotatingBumper.tooltips.notCoreMode=If checked, this bumper will never take the "fire" form that kills the player.

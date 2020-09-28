@@ -6,7 +6,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
     // a multi-node bumper, except it's actually just a static bumper attached to a multi-node moving platform because yes
     // ... I swear, this is code reusing, not a jank hack. :distracteline:
     [CustomEntity("MaxHelpingHand/MultiNodeBumper")]
-    class MultiNodeBumper : Bumper {
+    class MultiNodeBumper : BumperNotCoreMode {
         public static void Load() {
             On.Celeste.Bumper.UpdatePosition += onBumperWiggle;
         }
@@ -25,7 +25,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
         private readonly EntityData thisEntityData;
         private readonly Vector2 thisOffset;
 
-        public MultiNodeBumper(EntityData data, Vector2 offset) : base(data.Position + offset, null) {
+        public MultiNodeBumper(EntityData data, Vector2 offset) : base(data.Position + offset, null, data.Bool("notCoreMode", false)) {
             thisEntityData = data;
             thisOffset = offset;
         }
