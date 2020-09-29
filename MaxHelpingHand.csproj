@@ -82,6 +82,10 @@
     <Compile Include="Entities\BumperNotCoreMode.cs" />
     <Compile Include="Entities\MultiNodeBumper.cs" />
     <Compile Include="Entities\RotatingBumper.cs" />
+    <Compile Include="Triggers\FlagToggleSmoothCameraOffsetTrigger.cs" />
+    <Compile Include="Triggers\FlagToggleCameraTargetTrigger.cs" />
+    <Compile Include="Triggers\FlagToggleCameraOffsetTrigger.cs" />
+    <Compile Include="Triggers\FlagToggleComponent.cs" />
     <Compile Include="Triggers\MadelineSilhouetteTrigger.cs" />
     <Compile Include="Triggers\PauseBadelineBossesTrigger.cs" />
     <None Include="Ahorn\effects\maxHelpingHandSnowCustomColors.jl">
@@ -238,6 +242,15 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Ahorn\triggers\maxHelpingHandCameraCatchupSpeed.jl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Ahorn\triggers\maxHelpingHandFlagToggleCameraOffsetTrigger.jl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Ahorn\triggers\maxHelpingHandFlagToggleCameraTargetTrigger.jl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Ahorn\triggers\maxHelpingHandFlagToggleSmoothCameraOffsetTrigger.jl">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Ahorn\triggers\maxHelpingHandGradientDust.jl">

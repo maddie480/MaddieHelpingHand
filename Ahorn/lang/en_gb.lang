@@ -212,3 +212,28 @@ placements.triggers.MaxHelpingHand/MadelineSilhouetteTrigger.tooltips.enable=If 
 placements.entities.MaxHelpingHand/RotatingBumper.tooltips.speed=The rotating speed in degrees per second. Use a negative number for counterclockwise rotation.
 placements.entities.MaxHelpingHand/RotatingBumper.tooltips.attachToCenter=Whether the spinner should attach to any solid colliding with the rotation center.
 placements.entities.MaxHelpingHand/RotatingBumper.tooltips.notCoreMode=If checked, this bumper will never take the "fire" form that kills the player.
+
+# Flag Toggle Smooth Camera Offset Trigger
+placements.triggers.MaxHelpingHand/FlagToggleSmoothCameraOffsetTrigger.tooltips.offsetXFrom=The X offset to fade from.
+placements.triggers.MaxHelpingHand/FlagToggleSmoothCameraOffsetTrigger.tooltips.offsetXTo=The X offset to fade to.
+placements.triggers.MaxHelpingHand/FlagToggleSmoothCameraOffsetTrigger.tooltips.offsetYFrom=The Y offset to fade from.
+placements.triggers.MaxHelpingHand/FlagToggleSmoothCameraOffsetTrigger.tooltips.offsetYTo=The Y offset to fade to.
+placements.triggers.MaxHelpingHand/FlagToggleSmoothCameraOffsetTrigger.tooltips.positionMode=The fade direction.
+placements.triggers.MaxHelpingHand/FlagToggleSmoothCameraOffsetTrigger.tooltips.onlyOnce=If checked, the trigger will be disabled when the player first leaves it.
+placements.triggers.MaxHelpingHand/FlagToggleSmoothCameraOffsetTrigger.tooltips.flag=The flag this trigger should react to.
+placements.triggers.MaxHelpingHand/FlagToggleSmoothCameraOffsetTrigger.tooltips.inverted=If checked, the trigger will be disabled when the flag is active.\nIf unchecked, the trigger will be enabled when the flag is active.
+
+# Flag Toggle Camera Target Trigger
+placements.triggers.MaxHelpingHand/FlagToggleCameraTargetTrigger.tooltips.positionMode=Determines which direction the camera position moves in.
+placements.triggers.MaxHelpingHand/FlagToggleCameraTargetTrigger.tooltips.yOnly=The camera will only lock on the Y axis.
+placements.triggers.MaxHelpingHand/FlagToggleCameraTargetTrigger.tooltips.xOnly=The camera will only lock on the X axis.
+placements.triggers.MaxHelpingHand/FlagToggleCameraTargetTrigger.tooltips.lerpStrength=Determines how fast the camera moves to lock into place upon activation.
+placements.triggers.MaxHelpingHand/FlagToggleCameraTargetTrigger.tooltips.deleteFlag=Session flag to deactivate the trigger, ignored if left empty. Camera will not reset if player is inside the trigger as it deactivates.\nIf the player transitions into the room with the flag set, the trigger can not be reactivated. However, if it was enabled and then disabled in the room, the player can reactivate it.
+placements.triggers.MaxHelpingHand/FlagToggleCameraTargetTrigger.tooltips.flag=The flag this trigger should react to.
+placements.triggers.MaxHelpingHand/FlagToggleCameraTargetTrigger.tooltips.inverted=If checked, the trigger will be disabled when the flag is active.\nIf unchecked, the trigger will be enabled when the flag is active.
+
+# Flag Toggle Camera Offset Trigger
+placements.triggers.MaxHelpingHand/FlagToggleCameraOffsetTrigger.tooltips.cameraX=Offsets the player camera on the X axis.
+placements.triggers.MaxHelpingHand/FlagToggleCameraOffsetTrigger.tooltips.cameraY=Offsets the player camera on the Y axis.
+placements.triggers.MaxHelpingHand/FlagToggleCameraOffsetTrigger.tooltips.flag=The flag this trigger should react to.
+placements.triggers.MaxHelpingHand/FlagToggleCameraOffsetTrigger.tooltips.inverted=If checked, the trigger will be disabled when the flag is active.\nIf unchecked, the trigger will be enabled when the flag is active.
