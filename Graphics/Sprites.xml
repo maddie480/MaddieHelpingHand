@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Sprites>
+  <player_playback copy="player" path="characters/player_playback/">
+    <Anim id="roll" path="roll" frames="0-12" delay="0.05"/>
+    <Anim id="rollGetUp" path="roll" frames="12-16" delay=".1" goto="downed"/>
+    <Loop id="downed" path="downed" delay="0.8" frames="0"/>
+  </player_playback>
+</Sprites>
