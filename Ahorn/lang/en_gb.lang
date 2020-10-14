@@ -22,6 +22,8 @@ placements.entities.MaxHelpingHand/FlagSwitchGate.tooltips.inactiveColor=The gat
 placements.entities.MaxHelpingHand/FlagSwitchGate.tooltips.activeColor=The gate icon colour when triggered, but the group is not complete yet.
 placements.entities.MaxHelpingHand/FlagSwitchGate.tooltips.finishColor=The gate icon colour when the group is complete.
 placements.entities.MaxHelpingHand/FlagSwitchGate.tooltips.sprite=The texture for the gate block.
+placements.entities.MaxHelpingHand/FlagSwitchGate.tooltips.shakeTime=The time (in seconds) the block spends shaking before starting to move. Vanilla value is 0.5 seconds.
+placements.entities.MaxHelpingHand/FlagSwitchGate.tooltips.moveTime=The time (in seconds) the block takes to move to its destination after shaking. Vanilla value is 1.8 seconds.
 
 # Customizable Crumble Platform
 placements.entities.MaxHelpingHand/CustomizableCrumblePlatform.tooltips.texture=What texture to use for the crumble block.

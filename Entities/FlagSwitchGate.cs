@@ -36,9 +36,12 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
 
         public bool Triggered { get; private set; }
 
-        private Color inactiveColor;
-        private Color activeColor;
-        private Color finishColor;
+        private readonly Color inactiveColor;
+        private readonly Color activeColor;
+        private readonly Color finishColor;
+
+        private readonly float shakeTime;
+        private readonly float moveTime;
 
         public FlagSwitchGate(EntityData data, Vector2 offset)
             : base(data.Position + offset, data.Width, data.Height, safe: false) {
@@ -50,6 +53,9 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             inactiveColor = Calc.HexToColor(data.Attr("inactiveColor", "5FCDE4"));
             activeColor = Calc.HexToColor(data.Attr("activeColor", "FFFFFF"));
             finishColor = Calc.HexToColor(data.Attr("finishColor", "F141DF"));
+
+            shakeTime = data.Float("shakeTime", 0.5f);
+            moveTime = data.Float("moveTime", 1.8f);
 
             P_RecoloredFire = new ParticleType(TouchSwitch.P_Fire) {
                 Color = finishColor
@@ -124,18 +130,22 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
 
             // animate the icon
             openSfx.Play("event:/game/general/touchswitch_gate_open");
-            StartShaking(0.5f);
-            while (icon.Rate < 1f) {
-                icon.Color = Color.Lerp(inactiveColor, activeColor, icon.Rate);
-                icon.Rate += Engine.DeltaTime * 2f;
-                yield return null;
+            if (shakeTime > 0f) {
+                StartShaking(shakeTime);
+                while (icon.Rate < 1f) {
+                    icon.Color = Color.Lerp(inactiveColor, activeColor, icon.Rate);
+                    icon.Rate += Engine.DeltaTime / shakeTime;
+                    yield return null;
+                }
+            } else {
+                icon.Rate = 1f;
             }
 
             yield return 0.1f;
 
             // move the switch gate, emitting particles along the way
             int particleAt = 0;
-            Tween tween = Tween.Create(Tween.TweenMode.Oneshot, Ease.CubeOut, 2f, start: true);
+            Tween tween = Tween.Create(Tween.TweenMode.Oneshot, Ease.CubeOut, moveTime + 0.2f, start: true);
             tween.OnUpdate = tweenArg => {
                 MoveTo(Vector2.Lerp(start, node, tweenArg.Eased));
                 if (Scene.OnInterval(0.1f)) {
@@ -153,7 +163,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             };
             Add(tween);
 
-            yield return 1.8f;
+            yield return moveTime;
 
             bool collidableBackup = Collidable;
             Collidable = false;

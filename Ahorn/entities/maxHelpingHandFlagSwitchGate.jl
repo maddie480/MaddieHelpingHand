@@ -3,9 +3,10 @@
 using ..Ahorn, Maple
 
 @pardef FlagSwitchGate(x1::Integer, y1::Integer, x2::Integer=x1+16, y2::Integer=y1, width::Integer=Maple.defaultBlockWidth, height::Integer=Maple.defaultBlockHeight,
-    sprite::String="block", persistent::Bool=false, flag::String="flag_touch_switch", icon::String="vanilla", inactiveColor::String="5FCDE4", activeColor::String="FFFFFF", finishColor::String="F141DF") =
+    sprite::String="block", persistent::Bool=false, flag::String="flag_touch_switch", icon::String="vanilla", inactiveColor::String="5FCDE4", activeColor::String="FFFFFF", finishColor::String="F141DF",
+    shakeTime::Number=0.5, moveTime::Number=1.8) =
     Entity("MaxHelpingHand/FlagSwitchGate", x=x1, y=y1, nodes=Tuple{Int, Int}[(x2, y2)], width=width, height=height, sprite=sprite, persistent=persistent, flag=flag, icon=icon,
-    inactiveColor=inactiveColor, activeColor=activeColor, finishColor=finishColor)
+    inactiveColor=inactiveColor, activeColor=activeColor, finishColor=finishColor, shakeTime=shakeTime, moveTime=moveTime)
 
 function gateFinalizer(entity)
     x, y = Ahorn.position(entity)
