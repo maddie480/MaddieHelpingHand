@@ -42,6 +42,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
 
         private readonly float shakeTime;
         private readonly float moveTime;
+        private readonly bool moveEased;
 
         public FlagSwitchGate(EntityData data, Vector2 offset)
             : base(data.Position + offset, data.Width, data.Height, safe: false) {
@@ -56,6 +57,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
 
             shakeTime = data.Float("shakeTime", 0.5f);
             moveTime = data.Float("moveTime", 1.8f);
+            moveEased = data.Bool("moveEased", true);
 
             P_RecoloredFire = new ParticleType(TouchSwitch.P_Fire) {
                 Color = finishColor
@@ -145,7 +147,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
 
             // move the switch gate, emitting particles along the way
             int particleAt = 0;
-            Tween tween = Tween.Create(Tween.TweenMode.Oneshot, Ease.CubeOut, moveTime + 0.2f, start: true);
+            Tween tween = Tween.Create(Tween.TweenMode.Oneshot, moveEased ? Ease.CubeOut : null, moveTime + (moveEased ? 0.2f : 0f), start: true);
             tween.OnUpdate = tweenArg => {
                 MoveTo(Vector2.Lerp(start, node, tweenArg.Eased));
                 if (Scene.OnInterval(0.1f)) {
