@@ -14,12 +14,14 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             On.Celeste.CrushBlock.ctor_EntityData_Vector2 += onCrushBlockConstruct;
             IL.Celeste.CrushBlock.ctor_Vector2_float_float_Axes_bool += modCrushBlockSprites;
             IL.Celeste.CrushBlock.AddImage += modCrushBlockSprites;
+            On.Celeste.CrushBlock.ActivateParticles += activateParticles;
         }
 
         public static void Unload() {
             On.Celeste.CrushBlock.ctor_EntityData_Vector2 -= onCrushBlockConstruct;
             IL.Celeste.CrushBlock.ctor_Vector2_float_float_Axes_bool -= modCrushBlockSprites;
             IL.Celeste.CrushBlock.AddImage -= modCrushBlockSprites;
+            On.Celeste.CrushBlock.ActivateParticles -= activateParticles;
         }
 
         private static void onCrushBlockConstruct(On.Celeste.CrushBlock.orig_ctor_EntityData_Vector2 orig, CrushBlock self, EntityData data, Vector2 offset) {
@@ -50,6 +52,9 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
 
 
         private string spriteDirectory;
+
+        private ParticleType crushParticleColor;
+        private ParticleType activateParticleColor;
 
         public ReskinnableCrushBlock(EntityData data, Vector2 offset) : base(data, offset) {
             DynData<CrushBlock> self = new DynData<CrushBlock>(this);
@@ -93,6 +98,37 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
 
             // customize the fill color.
             self["fill"] = Calc.HexToColor(data.Attr("fillColor", "62222b"));
+
+            crushParticleColor = new ParticleType(P_Crushing) {
+                Color = Calc.HexToColor(data.Attr("crushParticleColor1", "ff66e2")),
+                Color2 = Calc.HexToColor(data.Attr("crushParticleColor2", "68fcff"))
+            };
+            activateParticleColor = new ParticleType(P_Activate) {
+                Color = Calc.HexToColor(data.Attr("activateParticleColor1", "5fcde4")),
+                Color2 = Calc.HexToColor(data.Attr("activateParticleColor2", "ffffff"))
+            };
+        }
+
+        public override void Update() {
+            ParticleType origCrushParticle = P_Crushing;
+            P_Crushing = crushParticleColor;
+
+            base.Update();
+
+            P_Crushing = origCrushParticle;
+        }
+
+        private static void activateParticles(On.Celeste.CrushBlock.orig_ActivateParticles orig, CrushBlock self, Vector2 dir) {
+            if (self is ReskinnableCrushBlock crush) {
+                ParticleType origActivateParticle = P_Activate;
+                P_Activate = crush.activateParticleColor;
+
+                orig(self, dir);
+
+                P_Activate = origActivateParticle;
+            } else {
+                orig(self, dir);
+            }
         }
     }
 }

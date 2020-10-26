@@ -69,6 +69,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
         }
 
         private string spriteDirectory;
+        private ParticleType customParticleColor;
 
         public ReskinnableSwapBlock(EntityData data, Vector2 offset) : base(data, offset) {
             DynData<SwapBlock> self = new DynData<SwapBlock>(this);
@@ -83,6 +84,20 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             middleRed.Reset(GFX.Game, spriteDirectory + "/");
             middleRed.AddLoop("idle", "midBlockRed", 0.08f);
             middleRed.Play("idle");
+
+            customParticleColor = new ParticleType(P_Move) {
+                Color = Calc.HexToColor(data.Attr("particleColor1", "fbf236")),
+                Color2 = Calc.HexToColor(data.Attr("particleColor2", "6abe30"))
+            };
+        }
+
+        public override void Update() {
+            ParticleType oldMove = P_Move;
+            P_Move = customParticleColor;
+
+            base.Update();
+
+            P_Move = oldMove;
         }
     }
 }

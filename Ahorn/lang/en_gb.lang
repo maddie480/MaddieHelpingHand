@@ -105,6 +105,10 @@ placements.triggers.MaxHelpingHand/ColorGradeFadeTrigger.tooltips.direction=The 
 
 # Reskinnable Swap Block
 placements.entities.MaxHelpingHand/ReskinnableSwapBlock.tooltips.spriteDirectory=The directory containing all the swap block sprites.\nTo make your own, copy Graphics/Atlases/Gameplay/objects/swapblock (or objects/swapblock/moon) to Mods/yourmod/Graphics/Atlases/Gameplay/MyMap/myswapblock and type MyMap/myswapblock in this field.
+placements.entities.MaxHelpingHand/ReskinnableSwapBlock.tooltips.particleColor1=One of the 2 colors of the particles the swap block emits when it moves.
+placements.entities.MaxHelpingHand/ReskinnableSwapBlock.tooltips.particleColor2=One of the 2 colors of the particles the swap block emits when it moves.
+placements.entities.MaxHelpingHand/ReskinnableSwapBlock.names.particleColor1=Particle Color 1
+placements.entities.MaxHelpingHand/ReskinnableSwapBlock.names.particleColor2=Particle Color 2
 
 # Custom Planets
 placements.effects.MaxHelpingHand/CustomPlanets.names.scrollx=Scroll X
@@ -125,6 +129,14 @@ placements.entities.MaxHelpingHand/ReskinnableCrushBlock.tooltips.axes=Determine
 placements.entities.MaxHelpingHand/ReskinnableCrushBlock.tooltips.chillout=Whether the block should have the large face and get tired after being hit.
 placements.entities.MaxHelpingHand/ReskinnableCrushBlock.tooltips.spriteDirectory=The directory containing all the Kevin sprites.\nTo make your own, copy Graphics/Atlases/Gameplay/objects/crushblock to Mods/yourmod/Graphics/Atlases/Gameplay/MyMap/mycrushblock and type MyMap/mycrushblock in this field.
 placements.entities.MaxHelpingHand/ReskinnableCrushBlock.tooltips.fillColor=The color used to fill the Kevin, used between the face sprite and the borders.
+placements.entities.MaxHelpingHand/ReskinnableCrushBlock.tooltips.crushParticleColor1=One of the 2 colors of the particles the crush block emits when it moves.
+placements.entities.MaxHelpingHand/ReskinnableCrushBlock.tooltips.crushParticleColor2=One of the 2 colors of the particles the crush block emits when it moves.
+placements.entities.MaxHelpingHand/ReskinnableCrushBlock.names.crushParticleColor1=Crush Particle Color 1
+placements.entities.MaxHelpingHand/ReskinnableCrushBlock.names.crushParticleColor2=Crush Particle Color 2
+placements.entities.MaxHelpingHand/ReskinnableCrushBlock.tooltips.activateParticleColor1=One of the 2 colors of the particles the crush block emits when it is hit by the player.
+placements.entities.MaxHelpingHand/ReskinnableCrushBlock.tooltips.activateParticleColor2=One of the 2 colors of the particles the crush block emits when it is hit by the player.
+placements.entities.MaxHelpingHand/ReskinnableCrushBlock.names.activateParticleColor1=Activate Particle Color 1
+placements.entities.MaxHelpingHand/ReskinnableCrushBlock.names.activateParticleColor2=Activate Particle Color 2
 
 # Custom Sandwich Lava
 placements.entities.MaxHelpingHand/CustomSandwichLava.tooltips.direction=Changes the sandwich lava direction. CoreModeBased is the same behaviour as vanilla, depending on core mode.
