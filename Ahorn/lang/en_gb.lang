@@ -272,4 +272,4 @@ placements.triggers.MaxHelpingHand/SpeedBasedMusicParamTrigger.tooltips.minSpeed
 placements.triggers.MaxHelpingHand/SpeedBasedMusicParamTrigger.tooltips.maxSpeed=The maximum speed at which the music parameter will change.
 placements.triggers.MaxHelpingHand/SpeedBasedMusicParamTrigger.tooltips.minParamValue=The value the music parameter will take when the player speed is "Min Speed" or below.
 placements.triggers.MaxHelpingHand/SpeedBasedMusicParamTrigger.tooltips.maxParamValue=The value the music parameter will take when the player speed is "Max Speed" or above.
-placements.triggers.MaxHelpingHand/SpeedBasedMusicParamTrigger.tooltips.activate=If ticked, the trigger will start adjusting the music parameter to match the player's speed.\nIf unticked, the trigger will stop adjusting that music parameter, and set it to "Min Speed".
+placements.triggers.MaxHelpingHand/SpeedBasedMusicParamTrigger.tooltips.activate=If ticked, the trigger will start adjusting the music parameter to match the player's speed.\nIf unticked, the trigger will stop adjusting that music parameter, and set it to the "Min Param Value".

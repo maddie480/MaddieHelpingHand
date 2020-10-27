@@ -67,7 +67,7 @@ namespace Celeste.Mod.MaxHelpingHand.Triggers {
                 MaxHelpingHandModule.Instance.Session.ActiveSpeedBasedMusicParams.Remove(paramName);
 
                 AudioState audio = SceneAs<Level>().Session.Audio;
-                audio.Music.Param(paramName, minSpeed);
+                audio.Music.Param(paramName, minParamValue);
                 audio.Apply();
             }
         }
