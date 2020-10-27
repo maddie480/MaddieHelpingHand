@@ -1,5 +1,4 @@
-﻿
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace Celeste.Mod.MaxHelpingHand.Module {
     public class MaxHelpingHandSession : EverestModuleSession {
@@ -21,8 +20,6 @@ namespace Celeste.Mod.MaxHelpingHand.Module {
         public float GradientDustScrollSpeed { get; set; } = 0f;
         public float? CameraCatchupSpeed { get; set; } = null;
         public bool MadelineIsSilhouette { get; set; } = false;
-
-        public bool IcePhysicsDisabled { get; set; } = false;
 
         public List<MultiRoomStrawberrySeedInfo> CollectedMultiRoomStrawberrySeeds { get; set; } = new List<MultiRoomStrawberrySeedInfo>();
     }
