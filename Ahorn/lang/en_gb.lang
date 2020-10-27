@@ -252,3 +252,16 @@ placements.triggers.MaxHelpingHand/FlagToggleCameraOffsetTrigger.tooltips.camera
 placements.triggers.MaxHelpingHand/FlagToggleCameraOffsetTrigger.tooltips.cameraY=Offsets the player camera on the Y axis.
 placements.triggers.MaxHelpingHand/FlagToggleCameraOffsetTrigger.tooltips.flag=The flag this trigger should react to.
 placements.triggers.MaxHelpingHand/FlagToggleCameraOffsetTrigger.tooltips.inverted=If checked, the trigger will be disabled when the flag is active.\nIf unchecked, the trigger will be enabled when the flag is active.
+
+# Multi-Room Strawberry Seed
+placements.entities.MaxHelpingHand/MultiRoomStrawberrySeed.tooltips.strawberryName=The name of the strawberry this seed belongs to.
+placements.entities.MaxHelpingHand/MultiRoomStrawberrySeed.tooltips.sprite=The path to the sprite folder (relative to Graphics/Atlas/Gameplay/collectables).
+placements.entities.MaxHelpingHand/MultiRoomStrawberrySeed.tooltips.ghostSprite=The path to the sprite folder (relative to Graphics/Atlas/Gameplay/collectables) used when the strawberry is already collected.
+placements.entities.MaxHelpingHand/MultiRoomStrawberrySeed.tooltips.index=The order for this seed (determines the sound played on collection). If left to -1, Everest will auto-assign it.
+
+# Multi-Room Strawberry
+placements.entities.MaxHelpingHand/MultiRoomStrawberry.tooltips.name=The strawberry name, used to pair it with its seeds.
+placements.entities.MaxHelpingHand/MultiRoomStrawberry.tooltips.winged=The strawberry attempts to vertically rise offscreen when the player dashes.
+placements.entities.MaxHelpingHand/MultiRoomStrawberry.tooltips.checkpointID=Manually determine what checkpoint section strawberries are visually grouped up in, showing up on the start menu during gameplay and level select. Overrides Everest's automatic berry IDs. (Default= -1)
+placements.entities.MaxHelpingHand/MultiRoomStrawberry.tooltips.order=Manually determine what order strawberries are visually placed in on the start menu during gameplay and level select. Overrides Everest's automatic berry IDs. (Default= -1)
+placements.entities.MaxHelpingHand/MultiRoomStrawberry.tooltips.moon=Makes the strawberry render as a space berry.\nDoes not work with wings or nodes in the base game.
