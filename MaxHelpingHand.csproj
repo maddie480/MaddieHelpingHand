@@ -90,6 +90,7 @@
     <Compile Include="Triggers\FlagToggleComponent.cs" />
     <Compile Include="Triggers\MadelineSilhouetteTrigger.cs" />
     <Compile Include="Triggers\PauseBadelineBossesTrigger.cs" />
+    <Compile Include="Triggers\SpeedBasedMusicParamTrigger.cs" />
     <None Include="Ahorn\effects\maxHelpingHandSnowCustomColors.jl">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -252,13 +253,13 @@
     <None Include="Ahorn\triggers\maxHelpingHandCameraCatchupSpeed.jl">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Ahorn\triggers\maxHelpingHandFlagToggleCameraOffsetTrigger.jl">
+    <None Include="Ahorn\triggers\maxHelpingHandFlagToggleCameraOffset.jl">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Ahorn\triggers\maxHelpingHandFlagToggleCameraTargetTrigger.jl">
+    <None Include="Ahorn\triggers\maxHelpingHandFlagToggleCameraTarget.jl">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Ahorn\triggers\maxHelpingHandFlagToggleSmoothCameraOffsetTrigger.jl">
+    <None Include="Ahorn\triggers\maxHelpingHandFlagToggleSmoothCameraOffset.jl">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Ahorn\triggers\maxHelpingHandGradientDust.jl">
@@ -274,6 +275,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Ahorn\triggers\maxHelpingHandPauseBadelineBosses.jl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Ahorn\triggers\maxHelpingHandSpeedBasedMusicParam.jl">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Ahorn\triggers\maxHelpingHandStrawberryCollectionField.jl">

@@ -265,3 +265,11 @@ placements.entities.MaxHelpingHand/MultiRoomStrawberry.tooltips.winged=The straw
 placements.entities.MaxHelpingHand/MultiRoomStrawberry.tooltips.checkpointID=Manually determine what checkpoint section strawberries are visually grouped up in, showing up on the start menu during gameplay and level select. Overrides Everest's automatic berry IDs. (Default= -1)
 placements.entities.MaxHelpingHand/MultiRoomStrawberry.tooltips.order=Manually determine what order strawberries are visually placed in on the start menu during gameplay and level select. Overrides Everest's automatic berry IDs. (Default= -1)
 placements.entities.MaxHelpingHand/MultiRoomStrawberry.tooltips.moon=Makes the strawberry render as a space berry.\nDoes not work with wings or nodes in the base game.
+
+# Speed-Based Music Param Trigger
+placements.triggers.MaxHelpingHand/SpeedBasedMusicParamTrigger.tooltips.paramName=The name of the music parameter to change.
+placements.triggers.MaxHelpingHand/SpeedBasedMusicParamTrigger.tooltips.minSpeed=The minimum speed at which the music parameter will change.
+placements.triggers.MaxHelpingHand/SpeedBasedMusicParamTrigger.tooltips.maxSpeed=The maximum speed at which the music parameter will change.
+placements.triggers.MaxHelpingHand/SpeedBasedMusicParamTrigger.tooltips.minParamValue=The value the music parameter will take when the player speed is "Min Speed" or below.
+placements.triggers.MaxHelpingHand/SpeedBasedMusicParamTrigger.tooltips.maxParamValue=The value the music parameter will take when the player speed is "Max Speed" or above.
+placements.triggers.MaxHelpingHand/SpeedBasedMusicParamTrigger.tooltips.activate=If ticked, the trigger will start adjusting the music parameter to match the player's speed.\nIf unticked, the trigger will stop adjusting that music parameter, and set it to "Min Speed".

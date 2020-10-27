@@ -37,6 +37,7 @@ namespace Celeste.Mod.MaxHelpingHand.Module {
             MadelineSilhouetteTrigger.Load();
             MultiNodeBumper.Load();
             MultiRoomStrawberrySeed.Load();
+            SpeedBasedMusicParamTrigger.Load();
 
             Everest.Events.Level.OnLoadBackdrop += onLoadBackdrop;
         }
@@ -60,6 +61,7 @@ namespace Celeste.Mod.MaxHelpingHand.Module {
             MadelineSilhouetteTrigger.Unload();
             MultiNodeBumper.Unload();
             MultiRoomStrawberrySeed.Unload();
+            SpeedBasedMusicParamTrigger.Unload();
 
             Everest.Events.Level.OnLoadBackdrop -= onLoadBackdrop;
         }

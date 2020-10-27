@@ -14,6 +14,13 @@ namespace Celeste.Mod.MaxHelpingHand.Module {
             public string Sprite { get; set; }
         }
 
+        public class SpeedBasedMusicParamInfo {
+            public float MinimumSpeed { get; set; }
+            public float MaximumSpeed { get; set; }
+            public float MinimumParamValue { get; set; }
+            public float MaximumParamValue { get; set; }
+        }
+
         public RainbowSpinnerColorState RainbowSpinnerCurrentColors { get; set; } = null;
 
         public string GradientDustImagePath { get; set; } = null;
@@ -22,5 +29,7 @@ namespace Celeste.Mod.MaxHelpingHand.Module {
         public bool MadelineIsSilhouette { get; set; } = false;
 
         public List<MultiRoomStrawberrySeedInfo> CollectedMultiRoomStrawberrySeeds { get; set; } = new List<MultiRoomStrawberrySeedInfo>();
+
+        public Dictionary<string, SpeedBasedMusicParamInfo> ActiveSpeedBasedMusicParams = new Dictionary<string, SpeedBasedMusicParamInfo>();
     }
 }
