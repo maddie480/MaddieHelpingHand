@@ -208,6 +208,7 @@ placements.entities.MaxHelpingHand/CustomizableGlassBlock.tooltips.behindFgTiles
 # Customizable Glass Block Controller
 placements.entities.MaxHelpingHand/CustomizableGlassBlockController.tooltips.starColors=A comma-separated list of all star colours visible in glass blocks in the room.
 placements.entities.MaxHelpingHand/CustomizableGlassBlockController.tooltips.bgColor=The background colour for glass blocks in the room.
+placements.entities.MaxHelpingHand/CustomizableGlassBlockController.tooltips.wavy=Whether the glass blocks in the room should be wavy, like if they contained water. Vanilla glass blocks use this effect.
 
 # Multi-Node Moving Platform
 placements.entities.MaxHelpingHand/MultiNodeMovingPlatform.tooltips.moveTime=The time the platform takes to move between two successive positions. Default is 2 seconds.

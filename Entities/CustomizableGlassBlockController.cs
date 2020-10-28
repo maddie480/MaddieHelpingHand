@@ -59,6 +59,10 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             // do some more initialization.
             Add(new BeforeRenderHook(BeforeRender));
             Depth = -9990;
+
+            if (data.Bool("wavy", false)) {
+                Add(new DisplacementRenderHook(OnDisplacementRender));
+            }
         }
 
         public override void Awake(Scene scene) {
@@ -277,6 +281,13 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
 
         private float Mod(float x, float m) {
             return (x % m + m) % m;
+        }
+
+        private void OnDisplacementRender() {
+            List<Entity> blocks = Scene.Tracker.GetEntities<CustomizableGlassBlock>();
+            foreach (Entity block in blocks) {
+                Draw.Rect(block.X + 1, block.Y + 1, block.Width - 2, block.Height - 2, new Color(0.5f, 0.5f, 0.2f, 1f));
+            }
         }
     }
 }
