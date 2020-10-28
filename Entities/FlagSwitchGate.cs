@@ -19,6 +19,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
     [Tracked]
     class FlagSwitchGate : Solid {
         private ParticleType P_RecoloredFire;
+        private ParticleType P_RecoloredFireBack;
 
         private MTexture[,] nineSlice;
 
@@ -44,6 +45,8 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
         private readonly float moveTime;
         private readonly bool moveEased;
 
+        private readonly bool allowReturn;
+
         public FlagSwitchGate(EntityData data, Vector2 offset)
             : base(data.Position + offset, data.Width, data.Height, safe: false) {
 
@@ -59,8 +62,13 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             moveTime = data.Float("moveTime", 1.8f);
             moveEased = data.Bool("moveEased", true);
 
+            allowReturn = data.Bool("allowReturn", false);
+
             P_RecoloredFire = new ParticleType(TouchSwitch.P_Fire) {
                 Color = finishColor
+            };
+            P_RecoloredFireBack = new ParticleType(TouchSwitch.P_Fire) {
+                Color = inactiveColor
             };
 
             string iconAttribute = data.Attr("icon", "vanilla");
@@ -90,13 +98,24 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
 
         public override void Awake(Scene scene) {
             base.Awake(scene);
-            if (SceneAs<Level>().Session.GetFlag(Flag + "_gate" + ID) || SceneAs<Level>().Session.GetFlag(Flag)) {
+            if ((SceneAs<Level>().Session.GetFlag(Flag + "_gate" + ID) && !allowReturn) || SceneAs<Level>().Session.GetFlag(Flag)) {
+                if (allowReturn) {
+                    // watch the flag to return to the start if necessary.
+                    Add(new Coroutine(moveBackAndForthSequence(Position, node, startAtNode: true)));
+                }
+
                 MoveTo(node);
                 icon.Rate = 0f;
                 icon.SetAnimationFrame(0);
                 icon.Color = finishColor;
             } else {
-                Add(new Coroutine(Sequence(node)));
+                if (allowReturn) {
+                    // go back and forth as needed.
+                    Add(new Coroutine(moveBackAndForthSequence(Position, node, startAtNode: false)));
+                } else {
+                    // we are only going to the node, then stopping.
+                    Add(new Coroutine(moveSequence(node, goingBack: false)));
+                }
             }
         }
 
@@ -121,11 +140,43 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             Triggered = true;
         }
 
-        private IEnumerator Sequence(Vector2 node) {
+        private IEnumerator moveBackAndForthSequence(Vector2 position, Vector2 node, bool startAtNode) {
+            while (true) {
+                if (!startAtNode) {
+                    // go forth
+                    IEnumerator forthSeq = moveSequence(node, goingBack: false);
+                    while (forthSeq.MoveNext()) {
+                        yield return forthSeq.Current;
+                    }
+                }
+
+                // go back
+                IEnumerator backSeq = moveSequence(position, goingBack: true);
+                while (backSeq.MoveNext()) {
+                    yield return backSeq.Current;
+                }
+
+                startAtNode = false;
+            }
+        }
+
+        private IEnumerator moveSequence(Vector2 node, bool goingBack) {
             Vector2 start = Position;
 
-            while (!Triggered && !SceneAs<Level>().Session.GetFlag(Flag)) {
-                yield return null;
+            Color fromColor, toColor;
+
+            if (!goingBack) {
+                fromColor = inactiveColor;
+                toColor = finishColor;
+                while ((!Triggered || allowReturn) && !SceneAs<Level>().Session.GetFlag(Flag)) {
+                    yield return null;
+                }
+            } else {
+                fromColor = finishColor;
+                toColor = inactiveColor;
+                while (SceneAs<Level>().Session.GetFlag(Flag)) {
+                    yield return null;
+                }
             }
 
             yield return 0.1f;
@@ -135,7 +186,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             if (shakeTime > 0f) {
                 StartShaking(shakeTime);
                 while (icon.Rate < 1f) {
-                    icon.Color = Color.Lerp(inactiveColor, activeColor, icon.Rate);
+                    icon.Color = Color.Lerp(fromColor, activeColor, icon.Rate);
                     icon.Rate += Engine.DeltaTime / shakeTime;
                     yield return null;
                 }
@@ -165,7 +216,19 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             };
             Add(tween);
 
-            yield return moveTime;
+            float moveTimeLeft = moveTime;
+            while (moveTimeLeft > 0f) {
+                yield return null;
+                moveTimeLeft -= Engine.DeltaTime;
+
+                if (allowReturn && SceneAs<Level>().Session.GetFlag(Flag) == goingBack) {
+                    // whoops, the flag changed too fast! we need to backtrack.
+                    Remove(tween);
+                    icon.Rate = 0f;
+                    icon.SetAnimationFrame(0);
+                    yield break;
+                }
+            }
 
             bool collidableBackup = Collidable;
             Collidable = false;
@@ -227,7 +290,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             Audio.Play("event:/game/general/touchswitch_gate_finish", Position);
             StartShaking(0.2f);
             while (icon.Rate > 0f) {
-                icon.Color = Color.Lerp(activeColor, finishColor, 1f - icon.Rate);
+                icon.Color = Color.Lerp(activeColor, toColor, 1f - icon.Rate);
                 icon.Rate -= Engine.DeltaTime * 4f;
                 yield return null;
             }
@@ -241,7 +304,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             if (!Scene.CollideCheck<Solid>(Center)) {
                 for (int i = 0; i < 32; i++) {
                     float angle = Calc.Random.NextFloat((float) Math.PI * 2f);
-                    SceneAs<Level>().ParticlesFG.Emit(P_RecoloredFire, Position + iconOffset + Calc.AngleToVector(angle, 4f), angle);
+                    SceneAs<Level>().ParticlesFG.Emit(goingBack ? P_RecoloredFireBack : P_RecoloredFire, Position + iconOffset + Calc.AngleToVector(angle, 4f), angle);
                 }
             }
             Collidable = collidableBackup;

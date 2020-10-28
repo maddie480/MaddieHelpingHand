@@ -4,8 +4,8 @@ using System.Collections.Generic;
 namespace Celeste.Mod.MaxHelpingHand {
     class MaxHelpingHandMapDataProcessor : EverestMapDataProcessor {
 
-        // the structure here is: FlagTouchSwitches[AreaID][ModeID][flagName] = list of entity ids for flag touch switches / flag switch gates in this group on this map.
-        public static List<List<Dictionary<string, List<EntityID>>>> FlagTouchSwitches = new List<List<Dictionary<string, List<EntityID>>>>();
+        // the structure here is: FlagTouchSwitches[AreaID][ModeID][flagName, inverted] = list of entity ids for flag touch switches / flag switch gates in this group on this map.
+        public static List<List<Dictionary<KeyValuePair<string, bool>, List<EntityID>>>> FlagTouchSwitches = new List<List<Dictionary<KeyValuePair<string, bool>, List<EntityID>>>>();
         public static List<List<Dictionary<string, Dictionary<EntityID, bool>>>> FlagSwitchGates = new List<List<Dictionary<string, Dictionary<EntityID, bool>>>>();
         private string levelName;
 
@@ -28,15 +28,17 @@ namespace Celeste.Mod.MaxHelpingHand {
                 {
                     "entity:MaxHelpingHand/FlagTouchSwitch", flagTouchSwitch => {
                         string flag = flagTouchSwitch.Attr("flag");
-                        Dictionary<string, List<EntityID>> allTouchSwitchesInMap = FlagTouchSwitches[AreaKey.ID][(int) AreaKey.Mode];
+                        bool inverted = flagTouchSwitch.AttrBool("inverted", false);
+                        KeyValuePair<string, bool> key = new KeyValuePair<string, bool>(flag, inverted);
+                        Dictionary<KeyValuePair<string, bool>, List<EntityID>> allTouchSwitchesInMap = FlagTouchSwitches[AreaKey.ID][(int) AreaKey.Mode];
 
                         // if no dictionary entry exists for this flag, create one. otherwise, get it.
                         List<EntityID> entityIDs;
-                        if (!allTouchSwitchesInMap.ContainsKey(flag)) {
+                        if (!allTouchSwitchesInMap.ContainsKey(key)) {
                             entityIDs = new List<EntityID>();
-                            allTouchSwitchesInMap[flag] = entityIDs;
+                            allTouchSwitchesInMap[key] = entityIDs;
                         } else {
-                            entityIDs = allTouchSwitchesInMap[flag];
+                            entityIDs = allTouchSwitchesInMap[key];
                         }
 
                         // add this flag touch switch to the dictionary.
@@ -92,15 +94,15 @@ namespace Celeste.Mod.MaxHelpingHand {
         public override void Reset() {
             while (FlagTouchSwitches.Count <= AreaKey.ID) {
                 // fill out the empty space before the current map with empty dictionaries. 
-                FlagTouchSwitches.Add(new List<Dictionary<string, List<EntityID>>>());
+                FlagTouchSwitches.Add(new List<Dictionary<KeyValuePair<string, bool>, List<EntityID>>>());
             }
             while (FlagTouchSwitches[AreaKey.ID].Count <= (int) AreaKey.Mode) {
                 // fill out the empty space before the current map MODE with empty dictionaries. 
-                FlagTouchSwitches[AreaKey.ID].Add(new Dictionary<string, List<EntityID>>());
+                FlagTouchSwitches[AreaKey.ID].Add(new Dictionary<KeyValuePair<string, bool>, List<EntityID>>());
             }
 
             // reset the dictionary for the current map and mode.
-            FlagTouchSwitches[AreaKey.ID][(int) AreaKey.Mode] = new Dictionary<string, List<EntityID>>();
+            FlagTouchSwitches[AreaKey.ID][(int) AreaKey.Mode] = new Dictionary<KeyValuePair<string, bool>, List<EntityID>>();
 
 
             while (FlagSwitchGates.Count <= AreaKey.ID) {

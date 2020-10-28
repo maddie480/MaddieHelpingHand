@@ -69,6 +69,9 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
         private int id;
         private string flag;
 
+        private bool inverted;
+        private bool allowDisable;
+
         // contains all the touch switches in the room
         private List<FlagTouchSwitch> allTouchSwitchesInRoom;
 
@@ -113,6 +116,9 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             activeColor = Calc.HexToColor(data.Attr("activeColor", "FFFFFF"));
             finishColor = Calc.HexToColor(data.Attr("finishColor", "F141DF"));
 
+            inverted = data.Bool("inverted", false);
+            allowDisable = data.Bool("allowDisable", false);
+
             smoke = data.Bool("smoke", true);
 
             P_RecoloredFire = new ParticleType(TouchSwitch.P_Fire) {
@@ -149,8 +155,8 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
         public override void Added(Scene scene) {
             base.Added(scene);
 
-            if (level.Session.GetFlag(flag)) {
-                // start directly finished, since the session flag is already set.
+            if (inverted != level.Session.GetFlag(flag)) {
+                // start directly finished, since the session flag is already set (or the flag is inverted and unset).
                 Activated = true;
                 Finished = true;
 
@@ -211,7 +217,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
                     level.Session.SetFlag(flag + "_switch" + id, true);
                 }
 
-                if (MaxHelpingHandMapDataProcessor.FlagTouchSwitches[level.Session.Area.ID][(int) level.Session.Area.Mode][flag]
+                if (MaxHelpingHandMapDataProcessor.FlagTouchSwitches[level.Session.Area.ID][(int) level.Session.Area.Mode][new KeyValuePair<string, bool>(flag, inverted)]
                     .All(touchSwitchID => touchSwitchID.Level == level.Session.Level || level.Session.GetFlag(flag + "_switch" + touchSwitchID.ID))
                     && allTouchSwitchesInRoom.All(touchSwitch => touchSwitch.Activated)) {
 
@@ -249,7 +255,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
 
                     // if all the switches OR all the gates are persistent, the flag it's setting is persistent.
                     if (allTouchSwitchesInRoom.All(touchSwitch => touchSwitch.persistent) || allGatesTriggered) {
-                        level.Session.SetFlag(flag, true);
+                        level.Session.SetFlag(flag, !inverted);
                     }
                 }
             }
@@ -280,6 +286,18 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
                 } else if (Scene.OnInterval(0.03f) && smoke) {
                     Vector2 position = Position + new Vector2(0f, 1f) + Calc.AngleToVector(Calc.Random.NextAngle(), 5f);
                     level.ParticlesBG.Emit(P_RecoloredFire, position);
+                }
+
+                if (allowDisable && inverted == level.Session.GetFlag(flag)) {
+                    // we have to disable the touch switch! aaa
+                    if (persistent) {
+                        // if the touch switch is persistent, turn its flag off.
+                        level.Session.SetFlag(flag + "_switch" + id, false);
+                    }
+
+                    Activated = Finished = false;
+                    icon.Rate = 1f;
+                    icon.Play("spin");
                 }
             }
 
