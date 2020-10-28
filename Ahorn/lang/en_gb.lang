@@ -15,6 +15,11 @@ placements.entities.MaxHelpingHand/FlagTouchSwitch.tooltips.finishColor=The swit
 placements.entities.MaxHelpingHand/FlagTouchSwitch.tooltips.smoke=Whether the touch switch emits smoke when the group is complete.
 placements.entities.MaxHelpingHand/FlagTouchSwitch.tooltips.inverted=Whether the touch switch should turn off the flag instead of turning it on. The option should match on all touch switches of the group.
 placements.entities.MaxHelpingHand/FlagTouchSwitch.tooltips.allowDisable=Whether the touch switch can be disabled once the group is complete, if the flag change is reverted. Does not work with non-persistent flag switch gates.
+placements.entities.MaxHelpingHand/FlagTouchSwitch.tooltips.hitSound=The sound played when the switch is hit by the player.
+placements.entities.MaxHelpingHand/FlagTouchSwitch.tooltips.completeSoundFromSwitch=The sound emitted by the latest switch collected when the group is complete.
+placements.entities.MaxHelpingHand/FlagTouchSwitch.tooltips.completeSoundFromScene=A global sound emitted when the group is complete. As opposed to "Complete Sound (Switch)", this sound isn't emitted by a particular switch.
+placements.entities.MaxHelpingHand/FlagTouchSwitch.names.completeSoundFromSwitch=Complete Sound (Switch)
+placements.entities.MaxHelpingHand/FlagTouchSwitch.names.completeSoundFromScene=Complete Sound (Global)
 
 # Flag Switch Gate
 placements.entities.MaxHelpingHand/FlagSwitchGate.tooltips.flag=The session flag this switch gate reacts to. Give the same to multiple touch switches and switch gates to group them.
@@ -28,6 +33,8 @@ placements.entities.MaxHelpingHand/FlagSwitchGate.tooltips.shakeTime=The time (i
 placements.entities.MaxHelpingHand/FlagSwitchGate.tooltips.moveTime=The time (in seconds) the block takes to move to its destination after shaking. Vanilla value is 1.8 seconds.
 placements.entities.MaxHelpingHand/FlagSwitchGate.tooltips.moveEased=Whether the block should slow down before reaching its final position. If unchecked, the block will move at constant speed.
 placements.entities.MaxHelpingHand/FlagSwitchGate.tooltips.allowReturn=Whether the block should return to its original position if the flag is turned off. Only works if the gate is persistent.
+placements.entities.MaxHelpingHand/FlagSwitchGate.tooltips.moveSound=The sound played by the gate when it starts moving.
+placements.entities.MaxHelpingHand/FlagSwitchGate.tooltips.finishedSound=The sound played by the gate when it is done moving.
 
 # Customizable Crumble Platform
 placements.entities.MaxHelpingHand/CustomizableCrumblePlatform.tooltips.texture=What texture to use for the crumble block.

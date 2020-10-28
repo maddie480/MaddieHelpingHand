@@ -45,6 +45,9 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
         private readonly float moveTime;
         private readonly bool moveEased;
 
+        private readonly string moveSound;
+        private readonly string finishedSound;
+
         private readonly bool allowReturn;
 
         public FlagSwitchGate(EntityData data, Vector2 offset)
@@ -61,6 +64,9 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             shakeTime = data.Float("shakeTime", 0.5f);
             moveTime = data.Float("moveTime", 1.8f);
             moveEased = data.Bool("moveEased", true);
+
+            moveSound = data.Attr("moveSound", "event:/game/general/touchswitch_gate_open");
+            finishedSound = data.Attr("finishedSound", "event:/game/general/touchswitch_gate_finish");
 
             allowReturn = data.Bool("allowReturn", false);
 
@@ -182,7 +188,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             yield return 0.1f;
 
             // animate the icon
-            openSfx.Play("event:/game/general/touchswitch_gate_open");
+            openSfx.Play(moveSound);
             if (shakeTime > 0f) {
                 StartShaking(shakeTime);
                 while (icon.Rate < 1f) {
@@ -287,7 +293,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             Collidable = collidableBackup;
 
             // moving is over
-            Audio.Play("event:/game/general/touchswitch_gate_finish", Position);
+            Audio.Play(finishedSound, Position);
             StartShaking(0.2f);
             while (icon.Rate > 0f) {
                 icon.Color = Color.Lerp(activeColor, toColor, 1f - icon.Rate);

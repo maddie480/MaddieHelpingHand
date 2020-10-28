@@ -101,6 +101,10 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
 
         private BloomPoint bloom;
 
+        private string hitSound;
+        private string completeSoundFromSwitch;
+        private string completeSoundFromScene;
+
         private Level level => (Level) Scene;
 
         public FlagTouchSwitch(EntityData data, Vector2 offset)
@@ -115,6 +119,10 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             inactiveColor = Calc.HexToColor(data.Attr("inactiveColor", "5FCDE4"));
             activeColor = Calc.HexToColor(data.Attr("activeColor", "FFFFFF"));
             finishColor = Calc.HexToColor(data.Attr("finishColor", "F141DF"));
+
+            hitSound = data.Attr("hitSound", "event:/game/general/touchswitch_any");
+            completeSoundFromSwitch = data.Attr("completeSoundFromSwitch", "event:/game/general/touchswitch_last_cutoff");
+            completeSoundFromScene = data.Attr("completeSoundFromScene", "event:/game/general/touchswitch_last_oneshot");
 
             inverted = data.Bool("inverted", false);
             allowDisable = data.Bool("allowDisable", false);
@@ -200,7 +208,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
 
         private void turnOn() {
             if (!Activated) {
-                touchSfx.Play("event:/game/general/touchswitch_any");
+                touchSfx.Play(hitSound);
 
                 Activated = true;
 
@@ -228,8 +236,8 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
                         touchSwitch.finish();
                     }
 
-                    SoundEmitter.Play("event:/game/general/touchswitch_last_oneshot");
-                    Add(new SoundSource("event:/game/general/touchswitch_last_cutoff"));
+                    SoundEmitter.Play(completeSoundFromScene);
+                    Add(new SoundSource(completeSoundFromSwitch));
 
                     // trigger associated switch gate(s).
                     foreach (FlagSwitchGate switchGate in Scene.Tracker.GetEntities<FlagSwitchGate>().OfType<FlagSwitchGate>()) {

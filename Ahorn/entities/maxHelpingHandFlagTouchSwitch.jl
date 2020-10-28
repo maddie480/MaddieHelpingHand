@@ -5,7 +5,8 @@ using ..Ahorn, Maple
 @mapdef Entity "MaxHelpingHand/FlagTouchSwitch" FlagTouchSwitch(x::Integer, y::Integer, 
     flag::String="flag_touch_switch", icon::String="vanilla", persistent::Bool=false,
     inactiveColor::String="5FCDE4", activeColor::String="FFFFFF", finishColor::String="F141DF", smoke::Bool=true,
-    inverted::Bool=false, allowDisable::Bool=false)
+    inverted::Bool=false, allowDisable::Bool=false, hitSound::String="event:/game/general/touchswitch_any",
+    completeSoundFromSwitch::String="event:/game/general/touchswitch_last_cutoff", completeSoundFromScene::String="event:/game/general/touchswitch_last_oneshot")
 
 const bundledIcons = String["vanilla", "tall", "triangle", "circle"]
 
@@ -14,6 +15,8 @@ const placements = Ahorn.PlacementDict(
         FlagTouchSwitch
     )
 )
+
+Ahorn.editingOrder(entity::FlagTouchSwitch) = String["x", "y", "width", "height", "inactiveColor", "activeColor", "finishColor", "hitSound", "completeSoundFromSwitch", "completeSoundFromScene"]
 
 Ahorn.editingOptions(entity::FlagTouchSwitch) = Dict{String,Any}(
     "icon" => bundledIcons
