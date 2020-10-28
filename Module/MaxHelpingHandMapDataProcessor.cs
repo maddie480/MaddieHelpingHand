@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Celeste.Mod.MaxHelpingHand {
+namespace Celeste.Mod.MaxHelpingHand.Module {
     class MaxHelpingHandMapDataProcessor : EverestMapDataProcessor {
 
         // the structure here is: FlagTouchSwitches[AreaID][ModeID][flagName, inverted] = list of entity ids for flag touch switches / flag switch gates in this group on this map.
