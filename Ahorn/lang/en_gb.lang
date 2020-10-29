@@ -284,3 +284,7 @@ placements.triggers.MaxHelpingHand/SpeedBasedMusicParamTrigger.tooltips.maxSpeed
 placements.triggers.MaxHelpingHand/SpeedBasedMusicParamTrigger.tooltips.minParamValue=The value the music parameter will take when the player speed is "Min Speed" or below.
 placements.triggers.MaxHelpingHand/SpeedBasedMusicParamTrigger.tooltips.maxParamValue=The value the music parameter will take when the player speed is "Max Speed" or above.
 placements.triggers.MaxHelpingHand/SpeedBasedMusicParamTrigger.tooltips.activate=If ticked, the trigger will start adjusting the music parameter to match the player's speed.\nIf unticked, the trigger will stop adjusting that music parameter, and set it to the "Min Param Value".
+
+# Set Flag On Spawn Controller
+placements.entities.MaxHelpingHand/SetFlagOnSpawnController.tooltips.flag=The session flag to modify when the player enters the room or respawns in it.
+placements.entities.MaxHelpingHand/SetFlagOnSpawnController.tooltips.enable=If checked, the flag will be enabled when the player enters the room or respawns in it. If unchecked, the flag will be disabled instead.
