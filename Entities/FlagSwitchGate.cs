@@ -186,6 +186,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             }
 
             yield return 0.1f;
+            if (shouldCancelMove(goingBack)) yield break;
 
             // animate the icon
             openSfx.Play(moveSound);
@@ -195,12 +196,14 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
                     icon.Color = Color.Lerp(fromColor, activeColor, icon.Rate);
                     icon.Rate += Engine.DeltaTime / shakeTime;
                     yield return null;
+                    if (shouldCancelMove(goingBack)) yield break;
                 }
             } else {
                 icon.Rate = 1f;
             }
 
             yield return 0.1f;
+            if (shouldCancelMove(goingBack)) yield break;
 
             // move the switch gate, emitting particles along the way
             int particleAt = 0;
@@ -226,14 +229,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             while (moveTimeLeft > 0f) {
                 yield return null;
                 moveTimeLeft -= Engine.DeltaTime;
-
-                if (allowReturn && SceneAs<Level>().Session.GetFlag(Flag) == goingBack) {
-                    // whoops, the flag changed too fast! we need to backtrack.
-                    Remove(tween);
-                    icon.Rate = 0f;
-                    icon.SetAnimationFrame(0);
-                    yield break;
-                }
+                if (shouldCancelMove(goingBack, tween)) yield break;
             }
 
             bool collidableBackup = Collidable;
@@ -299,6 +295,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
                 icon.Color = Color.Lerp(activeColor, toColor, 1f - icon.Rate);
                 icon.Rate -= Engine.DeltaTime * 4f;
                 yield return null;
+                if (shouldCancelMove(goingBack)) yield break;
             }
             icon.Rate = 0f;
             icon.SetAnimationFrame(0);
@@ -314,6 +311,20 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
                 }
             }
             Collidable = collidableBackup;
+        }
+
+        private bool shouldCancelMove(bool goingBack, Tween tween = null) {
+            if (allowReturn && SceneAs<Level>().Session.GetFlag(Flag) == goingBack) {
+                // whoops, the flag changed too fast! we need to backtrack.
+                if (tween != null) {
+                    Remove(tween);
+                }
+
+                icon.Rate = 0f;
+                icon.SetAnimationFrame(0);
+                return true;
+            }
+            return false;
         }
     }
 }

@@ -209,16 +209,18 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
 
         private void turnOn() {
             if (!Activated) {
-                touchSfx.Play(hitSound);
+                doEffect(() => touchSfx.Play(hitSound));
 
                 Activated = true;
 
                 // animation
-                wiggler.Start();
-                for (int i = 0; i < 32; i++) {
-                    float num = Calc.Random.NextFloat((float) Math.PI * 2f);
-                    level.Particles.Emit(TouchSwitch.P_FireWhite, Position + Calc.AngleToVector(num, 6f), num);
-                }
+                doEffect(() => {
+                    wiggler.Start();
+                    for (int i = 0; i < 32; i++) {
+                        float num = Calc.Random.NextFloat((float) Math.PI * 2f);
+                        level.Particles.Emit(TouchSwitch.P_FireWhite, Position + Calc.AngleToVector(num, 6f), num);
+                    }
+                });
                 icon.Rate = 4f;
 
                 if (persistent) {
@@ -237,8 +239,10 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
                         touchSwitch.finish();
                     }
 
-                    SoundEmitter.Play(completeSoundFromScene);
-                    Add(new SoundSource(completeSoundFromSwitch));
+                    doEffect(() => {
+                        SoundEmitter.Play(completeSoundFromScene);
+                        Add(new SoundSource(completeSoundFromSwitch));
+                    });
 
                     // trigger associated switch gate(s).
                     foreach (FlagSwitchGate switchGate in Scene.Tracker.GetEntities<FlagSwitchGate>().OfType<FlagSwitchGate>()) {
@@ -307,6 +311,11 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
                     Activated = Finished = false;
                     icon.Rate = 1f;
                     icon.Play("spin");
+
+                    // cancel all alarms (deferred animations).
+                    foreach (Alarm alarm in Components.OfType<Alarm>().ToList()) {
+                        alarm.RemoveSelf();
+                    }
                 }
             }
 
@@ -317,6 +326,16 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             border.DrawCentered(Position + new Vector2(0f, -1f), Color.Black);
             border.DrawCentered(Position, icon.Color, pulse);
             base.Render();
+        }
+
+        private void doEffect(Action effect) {
+            if (allowDisable) {
+                // do the effect only after 0.05s, in case our touch switch gets disabled in the meantime.
+                Add(Alarm.Create(Alarm.AlarmMode.Oneshot, effect, 0.05f, true));
+            } else {
+                // do the effect right now.
+                effect();
+            }
         }
     }
 }
