@@ -81,6 +81,7 @@
   <ItemGroup>
     <Compile Include="Effects\AnimatedParallax.cs" />
     <Compile Include="Entities\BumperNotCoreMode.cs" />
+    <Compile Include="Entities\FlagLogicGate.cs" />
     <Compile Include="Entities\MultiNodeBumper.cs" />
     <Compile Include="Entities\MultiRoomStrawberry.cs" />
     <Compile Include="Entities\MultiRoomStrawberrySeed.cs" />
@@ -100,6 +101,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Ahorn\entities\maxHelpingHandCustomizableGlassBlock.jl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Ahorn\entities\maxHelpingHandFlagLogicGate.jl">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Ahorn\entities\maxHelpingHandSetFlagOnSpawnController.jl">
@@ -301,6 +305,9 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
+    <Content Include="Graphics\Atlases\Gameplay\ahorn\MaxHelpingHand\flag_logic_gate.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Graphics\Atlases\Gameplay\ahorn\MaxHelpingHand\horizontal_room_wrap.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
