@@ -295,3 +295,7 @@ placements.entities.MaxHelpingHand/FlagLogicGate.tooltips.outputFlag=The session
 placements.entities.MaxHelpingHand/FlagLogicGate.tooltips.func=The function used on the input flags to get the output flag. For example, if input flags are "flag1,flag2", function is AND, and output flag is flag3, then flag3 will be set if flag1 AND flag2 are set.\nXOR is "exclusive OR", it will set the flag if ONLY one of the input flags is set.
 placements.entities.MaxHelpingHand/FlagLogicGate.names.func=Function
 placements.entities.MaxHelpingHand/FlagLogicGate.tooltips.not=If checked, the value of the output flag will be inverted.
+
+# Exit Block
+placements.entities.MaxHelpingHand/FlagExitBlock.tooltips.tileType=Determines the visual appearance of the wall.
+placements.entities.MaxHelpingHand/FlagExitBlock.tooltips.flag=The flag that will make this exit block appear when active.

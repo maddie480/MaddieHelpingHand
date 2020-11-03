@@ -63,6 +63,9 @@
       <HintPath>packages\Mono.Cecil.0.11.2\lib\net40\Mono.Cecil.Rocks.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="MonoMod, Version=20.3.5.1, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\MonoMod.20.3.5.1\lib\net40\MonoMod.exe</HintPath>
+    </Reference>
     <Reference Include="MonoMod.RuntimeDetour, Version=20.3.5.1, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>packages\MonoMod.RuntimeDetour.20.3.5.1\lib\net40\MonoMod.RuntimeDetour.dll</HintPath>
       <Private>False</Private>
@@ -81,6 +84,7 @@
   <ItemGroup>
     <Compile Include="Effects\AnimatedParallax.cs" />
     <Compile Include="Entities\BumperNotCoreMode.cs" />
+    <Compile Include="Entities\FlagExitBlock.cs" />
     <Compile Include="Entities\FlagLogicGate.cs" />
     <Compile Include="Entities\MultiNodeBumper.cs" />
     <Compile Include="Entities\MultiRoomStrawberry.cs" />
@@ -101,6 +105,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Ahorn\entities\maxHelpingHandCustomizableGlassBlock.jl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Ahorn\entities\maxHelpingHandFlagExitBlock.jl">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Ahorn\entities\maxHelpingHandFlagLogicGate.jl">
