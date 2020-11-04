@@ -35,7 +35,7 @@ namespace Celeste.Mod.MaxHelpingHand.Module {
             GradientDustTrigger.Load();
             GoldenStrawberryCustomConditions.Load();
             MadelineSilhouetteTrigger.Load();
-            MultiNodeBumper.Load();
+            BumperNotCoreMode.Load();
             MultiRoomStrawberrySeed.Load();
             SpeedBasedMusicParamTrigger.Load();
             AnimatedParallax.Load();
@@ -60,7 +60,7 @@ namespace Celeste.Mod.MaxHelpingHand.Module {
             GradientDustTrigger.Unload();
             GoldenStrawberryCustomConditions.Unload();
             MadelineSilhouetteTrigger.Unload();
-            MultiNodeBumper.Unload();
+            BumperNotCoreMode.Unload();
             MultiRoomStrawberrySeed.Unload();
             SpeedBasedMusicParamTrigger.Unload();
             AnimatedParallax.Unload();

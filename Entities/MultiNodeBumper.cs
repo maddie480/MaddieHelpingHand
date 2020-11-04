@@ -7,28 +7,13 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
     // ... I swear, this is code reusing, not a jank hack. :distracteline:
     [CustomEntity("MaxHelpingHand/MultiNodeBumper")]
     class MultiNodeBumper : BumperNotCoreMode {
-        public static void Load() {
-            On.Celeste.Bumper.UpdatePosition += onBumperWiggle;
-        }
-
-        public static void Unload() {
-            On.Celeste.Bumper.UpdatePosition -= onBumperWiggle;
-        }
-
-        private static void onBumperWiggle(On.Celeste.Bumper.orig_UpdatePosition orig, Bumper self) {
-            // please don't make my bumpers wiggle.
-            if (!(self is MultiNodeBumper) && !(self is RotatingBumper)) {
-                orig(self);
-            }
-        }
-
         private readonly EntityData thisEntityData;
         private readonly Vector2 thisOffset;
 
         private MultiNodeMovingPlatform animatingPlatform;
         private bool spawnedByOtherBumper = false;
 
-        public MultiNodeBumper(EntityData data, Vector2 offset) : base(data.Position + offset, null, data.Bool("notCoreMode", false)) {
+        public MultiNodeBumper(EntityData data, Vector2 offset) : base(data.Position + offset, null, data.Bool("notCoreMode", false), data.Bool("wobble", false)) {
             thisEntityData = data;
             thisOffset = offset;
         }
@@ -42,7 +27,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             }
 
             // add a multi-node moving platform, pass the bumper settings to it, and attach the bumper to it.
-            StaticMover staticMover = new StaticMover();
+            StaticMover staticMover = MakeWobbleStaticMover();
             Add(staticMover);
             animatingPlatform = new MultiNodeMovingPlatform(thisEntityData, thisOffset, otherPlatform => {
                 if (otherPlatform != animatingPlatform) {
@@ -52,7 +37,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
                     Scene.Add(otherBumper);
 
                     // ... and attach it to that new platform.
-                    StaticMover otherStaticMover = new StaticMover();
+                    StaticMover otherStaticMover = otherBumper.MakeWobbleStaticMover();
                     otherBumper.Add(otherStaticMover);
                     otherPlatform.AnimateObject(otherStaticMover);
                 }

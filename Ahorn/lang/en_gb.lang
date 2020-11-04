@@ -234,6 +234,7 @@ placements.entities.MaxHelpingHand/MultiNodeBumper.tooltips.easing=Whether the b
 placements.entities.MaxHelpingHand/MultiNodeBumper.tooltips.notCoreMode=If checked, this bumper will never take the "fire" form that kills the player.
 placements.entities.MaxHelpingHand/MultiNodeBumper.tooltips.amount=The number of bumpers that will be on the track. If more than 1, they will be evenly spread across the track.
 placements.entities.MaxHelpingHand/MultiNodeBumper.tooltips.offset=An offset in starting position, between 0 and 1.
+placements.entities.MaxHelpingHand/MultiNodeBumper.tooltips.wobble=Whether the bumper should wobble, like vanilla bumpers.
 
 # Madeline Silhouette Trigger
 placements.triggers.MaxHelpingHand/MadelineSilhouetteTrigger.tooltips.enable=If checked, the trigger will turn Madeline into a silhouette. If unchecked, it will turn Madeline back to normal.
@@ -242,6 +243,7 @@ placements.triggers.MaxHelpingHand/MadelineSilhouetteTrigger.tooltips.enable=If 
 placements.entities.MaxHelpingHand/RotatingBumper.tooltips.speed=The rotating speed in degrees per second. Use a negative number for counterclockwise rotation.
 placements.entities.MaxHelpingHand/RotatingBumper.tooltips.attachToCenter=Whether the spinner should attach to any solid colliding with the rotation center.
 placements.entities.MaxHelpingHand/RotatingBumper.tooltips.notCoreMode=If checked, this bumper will never take the "fire" form that kills the player.
+placements.entities.MaxHelpingHand/RotatingBumper.tooltips.wobble=Whether the bumper should wobble, like vanilla bumpers.
 
 # Flag Toggle Smooth Camera Offset Trigger
 placements.triggers.MaxHelpingHand/FlagToggleSmoothCameraOffsetTrigger.tooltips.offsetXFrom=The X offset to fade from.
