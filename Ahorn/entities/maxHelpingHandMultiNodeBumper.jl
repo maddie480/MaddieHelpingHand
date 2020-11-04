@@ -2,8 +2,8 @@
 
 using ..Ahorn, Maple
 
-@pardef MultiNodeBumper(x::Integer, y::Integer, width::Integer=Maple.defaultBlockWidth, mode::String="Loop", moveTime::Number=2.0, pauseTime::Number=0.0, easing::Bool=true, notCoreMode::Bool=false) =
-    Entity("MaxHelpingHand/MultiNodeBumper", x=x, y=y, nodes=Tuple{Int, Int}[], width=width, mode=mode, moveTime=moveTime, pauseTime=pauseTime, easing=easing, notCoreMode=notCoreMode)
+@pardef MultiNodeBumper(x::Integer, y::Integer, width::Integer=Maple.defaultBlockWidth, mode::String="Loop", moveTime::Number=2.0, pauseTime::Number=0.0, easing::Bool=true, notCoreMode::Bool=false, amount::Int=1, offset::Number=0.0) =
+    Entity("MaxHelpingHand/MultiNodeBumper", x=x, y=y, nodes=Tuple{Int, Int}[], width=width, mode=mode, moveTime=moveTime, pauseTime=pauseTime, easing=easing, notCoreMode=notCoreMode, amount=amount, offset=offset)
     
 const placements = Ahorn.PlacementDict(
     "Bumper (Multi-Node) (max480's Helping Hand)" => Ahorn.EntityPlacement(

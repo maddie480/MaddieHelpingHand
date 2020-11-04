@@ -232,6 +232,8 @@ placements.entities.MaxHelpingHand/MultiNodeBumper.tooltips.pauseTime=The time t
 placements.entities.MaxHelpingHand/MultiNodeBumper.tooltips.mode=Determines the way the bumper will move between its nodes. For example, with 3 nodes A, B, C:\n- Loop: A > B > C > A\n- LoopNoPause: A > A (going through B and C)\n- BackAndForth: A > B > C > B > A\n- BackAndForthNoPause: A > C > A (going through B)\n- TeleportBack: A > B > C, then the platform teleports to A upon reaching C
 placements.entities.MaxHelpingHand/MultiNodeBumper.tooltips.easing=Whether the bumper movement should be eased (speedup/slowdown around each position).
 placements.entities.MaxHelpingHand/MultiNodeBumper.tooltips.notCoreMode=If checked, this bumper will never take the "fire" form that kills the player.
+placements.entities.MaxHelpingHand/MultiNodeBumper.tooltips.amount=The number of bumpers that will be on the track. If more than 1, they will be evenly spread across the track.
+placements.entities.MaxHelpingHand/MultiNodeBumper.tooltips.offset=An offset in starting position, between 0 and 1.
 
 # Madeline Silhouette Trigger
 placements.triggers.MaxHelpingHand/MadelineSilhouetteTrigger.tooltips.enable=If checked, the trigger will turn Madeline into a silhouette. If unchecked, it will turn Madeline back to normal.

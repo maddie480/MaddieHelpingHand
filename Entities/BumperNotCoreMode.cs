@@ -7,9 +7,11 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
     // Not made available as an entity directly, but used as a base class for other entities.
     class BumperNotCoreMode : Bumper {
         private readonly bool notCoreMode;
+        protected SineWave sine;
 
         public BumperNotCoreMode(Vector2 position, Vector2? node, bool notCoreMode) : base(position, node) {
             this.notCoreMode = notCoreMode;
+            sine = Get<SineWave>();
 
             if (notCoreMode) {
                 // make this bumper insensitive to core mode.

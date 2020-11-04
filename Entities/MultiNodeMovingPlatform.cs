@@ -46,7 +46,11 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
         private readonly Vector2[] entityNodes;
         private readonly Vector2 entityOffset;
 
-        public readonly List<MultiNodeMovingPlatform> AssociatedMovingPlatforms = new List<MultiNodeMovingPlatform>();
+        private readonly Action<MultiNodeMovingPlatform> callbackOnAdded;
+
+        public MultiNodeMovingPlatform(EntityData data, Vector2 offset, Action<MultiNodeMovingPlatform> callbackOnAdded) : this(data, offset) {
+            this.callbackOnAdded = callbackOnAdded;
+        }
 
         public MultiNodeMovingPlatform(EntityData data, Vector2 offset)
             : base(data.Position + offset, data.Width, false) {
@@ -219,10 +223,10 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
                     Width = entityWidth,
                     Values = newEntityProperties
                 };
-                MultiNodeMovingPlatform newPlatform = new MultiNodeMovingPlatform(data, entityOffset);
-                Scene.Add(newPlatform);
-                AssociatedMovingPlatforms.Add(newPlatform);
+                Scene.Add(new MultiNodeMovingPlatform(data, entityOffset, callbackOnAdded) { Visible = Visible });
             }
+
+            callbackOnAdded?.Invoke(this);
         }
 
         public override void Render() {
