@@ -3,7 +3,7 @@
 using ..Ahorn, Maple
 
 @mapdef Entity "MaxHelpingHand/FlagExitBlock" FlagExitBlock(x::Integer, y::Integer, width::Integer=Maple.defaultBlockWidth, height::Integer=Maple.defaultBlockHeight,
-    tileType::String="3", flag::String="flag_exit_block")
+    tileType::String="3", flag::String="flag_exit_block", playSound::Bool=true)
 
 const placements = Ahorn.PlacementDict(
     "Flag Exit Block (max480's Helping Hand)" => Ahorn.EntityPlacement(
