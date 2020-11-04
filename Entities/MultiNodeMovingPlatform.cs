@@ -1,7 +1,9 @@
 ﻿using Celeste.Mod.Entities;
 using Microsoft.Xna.Framework;
 using Monocle;
+using MonoMod.Utils;
 using System;
+using System.Collections.Generic;
 
 namespace Celeste.Mod.MaxHelpingHand.Entities {
     [CustomEntity("MaxHelpingHand/MultiNodeMovingPlatform")]
@@ -17,6 +19,8 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
         private string overrideTexture;
         private Mode mode;
         private bool easing;
+        private int amount;
+        private float startingOffset;
 
         private MTexture[] textures;
         private float[] nodePercentages;
@@ -35,6 +39,15 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
         private float addY;
         private float sinkTimer;
 
+        // data useful for copying (to mimic a track with multiple platforms... that's what fireballs in vanilla do anyway)
+        private readonly Dictionary<string, object> entityProperties;
+        private readonly Vector2 entityPosition;
+        private readonly int entityWidth;
+        private readonly Vector2[] entityNodes;
+        private readonly Vector2 entityOffset;
+
+        public readonly List<MultiNodeMovingPlatform> AssociatedMovingPlatforms = new List<MultiNodeMovingPlatform>();
+
         public MultiNodeMovingPlatform(EntityData data, Vector2 offset)
             : base(data.Position + offset, data.Width, false) {
 
@@ -44,6 +57,13 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             overrideTexture = data.Attr("texture", "default");
             mode = data.Enum("mode", Mode.Loop);
             easing = data.Bool("easing", true);
+            amount = data.Int("amount", 1);
+
+            entityProperties = data.Values;
+            entityPosition = data.Position;
+            entityWidth = data.Width;
+            entityNodes = data.Nodes;
+            entityOffset = offset;
 
             // read nodes
             nodes = new Vector2[data.Nodes.Length + 1];
@@ -83,6 +103,68 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
                     nodePercentages[i] /= totalDistance;
                 }
             }
+
+            // apply the starting offset (from 0 to 1).
+            float startingOffset = data.Float("offset", 0f);
+            this.startingOffset = startingOffset;
+            if (startingOffset != 0f) {
+                int nodeIndex;
+                int connectionCount = mode == Mode.Loop || mode == Mode.LoopNoPause ? nodes.Length : nodes.Length - 1;
+                switch (mode) {
+                    case Mode.BackAndForth:
+                        // it has nodes, and the percentage is the progress between 2 nodes.
+                        if (startingOffset == 0.5f) startingOffset = 0.50001f;
+                        if (startingOffset > 0.5f) {
+                            // going back
+                            startingOffset = (1 - startingOffset) * 2;
+                            nodeIndex = (int) (startingOffset * connectionCount);
+                            prevNodeIndex = nodeIndex + 1;
+                            nextNodeIndex = nodeIndex;
+                            startingOffset = (startingOffset - (float) nodeIndex / connectionCount) * connectionCount;
+                            percent = 1 - startingOffset;
+                            direction = -1;
+                        } else {
+                            // going forward
+                            startingOffset *= 2;
+                            nodeIndex = (int) (startingOffset * connectionCount);
+                            prevNodeIndex = nodeIndex;
+                            nextNodeIndex = nodeIndex + 1;
+                            startingOffset = (startingOffset - (float) nodeIndex / connectionCount) * connectionCount;
+                            percent = startingOffset;
+                        }
+                        break;
+                    case Mode.BackAndForthNoPause:
+                        // the percentage is global progression, but we're still going back and forth so we have 2 "nodes".
+                        if (startingOffset == 0.5f) startingOffset = 0.50001f;
+                        if (startingOffset > 0.5f) {
+                            // going back
+                            startingOffset = (1 - startingOffset) * 2;
+                            prevNodeIndex = 1;
+                            nextNodeIndex = 0;
+                            percent = 1 - startingOffset;
+                            direction = -1;
+                        } else {
+                            // going forward
+                            startingOffset *= 2;
+                            percent = startingOffset;
+                        }
+                        break;
+                    case Mode.Loop:
+                    case Mode.TeleportBack:
+                        // it has nodes, and the percentage is the progress between 2 nodes.
+                        // the only difference between Loop and TeleportBack is connectionCount.
+                        nodeIndex = (int) (startingOffset * connectionCount);
+                        prevNodeIndex = nodeIndex;
+                        nextNodeIndex = (nodeIndex + 1) % nodes.Length;
+                        startingOffset = (startingOffset - (float) nodeIndex / connectionCount) * connectionCount;
+                        percent = startingOffset;
+                        break;
+                    case Mode.LoopNoPause:
+                        // finally an easy one! the percentage is just global progression directly.
+                        percent = startingOffset;
+                        break;
+                }
+            }
         }
 
         public override void Added(Scene scene) {
@@ -111,6 +193,35 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
                         scene.Add(new MovingPlatformLine(nodes[nodes.Length - 1] + lineOffset, nodes[0] + lineOffset));
                     }
                 }
+            }
+
+            // if count > 1, spawn other platforms to simulate multiple evenly spread platforms.
+            for (int i = 1; i < amount; i++) {
+                // each platform has 1 / amount of offset more than the previous.
+                float newOffset = startingOffset;
+                newOffset += (1f / amount) * i;
+                if (newOffset >= 1f) {
+                    newOffset -= 1f;
+                }
+
+                // copy the entity data and inject the new offset in it.
+                Dictionary<string, object> newEntityProperties = new Dictionary<string, object>();
+                newEntityProperties.AddRange(entityProperties);
+                newEntityProperties["offset"] = newOffset;
+
+                // force-set the amount to 1 because the spawned platform should definitely not spawn platforms!
+                newEntityProperties["amount"] = 1;
+
+                // assemble everything into a new EntityData and build a new platform with it.
+                EntityData data = new EntityData {
+                    Position = entityPosition,
+                    Nodes = entityNodes,
+                    Width = entityWidth,
+                    Values = newEntityProperties
+                };
+                MultiNodeMovingPlatform newPlatform = new MultiNodeMovingPlatform(data, entityOffset);
+                Scene.Add(newPlatform);
+                AssociatedMovingPlatforms.Add(newPlatform);
             }
         }
 
