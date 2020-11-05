@@ -20,7 +20,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
     /// </summary>
     [CustomEntity("MaxHelpingHand/FlagTouchSwitch")]
     [Tracked]
-    class FlagTouchSwitch : Entity {
+    public class FlagTouchSwitch : Entity {
         private static FieldInfo seekerPushRadius = typeof(Seeker).GetField("pushRadius", BindingFlags.NonPublic | BindingFlags.Instance);
         private static FieldInfo seekerPhysicsHitbox = typeof(Seeker).GetField("physicsHitbox", BindingFlags.NonPublic | BindingFlags.Instance);
         private static FieldInfo pufferPushRadius = typeof(Puffer).GetField("pushRadius", BindingFlags.NonPublic | BindingFlags.Instance);
@@ -60,7 +60,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
         private static void turnOnTouchSwitchesCollidingWith(Entity self) {
             foreach (FlagTouchSwitch touchSwitch in self.Scene.Tracker.GetEntities<FlagTouchSwitch>()) {
                 if (self.CollideCheck(touchSwitch)) {
-                    touchSwitch.turnOn();
+                    touchSwitch.TurnOn();
                 }
             }
         }
@@ -194,20 +194,20 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
         }
 
         private void onPlayer(Player player) {
-            turnOn();
+            TurnOn();
         }
 
         private void onHoldable(Holdable h) {
-            turnOn();
+            TurnOn();
         }
 
         private void onSeeker(Seeker seeker) {
             if (SceneAs<Level>().InsideCamera(Position, 10f)) {
-                turnOn();
+                TurnOn();
             }
         }
 
-        private void turnOn() {
+        public void TurnOn() {
             if (!Activated) {
                 doEffect(() => touchSfx.Play(hitSound));
 

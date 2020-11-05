@@ -1,5 +1,5 @@
 ﻿- Name: MaxHelpingHand
-  Version: 1.9.4
+  Version: 1.10.0
   DLL: bin/Debug/MaxHelpingHand.dll
   Dependencies:
     - Name: Everest
