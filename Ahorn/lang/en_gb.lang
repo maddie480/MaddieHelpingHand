@@ -307,7 +307,7 @@ placements.entities.MaxHelpingHand/FlagExitBlock.tooltips.tileType=Determines th
 placements.entities.MaxHelpingHand/FlagExitBlock.tooltips.flag=The flag that will make this exit block appear when active.
 placements.entities.MaxHelpingHand/FlagExitBlock.tooltips.playSound=Whether the exit block should play a sound when appearing, like vanilla ones.
 
-# Custom Planets
+# Northern Lights with Custom Colors
 placements.effects.MaxHelpingHand/NorthernLightsCustomColors.names.gradientColor1=Gradient Color Top
 placements.effects.MaxHelpingHand/NorthernLightsCustomColors.names.gradientColor2=Gradient Color Bottom
 placements.effects.MaxHelpingHand/NorthernLightsCustomColors.names.colors=Light Colors
