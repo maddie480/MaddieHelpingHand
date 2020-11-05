@@ -39,6 +39,7 @@ namespace Celeste.Mod.MaxHelpingHand.Module {
             MultiRoomStrawberrySeed.Load();
             SpeedBasedMusicParamTrigger.Load();
             AnimatedParallax.Load();
+            NorthernLightsCustomColors.Load();
 
             Everest.Events.Level.OnLoadBackdrop += onLoadBackdrop;
         }
@@ -64,6 +65,7 @@ namespace Celeste.Mod.MaxHelpingHand.Module {
             MultiRoomStrawberrySeed.Unload();
             SpeedBasedMusicParamTrigger.Unload();
             AnimatedParallax.Unload();
+            NorthernLightsCustomColors.Unload();
 
             Everest.Events.Level.OnLoadBackdrop -= onLoadBackdrop;
         }
@@ -97,6 +99,25 @@ namespace Celeste.Mod.MaxHelpingHand.Module {
                 }
 
                 return new SnowCustomColors(colors, child.AttrBool("foreground"));
+            }
+            if (child.Name.Equals("MaxHelpingHand/NorthernLightsCustomColors", StringComparison.OrdinalIgnoreCase)) {
+                string[] colorsAsStrings = child.Attr("colors").Split(',');
+                Color[] colors = new Color[colorsAsStrings.Length];
+                for (int i = 0; i < colors.Length; i++) {
+                    colors[i] = Calc.HexToColor(colorsAsStrings[i]);
+                }
+
+                NorthernLightsCustomColors.GradientColor1 = child.Attr("gradientColor1", "020825");
+                NorthernLightsCustomColors.GradientColor2 = child.Attr("gradientColor2", "170c2f");
+                NorthernLightsCustomColors.Colors = colors;
+
+                NorthernLightsCustomColors effect = new NorthernLightsCustomColors(colors, child.AttrBool("displayBackground", true));
+
+                NorthernLightsCustomColors.GradientColor1 = null;
+                NorthernLightsCustomColors.GradientColor2 = null;
+                NorthernLightsCustomColors.Colors = null;
+
+                return effect;
             }
             return null;
         }

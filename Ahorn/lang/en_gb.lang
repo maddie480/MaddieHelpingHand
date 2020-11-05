@@ -306,3 +306,12 @@ placements.entities.MaxHelpingHand/FlagLogicGate.tooltips.not=If checked, the va
 placements.entities.MaxHelpingHand/FlagExitBlock.tooltips.tileType=Determines the visual appearance of the wall.
 placements.entities.MaxHelpingHand/FlagExitBlock.tooltips.flag=The flag that will make this exit block appear when active.
 placements.entities.MaxHelpingHand/FlagExitBlock.tooltips.playSound=Whether the exit block should play a sound when appearing, like vanilla ones.
+
+# Custom Planets
+placements.effects.MaxHelpingHand/NorthernLightsCustomColors.names.gradientColor1=Gradient Color Top
+placements.effects.MaxHelpingHand/NorthernLightsCustomColors.names.gradientColor2=Gradient Color Bottom
+placements.effects.MaxHelpingHand/NorthernLightsCustomColors.names.colors=Light Colors
+placements.effects.MaxHelpingHand/NorthernLightsCustomColors.tooltips.gradientColor1=The color of the background on the top of the screen.
+placements.effects.MaxHelpingHand/NorthernLightsCustomColors.tooltips.gradientColor2=The color of the background on the bottom of the screen.
+placements.effects.MaxHelpingHand/NorthernLightsCustomColors.tooltips.colors=The pool of colors the northern lights effects can take from, separated by commas.
+placements.effects.MaxHelpingHand/NorthernLightsCustomColors.tooltips.displayBackground=Whether the northern lights should have a gradient background. You can customize the background colors with "Gradient Color Top" and "Gradient Color Bottom".
