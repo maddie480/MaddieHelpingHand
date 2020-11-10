@@ -93,6 +93,7 @@
     <Compile Include="Entities\MultiRoomStrawberrySeed.cs" />
     <Compile Include="Entities\RotatingBumper.cs" />
     <Compile Include="Entities\SetFlagOnSpawnController.cs" />
+    <Compile Include="Triggers\AllBlackholesStrengthTrigger.cs" />
     <Compile Include="Triggers\FlagToggleSmoothCameraOffsetTrigger.cs" />
     <Compile Include="Triggers\FlagToggleCameraTargetTrigger.cs" />
     <Compile Include="Triggers\FlagToggleCameraOffsetTrigger.cs" />
@@ -269,6 +270,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Ahorn\lang\en_gb.lang">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Ahorn\triggers\maxHelpingHandAllBlackholesStrength.jl">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Ahorn\triggers\maxHelpingHandCameraCatchupSpeed.jl">
