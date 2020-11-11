@@ -41,6 +41,9 @@ placements.entities.MaxHelpingHand/CustomizableCrumblePlatform.tooltips.texture=
 placements.entities.MaxHelpingHand/CustomizableCrumblePlatform.tooltips.oneUse=If checked, the platform will not respawn once it crumbled.
 placements.entities.MaxHelpingHand/CustomizableCrumblePlatform.tooltips.respawnDelay=The delay in seconds before the platform respawns after it crumbled (vanilla is 2 seconds).
 placements.entities.MaxHelpingHand/CustomizableCrumblePlatform.tooltips.grouped=Whether this crumble platform should be "grouped" with crumble platforms that are next to it and also have the option enabled.\nAll crumble platforms in a "group" crumble together when the player steps on / grabs one of them.
+placements.entities.MaxHelpingHand/CustomizableCrumblePlatform.tooltips.minCrumbleDurationOnTop=The time (in seconds) the platform will take to disappear when the player stands on it, but immediately jumps off it.
+placements.entities.MaxHelpingHand/CustomizableCrumblePlatform.tooltips.maxCrumbleDurationOnTop=The time (in seconds) the platform will take to disappear when the player stands on it and doesn't jump off.
+placements.entities.MaxHelpingHand/CustomizableCrumblePlatform.tooltips.crumbleDurationOnSide=The time (in seconds) the platform will take to disappear when the player grabs a side of it. Should be equal to or higher than "Max Crumble Duration On Top".
 
 # Upside Down Jump Thru
 placements.entities.MaxHelpingHand/UpsideDownJumpThru.tooltips.texture=Changes the appearance of the platform. Should be in the same format as vanilla for static jumpthrus, and a 8x8 image for animated ones.

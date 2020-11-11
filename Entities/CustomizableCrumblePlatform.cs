@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework;
 using Monocle;
 using MonoMod.Utils;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,6 +26,9 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
 
         private bool oneUse;
         private float respawnDelay;
+        private float minCrumbleDurationOnTop;
+        private float maxCrumbleDurationOnTop;
+        private float crumbleDurationOnSide;
         private bool grouped;
 
         private HashSet<CustomizableCrumblePlatform> groupedCrumblePlatforms = new HashSet<CustomizableCrumblePlatform>();
@@ -33,6 +37,9 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             OverrideTexture = data.Attr("texture", null);
             oneUse = data.Bool("oneUse", false);
             respawnDelay = data.Float("respawnDelay", 2f);
+            minCrumbleDurationOnTop = data.Float("minCrumbleDurationOnTop", 0.2f);
+            maxCrumbleDurationOnTop = data.Float("maxCrumbleDurationOnTop", 0.6f);
+            crumbleDurationOnSide = data.Float("crumbleDurationOnSide", 1f);
             grouped = data.Bool("grouped", false);
         }
 
@@ -109,19 +116,20 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
 
                 // make pieces shake and emit particles
                 Audio.Play("event:/game/general/platform_disintegrate", Center);
-                shaker.ShakeFor(onTop ? 0.6f : 1f, removeOnFinish: false);
+                shaker.ShakeFor(onTop ? maxCrumbleDurationOnTop : crumbleDurationOnSide, removeOnFinish: false);
                 foreach (Image image in images) {
                     SceneAs<Level>().Particles.Emit(P_Crumble, 2, Position + image.Position + new Vector2(0f, 2f), Vector2.One * 3f);
                 }
-                for (int l = 0; l < (onTop ? 1 : 3); l++) {
-                    yield return 0.2f;
+                float targetTime = (onTop ? minCrumbleDurationOnTop : maxCrumbleDurationOnTop);
+                for (float time = 0f; time < targetTime; time += 0.2f) {
+                    yield return Math.Min(0.2f, targetTime - time);
                     foreach (Image image in images) {
                         SceneAs<Level>().Particles.Emit(P_Crumble, 2, Position + image.Position + new Vector2(0f, 2f), Vector2.One * 3f);
                     }
                 }
 
                 // wait for a bit more
-                float timer = 0.4f;
+                float timer = (onTop ? maxCrumbleDurationOnTop - minCrumbleDurationOnTop : crumbleDurationOnSide - maxCrumbleDurationOnTop);
                 if (onTop) {
                     while (timer > 0f && getOnePlayerOnTop() != null) {
                         yield return null;

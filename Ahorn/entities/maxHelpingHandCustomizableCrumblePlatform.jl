@@ -3,7 +3,8 @@
 using ..Ahorn, Maple
 
 @mapdef Entity "MaxHelpingHand/CustomizableCrumblePlatform" CustomizableCrumblePlatform(x::Integer, y::Integer, width::Integer=Maple.defaultBlockWidth,
-    texture::String="default", oneUse::Bool=false, respawnDelay::Number=2.0, grouped::Bool=false)
+    texture::String="default", oneUse::Bool=false, respawnDelay::Number=2.0, grouped::Bool=false, minCrumbleDurationOnTop::Number=0.2,
+    maxCrumbleDurationOnTop::Number=0.6, crumbleDurationOnSide::Number=1.0)
 
 const placements = Ahorn.PlacementDict(
     "Crumble Blocks ($(uppercasefirst(texture)), Customizable) (max480's Helping Hand)" => Ahorn.EntityPlacement(
@@ -18,6 +19,8 @@ const placements = Ahorn.PlacementDict(
 Ahorn.editingOptions(entity::CustomizableCrumblePlatform) = Dict{String, Any}(
     "texture" => Maple.crumble_block_textures
 )
+
+Ahorn.editingOrder(entity::CustomizableCrumblePlatform) = String["x", "y", "width", "crumbleDurationOnSide", "minCrumbleDurationOnTop", "maxCrumbleDurationOnTop"]
 
 Ahorn.minimumSize(entity::CustomizableCrumblePlatform) = 8, 0
 Ahorn.resizable(entity::CustomizableCrumblePlatform) = true, false
