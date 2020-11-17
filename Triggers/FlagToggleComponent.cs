@@ -20,6 +20,11 @@ namespace Celeste.Mod.MaxHelpingHand.Triggers {
             this.onEnable = onEnable;
         }
 
+        public override void EntityAdded(Scene scene) {
+            base.EntityAdded(scene);
+            UpdateFlag();
+        }
+
         public override void Update() {
             base.Update();
             UpdateFlag();
