@@ -19,6 +19,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
         private static FieldInfo playerVarJumpTimer = typeof(Player).GetField("varJumpTimer", BindingFlags.Instance | BindingFlags.NonPublic);
 
         private static ILHook playerOrigUpdateHook;
+        private static Hook canUnDuckHook;
 
         private static bool hooksActive = false;
 
@@ -84,6 +85,8 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
 
             // listen for the player unducking, to knock the player down before they would go through upside down jumpthrus.
             On.Celeste.Player.Update += onPlayerUpdate;
+
+            canUnDuckHook = new Hook(typeof(Player).GetMethod("get_CanUnDuck"), typeof(UpsideDownJumpThru).GetMethod("modCanUnDuck", BindingFlags.NonPublic | BindingFlags.Static));
         }
 
         public static void deactivateHooks() {
@@ -105,6 +108,9 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             IL.Celeste.Player.RedDashUpdate -= filterOutJumpThrusFromCollideChecks;
 
             On.Celeste.Player.Update -= onPlayerUpdate;
+
+            canUnDuckHook?.Dispose();
+            canUnDuckHook = null;
         }
 
         private static bool onActorMoveVExact(On.Celeste.Actor.orig_MoveVExact orig, Actor self, int moveV, Collision onCollide, Solid pusher) {
@@ -351,6 +357,36 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             }
         }
 
+        private delegate bool orig_get_CanUnDuck(Player self);
+        private static bool modCanUnDuck(orig_get_CanUnDuck orig, Player self) {
+            bool result = orig(self);
+            if (!result || !self.Ducking || self.CollideCheck<UpsideDownJumpThru>()) {
+                return result;
+            }
+
+            // if we're here, vanilla allows un-ducking, we're currently ducking, and aren't hitting an upside-down jumpthru.
+            // so, we want to virtually unduck Madeline and see if she would go through any upside-down jumpthru.
+
+            Collider bakCollider = self.Collider;
+            float bakPositionY = self.Position.Y;
+
+            self.Collider = normalHitbox;
+            if (self.CollideCheck<UpsideDownJumpThru>()) {
+                // unducking would make it go through an upside-down jumpthru. aaaaaaaaa
+                // knock the player down if possible!
+                while (self.CollideCheck<UpsideDownJumpThru>() && !self.CollideCheck<Solid>(self.Position + new Vector2(0f, 1f))) {
+                    self.Position.Y++;
+                }
+
+                // allow un-ducking if we can knock the player low enough for them not to be inside the jumpthru anymore.
+                result = !self.CollideCheck<UpsideDownJumpThru>();
+            }
+
+            self.Collider = bakCollider;
+            self.Position.Y = bakPositionY;
+
+            return result;
+        }
 
 
 
