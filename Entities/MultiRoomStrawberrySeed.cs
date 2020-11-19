@@ -42,14 +42,17 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
 
         private static void onClimbHopBlockedCheck(ILContext il) {
             ILCursor cursor = new ILCursor(il);
-            while (cursor.TryGotoNext(instr => instr.MatchCallvirt<Component>("get_Entity"), instr => instr.MatchIsinst<StrawberrySeed>())) {
+            while (cursor.TryGotoNext(MoveType.After, instr => instr.MatchCallvirt<Component>("get_Entity"), instr => instr.MatchIsinst<StrawberrySeed>())) {
                 Logger.Log("MaxHelpingHand/MultiRoomStrawberrySeed", $"Disabling climb-hop block while holding multi-room seeds @ {cursor.Index} in Player.ClimbHopBlockedCheck");
 
-                // turn if (follower.Entity is StrawberrySeed) into if (follower.Entity is StrawberrySeed && !(follower.Entity is MultiRoomStrawberrySeed))
-                cursor.Index++;
-                cursor.Emit(OpCodes.Dup);
-                cursor.Index++;
-                cursor.EmitDelegate<Func<Entity, bool, bool>>((entity, orig) => orig && !(entity is MultiRoomStrawberrySeed));
+                // isinst is misleading. It's actually the equivalent of "entity as StrawberrySeed" in C#.
+                // so, if our seed is a multi-room strawberry seed, we want to return null to make the game think it isn't a StrawberrySeed.
+                cursor.EmitDelegate<Func<StrawberrySeed, StrawberrySeed>>(strawberrySeed => {
+                    if (strawberrySeed == null || !(strawberrySeed is MultiRoomStrawberrySeed)) {
+                        return strawberrySeed;
+                    }
+                    return null;
+                });
             }
         }
 
