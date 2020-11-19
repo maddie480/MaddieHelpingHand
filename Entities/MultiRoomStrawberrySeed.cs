@@ -1,8 +1,11 @@
 ﻿using Celeste.Mod.Entities;
 using Celeste.Mod.MaxHelpingHand.Module;
 using Microsoft.Xna.Framework;
+using Mono.Cecil.Cil;
 using Monocle;
+using MonoMod.Cil;
 using MonoMod.Utils;
+using System;
 
 namespace Celeste.Mod.MaxHelpingHand.Entities {
     [CustomEntity("MaxHelpingHand/MultiRoomStrawberrySeed")]
@@ -10,10 +13,12 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
     class MultiRoomStrawberrySeed : StrawberrySeed {
         public static void Load() {
             On.Celeste.Level.LoadLevel += onLoadLevel;
+            IL.Celeste.Player.ClimbHopBlockedCheck += onClimbHopBlockedCheck;
         }
 
         public static void Unload() {
             On.Celeste.Level.LoadLevel -= onLoadLevel;
+            IL.Celeste.Player.ClimbHopBlockedCheck -= onClimbHopBlockedCheck;
         }
 
         private static void onLoadLevel(On.Celeste.Level.orig_LoadLevel orig, Level self, Player.IntroTypes playerIntro, bool isFromLoader) {
@@ -32,6 +37,19 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
                         self.Add(new MultiRoomStrawberrySeed(player, seedPosition, sessionSeedInfo));
                     }
                 }
+            }
+        }
+
+        private static void onClimbHopBlockedCheck(ILContext il) {
+            ILCursor cursor = new ILCursor(il);
+            while (cursor.TryGotoNext(instr => instr.MatchCallvirt<Component>("get_Entity"), instr => instr.MatchIsinst<StrawberrySeed>())) {
+                Logger.Log("MaxHelpingHand/MultiRoomStrawberrySeed", $"Disabling climb-hop block while holding multi-room seeds @ {cursor.Index} in Player.ClimbHopBlockedCheck");
+
+                // turn if (follower.Entity is StrawberrySeed) into if (follower.Entity is StrawberrySeed && !(follower.Entity is MultiRoomStrawberrySeed))
+                cursor.Index++;
+                cursor.Emit(OpCodes.Dup);
+                cursor.Index++;
+                cursor.EmitDelegate<Func<Entity, bool, bool>>((entity, orig) => orig && !(entity is MultiRoomStrawberrySeed));
             }
         }
 
