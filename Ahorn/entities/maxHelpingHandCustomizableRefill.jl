@@ -3,14 +3,14 @@
 using ..Ahorn, Maple
 
 @mapdef Entity "MaxHelpingHand/CustomizableRefill" CustomizableRefill(x::Integer, y::Integer, twoDash::Bool=false, oneUse::Bool=false, respawnTime::Number=2.5, sprite::String="",
-    shatterParticleColor1::String="", shatterParticleColor2::String="", glowParticleColor1::String="", glowParticleColor2::String="")
+    shatterParticleColor1::String="", shatterParticleColor2::String="", glowParticleColor1::String="", glowParticleColor2::String="", wave::Bool=true)
 
 const placements = Ahorn.PlacementDict(
     "Refill (Customizable) (max480's Helping Hand)" => Ahorn.EntityPlacement(
         CustomizableRefill
     ),
 
-    "Refill (Two Dashes, Custom Respawn Time) (max480's Helping Hand)" => Ahorn.EntityPlacement(
+    "Refill (Two Dashes, Customizable) (max480's Helping Hand)" => Ahorn.EntityPlacement(
         CustomizableRefill,
         "point",
         Dict{String, Any}(

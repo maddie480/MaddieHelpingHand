@@ -56,6 +56,13 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
                     Color2 = Calc.HexToColor(data.Attr("glowParticleColor2"))
                 };
             }
+
+            if (!data.Bool("wave", true)) {
+                // freeze the sine wave and remove it so that it stops updating.
+                SineWave sine = Get<SineWave>();
+                Remove(sine);
+                sine.Counter = 0f;
+            }
         }
     }
 }

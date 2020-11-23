@@ -97,6 +97,7 @@ placements.entities.MaxHelpingHand/CustomizableRefill.tooltips.shatterParticleCo
 placements.entities.MaxHelpingHand/CustomizableRefill.tooltips.shatterParticleColor2=One of the 2 colors of the particles the refill emits when collected. If one of the colors is left empty, the refill will use vanilla particle colors.
 placements.entities.MaxHelpingHand/CustomizableRefill.tooltips.glowParticleColor1=One of the 2 colors of the particles the refill emits when glowing or respawning. If one of the colors is left empty, the refill will use vanilla particle colors.
 placements.entities.MaxHelpingHand/CustomizableRefill.tooltips.glowParticleColor2=One of the 2 colors of the particles the refill emits when glowing or respawning. If one of the colors is left empty, the refill will use vanilla particle colors.
+placements.entities.MaxHelpingHand/CustomizableRefill.tooltips.wave=Whether the refill should wave up and down, like vanilla refills. This is only visual, the hitbox does not move.
 
 # Heat Wave not affecting color grade
 placements.effects.MaxHelpingHand/HeatWaveNoColorGrade.tooltips.controlColorGradeWhenActive=If checked, this Heat Wave effect will change the color grade when it is visible. In all cases, it won't affect color grading when hidden, unlike the vanilla Heat Wave effect.
