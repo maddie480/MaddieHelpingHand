@@ -91,6 +91,7 @@
     <Compile Include="Entities\MultiNodeBumper.cs" />
     <Compile Include="Entities\MultiRoomStrawberry.cs" />
     <Compile Include="Entities\MultiRoomStrawberrySeed.cs" />
+    <Compile Include="Entities\ReskinnableFloatingDebris.cs" />
     <Compile Include="Entities\RotatingBumper.cs" />
     <Compile Include="Entities\SetFlagOnSpawnController.cs" />
     <Compile Include="Triggers\AllBlackholesStrengthTrigger.cs" />
@@ -105,6 +106,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Ahorn\effects\maxHelpingHandSnowCustomColors.jl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Ahorn\entities\maxHelpingHandReskinnableFloatingDebris.jl">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Ahorn\entities\maxHelpingHandCustomizableGlassBlockController.jl">

@@ -40,6 +40,7 @@ namespace Celeste.Mod.MaxHelpingHand.Module {
             SpeedBasedMusicParamTrigger.Load();
             AnimatedParallax.Load();
             NorthernLightsCustomColors.Load();
+            ReskinnableFloatingDebris.Load();
 
             Everest.Events.Level.OnLoadBackdrop += onLoadBackdrop;
         }
@@ -66,6 +67,7 @@ namespace Celeste.Mod.MaxHelpingHand.Module {
             SpeedBasedMusicParamTrigger.Unload();
             AnimatedParallax.Unload();
             NorthernLightsCustomColors.Unload();
+            ReskinnableFloatingDebris.Unload();
 
             Everest.Events.Level.OnLoadBackdrop -= onLoadBackdrop;
         }
