@@ -325,3 +325,8 @@ placements.triggers.MaxHelpingHand/AllBlackholesStrengthTrigger.tooltips.strengt
 
 # Reskinnable Floating Debris
 placements.entities.MaxHelpingHand/ReskinnableFloatingDebris.tooltips.texture=The path to the texture to use for the debris.\nTo make your own, copy Graphics/Atlases/Gameplay/scenery/debris.png from the graphics dump, paste it in your mod's folder in Graphics/Atlases/Gameplay/yourmod/mydebris.png, then type "yourmod/mydebris" in this field.\nEach debris in the image is 8x8, and you can give more or less debris to pick from by changing the width of the image (which should remain a multiple of 8).
+
+# Sideways Lava
+placements.entities.MaxHelpingHand/SidewaysLava.tooltips.intro=Determines whether the lava moves into the screen or starts already present on the screen. Not suitable for sandwich lava.
+placements.entities.MaxHelpingHand/SidewaysLava.tooltips.lavaMode=Determines which side(s) of the screen the lava comes from.
+placements.entities.MaxHelpingHand/SidewaysLava.tooltips.speedMultiplier=Modifies the lava speed. 1 is vanilla lava speed, 2 is twice as fast.
