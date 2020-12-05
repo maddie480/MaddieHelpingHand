@@ -44,8 +44,19 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
         public override void Added(Scene scene) {
             base.Added(scene);
 
+
+            // add the hidden solid to the scene as well.
+            scene.Add(playerInteractingSolid);
+
+            // load the texture.
+            MTexture fullTexture = GFX.Game["objects/woodPlatform/" + texture];
+            textures = new MTexture[fullTexture.Width / 8];
+            for (int i = 0; i < textures.Length; i++) {
+                textures[i] = fullTexture.GetSubtexture(i * 8, 0, 8, 8);
+            }
+
             if (spawnedByOtherPlatform) {
-                // this platform was spawned by another platform that spawned the moving platform. so we have nothing to do!
+                // this platform was spawned by another platform that spawned the moving platform. so don't manage the static mover!
                 return;
             }
 
@@ -67,16 +78,6 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             });
             animatingPlatform.AnimateObject(staticMover, forcedTrackOffset: new Vector2(Width + 4f, Height) / 2f, emitSound: true);
             scene.Add(animatingPlatform);
-
-            // add the hidden solid to the scene as well.
-            scene.Add(playerInteractingSolid);
-
-            // load the texture.
-            MTexture fullTexture = GFX.Game["objects/woodPlatform/" + texture];
-            textures = new MTexture[fullTexture.Width / 8];
-            for (int i = 0; i < textures.Length; i++) {
-                textures[i] = fullTexture.GetSubtexture(i * 8, 0, 8, 8);
-            }
         }
 
         // called when the platform moves, with the move amount
