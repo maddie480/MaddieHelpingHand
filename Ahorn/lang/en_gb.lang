@@ -330,3 +330,13 @@ placements.entities.MaxHelpingHand/ReskinnableFloatingDebris.tooltips.texture=Th
 placements.entities.MaxHelpingHand/SidewaysLava.tooltips.intro=Determines whether the lava moves into the screen or starts already present on the screen. Not suitable for sandwich lava.
 placements.entities.MaxHelpingHand/SidewaysLava.tooltips.lavaMode=Determines which side(s) of the screen the lava comes from.
 placements.entities.MaxHelpingHand/SidewaysLava.tooltips.speedMultiplier=Modifies the lava speed. 1 is vanilla lava speed, 2 is twice as fast.
+
+# Sideways Moving Platform
+placements.entities.MaxHelpingHand/SidewaysMovingPlatform.tooltips.moveTime=The time the platform takes to move between two successive positions. Default is 2 seconds.
+placements.entities.MaxHelpingHand/SidewaysMovingPlatform.tooltips.pauseTime=The time the platform stops at each position. Default is 0 seconds.
+placements.entities.MaxHelpingHand/SidewaysMovingPlatform.tooltips.mode=Determines the way the platform will move between its nodes. For example, with 3 nodes A, B, C:\n- Loop: A > B > C > A\n- LoopNoPause: A > A (going through B and C)\n- BackAndForth: A > B > C > B > A\n- BackAndForthNoPause: A > C > A (going through B)\n- TeleportBack: A > B > C, then the platform teleports to A upon reaching C
+placements.entities.MaxHelpingHand/SidewaysMovingPlatform.tooltips.texture=What texture to use for the platform.
+placements.entities.MaxHelpingHand/SidewaysMovingPlatform.tooltips.easing=Whether the platform movement should be eased (speedup/slowdown around each position).
+placements.entities.MaxHelpingHand/SidewaysMovingPlatform.tooltips.amount=The number of platforms that will be on the track. If more than 1, they will be evenly spread across the track.
+placements.entities.MaxHelpingHand/SidewaysMovingPlatform.tooltips.offset=An offset in starting position, between 0 and 1.
+placements.entities.MaxHelpingHand/SidewaysMovingPlatform.tooltips.left=Whether the solid side of the platform should be the left side.

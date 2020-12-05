@@ -41,7 +41,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             orig(self, session, startPosition);
 
             if (session.MapData?.Levels?.Any(level => level.Entities?.Any(entity =>
-                entity.Name == "MaxHelpingHand/SidewaysJumpThru" || entity.Name == "MaxHelpingHand/OneWayInvisibleBarrierHorizontal") ?? false) ?? false) {
+                entity.Name == "MaxHelpingHand/SidewaysJumpThru" || entity.Name == "MaxHelpingHand/OneWayInvisibleBarrierHorizontal" || entity.Name == "MaxHelpingHand/SidewaysMovingPlatform") ?? false) ?? false) {
 
                 activateHooks();
 
@@ -376,8 +376,17 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
 
         private bool letSeekersThrough;
 
+
+        public SidewaysJumpThru(Vector2 position, int height, bool allowLeftToRight, string overrideTexture, float animationDelay, bool allowClimbing, bool allowWallJumping, bool letSeekersThrough)
+            : this(position, height, allowLeftToRight, overrideTexture, animationDelay) {
+
+            this.allowClimbing = allowClimbing;
+            this.allowWallJumping = allowWallJumping;
+            this.letSeekersThrough = letSeekersThrough;
+        }
+
         public SidewaysJumpThru(Vector2 position, int height, bool allowLeftToRight, string overrideTexture, float animationDelay)
-            : base(position) {
+           : base(position) {
 
             lines = height / 8;
             AllowLeftToRight = allowLeftToRight;
@@ -393,12 +402,8 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
         }
 
         public SidewaysJumpThru(EntityData data, Vector2 offset)
-            : this(data.Position + offset, data.Height, !data.Bool("left"), data.Attr("texture", "default"), data.Float("animationDelay", 0f)) {
-
-            allowClimbing = data.Bool("allowClimbing", true);
-            allowWallJumping = data.Bool("allowWallJumping", true);
-            letSeekersThrough = data.Bool("letSeekersThrough", false);
-        }
+            : this(data.Position + offset, data.Height, !data.Bool("left"), data.Attr("texture", "default"), data.Float("animationDelay", 0f),
+                  data.Bool("allowClimbing", true), data.Bool("allowWallJumping", true), data.Bool("letSeekersThrough", false)) { }
 
         public override void Awake(Scene scene) {
             if (animationDelay > 0f) {
