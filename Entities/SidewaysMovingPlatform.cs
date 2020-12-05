@@ -82,6 +82,14 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
 
         // called when the platform moves, with the move amount
         private void onMove(Vector2 move) {
+            if (Scene == null) {
+                // the platform isn't in the scene yet (initial offset is applied by the moving platform), so don't do collide checks and just move.
+                Position += move;
+                playerInteractingSolid.MoveHNaive(move.X);
+                playerInteractingSolid.MoveVNaive(move.Y);
+                return;
+            }
+
             bool playerHasToMove = false;
 
             if (CollideCheckOutside<Player>(Position + move) && (Math.Sign(move.X) == (left ? -1 : 1))) {

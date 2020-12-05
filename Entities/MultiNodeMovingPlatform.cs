@@ -21,6 +21,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
         private bool easing;
         private int amount;
         private float startingOffset;
+        private string flag;
 
         private MTexture[] textures;
         private float[] nodePercentages;
@@ -51,6 +52,9 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
         private Vector2? forcedTrackOffset = null;
         private bool emitSound = false;
 
+        private Vector2 previousPosition;
+        private bool startingOffsetIsNotZero = false;
+
         public MultiNodeMovingPlatform(EntityData data, Vector2 offset, Action<MultiNodeMovingPlatform> callbackOnAdded) : this(data, offset) {
             this.callbackOnAdded = callbackOnAdded;
         }
@@ -65,12 +69,15 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             mode = data.Enum("mode", Mode.Loop);
             easing = data.Bool("easing", true);
             amount = data.Int("amount", 1);
+            flag = data.Attr("flag");
 
             entityProperties = data.Values;
             entityPosition = data.Position;
             entityWidth = data.Width;
             entityNodes = data.Nodes;
             entityOffset = offset;
+
+            previousPosition = Position;
 
             // read nodes
             nodes = new Vector2[data.Nodes.Length + 1];
@@ -171,6 +178,8 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
                         percent = startingOffset;
                         break;
                 }
+
+                startingOffsetIsNotZero = true;
             }
         }
 
@@ -230,6 +239,10 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             }
 
             callbackOnAdded?.Invoke(this);
+
+            if (startingOffsetIsNotZero) {
+                updatePosition();
+            }
         }
 
         public override void Render() {
@@ -279,12 +292,17 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
                 addY = Calc.Approach(addY, 0f, 20f * Engine.DeltaTime);
             }
 
-            if (pauseTimer > 0f) {
+            if (!string.IsNullOrEmpty(flag) && !SceneAs<Level>().Session.GetFlag(flag)) {
+                // the platform's flag isn't active at the moment.
+                // still update the position to be sure to apply addY.
+                moveToPosition(previousPosition + new Vector2(0f, addY));
+                return;
+            } else if (pauseTimer > 0f) {
                 // the platform is currently paused at a node.
                 pauseTimer -= Engine.DeltaTime;
 
                 // still update the position to be sure to apply addY.
-                MoveTo(nodes[prevNodeIndex] + new Vector2(0f, addY));
+                moveToPosition(nodes[prevNodeIndex] + new Vector2(0f, addY));
                 return;
             } else {
                 if (percent == 0 && (Visible || emitSound)) {
@@ -298,75 +316,83 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
 
                 // move forward...
                 percent = Calc.Approach(percent, 1f, Engine.DeltaTime / moveTime);
+                updatePosition();
+            }
+        }
 
-                if (mode == Mode.BackAndForthNoPause || mode == Mode.LoopNoPause) {
-                    // NO PAUSE MODES: the "percentage" is the progress for the whole track, including all nodes.
+        private void updatePosition() {
+            if (mode == Mode.BackAndForthNoPause || mode == Mode.LoopNoPause) {
+                // NO PAUSE MODES: the "percentage" is the progress for the whole track, including all nodes.
 
-                    if (percent == 1f) {
-                        // we reached the last node.
-                        // pause, then start over.
-                        percent = 0f;
-                        pauseTimer = pauseTime;
+                if (percent == 1f) {
+                    // we reached the last node.
+                    // pause, then start over.
+                    percent = 0f;
+                    pauseTimer = pauseTime;
 
-                        if (mode == Mode.BackAndForthNoPause) {
-                            // the current node we're stopped at is either the last node, or the first one, depending on the direction.
-                            prevNodeIndex = direction == 1 ? nodes.Length - 1 : 0;
+                    if (mode == Mode.BackAndForthNoPause) {
+                        // the current node we're stopped at is either the last node, or the first one, depending on the direction.
+                        prevNodeIndex = direction == 1 ? nodes.Length - 1 : 0;
 
-                            // go the other way round now.
-                            direction = -direction;
-                        }
-
-                        MoveTo(nodes[prevNodeIndex] + new Vector2(0f, addY));
-                    } else {
-                        // OTHER MODES: the "percentage" is the progress between the current node and the next one.
-
-                        float easedPercentage = applyEase(direction == 1 ? percent : 1 - percent);
-
-                        // for example, if node percentages are 0.2 and 1, and easedPercentage is 0.6, nextNodeIndex = 1.
-                        int nextNodeIndex = 0;
-                        while (nodePercentages[nextNodeIndex] < easedPercentage) {
-                            nextNodeIndex++;
-                        }
-
-                        // in this case, previousNodePercentage = 0.2 and nextNodePercentage = 1. ClampedMap will remap 0.6 to 0.5 since this is halfway between 0.2 and 1.
-                        float previousNodePercentage = nextNodeIndex == 0 ? 0 : nodePercentages[nextNodeIndex - 1];
-                        float nextNodePercentage = nodePercentages[nextNodeIndex];
-
-                        MoveTo(Vector2.Lerp(nodes[nextNodeIndex], nodes[(nextNodeIndex + 1) % nodes.Length],
-                            Calc.ClampedMap(easedPercentage, previousNodePercentage, nextNodePercentage)) + new Vector2(0f, addY));
+                        // go the other way round now.
+                        direction = -direction;
                     }
+
+                    moveToPosition(nodes[prevNodeIndex] + new Vector2(0f, addY));
                 } else {
-                    // lerp between the previous node and the next one.
-                    MoveTo(Vector2.Lerp(nodes[prevNodeIndex], nodes[nextNodeIndex], applyEase(percent)) + new Vector2(0f, addY));
+                    // OTHER MODES: the "percentage" is the progress between the current node and the next one.
 
-                    if (percent == 1f) {
-                        // reached the end. start waiting before moving again, and switch the target to the next node.
-                        prevNodeIndex = nextNodeIndex;
-                        nextNodeIndex = prevNodeIndex + direction;
-                        if (nextNodeIndex < 0) {
-                            // done moving back, let's move forth again
-                            nextNodeIndex = 1;
-                            direction = 1;
-                        } else if (nextNodeIndex >= nodes.Length) {
-                            // reached the last node
-                            if (mode == Mode.Loop) {
-                                // go to the first node
-                                nextNodeIndex = 0;
-                            } else if (mode == Mode.TeleportBack) {
-                                // go back to the first node instantly.
-                                prevNodeIndex = 0;
-                                nextNodeIndex = 1;
-                            } else if (mode == Mode.BackAndForth) {
-                                // start going back
-                                nextNodeIndex -= 2;
-                                direction = -1;
-                            }
-                        }
-                        percent = 0;
-                        pauseTimer = pauseTime;
+                    float easedPercentage = applyEase(direction == 1 ? percent : 1 - percent);
+
+                    // for example, if node percentages are 0.2 and 1, and easedPercentage is 0.6, nextNodeIndex = 1.
+                    int nextNodeIndex = 0;
+                    while (nodePercentages[nextNodeIndex] < easedPercentage) {
+                        nextNodeIndex++;
                     }
+
+                    // in this case, previousNodePercentage = 0.2 and nextNodePercentage = 1. ClampedMap will remap 0.6 to 0.5 since this is halfway between 0.2 and 1.
+                    float previousNodePercentage = nextNodeIndex == 0 ? 0 : nodePercentages[nextNodeIndex - 1];
+                    float nextNodePercentage = nodePercentages[nextNodeIndex];
+
+                    moveToPosition(Vector2.Lerp(nodes[nextNodeIndex], nodes[(nextNodeIndex + 1) % nodes.Length],
+                        Calc.ClampedMap(easedPercentage, previousNodePercentage, nextNodePercentage)) + new Vector2(0f, addY));
+                }
+            } else {
+                // lerp between the previous node and the next one.
+                moveToPosition(Vector2.Lerp(nodes[prevNodeIndex], nodes[nextNodeIndex], applyEase(percent)) + new Vector2(0f, addY));
+
+                if (percent == 1f) {
+                    // reached the end. start waiting before moving again, and switch the target to the next node.
+                    prevNodeIndex = nextNodeIndex;
+                    nextNodeIndex = prevNodeIndex + direction;
+                    if (nextNodeIndex < 0) {
+                        // done moving back, let's move forth again
+                        nextNodeIndex = 1;
+                        direction = 1;
+                    } else if (nextNodeIndex >= nodes.Length) {
+                        // reached the last node
+                        if (mode == Mode.Loop) {
+                            // go to the first node
+                            nextNodeIndex = 0;
+                        } else if (mode == Mode.TeleportBack) {
+                            // go back to the first node instantly.
+                            prevNodeIndex = 0;
+                            nextNodeIndex = 1;
+                        } else if (mode == Mode.BackAndForth) {
+                            // start going back
+                            nextNodeIndex -= 2;
+                            direction = -1;
+                        }
+                    }
+                    percent = 0;
+                    pauseTimer = pauseTime;
                 }
             }
+        }
+
+        private void moveToPosition(Vector2 position) {
+            MoveTo(position);
+            previousPosition = position - new Vector2(0f, addY);
         }
 
         /// <summary>

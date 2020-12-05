@@ -2,8 +2,8 @@
 
 using ..Ahorn, Maple
 
-@pardef MultiNodeMovingPlatform(x::Integer, y::Integer, width::Integer=Maple.defaultBlockWidth, mode::String="Loop", texture::String="default", moveTime::Number=2.0, pauseTime::Number=0.0, easing::Bool=true, amount::Int=1, offset::Number=0.0) =
-    Entity("MaxHelpingHand/MultiNodeMovingPlatform", x=x, y=y, nodes=Tuple{Int, Int}[], width=width, mode=mode, texture=texture, moveTime=moveTime, pauseTime=pauseTime, easing=easing, amount=amount, offset=offset)
+@pardef MultiNodeMovingPlatform(x::Integer, y::Integer, width::Integer=Maple.defaultBlockWidth, mode::String="Loop", texture::String="default", moveTime::Number=2.0, pauseTime::Number=0.0, easing::Bool=true, amount::Int=1, offset::Number=0.0, flag::String="") =
+    Entity("MaxHelpingHand/MultiNodeMovingPlatform", x=x, y=y, nodes=Tuple{Int, Int}[], width=width, mode=mode, texture=texture, moveTime=moveTime, pauseTime=pauseTime, easing=easing, amount=amount, offset=offset, flag=flag)
 
 const placements = Ahorn.PlacementDict()
 
