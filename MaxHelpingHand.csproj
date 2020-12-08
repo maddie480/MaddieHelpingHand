@@ -97,6 +97,7 @@
     <Compile Include="Entities\SidewaysLava.cs" />
     <Compile Include="Entities\SidewaysLavaRect.cs" />
     <Compile Include="Entities\SidewaysMovingPlatform.cs" />
+    <Compile Include="Module\GuiStrawberryReskin.cs" />
     <Compile Include="Triggers\AllBlackholesStrengthTrigger.cs" />
     <Compile Include="Triggers\FlagToggleSmoothCameraOffsetTrigger.cs" />
     <Compile Include="Triggers\FlagToggleCameraTargetTrigger.cs" />

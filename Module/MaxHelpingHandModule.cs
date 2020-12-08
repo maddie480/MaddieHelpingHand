@@ -41,6 +41,7 @@ namespace Celeste.Mod.MaxHelpingHand.Module {
             AnimatedParallax.Load();
             NorthernLightsCustomColors.Load();
             ReskinnableFloatingDebris.Load();
+            GuiStrawberryReskin.Load();
 
             Everest.Events.Level.OnLoadBackdrop += onLoadBackdrop;
         }
@@ -68,6 +69,7 @@ namespace Celeste.Mod.MaxHelpingHand.Module {
             AnimatedParallax.Unload();
             NorthernLightsCustomColors.Unload();
             ReskinnableFloatingDebris.Unload();
+            GuiStrawberryReskin.Unload();
 
             Everest.Events.Level.OnLoadBackdrop -= onLoadBackdrop;
         }
