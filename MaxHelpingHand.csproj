@@ -91,6 +91,7 @@
     <Compile Include="Entities\MultiNodeBumper.cs" />
     <Compile Include="Entities\MultiRoomStrawberry.cs" />
     <Compile Include="Entities\MultiRoomStrawberrySeed.cs" />
+    <Compile Include="Entities\NoDashRefillSpring.cs" />
     <Compile Include="Entities\ReskinnableFloatingDebris.cs" />
     <Compile Include="Entities\RotatingBumper.cs" />
     <Compile Include="Entities\SetFlagOnSpawnController.cs" />
@@ -110,6 +111,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Ahorn\effects\maxHelpingHandSnowCustomColors.jl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Ahorn\entities\maxHelpingHandNoDashRefillSpring.jl">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Ahorn\entities\maxHelpingHandSidewaysMovingPlatform.jl">
@@ -1155,6 +1159,27 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Graphics\Atlases\Gameplay\MaxHelpingHand\gradientdustbunnies\bluegreen.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Graphics\Atlases\Gameplay\objects\MaxHelpingHand\noDashRefillSpring\00.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Graphics\Atlases\Gameplay\objects\MaxHelpingHand\noDashRefillSpring\01.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Graphics\Atlases\Gameplay\objects\MaxHelpingHand\noDashRefillSpring\02.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Graphics\Atlases\Gameplay\objects\MaxHelpingHand\noDashRefillSpring\03.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Graphics\Atlases\Gameplay\objects\MaxHelpingHand\noDashRefillSpring\04.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Graphics\Atlases\Gameplay\objects\MaxHelpingHand\noDashRefillSpring\05.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Graphics\Atlases\Gameplay\objects\MaxHelpingHand\noDashRefillSpring\white.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Graphics\Sprites.xml">
