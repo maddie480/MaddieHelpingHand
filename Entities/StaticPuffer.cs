@@ -38,6 +38,9 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
         public StaticPuffer(EntityData data, Vector2 offset) : base(data, offset) {
             // remove the sine wave component so that it isn't updated.
             Get<SineWave>()?.RemoveSelf();
+
+            // give the puffer a different depth compared to the player to eliminate frame-precise inconsistencies.
+            Depth = -1;
         }
     }
 }
