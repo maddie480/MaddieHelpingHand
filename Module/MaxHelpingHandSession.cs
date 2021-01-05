@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Microsoft.Xna.Framework;
+using System.Collections.Generic;
 
 namespace Celeste.Mod.MaxHelpingHand.Module {
     public class MaxHelpingHandSession : EverestModuleSession {
@@ -6,6 +7,8 @@ namespace Celeste.Mod.MaxHelpingHand.Module {
             public string Colors { get; set; }
             public float GradientSize { get; set; }
             public bool LoopColors { get; set; }
+            public Vector2 Center { get; set; } = new Vector2(0, 0);
+            public float GradientSpeed { get; set; } = 50f;
         }
 
         public class MultiRoomStrawberrySeedInfo {
