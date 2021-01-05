@@ -92,6 +92,8 @@
     <Compile Include="Entities\MultiRoomStrawberry.cs" />
     <Compile Include="Entities\MultiRoomStrawberrySeed.cs" />
     <Compile Include="Entities\NoDashRefillSpring.cs" />
+    <Compile Include="Entities\SeekerBarrierColorControllerDisabler.cs" />
+    <Compile Include="Entities\SeekerBarrierColorController.cs" />
     <Compile Include="Entities\ReskinnableFloatingDebris.cs" />
     <Compile Include="Entities\RotatingBumper.cs" />
     <Compile Include="Entities\SetFlagOnSpawnController.cs" />
@@ -114,6 +116,12 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Ahorn\entities\maxHelpingHandNoDashRefillSpring.jl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Ahorn\entities\maxHelpingHandSeekerBarrierColorControllerDisabler.jl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Ahorn\entities\maxHelpingHandSeekerBarrierColorController.jl">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Ahorn\entities\maxHelpingHandSidewaysMovingPlatform.jl">

@@ -11,6 +11,13 @@ namespace Celeste.Mod.MaxHelpingHand.Module {
             public float GradientSpeed { get; set; } = 50f;
         }
 
+        public class SeekerBarrierColorState {
+            public string Color { get; set; }
+            public string ParticleColor { get; set; }
+            public float Transparency { get; set; }
+            public float ParticleTransparency { get; set; }
+        }
+
         public class MultiRoomStrawberrySeedInfo {
             public int Index { get; set; }
             public EntityID BerryID { get; set; }
@@ -25,6 +32,7 @@ namespace Celeste.Mod.MaxHelpingHand.Module {
         }
 
         public RainbowSpinnerColorState RainbowSpinnerCurrentColors { get; set; } = null;
+        public SeekerBarrierColorState SeekerBarrierCurrentColors { get; set; } = null;
 
         public string GradientDustImagePath { get; set; } = null;
         public float GradientDustScrollSpeed { get; set; } = 0f;
