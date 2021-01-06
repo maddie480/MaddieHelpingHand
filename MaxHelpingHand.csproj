@@ -83,6 +83,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Ahorn\triggers\maxHelpingHandAmbienceVolumeTrigger.jl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <Compile Include="Effects\AnimatedParallax.cs" />
     <Compile Include="Effects\NorthernLightsCustomColors.cs" />
     <Compile Include="Entities\BumperNotCoreMode.cs" />
@@ -102,6 +105,7 @@
     <Compile Include="Entities\SidewaysMovingPlatform.cs" />
     <Compile Include="Module\GuiStrawberryReskin.cs" />
     <Compile Include="Triggers\AllBlackholesStrengthTrigger.cs" />
+    <Compile Include="Triggers\AmbienceVolumeTrigger.cs" />
     <Compile Include="Triggers\FlagToggleSmoothCameraOffsetTrigger.cs" />
     <Compile Include="Triggers\FlagToggleCameraTargetTrigger.cs" />
     <Compile Include="Triggers\FlagToggleCameraOffsetTrigger.cs" />

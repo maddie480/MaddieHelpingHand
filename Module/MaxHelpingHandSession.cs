@@ -38,6 +38,7 @@ namespace Celeste.Mod.MaxHelpingHand.Module {
         public float GradientDustScrollSpeed { get; set; } = 0f;
         public float? CameraCatchupSpeed { get; set; } = null;
         public bool MadelineIsSilhouette { get; set; } = false;
+        public float AmbienceVolume { get; set; } = 1;
 
         public List<MultiRoomStrawberrySeedInfo> CollectedMultiRoomStrawberrySeeds { get; set; } = new List<MultiRoomStrawberrySeedInfo>();
 
