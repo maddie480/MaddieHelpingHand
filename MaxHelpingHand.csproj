@@ -83,14 +83,19 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Ahorn\entities\maxHelpingHandFloatySpaceBlockWithAttachedSidewaysJumpthruSupport.jl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="Ahorn\triggers\maxHelpingHandAmbienceVolumeTrigger.jl">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <Compile Include="Effects\AnimatedParallax.cs" />
     <Compile Include="Effects\NorthernLightsCustomColors.cs" />
+    <Compile Include="Entities\AttachedSidewaysJumpThru.cs" />
     <Compile Include="Entities\BumperNotCoreMode.cs" />
     <Compile Include="Entities\FlagExitBlock.cs" />
     <Compile Include="Entities\FlagLogicGate.cs" />
+    <Compile Include="Entities\FloatySpaceBlockWithAttachedSidewaysJumpthruSupport.cs" />
     <Compile Include="Entities\MultiNodeBumper.cs" />
     <Compile Include="Entities\MultiRoomStrawberry.cs" />
     <Compile Include="Entities\MultiRoomStrawberrySeed.cs" />

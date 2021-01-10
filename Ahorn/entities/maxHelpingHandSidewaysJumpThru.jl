@@ -4,6 +4,8 @@ using ..Ahorn, Maple
 
 @mapdef Entity "MaxHelpingHand/SidewaysJumpThru" SidewaysJumpThru(x::Integer, y::Integer, height::Integer=Maple.defaultBlockHeight, 
     left::Bool=true, texture::String="wood", animationDelay::Number=0.0, letSeekersThrough::Bool=false)
+@mapdef Entity "MaxHelpingHand/AttachedSidewaysJumpThru" AttachedSidewaysJumpThru(x::Integer, y::Integer, height::Integer=Maple.defaultBlockHeight, 
+    left::Bool=true, texture::String="wood", animationDelay::Number=0.0, letSeekersThrough::Bool=false)
 
 textures = ["wood", "dream", "temple", "templeB", "cliffside", "reflection", "core", "moon"]
 const placements = Ahorn.PlacementDict(
@@ -22,29 +24,48 @@ const placements = Ahorn.PlacementDict(
             "texture" => "wood",
             "left" => false
         )
+    ),
+    "Sideways Jump Through (Attached, Left) (max480's Helping Hand)" => Ahorn.EntityPlacement(
+        AttachedSidewaysJumpThru,
+        "rectangle",
+        Dict{String, Any}(
+            "texture" => "wood",
+            "left" => true
+        )
+    ),
+    "Sideways Jump Through (Attached, Right) (max480's Helping Hand)" => Ahorn.EntityPlacement(
+        AttachedSidewaysJumpThru,
+        "rectangle",
+        Dict{String, Any}(
+            "texture" => "wood",
+            "left" => false
+        )
     )
 )
+
+# Sideways Jumpthrus and Attached ones look the same and have the same options, so we're going to handle them together!
+const jumpthruUnion = Union{SidewaysJumpThru, AttachedSidewaysJumpThru}
 
 quads = Tuple{Integer, Integer, Integer, Integer}[
     (0, 0, 8, 7) (8, 0, 8, 7) (16, 0, 8, 7);
     (0, 8, 8, 5) (8, 8, 8, 5) (16, 8, 8, 5)
 ]
 
-Ahorn.editingOptions(entity::SidewaysJumpThru) = Dict{String, Any}(
+Ahorn.editingOptions(entity::jumpthruUnion) = Dict{String, Any}(
     "texture" => textures
 )
 
-Ahorn.minimumSize(entity::SidewaysJumpThru) = 0, 8
-Ahorn.resizable(entity::SidewaysJumpThru) = false, true
+Ahorn.minimumSize(entity::jumpthruUnion) = 0, 8
+Ahorn.resizable(entity::jumpthruUnion) = false, true
 
-function Ahorn.selection(entity::SidewaysJumpThru)
+function Ahorn.selection(entity::jumpthruUnion)
     x, y = Ahorn.position(entity)
     height = Int(get(entity.data, "height", 8))
 
     return Ahorn.Rectangle(x, y, 8, height)
 end
 
-function Ahorn.render(ctx::Ahorn.Cairo.CairoContext, entity::SidewaysJumpThru, room::Maple.Room)
+function Ahorn.render(ctx::Ahorn.Cairo.CairoContext, entity::jumpthruUnion, room::Maple.Room)
     texture = get(entity.data, "texture", "wood")
     texture = texture == "default" ? "wood" : texture
 

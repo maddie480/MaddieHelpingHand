@@ -207,6 +207,10 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             SidewaysJumpThru jumpThru = self.CollideFirstOutside<SidewaysJumpThru>(self.Position + Vector2.UnitX * moveDirection);
             if (jumpThru != null && jumpThru.AllowLeftToRight != movingLeftToRight && (!(self is Seeker) || !jumpThru.letSeekersThrough)) {
                 // there is a sideways jump-thru and we are moving in the opposite direction => collision
+                if (self is Player player && player.DashAttacking && jumpThru is AttachedSidewaysJumpThru attachedSidewaysJumpThru) {
+                    // attached sideways jumpthrus potentially have a callback to call when the player is dashing into them.
+                    attachedSidewaysJumpThru.OnDashCollide?.Invoke(player, Vector2.UnitX * moveDirection);
+                }
                 return true;
             }
 

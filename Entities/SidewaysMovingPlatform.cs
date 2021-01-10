@@ -61,7 +61,9 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             }
 
             // add a multi-node moving platform, pass the platform settings to it, and attach the bumper to it.
-            StaticMover staticMover = new StaticMover() { OnMove = onMove };
+            StaticMover staticMover = new StaticMover() {
+                OnMove = move => SidewaysJumpthruOnMove(this, playerInteractingSolid, left, move)
+            };
             Add(staticMover);
             animatingPlatform = new MultiNodeMovingPlatform(thisEntityData, thisOffset, otherPlatform => {
                 if (otherPlatform != animatingPlatform) {
@@ -71,7 +73,9 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
                     Scene.Add(otherSidewaysPlatform);
 
                     // ... and attach it to that new platform.
-                    StaticMover otherStaticMover = new StaticMover() { OnMove = otherSidewaysPlatform.onMove };
+                    StaticMover otherStaticMover = new StaticMover() {
+                        OnMove = move => SidewaysJumpthruOnMove(otherSidewaysPlatform, otherSidewaysPlatform.playerInteractingSolid, otherSidewaysPlatform.left, move)
+                    };
                     otherSidewaysPlatform.Add(otherStaticMover);
                     otherPlatform.AnimateObject(otherStaticMover, forcedTrackOffset: new Vector2(Width + 4f, Height) / 2f, emitSound: true);
                 }
@@ -81,10 +85,10 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
         }
 
         // called when the platform moves, with the move amount
-        private void onMove(Vector2 move) {
-            if (Scene == null) {
+        public static void SidewaysJumpthruOnMove(Entity platform, Solid playerInteractingSolid, bool left, Vector2 move) {
+            if (platform.Scene == null) {
                 // the platform isn't in the scene yet (initial offset is applied by the moving platform), so don't do collide checks and just move.
-                Position += move;
+                platform.Position += move;
                 playerInteractingSolid.MoveHNaive(move.X);
                 playerInteractingSolid.MoveVNaive(move.Y);
                 return;
@@ -92,17 +96,17 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
 
             bool playerHasToMove = false;
 
-            if (CollideCheckOutside<Player>(Position + move) && (Math.Sign(move.X) == (left ? -1 : 1))) {
+            if (platform.CollideCheckOutside<Player>(platform.Position + move) && (Math.Sign(move.X) == (left ? -1 : 1))) {
                 // the platform is pushing the player horizontally, so we should have the solid push the player.
                 playerHasToMove = true;
             }
-            if (getPlayerClimbing() != null) {
+            if (GetPlayerClimbing(platform, left) != null) {
                 // player is climbing the platform, so the solid should carry the player with the platform
                 playerHasToMove = true;
             }
 
             // move the platform..
-            Position += move;
+            platform.Position += move;
 
             // move the hidden solid, making it actually solid if needed. When solid, it will push the player and carry them if they climb the platform.
             playerInteractingSolid.Collidable = playerHasToMove;
@@ -112,13 +116,13 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
         }
 
         // variant on Solid.GetPlayerClimbing() that also checks for the jumpthru orientation.
-        private Player getPlayerClimbing() {
-            foreach (Player player in Scene.Tracker.GetEntities<Player>()) {
+        public static Player GetPlayerClimbing(Entity platform, bool left) {
+            foreach (Player player in platform.Scene.Tracker.GetEntities<Player>()) {
                 if (player.StateMachine.State == 1) {
-                    if (!left && player.Facing == Facings.Left && CollideCheckOutside(player, Position + Vector2.UnitX)) {
+                    if (!left && player.Facing == Facings.Left && platform.CollideCheckOutside(player, platform.Position + Vector2.UnitX)) {
                         return player;
                     }
-                    if (left && player.Facing == Facings.Right && CollideCheckOutside(player, Position - Vector2.UnitX)) {
+                    if (left && player.Facing == Facings.Right && platform.CollideCheckOutside(player, platform.Position - Vector2.UnitX)) {
                         return player;
                     }
                 }
