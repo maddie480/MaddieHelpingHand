@@ -41,7 +41,8 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             orig(self, session, startPosition);
 
             if (session.MapData?.Levels?.Any(level => level.Entities?.Any(entity =>
-                entity.Name == "MaxHelpingHand/SidewaysJumpThru" || entity.Name == "MaxHelpingHand/OneWayInvisibleBarrierHorizontal" || entity.Name == "MaxHelpingHand/SidewaysMovingPlatform") ?? false) ?? false) {
+                entity.Name == "MaxHelpingHand/SidewaysJumpThru" || entity.Name == "MaxHelpingHand/AttachedSidewaysJumpThru" || entity.Name == "MaxHelpingHand/OneWayInvisibleBarrierHorizontal"
+                || entity.Name == "MaxHelpingHand/SidewaysMovingPlatform") ?? false) ?? false) {
 
                 activateHooks();
 
