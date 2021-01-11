@@ -12,7 +12,6 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
         private Solid playerInteractingSolid;
 
         public readonly new bool Left;
-        private Vector2 shakeMove = Vector2.Zero;
 
         public DashCollision OnDashCollide;
 
