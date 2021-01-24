@@ -86,6 +86,9 @@
     <None Include="Ahorn\entities\maxHelpingHandFloatySpaceBlockWithAttachedSidewaysJumpthruSupport.jl">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="Ahorn\entities\maxHelpingHandCustomMemorialWithDreamingAttribute.jl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="Ahorn\triggers\maxHelpingHandAmbienceVolumeTrigger.jl">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -93,6 +96,7 @@
     <Compile Include="Effects\NorthernLightsCustomColors.cs" />
     <Compile Include="Entities\AttachedSidewaysJumpThru.cs" />
     <Compile Include="Entities\BumperNotCoreMode.cs" />
+    <Compile Include="Entities\CustomMemorialWithDreamingAttribute.cs" />
     <Compile Include="Entities\FlagExitBlock.cs" />
     <Compile Include="Entities\FlagLogicGate.cs" />
     <Compile Include="Entities\FloatySpaceBlockWithAttachedSidewaysJumpthruSupport.cs" />
