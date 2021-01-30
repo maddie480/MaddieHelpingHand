@@ -13,7 +13,7 @@ namespace Celeste.Mod.MaxHelpingHand.Triggers {
         private static Color silhouetteOutOfStaminaZeroDashBlinkColor = Calc.HexToColor("348DC1");
 
         public static void Load() {
-            On.Celeste.Player.Added += onPlayerAdded;
+            On.Celeste.PlayerSprite.ctor += onPlayerSpriteConstructor;
             On.Celeste.Player.ResetSprite += onPlayerResetSprite;
 
             using (new DetourContext() { Before = { "*" } }) { // we won't break Spring Collab 2020, but it will break us if it goes first.
@@ -22,17 +22,16 @@ namespace Celeste.Mod.MaxHelpingHand.Triggers {
         }
 
         public static void Unload() {
-            On.Celeste.Player.Added -= onPlayerAdded;
+            On.Celeste.PlayerSprite.ctor -= onPlayerSpriteConstructor;
             IL.Celeste.Player.Render -= patchPlayerRender;
             On.Celeste.Player.ResetSprite -= onPlayerResetSprite;
         }
 
-        private static void onPlayerAdded(On.Celeste.Player.orig_Added orig, Player self, Scene scene) {
-            orig(self, scene);
-
-            if (MaxHelpingHandModule.Instance.Session.MadelineIsSilhouette) {
-                refreshPlayerSpriteMode(self, true);
+        private static void onPlayerSpriteConstructor(On.Celeste.PlayerSprite.orig_ctor orig, PlayerSprite self, PlayerSpriteMode mode) {
+            if (MaxHelpingHandModule.Instance.Session.MadelineIsSilhouette && (mode == PlayerSpriteMode.Madeline || mode == PlayerSpriteMode.MadelineAsBadeline || mode == PlayerSpriteMode.MadelineNoBackpack)) {
+                mode = PlayerSpriteMode.Playback;
             }
+            orig(self, mode);
         }
 
         private static void patchPlayerRender(ILContext il) {
