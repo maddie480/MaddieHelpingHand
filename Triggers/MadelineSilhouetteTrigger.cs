@@ -71,6 +71,8 @@ namespace Celeste.Mod.MaxHelpingHand.Triggers {
             }
         }
 
+        private static void onPlayerAdded() { /* this is completely useless but Extended Variants 0.19.6 and earlier will crash if they don't find this method. */  }
+
         private static void refreshPlayerSpriteMode(Player player, bool enableSilhouette) {
             PlayerSpriteMode targetSpriteMode;
             if (enableSilhouette) {
