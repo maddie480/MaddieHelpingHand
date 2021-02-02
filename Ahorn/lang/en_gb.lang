@@ -379,3 +379,10 @@ placements.entities.MaxHelpingHand/CustomMemorialWithDreamingAttribute.tooltips.
 placements.entities.MaxHelpingHand/CustomMemorialWithDreamingAttribute.tooltips.dialog=What dialog ID to pull the memorial's text from.
 placements.entities.MaxHelpingHand/CustomMemorialWithDreamingAttribute.tooltips.sprite=What sprite to render for the memorial.
 placements.entities.MaxHelpingHand/CustomMemorialWithDreamingAttribute.tooltips.spacing=The spacing for the letters.
+
+# Custom Tutorial with No Bird
+placements.entities.MaxHelpingHand/CustomTutorialWithNoBird.tooltips.birdId=The unique id of the tutorial when used in combination with Custom Tutorial Bird triggers. Useful for extra control over multiple birds in one room.
+placements.entities.MaxHelpingHand/CustomTutorialWithNoBird.tooltips.controls=The controls to display in the bubble, separated by commas. Each part can be:\n- a path to a texture in the Gui atlas (for example "tinyarrow")\n- a direction: Down, DownRight, Right, UpRight, Up, UpLeft, Left, DownLeft\n- a button: Jump, Dash, Grab, Talk, ESC, Pause, MenuLeft, MenuRight, MenuUp, MenuDown, MenuConfirm, MenuCancel, MenuJournal, QuickRestart\n- a dialog ID, if you prefix it with "dialog:" (for example, "dialog:TUTORIAL_DREAMJUMP")\n- plain text
+placements.entities.MaxHelpingHand/CustomTutorialWithNoBird.tooltips.info=The speech bubble title. Can either be a dialog ID or a path to a texture in the GUI atlas.
+placements.entities.MaxHelpingHand/CustomTutorialWithNoBird.tooltips.onlyOnce=Whether the tutorial should reappear after displaying the speech bubble and disappearing.
+placements.entities.MaxHelpingHand/CustomTutorialWithNoBird.tooltips.hasPointer=Whether the tutorial should be a bubble pointing down. If unchecked, the tutorial will be displayed in a rectangle instead.
