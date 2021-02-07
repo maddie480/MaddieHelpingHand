@@ -129,6 +129,7 @@
     <Compile Include="Triggers\FlagToggleComponent.cs" />
     <Compile Include="Triggers\MadelineSilhouetteTrigger.cs" />
     <Compile Include="Triggers\PauseBadelineBossesTrigger.cs" />
+    <Compile Include="Triggers\PopStrawberrySeedsTrigger.cs" />
     <Compile Include="Triggers\SpeedBasedMusicParamTrigger.cs" />
     <None Include="Ahorn\effects\maxHelpingHandNorthernLightsCustomColors.jl">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -332,6 +333,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Ahorn\triggers\maxHelpingHandFlagToggleSmoothCameraOffset.jl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Ahorn\triggers\maxHelpingHandPopStrawberrySeedsTrigger.jl">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Ahorn\triggers\maxHelpingHandGradientDust.jl">
