@@ -386,3 +386,9 @@ placements.entities.MaxHelpingHand/CustomTutorialWithNoBird.tooltips.controls=Th
 placements.entities.MaxHelpingHand/CustomTutorialWithNoBird.tooltips.info=The speech bubble title. Can either be a dialog ID or a path to a texture in the GUI atlas.
 placements.entities.MaxHelpingHand/CustomTutorialWithNoBird.tooltips.onlyOnce=Whether the tutorial should reappear after displaying the speech bubble and disappearing.
 placements.entities.MaxHelpingHand/CustomTutorialWithNoBird.tooltips.hasPointer=Whether the tutorial should be a bubble pointing down. If unchecked, the tutorial will be displayed in a rectangle instead.
+
+# Non-Popping Strawberry
+placements.entities.MaxHelpingHand/NonPoppingStrawberry.tooltips.winged=The strawberry attempts to vertically rise offscreen when the player dashes.
+placements.entities.MaxHelpingHand/NonPoppingStrawberry.tooltips.checkpointID=Manually determine what checkpoint section strawberries are visually grouped up in, showing up on the start menu during gameplay and level select. Overrides Everest's automatic berry IDs. (Default= -1)
+placements.entities.MaxHelpingHand/NonPoppingStrawberry.tooltips.order=Manually determine what order strawberries are visually placed in on the start menu during gameplay and level select. Overrides Everest's automatic berry IDs. (Default= -1)
+placements.entities.MaxHelpingHand/NonPoppingStrawberry.tooltips.moon=Makes the strawberry render as a space berry.\nDoes not work with wings or nodes in the base game.

@@ -92,6 +92,9 @@
     <None Include="Ahorn\entities\maxHelpingHandCustomMemorialWithDreamingAttribute.jl">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="Ahorn\entities\maxHelpingHandStrawberrySeedNotPoppingOnGround.jl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="Ahorn\triggers\maxHelpingHandAmbienceVolumeTrigger.jl">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -108,6 +111,7 @@
     <Compile Include="Entities\MultiRoomStrawberry.cs" />
     <Compile Include="Entities\MultiRoomStrawberrySeed.cs" />
     <Compile Include="Entities\NoDashRefillSpring.cs" />
+    <Compile Include="Entities\NonPoppingStrawberrySeed.cs" />
     <Compile Include="Entities\SeekerBarrierColorControllerDisabler.cs" />
     <Compile Include="Entities\SeekerBarrierColorController.cs" />
     <Compile Include="Entities\ReskinnableFloatingDebris.cs" />

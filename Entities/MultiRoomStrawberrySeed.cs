@@ -48,7 +48,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
                 // isinst is misleading. It's actually the equivalent of "entity as StrawberrySeed" in C#.
                 // so, if our seed is a multi-room strawberry seed, we want to return null to make the game think it isn't a StrawberrySeed.
                 cursor.EmitDelegate<Func<StrawberrySeed, StrawberrySeed>>(strawberrySeed => {
-                    if (strawberrySeed == null || !(strawberrySeed is MultiRoomStrawberrySeed)) {
+                    if (strawberrySeed == null || !(strawberrySeed is MultiRoomStrawberrySeed || strawberrySeed is NonPoppingStrawberrySeed)) {
                         return strawberrySeed;
                     }
                     return null;

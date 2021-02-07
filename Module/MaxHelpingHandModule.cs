@@ -45,6 +45,7 @@ namespace Celeste.Mod.MaxHelpingHand.Module {
             SeekerBarrierColorController.Load();
             AmbienceVolumeTrigger.Load();
             CustomTutorialWithNoBird.Load();
+            NonPoppingStrawberrySeed.Load();
 
             Everest.Events.Level.OnLoadBackdrop += onLoadBackdrop;
         }
@@ -76,6 +77,7 @@ namespace Celeste.Mod.MaxHelpingHand.Module {
             SeekerBarrierColorController.Unload();
             AmbienceVolumeTrigger.Unload();
             CustomTutorialWithNoBird.Unload();
+            NonPoppingStrawberrySeed.Unload();
 
             Everest.Events.Level.OnLoadBackdrop -= onLoadBackdrop;
         }
