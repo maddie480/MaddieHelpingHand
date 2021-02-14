@@ -5,7 +5,7 @@ using ..Ahorn, Maple
 @mapdef Entity "MaxHelpingHand/RainbowSpinnerColorControllerDisabler" RainbowSpinnerColorControllerDisabler(x::Integer, y::Integer)
 
 const placements = Ahorn.PlacementDict(
-    "Rainbow Spinner Color Controller (Disable) (max480's Helping Hand)" => Ahorn.EntityPlacement(
+    "Rainbow Spinner Color Controller (Disable)\n(max480's Helping Hand)" => Ahorn.EntityPlacement(
         RainbowSpinnerColorControllerDisabler
     )
 )

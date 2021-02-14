@@ -25,7 +25,7 @@ const placements = Ahorn.PlacementDict(
             "left" => false
         )
     ),
-    "Sideways Jump Through (Attached, Left) (max480's Helping Hand)" => Ahorn.EntityPlacement(
+    "Sideways Jump Through (Attached, Left)\n(max480's Helping Hand)" => Ahorn.EntityPlacement(
         AttachedSidewaysJumpThru,
         "rectangle",
         Dict{String, Any}(
@@ -33,7 +33,7 @@ const placements = Ahorn.PlacementDict(
             "left" => true
         )
     ),
-    "Sideways Jump Through (Attached, Right) (max480's Helping Hand)" => Ahorn.EntityPlacement(
+    "Sideways Jump Through (Attached, Right)\n(max480's Helping Hand)" => Ahorn.EntityPlacement(
         AttachedSidewaysJumpThru,
         "rectangle",
         Dict{String, Any}(

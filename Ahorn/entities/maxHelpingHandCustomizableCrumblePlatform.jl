@@ -7,7 +7,7 @@ using ..Ahorn, Maple
     maxCrumbleDurationOnTop::Number=0.6, crumbleDurationOnSide::Number=1.0)
 
 const placements = Ahorn.PlacementDict(
-    "Crumble Blocks ($(uppercasefirst(texture)), Customizable) (max480's Helping Hand)" => Ahorn.EntityPlacement(
+    "Crumble Blocks ($(uppercasefirst(texture)), Customizable)\n(max480's Helping Hand)" => Ahorn.EntityPlacement(
         CustomizableCrumblePlatform,
         "rectangle",
         Dict{String, Any}(

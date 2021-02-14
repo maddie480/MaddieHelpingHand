@@ -6,7 +6,7 @@ using ..Ahorn, Maple
     mustNotDieAndVisitFurtherRooms::Bool=true, mustHaveUnlockedCSides::Bool=true, mustHaveCompletedLevel::Bool=true, showGoldenChapterCard::Bool=true)
 
 const placements = Ahorn.PlacementDict(
-    "Golden Strawberry (Custom Conditions) (max480's Helping Hand)" => Ahorn.EntityPlacement(
+    "Golden Strawberry (Custom Conditions)\n(max480's Helping Hand)" => Ahorn.EntityPlacement(
         GoldenStrawberryCustomConditions
     )
 )
