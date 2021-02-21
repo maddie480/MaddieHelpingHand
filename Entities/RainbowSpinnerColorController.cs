@@ -171,7 +171,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
                 }
 
                 if (spinnerControllerOnScreen != null) {
-                    return getModHue(spinnerControllerOnScreen.colors, spinnerControllerOnScreen.gradientSize, self.Scene, self.Position,
+                    return getModHue(spinnerControllerOnScreen.colors, spinnerControllerOnScreen.gradientSize, self.Scene, position,
                         spinnerControllerOnScreen.loopColors, spinnerControllerOnScreen.center, spinnerControllerOnScreen.gradientSpeed);
                 } else {
                     return orig(self, position);
@@ -180,7 +180,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
                 // get the spinner color in the room we're coming from.
                 Color fromRoomColor;
                 if (spinnerControllerOnScreen != null) {
-                    fromRoomColor = getModHue(spinnerControllerOnScreen.colors, spinnerControllerOnScreen.gradientSize, self.Scene, self.Position,
+                    fromRoomColor = getModHue(spinnerControllerOnScreen.colors, spinnerControllerOnScreen.gradientSize, self.Scene, position,
                         spinnerControllerOnScreen.loopColors, spinnerControllerOnScreen.center, spinnerControllerOnScreen.gradientSpeed);
                 } else {
                     fromRoomColor = orig(self, position);
@@ -189,7 +189,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
                 // get the spinner color in the room we're going to.
                 Color toRoomColor;
                 if (nextSpinnerController != null) {
-                    toRoomColor = getModHue(nextSpinnerController.colors, nextSpinnerController.gradientSize, self.Scene, self.Position,
+                    toRoomColor = getModHue(nextSpinnerController.colors, nextSpinnerController.gradientSize, self.Scene, position,
                         nextSpinnerController.loopColors, nextSpinnerController.center, nextSpinnerController.gradientSpeed);
                 } else {
                     toRoomColor = orig(self, position);
