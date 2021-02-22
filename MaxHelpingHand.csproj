@@ -95,6 +95,9 @@
     <None Include="Ahorn\entities\maxHelpingHandStrawberrySeedNotPoppingOnGround.jl">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="Ahorn\libraries\maxHelpingHandTag.jl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="Ahorn\triggers\maxHelpingHandAmbienceVolumeTrigger.jl">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
