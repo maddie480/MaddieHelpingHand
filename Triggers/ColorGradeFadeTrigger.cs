@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework;
 using Monocle;
 using MonoMod.Utils;
+using System.Linq;
 
 namespace Celeste.Mod.MaxHelpingHand.Triggers {
     [CustomEntity("MaxHelpingHand/ColorGradeFadeTrigger")]
@@ -20,8 +21,8 @@ namespace Celeste.Mod.MaxHelpingHand.Triggers {
 
             // check if the player is in a color grade fade trigger
             Player player = self.Tracker.GetEntity<Player>();
-            ColorGradeFadeTrigger trigger = player?.CollideFirst<ColorGradeFadeTrigger>();
-            if (trigger != null) {
+            ColorGradeFadeTrigger trigger = self.Tracker.GetEntities<ColorGradeFadeTrigger>().OfType<ColorGradeFadeTrigger>().FirstOrDefault(t => t.playerInside);
+            if (player != null && trigger != null) {
                 DynData<Level> selfData = new DynData<Level>(self);
 
                 // the game fades from lastColorGrade to Session.ColorGrade using colorGradeEase as a lerp value.
@@ -46,11 +47,20 @@ namespace Celeste.Mod.MaxHelpingHand.Triggers {
         private string colorGradeA;
         private string colorGradeB;
         private PositionModes direction;
+        private bool playerInside = false;
 
         public ColorGradeFadeTrigger(EntityData data, Vector2 offset) : base(data, offset) {
             colorGradeA = data.Attr("colorGradeA");
             colorGradeB = data.Attr("colorGradeB");
             direction = data.Enum<PositionModes>("direction");
+        }
+
+        public override void OnEnter(Player player) {
+            playerInside = true;
+        }
+
+        public override void OnLeave(Player player) {
+            playerInside = false;
         }
     }
 }
