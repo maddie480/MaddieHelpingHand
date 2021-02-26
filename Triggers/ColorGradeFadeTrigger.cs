@@ -21,7 +21,8 @@ namespace Celeste.Mod.MaxHelpingHand.Triggers {
 
             // check if the player is in a color grade fade trigger
             Player player = self.Tracker.GetEntity<Player>();
-            ColorGradeFadeTrigger trigger = self.Tracker.GetEntities<ColorGradeFadeTrigger>().OfType<ColorGradeFadeTrigger>().FirstOrDefault(t => t.playerInside);
+            ColorGradeFadeTrigger trigger = self.Tracker.GetEntities<ColorGradeFadeTrigger>().OfType<ColorGradeFadeTrigger>()
+                .FirstOrDefault(t => t.evenDuringReflectionFall ? player?.Collider.Collide(t) ?? false : t.playerInside);
             if (player != null && trigger != null) {
                 DynData<Level> selfData = new DynData<Level>(self);
 
@@ -47,12 +48,15 @@ namespace Celeste.Mod.MaxHelpingHand.Triggers {
         private string colorGradeA;
         private string colorGradeB;
         private PositionModes direction;
+        private bool evenDuringReflectionFall;
+
         private bool playerInside = false;
 
         public ColorGradeFadeTrigger(EntityData data, Vector2 offset) : base(data, offset) {
             colorGradeA = data.Attr("colorGradeA");
             colorGradeB = data.Attr("colorGradeB");
             direction = data.Enum<PositionModes>("direction");
+            evenDuringReflectionFall = data.Bool("evenDuringReflectionFall", true); // true by default for backwards compatibility
         }
 
         public override void OnEnter(Player player) {

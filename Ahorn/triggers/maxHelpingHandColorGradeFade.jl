@@ -3,7 +3,7 @@
 using ..Ahorn, Maple
 
 @mapdef Trigger "MaxHelpingHand/ColorGradeFadeTrigger" ColorGradeFadeTrigger(x::Integer, y::Integer, width::Integer=Maple.defaultTriggerWidth, height::Integer=Maple.defaultTriggerHeight,
-    colorGradeA::String="none", colorGradeB::String="none", direction::String="LeftToRight")
+    colorGradeA::String="none", colorGradeB::String="none", direction::String="LeftToRight", evenDuringReflectionFall::Bool=false)
 
 const placements = Ahorn.PlacementDict(
     "Color Grade Fade (max480's Helping Hand)" => Ahorn.EntityPlacement(
