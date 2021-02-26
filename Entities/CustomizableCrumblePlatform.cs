@@ -1,6 +1,9 @@
 ﻿using Celeste.Mod.Entities;
 using Microsoft.Xna.Framework;
+using Mono.Cecil.Cil;
 using Monocle;
+using MonoMod.Cil;
+using MonoMod.RuntimeDetour;
 using MonoMod.Utils;
 using System;
 using System.Collections;
@@ -12,6 +15,17 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
     [CustomEntity("MaxHelpingHand/CustomizableCrumblePlatform")]
     [Tracked]
     class CustomizableCrumblePlatform : CrumblePlatform {
+        private static ILHook crumblePlatformOrigAddedHook = null;
+
+        public static void Load() {
+            crumblePlatformOrigAddedHook = new ILHook(typeof(CrumblePlatform).GetMethod("orig_Added"), onCrumblePlatformAdded);
+        }
+
+        public static void Unload() {
+            crumblePlatformOrigAddedHook?.Dispose();
+            crumblePlatformOrigAddedHook = null;
+        }
+
         private static MethodInfo crumblePlatformOutlineFade = typeof(CrumblePlatform).GetMethod("OutlineFade", BindingFlags.NonPublic | BindingFlags.Instance);
         private static MethodInfo crumblePlatformTileOut = typeof(CrumblePlatform).GetMethod("TileOut", BindingFlags.NonPublic | BindingFlags.Instance);
         private static MethodInfo crumblePlatformTileIn = typeof(CrumblePlatform).GetMethod("TileIn", BindingFlags.NonPublic | BindingFlags.Instance);
@@ -24,6 +38,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
         private LightOcclude occluder;
         private List<Image> images;
 
+        private string outlineTexture;
         private bool oneUse;
         private float respawnDelay;
         private float minCrumbleDurationOnTop;
@@ -35,12 +50,29 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
 
         public CustomizableCrumblePlatform(EntityData data, Vector2 offset) : base(data, offset) {
             OverrideTexture = data.Attr("texture", null);
+            outlineTexture = data.Attr("outlineTexture", "objects/crumbleBlock/outline");
             oneUse = data.Bool("oneUse", false);
             respawnDelay = data.Float("respawnDelay", 2f);
             minCrumbleDurationOnTop = data.Float("minCrumbleDurationOnTop", 0.2f);
             maxCrumbleDurationOnTop = data.Float("maxCrumbleDurationOnTop", 0.6f);
             crumbleDurationOnSide = data.Float("crumbleDurationOnSide", 1f);
             grouped = data.Bool("grouped", false);
+        }
+
+        private static void onCrumblePlatformAdded(ILContext il) {
+            ILCursor cursor = new ILCursor(il);
+
+            while (cursor.TryGotoNext(MoveType.After, instr => instr.MatchLdstr("objects/crumbleBlock/outline"))) {
+                Logger.Log("MaxHelpingHand/CustomizableCrumblePlatform", $"Modding crumble platform outline texture at {cursor.Index} in IL for CrumblePlatform.orig_Added");
+
+                cursor.Emit(OpCodes.Ldarg_0);
+                cursor.EmitDelegate<Func<string, CrumblePlatform, string>>((orig, self) => {
+                    if (self is CustomizableCrumblePlatform customPlatform) {
+                        return customPlatform.outlineTexture;
+                    }
+                    return orig;
+                });
+            }
         }
 
         public override void Added(Scene scene) {
