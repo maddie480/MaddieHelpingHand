@@ -3,9 +3,9 @@
 using ..Ahorn, Maple
 
 @mapdef Entity "MaxHelpingHand/SidewaysJumpThru" SidewaysJumpThru(x::Integer, y::Integer, height::Integer=Maple.defaultBlockHeight, 
-    left::Bool=true, texture::String="wood", animationDelay::Number=0.0, letSeekersThrough::Bool=false)
+    left::Bool=true, texture::String="wood", animationDelay::Number=0.0, letSeekersThrough::Bool=false, surfaceIndex::Int=-1)
 @mapdef Entity "MaxHelpingHand/AttachedSidewaysJumpThru" AttachedSidewaysJumpThru(x::Integer, y::Integer, height::Integer=Maple.defaultBlockHeight, 
-    left::Bool=true, texture::String="wood", animationDelay::Number=0.0, letSeekersThrough::Bool=false)
+    left::Bool=true, texture::String="wood", animationDelay::Number=0.0, letSeekersThrough::Bool=false, surfaceIndex::Int=-1)
 
 textures = ["wood", "dream", "temple", "templeB", "cliffside", "reflection", "core", "moon"]
 const placements = Ahorn.PlacementDict(
@@ -52,7 +52,8 @@ quads = Tuple{Integer, Integer, Integer, Integer}[
 ]
 
 Ahorn.editingOptions(entity::jumpthruUnion) = Dict{String, Any}(
-    "texture" => textures
+    "texture" => textures,
+    "surfaceIndex" => Maple.tileset_sound_ids
 )
 
 Ahorn.minimumSize(entity::jumpthruUnion) = 0, 8

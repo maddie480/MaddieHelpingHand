@@ -55,12 +55,14 @@ placements.entities.MaxHelpingHand/SidewaysJumpThru.tooltips.texture=Changes the
 placements.entities.MaxHelpingHand/SidewaysJumpThru.tooltips.animationDelay=The delay in seconds between 2 frames of animation. Leave to 0 for no animation.
 placements.entities.MaxHelpingHand/SidewaysJumpThru.tooltips.left=Whether the solid side of the jumpthru is the left side.
 placements.entities.MaxHelpingHand/SidewaysJumpThru.tooltips.letSeekersThrough=Whether the seekers should be able to go through the jumpthru, like vanilla ones.
+placements.entities.MaxHelpingHand/SidewaysJumpThru.tooltips.surfaceIndex=Determines which sound the jumpthru will make when the player climbs on it.
 
 # Attached Sideways Jump Thru
 placements.entities.MaxHelpingHand/AttachedSidewaysJumpThru.tooltips.texture=Changes the appearance of the platform. Should be in the same format as vanilla for static jumpthrus, and a 8x8 image for animated ones.
 placements.entities.MaxHelpingHand/AttachedSidewaysJumpThru.tooltips.animationDelay=The delay in seconds between 2 frames of animation. Leave to 0 for no animation.
 placements.entities.MaxHelpingHand/AttachedSidewaysJumpThru.tooltips.left=Whether the solid side of the jumpthru is the left side.
 placements.entities.MaxHelpingHand/AttachedSidewaysJumpThru.tooltips.letSeekersThrough=Whether the seekers should be able to go through the jumpthru, like vanilla ones.
+placements.entities.MaxHelpingHand/AttachedSidewaysJumpThru.tooltips.surfaceIndex=Determines which sound the jumpthru will make when the player climbs on it.
 
 # Floaty Space Block with Attached Sideways Jumpthru support
 placements.entities.MaxHelpingHand/FloatySpaceBlockWithAttachedSidewaysJumpthruSupport.tooltips.tiletype=Determines the visual appearance of the wall.
