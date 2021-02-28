@@ -15,6 +15,23 @@ namespace Celeste.Mod.MaxHelpingHand.Module {
         private Dictionary<string, BinaryPacker.Element> multiRoomStrawberriesByName = new Dictionary<string, BinaryPacker.Element>();
 
         public override Dictionary<string, Action<BinaryPacker.Element>> Init() {
+            Action<BinaryPacker.Element> flagSwitchGateHandler = flagSwitchGate => {
+                string flag = flagSwitchGate.Attr("flag");
+                Dictionary<string, Dictionary<EntityID, bool>> allSwitchGatesInMap = FlagSwitchGates[AreaKey.ID][(int) AreaKey.Mode];
+
+                // if no dictionary entry exists for this flag, create one. otherwise, get it.
+                Dictionary<EntityID, bool> entityIDs;
+                if (!allSwitchGatesInMap.ContainsKey(flag)) {
+                    entityIDs = new Dictionary<EntityID, bool>();
+                    allSwitchGatesInMap[flag] = entityIDs;
+                } else {
+                    entityIDs = allSwitchGatesInMap[flag];
+                }
+
+                // add this flag switch gate to the dictionary.
+                entityIDs.Add(new EntityID(levelName, flagSwitchGate.AttrInt("id")), flagSwitchGate.AttrBool("persistent"));
+            };
+
             return new Dictionary<string, Action<BinaryPacker.Element>> {
                 {
                     "level", level => {
@@ -46,22 +63,10 @@ namespace Celeste.Mod.MaxHelpingHand.Module {
                     }
                 },
                 {
-                    "entity:MaxHelpingHand/FlagSwitchGate", flagSwitchGate => {
-                        string flag = flagSwitchGate.Attr("flag");
-                        Dictionary<string, Dictionary<EntityID, bool>> allSwitchGatesInMap = FlagSwitchGates[AreaKey.ID][(int) AreaKey.Mode];
-
-                        // if no dictionary entry exists for this flag, create one. otherwise, get it.
-                        Dictionary<EntityID, bool> entityIDs;
-                        if (!allSwitchGatesInMap.ContainsKey(flag)) {
-                            entityIDs = new Dictionary<EntityID, bool>();
-                            allSwitchGatesInMap[flag] = entityIDs;
-                        } else {
-                            entityIDs = allSwitchGatesInMap[flag];
-                        }
-
-                        // add this flag switch gate to the dictionary.
-                        entityIDs.Add(new EntityID(levelName, flagSwitchGate.AttrInt("id")), flagSwitchGate.AttrBool("persistent"));
-                    }
+                    "entity:MaxHelpingHand/FlagSwitchGate", flagSwitchGateHandler
+                },
+                {
+                    "entity:CommunalHelper/MaxHelpingHand/DreamFlagSwitchGate", flagSwitchGateHandler
                 },
                 {
                     "entity:MaxHelpingHand/MultiRoomStrawberrySeed", strawberrySeed => {

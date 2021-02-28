@@ -25,6 +25,9 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
         private static FieldInfo seekerPhysicsHitbox = typeof(Seeker).GetField("physicsHitbox", BindingFlags.NonPublic | BindingFlags.Instance);
         private static FieldInfo pufferPushRadius = typeof(Puffer).GetField("pushRadius", BindingFlags.NonPublic | BindingFlags.Instance);
 
+        private static FieldInfo dreamSwitchGateIsFlagSwitchGate = null;
+        private static MethodInfo dreamSwitchGateTriggeredSetter = null;
+
         public static void Load() {
             On.Celeste.Seeker.RegenerateCoroutine += onSeekerRegenerateCoroutine;
             On.Celeste.Puffer.Explode += onPufferExplode;
@@ -250,6 +253,22 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
                             switchGate.Trigger();
                         }
                     }
+
+                    // trigger associated dream flag switch gate(s) from Communal Helper
+                    foreach (Entity dreamFlagSwitchGate in Scene.Entities
+                        .Where(entity => entity.GetType().ToString() == "Celeste.Mod.CommunalHelper.DreamSwitchGate")
+                        .Where(dreamSwitchGate => {
+                            // said dream switch gate should be flag too, but that's a private field.
+                            if (dreamSwitchGateIsFlagSwitchGate == null) {
+                                dreamSwitchGateIsFlagSwitchGate = dreamSwitchGate.GetType().GetField("isFlagSwitchGate", BindingFlags.NonPublic | BindingFlags.Instance);
+                                dreamSwitchGateTriggeredSetter = dreamSwitchGate.GetType().GetMethod("set_Triggered", BindingFlags.NonPublic | BindingFlags.Instance);
+                            }
+                            return (bool) dreamSwitchGateIsFlagSwitchGate.GetValue(dreamSwitchGate);
+                        })) {
+
+                        dreamSwitchGateTriggeredSetter.Invoke(dreamFlagSwitchGate, new object[] { true });
+                    }
+
 
                     // set flags for switch gates.
                     bool allGatesTriggered = true;
