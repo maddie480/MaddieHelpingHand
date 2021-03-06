@@ -9,6 +9,9 @@ namespace Celeste.Mod.MaxHelpingHand.Module {
     public class MaxHelpingHandModule : EverestModule {
         public static MaxHelpingHandModule Instance { get; private set; }
 
+        public override Type SettingsType => typeof(MaxHelpingHandSettings);
+        public MaxHelpingHandSettings Settings => (MaxHelpingHandSettings) _Settings;
+
         public override Type SessionType => typeof(MaxHelpingHandSession);
         public MaxHelpingHandSession Session => (MaxHelpingHandSession) _Session;
 
@@ -48,6 +51,7 @@ namespace Celeste.Mod.MaxHelpingHand.Module {
             NonPoppingStrawberrySeed.Load();
             CustomizableCrumblePlatform.Load();
             MovingFlagTouchSwitch.Load();
+            HintDecal.Load();
 
             Everest.Events.Level.OnLoadBackdrop += onLoadBackdrop;
         }
@@ -82,6 +86,7 @@ namespace Celeste.Mod.MaxHelpingHand.Module {
             NonPoppingStrawberrySeed.Unload();
             CustomizableCrumblePlatform.Unload();
             MovingFlagTouchSwitch.Unload();
+            HintDecal.Unload();
 
             Everest.Events.Level.OnLoadBackdrop -= onLoadBackdrop;
         }

@@ -76,8 +76,13 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Entities\HintDecal.cs" />
     <Compile Include="Entities\MovingFlagTouchSwitch.cs" />
+    <Compile Include="Module\MaxHelpingHandSettings.cs" />
     <Compile Include="Triggers\ActivateTimedTouchSwitchesTimerTrigger.cs" />
+    <None Include="Ahorn\entities\maxHelpingHandHintDecal.jl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="Ahorn\entities\maxHelpingHandCustomTutorialWithNoBird.jl">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -87,7 +92,9 @@
     <None Include="Ahorn\entities\maxHelpingHandCustomMemorialWithDreamingAttribute.jl">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Ahorn\entities\maxHelpingHandMovingFlagTouchSwitch.jl" />
+    <None Include="Ahorn\entities\maxHelpingHandMovingFlagTouchSwitch.jl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="Ahorn\entities\maxHelpingHandStrawberrySeedNotPoppingOnGround.jl">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
