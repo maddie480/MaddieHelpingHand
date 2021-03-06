@@ -28,6 +28,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
 
         private static FieldInfo dreamSwitchGateIsFlagSwitchGate = null;
         private static MethodInfo dreamSwitchGateTriggeredSetter = null;
+        private static MethodInfo dreamSwitchGateFlagGetter = null;
 
         public static void Load() {
             On.Celeste.Seeker.RegenerateCoroutine += onSeekerRegenerateCoroutine;
@@ -281,8 +282,9 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
                         if (dreamSwitchGateIsFlagSwitchGate == null) {
                             dreamSwitchGateIsFlagSwitchGate = dreamSwitchGate.GetType().GetField("isFlagSwitchGate", BindingFlags.NonPublic | BindingFlags.Instance);
                             dreamSwitchGateTriggeredSetter = dreamSwitchGate.GetType().GetMethod("set_Triggered", BindingFlags.NonPublic | BindingFlags.Instance);
+                            dreamSwitchGateFlagGetter = dreamSwitchGate.GetType().GetMethod("get_Flag");
                         }
-                        return (bool) dreamSwitchGateIsFlagSwitchGate.GetValue(dreamSwitchGate);
+                        return (bool) dreamSwitchGateIsFlagSwitchGate.GetValue(dreamSwitchGate) && dreamSwitchGateFlagGetter.Invoke(dreamSwitchGate, new object[0]).ToString() == flag;
                     })) {
 
                     dreamSwitchGateTriggeredSetter.Invoke(dreamFlagSwitchGate, new object[] { true });
