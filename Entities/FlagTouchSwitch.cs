@@ -2,6 +2,7 @@
 using Celeste.Mod.MaxHelpingHand.Module;
 using Microsoft.Xna.Framework;
 using Monocle;
+using MonoMod.Utils;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -72,12 +73,14 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
 
         private int id;
         private string flag;
+        public string Flag => flag;
 
         private bool inverted;
         private bool allowDisable;
 
         // contains all the touch switches in the room
         private List<FlagTouchSwitch> allTouchSwitchesInRoom;
+        private List<TouchSwitch> allMovingFlagTouchSwitchesInRoom;
 
         public bool Activated { get; private set; } = false;
         public bool Finished { get; private set; } = false;
@@ -194,6 +197,11 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             // look around for other touch switches that belong to the same group (same flag).
             allTouchSwitchesInRoom = Scene.Tracker.GetEntities<FlagTouchSwitch>()
                 .FindAll(touchSwitch => (touchSwitch as FlagTouchSwitch)?.flag == flag).OfType<FlagTouchSwitch>().ToList();
+            allMovingFlagTouchSwitchesInRoom = Scene.Entities.OfType<TouchSwitch>()
+                .Where(touchSwitch =>
+                    touchSwitch.GetType().ToString() == "Celeste.Mod.OutbackHelper.MovingTouchSwitch" &&
+                    new DynData<TouchSwitch>(touchSwitch).Data.ContainsKey("flag") &&
+                    new DynData<TouchSwitch>(touchSwitch).Get<string>("flag") == flag).ToList();
         }
 
         private void onPlayer(Player player) {
@@ -226,71 +234,87 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
                 });
                 icon.Rate = 4f;
 
-                if (persistent) {
-                    // this switch is persistent. save its activation in the session.
-                    level.Session.SetFlag(flag + "_switch" + id, true);
-                }
-
-                if (MaxHelpingHandMapDataProcessor.FlagTouchSwitches[level.Session.Area.ID][(int) level.Session.Area.Mode][new KeyValuePair<string, bool>(flag, inverted)]
-                    .All(touchSwitchID => touchSwitchID.Level == level.Session.Level || level.Session.GetFlag(flag + "_switch" + touchSwitchID.ID))
-                    && allTouchSwitchesInRoom.All(touchSwitch => touchSwitch.Activated)) {
-
-                    // all switches in the room are enabled, and all session flags for switches outside the room are enabled.
-                    // so, the group is complete.
-
-                    foreach (FlagTouchSwitch touchSwitch in allTouchSwitchesInRoom) {
-                        touchSwitch.finish();
-                    }
-
-                    doEffect(() => {
-                        SoundEmitter.Play(completeSoundFromScene);
-                        Add(new SoundSource(completeSoundFromSwitch));
-                    });
-
-                    // trigger associated switch gate(s).
-                    foreach (FlagSwitchGate switchGate in Scene.Tracker.GetEntities<FlagSwitchGate>().OfType<FlagSwitchGate>()) {
-                        if (switchGate.Flag == flag) {
-                            switchGate.Trigger();
-                        }
-                    }
-
-                    // trigger associated dream flag switch gate(s) from Communal Helper
-                    foreach (Entity dreamFlagSwitchGate in Scene.Entities
-                        .Where(entity => entity.GetType().ToString() == "Celeste.Mod.CommunalHelper.DreamSwitchGate")
-                        .Where(dreamSwitchGate => {
-                            // said dream switch gate should be flag too, but that's a private field.
-                            if (dreamSwitchGateIsFlagSwitchGate == null) {
-                                dreamSwitchGateIsFlagSwitchGate = dreamSwitchGate.GetType().GetField("isFlagSwitchGate", BindingFlags.NonPublic | BindingFlags.Instance);
-                                dreamSwitchGateTriggeredSetter = dreamSwitchGate.GetType().GetMethod("set_Triggered", BindingFlags.NonPublic | BindingFlags.Instance);
-                            }
-                            return (bool) dreamSwitchGateIsFlagSwitchGate.GetValue(dreamSwitchGate);
-                        })) {
-
-                        dreamSwitchGateTriggeredSetter.Invoke(dreamFlagSwitchGate, new object[] { true });
-                    }
-
-
-                    // set flags for switch gates.
-                    bool allGatesTriggered = true;
-                    if (MaxHelpingHandMapDataProcessor.FlagSwitchGates[level.Session.Area.ID][(int) level.Session.Area.Mode].ContainsKey(flag)) {
-                        Dictionary<EntityID, bool> allGates = MaxHelpingHandMapDataProcessor.FlagSwitchGates[level.Session.Area.ID][(int) level.Session.Area.Mode][flag];
-                        foreach (KeyValuePair<EntityID, bool> gate in allGates) {
-                            if (gate.Value) {
-                                // the gate is persistent; set the flag
-                                level.Session.SetFlag(flag + "_gate" + gate.Key.ID);
-                            } else {
-                                // one of the gates is not persistent, so the touch switches shouldn't be forced to persist.
-                                allGatesTriggered = false;
-                            }
-                        }
-                    }
-
-                    // if all the switches OR all the gates are persistent, the flag it's setting is persistent.
-                    if (allTouchSwitchesInRoom.All(touchSwitch => touchSwitch.persistent) || allGatesTriggered) {
-                        level.Session.SetFlag(flag, !inverted);
-                    }
-                }
+                HandleCollectedFlagTouchSwitch(flag, inverted, persistent, level, id, allTouchSwitchesInRoom, allMovingFlagTouchSwitchesInRoom, () => doEffect(() => {
+                    SoundEmitter.Play(completeSoundFromScene);
+                    Add(new SoundSource(completeSoundFromSwitch));
+                }));
             }
+        }
+
+        // returns true if the entire group was completed.
+        internal static bool HandleCollectedFlagTouchSwitch(string flag, bool inverted, bool persistent, Level level, int id,
+            List<FlagTouchSwitch> allTouchSwitchesInRoom, List<TouchSwitch> allMovingFlagTouchSwitchesInRoom, Action onFinished) {
+
+            if (persistent) {
+                // this switch is persistent. save its activation in the session.
+                level.Session.SetFlag(flag + "_switch" + id, true);
+            }
+
+            if (MaxHelpingHandMapDataProcessor.FlagTouchSwitches[level.Session.Area.ID][(int) level.Session.Area.Mode][new KeyValuePair<string, bool>(flag, inverted)]
+                .All(touchSwitchID => touchSwitchID.Level == level.Session.Level || level.Session.GetFlag(flag + "_switch" + touchSwitchID.ID))
+                && allTouchSwitchesInRoom.All(touchSwitch => touchSwitch.Activated) && allMovingFlagTouchSwitchesInRoom.All(touchSwitch => touchSwitch.Switch.Activated)) {
+
+                // all switches in the room are enabled, and all session flags for switches outside the room are enabled.
+                // so, the group is complete.
+
+                foreach (FlagTouchSwitch touchSwitch in allTouchSwitchesInRoom) {
+                    touchSwitch.finish();
+                }
+                foreach (TouchSwitch touchSwitch in allMovingFlagTouchSwitchesInRoom) {
+                    touchSwitch.Switch.Finish();
+                }
+
+                onFinished();
+
+                // trigger associated switch gate(s).
+                foreach (FlagSwitchGate switchGate in level.Tracker.GetEntities<FlagSwitchGate>().OfType<FlagSwitchGate>()) {
+                    if (switchGate.Flag == flag) {
+                        switchGate.Trigger();
+                    }
+                }
+
+                // trigger associated dream flag switch gate(s) from Communal Helper
+                foreach (Entity dreamFlagSwitchGate in level.Entities
+                    .Where(entity => entity.GetType().ToString() == "Celeste.Mod.CommunalHelper.DreamSwitchGate")
+                    .Where(dreamSwitchGate => {
+                        // said dream switch gate should be flag too, but that's a private field.
+                        if (dreamSwitchGateIsFlagSwitchGate == null) {
+                            dreamSwitchGateIsFlagSwitchGate = dreamSwitchGate.GetType().GetField("isFlagSwitchGate", BindingFlags.NonPublic | BindingFlags.Instance);
+                            dreamSwitchGateTriggeredSetter = dreamSwitchGate.GetType().GetMethod("set_Triggered", BindingFlags.NonPublic | BindingFlags.Instance);
+                        }
+                        return (bool) dreamSwitchGateIsFlagSwitchGate.GetValue(dreamSwitchGate);
+                    })) {
+
+                    dreamSwitchGateTriggeredSetter.Invoke(dreamFlagSwitchGate, new object[] { true });
+                }
+
+
+                // set flags for switch gates.
+                bool allGatesTriggered = true;
+                if (MaxHelpingHandMapDataProcessor.FlagSwitchGates[level.Session.Area.ID][(int) level.Session.Area.Mode].ContainsKey(flag)) {
+                    Dictionary<EntityID, bool> allGates = MaxHelpingHandMapDataProcessor.FlagSwitchGates[level.Session.Area.ID][(int) level.Session.Area.Mode][flag];
+                    foreach (KeyValuePair<EntityID, bool> gate in allGates) {
+                        if (gate.Value) {
+                            // the gate is persistent; set the flag
+                            level.Session.SetFlag(flag + "_gate" + gate.Key.ID);
+                        } else {
+                            // one of the gates is not persistent, so the touch switches shouldn't be forced to persist.
+                            allGatesTriggered = false;
+                        }
+                    }
+                }
+
+                // if all the switches OR all the gates are persistent, the flag it's setting is persistent.
+                if ((allTouchSwitchesInRoom.All(touchSwitch => touchSwitch.persistent) &&
+                    allMovingFlagTouchSwitchesInRoom.All(touchSwitch => new DynData<TouchSwitch>(touchSwitch).Get<bool>("persistent"))) || allGatesTriggered) {
+
+                    level.Session.SetFlag(flag, !inverted);
+                }
+
+                return true;
+            }
+
+            return false;
         }
 
         private void finish() {

@@ -32,6 +32,25 @@ namespace Celeste.Mod.MaxHelpingHand.Module {
                 entityIDs.Add(new EntityID(levelName, flagSwitchGate.AttrInt("id")), flagSwitchGate.AttrBool("persistent"));
             };
 
+            Action<BinaryPacker.Element> flagTouchSwitchHandler = flagTouchSwitch => {
+                string flag = flagTouchSwitch.Attr("flag");
+                bool inverted = flagTouchSwitch.AttrBool("inverted", false);
+                KeyValuePair<string, bool> key = new KeyValuePair<string, bool>(flag, inverted);
+                Dictionary<KeyValuePair<string, bool>, List<EntityID>> allTouchSwitchesInMap = FlagTouchSwitches[AreaKey.ID][(int) AreaKey.Mode];
+
+                // if no dictionary entry exists for this flag, create one. otherwise, get it.
+                List<EntityID> entityIDs;
+                if (!allTouchSwitchesInMap.ContainsKey(key)) {
+                    entityIDs = new List<EntityID>();
+                    allTouchSwitchesInMap[key] = entityIDs;
+                } else {
+                    entityIDs = allTouchSwitchesInMap[key];
+                }
+
+                // add this flag touch switch to the dictionary.
+                entityIDs.Add(new EntityID(levelName, flagTouchSwitch.AttrInt("id")));
+            };
+
             return new Dictionary<string, Action<BinaryPacker.Element>> {
                 {
                     "level", level => {
@@ -43,24 +62,10 @@ namespace Celeste.Mod.MaxHelpingHand.Module {
                     }
                 },
                 {
-                    "entity:MaxHelpingHand/FlagTouchSwitch", flagTouchSwitch => {
-                        string flag = flagTouchSwitch.Attr("flag");
-                        bool inverted = flagTouchSwitch.AttrBool("inverted", false);
-                        KeyValuePair<string, bool> key = new KeyValuePair<string, bool>(flag, inverted);
-                        Dictionary<KeyValuePair<string, bool>, List<EntityID>> allTouchSwitchesInMap = FlagTouchSwitches[AreaKey.ID][(int) AreaKey.Mode];
-
-                        // if no dictionary entry exists for this flag, create one. otherwise, get it.
-                        List<EntityID> entityIDs;
-                        if (!allTouchSwitchesInMap.ContainsKey(key)) {
-                            entityIDs = new List<EntityID>();
-                            allTouchSwitchesInMap[key] = entityIDs;
-                        } else {
-                            entityIDs = allTouchSwitchesInMap[key];
-                        }
-
-                        // add this flag touch switch to the dictionary.
-                        entityIDs.Add(new EntityID(levelName, flagTouchSwitch.AttrInt("id")));
-                    }
+                    "entity:MaxHelpingHand/FlagTouchSwitch", flagTouchSwitchHandler
+                },
+                {
+                    "entity:MaxHelpingHand/MovingFlagTouchSwitch", flagTouchSwitchHandler
                 },
                 {
                     "entity:MaxHelpingHand/FlagSwitchGate", flagSwitchGateHandler

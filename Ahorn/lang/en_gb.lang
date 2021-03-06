@@ -21,6 +21,15 @@ placements.entities.MaxHelpingHand/FlagTouchSwitch.tooltips.completeSoundFromSce
 placements.entities.MaxHelpingHand/FlagTouchSwitch.names.completeSoundFromSwitch=Complete Sound (Switch)
 placements.entities.MaxHelpingHand/FlagTouchSwitch.names.completeSoundFromScene=Complete Sound (Global)
 
+# Moving Flag Touch Switch
+placements.entities.MaxHelpingHand/MovingFlagTouchSwitch.tooltips.flag=The session flag this touch switch sets. Give the same to multiple touch switches and switch gates to group them.
+placements.entities.MaxHelpingHand/MovingFlagTouchSwitch.tooltips.icon=The name of the icon for the touch switch (relative to objects/MaxHelpingHand/flagTouchSwitch), or "vanilla" for the default one.
+placements.entities.MaxHelpingHand/MovingFlagTouchSwitch.tooltips.persistent=If enabled, the touch switch will stay active when the player dies or changes rooms.
+placements.entities.MaxHelpingHand/MovingFlagTouchSwitch.tooltips.inactiveColor=The switch colour when not triggered yet.
+placements.entities.MaxHelpingHand/MovingFlagTouchSwitch.tooltips.movingColor=The switch colour when it is moving between two positions.
+placements.entities.MaxHelpingHand/MovingFlagTouchSwitch.tooltips.activeColor=The switch colour when triggered, but the group is not complete yet.
+placements.entities.MaxHelpingHand/MovingFlagTouchSwitch.tooltips.finishColor=The switch colour when the group is complete.
+
 # Flag Switch Gate
 placements.entities.MaxHelpingHand/FlagSwitchGate.tooltips.flag=The session flag this switch gate reacts to. Give the same to multiple touch switches and switch gates to group them.
 placements.entities.MaxHelpingHand/FlagSwitchGate.tooltips.icon=The name of the icon for the switch gate (relative to objects/MaxHelpingHand/flagSwitchGate), or "vanilla" for the default one.

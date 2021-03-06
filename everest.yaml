@@ -3,4 +3,7 @@
   DLL: bin/Debug/MaxHelpingHand.dll
   Dependencies:
     - Name: Everest
-      Version: 1.1942.0
+      Version: 1.2674.0
+  OptionalDependencies:
+    - Name: OutbackHelper
+      Version: 1.4.0

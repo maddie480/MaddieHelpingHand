@@ -47,6 +47,7 @@ namespace Celeste.Mod.MaxHelpingHand.Module {
             CustomTutorialWithNoBird.Load();
             NonPoppingStrawberrySeed.Load();
             CustomizableCrumblePlatform.Load();
+            MovingFlagTouchSwitch.Load();
 
             Everest.Events.Level.OnLoadBackdrop += onLoadBackdrop;
         }
@@ -80,6 +81,7 @@ namespace Celeste.Mod.MaxHelpingHand.Module {
             CustomTutorialWithNoBird.Unload();
             NonPoppingStrawberrySeed.Unload();
             CustomizableCrumblePlatform.Unload();
+            MovingFlagTouchSwitch.Unload();
 
             Everest.Events.Level.OnLoadBackdrop -= onLoadBackdrop;
         }
