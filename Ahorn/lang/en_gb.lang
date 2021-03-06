@@ -256,6 +256,7 @@ placements.entities.MaxHelpingHand/MultiNodeMovingPlatform.tooltips.easing=Wheth
 placements.entities.MaxHelpingHand/MultiNodeMovingPlatform.tooltips.amount=The number of platforms that will be on the track. If more than 1, they will be evenly spread across the track.
 placements.entities.MaxHelpingHand/MultiNodeMovingPlatform.tooltips.offset=An offset in starting position, between 0 and 1.
 placements.entities.MaxHelpingHand/MultiNodeMovingPlatform.tooltips.flag=If specified, the platform will only move when the specified flag is active.
+placements.entities.MaxHelpingHand/MultiNodeMovingPlatform.tooltips.moveLater=If checked, objects like spikes will attach to the platform before it is moved to the offset.
 
 # Multi-Node Bumper
 placements.entities.MaxHelpingHand/MultiNodeBumper.tooltips.moveTime=The time the bumper takes to move between two successive positions. Default is 2 seconds.

@@ -22,6 +22,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
         private int amount;
         private float startingOffset;
         private string flag;
+        private bool moveLater;
 
         private MTexture[] textures;
         private float[] nodePercentages;
@@ -70,6 +71,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             easing = data.Bool("easing", true);
             amount = data.Int("amount", 1);
             flag = data.Attr("flag");
+            moveLater = data.Bool("moveLater", false);
 
             entityProperties = data.Values;
             entityPosition = data.Position;
@@ -240,7 +242,15 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
 
             callbackOnAdded?.Invoke(this);
 
-            if (startingOffsetIsNotZero) {
+            if (startingOffsetIsNotZero && !moveLater) {
+                updatePosition();
+            }
+        }
+
+        public override void Awake(Scene scene) {
+            base.Awake(scene);
+
+            if (startingOffsetIsNotZero && moveLater) {
                 updatePosition();
             }
         }
