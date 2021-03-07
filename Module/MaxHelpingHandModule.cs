@@ -52,6 +52,7 @@ namespace Celeste.Mod.MaxHelpingHand.Module {
             CustomizableCrumblePlatform.Load();
             MovingFlagTouchSwitch.Load();
             HintDecal.Load();
+            CameraOffsetBorder.Load();
 
             Everest.Events.Level.OnLoadBackdrop += onLoadBackdrop;
         }
@@ -87,6 +88,7 @@ namespace Celeste.Mod.MaxHelpingHand.Module {
             CustomizableCrumblePlatform.Unload();
             MovingFlagTouchSwitch.Unload();
             HintDecal.Unload();
+            CameraOffsetBorder.Unload();
 
             Everest.Events.Level.OnLoadBackdrop -= onLoadBackdrop;
         }

@@ -412,3 +412,14 @@ placements.entities.MaxHelpingHand/HintDecal.tooltips.texture=The path to the de
 placements.entities.MaxHelpingHand/HintDecal.tooltips.scaleX=The horizontal scale of this decal (1 = normal).
 placements.entities.MaxHelpingHand/HintDecal.tooltips.scaleY=The vertical scale of this decal (1 = normal).
 placements.entities.MaxHelpingHand/HintDecal.tooltips.foreground=Whether this decal should appear in the foreground.
+
+# Camera Offset Border
+placements.triggers.MaxHelpingHand/CameraOffsetBorder.tooltips.topLeft=Whether this border should have an effect when the player is on the top-left of it.
+placements.triggers.MaxHelpingHand/CameraOffsetBorder.tooltips.topCenter=Whether this border should have an effect when the player is on the top of it and aligned horizontally.
+placements.triggers.MaxHelpingHand/CameraOffsetBorder.tooltips.topRight=Whether this border should have an effect when the player is on the top-right of it.
+placements.triggers.MaxHelpingHand/CameraOffsetBorder.tooltips.centerLeft=Whether this border should have an effect when the player is on the left of it and aligned vertically.
+placements.triggers.MaxHelpingHand/CameraOffsetBorder.tooltips.centerRight=Whether this border should have an effect when the player is on the right of it and aligned vertically.
+placements.triggers.MaxHelpingHand/CameraOffsetBorder.tooltips.bottomLeft=Whether this border should have an effect when the player is on the bottom-left of it.
+placements.triggers.MaxHelpingHand/CameraOffsetBorder.tooltips.bottomCenter=Whether this border should have an effect when the player is on the bottom of it and aligned horizontally.
+placements.triggers.MaxHelpingHand/CameraOffsetBorder.tooltips.bottomRight=Whether this border should have an effect when the player is on the bottom-right of it.
+placements.triggers.MaxHelpingHand/CameraOffsetBorder.tooltips.flag=The flag that must be activated for this border to have an effect. Can be left empty to make activation depend on player position only.

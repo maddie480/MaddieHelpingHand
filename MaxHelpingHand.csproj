@@ -108,6 +108,9 @@
     <None Include="Ahorn\libraries\maxHelpingHandTag.jl">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="Ahorn\triggers\maxHelpingHandCameraOffsetBorder.jl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="Ahorn\triggers\maxHelpingHandAmbienceVolumeTrigger.jl">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -136,6 +139,7 @@
     <Compile Include="Module\GuiStrawberryReskin.cs" />
     <Compile Include="Triggers\AllBlackholesStrengthTrigger.cs" />
     <Compile Include="Triggers\AmbienceVolumeTrigger.cs" />
+    <Compile Include="Triggers\CameraOffsetBorder.cs" />
     <Compile Include="Triggers\FlagToggleSmoothCameraOffsetTrigger.cs" />
     <Compile Include="Triggers\FlagToggleCameraTargetTrigger.cs" />
     <Compile Include="Triggers\FlagToggleCameraOffsetTrigger.cs" />
