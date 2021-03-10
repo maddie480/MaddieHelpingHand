@@ -426,3 +426,7 @@ placements.triggers.MaxHelpingHand/CameraOffsetBorder.tooltips.flag=The flag tha
 
 # Disable Ice Physics Trigger
 placements.triggers.MaxHelpingHand/DisableIcePhysicsTrigger.tooltips.disableIcePhysics=Check to disable ice physics when entering the trigger. Uncheck to enable them again.
+
+# Reskinnable Billboard
+placements.entities.MaxHelpingHand/ReskinnableBillboard.tooltips.borderTexture=The path to your custom texture for the borders, in Graphics/Atlases/Gameplay.\nYou can find the vanilla texture in the graphics dump, at Graphics/Atlases/Gameplay/scenery/tvSlices.png.
+placements.entities.MaxHelpingHand/ReskinnableBillboard.tooltips.renderBloom=Whether the billboard should add bloom in front of the TV screens, like vanilla billboards.
