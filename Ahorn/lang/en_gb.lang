@@ -423,3 +423,6 @@ placements.triggers.MaxHelpingHand/CameraOffsetBorder.tooltips.bottomLeft=Whethe
 placements.triggers.MaxHelpingHand/CameraOffsetBorder.tooltips.bottomCenter=Whether this border should have an effect when the player is on the bottom of it and aligned horizontally.
 placements.triggers.MaxHelpingHand/CameraOffsetBorder.tooltips.bottomRight=Whether this border should have an effect when the player is on the bottom-right of it.
 placements.triggers.MaxHelpingHand/CameraOffsetBorder.tooltips.flag=The flag that must be activated for this border to have an effect. Can be left empty to make activation depend on player position only.
+
+# Disable Ice Physics Trigger
+placements.triggers.MaxHelpingHand/DisableIcePhysicsTrigger.tooltips.disableIcePhysics=Check to disable ice physics when entering the trigger. Uncheck to enable them again.

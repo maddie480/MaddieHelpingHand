@@ -140,6 +140,7 @@
     <Compile Include="Triggers\AllBlackholesStrengthTrigger.cs" />
     <Compile Include="Triggers\AmbienceVolumeTrigger.cs" />
     <Compile Include="Triggers\CameraOffsetBorder.cs" />
+    <Compile Include="Triggers\DisableIcePhysicsTrigger.cs" />
     <Compile Include="Triggers\FlagToggleSmoothCameraOffsetTrigger.cs" />
     <Compile Include="Triggers\FlagToggleCameraTargetTrigger.cs" />
     <Compile Include="Triggers\FlagToggleCameraOffsetTrigger.cs" />
@@ -341,6 +342,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Ahorn\triggers\maxHelpingHandCameraCatchupSpeed.jl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Ahorn\triggers\maxHelpingHandDisableIcePhysics.jl">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Ahorn\triggers\maxHelpingHandFlagToggleCameraOffset.jl">
