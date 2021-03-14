@@ -2,8 +2,11 @@
 using Celeste.Mod.MaxHelpingHand.Module;
 using Microsoft.Xna.Framework;
 using Monocle;
+using MonoMod.RuntimeDetour;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 
 namespace Celeste.Mod.MaxHelpingHand.Entities {
     /// <summary>
@@ -46,6 +49,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
 
 
         private static bool rainbowSpinnerHueHooked = false;
+        private static Hook jungleHelperHook;
 
         // the spinner controller on the current screen.
         private static RainbowSpinnerColorController spinnerControllerOnScreen;
@@ -117,7 +121,17 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             // enable the hook on rainbow spinner hue.
             if (!rainbowSpinnerHueHooked) {
                 On.Celeste.CrystalStaticSpinner.GetHue += getRainbowSpinnerHue;
+                hookJungleHelper();
                 rainbowSpinnerHueHooked = true;
+            }
+        }
+
+        private void hookJungleHelper() {
+            if (Everest.Loader.DependencyLoaded(new EverestModuleMetadata { Name = "JungleHelper", Version = new Version(1, 0, 0) })) {
+                // we want to hook Color Celeste.Mod.JungleHelper.Components.RainbowDecalComponent.getHue(Vector2) in Jungle Helper.
+                jungleHelperHook = new Hook(Everest.Modules.First(mod => mod.GetType().ToString() == "Celeste.Mod.JungleHelper.JungleHelperModule")
+                    .GetType().Assembly.GetType("Celeste.Mod.JungleHelper.Components.RainbowDecalComponent").GetMethod("getHue", BindingFlags.NonPublic | BindingFlags.Instance),
+                    typeof(RainbowSpinnerColorController).GetMethod("getRainbowDecalComponentHue", BindingFlags.NonPublic | BindingFlags.Static));
             }
         }
 
@@ -134,6 +148,8 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             // if there is none, clean up the hook on the spinner hue.
             if (spinnerControllerOnScreen == null && rainbowSpinnerHueHooked) {
                 On.Celeste.CrystalStaticSpinner.GetHue -= getRainbowSpinnerHue;
+                jungleHelperHook?.Dispose();
+                jungleHelperHook = null;
                 rainbowSpinnerHueHooked = false;
             }
         }
@@ -146,6 +162,8 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             nextSpinnerController = null;
             if (rainbowSpinnerHueHooked) {
                 On.Celeste.CrystalStaticSpinner.GetHue -= getRainbowSpinnerHue;
+                jungleHelperHook?.Dispose();
+                jungleHelperHook = null;
                 rainbowSpinnerHueHooked = false;
             };
         }
@@ -162,6 +180,14 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
         }
 
         private static Color getRainbowSpinnerHue(On.Celeste.CrystalStaticSpinner.orig_GetHue orig, CrystalStaticSpinner self, Vector2 position) {
+            return getEntityHue(() => orig(self, position), self, position);
+        }
+
+        private static Color getRainbowDecalComponentHue(Func<Component, Vector2, Color> orig, Component self, Vector2 position) {
+            return getEntityHue(() => orig(self, position), self.Entity, position);
+        }
+
+        private static Color getEntityHue(Func<Color> origMethod, Entity self, Vector2 position) {
             if (transitionProgress == -1f) {
                 if (spinnerControllerOnScreen == null) {
                     // no transition is ongoing.
@@ -174,7 +200,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
                     return getModHue(spinnerControllerOnScreen.colors, spinnerControllerOnScreen.gradientSize, self.Scene, position,
                         spinnerControllerOnScreen.loopColors, spinnerControllerOnScreen.center, spinnerControllerOnScreen.gradientSpeed);
                 } else {
-                    return orig(self, position);
+                    return origMethod();
                 }
             } else {
                 // get the spinner color in the room we're coming from.
@@ -183,7 +209,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
                     fromRoomColor = getModHue(spinnerControllerOnScreen.colors, spinnerControllerOnScreen.gradientSize, self.Scene, position,
                         spinnerControllerOnScreen.loopColors, spinnerControllerOnScreen.center, spinnerControllerOnScreen.gradientSpeed);
                 } else {
-                    fromRoomColor = orig(self, position);
+                    fromRoomColor = origMethod();
                 }
 
                 // get the spinner color in the room we're going to.
@@ -192,7 +218,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
                     toRoomColor = getModHue(nextSpinnerController.colors, nextSpinnerController.gradientSize, self.Scene, position,
                         nextSpinnerController.loopColors, nextSpinnerController.center, nextSpinnerController.gradientSpeed);
                 } else {
-                    toRoomColor = orig(self, position);
+                    toRoomColor = origMethod();
                 }
 
                 // transition smoothly between both.
