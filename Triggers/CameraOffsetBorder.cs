@@ -1,6 +1,5 @@
 ﻿using Celeste.Mod.Entities;
 using Microsoft.Xna.Framework;
-using Mono.Cecil.Cil;
 using Monocle;
 using MonoMod.Cil;
 using MonoMod.RuntimeDetour;
@@ -13,7 +12,7 @@ namespace Celeste.Mod.MaxHelpingHand.Triggers {
     [CustomEntity("MaxHelpingHand/CameraOffsetBorder")]
     [Tracked]
     class CameraOffsetBorder : Trigger {
-        private readonly bool topLeft, topCenter, topRight, centerLeft, centerRight, bottomLeft, bottomCenter, bottomRight;
+        private readonly bool topLeft, topCenter, topRight, centerLeft, centerRight, bottomLeft, bottomCenter, bottomRight, inside;
         private readonly string flag;
 
         public CameraOffsetBorder(EntityData data, Vector2 offset) : base(data, offset) {
@@ -25,6 +24,7 @@ namespace Celeste.Mod.MaxHelpingHand.Triggers {
             bottomLeft = data.Bool("bottomLeft");
             bottomCenter = data.Bool("bottomCenter");
             bottomRight = data.Bool("bottomRight");
+            inside = data.Bool("inside");
 
             flag = data.Attr("flag");
             AddTag(Tags.TransitionUpdate);
@@ -59,7 +59,8 @@ namespace Celeste.Mod.MaxHelpingHand.Triggers {
                         (centerRight && centerY && right) ||
                         (bottomLeft && bottom && left) ||
                         (bottomCenter && bottom && centerX) ||
-                        (bottomRight && bottom && right);
+                        (bottomRight && bottom && right) ||
+                        (inside && centerX && centerY);
                 }
             }
         }
@@ -108,19 +109,19 @@ namespace Celeste.Mod.MaxHelpingHand.Triggers {
             foreach (CameraOffsetBorder border in Engine.Scene.Tracker.GetEntities<CameraOffsetBorder>()) {
                 while (border.Collidable && border.CollideRect(viewpoint)) {
                     // the border is enabled and on-screen, unacceptable!
-                    if (p.Right <= border.Left && viewpoint.Right >= border.Left && (border.topLeft || border.centerLeft || border.bottomLeft)) {
+                    if (p.Left <= border.Right && viewpoint.Right >= border.Left && (border.topLeft || border.centerLeft || border.bottomLeft)) {
                         // player is on the left, camera is too far right => push camera to the left.
                         orig.X--;
                         viewpoint.X--;
-                    } else if (p.Left >= border.Right && viewpoint.Left <= border.Right && (border.topRight || border.centerRight || border.bottomRight)) {
+                    } else if (p.Right >= border.Left && viewpoint.Left <= border.Right && (border.topRight || border.centerRight || border.bottomRight)) {
                         // player is on the right, camera is too far left => push camera to the right.
                         orig.X++;
                         viewpoint.X++;
-                    } else if (p.Top >= border.Bottom && viewpoint.Top <= border.Bottom && (border.bottomLeft || border.bottomCenter || border.bottomRight)) {
+                    } else if (p.Bottom >= border.Top && viewpoint.Top <= border.Bottom && (border.bottomLeft || border.bottomCenter || border.bottomRight)) {
                         // player is on the bottom, camera is too far up => push camera to the bottom.
                         orig.Y++;
                         viewpoint.Y++;
-                    } else if (p.Bottom <= border.Top && viewpoint.Bottom >= border.Top && (border.topLeft || border.topCenter || border.topRight)) {
+                    } else if (p.Top <= border.Bottom && viewpoint.Bottom >= border.Top && (border.topLeft || border.topCenter || border.topRight)) {
                         // player is on the top, camera is too far down => push camera to the top;
                         orig.Y--;
                         viewpoint.Y--;
