@@ -431,3 +431,11 @@ placements.triggers.MaxHelpingHand/DisableIcePhysicsTrigger.tooltips.disableIceP
 # Reskinnable Billboard
 placements.entities.MaxHelpingHand/ReskinnableBillboard.tooltips.borderTexture=The path to your custom texture for the borders, in Graphics/Atlases/Gameplay.\nYou can find the vanilla texture in the graphics dump, at Graphics/Atlases/Gameplay/scenery/tvSlices.png.
 placements.entities.MaxHelpingHand/ReskinnableBillboard.tooltips.renderBloom=Whether the billboard should add bloom in front of the TV screens, like vanilla billboards.
+
+# One-Way Camera Trigger
+placements.triggers.MaxHelpingHand/OneWayCameraTrigger.tooltips.left=Whether the camera is allowed to go left while the player is in the trigger.
+placements.triggers.MaxHelpingHand/OneWayCameraTrigger.tooltips.right=Whether the camera is allowed to go right while the player is in the trigger.
+placements.triggers.MaxHelpingHand/OneWayCameraTrigger.tooltips.up=Whether the camera is allowed to go up while the player is in the trigger.
+placements.triggers.MaxHelpingHand/OneWayCameraTrigger.tooltips.down=Whether the camera is allowed to go down while the player is in the trigger.
+placements.triggers.MaxHelpingHand/OneWayCameraTrigger.tooltips.blockPlayer=Whether the player should be prevented from going off-camera with invisible barriers and killboxes if they are in the trigger.
+placements.triggers.MaxHelpingHand/OneWayCameraTrigger.tooltips.flag=If specified, this one-way camera trigger will only have an effect when the specified flag is enabled.

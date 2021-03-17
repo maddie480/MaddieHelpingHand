@@ -55,6 +55,7 @@ namespace Celeste.Mod.MaxHelpingHand.Module {
             CameraOffsetBorder.Load();
             DisableIcePhysicsTrigger.Load();
             ReskinnableBillboard.Load();
+            OneWayCameraTrigger.Load();
 
             Everest.Events.Level.OnLoadBackdrop += onLoadBackdrop;
         }
@@ -93,6 +94,7 @@ namespace Celeste.Mod.MaxHelpingHand.Module {
             CameraOffsetBorder.Unload();
             DisableIcePhysicsTrigger.Unload();
             ReskinnableBillboard.Unload();
+            OneWayCameraTrigger.Unload();
 
             Everest.Events.Level.OnLoadBackdrop -= onLoadBackdrop;
         }
