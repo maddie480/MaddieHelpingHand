@@ -337,8 +337,10 @@ placements.entities.MaxHelpingHand/FlagLogicGate.tooltips.not=If checked, the va
 
 # Exit Block
 placements.entities.MaxHelpingHand/FlagExitBlock.tooltips.tileType=Determines the visual appearance of the wall.
-placements.entities.MaxHelpingHand/FlagExitBlock.tooltips.flag=The flag that will make this exit block appear when active.
+placements.entities.MaxHelpingHand/FlagExitBlock.tooltips.flag=The flag this exit block will react to.
+placements.entities.MaxHelpingHand/FlagExitBlock.tooltips.inverted=If checked, the exit block will disappear when the flag is active.\nIf unchecked, the exit block will appear when the flag is active.
 placements.entities.MaxHelpingHand/FlagExitBlock.tooltips.playSound=Whether the exit block should play a sound when appearing, like vanilla ones.
+placements.entities.MaxHelpingHand/FlagExitBlock.tooltips.instant=If checked, the exit block will instantly appear or disappear when the flag is toggled, with no animation.
 
 # Northern Lights with Custom Colors
 placements.effects.MaxHelpingHand/NorthernLightsCustomColors.names.gradientColor1=Gradient Color Top

@@ -10,11 +10,15 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
         private TileGrid tiles;
         private EffectCutout cutout;
         private readonly string flag;
+        private readonly bool inverted;
         private readonly bool playSound;
+        private readonly bool instant;
 
         public FlagExitBlock(EntityData data, Vector2 offset) : base(data, offset) {
             flag = data.Attr("flag");
+            inverted = data.Bool("inverted");
             playSound = data.Bool("playSound");
+            instant = data.Bool("instant");
 
             // I'm not sure what this transition listener is for.
             Remove(Get<TransitionListener>());
@@ -36,7 +40,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             cutout = self.Get<EffectCutout>("cutout");
 
             // hide the block if the flag is initially inactive.
-            if (!SceneAs<Level>().Session.GetFlag(flag)) {
+            if (SceneAs<Level>().Session.GetFlag(flag) == inverted) {
                 cutout.Alpha = tiles.Alpha = 0f;
                 Collidable = false;
             }
@@ -48,14 +52,14 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             bool wasCollidable = Collidable;
 
             // the block is only collidable if the flag is set.
-            Collidable = SceneAs<Level>().Session.GetFlag(flag) && !CollideCheck<Player>();
+            Collidable = SceneAs<Level>().Session.GetFlag(flag) != inverted && !CollideCheck<Player>();
 
             if (playSound && !wasCollidable && Collidable) {
                 Audio.Play("event:/game/general/passage_closed_behind", base.Center);
             }
 
             // fade the block in or out depending on its enabled status.
-            cutout.Alpha = tiles.Alpha = Calc.Approach(tiles.Alpha, Collidable ? 1f : 0f, Engine.DeltaTime);
+            cutout.Alpha = tiles.Alpha = Calc.Approach(tiles.Alpha, Collidable ? 1f : 0f, instant ? 1f : Engine.DeltaTime);
         }
 
     }
