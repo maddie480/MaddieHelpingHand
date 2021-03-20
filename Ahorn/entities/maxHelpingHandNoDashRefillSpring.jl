@@ -2,9 +2,9 @@
 
 using ..Ahorn, Maple
 
-@mapdef Entity "MaxHelpingHand/NoDashRefillSpring" NoDashRefillSpring(x::Integer, y::Integer, playerCanUse::Bool=true)
-@mapdef Entity "MaxHelpingHand/NoDashRefillSpringRight" NoDashRefillSpringRight(x::Integer, y::Integer)
-@mapdef Entity "MaxHelpingHand/NoDashRefillSpringLeft" NoDashRefillSpringLeft(x::Integer, y::Integer)
+@mapdef Entity "MaxHelpingHand/NoDashRefillSpring" NoDashRefillSpring(x::Integer, y::Integer, spriteDirectory::String="objects/MaxHelpingHand/noDashRefillSpring", playerCanUse::Bool=true)
+@mapdef Entity "MaxHelpingHand/NoDashRefillSpringRight" NoDashRefillSpringRight(x::Integer, y::Integer, spriteDirectory::String="objects/MaxHelpingHand/noDashRefillSpring")
+@mapdef Entity "MaxHelpingHand/NoDashRefillSpringLeft" NoDashRefillSpringLeft(x::Integer, y::Integer, spriteDirectory::String="objects/MaxHelpingHand/noDashRefillSpring")
 
 const placements = Ahorn.PlacementDict(
     "No Dash Refill Spring (Up) (max480's Helping Hand)" => Ahorn.EntityPlacement(
@@ -36,10 +36,8 @@ function Ahorn.selection(entity::NoDashRefillSpringRight)
     return Ahorn.Rectangle(x - 4, y - 6, 5, 12)
 end
 
-sprite = "objects/MaxHelpingHand/noDashRefillSpring/00.png"
-
-Ahorn.render(ctx::Ahorn.Cairo.CairoContext, entity::NoDashRefillSpring, room::Maple.Room) = Ahorn.drawSprite(ctx, sprite, 0, -8)
-Ahorn.render(ctx::Ahorn.Cairo.CairoContext, entity::NoDashRefillSpringLeft, room::Maple.Room) = Ahorn.drawSprite(ctx, sprite, 24, 0, rot=pi / 2)
-Ahorn.render(ctx::Ahorn.Cairo.CairoContext, entity::NoDashRefillSpringRight, room::Maple.Room) = Ahorn.drawSprite(ctx, sprite, -8, 16, rot=-pi / 2)
+Ahorn.render(ctx::Ahorn.Cairo.CairoContext, entity::NoDashRefillSpring, room::Maple.Room) = Ahorn.drawSprite(ctx, get(entity, "spriteDirectory", "objects/MaxHelpingHand/noDashRefillSpring") * "/00.png", 0, -8)
+Ahorn.render(ctx::Ahorn.Cairo.CairoContext, entity::NoDashRefillSpringLeft, room::Maple.Room) = Ahorn.drawSprite(ctx, get(entity, "spriteDirectory", "objects/MaxHelpingHand/noDashRefillSpring") * "/00.png", 24, 0, rot=pi / 2)
+Ahorn.render(ctx::Ahorn.Cairo.CairoContext, entity::NoDashRefillSpringRight, room::Maple.Room) = Ahorn.drawSprite(ctx, get(entity, "spriteDirectory", "objects/MaxHelpingHand/noDashRefillSpring") * "/00.png", -8, 16, rot=-pi / 2)
 
 end

@@ -31,7 +31,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
 
             // replace the vanilla sprite with our custom one.
             Sprite sprite = selfSpring.Get<Sprite>("sprite");
-            sprite.Reset(GFX.Game, "objects/MaxHelpingHand/noDashRefillSpring/");
+            sprite.Reset(GFX.Game, data.Attr("spriteDirectory", "objects/MaxHelpingHand/noDashRefillSpring") + "/");
             sprite.Add("idle", "", 0f, default(int));
             sprite.Add("bounce", "", 0.07f, "idle", 0, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 3, 4, 5);
             sprite.Add("disabled", "white", 0.07f);
