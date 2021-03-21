@@ -227,6 +227,8 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             return platform != null;
         }
 
+        // those 2 methods are extracted for easier hooking by Gravity Helper. (see https://github.com/max4805/MaxHelpingHand/pull/1)
+
         private static bool playerMovingUp(Player player) => player.Speed.Y < 0;
 
         private static int updateClimbMove(Player player, int lastClimbMove) {
