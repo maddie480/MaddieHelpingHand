@@ -99,6 +99,10 @@ placements.entities.MaxHelpingHand/GroupedTriggerSpikesUp.tooltips.behindMoveBlo
 placements.entities.MaxHelpingHand/GroupedTriggerSpikesDown.tooltips.behindMoveBlocks=Determines whether the trigger spikes appear behind move blocks. Not supported for dust spikes.
 placements.entities.MaxHelpingHand/GroupedTriggerSpikesLeft.tooltips.behindMoveBlocks=Determines whether the trigger spikes appear behind move blocks. Not supported for dust spikes.
 placements.entities.MaxHelpingHand/GroupedTriggerSpikesRight.tooltips.behindMoveBlocks=Determines whether the trigger spikes appear behind move blocks. Not supported for dust spikes.
+placements.entities.MaxHelpingHand/GroupedTriggerSpikesUp.tooltips.triggerIfSameDirection=Whether the spikes should trigger even if Madeline moves in the direction they are pointing. Useful to make them more consistent if they are attached to Kevins. Not supported for dust spikes.
+placements.entities.MaxHelpingHand/GroupedTriggerSpikesDown.tooltips.triggerIfSameDirection=Whether the spikes should trigger even if Madeline moves in the direction they are pointing. Useful to make them more consistent if they are attached to Kevins. Not supported for dust spikes.
+placements.entities.MaxHelpingHand/GroupedTriggerSpikesLeft.tooltips.triggerIfSameDirection=Whether the spikes should trigger even if Madeline moves in the direction they are pointing. Useful to make them more consistent if they are attached to Kevins. Not supported for dust spikes.
+placements.entities.MaxHelpingHand/GroupedTriggerSpikesRight.tooltips.triggerIfSameDirection=Whether the spikes should trigger even if Madeline moves in the direction they are pointing. Useful to make them more consistent if they are attached to Kevins. Not supported for dust spikes.
 
 # Rainbow Spinner Color Controller
 placements.entities.MaxHelpingHand/RainbowSpinnerColorController.tooltips.colors=The colours the rainbow spinners in the room will take, separated by commas.

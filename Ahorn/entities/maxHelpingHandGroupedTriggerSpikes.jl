@@ -2,10 +2,10 @@
 
 using ..Ahorn, Maple
 
-@mapdef Entity "MaxHelpingHand/GroupedTriggerSpikesUp" GroupedTriggerSpikesUp(x::Integer, y::Integer, width::Integer=Maple.defaultSpikeWidth, type::String="default", behindMoveBlocks::Bool=false)
-@mapdef Entity "MaxHelpingHand/GroupedTriggerSpikesDown" GroupedTriggerSpikesDown(x::Integer, y::Integer, width::Integer=Maple.defaultSpikeWidth, type::String="default", behindMoveBlocks::Bool=false)
-@mapdef Entity "MaxHelpingHand/GroupedTriggerSpikesLeft" GroupedTriggerSpikesLeft(x::Integer, y::Integer, height::Integer=Maple.defaultSpikeHeight, type::String="default", behindMoveBlocks::Bool=false)
-@mapdef Entity "MaxHelpingHand/GroupedTriggerSpikesRight" GroupedTriggerSpikesRight(x::Integer, y::Integer, height::Integer=Maple.defaultSpikeHeight, type::String="default", behindMoveBlocks::Bool=false)
+@mapdef Entity "MaxHelpingHand/GroupedTriggerSpikesUp" GroupedTriggerSpikesUp(x::Integer, y::Integer, width::Integer=Maple.defaultSpikeWidth, type::String="default", behindMoveBlocks::Bool=false, triggerIfSameDirection::Bool=false)
+@mapdef Entity "MaxHelpingHand/GroupedTriggerSpikesDown" GroupedTriggerSpikesDown(x::Integer, y::Integer, width::Integer=Maple.defaultSpikeWidth, type::String="default", behindMoveBlocks::Bool=false, triggerIfSameDirection::Bool=false)
+@mapdef Entity "MaxHelpingHand/GroupedTriggerSpikesLeft" GroupedTriggerSpikesLeft(x::Integer, y::Integer, height::Integer=Maple.defaultSpikeHeight, type::String="default", behindMoveBlocks::Bool=false, triggerIfSameDirection::Bool=false)
+@mapdef Entity "MaxHelpingHand/GroupedTriggerSpikesRight" GroupedTriggerSpikesRight(x::Integer, y::Integer, height::Integer=Maple.defaultSpikeHeight, type::String="default", behindMoveBlocks::Bool=false, triggerIfSameDirection::Bool=false)
 
 const placements = Ahorn.PlacementDict()
 
