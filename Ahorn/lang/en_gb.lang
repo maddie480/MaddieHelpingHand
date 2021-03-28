@@ -135,11 +135,11 @@ placements.effects.MaxHelpingHand/HeatWaveNoColorGrade.tooltips.controlColorGrad
 placements.entities.MaxHelpingHand/StaticPuffer.tooltips.right=The initial direction of the puffer.
 
 # Blackhole with Custom Colors
-placements.effects.MaxHelpingHand/BlackholeCustomColors.tooltips.colorsMild=Colors of the shapes going towards the center of the screen when the blackhole strength is Mild.\nThere should be as many colors defined in Colors Mild and in Colors Wild for both to work.
-placements.effects.MaxHelpingHand/BlackholeCustomColors.tooltips.colorsWild=Colors of the shapes going towards the center of the screen when the blackhole strength is Wild.\nThere should be as many colors defined in Colors Mild and in Colors Wild for both to work.
-placements.effects.MaxHelpingHand/BlackholeCustomColors.tooltips.bgColorInner=The color used for the background at the center of the screen.
-placements.effects.MaxHelpingHand/BlackholeCustomColors.tooltips.bgColorOuterMild=The color used for the background at the edges of the screen, when the blackhole strength is Mild.
-placements.effects.MaxHelpingHand/BlackholeCustomColors.tooltips.bgColorOuterWild=The color used for the background at the edges of the screen, when the blackhole strength is Wild.
+placements.effects.MaxHelpingHand/BlackholeCustomColors.tooltips.colorsMild=Colors of the shapes going towards the center of the screen when the blackhole strength is Mild.\nThere should be as many colors defined in Colors Mild and in Colors Wild for both to work.\nYou can set up a gradient with multiple sets of colors to fade between: for example, "0.5|ffffff,000000|000000,ffffff" will fade between the 2 sets of colors every 0.5 seconds.
+placements.effects.MaxHelpingHand/BlackholeCustomColors.tooltips.colorsWild=Colors of the shapes going towards the center of the screen when the blackhole strength is Wild.\nThere should be as many colors defined in Colors Mild and in Colors Wild for both to work.\nYou can set up a gradient with multiple sets of colors to fade between: for example, "0.5|ffffff,000000|000000,ffffff" will fade between the 2 sets of colors every 0.5 seconds.
+placements.effects.MaxHelpingHand/BlackholeCustomColors.tooltips.bgColorInner=The color used for the background at the center of the screen.\nYou can set up a gradient with multiple colors to fade between: for example, "0.5|ffffff|000000" will fade between the 2 colors every 0.5 seconds.
+placements.effects.MaxHelpingHand/BlackholeCustomColors.tooltips.bgColorOuterMild=The color used for the background at the edges of the screen, when the blackhole strength is Mild.\nYou can set up a gradient with multiple colors to fade between: for example, "0.5|ffffff|000000" will fade between the 2 colors every 0.5 seconds.
+placements.effects.MaxHelpingHand/BlackholeCustomColors.tooltips.bgColorOuterWild=The color used for the background at the edges of the screen, when the blackhole strength is Wild.\nYou can set up a gradient with multiple colors to fade between: for example, "0.5|ffffff|000000" will fade between the 2 colors every 0.5 seconds.
 
 # Color Grade Fade Trigger
 placements.triggers.MaxHelpingHand/ColorGradeFadeTrigger.tooltips.colorGradeA=The color grade to fade from.

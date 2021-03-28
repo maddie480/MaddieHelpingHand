@@ -5,7 +5,7 @@ using Monocle;
 using MonoMod.Cil;
 using System;
 
-namespace Celeste.Mod.MaxHelpingHand {
+namespace Celeste.Mod.MaxHelpingHand.Entities {
     [CustomEntity("MaxHelpingHand/ReskinnableBillboard")]
     [TrackedAs(typeof(PlaybackBillboard))]
     class ReskinnableBillboard : PlaybackBillboard {
