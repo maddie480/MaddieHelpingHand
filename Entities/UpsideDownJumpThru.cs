@@ -86,6 +86,9 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             // listen for the player unducking, to knock the player down before they would go through upside down jumpthrus.
             On.Celeste.Player.Update += onPlayerUpdate;
 
+            // upside-down jumpthrus never have a player rider.
+            On.Celeste.JumpThru.HasPlayerRider += onJumpthruHasPlayerRider;
+
             canUnDuckHook = new Hook(typeof(Player).GetMethod("get_CanUnDuck"), typeof(UpsideDownJumpThru).GetMethod("modCanUnDuck", BindingFlags.NonPublic | BindingFlags.Static));
         }
 
@@ -108,6 +111,8 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             IL.Celeste.Player.RedDashUpdate -= filterOutJumpThrusFromCollideChecks;
 
             On.Celeste.Player.Update -= onPlayerUpdate;
+
+            On.Celeste.JumpThru.HasPlayerRider -= onJumpthruHasPlayerRider;
 
             canUnDuckHook?.Dispose();
             canUnDuckHook = null;
@@ -238,7 +243,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             }
             return lastClimbMove;
         }
-        
+
         private static void onPlayerOnCollideV(On.Celeste.Player.orig_OnCollideV orig, Player self, CollisionData data) {
             // we just want to kill a piece of code that executes in these conditions (supposed to push the player left or right when hitting a wall angle).
             if (self.StateMachine.State != 19 && self.StateMachine.State != 3 && self.StateMachine.State != 9 && playerMovingUp(self)
@@ -453,6 +458,25 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
                     Add(image);
                 }
             }
+        }
+
+        public override void MoveVExact(int move) {
+            // if we are going to hit the player while moving down... this means we are pushing them down. So... we need to push them down :theoreticalwoke:
+            // we give up pushing them down if that would be through a wall, though. This makes jumpthru clip possible, but vanilla jumpthrus don't do better.
+            Player p;
+            while (move > 0 && !CollideCheck<Player>() && (p = CollideFirst<Player>(Position + Vector2.UnitY * move)) != null) {
+                if (p.MoveVExact(1)) break;
+            }
+
+            base.MoveVExact(move);
+        }
+
+        private static bool onJumpthruHasPlayerRider(On.Celeste.JumpThru.orig_HasPlayerRider orig, JumpThru self) {
+            if (self is UpsideDownJumpThru) {
+                // upside-down jumpthrus never have a player rider because... well, they're upside-down.
+                return false;
+            }
+            return orig(self);
         }
     }
 }
