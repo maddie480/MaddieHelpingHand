@@ -56,6 +56,7 @@ namespace Celeste.Mod.MaxHelpingHand.Module {
             DisableIcePhysicsTrigger.Load();
             ReskinnableBillboard.Load();
             OneWayCameraTrigger.Load();
+            MadelinePonytailTrigger.Load();
 
             Everest.Events.Level.OnLoadBackdrop += onLoadBackdrop;
         }
@@ -95,8 +96,15 @@ namespace Celeste.Mod.MaxHelpingHand.Module {
             DisableIcePhysicsTrigger.Unload();
             ReskinnableBillboard.Unload();
             OneWayCameraTrigger.Unload();
+            MadelinePonytailTrigger.Unload();
 
             Everest.Events.Level.OnLoadBackdrop -= onLoadBackdrop;
+        }
+
+        public override void LoadContent(bool firstLoad) {
+            base.LoadContent(firstLoad);
+
+            MadelinePonytailTrigger.LoadContent();
         }
 
         private Backdrop onLoadBackdrop(MapData map, BinaryPacker.Element child, BinaryPacker.Element above) {

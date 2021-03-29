@@ -88,6 +88,7 @@
     <Compile Include="Entities\ReskinnableBillboard.cs" />
     <Compile Include="Module\MaxHelpingHandSettings.cs" />
     <Compile Include="Triggers\ActivateTimedTouchSwitchesTimerTrigger.cs" />
+    <Compile Include="Triggers\MadelinePonytailTrigger.cs" />
     <None Include="Ahorn\entities\maxHelpingHandHintDecal.jl">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -386,6 +387,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Ahorn\triggers\maxHelpingHandSpeedBasedMusicParam.jl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Ahorn\triggers\maxHelpingHandMadelinePonytailTrigger.jl">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Ahorn\triggers\maxHelpingHandStrawberryCollectionField.jl">

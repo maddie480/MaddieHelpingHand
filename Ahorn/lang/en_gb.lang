@@ -448,3 +448,6 @@ placements.triggers.MaxHelpingHand/OneWayCameraTrigger.tooltips.up=Whether the c
 placements.triggers.MaxHelpingHand/OneWayCameraTrigger.tooltips.down=Whether the camera is allowed to go down while the player is in the trigger.
 placements.triggers.MaxHelpingHand/OneWayCameraTrigger.tooltips.blockPlayer=Whether the player should be prevented from going off-camera with invisible barriers and killboxes if they are in the trigger.
 placements.triggers.MaxHelpingHand/OneWayCameraTrigger.tooltips.flag=If specified, this one-way camera trigger will only have an effect when the specified flag is enabled.
+
+# Madeline Ponytail Trigger
+placements.triggers.MaxHelpingHand/MadelinePonytailTrigger.tooltips.enable=Whether this trigger should enable or disable the Madeline ponytail skin.

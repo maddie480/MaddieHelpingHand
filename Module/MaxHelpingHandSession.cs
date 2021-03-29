@@ -44,5 +44,7 @@ namespace Celeste.Mod.MaxHelpingHand.Module {
         public List<MultiRoomStrawberrySeedInfo> CollectedMultiRoomStrawberrySeeds { get; set; } = new List<MultiRoomStrawberrySeedInfo>();
 
         public Dictionary<string, SpeedBasedMusicParamInfo> ActiveSpeedBasedMusicParams = new Dictionary<string, SpeedBasedMusicParamInfo>();
+
+        public bool MadelineHasPonytail { get; set; } = false;
     }
 }
