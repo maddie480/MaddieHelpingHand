@@ -5,6 +5,7 @@ using Mono.Cecil.Cil;
 using Monocle;
 using MonoMod.Cil;
 using MonoMod.RuntimeDetour;
+using MonoMod.Utils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,6 +22,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
         private static ILHook hookOnUpdateSprite;
 
         private static FieldInfo actorMovementCounter = typeof(Actor).GetField("movementCounter", BindingFlags.Instance | BindingFlags.NonPublic);
+        private static MethodInfo playerJumpthruBoostBlockedCheck = typeof(Player).GetMethod("JumpThruBoostBlockedCheck", BindingFlags.Instance | BindingFlags.NonPublic);
 
         private static bool hooksActive = false;
         private static bool hooksActiveNoJungleHelper = false;
@@ -428,6 +430,14 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
 
         private bool letSeekersThrough;
 
+        private bool pushPlayer;
+
+        public SidewaysJumpThru(Vector2 position, int height, bool allowLeftToRight, string overrideTexture, float animationDelay, bool allowClimbing, bool allowWallJumping, bool letSeekersThrough, int surfaceIndex, bool pushPlayer)
+            : this(position, height, allowLeftToRight, overrideTexture, animationDelay, allowClimbing, allowWallJumping, letSeekersThrough, surfaceIndex) {
+
+            this.pushPlayer = pushPlayer;
+        }
+
         public SidewaysJumpThru(Vector2 position, int height, bool allowLeftToRight, string overrideTexture, float animationDelay, bool allowClimbing, bool allowWallJumping, bool letSeekersThrough, int surfaceIndex)
             : this(position, height, allowLeftToRight, overrideTexture, animationDelay, allowClimbing, allowWallJumping, letSeekersThrough) {
 
@@ -460,7 +470,8 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
 
         public SidewaysJumpThru(EntityData data, Vector2 offset)
             : this(data.Position + offset, data.Height, !data.Bool("left"), data.Attr("texture", "default"), data.Float("animationDelay", 0f),
-                  data.Bool("allowClimbing", true), data.Bool("allowWallJumping", true), data.Bool("letSeekersThrough", false), data.Int("surfaceIndex", -1)) { }
+                  data.Bool("allowClimbing", true), data.Bool("allowWallJumping", true), data.Bool("letSeekersThrough", false), data.Int("surfaceIndex", -1),
+                  data.Bool("pushPlayer", false)) { }
 
         public override void Awake(Scene scene) {
             if (animationDelay > 0f) {
@@ -510,6 +521,31 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
                         image.Scale.Y = -1;
 
                     Add(image);
+                }
+            }
+        }
+
+        public override void Update() {
+            base.Update();
+
+            // if we are supposed to push the player and the player is hitting us...
+            Player p;
+            if (pushPlayer && (p = CollideFirst<Player>()) != null) {
+                DynData<Player> playerData = new DynData<Player>(p);
+                if (AllowLeftToRight) {
+                    // player is moving right, not on the ground, not climbing, not blocked => push them to the right
+                    if (p.Speed.X >= 0f && !playerData.Get<bool>("onGround") && (p.StateMachine.State != 1 || playerData.Get<int>("lastClimbMove") == -1)
+                        && !((bool) playerJumpthruBoostBlockedCheck.Invoke(p, new object[0]))) {
+
+                        p.MoveH(40f * Engine.DeltaTime);
+                    }
+                } else {
+                    // player is moving left, not on the ground, not climbing, not blocked => push them to the left
+                    if (p.Speed.X <= 0f && !playerData.Get<bool>("onGround") && (p.StateMachine.State != 1 || playerData.Get<int>("lastClimbMove") == -1)
+                        && !((bool) playerJumpthruBoostBlockedCheck.Invoke(p, new object[0]))) {
+
+                        p.MoveH(-40f * Engine.DeltaTime);
+                    }
                 }
             }
         }

@@ -9,7 +9,7 @@ using System;
 namespace Celeste.Mod.MaxHelpingHand.Triggers {
     [CustomEntity("MaxHelpingHand/MadelinePonytailTrigger")]
     public class MadelinePonytailTrigger : Trigger {
-        private static readonly Color mainHairColor = Calc.HexToColor("DF7126");
+        private static readonly Color mainHairColor = Calc.HexToColor("CD6759");
         private static readonly Color hairTieColor = Calc.HexToColor("8C0F76");
         private static ParticleType hairParticle;
 
@@ -30,7 +30,7 @@ namespace Celeste.Mod.MaxHelpingHand.Triggers {
         public static void LoadContent() {
             hairParticle = new ParticleType(Player.P_DashA) {
                 Color = mainHairColor,
-                Color2 = Calc.HexToColor("873724")
+                Color2 = Calc.HexToColor("AF584D")
             };
         }
 
