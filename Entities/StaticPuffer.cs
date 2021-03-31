@@ -41,6 +41,11 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
 
             // give the puffer a different depth compared to the player to eliminate frame-precise inconsistencies.
             Depth = -1;
+
+            // offset the horizontal position by a tiny bit.
+            // Vanilla puffers have a non-integer position (due to the randomized offset), making it impossible to be boosted downwards,
+            // so we want to do the same.
+            Position.X += 0.0001f;
         }
     }
 }
