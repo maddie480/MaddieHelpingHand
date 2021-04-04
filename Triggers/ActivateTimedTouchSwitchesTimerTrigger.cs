@@ -28,6 +28,10 @@ namespace Celeste.Mod.MaxHelpingHand.Triggers {
                 foreach (Entity entity in scene.Entities) {
                     if (entity.GetType().ToString() == "Celeste.Mod.OutbackHelper.TimedTouchSwitch") {
                         Coroutine coroutine = entity.Get<Coroutine>();
+                        if (coroutine == null) {
+                            // timed touch switch has no coroutine (possibly because it was already used on an earlier screen?), skip it.
+                            continue;
+                        }
                         entity.Remove(coroutine);
                         timedTouchSwitches.Add(entity, coroutine);
 
