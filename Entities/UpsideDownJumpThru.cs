@@ -5,6 +5,7 @@ using Mono.Cecil.Cil;
 using Monocle;
 using MonoMod.Cil;
 using MonoMod.RuntimeDetour;
+using MonoMod.Utils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,6 +18,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
 
         private static FieldInfo actorMovementCounter = typeof(Actor).GetField("movementCounter", BindingFlags.Instance | BindingFlags.NonPublic);
         private static FieldInfo playerVarJumpTimer = typeof(Player).GetField("varJumpTimer", BindingFlags.Instance | BindingFlags.NonPublic);
+        private static MethodInfo playerJumpthruBoostBlockedCheck = typeof(Player).GetMethod("JumpThruBoostBlockedCheck", BindingFlags.Instance | BindingFlags.NonPublic);
 
         private static ILHook playerOrigUpdateHook;
         private static Hook canUnDuckHook;
@@ -404,6 +406,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
         private int columns;
         private string overrideTexture;
         private float animationDelay;
+        private bool pushPlayer;
 
         public UpsideDownJumpThru(EntityData data, Vector2 offset)
             : base(data.Position + offset, data.Width, false) {
@@ -412,6 +415,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             Depth = -60;
             overrideTexture = data.Attr("texture", "default");
             animationDelay = data.Float("animationDelay", 0f);
+            pushPlayer = data.Bool("pushPlayer", false);
 
             // shift the hitbox a bit to match the graphic
             Collider.Top += 3;
@@ -477,6 +481,23 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
                 return false;
             }
             return orig(self);
+        }
+
+        public override void Update() {
+            base.Update();
+
+            // if we are supposed to push the player and the player is hitting us...
+            Player p;
+            if (pushPlayer && (p = CollideFirst<Player>()) != null) {
+                DynData<Player> playerData = new DynData<Player>(p);
+
+                // player is moving down, not on the ground, not climbing, not blocked => push them down
+                if (p.Speed.Y >= 0f && !playerData.Get<bool>("onGround") && (p.StateMachine.State != 1 || playerData.Get<int>("lastClimbMove") == -1)
+                    && !((bool) playerJumpthruBoostBlockedCheck.Invoke(p, new object[0]))) {
+
+                    p.MoveV(40f * Engine.DeltaTime);
+                }
+            }
         }
     }
 }
