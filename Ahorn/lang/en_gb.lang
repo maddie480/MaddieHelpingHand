@@ -312,8 +312,8 @@ placements.triggers.MaxHelpingHand/FlagToggleCameraOffsetTrigger.tooltips.invert
 
 # Multi-Room Strawberry Seed
 placements.entities.MaxHelpingHand/MultiRoomStrawberrySeed.tooltips.strawberryName=The name of the strawberry this seed belongs to.
-placements.entities.MaxHelpingHand/MultiRoomStrawberrySeed.tooltips.sprite=The path to the sprite folder (relative to Graphics/Atlas/Gameplay/collectables).
-placements.entities.MaxHelpingHand/MultiRoomStrawberrySeed.tooltips.ghostSprite=The path to the sprite folder (relative to Graphics/Atlas/Gameplay/collectables) used when the strawberry is already collected.
+placements.entities.MaxHelpingHand/MultiRoomStrawberrySeed.tooltips.sprite=The path to the sprite folder (relative to Graphics/Atlases/Gameplay/collectables).
+placements.entities.MaxHelpingHand/MultiRoomStrawberrySeed.tooltips.ghostSprite=The path to the sprite folder (relative to Graphics/Atlases/Gameplay/collectables) used when the strawberry is already collected.
 placements.entities.MaxHelpingHand/MultiRoomStrawberrySeed.tooltips.index=The order for this seed (determines the sound played on collection). If left to -1, Everest will auto-assign it.
 
 # Multi-Room Strawberry
