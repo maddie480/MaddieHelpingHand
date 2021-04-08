@@ -102,6 +102,7 @@ namespace Celeste.Mod.MaxHelpingHand.Module {
                 {
                     "entity:MaxHelpingHand/SecretBerry", berry => {
                         if (berry.AttrBool("countTowardsTotal")) {
+                            MapData.DetectedStrawberries++; // this is useful for file select slot berry count and print_counts.
                             DetectedSecretBerries++; // this will be picked up by a hook in SecretBerry.
                         }
                     }
