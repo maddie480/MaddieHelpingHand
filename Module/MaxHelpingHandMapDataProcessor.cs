@@ -7,6 +7,7 @@ namespace Celeste.Mod.MaxHelpingHand.Module {
         // the structure here is: FlagTouchSwitches[AreaID][ModeID][flagName, inverted] = list of entity ids for flag touch switches / flag switch gates in this group on this map.
         public static List<List<Dictionary<KeyValuePair<string, bool>, List<EntityID>>>> FlagTouchSwitches = new List<List<Dictionary<KeyValuePair<string, bool>, List<EntityID>>>>();
         public static List<List<Dictionary<string, Dictionary<EntityID, bool>>>> FlagSwitchGates = new List<List<Dictionary<string, Dictionary<EntityID, bool>>>>();
+        public static int DetectedSecretBerries = 0;
         private string levelName;
 
         // we want to match multi-room strawberry seeds with the strawberry that has the same name.
@@ -96,6 +97,13 @@ namespace Celeste.Mod.MaxHelpingHand.Module {
                         string berryName = strawberry.Attr("name");
                         multiRoomStrawberryIDsByName[berryName] = new EntityID(levelName, strawberry.AttrInt("id"));
                         multiRoomStrawberriesByName[berryName] = strawberry;
+                    }
+                },
+                {
+                    "entity:MaxHelpingHand/SecretBerry", berry => {
+                        if (berry.AttrBool("countTowardsTotal")) {
+                            DetectedSecretBerries++; // this will be picked up by a hook in SecretBerry.
+                        }
                     }
                 }
             };

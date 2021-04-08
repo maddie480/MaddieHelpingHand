@@ -86,6 +86,7 @@
     <Compile Include="Entities\HintDecal.cs" />
     <Compile Include="Entities\MovingFlagTouchSwitch.cs" />
     <Compile Include="Entities\ReskinnableBillboard.cs" />
+    <Compile Include="Entities\SecretBerry.cs" />
     <Compile Include="Module\MaxHelpingHandSettings.cs" />
     <Compile Include="Triggers\ActivateTimedTouchSwitchesTimerTrigger.cs" />
     <Compile Include="Triggers\MadelinePonytailTrigger.cs" />
@@ -102,6 +103,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Ahorn\entities\maxHelpingHandMovingFlagTouchSwitch.jl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Ahorn\entities\maxHelpingHandSecretBerry.jl">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Ahorn\entities\maxHelpingHandStrawberrySeedNotPoppingOnGround.jl">

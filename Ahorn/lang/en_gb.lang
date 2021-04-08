@@ -454,3 +454,28 @@ placements.triggers.MaxHelpingHand/OneWayCameraTrigger.tooltips.flag=If specifie
 
 # Madeline Ponytail Trigger
 placements.triggers.MaxHelpingHand/MadelinePonytailTrigger.tooltips.enable=Whether this trigger should enable or disable the Madeline ponytail skin.
+
+# Secret Berry
+placements.entities.MaxHelpingHand/SecretBerry.tooltips.checkpointID=Manually determine what checkpoint section strawberries are visually grouped up in, showing up on the start menu during gameplay and level select. Overrides Everest's automatic berry IDs. (Default= -1)
+placements.entities.MaxHelpingHand/SecretBerry.tooltips.order=Manually determine what order strawberries are visually placed in on the start menu during gameplay and level select. Overrides Everest's automatic berry IDs. (Default= -1)
+placements.entities.MaxHelpingHand/SecretBerry.tooltips.strawberrySprite=The strawberry sprite name. To define your own, copy the "strawberry" sprite from Content/Graphics/Sprites.xml into your mod's Sprites.xml, rename it, and put the new name here.
+placements.entities.MaxHelpingHand/SecretBerry.tooltips.ghostberrySprite=The ghost (collected) strawberry sprite name. To define your own, copy the "ghostberry" sprite from Content/Graphics/Sprites.xml into your mod's Sprites.xml, rename it, and put the new name here.
+placements.entities.MaxHelpingHand/SecretBerry.tooltips.strawberryPulseSound=The pulse sound the strawberry makes while idle.
+placements.entities.MaxHelpingHand/SecretBerry.tooltips.strawberryBlueTouchSound=The sound the strawberry makes when touched by the player, if it was already collected.
+placements.entities.MaxHelpingHand/SecretBerry.tooltips.strawberryTouchSound=The sound the strawberry makes when touched by the player, if it was not already collected.
+placements.entities.MaxHelpingHand/SecretBerry.tooltips.strawberryGetSound=The sound the strawberry makes when collected.\nIf already collected, the "colour" audio param of this sound will be set to 1. If not, it will be set to 0.
+placements.entities.MaxHelpingHand/SecretBerry.tooltips.countTowardsTotal=Whether this berry should be counted in the total number of berries the map contains.
+placements.entities.MaxHelpingHand/SecretBerry.tooltips.particleColor1=One of the colors to use for the particles the strawberry emits when not already collected.
+placements.entities.MaxHelpingHand/SecretBerry.tooltips.particleColor2=One of the colors to use for the particles the strawberry emits when not already collected.
+placements.entities.MaxHelpingHand/SecretBerry.tooltips.ghostParticleColor1=One of the colors to use for the particles the strawberry emits when already collected.
+placements.entities.MaxHelpingHand/SecretBerry.tooltips.ghostParticleColor2=One of the colors to use for the particles the strawberry emits when already collected.
+placements.entities.MaxHelpingHand/SecretBerry.names.strawberryPulseSound=Pulse Sound
+placements.entities.MaxHelpingHand/SecretBerry.names.strawberryBlueTouchSound=Collected Touch Sound
+placements.entities.MaxHelpingHand/SecretBerry.names.strawberryTouchSound=Uncollected Touch Sound
+placements.entities.MaxHelpingHand/SecretBerry.names.strawberryGetSound=Collect Sound
+placements.entities.MaxHelpingHand/SecretBerry.names.strawberrySprite=Sprite
+placements.entities.MaxHelpingHand/SecretBerry.names.ghostberrySprite=Ghost Sprite
+placements.entities.MaxHelpingHand/SecretBerry.names.particleColor1=Uncollected Particle Color 1
+placements.entities.MaxHelpingHand/SecretBerry.names.particleColor2=Uncollected Particle Color 2
+placements.entities.MaxHelpingHand/SecretBerry.names.ghostParticleColor1=Collected Particle Color 1
+placements.entities.MaxHelpingHand/SecretBerry.names.ghostParticleColor2=Collected Particle Color 2
