@@ -10,9 +10,11 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
     [RegisterStrawberry(tracked: true, blocksCollection: false)]
     public class NonPoppingStrawberrySeed : StrawberrySeed {
         public static bool ReplaceSeeds = false; // only true while a NonPoppingStrawberry is being built
+        private static bool strawberryPulseEffectOnSeeds; // allows to pass the setting indirectly to the NonPoppingStrawberrySeed constructor
 
         public static Entity Load(Level level, LevelData levelData, Vector2 offset, EntityData entityData) {
             ReplaceSeeds = true;
+            strawberryPulseEffectOnSeeds = entityData.Bool("pulseEffectOnSeeds", defaultValue: true);
             Entity strawberry = new Strawberry(entityData, offset, new EntityID(levelData.Name, entityData.ID));
             ReplaceSeeds = false;
             return strawberry;
@@ -60,6 +62,19 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             }
         }
 
-        public NonPoppingStrawberrySeed(Strawberry strawberry, Vector2 position, int index, bool ghost) : base(strawberry, position, index, ghost) { }
+        private readonly bool pulseEffect;
+
+        public NonPoppingStrawberrySeed(Strawberry strawberry, Vector2 position, int index, bool ghost) : base(strawberry, position, index, ghost) {
+            pulseEffect = strawberryPulseEffectOnSeeds;
+        }
+
+        public override void Awake(Scene scene) {
+            base.Awake(scene);
+
+            if (!pulseEffect) {
+                // remove the sprite OnFrameChange callback, which is responsible for the pulse effect.
+                Get<Sprite>().OnFrameChange = null;
+            }
+        }
     }
 }

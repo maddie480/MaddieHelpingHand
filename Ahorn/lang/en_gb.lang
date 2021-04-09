@@ -418,6 +418,7 @@ placements.entities.MaxHelpingHand/NonPoppingStrawberry.tooltips.winged=The stra
 placements.entities.MaxHelpingHand/NonPoppingStrawberry.tooltips.checkpointID=Manually determine what checkpoint section strawberries are visually grouped up in, showing up on the start menu during gameplay and level select. Overrides Everest's automatic berry IDs. (Default= -1)
 placements.entities.MaxHelpingHand/NonPoppingStrawberry.tooltips.order=Manually determine what order strawberries are visually placed in on the start menu during gameplay and level select. Overrides Everest's automatic berry IDs. (Default= -1)
 placements.entities.MaxHelpingHand/NonPoppingStrawberry.tooltips.moon=Makes the strawberry render as a space berry.\nDoes not work with wings or nodes in the base game.
+placements.entities.MaxHelpingHand/NonPoppingStrawberry.tooltips.pulseEffectOnSeeds=Whether the seeds of this strawberry should play their "pulse" effect (sound and flash) like vanilla ones.
 
 # Hint Decal
 placements.entities.MaxHelpingHand/HintDecal.tooltips.texture=The path to the decal, relative to Graphics/Atlases/Gameplay/decals.

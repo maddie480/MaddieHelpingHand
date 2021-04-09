@@ -3,7 +3,7 @@
 using ..Ahorn, Maple
 
 @mapdef Entity "MaxHelpingHand/NonPoppingStrawberry" NonPoppingStrawberry(x::Integer, y::Integer, winged::Bool=false, moon::Bool=false,
-    checkpointID::Integer=-1, order::Integer=-1, nodes::Array{Tuple{Integer, Integer}, 1}=Tuple{Integer, Integer}[])
+    checkpointID::Integer=-1, order::Integer=-1, nodes::Array{Tuple{Integer, Integer}, 1}=Tuple{Integer, Integer}[], pulseEffectOnSeeds::Bool=true)
 
 const placements = Ahorn.PlacementDict(
     "Strawberry (with Seeds Not Popping On Ground)\n(max480's Helping Hand)" => Ahorn.EntityPlacement(
