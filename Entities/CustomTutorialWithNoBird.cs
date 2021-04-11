@@ -36,10 +36,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             }
 
             // just let the original routine go.
-            IEnumerator origEnum = orig(self);
-            while (origEnum.MoveNext()) {
-                yield return origEnum.Current;
-            }
+            yield return orig(self);
         }
 
         private static void togglePointer(ILContext il) {

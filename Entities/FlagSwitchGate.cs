@@ -150,17 +150,11 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             while (true) {
                 if (!startAtNode) {
                     // go forth
-                    IEnumerator forthSeq = moveSequence(node, goingBack: false);
-                    while (forthSeq.MoveNext()) {
-                        yield return forthSeq.Current;
-                    }
+                    yield return moveSequence(node, goingBack: false);
                 }
 
                 // go back
-                IEnumerator backSeq = moveSequence(position, goingBack: true);
-                while (backSeq.MoveNext()) {
-                    yield return backSeq.Current;
-                }
+                yield return moveSequence(position, goingBack: true);
 
                 startAtNode = false;
             }
