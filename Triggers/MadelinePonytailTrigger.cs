@@ -44,7 +44,7 @@ namespace Celeste.Mod.MaxHelpingHand.Triggers {
                 cursor.Emit(OpCodes.Ldarg_0);
                 cursor.Emit(cursor.Prev.Previous.Previous.OpCode, cursor.Prev.Previous.Previous.Operand); // load the index local variable.
                 cursor.EmitDelegate<Func<Vector2, PlayerHair, int, Vector2>>((orig, self, index) => {
-                    if (MaxHelpingHandModule.Instance.Session.MadelineHasPonytail && self.Entity is Player && index != 0) {
+                    if (new Func<bool>(() => MaxHelpingHandModule.Instance.Session.MadelineHasPonytail && self.Entity is Player && index != 0)()) {
                         // shrink Maddy's hair, except for index 0 (over her head) to avoid... shrinking her head.
                         float scale = 0.25f + (1f - index / 6f) * 0.6f;
                         return new Vector2(scale * 0.75f * Math.Abs(self.Sprite.Scale.X), scale * 0.75f);
