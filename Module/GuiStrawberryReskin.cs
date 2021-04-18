@@ -48,8 +48,10 @@ namespace Celeste.Mod.MaxHelpingHand.Module {
         }
 
         private static IEnumerator onFileSelectLeave(On.Celeste.OuiFileSelect.orig_Leave orig, OuiFileSelect self, Oui next) {
-            yield return orig(self, next);
-
+            IEnumerator origEnum = orig(self, next);
+            while (origEnum.MoveNext()) {
+                yield return origEnum.Current;
+            }
             isFileSelect = false;
         }
     }

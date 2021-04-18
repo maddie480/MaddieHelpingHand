@@ -41,7 +41,10 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
         }
 
         private static IEnumerator onSeekerRegenerateCoroutine(On.Celeste.Seeker.orig_RegenerateCoroutine orig, Seeker self) {
-            yield return orig(self);
+            IEnumerator origEnum = orig(self);
+            while (origEnum.MoveNext()) {
+                yield return origEnum.Current;
+            }
 
             // make the seeker check for flag touch switches as well.
             self.Collider = (Collider) seekerPushRadius.GetValue(self);

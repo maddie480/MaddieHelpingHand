@@ -78,7 +78,8 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
         private static IEnumerator onStrawberryCollect(On.Celeste.Strawberry.orig_CollectRoutine orig, Strawberry self, int collectIndex) {
             Scene scene = self.Scene;
 
-            yield return orig(self, collectIndex);
+            IEnumerator origEnum = orig(self, collectIndex);
+            while (origEnum.MoveNext()) yield return origEnum.Current;
 
             if (self is SecretBerry berry) {
                 // reskin the strawberry points.
