@@ -2,6 +2,8 @@
 using Microsoft.Xna.Framework;
 using Monocle;
 using System;
+using System.Collections.Generic;
+using System.Reflection;
 
 namespace Celeste.Mod.MaxHelpingHand.Entities {
     // The only thing more cursed than sideways jumpthrus, are *moving* sideways jumpthrus.
@@ -9,6 +11,9 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
     [CustomEntity("MaxHelpingHand/SidewaysMovingPlatform")]
     [TrackedAs(typeof(SidewaysJumpThru))]
     class SidewaysMovingPlatform : SidewaysJumpThru {
+        // this variable is private, static, and never modified: so we only need reflection once to get it!
+        private static readonly HashSet<Actor> solidRiders = (HashSet<Actor>) typeof(Solid).GetField("riders", BindingFlags.NonPublic | BindingFlags.Static).GetValue(null);
+
         // settings
         private readonly EntityData thisEntityData;
         private readonly Vector2 thisOffset;
@@ -108,11 +113,21 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             // move the platform..
             platform.Position += move;
 
+            // back up the riders, because we don't want to mess up the static variable by moving a solid while moving another solid.
+            HashSet<Actor> ridersBackup = new HashSet<Actor>(solidRiders);
+            solidRiders.Clear();
+
             // move the hidden solid, making it actually solid if needed. When solid, it will push the player and carry them if they climb the platform.
             playerInteractingSolid.Collidable = playerHasToMove;
             playerInteractingSolid.MoveH(move.X);
             playerInteractingSolid.MoveV(move.Y);
             playerInteractingSolid.Collidable = false;
+
+            // restore the riders
+            solidRiders.Clear();
+            foreach (Actor rider in ridersBackup) {
+                solidRiders.Add(rider);
+            }
         }
 
         // variant on Solid.GetPlayerClimbing() that also checks for the jumpthru orientation.
