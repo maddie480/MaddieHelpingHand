@@ -235,23 +235,23 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
         public override void Render() {
             if (hasBlocks) {
                 Vector2 position = (Scene as Level).Camera.Position;
-                List<Entity> glassBlocks = Scene.Tracker.GetEntities<CustomizableGlassBlock>();
+                IEnumerable<CustomizableGlassBlock> glassBlocks = Scene.Tracker.GetEntities<CustomizableGlassBlock>().OfType<CustomizableGlassBlock>();
 
-                foreach (Entity glassBlock in glassBlocks) {
-                    Draw.Rect(glassBlock.X, glassBlock.Y, glassBlock.Width, glassBlock.Height, bgColor * alpha);
+                foreach (CustomizableGlassBlock glassBlock in glassBlocks) {
+                    Draw.Rect(glassBlock.X, glassBlock.Y, glassBlock.Width, glassBlock.Height, bgColor * alpha * glassBlock.Alpha);
                 }
 
                 if (starsTarget != null && !starsTarget.IsDisposed) {
-                    foreach (Entity glassBlock in glassBlocks) {
-                        Rectangle value = new Rectangle((int) (glassBlock.X - position.X), (int) (glassBlock.Y - position.Y), (int) glassBlock.Width, (int) glassBlock.Height);
-                        Draw.SpriteBatch.Draw(starsTarget, glassBlock.Position, value, Color.White);
+                    foreach (CustomizableGlassBlock glassBlock in glassBlocks) {
+                        Rectangle target = new Rectangle((int) (glassBlock.X - position.X), (int) (glassBlock.Y - position.Y), (int) glassBlock.Width, (int) glassBlock.Height);
+                        Draw.SpriteBatch.Draw(starsTarget, glassBlock.Position, target, Color.White * glassBlock.Alpha);
                     }
                 }
 
                 if (beamsTarget != null && !beamsTarget.IsDisposed) {
-                    foreach (Entity glassBlock in glassBlocks) {
-                        Rectangle value2 = new Rectangle((int) (glassBlock.X - position.X), (int) (glassBlock.Y - position.Y), (int) glassBlock.Width, (int) glassBlock.Height);
-                        Draw.SpriteBatch.Draw((RenderTarget2D) beamsTarget, glassBlock.Position, value2, Color.White);
+                    foreach (CustomizableGlassBlock glassBlock in glassBlocks) {
+                        Rectangle target = new Rectangle((int) (glassBlock.X - position.X), (int) (glassBlock.Y - position.Y), (int) glassBlock.Width, (int) glassBlock.Height);
+                        Draw.SpriteBatch.Draw((RenderTarget2D) beamsTarget, glassBlock.Position, target, Color.White * glassBlock.Alpha);
                     }
                 }
             }

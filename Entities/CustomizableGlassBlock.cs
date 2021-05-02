@@ -1,6 +1,7 @@
 ﻿using Celeste.Mod.Entities;
 using Microsoft.Xna.Framework;
 using Monocle;
+using System;
 using System.Collections.Generic;
 
 namespace Celeste.Mod.MaxHelpingHand.Entities {
@@ -8,16 +9,20 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
     /// Glass Block pulled from Celeste 1.2.6.1.
     /// Usable with CustomizableGlassBlockController to get custom star/bg colors.
     /// </summary>
-    [Tracked]
+    [Tracked(inherited: true)]
     [CustomEntity("MaxHelpingHand/CustomizableGlassBlock")]
     public class CustomizableGlassBlock : Solid {
+        public float Alpha { get; protected set; } = 1;
+
         private struct Line {
             public Vector2 A;
             public Vector2 B;
+            public Func<float> Alpha;
 
-            public Line(Vector2 a, Vector2 b) {
+            public Line(Vector2 a, Vector2 b, Func<float> alpha) {
                 A = a;
                 B = b;
+                Alpha = alpha;
             }
         }
 
@@ -38,7 +43,10 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
 
         public override void Awake(Scene scene) {
             base.Awake(scene);
+            ComputeLines();
+        }
 
+        private void ComputeLines() {
             int widthInTiles = (int) Width / 8;
             int heightInTiles = (int) Height / 8;
             AddSide(new Vector2(0f, 0f), new Vector2(0f, -1f), widthInTiles);
@@ -62,7 +70,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
                         b += vector;
                     }
 
-                    lines.Add(new Line(a, b));
+                    lines.Add(new Line(a, b, () => 1));
                 }
             }
         }
@@ -77,7 +85,30 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
 
         public override void Render() {
             foreach (Line line in lines) {
-                Draw.Line(Position + line.A, Position + line.B, lineColor);
+                Draw.Line(Position + line.A, Position + line.B, lineColor * line.Alpha() * Alpha);
+            }
+        }
+
+        internal void GlassExitBlockSolidified(CustomizableGlassExitBlock exitBlock) {
+            // save current lines
+            List<Line> oldLines = lines;
+
+            // recompute all lines
+            lines = new List<Line>();
+            ComputeLines();
+
+            // make new lines fade in
+            for (int i = 0; i < lines.Count; i++) {
+                Line line = lines[i];
+                line.Alpha = () => exitBlock.Alpha;
+                lines[i] = line;
+            }
+
+            // make old lines fade out
+            foreach (Line oldLine in oldLines) {
+                Line lineFadeOut = oldLine;
+                lineFadeOut.Alpha = () => 1 - exitBlock.Alpha;
+                lines.Add(lineFadeOut);
             }
         }
     }
