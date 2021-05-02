@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework;
 using Mono.Cecil.Cil;
 using Monocle;
 using MonoMod.Cil;
+using MonoMod.Utils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -34,6 +35,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
                     { "particleColor", MaxHelpingHandModule.Instance.Session.SeekerBarrierCurrentColors.ParticleColor },
                     { "transparency", MaxHelpingHandModule.Instance.Session.SeekerBarrierCurrentColors.Transparency },
                     { "particleTransparency", MaxHelpingHandModule.Instance.Session.SeekerBarrierCurrentColors.ParticleTransparency },
+                    { "particleDirection", MaxHelpingHandModule.Instance.Session.SeekerBarrierCurrentColors.ParticleDirection },
                     { "persistent", true }
                 };
 
@@ -58,6 +60,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
         private Color particleColor;
         private float transparency;
         private float particleTransparency;
+        private float particleDirection;
         private bool persistent;
 
         public SeekerBarrierColorController(EntityData data, Vector2 offset) : base(data.Position + offset) {
@@ -65,6 +68,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             particleColor = Calc.HexToColor(data.Attr("particleColor", "FFFFFF"));
             transparency = data.Float("transparency", 0.15f);
             particleTransparency = data.Float("particleTransparency", 0.5f);
+            particleDirection = data.Float("particleDirection", 0f);
             persistent = data.Bool("persistent");
 
             Add(new TransitionListener {
@@ -80,7 +84,8 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
                     Color = data.Attr("color", "FFFFFF"),
                     ParticleColor = data.Attr("particleColor", "FFFFFF"),
                     Transparency = data.Float("transparency", 0.15f),
-                    ParticleTransparency = data.Float("particleTransparency", 0.5f)
+                    ParticleTransparency = data.Float("particleTransparency", 0.5f),
+                    ParticleDirection = data.Float("particleDirection", 0f)
                 };
             } else {
                 MaxHelpingHandModule.Instance.Session.SeekerBarrierCurrentColors = null;
@@ -144,12 +149,49 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             IL.Celeste.SeekerBarrierRenderer.OnRenderBloom += hookBarrierColor;
             IL.Celeste.SeekerBarrierRenderer.Render += hookBarrierColor;
             IL.Celeste.SeekerBarrier.Render += hookParticleColors;
+            On.Celeste.SeekerBarrier.Update += hookSeekerBarrierParticles;
         }
 
         private static void unhookSeekerBarrierRenderer() {
             IL.Celeste.SeekerBarrierRenderer.OnRenderBloom -= hookBarrierColor;
             IL.Celeste.SeekerBarrierRenderer.Render -= hookBarrierColor;
             IL.Celeste.SeekerBarrier.Render -= hookParticleColors;
+            On.Celeste.SeekerBarrier.Update -= hookSeekerBarrierParticles;
+        }
+
+        private static void hookSeekerBarrierParticles(On.Celeste.SeekerBarrier.orig_Update orig, SeekerBarrier self) {
+            // no need to account for screen transitions: particles are frozen during them.
+            if (controllerOnScreen == null || controllerOnScreen.particleDirection == 0f) {
+                // default settings: do nothing
+                orig(self);
+                return;
+            }
+
+            // save all particles
+            DynData<SeekerBarrier> selfData = new DynData<SeekerBarrier>(self);
+            List<Vector2> particles = new List<Vector2>(selfData.Get<List<Vector2>>("particles"));
+            float[] speeds = selfData.Get<float[]>("speeds");
+
+            // run vanilla code
+            orig(self);
+
+            // move particles again ourselves, except on the direction we want.
+            for (int i = 0; i < particles.Count; i++) {
+                // compute new position
+                Vector2 newPosition = particles[i] + Vector2.UnitY.Rotate((float) (controllerOnScreen.particleDirection * Math.PI / 180)) * speeds[i % speeds.Length] * Engine.DeltaTime;
+
+                // make sure it stays in bounds
+                while (newPosition.X < 0) newPosition.X += self.Width;
+                while (newPosition.Y < 0) newPosition.Y += self.Height;
+                newPosition.X %= self.Width;
+                newPosition.Y %= self.Height;
+
+                // replace the particle position
+                particles[i] = newPosition;
+            }
+
+            // replace them.
+            selfData["particles"] = particles;
         }
 
         private static void hookBarrierColor(ILContext il) {

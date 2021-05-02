@@ -16,6 +16,7 @@ namespace Celeste.Mod.MaxHelpingHand.Module {
             public string ParticleColor { get; set; }
             public float Transparency { get; set; }
             public float ParticleTransparency { get; set; }
+            public float ParticleDirection { get; set; }
         }
 
         public class MultiRoomStrawberrySeedInfo {

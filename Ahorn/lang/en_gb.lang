@@ -249,6 +249,9 @@ placements.effects.MaxHelpingHand/SnowCustomColors.tooltips.colors=Comma-separat
 # Customizable Glass Block
 placements.entities.MaxHelpingHand/CustomizableGlassBlock.tooltips.behindFgTiles=Whether the glass block outline should appear behind foreground tiles.
 
+# Customizable Glass Exit Block
+placements.entities.MaxHelpingHand/CustomizableGlassExitBlock.tooltips.behindFgTiles=Whether the glass block outline should appear behind foreground tiles.
+
 # Customizable Glass Block Controller
 placements.entities.MaxHelpingHand/CustomizableGlassBlockController.tooltips.starColors=A comma-separated list of all star colours visible in glass blocks in the room.
 placements.entities.MaxHelpingHand/CustomizableGlassBlockController.tooltips.bgColor=The background colour for glass blocks in the room.
@@ -393,6 +396,7 @@ placements.entities.MaxHelpingHand/SeekerBarrierColorController.tooltips.color=T
 placements.entities.MaxHelpingHand/SeekerBarrierColorController.tooltips.particleColor=The color the particles inside the seeker barriers will take.
 placements.entities.MaxHelpingHand/SeekerBarrierColorController.tooltips.transparency=The opacity, between 0 and 1, of the seeker barriers. Vanilla value is 0.15.
 placements.entities.MaxHelpingHand/SeekerBarrierColorController.tooltips.particleTransparency=The opacity, between 0 and 1, of the particles inside the seeker barriers. Vanilla value is 0.5.
+placements.entities.MaxHelpingHand/SeekerBarrierColorController.tooltips.particleDirection=The direction of the particles in degrees, 0 being the default (down), 90 being left, etc.
 placements.entities.MaxHelpingHand/SeekerBarrierColorController.tooltips.persistent=If checked, the chosen colors will persist until the player enters a room with another Seeker Barrier Color Controller.\nIf unchecked, the chosen colors will only apply to the current room.
 
 # Ambience Volume Trigger
