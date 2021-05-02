@@ -13,6 +13,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
     /// A controller allowing for customization of rainbow spinner colors.
     /// </summary>
     [CustomEntity("MaxHelpingHand/RainbowSpinnerColorController")]
+    [Tracked]
     class RainbowSpinnerColorController : Entity {
         public static void Load() {
             On.Celeste.Level.LoadLevel += onLoadLevel;
@@ -52,12 +53,12 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
         private static Hook jungleHelperHook;
 
         // the spinner controller on the current screen.
-        private static RainbowSpinnerColorController spinnerControllerOnScreen;
+        internal static RainbowSpinnerColorController spinnerControllerOnScreen;
 
         // during transitions: the spinner controller on the next screen, and the progress between both screens.
         // transitionProgress = -1 means no transition is ongoing.
-        private static RainbowSpinnerColorController nextSpinnerController;
-        private static float transitionProgress = -1f;
+        internal static RainbowSpinnerColorController nextSpinnerController;
+        internal static float transitionProgress = -1f;
 
         // the parameters for this spinner controller.
         private Color[] colors;

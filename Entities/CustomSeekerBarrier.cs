@@ -1,16 +1,10 @@
 ﻿using Celeste.Mod.Entities;
 using Microsoft.Xna.Framework;
 using Monocle;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Celeste.Mod.MaxHelpingHand.Entities {
     [CustomEntity("MaxHelpingHand/CustomSeekerBarrier")]
     [TrackedAs(typeof(SeekerBarrier))]
-    [Tracked]
     class CustomSeekerBarrier : SeekerBarrier {
         internal class Renderer : SeekerBarrierRenderer {
             internal Color color;

@@ -125,6 +125,9 @@
     <None Include="Ahorn\libraries\maxHelpingHandTag.jl">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="Ahorn\triggers\maxHelpingHandRainbowSpinnerColorFadeTrigger.jl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="Ahorn\triggers\maxHelpingHandOneWayCameraTrigger.jl">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -169,6 +172,7 @@
     <Compile Include="Triggers\MadelineSilhouetteTrigger.cs" />
     <Compile Include="Triggers\PauseBadelineBossesTrigger.cs" />
     <Compile Include="Triggers\PopStrawberrySeedsTrigger.cs" />
+    <Compile Include="Triggers\RainbowSpinnerColorFadeTrigger.cs" />
     <Compile Include="Triggers\SpeedBasedMusicParamTrigger.cs" />
     <None Include="Ahorn\effects\maxHelpingHandNorthernLightsCustomColors.jl">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
