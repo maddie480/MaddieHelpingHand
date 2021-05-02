@@ -84,6 +84,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Entities\CustomizableGlassExitBlock.cs" />
+    <Compile Include="Entities\CustomSeekerBarrier.cs" />
     <Compile Include="Entities\HintDecal.cs" />
     <Compile Include="Entities\MovingFlagTouchSwitch.cs" />
     <Compile Include="Entities\ReskinnableBillboard.cs" />
@@ -92,6 +93,9 @@
     <Compile Include="Triggers\ActivateTimedTouchSwitchesTimerTrigger.cs" />
     <Compile Include="Triggers\MadelinePonytailTrigger.cs" />
     <None Include="Ahorn\entities\maxHelpingHandCustomizableGlassExitBlock.jl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Ahorn\entities\maxHelpingHandCustomSeekerBarrier.jl">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Ahorn\entities\maxHelpingHandHintDecal.jl">

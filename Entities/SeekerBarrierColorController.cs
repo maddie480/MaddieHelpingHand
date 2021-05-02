@@ -21,8 +21,6 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
         }
 
         private static void onLoadLevel(On.Celeste.Level.orig_LoadLevel orig, Level self, Player.IntroTypes playerIntro, bool isFromLoader) {
-            orig(self, playerIntro, isFromLoader);
-
             if (MaxHelpingHandModule.Instance.Session.SeekerBarrierCurrentColors != null
                 && self.Session.LevelData != null // happens if we are loading a save in a room that got deleted
                 && !self.Session.LevelData.Entities.Any(entity =>
@@ -40,8 +38,9 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
                 };
 
                 self.Add(new SeekerBarrierColorController(restoredData, Vector2.Zero));
-                self.Entities.UpdateLists();
             }
+
+            orig(self, playerIntro, isFromLoader);
         }
 
 
@@ -62,6 +61,10 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
         private float particleTransparency;
         private float particleDirection;
         private bool persistent;
+
+        internal static bool HasControllerOnNextScreen() {
+            return nextController != null;
+        }
 
         public SeekerBarrierColorController(EntityData data, Vector2 offset) : base(data.Position + offset) {
             color = Calc.HexToColor(data.Attr("color", "FFFFFF"));
@@ -92,8 +95,8 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             }
         }
 
-        public override void Awake(Scene scene) {
-            base.Awake(scene);
+        public override void Added(Scene scene) {
+            base.Added(scene);
 
             // this is the controller for the next screen.
             nextController = this;
@@ -160,8 +163,13 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
         }
 
         private static void hookSeekerBarrierParticles(On.Celeste.SeekerBarrier.orig_Update orig, SeekerBarrier self) {
+            float particleDirection = controllerOnScreen?.particleDirection ?? 0f;
+            if (self is CustomSeekerBarrier customBarrier) {
+                particleDirection = customBarrier.particleDirection;
+            }
+
             // no need to account for screen transitions: particles are frozen during them.
-            if (controllerOnScreen == null || controllerOnScreen.particleDirection == 0f) {
+            if (particleDirection == 0f) {
                 // default settings: do nothing
                 orig(self);
                 return;
@@ -178,7 +186,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             // move particles again ourselves, except on the direction we want.
             for (int i = 0; i < particles.Count; i++) {
                 // compute new position
-                Vector2 newPosition = particles[i] + Vector2.UnitY.Rotate((float) (controllerOnScreen.particleDirection * Math.PI / 180)) * speeds[i % speeds.Length] * Engine.DeltaTime;
+                Vector2 newPosition = particles[i] + Vector2.UnitY.Rotate((float) (particleDirection * Math.PI / 180)) * speeds[i % speeds.Length] * Engine.DeltaTime;
 
                 // make sure it stays in bounds
                 while (newPosition.X < 0) newPosition.X += self.Width;
@@ -198,8 +206,9 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             ILCursor cursor = new ILCursor(il);
 
             // replace colors (vanilla is white)...
-            while (cursor.TryGotoNext(instr => instr.MatchCall<Color>("get_White"))) {
+            while (cursor.TryGotoNext(MoveType.AfterLabel, instr => instr.MatchCall<Color>("get_White"))) {
                 Logger.Log("MaxHelpingHand/SeekerBarrierColorController", $"Injecting seeker barrier color at {cursor.Index} in IL for {il.Method.Name}");
+                cursor.Emit(OpCodes.Ldarg_0);
                 cursor.Next.OpCode = OpCodes.Call;
                 cursor.Next.Operand = typeof(SeekerBarrierColorController).GetMethod("GetCurrentBarrierColor");
             }
@@ -208,8 +217,9 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             cursor.Index = 0;
 
             // ... and replace opacity (vanilla is 0.15).
-            if (cursor.TryGotoNext(instr => instr.MatchLdcR4(0.15f))) {
+            if (cursor.TryGotoNext(MoveType.AfterLabel, instr => instr.MatchLdcR4(0.15f))) {
                 Logger.Log("MaxHelpingHand/SeekerBarrierColorController", $"Injecting seeker barrier transparency at {cursor.Index} in IL for {il.Method.Name}");
+                cursor.Emit(OpCodes.Ldarg_0);
                 cursor.Next.OpCode = OpCodes.Call;
                 cursor.Next.Operand = typeof(SeekerBarrierColorController).GetMethod("GetCurrentBarrierTransparency");
             }
@@ -219,8 +229,9 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             ILCursor cursor = new ILCursor(il);
 
             // replace colors (vanilla is white)...
-            if (cursor.TryGotoNext(instr => instr.MatchCall<Color>("get_White"))) {
+            if (cursor.TryGotoNext(MoveType.AfterLabel, instr => instr.MatchCall<Color>("get_White"))) {
                 Logger.Log("MaxHelpingHand/SeekerBarrierColorController", $"Injecting seeker barrier particle color at {cursor.Index} in IL for {il.Method.Name}");
+                cursor.Emit(OpCodes.Ldarg_0);
                 cursor.Next.OpCode = OpCodes.Call;
                 cursor.Next.Operand = typeof(SeekerBarrierColorController).GetMethod("GetCurrentParticleColor");
             }
@@ -229,8 +240,9 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             cursor.Index = 0;
 
             // ... and replace opacity (vanilla is 0.5).
-            if (cursor.TryGotoNext(instr => instr.MatchLdcR4(0.5f))) {
+            if (cursor.TryGotoNext(MoveType.AfterLabel, instr => instr.MatchLdcR4(0.5f))) {
                 Logger.Log("MaxHelpingHand/SeekerBarrierColorController", $"Injecting seeker barrier particle transparency at {cursor.Index} in IL for {il.Method.Name}");
+                cursor.Emit(OpCodes.Ldarg_0);
                 cursor.Next.OpCode = OpCodes.Call;
                 cursor.Next.Operand = typeof(SeekerBarrierColorController).GetMethod("GetCurrentParticleTransparency");
             }
@@ -238,19 +250,31 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
 
         // those are called from the IL hooks:
 
-        public static Color GetCurrentBarrierColor() {
+        public static Color GetCurrentBarrierColor(SeekerBarrierRenderer renderer) {
+            if (renderer is CustomSeekerBarrier.Renderer customRenderer) {
+                return customRenderer.color;
+            }
             return getAndLerp(controller => controller.color, Color.White, Color.Lerp);
         }
 
-        public static Color GetCurrentParticleColor() {
+        public static Color GetCurrentParticleColor(SeekerBarrier barrier) {
+            if (barrier is CustomSeekerBarrier customBarrier) {
+                return customBarrier.particleColor;
+            }
             return getAndLerp(controller => controller.particleColor, Color.White, Color.Lerp);
         }
 
-        public static float GetCurrentBarrierTransparency() {
+        public static float GetCurrentBarrierTransparency(SeekerBarrierRenderer renderer) {
+            if (renderer is CustomSeekerBarrier.Renderer customRenderer) {
+                return customRenderer.transparency;
+            }
             return getAndLerp(controller => controller.transparency, 0.15f, MathHelper.Lerp);
         }
 
-        public static float GetCurrentParticleTransparency() {
+        public static float GetCurrentParticleTransparency(SeekerBarrier barrier) {
+            if (barrier is CustomSeekerBarrier customBarrier) {
+                return customBarrier.particleTransparency;
+            }
             return getAndLerp(controller => controller.particleTransparency, 0.5f, MathHelper.Lerp);
         }
 
