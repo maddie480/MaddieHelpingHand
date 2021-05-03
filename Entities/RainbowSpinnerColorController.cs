@@ -68,6 +68,9 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
         private float gradientSpeed;
         private bool persistent;
 
+        // the state that will be saved in session if this controller is added to the level
+        private MaxHelpingHandSession.RainbowSpinnerColorState sessionState;
+
         public RainbowSpinnerColorController(EntityData data, Vector2 offset) : base(data.Position + offset) {
             // convert the color list to Color objects
             string[] colorsAsStrings = data.Attr("colors", "89E5AE,88E0E0,87A9DD,9887DB,D088E2").Split(',');
@@ -99,9 +102,9 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
                 OnInEnd = () => transitionProgress = -1f
             });
 
-            // update session
+            // prepare the object that will be saved in session
             if (persistent) {
-                MaxHelpingHandModule.Instance.Session.RainbowSpinnerCurrentColors = new MaxHelpingHandSession.RainbowSpinnerColorState() {
+                sessionState = new MaxHelpingHandSession.RainbowSpinnerColorState() {
                     Colors = data.Attr("colors", "89E5AE,88E0E0,87A9DD,9887DB,D088E2"),
                     GradientSize = gradientSize,
                     LoopColors = loopColors,
@@ -109,8 +112,14 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
                     GradientSpeed = gradientSpeed
                 };
             } else {
-                MaxHelpingHandModule.Instance.Session.RainbowSpinnerCurrentColors = null;
+                sessionState = null;
             }
+        }
+
+        public override void Added(Scene scene) {
+            base.Added(scene);
+
+            MaxHelpingHandModule.Instance.Session.RainbowSpinnerCurrentColors = sessionState;
         }
 
         public override void Awake(Scene scene) {

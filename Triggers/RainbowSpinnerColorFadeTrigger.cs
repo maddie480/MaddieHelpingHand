@@ -1,6 +1,5 @@
 ﻿using Celeste.Mod.Entities;
 using Celeste.Mod.MaxHelpingHand.Entities;
-using Celeste.Mod.MaxHelpingHand.Module;
 using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 
@@ -9,46 +8,37 @@ namespace Celeste.Mod.MaxHelpingHand.Triggers {
     class RainbowSpinnerColorFadeTrigger : Trigger {
         private RainbowSpinnerColorController controllerA;
         private RainbowSpinnerColorController controllerB;
-        private EntityData dataA;
-        private EntityData dataB;
 
         private PositionModes positionMode;
 
         public RainbowSpinnerColorFadeTrigger(EntityData data, Vector2 offset) : base(data, offset) {
-            // the RainbowSpinnerColorController has the side effect of wiping the session, so we want to keep it.
-            MaxHelpingHandSession.RainbowSpinnerColorState backup = MaxHelpingHandModule.Instance.Session.RainbowSpinnerCurrentColors;
-
             // instantiate the controllers.
-            dataA = new EntityData();
+            EntityData dataA = new EntityData();
             dataA.Values = new Dictionary<string, object>() {
                     { "colors", data.Attr("colorsA") },
                     { "gradientSize", data.Float("gradientSizeA") },
                     { "loopColors", data.Bool("loopColorsA") },
                     { "centerX", data.Float("centerXA") },
                     { "centerY", data.Float("centerYA") },
-                    { "gradientSpeed", data.Float("gradientSpeedA") }
+                    { "gradientSpeed", data.Float("gradientSpeedA") },
+                    { "persistent", data.Bool("persistent") }
                 };
             controllerA = new RainbowSpinnerColorController(dataA, Vector2.Zero);
 
-            dataB = new EntityData();
+            EntityData dataB = new EntityData();
             dataB.Values = new Dictionary<string, object>() {
                     { "colors", data.Attr("colorsB") },
                     { "gradientSize", data.Float("gradientSizeB") },
                     { "loopColors", data.Bool("loopColorsB") },
                     { "centerX", data.Float("centerXB") },
                     { "centerY", data.Float("centerYB") },
-                    { "gradientSpeed", data.Float("gradientSpeedB") }
+                    { "gradientSpeed", data.Float("gradientSpeedB") },
+                    { "persistent", data.Bool("persistent") }
                 };
             controllerB = new RainbowSpinnerColorController(dataB, Vector2.Zero);
 
-            // restore the session.
-            MaxHelpingHandModule.Instance.Session.RainbowSpinnerCurrentColors = backup;
-
             // initialize other parameters.
             positionMode = data.Enum<PositionModes>("direction");
-
-            dataA.Values["persistent"] = data.Bool("persistent");
-            dataB.Values["persistent"] = data.Bool("persistent");
         }
 
         public override void OnEnter(Player player) {
@@ -76,14 +66,12 @@ namespace Celeste.Mod.MaxHelpingHand.Triggers {
             // discard whatever controller we currently have.
             Scene.Remove(Scene.Tracker.GetEntity<RainbowSpinnerColorController>());
 
-            // add the controller we want to keep.
-            // note: rebuilding the controllers allows to apply the "persistent" parameter, which is applied in the constructor.
             if (RainbowSpinnerColorController.transitionProgress > 0.5f) {
                 // add controllerB to the scene.
-                Scene.Add(RainbowSpinnerColorController.nextSpinnerController = new RainbowSpinnerColorController(dataB, Vector2.Zero));
+                Scene.Add(RainbowSpinnerColorController.nextSpinnerController = controllerB);
             } else {
                 // add controllerA to the scene.
-                Scene.Add(RainbowSpinnerColorController.nextSpinnerController = new RainbowSpinnerColorController(dataA, Vector2.Zero));
+                Scene.Add(RainbowSpinnerColorController.nextSpinnerController = controllerA);
             }
 
             // reset the transition variables to normal values.
