@@ -86,6 +86,7 @@
     <Compile Include="Entities\CustomizableGlassExitBlock.cs" />
     <Compile Include="Entities\CustomSeekerBarrier.cs" />
     <Compile Include="Entities\HintDecal.cs" />
+    <Compile Include="Entities\MoreCustomNPC.cs" />
     <Compile Include="Entities\MovingFlagTouchSwitch.cs" />
     <Compile Include="Entities\RainbowSpinnerColorTrigger.cs" />
     <Compile Include="Entities\ReskinnableBillboard.cs" />
@@ -109,6 +110,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Ahorn\entities\maxHelpingHandCustomMemorialWithDreamingAttribute.jl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Ahorn\entities\maxHelpingHandMoreCustomNPC.jl">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Ahorn\entities\maxHelpingHandMovingFlagTouchSwitch.jl">

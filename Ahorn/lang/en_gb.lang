@@ -530,3 +530,17 @@ placements.entities.MaxHelpingHand/SecretBerry.names.particleColor1=Uncollected 
 placements.entities.MaxHelpingHand/SecretBerry.names.particleColor2=Uncollected Particle Color 2
 placements.entities.MaxHelpingHand/SecretBerry.names.ghostParticleColor1=Collected Particle Color 1
 placements.entities.MaxHelpingHand/SecretBerry.names.ghostParticleColor2=Collected Particle Color 2
+
+# More Custom NPC
+placements.entities.MaxHelpingHand/MoreCustomNPC.tooltips.indicatorOffsetX=Offset for the chat icon on the X axis.
+placements.entities.MaxHelpingHand/MoreCustomNPC.tooltips.indicatorOffsetY=Offset for the chat icon on the Y axis.
+placements.entities.MaxHelpingHand/MoreCustomNPC.tooltips.dialogId=The dialog ID to use for the dialogue.
+placements.entities.MaxHelpingHand/MoreCustomNPC.tooltips.flipY=Flips the sprite of the NPC vertically.
+placements.entities.MaxHelpingHand/MoreCustomNPC.tooltips.flipX=Flips the sprite of the NPC horizontally.
+placements.entities.MaxHelpingHand/MoreCustomNPC.tooltips.onlyOnce=Whether the dialogue should only be completable once.
+placements.entities.MaxHelpingHand/MoreCustomNPC.tooltips.endLevel=Whether finishing the dialogue should count as completing the map.
+placements.entities.MaxHelpingHand/MoreCustomNPC.tooltips.approachWhenTalking=Whether Madeline should walk towards the NPC when talking.
+placements.entities.MaxHelpingHand/MoreCustomNPC.tooltips.spriteRate=The animation rate for the sprite (in frames per second).
+placements.entities.MaxHelpingHand/MoreCustomNPC.tooltips.approachDistance=How far away from the NPC Madeline should stop when approaching.
+placements.entities.MaxHelpingHand/MoreCustomNPC.tooltips.sprite=Which sprite to use. `player/idle` will use the full path `Graphics/Atlases/Gameplay/characters/player/idle00` and loop from 00 to 08.
+placements.entities.MaxHelpingHand/MoreCustomNPC.tooltips.frames=The frames to use, in the same format as Sprites.xml:\n- 1,5,6 means frames 1, 5 and 6\n- 1-6 means frames 1 to 6\n- 2*4,3 means 4 times frame 2, then frame 3
