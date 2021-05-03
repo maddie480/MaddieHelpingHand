@@ -87,6 +87,7 @@
     <Compile Include="Entities\CustomSeekerBarrier.cs" />
     <Compile Include="Entities\HintDecal.cs" />
     <Compile Include="Entities\MovingFlagTouchSwitch.cs" />
+    <Compile Include="Entities\RainbowSpinnerColorTrigger.cs" />
     <Compile Include="Entities\ReskinnableBillboard.cs" />
     <Compile Include="Entities\SecretBerry.cs" />
     <Compile Include="Module\MaxHelpingHandSettings.cs" />
@@ -123,6 +124,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Ahorn\libraries\maxHelpingHandTag.jl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Ahorn\triggers\maxHelpingHandRainbowSpinnerColorTrigger.jl">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Ahorn\triggers\maxHelpingHandRainbowSpinnerColorFadeTrigger.jl">

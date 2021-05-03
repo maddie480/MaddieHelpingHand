@@ -1,6 +1,7 @@
 ﻿using Celeste.Mod.Entities;
 using Celeste.Mod.MaxHelpingHand.Entities;
 using Microsoft.Xna.Framework;
+using Monocle;
 using System.Collections.Generic;
 
 namespace Celeste.Mod.MaxHelpingHand.Triggers {
@@ -10,6 +11,7 @@ namespace Celeste.Mod.MaxHelpingHand.Triggers {
         private RainbowSpinnerColorController controllerB;
 
         private PositionModes positionMode;
+        private bool diedInTrigger = false;
 
         public RainbowSpinnerColorFadeTrigger(EntityData data, Vector2 offset) : base(data, offset) {
             // instantiate the controllers.
@@ -63,20 +65,55 @@ namespace Celeste.Mod.MaxHelpingHand.Triggers {
         public override void OnLeave(Player player) {
             base.OnLeave(player);
 
-            // discard whatever controller we currently have.
-            Scene.Remove(Scene.Tracker.GetEntity<RainbowSpinnerColorController>());
-
-            if (RainbowSpinnerColorController.transitionProgress > 0.5f) {
-                // add controllerB to the scene.
-                Scene.Add(RainbowSpinnerColorController.nextSpinnerController = controllerB);
+            if (player.Dead) {
+                // player died in trigger, so leave the configuration as is until the screen fades out,
+                // to avoid "snapping" to one of the controller configurations.
+                diedInTrigger = true;
             } else {
-                // add controllerA to the scene.
-                Scene.Add(RainbowSpinnerColorController.nextSpinnerController = controllerA);
-            }
+                // player left the trigger.
+                // discard whatever controller we currently have.
+                Scene.Remove(Scene.Tracker.GetEntity<RainbowSpinnerColorController>());
 
-            // reset the transition variables to normal values.
-            RainbowSpinnerColorController.spinnerControllerOnScreen = null;
-            RainbowSpinnerColorController.transitionProgress = -1;
+                // add the controller we want to keep: that's the one that is on the side the player left in.
+                if (RainbowSpinnerColorController.transitionProgress > 0.5f) {
+                    Scene.Add(RainbowSpinnerColorController.nextSpinnerController = controllerB);
+                } else {
+                    Scene.Add(RainbowSpinnerColorController.nextSpinnerController = controllerA);
+                }
+
+                // reset the transition variables to normal values.
+                RainbowSpinnerColorController.spinnerControllerOnScreen = null;
+                RainbowSpinnerColorController.transitionProgress = -1;
+            }
+        }
+
+        public override void Removed(Scene scene) {
+            base.Removed(scene);
+
+            if (diedInTrigger) {
+                // the level is getting unloaded after the player died inside the trigger.
+                // reset rainbow spinner controller configuration now.
+                RainbowSpinnerColorController.spinnerControllerOnScreen = null;
+                RainbowSpinnerColorController.nextSpinnerController = null;
+                RainbowSpinnerColorController.transitionProgress = -1;
+            }
+        }
+
+        public override void SceneEnd(Scene scene) {
+            base.SceneEnd(scene);
+
+            if (PlayerIsInside) {
+                // player saved & quit inside the trigger, so... we need to do something about it.
+                // let's save the configuration of the side of the trigger the player is closest to.
+                if (RainbowSpinnerColorController.transitionProgress > 0.5f) {
+                    controllerB.ApplyToSession();
+                } else {
+                    controllerA.ApplyToSession();
+                }
+
+                // also make sure to reset the transition progress.
+                RainbowSpinnerColorController.transitionProgress = -1f;
+            }
         }
     }
 }

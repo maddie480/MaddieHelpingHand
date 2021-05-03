@@ -116,6 +116,15 @@ placements.entities.MaxHelpingHand/RainbowSpinnerColorController.tooltips.center
 placements.entities.MaxHelpingHand/RainbowSpinnerColorController.tooltips.gradientSpeed=Determines how fast the gradient scrolls, in pixels per second. You can use negative values to make it scroll in the opposite direction. Vanilla value is 50.
 placements.entities.MaxHelpingHand/RainbowSpinnerColorController.tooltips.persistent=If checked, the chosen colors will persist until the player enters a room with another Rainbow Spinner Color Controller.\nIf unchecked, the chosen colors will only apply to the current room.
 
+# Rainbow Spinner Color Trigger
+placements.triggers.MaxHelpingHand/RainbowSpinnerColorTrigger.tooltips.colors=The colours the rainbow spinners in the room will take, separated by commas.
+placements.triggers.MaxHelpingHand/RainbowSpinnerColorTrigger.tooltips.gradientSize=The distance required to achieve a complete loop across all colours.
+placements.triggers.MaxHelpingHand/RainbowSpinnerColorTrigger.tooltips.loopColors=Determines how the colors loop. For example, if 3 colours A, B and C are specified:\n- when unchecked, the colours will cycle in the following order: A > B > C > B > A\n- when checked, the colours will cycle in the following order: A > B > C > A > B > C
+placements.triggers.MaxHelpingHand/RainbowSpinnerColorTrigger.tooltips.centerX=The horizontal position of the center of the gradient. Uses "world" coordinates. Vanilla value is 0.
+placements.triggers.MaxHelpingHand/RainbowSpinnerColorTrigger.tooltips.centerY=The vertical position of the center of the gradient. Uses "world" coordinates. Vanilla value is 0.
+placements.triggers.MaxHelpingHand/RainbowSpinnerColorTrigger.tooltips.gradientSpeed=Determines how fast the gradient scrolls, in pixels per second. You can use negative values to make it scroll in the opposite direction. Vanilla value is 50.
+placements.triggers.MaxHelpingHand/RainbowSpinnerColorTrigger.tooltips.persistent=If checked, the chosen colors will persist until the player enters a room with another Rainbow Spinner Color Controller.\nIf unchecked, the chosen colors will only apply to the current room.
+
 # Rainbow Spinner Color Fade Trigger
 placements.triggers.MaxHelpingHand/RainbowSpinnerColorFadeTrigger.names.colorsA=Position A - Colors
 placements.triggers.MaxHelpingHand/RainbowSpinnerColorFadeTrigger.names.gradientSizeA=Position A - Gradient Size

@@ -118,7 +118,10 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
 
         public override void Added(Scene scene) {
             base.Added(scene);
+            ApplyToSession();
+        }
 
+        internal void ApplyToSession() {
             MaxHelpingHandModule.Instance.Session.RainbowSpinnerCurrentColors = sessionState;
         }
 
