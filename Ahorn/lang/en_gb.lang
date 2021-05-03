@@ -544,3 +544,7 @@ placements.entities.MaxHelpingHand/MoreCustomNPC.tooltips.spriteRate=The animati
 placements.entities.MaxHelpingHand/MoreCustomNPC.tooltips.approachDistance=How far away from the NPC Madeline should stop when approaching.
 placements.entities.MaxHelpingHand/MoreCustomNPC.tooltips.sprite=Which sprite to use. `player/idle` will use the full path `Graphics/Atlases/Gameplay/characters/player/idle00` and loop from 00 to 08.
 placements.entities.MaxHelpingHand/MoreCustomNPC.tooltips.frames=The frames to use, in the same format as Sprites.xml:\n- 1,5,6 means frames 1, 5 and 6\n- 1-6 means frames 1 to 6\n- 2*4,3 means 4 times frame 2, then frame 3
+
+# Badeline Sprite
+placements.entities.MaxHelpingHand/BadelineSprite.tooltips.left=Whether Badeline is facing left.
+placements.entities.MaxHelpingHand/BadelineSprite.tooltips.floating=Whether Badeline is floating in the air. If unchecked, Badeline will stand on the ground.

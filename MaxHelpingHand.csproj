@@ -83,6 +83,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Entities\BadelineSprite.cs" />
     <Compile Include="Entities\CustomizableGlassExitBlock.cs" />
     <Compile Include="Entities\CustomSeekerBarrier.cs" />
     <Compile Include="Entities\HintDecal.cs" />
@@ -110,6 +111,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Ahorn\entities\maxHelpingHandCustomMemorialWithDreamingAttribute.jl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Ahorn\entities\maxHelpingHandBadelineSprite.jl">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Ahorn\entities\maxHelpingHandMoreCustomNPC.jl">
