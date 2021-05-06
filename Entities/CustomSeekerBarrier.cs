@@ -1,6 +1,7 @@
 ﻿using Celeste.Mod.Entities;
 using Microsoft.Xna.Framework;
 using Monocle;
+using System.Linq;
 
 namespace Celeste.Mod.MaxHelpingHand.Entities {
     [CustomEntity("MaxHelpingHand/CustomSeekerBarrier")]
@@ -20,6 +21,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
         public CustomSeekerBarrier(EntityData data, Vector2 offset) : base(data, offset) {
             renderer = new Renderer() {
                 Tag = Tags.TransitionUpdate, // get rid of the Global tag
+                Depth = 1, // vanilla is 0, this makes it dependent on loading order
                 color = Calc.HexToColor(data.Attr("color", "FFFFFF")),
                 transparency = data.Float("transparency", 0.15f)
             };
@@ -42,8 +44,8 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
 
             renderer.Track(this);
 
-            if (!SeekerBarrierColorController.HasControllerOnNextScreen()) {
-                // there is no seeker barrier color controller :pensive:
+            if (!SeekerBarrierColorController.HasControllerOnNextScreen() && scene.Entities.ToAdd.OfType<SeekerBarrierColorController>().Count() == 0) {
+                // there is no seeker barrier color controller and we're not already adding one :pensive:
                 // we need one, because that's the one tweaking the barriers.
                 scene.Add(new SeekerBarrierColorController(new EntityData(), Vector2.Zero));
             }
