@@ -1,6 +1,7 @@
 ﻿using Celeste.Mod.Entities;
 using Microsoft.Xna.Framework;
 using Monocle;
+using MonoMod.Utils;
 using System;
 using System.Collections;
 
@@ -50,10 +51,17 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
 
         private readonly bool allowReturn;
 
+        private readonly bool isShatter;
+        private readonly string blockSpriteName;
+
         public FlagSwitchGate(EntityData data, Vector2 offset)
             : base(data.Position + offset, data.Width, data.Height, safe: false) {
 
-            node = data.Nodes[0] + offset;
+            isShatter = data.Bool("isShatter", defaultValue: false);
+            if (data.Nodes.Length > 0) {
+                node = data.Nodes[0] + offset;
+            }
+
             ID = data.ID;
             Flag = data.Attr("flag");
 
@@ -90,7 +98,8 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
                 icon.Scale = Vector2.One * (1f + f);
             }));
 
-            MTexture nineSliceTexture = GFX.Game["objects/switchgate/" + data.Attr("sprite", "block")];
+            blockSpriteName = data.Attr("sprite", "block");
+            MTexture nineSliceTexture = GFX.Game["objects/switchgate/" + blockSpriteName];
             nineSlice = new MTexture[3, 3];
             for (int i = 0; i < 3; i++) {
                 for (int j = 0; j < 3; j++) {
@@ -105,6 +114,10 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
         public override void Awake(Scene scene) {
             base.Awake(scene);
             if ((SceneAs<Level>().Session.GetFlag(Flag + "_gate" + ID) && !allowReturn) || SceneAs<Level>().Session.GetFlag(Flag)) {
+                if (isShatter) {
+                    RemoveSelf();
+                }
+
                 if (allowReturn) {
                     // watch the flag to return to the start if necessary.
                     Add(new Coroutine(moveBackAndForthSequence(Position, node, startAtNode: true)));
@@ -115,7 +128,9 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
                 icon.SetAnimationFrame(0);
                 icon.Color = finishColor;
             } else {
-                if (allowReturn) {
+                if (isShatter) {
+                    Add(new Coroutine(shatterSequence()));
+                } else if (allowReturn) {
                     // go back and forth as needed.
                     Add(new Coroutine(moveBackAndForthSequence(Position, node, startAtNode: false)));
                 } else {
@@ -325,6 +340,72 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
                 return true;
             }
             return false;
+        }
+
+        // this is heavily inspired by Vortex Helper by catapillie, and also requires Vortex Helper to fully work.
+        private IEnumerator shatterSequence() {
+            if (!Everest.Loader.DependencyLoaded(new EverestModuleMetadata { Name = "VortexHelper", Version = new Version(1, 1, 0) })) {
+                // error postcards are nicer than crashes!
+                LevelEnter.ErrorMessage = "{big}Oops!{/big}{n}To use {# F94A4A}Shatter Flag Switch Gates{#}, you need to have {# d678db}Vortex Helper{#} installed!";
+                LevelEnter.Go(new Session(SceneAs<Level>().Session.Area), fromSaveData: false);
+                yield break;
+            }
+
+            Level level = SceneAs<Level>();
+            while ((!Triggered || allowReturn) && !SceneAs<Level>().Session.GetFlag(Flag)) {
+                yield return null;
+            }
+
+            openSfx.Play("event:/game/general/fallblock_shake");
+            yield return 0.1f;
+
+            if (shakeTime > 0f) {
+                StartShaking(shakeTime);
+                while (icon.Rate < 1f) {
+                    icon.Color = Color.Lerp(inactiveColor, finishColor, icon.Rate);
+                    icon.Rate += Engine.DeltaTime / shakeTime;
+                    yield return null;
+                }
+            } else {
+                icon.Rate = 1f;
+            }
+
+            yield return 0.1f;
+            for (int k = 0; k < 32; k++) {
+                float num = Calc.Random.NextFloat((float) Math.PI * 2f);
+                SceneAs<Level>().ParticlesFG.Emit(TouchSwitch.P_Fire, Position + iconOffset + Calc.AngleToVector(num, 4f), num);
+            }
+            openSfx.Stop();
+            Audio.Play("event:/game/general/wall_break_stone", Center);
+            Audio.Play(finishedSound, Center);
+            level.Shake();
+
+            string debrisPath;
+            switch (blockSpriteName) {
+                default:
+                    debrisPath = "debris/VortexHelper/disintegate/1";
+                    break;
+                case "mirror":
+                    debrisPath = "debris/VortexHelper/disintegate/2";
+                    break;
+                case "temple":
+                    debrisPath = "debris/VortexHelper/disintegate/3";
+                    break;
+                case "stars":
+                    debrisPath = "debris/VortexHelper/disintegate/4";
+                    break;
+            }
+
+            for (int i = 0; i < Width / 8f; i++) {
+                for (int j = 0; j < Height / 8f; j++) {
+                    Debris debris = new Debris().orig_Init(Position + new Vector2(4 + i * 8, 4 + j * 8), '1').BlastFrom(Center);
+                    DynData<Debris> debrisData = new DynData<Debris>(debris);
+                    debrisData.Get<Image>("image").Texture = GFX.Game[debrisPath];
+                    Scene.Add(debris);
+                }
+            }
+            DestroyStaticMovers();
+            RemoveSelf();
         }
     }
 }

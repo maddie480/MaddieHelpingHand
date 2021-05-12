@@ -101,6 +101,9 @@
     <None Include="Ahorn\entities\maxHelpingHandCustomSeekerBarrier.jl">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="Ahorn\entities\maxHelpingHandShatterFlagSwitchGate.jl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="Ahorn\entities\maxHelpingHandHintDecal.jl">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

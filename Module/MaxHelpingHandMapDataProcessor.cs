@@ -106,6 +106,15 @@ namespace Celeste.Mod.MaxHelpingHand.Module {
                             DetectedSecretBerries++; // this will be picked up by a hook in SecretBerry.
                         }
                     }
+                },
+                {
+                    "entity:MaxHelpingHand/ShatterFlagSwitchGate", gate => {
+                        // turn into a flag switch gate with isShatter = true.
+                        gate.Name = "MaxHelpingHand/FlagSwitchGate";
+                        gate.SetAttr("isShatter", true);
+
+                        flagSwitchGateHandler(gate);
+                    }
                 }
             };
         }
