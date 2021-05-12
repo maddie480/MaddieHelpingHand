@@ -65,6 +65,7 @@ placements.entities.MaxHelpingHand/CustomizableCrumblePlatform.tooltips.minCrumb
 placements.entities.MaxHelpingHand/CustomizableCrumblePlatform.tooltips.maxCrumbleDurationOnTop=The time (in seconds) the platform will take to disappear when the player stands on it and doesn't jump off.
 placements.entities.MaxHelpingHand/CustomizableCrumblePlatform.tooltips.crumbleDurationOnSide=The time (in seconds) the platform will take to disappear when the player grabs a side of it. Should be equal to or higher than "Max Crumble Duration On Top".
 placements.entities.MaxHelpingHand/CustomizableCrumblePlatform.tooltips.outlineTexture=The path to the outline texture (that appears while the platform is respawning), in Graphics/Atlases/Gameplay.\nTo use the texture at Graphics/Atlases/Gameplay/somefolder/texturename.png in your mod, write "somefolder/texturename" here.\nYou'll find the vanilla texture in the graphics dump, in Graphics/Atlases/Gameplay/objects/crumbleBlock/outline.png.
+placements.entities.MaxHelpingHand/CustomizableCrumblePlatform.tooltips.onlyEmitSoundForPlayer=If checked, the crumble block will only emit sound when triggered by the player (not when triggered by another crumble block in the group).
 
 # Upside Down Jump Thru
 placements.entities.MaxHelpingHand/UpsideDownJumpThru.tooltips.texture=Changes the appearance of the platform. Should be in the same format as vanilla for static jumpthrus, and a 8x8 image for animated ones.

@@ -45,6 +45,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
         private float maxCrumbleDurationOnTop;
         private float crumbleDurationOnSide;
         private bool grouped;
+        private bool onlyEmitSoundForPlayer;
 
         private HashSet<CustomizableCrumblePlatform> groupedCrumblePlatforms = new HashSet<CustomizableCrumblePlatform>();
 
@@ -57,6 +58,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             maxCrumbleDurationOnTop = data.Float("maxCrumbleDurationOnTop", 0.6f);
             crumbleDurationOnSide = data.Float("crumbleDurationOnSide", 1f);
             grouped = data.Bool("grouped", false);
+            onlyEmitSoundForPlayer = data.Bool("onlyEmitSoundForPlayer", false);
         }
 
         private static void onCrumblePlatformAdded(ILContext il) {
@@ -131,14 +133,14 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
         private IEnumerator customSequence() {
             while (true) {
                 // wait until player is on top
-                Player player = getOnePlayerOnTop();
+                CustomizableCrumblePlatform triggeredPlatform = getOnePlatformWithPlayerOnTop();
                 bool onTop;
-                if (player != null) {
+                if (triggeredPlatform != null) {
                     onTop = true;
                     Input.Rumble(RumbleStrength.Medium, RumbleLength.Medium);
                 } else {
-                    player = getOnePlayerClimbing();
-                    if (player == null) {
+                    triggeredPlatform = getOnePlatformWithPlayerOnTop();
+                    if (triggeredPlatform == null) {
                         yield return null;
                         continue;
                     }
@@ -146,8 +148,12 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
                     Input.Rumble(RumbleStrength.Medium, RumbleLength.Medium);
                 }
 
+                // only emit sound if we should emit sound no matter what, or if the current platform is the one that got triggered.
+                if (!onlyEmitSoundForPlayer || triggeredPlatform == this) {
+                    Audio.Play("event:/game/general/platform_disintegrate", Center);
+                }
+
                 // make pieces shake and emit particles
-                Audio.Play("event:/game/general/platform_disintegrate", Center);
                 shaker.ShakeFor(onTop ? maxCrumbleDurationOnTop : crumbleDurationOnSide, removeOnFinish: false);
                 foreach (Image image in images) {
                     SceneAs<Level>().Particles.Emit(P_Crumble, 2, Position + image.Position + new Vector2(0f, 2f), Vector2.One * 3f);
@@ -163,7 +169,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
                 // wait for a bit more
                 float timer = (onTop ? maxCrumbleDurationOnTop - minCrumbleDurationOnTop : crumbleDurationOnSide - maxCrumbleDurationOnTop);
                 if (onTop) {
-                    while (timer > 0f && getOnePlayerOnTop() != null) {
+                    while (timer > 0f && getOnePlatformWithPlayerOnTop() != null) {
                         yield return null;
                         timer -= Engine.DeltaTime;
                     }
@@ -209,28 +215,44 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
                 for (int m = 0; m < 4; m++) {
                     for (int i = 0; i < images.Count; i++) {
                         if (i % 4 - m == 0) {
-                            falls[i].Replace((IEnumerator) crumblePlatformTileIn.Invoke(this, new object[] { i, images[fallOrder[i]], 0.05f * (float) m }));
+                            // only emit sound if we should emit sound no matter what, or if the current platform is the one that got triggered.
+                            if (!onlyEmitSoundForPlayer || triggeredPlatform == this) {
+                                falls[i].Replace((IEnumerator) crumblePlatformTileIn.Invoke(this, new object[] { i, images[fallOrder[i]], 0.05f * (float) m }));
+                            } else {
+                                falls[i].Replace(tileInNoSound(i, images[fallOrder[i]], 0.05f * (float) m));
+                            }
                         }
                     }
                 }
             }
         }
 
-        private Player getOnePlayerOnTop() {
+        // copy-paste of the vanilla TileIn method, except without the sound.
+        private IEnumerator tileInNoSound(int index, Image img, float delay) {
+            yield return delay;
+            img.Visible = true;
+            img.Color = Color.White;
+            img.Position = new Vector2(index * 8 + 4, 4f);
+            for (float time = 0f; time < 1f; time += Engine.DeltaTime / 0.25f) {
+                yield return null;
+                img.Scale = Vector2.One * (1f + Ease.BounceOut(1f - time) * 0.2f);
+            }
+            img.Scale = Vector2.One;
+        }
+
+        private CustomizableCrumblePlatform getOnePlatformWithPlayerOnTop() {
             foreach (CustomizableCrumblePlatform platform in groupedCrumblePlatforms) {
-                Player p = platform.GetPlayerOnTop();
-                if (p != null) {
-                    return p;
+                if (platform.GetPlayerOnTop() != null) {
+                    return platform;
                 }
             }
             return null;
         }
 
-        private Player getOnePlayerClimbing() {
+        private CustomizableCrumblePlatform getOnePlatformWithPlayerClimbing() {
             foreach (CustomizableCrumblePlatform platform in groupedCrumblePlatforms) {
-                Player p = platform.GetPlayerClimbing();
-                if (p != null) {
-                    return p;
+                if (platform.GetPlayerClimbing() != null) {
+                    return platform;
                 }
             }
             return null;

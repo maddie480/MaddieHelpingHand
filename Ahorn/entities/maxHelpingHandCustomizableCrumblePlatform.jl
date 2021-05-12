@@ -4,7 +4,7 @@ using ..Ahorn, Maple
 
 @mapdef Entity "MaxHelpingHand/CustomizableCrumblePlatform" CustomizableCrumblePlatform(x::Integer, y::Integer, width::Integer=Maple.defaultBlockWidth,
     texture::String="default", oneUse::Bool=false, respawnDelay::Number=2.0, grouped::Bool=false, minCrumbleDurationOnTop::Number=0.2,
-    maxCrumbleDurationOnTop::Number=0.6, crumbleDurationOnSide::Number=1.0, outlineTexture::String="objects/crumbleBlock/outline")
+    maxCrumbleDurationOnTop::Number=0.6, crumbleDurationOnSide::Number=1.0, outlineTexture::String="objects/crumbleBlock/outline", onlyEmitSoundForPlayer::Bool=false)
 
 const placements = Ahorn.PlacementDict(
     "Crumble Blocks ($(uppercasefirst(texture)), Customizable)\n(max480's Helping Hand)" => Ahorn.EntityPlacement(
