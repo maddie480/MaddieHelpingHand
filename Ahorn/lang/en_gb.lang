@@ -48,13 +48,13 @@ placements.entities.MaxHelpingHand/FlagSwitchGate.tooltips.finishedSound=The sou
 # Shatter Flag Switch Gate
 placements.entities.MaxHelpingHand/ShatterFlagSwitchGate.tooltips.flag=The session flag this switch gate reacts to. Give the same to multiple touch switches and switch gates to group them.
 placements.entities.MaxHelpingHand/ShatterFlagSwitchGate.tooltips.icon=The name of the icon for the switch gate (relative to objects/MaxHelpingHand/flagSwitchGate), or "vanilla" for the default one.
-placements.entities.MaxHelpingHand/ShatterFlagSwitchGate.tooltips.persistent=If enabled, the switch gate will stay open when the player dies or changes rooms.
+placements.entities.MaxHelpingHand/ShatterFlagSwitchGate.tooltips.persistent=If enabled, the switch gate will stay destroyed when the player dies or changes rooms.
 placements.entities.MaxHelpingHand/ShatterFlagSwitchGate.tooltips.inactiveColor=The gate icon colour when not triggered yet.
 placements.entities.MaxHelpingHand/ShatterFlagSwitchGate.tooltips.activeColor=The gate icon colour when triggered, but the group is not complete yet.
 placements.entities.MaxHelpingHand/ShatterFlagSwitchGate.tooltips.finishColor=The gate icon colour when the group is complete.
 placements.entities.MaxHelpingHand/ShatterFlagSwitchGate.tooltips.sprite=The texture for the gate block.
-placements.entities.MaxHelpingHand/ShatterFlagSwitchGate.tooltips.shakeTime=The time (in seconds) the block spends shaking before starting to move. Vanilla value is 0.5 seconds.
-placements.entities.MaxHelpingHand/ShatterFlagSwitchGate.tooltips.finishedSound=The sound played by the gate when it is done moving.
+placements.entities.MaxHelpingHand/ShatterFlagSwitchGate.tooltips.shakeTime=The time (in seconds) the block spends shaking before shattering. Vanilla value is 0.5 seconds.
+placements.entities.MaxHelpingHand/ShatterFlagSwitchGate.tooltips.finishedSound=The sound played by the gate when it shatters.
 
 # Customizable Crumble Platform
 placements.entities.MaxHelpingHand/CustomizableCrumblePlatform.tooltips.texture=What texture to use for the crumble block.
