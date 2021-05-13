@@ -18,7 +18,7 @@ function gateFinalizer(entity)
 end
 
 const textures = String["block", "mirror", "temple", "stars"]
-const bundledIcons = String["vanilla", "tall", "triangle", "circle"]
+const bundledIcons = String["vanilla", "tall", "triangle", "circle", "diamond", "double", "heart", "square", "wide", "winged"]
 
 const placements = Ahorn.PlacementDict(
     "Flag Switch Gate ($(uppercasefirst(texture))) (max480's Helping Hand)" => Ahorn.EntityPlacement(

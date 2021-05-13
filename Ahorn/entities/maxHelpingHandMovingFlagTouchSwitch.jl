@@ -12,7 +12,7 @@ const placements = Ahorn.PlacementDict(
     )
 )
 
-const bundledIcons = String["vanilla", "tall", "triangle", "circle"]
+const bundledIcons = String["vanilla", "tall", "triangle", "circle", "diamond", "double", "heart", "square", "wide", "winged"]
 
 Ahorn.editingOptions(entity::MovingFlagTouchSwitch) = Dict{String,Any}(
     "icon" => bundledIcons

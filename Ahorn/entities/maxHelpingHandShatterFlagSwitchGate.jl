@@ -10,7 +10,7 @@ using ..Ahorn, Maple
     shakeTime=shakeTime, finishedSound=finishedSound)
 
 const textures = String["block", "mirror", "temple", "stars"]
-const bundledIcons = String["vanilla", "tall", "triangle", "circle"]
+const bundledIcons = String["vanilla", "tall", "triangle", "circle", "diamond", "double", "heart", "square", "wide", "winged"]
 
 const placements = Ahorn.PlacementDict(
     "Shatter Flag Switch Gate ($(uppercasefirst(texture)))\n(max480's Helping Hand + Vortex Helper)" => Ahorn.EntityPlacement(
