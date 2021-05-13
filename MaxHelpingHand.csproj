@@ -89,7 +89,7 @@
     <Compile Include="Entities\HintDecal.cs" />
     <Compile Include="Entities\MoreCustomNPC.cs" />
     <Compile Include="Entities\MovingFlagTouchSwitch.cs" />
-    <Compile Include="Entities\RainbowSpinnerColorTrigger.cs" />
+    <Compile Include="Triggers\RainbowSpinnerColorTrigger.cs" />
     <Compile Include="Entities\ReskinnableBillboard.cs" />
     <Compile Include="Entities\SecretBerry.cs" />
     <Compile Include="Module\MaxHelpingHandSettings.cs" />
