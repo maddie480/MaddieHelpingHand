@@ -1,6 +1,7 @@
 ﻿using Celeste.Mod.Entities;
 using Microsoft.Xna.Framework;
 using Monocle;
+using MonoMod.Utils;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -21,12 +22,12 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
         }
 
         private static void onLevelLoadingThread(On.Celeste.LevelLoader.orig_LoadingThread orig, LevelLoader self) {
-            orig(self);
-
             // spawn a Kevin barrier renderer if there are Kevin barriers in the map.
-            if (self.Level.Session.MapData?.Levels?.Any(level => level.Entities?.Any(entity => entity.Name == "MaxHelpingHand/KevinBarrier") ?? false) ?? false) {
+            if (new DynData<LevelLoader>(self).Get<Session>("session").MapData?.Levels?.Any(level => level.Entities?.Any(entity => entity.Name == "MaxHelpingHand/KevinBarrier") ?? false) ?? false) {
                 self.Level.Add(new KevinBarrierRenderer());
             }
+
+            orig(self);
         }
 
         private static bool onKevinMoveHCheck(On.Celeste.CrushBlock.orig_MoveHCheck orig, CrushBlock self, float amount) {
