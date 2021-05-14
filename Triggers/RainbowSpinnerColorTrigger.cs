@@ -14,14 +14,18 @@ namespace Celeste.Mod.MaxHelpingHand.Triggers {
         public override void OnEnter(Player player) {
             base.OnEnter(player);
 
-            // remove the current controller from the room
             RainbowSpinnerColorController existingController = Scene.Tracker.GetEntity<RainbowSpinnerColorController>();
-            if (existingController != null) {
-                Scene.Remove(existingController);
-            }
 
-            // and add ours instead
-            Scene.Add(controller);
+            // if the current controller is not in the room, add it, and replace the current one if there is one.
+            if (existingController != controller) {
+                // remove the current controller from the room
+                if (existingController != null) {
+                    Scene.Remove(existingController);
+                }
+
+                // and add ours instead
+                Scene.Add(controller);
+            }
         }
     }
 }
