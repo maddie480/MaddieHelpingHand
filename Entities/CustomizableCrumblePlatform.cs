@@ -139,7 +139,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
                     onTop = true;
                     Input.Rumble(RumbleStrength.Medium, RumbleLength.Medium);
                 } else {
-                    triggeredPlatform = getOnePlatformWithPlayerOnTop();
+                    triggeredPlatform = getOnePlatformWithPlayerClimbing();
                     if (triggeredPlatform == null) {
                         yield return null;
                         continue;
