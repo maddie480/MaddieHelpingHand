@@ -55,8 +55,7 @@ Here is what is in the pack:
     *   **Secret Berry**: allows you to make your own "secret" berry with custom sprites, sounds and particle colors! The berry won't appear in chapter select and pause menu, and you can pick if it counts in the total number of berries in the chapter or not.
     *   **Custom Seeker Barriers**: a seeker barrier which allows you to change the background color and/or particle color and direction. If you want to change all seeker barriers on the screen to the same settings, you can use a _Seeker Barrier Color Controller_ instead.  
     
-*   **Customizable versions of vanilla styleground effects:  
-    **
+*   **Customizable versions of vanilla styleground effects:**
     *   **Custom Planets**: much like the Planets styleground, but allowing to make planets scroll and be animated. Multiple examples of custom planets directories can be found in the mod zip, in `Graphics/Atlases/Gameplay/MaxHelpingHand/customplanets`.
     *   **Custom Stars effect**: much like the vanilla Stars styleground, except you can use your own sprites for the stars.
     *   **Snow with Custom Colors**: this is the "snowBg" and "snowFg" effect, except you can customize the snow colors!
