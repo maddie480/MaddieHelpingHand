@@ -1,7 +1,9 @@
 # max480's Helping Hand
 
 This helper provides a few entities and triggers that were requested, and that could be useful for other people as well.  
-  
+
+Download it [here!](https://0x0a.de/twoclick?https://gamebanana.com/mmdl/571201)
+
 Here is what is in the pack:  
 
 *   **New entities:**
