@@ -6,10 +6,19 @@ using ..Ahorn, Maple
 	flipX::Bool=false, flipY::Bool=false, approachWhenTalking::Bool=false, approachDistance::Int=16, indicatorOffsetX::Int=0, indicatorOffsetY::Int=0,
 	frames::String="", nodes::Array{Tuple{Integer, Integer}, 1}=Tuple{Integer, Integer}[])
 
+@mapdef Entity "MaxHelpingHand/CustomNPCSprite" CustomNPCSprite(x::Integer, y::Integer, spriteRate::Int=1, dialogId::String="", onlyOnce::Bool=true, endLevel::Bool=false,
+	flipX::Bool=false, flipY::Bool=false, approachWhenTalking::Bool=false, approachDistance::Int=16, indicatorOffsetX::Int=0, indicatorOffsetY::Int=-16,
+	spriteName::String="bird", nodes::Array{Tuple{Integer, Integer}, 1}=Tuple{Integer, Integer}[])
+
+const npcUnion = Union{MoreCustomNPC, CustomNPCSprite}
+
 const placements = Ahorn.PlacementDict(
-    # Base placement
-    "More Custom NPC (Everest + max480's Helping Hand)" => Ahorn.EntityPlacement(
+    # Base placements
+    "More Custom NPC\n(Everest + max480's Helping Hand)" => Ahorn.EntityPlacement(
         MoreCustomNPC
+    ),
+    "Custom NPC (from XML)\n(Everest + max480's Helping Hand)" => Ahorn.EntityPlacement(
+        CustomNPCSprite
     ),
 
     # Presets for Granny and an invisible NPC that don't actually require More Custom NPC but are here for convenience/completeness
@@ -64,7 +73,7 @@ const placements = Ahorn.PlacementDict(
     )
 )
 
-Ahorn.nodeLimits(entity::MoreCustomNPC) = 0, 2
+Ahorn.nodeLimits(entity::npcUnion) = 0, 2
 
 function getSpriteName(entity::MoreCustomNPC)
     spriteName = get(entity.data, "sprite", "")
@@ -76,8 +85,11 @@ function getSpriteName(entity::MoreCustomNPC)
     return "characters/$(spriteName)00"
 end
 
+function getSpriteName(entity::CustomNPCSprite)
+    return "ahorn/MaxHelpingHand/custom_npc_xml"
+end
 
-function Ahorn.renderSelectedAbs(ctx::Ahorn.Cairo.CairoContext, entity::MoreCustomNPC)
+function Ahorn.renderSelectedAbs(ctx::Ahorn.Cairo.CairoContext, entity::npcUnion)
     x, y = Ahorn.position(entity)
 
     spriteName = getSpriteName(entity)
@@ -98,7 +110,7 @@ function Ahorn.renderSelectedAbs(ctx::Ahorn.Cairo.CairoContext, entity::MoreCust
     end
 end
 
-function Ahorn.selection(entity::MoreCustomNPC)
+function Ahorn.selection(entity::npcUnion)
     x, y = Ahorn.position(entity)
 
     scaleX, scaleY = get(entity.data, "flipX", false) ? -1 : 1, get(entity.data, "flipY", false) ? -1 : 1
@@ -120,7 +132,7 @@ function Ahorn.selection(entity::MoreCustomNPC)
     return res
 end
 
-function Ahorn.render(ctx::Ahorn.Cairo.CairoContext, entity::MoreCustomNPC, room::Maple.Room)
+function Ahorn.render(ctx::Ahorn.Cairo.CairoContext, entity::npcUnion, room::Maple.Room)
     scaleX, scaleY = get(entity.data, "flipX", false) ? -1 : 1, get(entity.data, "flipY", false) ? -1 : 1
     spriteName = getSpriteName(entity)
 

@@ -7,12 +7,27 @@ using System.Collections.Generic;
 
 namespace Celeste.Mod.MaxHelpingHand.Entities {
     // Everest Custom NPC but with some more options
-    [CustomEntity("MaxHelpingHand/MoreCustomNPC")]
+    [CustomEntity("MaxHelpingHand/MoreCustomNPC", "MaxHelpingHand/CustomNPCSprite")]
     class MoreCustomNPC : CustomNPC {
         private readonly Rectangle? talkerZone;
+        private readonly bool hasDialogue;
+
+        private Sprite sprite;
 
         public MoreCustomNPC(EntityData data, Vector2 offset, EntityID id) : base(data, offset, id) {
+            hasDialogue = !string.IsNullOrEmpty(data.Attr("dialogId"));
+
             DynData<CustomNPC> npcData = new DynData<CustomNPC>(this);
+
+            string spriteName = data.Attr("spriteName", "");
+            if (!string.IsNullOrEmpty(spriteName)) {
+                // replace the NPC texture with a sprite.
+                npcData["textures"] = null;
+
+                sprite = GFX.SpriteBank.Create(spriteName);
+                sprite.Scale = npcData.Get<Vector2>("scale");
+                Add(sprite);
+            }
 
             string frames = data.Attr("frames", "");
             if (!string.IsNullOrEmpty(frames)) {
@@ -49,6 +64,17 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
                 // apply the talker zone now (the talker is initialized in Added).
                 Talker.Bounds = talkerZone.Value;
             }
+
+            if (!hasDialogue && Talker != null) {
+                Remove(Talker);
+            }
+        }
+
+        public override void Render() {
+            base.Render();
+
+            // CustomNPC overrides Render without calling base, so we need to manually render the sprite.
+            sprite?.Render();
         }
     }
 }
