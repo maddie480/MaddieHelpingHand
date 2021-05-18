@@ -19,6 +19,12 @@ namespace Celeste.Mod.MaxHelpingHand.Module {
             public float ParticleDirection { get; set; }
         }
 
+        public class CustomizableGlassBlockState {
+            public string StarColors { get; set; }
+            public string BgColor { get; set; }
+            public bool Wavy { get; set; }
+        }
+
         public class MultiRoomStrawberrySeedInfo {
             public int Index { get; set; }
             public EntityID BerryID { get; set; }
@@ -34,6 +40,7 @@ namespace Celeste.Mod.MaxHelpingHand.Module {
 
         public RainbowSpinnerColorState RainbowSpinnerCurrentColors { get; set; } = null;
         public SeekerBarrierColorState SeekerBarrierCurrentColors { get; set; } = null;
+        public CustomizableGlassBlockState GlassBlockCurrentSettings { get; set; } = null;
 
         public string GradientDustImagePath { get; set; } = null;
         public float GradientDustScrollSpeed { get; set; } = 0f;

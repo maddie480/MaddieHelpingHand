@@ -1,4 +1,5 @@
 ﻿using Celeste.Mod.Entities;
+using Celeste.Mod.MaxHelpingHand.Module;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Monocle;
@@ -13,6 +14,34 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
     [CustomEntity("MaxHelpingHand/CustomizableGlassBlockController")]
     [Tracked]
     class CustomizableGlassBlockController : Entity {
+        public static void Load() {
+            On.Celeste.Level.LoadLevel += onLoadLevel;
+        }
+
+        public static void Unload() {
+            On.Celeste.Level.LoadLevel -= onLoadLevel;
+        }
+
+        private static void onLoadLevel(On.Celeste.Level.orig_LoadLevel orig, Level self, Player.IntroTypes playerIntro, bool isFromLoader) {
+            if (MaxHelpingHandModule.Instance.Session.GlassBlockCurrentSettings != null
+                && self.Session.LevelData != null // happens if we are loading a save in a room that got deleted
+                && !self.Session.LevelData.Entities.Any(entity => entity.Name == "MaxHelpingHand/CustomizableGlassBlockController")) {
+
+                // we have customizable glass block settings, and are entering a room with no controller: spawn one.
+                EntityData restoredData = new EntityData();
+                restoredData.Values = new Dictionary<string, object>() {
+                    { "starColors", MaxHelpingHandModule.Instance.Session.GlassBlockCurrentSettings.StarColors },
+                    { "bgColor", MaxHelpingHandModule.Instance.Session.GlassBlockCurrentSettings.BgColor },
+                    { "wavy", MaxHelpingHandModule.Instance.Session.GlassBlockCurrentSettings.Wavy },
+                    { "persistent", true }
+                };
+
+                self.Add(new CustomizableGlassBlockController(restoredData, Vector2.Zero));
+            }
+
+            orig(self, playerIntro, isFromLoader);
+        }
+
         private struct Star {
             public Vector2 Position;
             public MTexture Texture;
@@ -62,6 +91,17 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
 
             if (data.Bool("wavy", false)) {
                 Add(new DisplacementRenderHook(OnDisplacementRender));
+            }
+
+            // update session
+            if (data.Bool("persistent")) {
+                MaxHelpingHandModule.Instance.Session.GlassBlockCurrentSettings = new MaxHelpingHandSession.CustomizableGlassBlockState() {
+                    StarColors = data.Attr("starColors"),
+                    BgColor = data.Attr("bgColor"),
+                    Wavy = data.Bool("wavy", false)
+                };
+            } else {
+                MaxHelpingHandModule.Instance.Session.GlassBlockCurrentSettings = null;
             }
         }
 

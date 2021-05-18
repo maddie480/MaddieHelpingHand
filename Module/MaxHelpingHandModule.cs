@@ -58,6 +58,7 @@ namespace Celeste.Mod.MaxHelpingHand.Module {
             OneWayCameraTrigger.Load();
             MadelinePonytailTrigger.Load();
             SecretBerry.Load();
+            CustomizableGlassBlockController.Load();
 
             Everest.Events.Level.OnLoadBackdrop += onLoadBackdrop;
         }
@@ -99,6 +100,7 @@ namespace Celeste.Mod.MaxHelpingHand.Module {
             OneWayCameraTrigger.Unload();
             MadelinePonytailTrigger.Unload();
             SecretBerry.Unload();
+            CustomizableGlassBlockController.Unload();
 
             Everest.Events.Level.OnLoadBackdrop -= onLoadBackdrop;
         }

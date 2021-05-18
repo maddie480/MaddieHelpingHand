@@ -3,7 +3,7 @@
 using ..Ahorn, Maple
 
 @mapdef Entity "MaxHelpingHand/CustomizableGlassBlockController" CustomizableGlassBlockController(x::Integer, y::Integer,
-    starColors::String="ff7777,77ff77,7777ff,ff77ff,77ffff,ffff77", bgColor::String="302040", wavy::Bool=false)
+    starColors::String="ff7777,77ff77,7777ff,ff77ff,77ffff,ffff77", bgColor::String="302040", wavy::Bool=false, persistent::Bool=false)
 
 const placements = Ahorn.PlacementDict(
     "Customizable Glass Block Controller (max480's Helping Hand)" => Ahorn.EntityPlacement(
