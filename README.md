@@ -2,7 +2,7 @@
 
 This helper provides a few entities and triggers that were requested, and that could be useful for other people as well.  
 
-Download it [here!](https://0x0a.de/twoclick?https://gamebanana.com/mmdl/571201)
+Download it [here!](https://0x0a.de/twoclick?https://gamebanana.com/mmdl/573768)
 
 Here is what is in the pack:  
 
@@ -38,6 +38,7 @@ Here is what is in the pack:
     *   **Hint Decals**: decals that only show up when a given button is held (by default H on keyboard, Right Shoulder on controller). Intended for optional hints for a puzzle. The helper also comes with a Custom Tutorial Bird preset to tell the player about the button.
     *   **Glass Exit Blocks**: a glass block that fades in when you get out of its hitbox, like vanilla exit blocks. _Only works in combination with customizable glass blocks from this helper._    
     *   **More Custom NPC**: Custom NPCs from Everest, but you can add 2 nodes to define the zone in which they can be interacted with. You can also pick to only play some frames of the chosen animation: this is mainly useful for vanilla NPCs. This also comes with presets for Granny, Oshiro and Theo, and the Badeline boss you can directly use in Ahorn!
+    *   **Custom NPC with XML**: This is useful if you want to make a custom NPC with more complex animations (varying frame rates or randomized animations). If you give it no dialogue, you can use it as an "XML decal", without a speech bubble.
     *   **Badeline Sprite**: a standing or floating Badeline NPC you can place in your map. Couple it with an invisible custom NPC and you'll get an interactable Badeline NPC with hair!  
     
 *   **Customizable versions of vanilla entities:**
