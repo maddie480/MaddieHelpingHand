@@ -567,7 +567,6 @@ placements.entities.MaxHelpingHand/CustomNPCSprite.tooltips.flipX=Flips the spri
 placements.entities.MaxHelpingHand/CustomNPCSprite.tooltips.onlyOnce=Whether the dialogue should only be completable once.
 placements.entities.MaxHelpingHand/CustomNPCSprite.tooltips.endLevel=Whether finishing the dialogue should count as completing the map.
 placements.entities.MaxHelpingHand/CustomNPCSprite.tooltips.approachWhenTalking=Whether Madeline should walk towards the NPC when talking.
-placements.entities.MaxHelpingHand/CustomNPCSprite.tooltips.spriteRate=The animation rate for the sprite (in frames per second).
 placements.entities.MaxHelpingHand/CustomNPCSprite.tooltips.approachDistance=How far away from the NPC Madeline should stop when approaching.
 placements.entities.MaxHelpingHand/CustomNPCSprite.tooltips.spriteName=The name of the animation to use, from your map's Sprites.xml or from the vanilla one.
 

@@ -6,7 +6,7 @@ using ..Ahorn, Maple
 	flipX::Bool=false, flipY::Bool=false, approachWhenTalking::Bool=false, approachDistance::Int=16, indicatorOffsetX::Int=0, indicatorOffsetY::Int=0,
 	frames::String="", nodes::Array{Tuple{Integer, Integer}, 1}=Tuple{Integer, Integer}[])
 
-@mapdef Entity "MaxHelpingHand/CustomNPCSprite" CustomNPCSprite(x::Integer, y::Integer, spriteRate::Int=1, dialogId::String="", onlyOnce::Bool=true, endLevel::Bool=false,
+@mapdef Entity "MaxHelpingHand/CustomNPCSprite" CustomNPCSprite(x::Integer, y::Integer, dialogId::String="", onlyOnce::Bool=true, endLevel::Bool=false,
 	flipX::Bool=false, flipY::Bool=false, approachWhenTalking::Bool=false, approachDistance::Int=16, indicatorOffsetX::Int=0, indicatorOffsetY::Int=-16,
 	spriteName::String="bird", nodes::Array{Tuple{Integer, Integer}, 1}=Tuple{Integer, Integer}[])
 
