@@ -2,7 +2,7 @@
 
 This helper provides a few entities and triggers that were requested, and that could be useful for other people as well.  
 
-Download it [here!](https://0x0a.de/twoclick?https://gamebanana.com/mmdl/573768)
+Download it [here!](https://0x0a.de/twoclick?https://gamebanana.com/mmdl/575380)
 
 Here is what is in the pack:  
 
@@ -67,7 +67,7 @@ Here is what is in the pack:
 
 *   **New controller entities** (invisible entities having effect on a whole room/map):
     *   **Horizontal Room Wrap Controller**: drop this controller in a room, and Madeline will reappear on the left if she goes off-screen on the right! For this to work, be sure to lock the camera horizontally by using a Camera Target Trigger with lerp = 1 and X Only enabled. Pulled from Celsius by 0x0ade.
-    *   **Rainbow Spinner Color Controller**: a controller that changes the color gradient of all rainbow spinners in the room.
+    *   **Rainbow Spinner Color Controller**: a controller that changes the color gradient of all rainbow spinners in the room. If you want to only change the color of _some_ spinners in the room, you can also do that by putting a **Rainbow Spinner Color Area Controller** over the spinners you want to recolor!
     *   **Seeker Barrier Color Controller**: a controller that changes the background color and/or particle color and direction of all seeker barriers in the room.
     *   **Parallax Fade Out Controller**: if this controller is present in a room, the parallax stylegrounds that are set to "fade in" will fade out as well in this room.
     *   **Flag Logic Gate**: this is a controller (invisible on the map) that allows you to calculate a flag based on other flags (for example flag1 = flag2 AND flag3). Useful for advanced setups.
