@@ -42,9 +42,11 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
 
             // enable the hook on rainbow spinner hue.
             if (!rainbowSpinnerHueHooked) {
-                On.Celeste.CrystalStaticSpinner.GetHue += getRainbowSpinnerHue;
-                hookJungleHelper();
-                rainbowSpinnerHueHooked = true;
+                using (new DetourContext { After = { "*" } }) { // ensure we override rainbow spinner color controllers
+                    On.Celeste.CrystalStaticSpinner.GetHue += getRainbowSpinnerHue;
+                    hookJungleHelper();
+                    rainbowSpinnerHueHooked = true;
+                }
             }
         }
 
