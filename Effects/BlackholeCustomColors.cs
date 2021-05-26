@@ -6,7 +6,7 @@ using MonoMod.Utils;
 using System;
 
 namespace Celeste.Mod.MaxHelpingHand.Effects {
-    class BlackholeCustomColors : BlackholeBG {
+    public class BlackholeCustomColors : BlackholeBG {
         private static Color[] colorsMild;
 
         public static void Load() {

@@ -5,7 +5,7 @@ using MonoMod.Utils;
 namespace Celeste.Mod.MaxHelpingHand.Entities {
     // A Bumper that has a Not Core Mode option.
     // Not made available as an entity directly, but used as a base class for other entities.
-    class BumperNotCoreMode : Bumper {
+    public class BumperNotCoreMode : Bumper {
         public static void Load() {
             On.Celeste.Bumper.UpdatePosition += onBumperWiggle;
         }

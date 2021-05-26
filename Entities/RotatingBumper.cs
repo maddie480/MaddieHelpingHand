@@ -5,7 +5,7 @@ using System;
 
 namespace Celeste.Mod.MaxHelpingHand.Entities {
     [CustomEntity("MaxHelpingHand/RotatingBumper")]
-    class RotatingBumper : BumperNotCoreMode {
+    public class RotatingBumper : BumperNotCoreMode {
         private Vector2 center;
         private readonly float radius;
         private readonly float speed; // in rad/s

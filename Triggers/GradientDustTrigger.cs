@@ -12,7 +12,7 @@ using static Celeste.DustStyles;
 
 namespace Celeste.Mod.MaxHelpingHand.Triggers {
     [CustomEntity("MaxHelpingHand/GradientDustTrigger")]
-    class GradientDustTrigger : Trigger {
+    public class GradientDustTrigger : Trigger {
         // a white dust style.
         private static DustStyle white = new DustStyle {
             EdgeColors = new Vector3[] { Color.White.ToVector3(), Color.White.ToVector3(), Color.White.ToVector3() },

@@ -10,7 +10,7 @@ using System;
 namespace Celeste.Mod.MaxHelpingHand.Triggers {
     [CustomEntity("MaxHelpingHand/CameraCatchupSpeedTrigger")]
     [Tracked]
-    class CameraCatchupSpeedTrigger : Trigger {
+    public class CameraCatchupSpeedTrigger : Trigger {
         private static ILHook playerOrigUpdateHook;
 
         public static void Load() {

@@ -5,7 +5,7 @@ using MonoMod.Utils;
 
 namespace Celeste.Mod.MaxHelpingHand.Entities {
     [CustomEntity("MaxHelpingHand/LitBlueTorch")]
-    class LitBlueTorch : Torch {
+    public class LitBlueTorch : Torch {
         public LitBlueTorch(EntityData data, Vector2 offset, EntityID id) : base(data, offset, id) { }
 
         public override void Added(Scene scene) {

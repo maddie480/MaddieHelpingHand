@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 namespace Celeste.Mod.MaxHelpingHand.Triggers {
     [CustomEntity("MaxHelpingHand/SpeedBasedMusicParamTrigger")]
-    class SpeedBasedMusicParamTrigger : Trigger {
+    public class SpeedBasedMusicParamTrigger : Trigger {
         public static void Load() {
             On.Celeste.Player.Update += onPlayerUpdate;
         }

@@ -5,7 +5,7 @@ using Monocle;
 
 namespace Celeste.Mod.MaxHelpingHand.Triggers {
     [CustomEntity("MaxHelpingHand/AmbienceVolumeTrigger")]
-    class AmbienceVolumeTrigger : Trigger {
+    public class AmbienceVolumeTrigger : Trigger {
         public static void Load() {
             On.Celeste.Level.Update += onLevelUpdate;
         }

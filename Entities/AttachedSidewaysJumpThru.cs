@@ -7,7 +7,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
     [CustomEntity("MaxHelpingHand/AttachedSidewaysJumpThru")]
     [Tracked]
     [TrackedAs(typeof(SidewaysJumpThru))]
-    class AttachedSidewaysJumpThru : SidewaysJumpThru {
+    public class AttachedSidewaysJumpThru : SidewaysJumpThru {
         // solid used internally to push/squash/carry the player around
         private Solid playerInteractingSolid;
 

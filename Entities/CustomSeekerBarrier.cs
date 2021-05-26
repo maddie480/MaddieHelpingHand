@@ -6,7 +6,7 @@ using System.Linq;
 namespace Celeste.Mod.MaxHelpingHand.Entities {
     [CustomEntity("MaxHelpingHand/CustomSeekerBarrier")]
     [TrackedAs(typeof(SeekerBarrier))]
-    class CustomSeekerBarrier : SeekerBarrier {
+    public class CustomSeekerBarrier : SeekerBarrier {
         internal class Renderer : SeekerBarrierRenderer {
             internal Color color;
             internal float transparency;

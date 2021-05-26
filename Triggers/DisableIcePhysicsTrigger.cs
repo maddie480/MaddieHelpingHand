@@ -6,7 +6,7 @@ using System;
 
 namespace Celeste.Mod.MaxHelpingHand.Triggers {
     [CustomEntity("MaxHelpingHand/DisableIcePhysicsTrigger")]
-    class DisableIcePhysicsTrigger : Trigger {
+    public class DisableIcePhysicsTrigger : Trigger {
         public static void Load() {
             IL.Celeste.Player.NormalUpdate += modPlayerNormalUpdate;
         }

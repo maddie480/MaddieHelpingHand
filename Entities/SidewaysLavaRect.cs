@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 namespace Celeste.Mod.MaxHelpingHand.Entities {
     // Strongly based on vanilla LavaRect, except their upper side is left or right, and bubbles go sideways.
-    class SidewaysLavaRect : Component {
+    public class SidewaysLavaRect : Component {
         public enum OnlyModes {
             OnlyLeft,
             OnlyRight

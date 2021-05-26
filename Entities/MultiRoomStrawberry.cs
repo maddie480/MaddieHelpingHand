@@ -7,7 +7,7 @@ using System.Collections.Generic;
 namespace Celeste.Mod.MaxHelpingHand.Entities {
     [CustomEntity("MaxHelpingHand/MultiRoomStrawberry")]
     [RegisterStrawberry(true, false)]
-    class MultiRoomStrawberry : Strawberry {
+    public class MultiRoomStrawberry : Strawberry {
         private int seedCount;
         private EntityID id;
 

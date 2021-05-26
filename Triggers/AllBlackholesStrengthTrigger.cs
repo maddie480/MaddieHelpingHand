@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework;
 
 namespace Celeste.Mod.MaxHelpingHand.Triggers {
     [CustomEntity("MaxHelpingHand/AllBlackholesStrengthTrigger")]
-    class AllBlackholesStrengthTrigger : Trigger {
+    public class AllBlackholesStrengthTrigger : Trigger {
         private BlackholeBG.Strengths strength;
 
         public AllBlackholesStrengthTrigger(EntityData data, Vector2 offset) : base(data, offset) {

@@ -10,7 +10,7 @@ using System.Reflection;
 namespace Celeste.Mod.MaxHelpingHand.Triggers {
     [CustomEntity("MaxHelpingHand/OneWayCameraTrigger")]
     [Tracked]
-    class OneWayCameraTrigger : Trigger {
+    public class OneWayCameraTrigger : Trigger {
         private readonly bool left, right, up, down;
         private readonly bool blockPlayer;
         private readonly string flag;

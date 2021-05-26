@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text.RegularExpressions;
 
 namespace Celeste.Mod.MaxHelpingHand.Effects {
-    class CustomStars : Backdrop {
+    public class CustomStars : Backdrop {
 		private struct Star {
 			public Vector2 Position;
 			public int TextureSet;

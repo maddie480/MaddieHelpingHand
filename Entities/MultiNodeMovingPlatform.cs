@@ -7,7 +7,7 @@ using System.Collections.Generic;
 
 namespace Celeste.Mod.MaxHelpingHand.Entities {
     [CustomEntity("MaxHelpingHand/MultiNodeMovingPlatform")]
-    class MultiNodeMovingPlatform : JumpThru {
+    public class MultiNodeMovingPlatform : JumpThru {
         private enum Mode {
             BackAndForth, BackAndForthNoPause, Loop, LoopNoPause, TeleportBack
         }

@@ -3,7 +3,7 @@ using MonoMod.Utils;
 using System;
 
 namespace Celeste.Mod.MaxHelpingHand.Entities {
-    class GroupedDustTriggerSpikes : TriggerSpikes {
+    public class GroupedDustTriggerSpikes : TriggerSpikes {
         public static void Load() {
             On.Celeste.TriggerSpikes.GetPlayerCollideIndex += onTriggerSpikesGetPlayerCollideIndex;
         }

@@ -4,7 +4,7 @@ using Microsoft.Xna.Framework;
 
 namespace Celeste.Mod.MaxHelpingHand.Entities {
     [CustomEntity("MaxHelpingHand/HintDecal")]
-    class HintDecal : Decal {
+    public class HintDecal : Decal {
         public static void Load() {
             Everest.Events.CustomBirdTutorial.OnParseCommand += parseBirdCommand;
         }

@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text.RegularExpressions;
 
 namespace Celeste.Mod.MaxHelpingHand.Effects {
-    class CustomPlanets : Backdrop {
+    public class CustomPlanets : Backdrop {
         private struct Planet {
             public MTexture[] Textures;
             public Vector2 Position;

@@ -14,7 +14,7 @@ using System.Reflection;
 namespace Celeste.Mod.MaxHelpingHand.Entities {
     [CustomEntity("MaxHelpingHand/CustomizableCrumblePlatform")]
     [Tracked]
-    class CustomizableCrumblePlatform : CrumblePlatform {
+    public class CustomizableCrumblePlatform : CrumblePlatform {
         private static ILHook crumblePlatformOrigAddedHook = null;
 
         public static void Load() {

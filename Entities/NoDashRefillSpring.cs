@@ -7,7 +7,7 @@ using System.Reflection;
 
 namespace Celeste.Mod.MaxHelpingHand.Entities {
     [CustomEntity("MaxHelpingHand/NoDashRefillSpring", "MaxHelpingHand/NoDashRefillSpringLeft", "MaxHelpingHand/NoDashRefillSpringRight")]
-    class NoDashRefillSpring : Spring {
+    public class NoDashRefillSpring : Spring {
         private static MethodInfo bounceAnimate = typeof(Spring).GetMethod("BounceAnimate", BindingFlags.NonPublic | BindingFlags.Instance);
         private static object[] noParams = new object[0];
 

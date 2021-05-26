@@ -6,7 +6,7 @@ using System;
 
 namespace Celeste.Mod.MaxHelpingHand.Entities {
     [CustomEntity("MaxHelpingHand/CustomizableRefill")]
-    class CustomizableRefill : Refill {
+    public class CustomizableRefill : Refill {
         public CustomizableRefill(EntityData data, Vector2 offset) : base(data, offset) {
             DynData<Refill> self = new DynData<Refill>(this);
             float respawnTime = data.Float("respawnTime", 2.5f);

@@ -4,7 +4,7 @@ using Microsoft.Xna.Framework;
 
 namespace Celeste.Mod.MaxHelpingHand.Triggers {
     [CustomEntity("MaxHelpingHand/CustomSandwichLavaSettingsTrigger")]
-    class CustomSandwichLavaSettingsTrigger : Trigger {
+    public class CustomSandwichLavaSettingsTrigger : Trigger {
 
         private bool onlyOnce;
         private CustomSandwichLava.DirectionMode direction;

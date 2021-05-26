@@ -14,7 +14,7 @@ using System.Reflection;
 namespace Celeste.Mod.MaxHelpingHand.Entities {
     [CustomEntity("MaxHelpingHand/UpsideDownJumpThru")]
     [Tracked]
-    class UpsideDownJumpThru : JumpThru {
+    public class UpsideDownJumpThru : JumpThru {
 
         private static FieldInfo actorMovementCounter = typeof(Actor).GetField("movementCounter", BindingFlags.Instance | BindingFlags.NonPublic);
         private static FieldInfo playerVarJumpTimer = typeof(Player).GetField("varJumpTimer", BindingFlags.Instance | BindingFlags.NonPublic);

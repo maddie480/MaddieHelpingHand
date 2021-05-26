@@ -10,7 +10,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
     // ... Sideways Jumpthrus x Multi-Node Moving Platform might be one of the most cursed mashups yet.
     [CustomEntity("MaxHelpingHand/SidewaysMovingPlatform")]
     [TrackedAs(typeof(SidewaysJumpThru))]
-    class SidewaysMovingPlatform : SidewaysJumpThru {
+    public class SidewaysMovingPlatform : SidewaysJumpThru {
         // this variable is private, static, and never modified: so we only need reflection once to get it!
         private static readonly HashSet<Actor> solidRiders = (HashSet<Actor>) typeof(Solid).GetField("riders", BindingFlags.NonPublic | BindingFlags.Static).GetValue(null);
 

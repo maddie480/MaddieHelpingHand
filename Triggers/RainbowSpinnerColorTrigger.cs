@@ -4,7 +4,7 @@ using Microsoft.Xna.Framework;
 
 namespace Celeste.Mod.MaxHelpingHand.Triggers {
     [CustomEntity("MaxHelpingHand/RainbowSpinnerColorTrigger")]
-    class RainbowSpinnerColorTrigger : Trigger {
+    public class RainbowSpinnerColorTrigger : Trigger {
         private RainbowSpinnerColorController controller;
 
         public RainbowSpinnerColorTrigger(EntityData data, Vector2 offset) : base(data, offset) {

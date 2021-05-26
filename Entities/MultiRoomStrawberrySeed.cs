@@ -10,7 +10,7 @@ using System;
 namespace Celeste.Mod.MaxHelpingHand.Entities {
     [CustomEntity("MaxHelpingHand/MultiRoomStrawberrySeed")]
     [Tracked]
-    class MultiRoomStrawberrySeed : StrawberrySeed {
+    public class MultiRoomStrawberrySeed : StrawberrySeed {
         public static void Load() {
             On.Celeste.Level.LoadLevel += onLoadLevel;
             IL.Celeste.Player.ClimbHopBlockedCheck += onClimbHopBlockedCheck;

@@ -9,7 +9,7 @@ using System;
 
 namespace Celeste.Mod.MaxHelpingHand.Triggers {
     [CustomEntity("MaxHelpingHand/MadelineSilhouetteTrigger")]
-    class MadelineSilhouetteTrigger : Trigger {
+    public class MadelineSilhouetteTrigger : Trigger {
         private static Color silhouetteOutOfStaminaZeroDashBlinkColor = Calc.HexToColor("348DC1");
 
         public static void Load() {

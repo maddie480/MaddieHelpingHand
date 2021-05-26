@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Text.RegularExpressions;
 
 namespace Celeste.Mod.MaxHelpingHand.Effects {
-    class AnimatedParallax : Parallax {
+    public class AnimatedParallax : Parallax {
         public static void Load() {
             IL.Celeste.MapData.ParseBackdrop += onParseBackdrop;
         }

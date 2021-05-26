@@ -4,7 +4,7 @@ using Microsoft.Xna.Framework;
 
 namespace Celeste.Mod.MaxHelpingHand.Triggers {
     [CustomEntity("MaxHelpingHand/PopStrawberrySeedsTrigger")]
-    class PopStrawberrySeedsTrigger : Trigger {
+    public class PopStrawberrySeedsTrigger : Trigger {
         public PopStrawberrySeedsTrigger(EntityData data, Vector2 offset) : base(data, offset) { }
 
         public override void OnStay(Player player) {

@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace Celeste.Mod.MaxHelpingHand.Triggers {
     [CustomEntity("MaxHelpingHand/PauseBadelineBossesTrigger")]
-    class PauseBadelineBossesTrigger : Trigger {
+    public class PauseBadelineBossesTrigger : Trigger {
         public PauseBadelineBossesTrigger(EntityData data, Vector2 offset) : base(data, offset) { }
 
         public override void OnStay(Player player) {

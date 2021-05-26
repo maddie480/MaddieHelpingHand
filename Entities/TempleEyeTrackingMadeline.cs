@@ -6,7 +6,7 @@ using MonoMod.Utils;
 using System;
 
 namespace Celeste.Mod.MaxHelpingHand.Entities {
-    class TempleEyeTrackingMadeline {
+    public class TempleEyeTrackingMadeline {
         public static void Load() {
             On.Celeste.TempleEye.ctor += modTempleEyeConstructor;
             IL.Celeste.TempleEye.Update += modTempleEyeUpdate;

@@ -8,7 +8,7 @@ using System.Linq;
 
 namespace Celeste.Mod.MaxHelpingHand.Triggers {
     [CustomEntity("MaxHelpingHand/StrawberryCollectionField")]
-    class StrawberryCollectionField : Trigger {
+    public class StrawberryCollectionField : Trigger {
         private float collectTimer = 0f;
         private bool delayBetweenBerries;
         private bool includeGoldens;

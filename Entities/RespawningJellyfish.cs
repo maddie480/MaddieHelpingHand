@@ -6,7 +6,7 @@ using System.Collections;
 
 namespace Celeste.Mod.MaxHelpingHand.Entities {
     [CustomEntity("MaxHelpingHand/RespawningJellyfish")]
-    class RespawningJellyfish : Glider {
+    public class RespawningJellyfish : Glider {
         private DynData<Glider> self;
 
         private float respawnTime;

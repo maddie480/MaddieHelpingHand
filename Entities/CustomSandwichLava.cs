@@ -14,7 +14,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
     /// </summary>
     [CustomEntity("MaxHelpingHand/CustomSandwichLava")]
     [Tracked]
-    class CustomSandwichLava : Entity {
+    public class CustomSandwichLava : Entity {
         private static FieldInfo lavaBlockerTriggerEnabled = typeof(LavaBlockerTrigger).GetField("enabled", BindingFlags.NonPublic | BindingFlags.Instance);
 
         // if the player collides with one of those, lava should be forced into waiting.

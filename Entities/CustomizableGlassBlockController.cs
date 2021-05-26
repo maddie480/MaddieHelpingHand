@@ -13,7 +13,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
     /// </summary>
     [CustomEntity("MaxHelpingHand/CustomizableGlassBlockController")]
     [Tracked]
-    class CustomizableGlassBlockController : Entity {
+    public class CustomizableGlassBlockController : Entity {
         public static void Load() {
             On.Celeste.Level.LoadLevel += onLoadLevel;
         }

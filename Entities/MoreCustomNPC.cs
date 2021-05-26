@@ -8,7 +8,7 @@ using System.Collections.Generic;
 namespace Celeste.Mod.MaxHelpingHand.Entities {
     // Everest Custom NPC but with some more options
     [CustomEntity("MaxHelpingHand/MoreCustomNPC", "MaxHelpingHand/CustomNPCSprite")]
-    class MoreCustomNPC : CustomNPC {
+    public class MoreCustomNPC : CustomNPC {
         private readonly Rectangle? talkerZone;
         private readonly bool hasDialogue;
 

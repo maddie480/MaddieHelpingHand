@@ -18,7 +18,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
     /// </summary>
     [CustomEntity("MaxHelpingHand/FlagSwitchGate")]
     [Tracked]
-    class FlagSwitchGate : Solid {
+    public class FlagSwitchGate : Solid {
         private ParticleType P_RecoloredFire;
         private ParticleType P_RecoloredFireBack;
 

@@ -5,7 +5,7 @@ using Monocle;
 namespace Celeste.Mod.MaxHelpingHand.Entities {
     // The forbidden crossing between glass blocks and exit blocks.
     [CustomEntity("MaxHelpingHand/CustomizableGlassExitBlock")]
-    class CustomizableGlassExitBlock : CustomizableGlassBlock {
+    public class CustomizableGlassExitBlock : CustomizableGlassBlock {
         private EffectCutout cutout;
 
         public CustomizableGlassExitBlock(EntityData data, Vector2 offset) : base(data, offset) {

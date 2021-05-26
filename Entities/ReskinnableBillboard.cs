@@ -8,7 +8,7 @@ using System;
 namespace Celeste.Mod.MaxHelpingHand.Entities {
     [CustomEntity("MaxHelpingHand/ReskinnableBillboard")]
     [TrackedAs(typeof(PlaybackBillboard))]
-    class ReskinnableBillboard : PlaybackBillboard {
+    public class ReskinnableBillboard : PlaybackBillboard {
         private string borderTexture;
 
         public static void Load() {

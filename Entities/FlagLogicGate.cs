@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace Celeste.Mod.MaxHelpingHand.Entities {
     [CustomEntity("MaxHelpingHand/FlagLogicGate")]
-    class FlagLogicGate : Entity {
+    public class FlagLogicGate : Entity {
         private string outputFlag;
         private readonly Func<Session, bool> function;
 

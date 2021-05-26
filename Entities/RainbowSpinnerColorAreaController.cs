@@ -9,7 +9,7 @@ using System.Reflection;
 namespace Celeste.Mod.MaxHelpingHand.Entities {
     [CustomEntity("MaxHelpingHand/RainbowSpinnerColorAreaController")]
     [Tracked]
-    class RainbowSpinnerColorAreaController : Entity {
+    public class RainbowSpinnerColorAreaController : Entity {
         private static bool rainbowSpinnerHueHooked = false;
         private static Hook jungleHelperHook;
 

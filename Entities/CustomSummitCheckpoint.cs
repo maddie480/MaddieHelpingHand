@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 namespace Celeste.Mod.MaxHelpingHand.Entities {
     [CustomEntity("MaxHelpingHand/CustomSummitCheckpoint = GenerateCustomSummitCheckpoint")]
-    class CustomSummitCheckpoint : SummitCheckpoint {
+    public class CustomSummitCheckpoint : SummitCheckpoint {
         public static Entity GenerateCustomSummitCheckpoint(Level level, LevelData levelData, Vector2 offset, EntityData entityData) {
             // internally, the number will be the entity ID to ensure all "summit_checkpoint_{number}" session flags are unique.
             // we also add 100 to be sure not to conflict with vanilla checkpoints.

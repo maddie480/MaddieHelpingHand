@@ -11,7 +11,7 @@ namespace Celeste.Mod.MaxHelpingHand.Triggers {
     // not really a trigger, but that works as well.
     [CustomEntity("MaxHelpingHand/CameraOffsetBorder")]
     [Tracked]
-    class CameraOffsetBorder : Trigger {
+    public class CameraOffsetBorder : Trigger {
         private readonly bool topLeft, topCenter, topRight, centerLeft, centerRight, bottomLeft, bottomCenter, bottomRight, inside;
         private readonly string flag;
 

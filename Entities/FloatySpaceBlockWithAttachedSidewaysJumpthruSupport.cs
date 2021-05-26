@@ -11,7 +11,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
     // because extending or patching the vanilla one would be a bit too painful...
     [CustomEntity("MaxHelpingHand/FloatySpaceBlockWithAttachedSidewaysJumpthruSupport")]
     [Tracked]
-    class FloatySpaceBlockWithAttachedSidewaysJumpthruSupport : Solid {
+    public class FloatySpaceBlockWithAttachedSidewaysJumpthruSupport : Solid {
         private TileGrid tiles;
         private char tileType;
 

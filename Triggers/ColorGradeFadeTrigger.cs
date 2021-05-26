@@ -7,7 +7,7 @@ using System.Linq;
 namespace Celeste.Mod.MaxHelpingHand.Triggers {
     [CustomEntity("MaxHelpingHand/ColorGradeFadeTrigger")]
     [Tracked]
-    class ColorGradeFadeTrigger : Trigger {
+    public class ColorGradeFadeTrigger : Trigger {
         public static void Load() {
             On.Celeste.Level.Update += onLevelUpdate;
         }

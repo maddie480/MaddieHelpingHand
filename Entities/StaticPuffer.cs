@@ -8,7 +8,7 @@ using System.Reflection;
 
 namespace Celeste.Mod.MaxHelpingHand.Entities {
     [CustomEntity("MaxHelpingHand/StaticPuffer")]
-    class StaticPuffer : Puffer {
+    public class StaticPuffer : Puffer {
         public static void Load() {
             IL.Celeste.Puffer.ctor_Vector2_bool += onPufferConstructor;
         }

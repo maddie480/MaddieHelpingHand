@@ -8,7 +8,7 @@ using System.Reflection;
 namespace Celeste.Mod.MaxHelpingHand.Triggers {
     [CustomEntity("MaxHelpingHand/ActivateTimedTouchSwitchesTimerTrigger")]
     [Tracked]
-    class ActivateTimedTouchSwitchesTimerTrigger : Trigger {
+    public class ActivateTimedTouchSwitchesTimerTrigger : Trigger {
         private static FieldInfo timedTouchSwitchIcon;
         private static FieldInfo timedTouchSwitchStartColor;
 

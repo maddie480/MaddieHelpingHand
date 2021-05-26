@@ -8,7 +8,7 @@ using System.Reflection;
 
 namespace Celeste.Mod.MaxHelpingHand.Effects {
     // Northern Lights, but with 6 more IL hooks!
-    class NorthernLightsCustomColors : NorthernLights {
+    public class NorthernLightsCustomColors : NorthernLights {
         private static ILHook strandILHook;
 
         public static void Load() {

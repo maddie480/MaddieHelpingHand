@@ -6,7 +6,7 @@ using MonoMod.Utils;
 
 namespace Celeste.Mod.MaxHelpingHand.Entities {
     [CustomEntity("MaxHelpingHand/FlagExitBlock")]
-    class FlagExitBlock : ExitBlock {
+    public class FlagExitBlock : ExitBlock {
         private TileGrid tiles;
         private EffectCutout cutout;
         private readonly string flag;

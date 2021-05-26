@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 
 namespace Celeste.Mod.MaxHelpingHand.Module {
-    class MaxHelpingHandMapDataProcessor : EverestMapDataProcessor {
+    public class MaxHelpingHandMapDataProcessor : EverestMapDataProcessor {
 
         // the structure here is: FlagTouchSwitches[AreaID][ModeID][flagName, inverted] = list of entity ids for flag touch switches / flag switch gates in this group on this map.
         public static List<List<Dictionary<KeyValuePair<string, bool>, List<EntityID>>>> FlagTouchSwitches = new List<List<Dictionary<KeyValuePair<string, bool>, List<EntityID>>>>();

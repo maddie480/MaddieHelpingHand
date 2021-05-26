@@ -14,7 +14,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
     /// </summary>
     [CustomEntity("MaxHelpingHand/RainbowSpinnerColorController")]
     [Tracked]
-    class RainbowSpinnerColorController : Entity {
+    public class RainbowSpinnerColorController : Entity {
         public static void Load() {
             On.Celeste.Level.LoadLevel += onLoadLevel;
         }

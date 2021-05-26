@@ -5,7 +5,7 @@ namespace Celeste.Mod.MaxHelpingHand.Effects {
     /// <summary>
     /// A heatwave effect that does not affect the colorgrade.
     /// </summary>
-    class HeatWaveNoColorGrade : HeatWave {
+    public class HeatWaveNoColorGrade : HeatWave {
         private DynData<HeatWave> self = new DynData<HeatWave>();
         private bool controlColorGradeWhenActive;
 

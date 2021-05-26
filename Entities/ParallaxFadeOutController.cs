@@ -12,7 +12,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
     /// </summary>
     [CustomEntity("MaxHelpingHand/ParallaxFadeOutController")]
     [Tracked]
-    class ParallaxFadeOutController : Entity {
+    public class ParallaxFadeOutController : Entity {
 
         private static bool backdropRendererHooked = false;
 

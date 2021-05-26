@@ -11,7 +11,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
         "MaxHelpingHand/CoreModeSpikesRight = LoadRight"
     )]
     [TrackedAs(typeof(Spikes))]
-    class CoreModeSpikes : Spikes {
+    public class CoreModeSpikes : Spikes {
         public static Entity LoadUp(Level level, LevelData levelData, Vector2 offset, EntityData entityData) {
             entityData.Values["type"] = entityData.Attr("hotType", "default");
             return new CoreModeSpikes(entityData, offset, Directions.Up);

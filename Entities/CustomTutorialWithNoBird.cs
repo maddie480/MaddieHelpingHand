@@ -9,7 +9,7 @@ using System.Collections;
 namespace Celeste.Mod.MaxHelpingHand.Entities {
     [CustomEntity("MaxHelpingHand/CustomTutorialWithNoBird")]
     [TrackedAs(typeof(CustomBirdTutorial))]
-    class CustomTutorialWithNoBird : CustomBirdTutorial {
+    public class CustomTutorialWithNoBird : CustomBirdTutorial {
         public static void Load() {
             On.Celeste.BirdNPC.StartleAndFlyAway += killFlyAwayEffects;
             IL.Celeste.BirdTutorialGui.Render += togglePointer;

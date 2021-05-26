@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 namespace Celeste.Mod.MaxHelpingHand.Triggers {
     [CustomEntity("MaxHelpingHand/RainbowSpinnerColorFadeTrigger")]
-    class RainbowSpinnerColorFadeTrigger : Trigger {
+    public class RainbowSpinnerColorFadeTrigger : Trigger {
         private RainbowSpinnerColorController controllerA;
         private RainbowSpinnerColorController controllerB;
 

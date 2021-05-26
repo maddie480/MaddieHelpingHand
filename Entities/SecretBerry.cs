@@ -14,7 +14,7 @@ using System.Reflection;
 namespace Celeste.Mod.MaxHelpingHand.Entities {
     [CustomEntity("MaxHelpingHand/SecretBerry")]
     [RegisterStrawberry(tracked: false, blocksCollection: true)]
-    class SecretBerry : Strawberry {
+    public class SecretBerry : Strawberry {
         private static ILHook strawberryCollectRoutineHook;
 
         public static void Load() {

@@ -4,7 +4,7 @@ using Monocle;
 
 namespace Celeste.Mod.MaxHelpingHand.Entities {
     [CustomEntity("MaxHelpingHand/ReskinnableStarTrackSpinner")]
-    class ReskinnableStarTrackSpinner : TrackSpinner {
+    public class ReskinnableStarTrackSpinner : TrackSpinner {
         private ParticleType[] trailParticles;
         private Sprite sprite;
         private bool hasStarted;

@@ -4,7 +4,7 @@ using Monocle;
 
 namespace Celeste.Mod.MaxHelpingHand.Entities {
     [CustomEntity("MaxHelpingHand/SetFlagOnSpawnController")]
-    class SetFlagOnSpawnController : Entity {
+    public class SetFlagOnSpawnController : Entity {
         public SetFlagOnSpawnController(EntityData data, Vector2 offset) : base() {
             // we aren't supposed to access the level this early on, but that's a good way to be sure to set the flag
             // before Added or Awake is called on any entity in the level.
