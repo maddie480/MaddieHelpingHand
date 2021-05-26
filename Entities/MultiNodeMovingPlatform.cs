@@ -23,6 +23,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
         private float startingOffset;
         private string flag;
         private bool moveLater;
+        private bool emitSound;
 
         private MTexture[] textures;
         private float[] nodePercentages;
@@ -51,7 +52,6 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
         // used for animating invisible moving platform magic
         private readonly Action<MultiNodeMovingPlatform> callbackOnAdded;
         private Vector2? forcedTrackOffset = null;
-        private bool emitSound = false;
 
         private Vector2 previousPosition;
         private bool startingOffsetIsNotZero = false;
@@ -72,6 +72,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             amount = data.Int("amount", 1);
             flag = data.Attr("flag");
             moveLater = data.Bool("moveLater", false);
+            emitSound = data.Bool("emitSound", defaultValue: true);
 
             entityProperties = data.Values;
             entityPosition = data.Position;
@@ -273,8 +274,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
         /// </summary>
         /// <param name="staticMover">The static mover associated to the entity to animate</param>
         /// <param name="forcedTrackOffset">Pass a value with the track offset if a track should be rendered</param>
-        /// <param name="emitSound">If true, the moving platform will emit sound when moving</param>
-        internal void AnimateObject(StaticMover staticMover, Vector2? forcedTrackOffset = null, bool emitSound = false) {
+        internal void AnimateObject(StaticMover staticMover, Vector2? forcedTrackOffset = null) {
             staticMovers.Add(staticMover);
             Visible = false;
 
@@ -282,7 +282,6 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             Collider.Position -= new Vector2(4f, 2f);
 
             this.forcedTrackOffset = forcedTrackOffset;
-            this.emitSound = emitSound;
         }
 
         public override void Update() {
@@ -315,7 +314,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
                 moveToPosition(nodes[prevNodeIndex] + new Vector2(0f, addY));
                 return;
             } else {
-                if (percent == 0 && (Visible || emitSound)) {
+                if (percent == 0 && emitSound) {
                     // the platform started moving. play sound
                     if (lastSfx == "event:/game/03_resort/platform_horiz_left") {
                         sfx.Play(lastSfx = "event:/game/03_resort/platform_horiz_right");

@@ -115,6 +115,12 @@ namespace Celeste.Mod.MaxHelpingHand.Module {
 
                         flagSwitchGateHandler(gate);
                     }
+                },
+                {
+                    "entity:MaxHelpingHand/MultiNodeBumper", bumper => {
+                        // multi-node bumpers should never emit sound.
+                        bumper.SetAttr("emitSound", false);
+                    }
                 }
             };
         }

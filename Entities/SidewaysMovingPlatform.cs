@@ -82,10 +82,10 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
                         OnMove = move => SidewaysJumpthruOnMove(otherSidewaysPlatform, otherSidewaysPlatform.playerInteractingSolid, otherSidewaysPlatform.left, move)
                     };
                     otherSidewaysPlatform.Add(otherStaticMover);
-                    otherPlatform.AnimateObject(otherStaticMover, forcedTrackOffset: new Vector2(Width + 4f, Height) / 2f, emitSound: true);
+                    otherPlatform.AnimateObject(otherStaticMover, forcedTrackOffset: new Vector2(Width + 4f, Height) / 2f);
                 }
             });
-            animatingPlatform.AnimateObject(staticMover, forcedTrackOffset: new Vector2(Width + 4f, Height) / 2f, emitSound: true);
+            animatingPlatform.AnimateObject(staticMover, forcedTrackOffset: new Vector2(Width + 4f, Height) / 2f);
             scene.Add(animatingPlatform);
         }
 
