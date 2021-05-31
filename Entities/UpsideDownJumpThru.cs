@@ -407,6 +407,9 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
         private string overrideTexture;
         private float animationDelay;
         private bool pushPlayer;
+        private bool attached;
+
+        private Vector2 shakeOffset;
 
         public UpsideDownJumpThru(EntityData data, Vector2 offset)
             : base(data.Position + offset, data.Width, false) {
@@ -416,6 +419,18 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             overrideTexture = data.Attr("texture", "default");
             animationDelay = data.Float("animationDelay", 0f);
             pushPlayer = data.Bool("pushPlayer", false);
+            attached = data.Bool("attached", defaultValue: false);
+
+            if (attached) {
+                Add(new StaticMover {
+                    SolidChecker = solid => CollideCheck(solid, Position - Vector2.UnitX) || CollideCheck(solid, Position + Vector2.UnitX),
+                    OnMove = amount => {
+                        MoveH(amount.X);
+                        MoveV(amount.Y);
+                    },
+                    OnShake = amount => shakeOffset += amount
+                });
+            }
 
             // shift the hitbox a bit to match the graphic
             Collider.Top += 3;
@@ -469,7 +484,13 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             // we give up pushing them down if that would be through a wall, though. This makes jumpthru clip possible, but vanilla jumpthrus don't do better.
             Player p;
             while (move > 0 && !CollideCheck<Player>() && (p = CollideFirst<Player>(Position + Vector2.UnitY * move)) != null) {
-                if (p.MoveVExact(1)) break;
+                if (p.MoveVExact(1)) {
+                    if (attached) {
+                        // attached upside-down jumpthrus should squish the player.
+                        p.Die(Vector2.Zero);
+                    }
+                    break;
+                }
             }
 
             base.MoveVExact(move);
@@ -498,6 +519,12 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
                     p.MoveV(40f * Engine.DeltaTime);
                 }
             }
+        }
+
+        public override void Render() {
+            Position += shakeOffset;
+            base.Render();
+            Position -= shakeOffset;
         }
     }
 }

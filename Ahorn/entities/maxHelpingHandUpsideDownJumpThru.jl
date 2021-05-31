@@ -2,7 +2,8 @@
 
 using ..Ahorn, Maple
 
-@mapdef Entity "MaxHelpingHand/UpsideDownJumpThru" UpsideDownJumpThru(x::Integer, y::Integer, width::Integer=Maple.defaultBlockWidth, texture::String="wood", animationDelay::Number=0.0, pushPlayer::Bool=false)
+@mapdef Entity "MaxHelpingHand/UpsideDownJumpThru" UpsideDownJumpThru(x::Integer, y::Integer, width::Integer=Maple.defaultBlockWidth, texture::String="wood",
+    animationDelay::Number=0.0, pushPlayer::Bool=false, attached::Bool=false)
 
 textures = ["wood", "dream", "temple", "templeB", "cliffside", "reflection", "core", "moon"]
 const placements = Ahorn.PlacementDict(
