@@ -25,11 +25,20 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             initialPosition = Position;
             respawning = false;
 
-            // get the sprite, and give it a respawn animation.
+            // get the sprite, and replace it depending on the path in entity properties.
             self = new DynData<Glider>(this);
             sprite = self.Get<Sprite>("sprite");
             new DynData<Sprite>(sprite)["atlas"] = GFX.Game;
-            sprite.Add("respawn", "objects/MaxHelpingHand/glider/respawn", 0.03f, "idle");
+            sprite.Path = data.Attr("spriteDirectory", defaultValue: "objects/MaxHelpingHand/glider") + "/";
+            sprite.Stop();
+            sprite.ClearAnimations();
+            sprite.AddLoop("idle", "idle", 0.1f);
+            sprite.AddLoop("held", "held", 0.1f);
+            sprite.Add("fall", "fall", 0.06f, "fallLoop");
+            sprite.AddLoop("fallLoop", "fallLoop", 0.06f);
+            sprite.Add("death", "death", 0.06f);
+            sprite.Add("respawn", "respawn", 0.03f, "idle");
+            sprite.Play("idle");
 
             // listen for transitions: if the jelly is carried to another screen, it should not respawn anymore.
             Add(new TransitionListener() {

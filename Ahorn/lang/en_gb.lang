@@ -105,6 +105,7 @@ placements.entities.MaxHelpingHand/CustomSummitCheckpoint.tooltips.secondDigit=T
 placements.entities.MaxHelpingHand/RespawningJellyfish.tooltips.bubble=Whether the entity should hover in the air before being grabbed.
 placements.entities.MaxHelpingHand/RespawningJellyfish.tooltips.tutorial=Whether the entity should show the usage tutorial.
 placements.entities.MaxHelpingHand/RespawningJellyfish.tooltips.respawnTime=The jellyfish will respawn at its starting location after this amount of time (in seconds) after being destroyed.
+placements.entities.MaxHelpingHand/RespawningJellyfish.tooltips.spriteDirectory=The directory containing all the sprites for the respawning jellyfish.\nTo make your own, copy Graphics/Atlases/Gameplay/objects/MaxHelpingHand/glider from the mod zip to Mods/yourmod/Graphics/Atlases/Gameplay/MyMap/myglider and type MyMap/myglider in this field.
 
 # Grouped Trigger Spikes
 placements.entities.MaxHelpingHand/GroupedTriggerSpikesUp.tooltips.type=Changes the visual appearance of the spikes.

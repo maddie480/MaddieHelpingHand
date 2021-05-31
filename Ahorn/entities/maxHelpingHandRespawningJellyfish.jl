@@ -2,7 +2,7 @@
 
 using ..Ahorn, Maple
 
-@mapdef Entity "MaxHelpingHand/RespawningJellyfish" RespawningJellyfish(x::Integer, y::Integer, bubble::Bool=false, tutorial::Bool=false, respawnTime::Number=2.0)
+@mapdef Entity "MaxHelpingHand/RespawningJellyfish" RespawningJellyfish(x::Integer, y::Integer, bubble::Bool=false, tutorial::Bool=false, respawnTime::Number=2.0, spriteDirectory::String="objects/MaxHelpingHand/glider")
 
 const placements = Ahorn.PlacementDict(
     "Respawning Jellyfish (max480's Helping Hand)" => Ahorn.EntityPlacement(
@@ -17,15 +17,15 @@ const placements = Ahorn.PlacementDict(
     )
 )
 
-sprite = "objects/glider/idle0"
-
 function Ahorn.selection(entity::RespawningJellyfish)
     x, y = Ahorn.position(entity)
+    sprite = get(entity, "spriteDirectory", "objects/MaxHelpingHand/glider") .. "/idle0"
 
     return Ahorn.getSpriteRectangle(sprite, x, y)
 end
 
 function Ahorn.render(ctx::Ahorn.Cairo.CairoContext, entity::RespawningJellyfish, room::Maple.Room)
+    sprite = get(entity, "spriteDirectory", "objects/MaxHelpingHand/glider") .. "/idle0"
     Ahorn.drawSprite(ctx, sprite, 0, 0)
 
     if get(entity, "bubble", false)
