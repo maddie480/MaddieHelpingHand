@@ -7,6 +7,8 @@ using System.Collections;
 namespace Celeste.Mod.MaxHelpingHand.Entities {
     [CustomEntity("MaxHelpingHand/RespawningJellyfish")]
     public class RespawningJellyfish : Glider {
+        private static ParticleType P_NotGlow;
+
         private DynData<Glider> self;
 
         private float respawnTime;
@@ -20,6 +22,14 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
         private bool shouldRespawn = true;
 
         public RespawningJellyfish(EntityData data, Vector2 offset) : base(data, offset) {
+            if (P_NotGlow == null) {
+                // P_NotGlow is a transparent particle.
+                P_NotGlow = new ParticleType(P_Glow) {
+                    Color = Color.Transparent,
+                    Color2 = Color.Transparent
+                };
+            }
+
             respawnTime = data.Float("respawnTime");
             bubble = data.Bool("bubble");
             initialPosition = Position;
@@ -40,6 +50,13 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             sprite.Add("respawn", "respawn", 0.03f, "idle");
             sprite.Play("idle");
 
+            // make the jelly go invisible when the death animation is done.
+            sprite.OnFinish += anim => {
+                if (anim == "death") {
+                    Visible = false;
+                }
+            };
+
             // listen for transitions: if the jelly is carried to another screen, it should not respawn anymore.
             Add(new TransitionListener() {
                 OnOutBegin = () => shouldRespawn = false
@@ -52,7 +69,13 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
                 removeAndRespawn();
             }
 
+            // if the jelly is invisible, "disable" the particles (actually make them invisible).
+            ParticleType vanillaGlow = P_Glow;
+            if (!Visible) P_Glow = P_NotGlow;
+
             base.Update();
+
+            P_Glow = vanillaGlow;
 
             if (shouldRespawn && !respawning && self.Get<bool>("destroyed")) {
                 // replace the vanilla destroy routine with our custom one.

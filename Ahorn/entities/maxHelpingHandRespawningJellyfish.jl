@@ -21,12 +21,12 @@ function Ahorn.selection(entity::RespawningJellyfish)
     x, y = Ahorn.position(entity)
     sprite = get(entity, "spriteDirectory", "objects/MaxHelpingHand/glider") * "/idle0"
 
-    return Ahorn.getSpriteRectangle(sprite, x, y)
+    return Ahorn.getSpriteRectangle(sprite, x, y - 4)
 end
 
 function Ahorn.render(ctx::Ahorn.Cairo.CairoContext, entity::RespawningJellyfish, room::Maple.Room)
     sprite = get(entity, "spriteDirectory", "objects/MaxHelpingHand/glider") * "/idle0"
-    Ahorn.drawSprite(ctx, sprite, 0, 0)
+    Ahorn.drawSprite(ctx, sprite, 0, -4)
 
     if get(entity, "bubble", false)
         curve = Ahorn.SimpleCurve((-7, -1), (7, -1), (0, -6))
