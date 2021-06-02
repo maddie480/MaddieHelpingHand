@@ -19,13 +19,13 @@ const placements = Ahorn.PlacementDict(
 
 function Ahorn.selection(entity::RespawningJellyfish)
     x, y = Ahorn.position(entity)
-    sprite = get(entity, "spriteDirectory", "objects/MaxHelpingHand/glider") .. "/idle0"
+    sprite = get(entity, "spriteDirectory", "objects/MaxHelpingHand/glider") * "/idle0"
 
     return Ahorn.getSpriteRectangle(sprite, x, y)
 end
 
 function Ahorn.render(ctx::Ahorn.Cairo.CairoContext, entity::RespawningJellyfish, room::Maple.Room)
-    sprite = get(entity, "spriteDirectory", "objects/MaxHelpingHand/glider") .. "/idle0"
+    sprite = get(entity, "spriteDirectory", "objects/MaxHelpingHand/glider") * "/idle0"
     Ahorn.drawSprite(ctx, sprite, 0, 0)
 
     if get(entity, "bubble", false)
