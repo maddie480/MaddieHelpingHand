@@ -2,7 +2,7 @@
 
 This helper provides a few entities and triggers that were requested, and that could be useful for other people as well.  
 
-Download it [here!](https://0x0a.de/twoclick?https://gamebanana.com/mmdl/583679)
+Download it [here!](https://0x0a.de/twoclick?https://gamebanana.com/mmdl/586685)
 
 Here is what is in the pack:  
 
@@ -98,6 +98,10 @@ This helper also provides support for **Animated Parallax stylegrounds**. In ord
 *   if you want a specific frame rate, specify it in the animation name by adding `XXfps` at the end of it: `mySlowBackground3fps00.png`, `mySlowBackground3fps01.png`... If you don't, the default frame rate will be 12fps (same as for decals).  
     
 *   then, set up one of the frames as a parallax styleground in Ahorn as you would for a regular parallax.  
+
+Installing this helper also allows you to **reskin the strawberry in the game's menus**. If your map is in `Maps/yourmapfoldername/map.bin`, put the strawberry image to use in `Graphics/Atlases/Gui/MaxHelpingHand/yourmapfoldername/strawberry.png`. (You can reskin the strawberry in the level itself by using Sprites.xml, [check the wiki for that](https://github.com/EverestAPI/Resources/wiki/Reskinning-Entities#reskinning-entities-through-spritesxml).)
+
+If you have a series of 1920x1090 PNG files in black and white (or black and transparent), you can turn it into a **custom wipe** with this mod. [Visit this website for instructions!](https://max480-random-stuff.herokuapp.com/wipe-converter)
 
 #### More details about the flag touch switch and flag switch gates:
   - When used alone, flag touch switches can be used to activate a flag when you collect all the switches in a group. _This allows, for example, to open a gate from [Pandora's Box](https://gamebanana.com/gamefiles/9518) with touch switches._
