@@ -101,7 +101,7 @@ This helper also provides support for **Animated Parallax stylegrounds**. In ord
 
 Installing this helper also allows you to **reskin the strawberry in the game's menus**. If your map is in `Maps/yourmapfoldername/map.bin`, put the strawberry image to use in `Graphics/Atlases/Gui/MaxHelpingHand/yourmapfoldername/strawberry.png`. (You can reskin the strawberry in the level itself by using Sprites.xml, [check the wiki for that](https://github.com/EverestAPI/Resources/wiki/Reskinning-Entities#reskinning-entities-through-spritesxml).)
 
-If you have a series of 1920x1090 PNG files in black and white (or black and transparent), you can turn it into a **custom wipe** with this mod. [Visit this website for instructions!](https://max480-random-stuff.herokuapp.com/wipe-converter)
+If you have a series of 1920x1080 PNG files in black and white (or black and transparent), you can turn it into a **custom wipe** with this mod. [Visit this website for instructions!](https://max480-random-stuff.herokuapp.com/wipe-converter)
 
 #### More details about the flag touch switch and flag switch gates:
   - When used alone, flag touch switches can be used to activate a flag when you collect all the switches in a group. _This allows, for example, to open a gate from [Pandora's Box](https://gamebanana.com/gamefiles/9518) with touch switches._
