@@ -585,3 +585,6 @@ placements.entities.MaxHelpingHand/CustomNPCSprite.tooltips.spriteName=The name 
 # Badeline Sprite
 placements.entities.MaxHelpingHand/BadelineSprite.tooltips.left=Whether Badeline is facing left.
 placements.entities.MaxHelpingHand/BadelineSprite.tooltips.floating=Whether Badeline is floating in the air. If unchecked, Badeline will stand on the ground.
+
+# Persistent Music Fade Trigger
+placements.triggers.MaxHelpingHand/PersistentMusicFadeTrigger.tooltips.direction=The direction the music fades in.
