@@ -60,6 +60,7 @@ namespace Celeste.Mod.MaxHelpingHand.Module {
             SecretBerry.Load();
             CustomizableGlassBlockController.Load();
             CustomWipe.Load();
+            AllSideTentacles.Load();
 
             Everest.Events.Level.OnLoadBackdrop += onLoadBackdrop;
         }
@@ -103,6 +104,7 @@ namespace Celeste.Mod.MaxHelpingHand.Module {
             SecretBerry.Unload();
             CustomizableGlassBlockController.Unload();
             CustomWipe.Unload();
+            AllSideTentacles.Unload();
 
             Everest.Events.Level.OnLoadBackdrop -= onLoadBackdrop;
         }
@@ -161,6 +163,9 @@ namespace Celeste.Mod.MaxHelpingHand.Module {
                 NorthernLightsCustomColors.Colors = null;
 
                 return effect;
+            }
+            if (child.Name.Equals("MaxHelpingHand/AllSideTentacles", StringComparison.OrdinalIgnoreCase)) {
+                return new AllSideTentacles((Tentacles.Side) Enum.Parse(typeof(Tentacles.Side), child.Attr("side", "Right")), Calc.HexToColor(child.Attr("color")), child.AttrFloat("offset"));
             }
             return null;
         }

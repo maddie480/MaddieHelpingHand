@@ -83,6 +83,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Effects\AllSideTentacles.cs" />
     <Compile Include="Entities\BadelineSprite.cs" />
     <Compile Include="Entities\CustomizableGlassExitBlock.cs" />
     <Compile Include="Entities\CustomSeekerBarrier.cs" />
@@ -98,6 +99,9 @@
     <Compile Include="Module\MaxHelpingHandSettings.cs" />
     <Compile Include="Triggers\ActivateTimedTouchSwitchesTimerTrigger.cs" />
     <Compile Include="Triggers\MadelinePonytailTrigger.cs" />
+    <None Include="Ahorn\effects\maxHelpingHandAllSideTentacles.jl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="Ahorn\entities\maxHelpingHandCustomizableGlassExitBlock.jl">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

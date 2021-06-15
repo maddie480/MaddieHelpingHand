@@ -588,3 +588,9 @@ placements.entities.MaxHelpingHand/BadelineSprite.tooltips.floating=Whether Bade
 
 # Persistent Music Fade Trigger
 placements.triggers.MaxHelpingHand/PersistentMusicFadeTrigger.tooltips.direction=The direction the music fades in.
+
+# All Side Tentacles
+placements.effects.MaxHelpingHand/AllSideTentacles.tooltips.sides=The side of the screen that the tentacles should attach to.
+placements.effects.MaxHelpingHand/AllSideTentacles.tooltips.offset=Determines the lerp strength of the tentacles, and their offset compared to the player's position.
+placements.effects.MaxHelpingHand/AllSideTentacles.tooltips.color=The color of the tentacles.
+
