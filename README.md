@@ -2,7 +2,7 @@
 
 This helper provides a few entities and triggers that were requested, and that could be useful for other people as well.  
 
-Download it [here!](https://0x0a.de/twoclick?https://gamebanana.com/mmdl/586685)
+Download it [here!](https://0x0a.de/twoclick?https://gamebanana.com/mmdl/592448)
 
 Here is what is in the pack:  
 
@@ -64,6 +64,7 @@ Here is what is in the pack:
         *   If you have multiple blackhole effects and want to change the strength of all of them, you can use the "Black Hole Strength (All Black Holes)" trigger provided with this helper.
     *   **Northern Lights with Custom Colors**: northern lights, but with customizable colors for the lights and background. You can also remove the gradient background and only keep the lights!
     *   **Heat Wave not affecting color grade**: same as the vanilla Heat Wave effect, except it does not change the color grade, allowing you to set your own color grade instead.
+	*   **All Side Tentacles**: a version of the Tentacles effect that reacts to the player position when placed on the left or on the top of the screen (as opposed to only right and bottom like vanilla).
 
 *   **New controller entities** (invisible entities having effect on a whole room/map):
     *   **Horizontal Room Wrap Controller**: drop this controller in a room, and Madeline will reappear on the left if she goes off-screen on the right! For this to work, be sure to lock the camera horizontally by using a Camera Target Trigger with lerp = 1 and X Only enabled. Pulled from Celsius by 0x0ade.
@@ -91,6 +92,7 @@ Here is what is in the pack:
         
     *   **Disable Ice Physics Trigger**: makes the ground not slippery even in ice mode.
     *   **Rainbow Spinner Color Fade Trigger**: allows to switch between two rainbow spinner colors smoothly within the same screen. _When using this, place a **Rainbow Spinner Color Trigger** on each spawn point in the room to ensure the spinner color is correct if the player dies in the room._  
+	*   **Persistent Music Fade Trigger**: similarly to a music fade trigger, this allows you to make any music parameter fade, but the new value of the parameter will persist even if the player dies or saves & quits.
         
 This helper also provides support for **Animated Parallax stylegrounds**. In order to make an animated parallax:  
 
