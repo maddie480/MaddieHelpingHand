@@ -412,7 +412,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
         private Vector2 shakeOffset;
 
         public UpsideDownJumpThru(EntityData data, Vector2 offset)
-            : base(data.Position + offset, data.Width, false) {
+            : base(data.Position + offset, data.Width, true) {
 
             columns = data.Width / 8;
             Depth = -60;
