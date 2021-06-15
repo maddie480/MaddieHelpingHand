@@ -587,6 +587,9 @@ placements.entities.MaxHelpingHand/BadelineSprite.tooltips.left=Whether Badeline
 placements.entities.MaxHelpingHand/BadelineSprite.tooltips.floating=Whether Badeline is floating in the air. If unchecked, Badeline will stand on the ground.
 
 # Persistent Music Fade Trigger
+placements.triggers.MaxHelpingHand/PersistentMusicFadeTrigger.tooltips.fadeA=Determines the parameter value at the start of the fade.
+placements.triggers.MaxHelpingHand/PersistentMusicFadeTrigger.tooltips.fadeB=Determines the parameter value at the end of the fade.
+placements.triggers.MaxHelpingHand/PersistentMusicFadeTrigger.tooltips.parameter=The music parameter this trigger will affect.
 placements.triggers.MaxHelpingHand/PersistentMusicFadeTrigger.tooltips.direction=The direction the music fades in.
 
 # All Side Tentacles
