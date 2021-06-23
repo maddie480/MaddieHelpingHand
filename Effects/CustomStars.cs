@@ -16,6 +16,7 @@ namespace Celeste.Mod.MaxHelpingHand.Effects {
 
 		private int? starCount;
 		private Color? tint;
+		private float wrapHeight;
 
 		private Star[] stars;
 		private Color[] colors;
@@ -25,9 +26,10 @@ namespace Celeste.Mod.MaxHelpingHand.Effects {
 		private float falling = 0f;
 		private Vector2 center;
 
-		public CustomStars(int? starCount, Color? tint, string spriteDirectory) {
+		public CustomStars(int? starCount, Color? tint, string spriteDirectory, float wrapHeight) {
 			this.starCount = starCount;
 			this.tint = tint;
+			this.wrapHeight = wrapHeight;
 
 			// look up all the stars in the folder, and group frames belonging to the same stars.
 			textures = new List<List<MTexture>>();
@@ -54,7 +56,7 @@ namespace Celeste.Mod.MaxHelpingHand.Effects {
 			stars = new Star[starCount ?? 100];
 			for (int i = 0; i < stars.Length; i++) {
 				stars[i] = new Star {
-					Position = new Vector2(Calc.Random.NextFloat(320f), Calc.Random.NextFloat(180f)),
+					Position = new Vector2(Calc.Random.NextFloat(320f), Calc.Random.NextFloat(wrapHeight)),
 					Timer = Calc.Random.NextFloat((float) Math.PI * 2f),
 					Rate = 2f + Calc.Random.NextFloat(2f),
 					TextureSet = Calc.Random.Next(textures.Count)
@@ -93,10 +95,11 @@ namespace Celeste.Mod.MaxHelpingHand.Effects {
 				if (level.Session.Dreaming) {
 					position.Y -= level.Camera.Y;
 					position.Y += falling * stars[i].Rate;
-					position.Y %= 180f;
+					position.Y %= wrapHeight;
 					if (position.Y < 0f) {
-						position.Y += 180f;
+						position.Y += wrapHeight;
 					}
+					position.Y -= (wrapHeight - 180f) / 2;
 					for (int j = 0; j < colors.Length; j++) {
 						frameToRender.Draw(position - Vector2.UnitY * j, center, colors[j]);
 					}

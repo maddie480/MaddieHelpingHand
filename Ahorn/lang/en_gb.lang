@@ -270,6 +270,7 @@ placements.entities.MaxHelpingHand/GoldenStrawberryCustomConditions.tooltips.sho
 placements.effects.MaxHelpingHand/CustomStars.tooltips.spriteDirectory=The directory containing all the star sprites.\nTo make your own, you can take example on Graphics/Atlases/Gameplay/bgs/02/stars, and drop your sprites in Mods/yourmod/Graphics/Atlases/Gameplay/MyMap/mystars. Then, type MyMap/mystars in this field.
 placements.effects.MaxHelpingHand/CustomStars.tooltips.tint=Allows you to tint the stars. Works better with the "bgs/MaxHelpingHand/graystars" sprite directory. Leave empty to use vanilla values ("008080" when dreaming, "ffffff" otherwise).
 placements.effects.MaxHelpingHand/CustomStars.tooltips.starCount=Determines the number of stars present in the background. Leave empty to use vanilla values (100 when dreaming, 50 otherwise).
+placements.effects.MaxHelpingHand/CustomStars.tooltips.wrapHeight=The height the stars will fall (in pixels) before wrapping. Increase this value if you notice that the stars "teleport" to the top of the screen before they are offscreen on the bottom.
 
 # Core Mode Spikes
 placements.entities.MaxHelpingHand/CoreModeSpikesUp.tooltips.hotType=Changes the visual appearance of the spikes while in Hot or None core mode.
