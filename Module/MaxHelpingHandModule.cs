@@ -61,6 +61,7 @@ namespace Celeste.Mod.MaxHelpingHand.Module {
             CustomizableGlassBlockController.Load();
             CustomWipe.Load();
             AllSideTentacles.Load();
+            SetFlagOnSpawnController.Load();
 
             Everest.Events.Level.OnLoadBackdrop += onLoadBackdrop;
         }
@@ -105,6 +106,7 @@ namespace Celeste.Mod.MaxHelpingHand.Module {
             CustomizableGlassBlockController.Unload();
             CustomWipe.Unload();
             AllSideTentacles.Unload();
+            SetFlagOnSpawnController.Unload();
 
             Everest.Events.Level.OnLoadBackdrop -= onLoadBackdrop;
         }

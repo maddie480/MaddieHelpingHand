@@ -2,7 +2,7 @@
 
 using ..Ahorn, Maple
 
-@mapdef Entity "MaxHelpingHand/SetFlagOnSpawnController" SetFlagOnSpawnController(x::Integer, y::Integer, flag::String="flag_name", enable::Bool=false)
+@mapdef Entity "MaxHelpingHand/SetFlagOnSpawnController" SetFlagOnSpawnController(x::Integer, y::Integer, flag::String="flag_name", enable::Bool=false, onlyOnRespawn::Bool=false)
 
 const placements = Ahorn.PlacementDict(
     "Set Flag On Spawn Controller (max480's Helping Hand)" => Ahorn.EntityPlacement(

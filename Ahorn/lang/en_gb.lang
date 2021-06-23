@@ -398,6 +398,7 @@ placements.triggers.MaxHelpingHand/SpeedBasedMusicParamTrigger.tooltips.activate
 # Set Flag On Spawn Controller
 placements.entities.MaxHelpingHand/SetFlagOnSpawnController.tooltips.flag=The session flag to modify when the player enters the room or respawns in it.
 placements.entities.MaxHelpingHand/SetFlagOnSpawnController.tooltips.enable=If checked, the flag will be enabled when the player enters the room or respawns in it. If unchecked, the flag will be disabled instead.
+placements.entities.MaxHelpingHand/SetFlagOnSpawnController.tooltips.onlyOnRespawn=If checked, the flag will only be set if the player dies and respawns in the room (and not when they enter the room).
 
 # Flag Logic Gate
 placements.entities.MaxHelpingHand/FlagLogicGate.tooltips.inputFlags=The session flags to use as an input, separated by commas. You can invert one of the flags by adding a ! in front of its name (!flagName).
