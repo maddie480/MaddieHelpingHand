@@ -8,16 +8,16 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
         private static bool isRespawning = false;
 
         public static void Load() {
-            On.Celeste.Level.Reload += onRespawn;
+            On.Celeste.Level.LoadLevel += onLoadLevel;
         }
 
         public static void Unload() {
-            On.Celeste.Level.Reload -= onRespawn;
+            On.Celeste.Level.LoadLevel -= onLoadLevel;
         }
 
-        private static void onRespawn(On.Celeste.Level.orig_Reload orig, Level self) {
-            isRespawning = true;
-            orig(self);
+        private static void onLoadLevel(On.Celeste.Level.orig_LoadLevel orig, Level self, Player.IntroTypes playerIntro, bool isFromLoader) {
+            isRespawning = (playerIntro != Player.IntroTypes.Transition);
+            orig(self, playerIntro, isFromLoader);
             isRespawning = false;
         }
 
