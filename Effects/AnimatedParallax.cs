@@ -31,7 +31,7 @@ namespace Celeste.Mod.MaxHelpingHand.Effects {
 
 
         private readonly List<MTexture> frames;
-        private readonly int fps;
+        private readonly float fps;
 
         private int currentFrame;
         private float currentFrameTimer;
@@ -43,13 +43,13 @@ namespace Celeste.Mod.MaxHelpingHand.Effects {
             // then load all frames from that prefix.
             frames = GFX.Game.GetAtlasSubtextures(texturePath);
 
-            Match fpsCount = Regex.Match(texturePath, "[^0-9]([0-9]+)fps$");
+            Match fpsCount = Regex.Match(texturePath, "[^0-9]((?:[0-9]+\\.)?[0-9]+)fps$");
             if (fpsCount.Success) {
                 // we found an FPS count! use it.
-                fps = int.Parse(fpsCount.Groups[1].Value);
+                fps = float.Parse(fpsCount.Groups[1].Value);
             } else {
                 // use 12 FPS by default, like decals.
-                fps = 12;
+                fps = 12f;
             }
 
             Texture = frames[0];
