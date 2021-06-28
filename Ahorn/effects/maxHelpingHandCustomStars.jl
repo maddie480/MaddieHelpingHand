@@ -2,7 +2,8 @@
 
 using ..Ahorn, Maple
 
-@mapdef Effect "MaxHelpingHand/CustomStars" CustomStars(only::String="*", exclude::String="", spriteDirectory::String="bgs/02/stars", tint::String="", starCount::String="", wrapHeight::Number=180.0)
+@mapdef Effect "MaxHelpingHand/CustomStars" CustomStars(only::String="*", exclude::String="", spriteDirectory::String="bgs/02/stars", tint::String="", starCount::String="", wrapHeight::Number=180.0,
+    starAlpha::String="", bgAlpha::Number=1.0)
 
 placements = CustomStars
 

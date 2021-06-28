@@ -136,7 +136,14 @@ namespace Celeste.Mod.MaxHelpingHand.Module {
                 if (child.AttrBool("disableTinting", false)) {
                     tint = "ffffff"; // approximative backwards compatibility
                 }
-                return new CustomStars(starCount, string.IsNullOrEmpty(tint) ? (Color?) null : Calc.HexToColor(tint), child.Attr("spriteDirectory", "bgs/02/stars"), child.AttrFloat("wrapHeight", 180f));
+                // parse the alpha field if it's present and not empty. Otherwise, pass null to CustomStars
+                float? alpha = null;
+                string alphaString = child.Attr("starAlpha");
+                if (!string.IsNullOrEmpty(alphaString)) {
+                    alpha = float.Parse(alphaString);
+                }
+                return new CustomStars(starCount, string.IsNullOrEmpty(tint) ? (Color?) null : Calc.HexToColor(tint), child.Attr("spriteDirectory", "bgs/02/stars"),
+                    child.AttrFloat("wrapHeight", 180f), alpha, child.AttrFloat("bgAlpha", 1f));
             }
             if (child.Name.Equals("MaxHelpingHand/SnowCustomColors", StringComparison.OrdinalIgnoreCase)) {
                 string[] colorsAsStrings = child.Attr("colors").Split(',');
