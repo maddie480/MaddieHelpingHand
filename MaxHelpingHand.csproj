@@ -1070,6 +1070,15 @@
     <Content Include="Graphics\Atlases\Gameplay\MaxHelpingHand\customplanets\smallstars\d00.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Graphics\Atlases\Gameplay\MaxHelpingHand\summitcheckpoints\base00.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Graphics\Atlases\Gameplay\MaxHelpingHand\summitcheckpoints\base01.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Graphics\Atlases\Gameplay\MaxHelpingHand\summitcheckpoints\base02.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Graphics\Atlases\Gameplay\MaxHelpingHand\summitcheckpoints\eight\number.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
