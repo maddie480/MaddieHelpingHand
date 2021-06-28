@@ -2,7 +2,7 @@
 
 This helper provides a few entities and triggers that were requested, and that could be useful for other people as well.  
 
-Download it [here!](https://0x0a.de/twoclick?https://gamebanana.com/mmdl/598989)
+Download it [here!](https://0x0a.de/twoclick?https://gamebanana.com/mmdl/601972)
 
 Here is what is in the pack:  
 
@@ -47,7 +47,7 @@ Here is what is in the pack:
     *   **Reskinnable Star Track Spinner / Star Rotate Spinners**: star track / rotate spinners from chapter 9, except you can change their textures and particle colors.
     *   **Reskinnable Swap Block** and **Reskinnable Kevin**: like regular Swap Blocks and Kevins, except you can change all their textures.
     *   **Customizable Glass Blocks**: Glass Blocks with customizable background color and star colors. Default values try to replicate the colors seen on early Farewell screenshots. When using those, you should place a **Customizable Glass Block Controller** in the room, as this is the one allowing you to set the colors.
-    *   **Custom Summit Checkpoints**: summit checkpoints that can display more than just numbers. You can have minuses, question marks, or make your own digits!
+    *   **Custom Summit Checkpoints**: summit checkpoints that can display more than just numbers. You can have minuses, question marks, or make your own digits! You can also completely reskin the checkpoint, and change the confetti colors.
     *   **Golden Strawberry with Custom Conditions**: a golden berry that can appear even if the player didn't finish the map, didn't unlock C-sides yet and/or died if you want it to.
     *   **Custom Sandwich Lava**: sandwich lava with customizable direction, speed, gap and colors. You can also change these settings mid-room by placing a Custom Sandwich Lava Settings Trigger!
     *   **Reskinnable Floating Debris**: reskinnable version of the decorative floating debris found in Farewell.
@@ -97,7 +97,7 @@ Here is what is in the pack:
 This helper also provides support for **Animated Parallax stylegrounds**. In order to make an animated parallax:  
 
 *   add all your frames in `Graphics/Atlases/Gameplay/bgs/MaxHelpingHand/animatedParallax/YourModName/bgName00.png`, `bgName01.png`, etc...
-*   if you want a specific frame rate, specify it in the animation name by adding `XXfps` at the end of it: `mySlowBackground3fps00.png`, `mySlowBackground3fps01.png`... If you don't, the default frame rate will be 12fps (same as for decals).  
+*   if you want a specific frame rate, specify it in the animation name by adding `XXfps` at the end of it: `mySlowBackground3fps00.png`, `mySlowBackground3fps01.png`... If you don't, the default frame rate will be 12fps (same as for decals). The frame rate does not have to be an integer: `myVerySlowBackground0.5fps00.png` will display at 0.5 frames per second (1 frame every 2 seconds).
     
 *   then, set up one of the frames as a parallax styleground in Ahorn as you would for a regular parallax.  
 

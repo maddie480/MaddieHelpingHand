@@ -18,8 +18,6 @@ Ahorn.editingOptions(entity::CustomSummitCheckpoint) = Dict{String, Any}(
     "secondDigit" => numberlist
 )
 
-baseSprite = 
-
 function Ahorn.selection(entity::CustomSummitCheckpoint)
     directory = get(entity.data, "spriteDirectory", "MaxHelpingHand/summitcheckpoints")
     x, y = Ahorn.position(entity)
