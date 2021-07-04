@@ -12,7 +12,7 @@ const placements = Ahorn.PlacementDict(
     )
 )
 
-function Ahorn.editingOptions(trigger::Maple.MusicFadeTrigger)
+function Ahorn.editingOptions(trigger::PersistentMusicFadeTrigger)
     return Dict{String, Any}(
         "direction" => Maple.music_fade_trigger_directions
     )
