@@ -373,7 +373,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             yield return 0.1f;
             for (int k = 0; k < 32; k++) {
                 float num = Calc.Random.NextFloat((float) Math.PI * 2f);
-                SceneAs<Level>().ParticlesFG.Emit(TouchSwitch.P_Fire, Position + iconOffset + Calc.AngleToVector(num, 4f), num);
+                SceneAs<Level>().ParticlesFG.Emit(P_RecoloredFire, Position + iconOffset + Calc.AngleToVector(num, 4f), num);
             }
             openSfx.Stop();
             Audio.Play("event:/game/general/wall_break_stone", Center);
