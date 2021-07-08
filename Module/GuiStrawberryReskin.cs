@@ -22,9 +22,16 @@ namespace Celeste.Mod.MaxHelpingHand.Module {
         }
 
         private static void modStrawberrySkin(ILContext il) {
+            // replace the strawberry, then the golden berry icon.
             ILCursor iLCursor = new ILCursor(il);
-            while (iLCursor.TryGotoNext(MoveType.After, instr => instr.MatchLdstr("collectables/strawberry"))) {
-                Logger.Log("MaxHelpingHand/GuiStrawberryReskin", $"Changing strawberry icon w/ custom one at {iLCursor.Index} in IL for {iLCursor.Method.FullName}");
+            replaceStrawberrySprite(iLCursor, "strawberry");
+            iLCursor.Index = 0;
+            replaceStrawberrySprite(iLCursor, "goldberry");
+        }
+
+        private static void replaceStrawberrySprite(ILCursor iLCursor, string name) {
+            while (iLCursor.TryGotoNext(MoveType.After, instr => instr.MatchLdstr($"collectables/{name}"))) {
+                Logger.Log(LogLevel.Info, "MaxHelpingHand/GuiStrawberryReskin", $"Changing {name} icon w/ custom one at {iLCursor.Index} in IL for {iLCursor.Method.FullName}");
                 iLCursor.EmitDelegate<Func<string, string>>(orig => {
                     if (isFileSelect) {
                         return orig;
@@ -34,8 +41,8 @@ namespace Celeste.Mod.MaxHelpingHand.Module {
                     if (levelSetName == null) {
                         levelSetName = (Engine.Scene as Level)?.Session?.Area.GetLevelSet();
                     }
-                    if (levelSetName != null && GFX.Gui.Has($"MaxHelpingHand/{levelSetName}/strawberry")) {
-                        return $"MaxHelpingHand/{levelSetName}/strawberry";
+                    if (levelSetName != null && GFX.Gui.Has($"MaxHelpingHand/{levelSetName}/{name}")) {
+                        return $"MaxHelpingHand/{levelSetName}/{name}";
                     }
                     return orig;
                 });
