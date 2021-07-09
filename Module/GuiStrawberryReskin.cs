@@ -31,7 +31,7 @@ namespace Celeste.Mod.MaxHelpingHand.Module {
 
         private static void replaceStrawberrySprite(ILCursor iLCursor, string name) {
             while (iLCursor.TryGotoNext(MoveType.After, instr => instr.MatchLdstr($"collectables/{name}"))) {
-                Logger.Log(LogLevel.Info, "MaxHelpingHand/GuiStrawberryReskin", $"Changing {name} icon w/ custom one at {iLCursor.Index} in IL for {iLCursor.Method.FullName}");
+                Logger.Log("MaxHelpingHand/GuiStrawberryReskin", $"Changing {name} icon w/ custom one at {iLCursor.Index} in IL for {iLCursor.Method.FullName}");
                 iLCursor.EmitDelegate<Func<string, string>>(orig => {
                     if (isFileSelect) {
                         return orig;

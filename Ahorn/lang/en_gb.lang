@@ -456,6 +456,9 @@ placements.entities.MaxHelpingHand/NoDashRefillSpring.tooltips.spriteDirectory=T
 placements.entities.MaxHelpingHand/NoDashRefillSpringRight.tooltips.spriteDirectory=The directory to take the sprites from.\nTo reskin the no-dash refill springs, place the sprites in your mod in Graphics/Atlases/Gameplay/mymod/myspring, and write "mymod/myspring" here. The default sprites are in the zip for max480's Helping Hand, in Graphics/Atlases/Gameplay/objects/MaxHelpingHand/noDashRefillSpring.
 placements.entities.MaxHelpingHand/NoDashRefillSpringLeft.tooltips.spriteDirectory=The directory to take the sprites from.\nTo reskin the no-dash refill springs, place the sprites in your mod in Graphics/Atlases/Gameplay/mymod/myspring, and write "mymod/myspring" here. The default sprites are in the zip for max480's Helping Hand, in Graphics/Atlases/Gameplay/objects/MaxHelpingHand/noDashRefillSpring.
 placements.entities.MaxHelpingHand/NoDashRefillSpring.tooltips.playerCanUse=Determines whether the player is able to interact with the spring.
+placements.entities.MaxHelpingHand/NoDashRefillSpring.tooltips.ignoreLighting=If checked, the spring won't be affected by room darkness.
+placements.entities.MaxHelpingHand/NoDashRefillSpringRight.tooltips.ignoreLighting=If checked, the spring won't be affected by room darkness.
+placements.entities.MaxHelpingHand/NoDashRefillSpringLeft.tooltips.ignoreLighting=If checked, the spring won't be affected by room darkness.
 
 # Seeker Barrier Color Controller
 placements.entities.MaxHelpingHand/SeekerBarrierColorController.names.transparency=Opacity

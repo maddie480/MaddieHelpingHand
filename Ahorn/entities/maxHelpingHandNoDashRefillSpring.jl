@@ -2,9 +2,9 @@
 
 using ..Ahorn, Maple
 
-@mapdef Entity "MaxHelpingHand/NoDashRefillSpring" NoDashRefillSpring(x::Integer, y::Integer, spriteDirectory::String="objects/MaxHelpingHand/noDashRefillSpring", playerCanUse::Bool=true)
-@mapdef Entity "MaxHelpingHand/NoDashRefillSpringRight" NoDashRefillSpringRight(x::Integer, y::Integer, spriteDirectory::String="objects/MaxHelpingHand/noDashRefillSpring")
-@mapdef Entity "MaxHelpingHand/NoDashRefillSpringLeft" NoDashRefillSpringLeft(x::Integer, y::Integer, spriteDirectory::String="objects/MaxHelpingHand/noDashRefillSpring")
+@mapdef Entity "MaxHelpingHand/NoDashRefillSpring" NoDashRefillSpring(x::Integer, y::Integer, spriteDirectory::String="objects/MaxHelpingHand/noDashRefillSpring", playerCanUse::Bool=true, ignoreLighting::Bool=false)
+@mapdef Entity "MaxHelpingHand/NoDashRefillSpringRight" NoDashRefillSpringRight(x::Integer, y::Integer, spriteDirectory::String="objects/MaxHelpingHand/noDashRefillSpring", ignoreLighting::Bool=false)
+@mapdef Entity "MaxHelpingHand/NoDashRefillSpringLeft" NoDashRefillSpringLeft(x::Integer, y::Integer, spriteDirectory::String="objects/MaxHelpingHand/noDashRefillSpring", ignoreLighting::Bool=false)
 
 const placements = Ahorn.PlacementDict(
     "No Dash Refill Spring (Up) (max480's Helping Hand)" => Ahorn.EntityPlacement(

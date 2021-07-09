@@ -1,18 +1,53 @@
 ﻿using Celeste.Mod.Entities;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using Monocle;
 using MonoMod.Utils;
 using System;
+using System.Collections.Generic;
 using System.Reflection;
 
 namespace Celeste.Mod.MaxHelpingHand.Entities {
     [CustomEntity("MaxHelpingHand/NoDashRefillSpring", "MaxHelpingHand/NoDashRefillSpringLeft", "MaxHelpingHand/NoDashRefillSpringRight")]
+    [Tracked]
     public class NoDashRefillSpring : Spring {
+        public static void Load() {
+            On.Celeste.LightingRenderer.BeforeRender += onLightingBeforeRender;
+        }
+
+        public static void Unload() {
+            On.Celeste.LightingRenderer.BeforeRender -= onLightingBeforeRender;
+        }
+
+        private static void onLightingBeforeRender(On.Celeste.LightingRenderer.orig_BeforeRender orig, LightingRenderer self, Scene scene) {
+            orig(self, scene);
+
+            List<Entity> springs = scene.Tracker.GetEntities<NoDashRefillSpring>();
+
+            if (springs.Count != 0) {
+                Draw.SpriteBatch.GraphicsDevice.SetRenderTarget(GameplayBuffers.Light);
+                Draw.SpriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.PointClamp, DepthStencilState.None, RasterizerState.CullNone, null, Matrix.Identity);
+                foreach (Entity entity in springs) {
+                    if (entity is NoDashRefillSpring spring && spring.ignoreLighting) {
+                        Sprite sprite = spring.Get<Sprite>();
+                        string path = sprite.Texture.AtlasPath;
+                        path = path.Substring(0, path.LastIndexOf('/')) + "/white_" + path.Substring(path.LastIndexOf('/') + 1);
+                        GFX.Game[path].Draw(spring.Position + sprite.Position - (scene as Level).Camera.Position, sprite.Origin, Color.White, sprite.Scale, sprite.Rotation);
+                    }
+                }
+                Draw.SpriteBatch.End();
+            }
+        }
+
         private static MethodInfo bounceAnimate = typeof(Spring).GetMethod("BounceAnimate", BindingFlags.NonPublic | BindingFlags.Instance);
         private static object[] noParams = new object[0];
 
+        private readonly bool ignoreLighting;
+
         public NoDashRefillSpring(EntityData data, Vector2 offset)
             : base(data.Position + offset, GetOrientationFromName(data.Name), data.Bool("playerCanUse", true)) {
+
+            ignoreLighting = data.Bool("ignoreLighting", defaultValue: false);
 
             DynData<Spring> selfSpring = new DynData<Spring>(this);
 
