@@ -217,6 +217,10 @@ placements.entities.MaxHelpingHand/ReskinnableSwapBlock.tooltips.particleColor1=
 placements.entities.MaxHelpingHand/ReskinnableSwapBlock.tooltips.particleColor2=One of the 2 colors of the particles the swap block emits when it moves.
 placements.entities.MaxHelpingHand/ReskinnableSwapBlock.names.particleColor1=Particle Color 1
 placements.entities.MaxHelpingHand/ReskinnableSwapBlock.names.particleColor2=Particle Color 2
+placements.entities.MaxHelpingHand/ReskinnableSwapBlock.tooltips.moveSound=The sound the swap block makes when it starts moving.
+placements.entities.MaxHelpingHand/ReskinnableSwapBlock.tooltips.moveEndSound=The sound the swap block makes when it ends moving forward.
+placements.entities.MaxHelpingHand/ReskinnableSwapBlock.tooltips.returnSound=The sound the swap block makes when it returns to its original position.
+placements.entities.MaxHelpingHand/ReskinnableSwapBlock.tooltips.returnEndSound=The sound the swap block makes when it is done returning to its original position.
 
 # Custom Planets
 placements.effects.MaxHelpingHand/CustomPlanets.names.scrollx=Scroll X

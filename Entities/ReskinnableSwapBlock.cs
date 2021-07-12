@@ -6,6 +6,7 @@ using MonoMod.Cil;
 using MonoMod.RuntimeDetour;
 using MonoMod.Utils;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 
@@ -20,12 +21,18 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             On.Celeste.SwapBlock.ctor_EntityData_Vector2 += onSwapBlockConstruct;
             IL.Celeste.SwapBlock.ctor_Vector2_float_float_Vector2_Themes += modSwapBlockTexturesInConstructor;
 
+            IL.Celeste.SwapBlock.OnDash += modSwapBlockSounds;
+            IL.Celeste.SwapBlock.Update += modSwapBlockSounds;
+
             hookOnPathRendererConstructor = new ILHook(pathRendererType.GetConstructor(new Type[] { typeof(SwapBlock) }), modSwapBlockTexturesInPathRenderer);
         }
 
         public static void Unload() {
             On.Celeste.SwapBlock.ctor_EntityData_Vector2 -= onSwapBlockConstruct;
             IL.Celeste.SwapBlock.ctor_Vector2_float_float_Vector2_Themes -= modSwapBlockTexturesInConstructor;
+
+            IL.Celeste.SwapBlock.OnDash -= modSwapBlockSounds;
+            IL.Celeste.SwapBlock.Update -= modSwapBlockSounds;
 
             hookOnPathRendererConstructor?.Dispose();
             hookOnPathRendererConstructor = null;
@@ -68,8 +75,41 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             }
         }
 
+        private static void modSwapBlockSounds(ILContext il) {
+            ILCursor cursor = new ILCursor(il);
+
+            Dictionary<string, Func<ReskinnableSwapBlock, string>> stuffToLookUp = new Dictionary<string, Func<ReskinnableSwapBlock, string>>() {
+                { "event:/game/05_mirror_temple/swapblock_move", block => block.moveSound },
+                { "event:/game/05_mirror_temple/swapblock_move_end", block => block.moveEndSound },
+                { "event:/game/05_mirror_temple/swapblock_return", block => block.returnSound },
+                { "event:/game/05_mirror_temple/swapblock_return_end", block => block.returnEndSound }
+            };
+
+            foreach (KeyValuePair<string, Func<ReskinnableSwapBlock, string>> replace in stuffToLookUp) {
+                cursor.Index = 0;
+
+                while (cursor.TryGotoNext(MoveType.After, instr => instr.MatchLdstr(replace.Key))) {
+                    Logger.Log("MaxHelpingHand/ReskinnableSwapBlock", $"Changing sounds of swap block at {cursor.Index} in IL for {il.Method.Name} ({replace.Key})");
+
+                    Func<ReskinnableSwapBlock, string> valueGetter = replace.Value;
+
+                    cursor.Emit(OpCodes.Ldarg_0);
+                    cursor.EmitDelegate<Func<string, SwapBlock, string>>((orig, self) => {
+                        if (self is ReskinnableSwapBlock swapBlock) {
+                            return valueGetter(swapBlock);
+                        }
+                        return orig;
+                    });
+                }
+            }
+        }
+
         private string spriteDirectory;
         private ParticleType customParticleColor;
+        private string moveSound;
+        private string moveEndSound;
+        private string returnSound;
+        private string returnEndSound;
 
         public ReskinnableSwapBlock(EntityData data, Vector2 offset) : base(data, offset) {
             DynData<SwapBlock> self = new DynData<SwapBlock>(this);
@@ -89,6 +129,11 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
                 Color = Calc.HexToColor(data.Attr("particleColor1", "fbf236")),
                 Color2 = Calc.HexToColor(data.Attr("particleColor2", "6abe30"))
             };
+
+            moveSound = data.Attr("moveSound", defaultValue: "event:/game/05_mirror_temple/swapblock_move");
+            moveEndSound = data.Attr("moveEndSound", defaultValue: "event:/game/05_mirror_temple/swapblock_move_end");
+            returnSound = data.Attr("returnSound", defaultValue: "event:/game/05_mirror_temple/swapblock_return");
+            returnEndSound = data.Attr("returnEndSound", defaultValue: "event:/game/05_mirror_temple/swapblock_return_end");
         }
 
         public override void Update() {
