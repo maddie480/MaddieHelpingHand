@@ -132,6 +132,34 @@ placements.entities.MaxHelpingHand/RainbowSpinnerColorController.tooltips.center
 placements.entities.MaxHelpingHand/RainbowSpinnerColorController.tooltips.gradientSpeed=Determines how fast the gradient scrolls, in pixels per second. You can use negative values to make it scroll in the opposite direction. Vanilla value is 50.
 placements.entities.MaxHelpingHand/RainbowSpinnerColorController.tooltips.persistent=If checked, the chosen colors will persist until the player enters a room with another Rainbow Spinner Color Controller.\nIf unchecked, the chosen colors will only apply to the current room.
 
+# Flag Rainbow Spinner Color Controller
+placements.entities.MaxHelpingHand/FlagRainbowSpinnerColorController.tooltips.colors=The colours the rainbow spinners in the room will take when the flag is not active, separated by commas.
+placements.entities.MaxHelpingHand/FlagRainbowSpinnerColorController.tooltips.gradientSize=The distance required to achieve a complete loop across all colours when the flag is not active.
+placements.entities.MaxHelpingHand/FlagRainbowSpinnerColorController.tooltips.loopColors=Determines how the colors loop when the flag is not active. For example, if 3 colours A, B and C are specified:\n- when unchecked, the colours will cycle in the following order: A > B > C > B > A\n- when checked, the colours will cycle in the following order: A > B > C > A > B > C
+placements.entities.MaxHelpingHand/FlagRainbowSpinnerColorController.tooltips.centerX=The horizontal position of the center of the gradient when the flag is not active. Uses "world" coordinates. Vanilla value is 0.
+placements.entities.MaxHelpingHand/FlagRainbowSpinnerColorController.tooltips.centerY=The vertical position of the center of the gradient when the flag is not active. Uses "world" coordinates. Vanilla value is 0.
+placements.entities.MaxHelpingHand/FlagRainbowSpinnerColorController.tooltips.gradientSpeed=Determines how fast the gradient scrolls, in pixels per second,  when the flag is not active. You can use negative values to make it scroll in the opposite direction. Vanilla value is 50.
+placements.entities.MaxHelpingHand/FlagRainbowSpinnerColorController.tooltips.colorsWithFlag=The colours the rainbow spinners in the room will take when the flag is not active, separated by commas.
+placements.entities.MaxHelpingHand/FlagRainbowSpinnerColorController.tooltips.gradientSizeWithFlag=The distance required to achieve a complete loop across all colours when the flag is active.
+placements.entities.MaxHelpingHand/FlagRainbowSpinnerColorController.tooltips.loopColorsWithFlag=Determines how the colors loop when the flag is active. For example, if 3 colours A, B and C are specified:\n- when unchecked, the colours will cycle in the following order: A > B > C > B > A\n- when checked, the colours will cycle in the following order: A > B > C > A > B > C
+placements.entities.MaxHelpingHand/FlagRainbowSpinnerColorController.tooltips.centerXWithFlag=The horizontal position of the center of the gradient when the flag is active. Uses "world" coordinates. Vanilla value is 0.
+placements.entities.MaxHelpingHand/FlagRainbowSpinnerColorController.tooltips.centerYWithFlag=The vertical position of the center of the gradient when the flag is active. Uses "world" coordinates. Vanilla value is 0.
+placements.entities.MaxHelpingHand/FlagRainbowSpinnerColorController.tooltips.gradientSpeedWithFlag=Determines how fast the gradient scrolls, in pixels per second, when the flag is active. You can use negative values to make it scroll in the opposite direction. Vanilla value is 50.
+placements.entities.MaxHelpingHand/FlagRainbowSpinnerColorController.tooltips.persistent=If checked, the chosen colors will persist until the player enters a room with another Rainbow Spinner Color Controller.\nIf unchecked, the chosen colors will only apply to the current room.
+placements.entities.MaxHelpingHand/FlagRainbowSpinnerColorController.tooltips.flag=The flag that allows to switch between the 2 different color setups.
+placements.entities.MaxHelpingHand/FlagRainbowSpinnerColorController.names.colors=Colors (Flag Off)
+placements.entities.MaxHelpingHand/FlagRainbowSpinnerColorController.names.gradientSize=Gradient Size (Flag Off)
+placements.entities.MaxHelpingHand/FlagRainbowSpinnerColorController.names.loopColors=Loop Colors (Flag Off)
+placements.entities.MaxHelpingHand/FlagRainbowSpinnerColorController.names.centerX=Center X (Flag Off)
+placements.entities.MaxHelpingHand/FlagRainbowSpinnerColorController.names.centerY=Center Y (Flag Off)
+placements.entities.MaxHelpingHand/FlagRainbowSpinnerColorController.names.gradientSpeed=Gradient Speed (Flag Off)
+placements.entities.MaxHelpingHand/FlagRainbowSpinnerColorController.names.colorsWithFlag=Colors (Flag On)
+placements.entities.MaxHelpingHand/FlagRainbowSpinnerColorController.names.gradientSizeWithFlag=Gradient Size (Flag On)
+placements.entities.MaxHelpingHand/FlagRainbowSpinnerColorController.names.loopColorsWithFlag=Loop Colors (Flag On)
+placements.entities.MaxHelpingHand/FlagRainbowSpinnerColorController.names.centerXWithFlag=Center X (Flag On)
+placements.entities.MaxHelpingHand/FlagRainbowSpinnerColorController.names.centerYWithFlag=Center Y (Flag On)
+placements.entities.MaxHelpingHand/FlagRainbowSpinnerColorController.names.gradientSpeedWithFlag=Gradient Speed (Flag On)
+
 # Rainbow Spinner Color Area Controller
 placements.entities.MaxHelpingHand/RainbowSpinnerColorAreaController.tooltips.colors=The colours the rainbow spinners in the room will take, separated by commas.
 placements.entities.MaxHelpingHand/RainbowSpinnerColorAreaController.tooltips.gradientSize=The distance required to achieve a complete loop across all colours.

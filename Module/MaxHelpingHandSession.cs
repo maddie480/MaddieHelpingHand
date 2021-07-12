@@ -9,6 +9,13 @@ namespace Celeste.Mod.MaxHelpingHand.Module {
             public bool LoopColors { get; set; }
             public Vector2 Center { get; set; } = new Vector2(0, 0);
             public float GradientSpeed { get; set; } = 50f;
+
+            public string Flag { get; set; } = null;
+            public string ColorsWithFlag { get; set; }
+            public float GradientSizeWithFlag { get; set; }
+            public bool LoopColorsWithFlag { get; set; }
+            public Vector2 CenterWithFlag { get; set; } = new Vector2(0, 0);
+            public float GradientSpeedWithFlag { get; set; } = 50f;
         }
 
         public class SeekerBarrierColorState {
