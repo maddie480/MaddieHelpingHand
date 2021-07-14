@@ -11,6 +11,9 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
     [CustomEntity("MaxHelpingHand/RainbowSpinnerColorAreaController", "MaxHelpingHand/FlagRainbowSpinnerColorAreaController")]
     [Tracked]
     public class RainbowSpinnerColorAreaController : Entity {
+        private static readonly FieldInfo spinnerColor = typeof(CrystalStaticSpinner).GetField("color", BindingFlags.NonPublic | BindingFlags.Instance);
+        private static readonly MethodInfo spinnerUpdateHue = typeof(CrystalStaticSpinner).GetMethod("UpdateHue", BindingFlags.NonPublic | BindingFlags.Instance);
+
         private static bool rainbowSpinnerHueHooked = false;
         private static Hook jungleHelperHook;
 
@@ -23,6 +26,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
         private Tuple<float, float> gradientSpeed;
 
         private string flag;
+        private bool flagLatestState;
 
         public RainbowSpinnerColorAreaController(EntityData data, Vector2 offset) : base(data.Position + offset) {
             gradientSize = new Tuple<float, float>(data.Float("gradientSize", 280), data.Float("gradientSizeWithFlag", 280));
@@ -62,12 +66,35 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
         public override void Awake(Scene scene) {
             base.Awake(scene);
 
+            flagLatestState = !string.IsNullOrEmpty(flag) && SceneAs<Level>().Session.GetFlag(flag);
+
             // enable the hook on rainbow spinner hue.
             if (!rainbowSpinnerHueHooked) {
                 using (new DetourContext { After = { "*" } }) { // ensure we override rainbow spinner color controllers
                     On.Celeste.CrystalStaticSpinner.GetHue += getRainbowSpinnerHue;
                     hookJungleHelper();
                     rainbowSpinnerHueHooked = true;
+                }
+            }
+        }
+
+        public override void Update() {
+            base.Update();
+
+            // updating the spinner hue usually occurs on every spinner cycle (0.08 seconds).
+            // all spinners have the cycle randomly offset, so they don't get the new colors at the same time,
+            // making for a weird visual effect.
+            // so we want to update the hue of **all** spinners forcibly when the flag is toggled.
+            bool flagState = !string.IsNullOrEmpty(flag) && SceneAs<Level>().Session.GetFlag(flag);
+            if (flagState != flagLatestState) {
+                flagLatestState = flagState;
+
+                object[] noParameters = new object[0];
+                foreach (CrystalStaticSpinner speen in Scene.Tracker.GetEntities<CrystalStaticSpinner>().Cast<CrystalStaticSpinner>()) {
+                    // run UpdateHue on all rainbow spinners through reflection (both spinner.color and spinner.UpdateHue are private :a:)
+                    if ((CrystalColor) spinnerColor.GetValue(speen) == CrystalColor.Rainbow) {
+                        spinnerUpdateHue.Invoke(speen, noParameters);
+                    }
                 }
             }
         }

@@ -15,6 +15,9 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
     [CustomEntity("MaxHelpingHand/RainbowSpinnerColorController", "MaxHelpingHand/FlagRainbowSpinnerColorController")]
     [Tracked]
     public class RainbowSpinnerColorController : Entity {
+        private static readonly FieldInfo spinnerColor = typeof(CrystalStaticSpinner).GetField("color", BindingFlags.NonPublic | BindingFlags.Instance);
+        private static readonly MethodInfo spinnerUpdateHue = typeof(CrystalStaticSpinner).GetMethod("UpdateHue", BindingFlags.NonPublic | BindingFlags.Instance);
+
         public static void Load() {
             On.Celeste.Level.LoadLevel += onLoadLevel;
         }
@@ -80,6 +83,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
         private bool persistent;
 
         private string flag;
+        private bool flagLatestState;
 
         // the state that will be saved in session if this controller is added to the level
         private MaxHelpingHandSession.RainbowSpinnerColorState sessionState;
@@ -157,6 +161,8 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
         public override void Awake(Scene scene) {
             base.Awake(scene);
 
+            flagLatestState = !string.IsNullOrEmpty(flag) && SceneAs<Level>().Session.GetFlag(flag);
+
             // this is the controller for the next screen.
             nextSpinnerController = this;
 
@@ -218,6 +224,23 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
                 // if only nextSpinnerController is defined, move it into spinnerControllerOnScreen.
                 spinnerControllerOnScreen = nextSpinnerController;
                 nextSpinnerController = null;
+            }
+
+            // updating the spinner hue usually occurs on every spinner cycle (0.08 seconds).
+            // all spinners have the cycle randomly offset, so they don't get the new colors at the same time,
+            // making for a weird visual effect.
+            // so we want to update the hue of **all** spinners forcibly when the flag is toggled.
+            bool flagState = !string.IsNullOrEmpty(flag) && SceneAs<Level>().Session.GetFlag(flag);
+            if (flagState != flagLatestState) {
+                flagLatestState = flagState;
+
+                object[] noParameters = new object[0];
+                foreach (CrystalStaticSpinner speen in Scene.Tracker.GetEntities<CrystalStaticSpinner>().Cast<CrystalStaticSpinner>()) {
+                    // run UpdateHue on all rainbow spinners through reflection (both spinner.color and spinner.UpdateHue are private :a:)
+                    if ((CrystalColor) spinnerColor.GetValue(speen) == CrystalColor.Rainbow) {
+                        spinnerUpdateHue.Invoke(speen, noParameters);
+                    }
+                }
             }
         }
 
