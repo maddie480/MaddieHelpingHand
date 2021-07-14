@@ -460,7 +460,8 @@ placements.triggers.MaxHelpingHand/SpeedBasedMusicParamTrigger.tooltips.maxParam
 placements.triggers.MaxHelpingHand/SpeedBasedMusicParamTrigger.tooltips.activate=If ticked, the trigger will start adjusting the music parameter to match the player's speed.\nIf unticked, the trigger will stop adjusting that music parameter, and set it to the "Min Param Value".
 
 # Set Flag On Spawn Controller
-placements.entities.MaxHelpingHand/SetFlagOnSpawnController.tooltips.flag=The session flag to modify when the player enters the room or respawns in it.
+placements.entities.MaxHelpingHand/SetFlagOnSpawnController.names.flag=Flags
+placements.entities.MaxHelpingHand/SetFlagOnSpawnController.tooltips.flag=The session flags to modify when the player enters the room or respawns in it. You can set multiple flags at once by giving a list separated by commas (flag1,flag2).
 placements.entities.MaxHelpingHand/SetFlagOnSpawnController.tooltips.enable=If checked, the flag will be enabled when the player enters the room or respawns in it. If unchecked, the flag will be disabled instead.
 placements.entities.MaxHelpingHand/SetFlagOnSpawnController.tooltips.onlyOnRespawn=If checked, the flag will only be set if the player dies and respawns in the room (and not when they enter the room).
 

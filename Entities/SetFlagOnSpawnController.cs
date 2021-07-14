@@ -30,7 +30,9 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             }
 
             if (!data.Bool("onlyOnRespawn", defaultValue: false) || isRespawning) {
-                level?.Session.SetFlag(data.Attr("flag"), data.Bool("enable"));
+                foreach (string flag in data.Attr("flag").Split(',')) {
+                    level?.Session.SetFlag(flag, data.Bool("enable"));
+                }
             }
         }
 

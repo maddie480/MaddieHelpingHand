@@ -2,7 +2,7 @@
 
 This helper provides a few entities and triggers that were requested, and that could be useful for other people as well.  
 
-Download it [here!](https://0x0a.de/twoclick?https://gamebanana.com/mmdl/614175)
+Download it [here!](https://0x0a.de/twoclick?https://gamebanana.com/mmdl/614505)
 
 Here is what is in the pack:  
 
@@ -72,7 +72,7 @@ Here is what is in the pack:
     *   **Seeker Barrier Color Controller**: a controller that changes the background color and/or particle color and direction of all seeker barriers in the room.
     *   **Parallax Fade Out Controller**: if this controller is present in a room, the parallax stylegrounds that are set to "fade in" will fade out as well in this room.
     *   **Flag Logic Gate**: this is a controller (invisible on the map) that allows you to calculate a flag based on other flags (for example flag1 = flag2 AND flag3). Useful for advanced setups.
-    *   **Set Flag On Spawn Controller**: this controller can set or unset a flag when the player enters the room it is in, or respawns in it. This is useful in (rare) cases where resetting a flag on respawn is necessary, and a flag trigger doesn't set the flag early enough after respawn.
+    *   **Set Flag On Spawn Controller**: this controller can set or unset a flag (or multiple of them) when the player enters the room it is in, or respawns in it. This is useful in (rare) cases where resetting a flag on respawn is necessary, and a flag trigger doesn't set the flag early enough after respawn.
 *   **New triggers:**  
     *   **Strawberry Collection Field**: a zone where strawberries are collected, even if Madeline is not on the ground. The opposite of Strawberry Blockfield, if you want.
     *   **Gradient Dust Trigger**: gives the dust sprites in your rooms a color gradient, similarly to rainbow spinners.
