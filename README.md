@@ -2,7 +2,7 @@
 
 This helper provides a few entities and triggers that were requested, and that could be useful for other people as well.  
 
-Download it [here!](https://0x0a.de/twoclick?https://gamebanana.com/mmdl/601972)
+Download it [here!](https://0x0a.de/twoclick?https://gamebanana.com/mmdl/614175)
 
 Here is what is in the pack:  
 
@@ -45,7 +45,7 @@ Here is what is in the pack:
     *   **Customizable Crumble Blocks**: crumble blocks that don't respawn after they crumbled, or that respawn after a custom delay. They can also be grouped, so that crumble platforms next to each other crumble together. You can also reskin the outline that appears while they are respawning.   
     *   **Customizable Refill**: refill with customizable sprite, particle colors and respawn time.
     *   **Reskinnable Star Track Spinner / Star Rotate Spinners**: star track / rotate spinners from chapter 9, except you can change their textures and particle colors.
-    *   **Reskinnable Swap Block** and **Reskinnable Kevin**: like regular Swap Blocks and Kevins, except you can change all their textures.
+    *   **Reskinnable Swap Block** and **Reskinnable Kevin**: like regular Swap Blocks and Kevins, except you can change all their textures. You can also change the sounds of the swap block!
     *   **Customizable Glass Blocks**: Glass Blocks with customizable background color and star colors. Default values try to replicate the colors seen on early Farewell screenshots. When using those, you should place a **Customizable Glass Block Controller** in the room, as this is the one allowing you to set the colors.
     *   **Custom Summit Checkpoints**: summit checkpoints that can display more than just numbers. You can have minuses, question marks, or make your own digits! You can also completely reskin the checkpoint, and change the confetti colors.
     *   **Golden Strawberry with Custom Conditions**: a golden berry that can appear even if the player didn't finish the map, didn't unlock C-sides yet and/or died if you want it to.
@@ -68,7 +68,7 @@ Here is what is in the pack:
 
 *   **New controller entities** (invisible entities having effect on a whole room/map):
     *   **Horizontal Room Wrap Controller**: drop this controller in a room, and Madeline will reappear on the left if she goes off-screen on the right! For this to work, be sure to lock the camera horizontally by using a Camera Target Trigger with lerp = 1 and X Only enabled. Pulled from Celsius by 0x0ade.
-    *   **Rainbow Spinner Color Controller**: a controller that changes the color gradient of all rainbow spinners in the room. If you want to only change the color of _some_ spinners in the room, you can also do that by putting a **Rainbow Spinner Color Area Controller** over the spinners you want to recolor!
+    *   **Rainbow Spinner Color Controller**: a controller that changes the color gradient of all rainbow spinners in the room. If you want to only change the color of _some_ spinners in the room, you can also do that by putting a **Rainbow Spinner Color Area Controller** over the spinners you want to recolor! Those have **"flag"** versions, so you can have different sets of colors depending on whether a session flag is active or not.
     *   **Seeker Barrier Color Controller**: a controller that changes the background color and/or particle color and direction of all seeker barriers in the room.
     *   **Parallax Fade Out Controller**: if this controller is present in a room, the parallax stylegrounds that are set to "fade in" will fade out as well in this room.
     *   **Flag Logic Gate**: this is a controller (invisible on the map) that allows you to calculate a flag based on other flags (for example flag1 = flag2 AND flag3). Useful for advanced setups.
@@ -101,7 +101,7 @@ This helper also provides support for **Animated Parallax stylegrounds**. In ord
     
 *   then, set up one of the frames as a parallax styleground in Ahorn as you would for a regular parallax.  
 
-Installing this helper also allows you to **reskin the strawberry in the game's menus**. If your map is in `Maps/yourmapfoldername/map.bin`, put the strawberry image to use in `Graphics/Atlases/Gui/MaxHelpingHand/yourmapfoldername/strawberry.png`. (You can reskin the strawberry in the level itself by using Sprites.xml, [check the wiki for that](https://github.com/EverestAPI/Resources/wiki/Reskinning-Entities#reskinning-entities-through-spritesxml).)
+Installing this helper also allows you to **reskin the strawberry in the game's menus**. If your map is in `Maps/yourmapfoldername/map.bin`, put the strawberry image to use in `Graphics/Atlases/Gui/MaxHelpingHand/yourmapfoldername/strawberry.png`. To reskin the golden berry icon, do the same, but name the file `goldberry.png` instead. (You can reskin the strawberry in the level itself by using Sprites.xml, [check the wiki for that](https://github.com/EverestAPI/Resources/wiki/Reskinning-Entities#reskinning-entities-through-spritesxml).)
 
 If you have a series of 1920x1080 PNG files in black and white (or black and transparent), you can turn it into a **custom wipe** with this mod. [Visit this website for instructions!](https://max480-random-stuff.herokuapp.com/wipe-converter)
 
