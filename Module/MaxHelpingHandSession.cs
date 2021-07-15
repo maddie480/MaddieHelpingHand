@@ -10,8 +10,8 @@ namespace Celeste.Mod.MaxHelpingHand.Module {
             public Vector2 Center { get; set; } = new Vector2(0, 0);
             public float GradientSpeed { get; set; } = 50f;
 
-            public string Flag { get; set; } = null;
-            public string ColorsWithFlag { get; set; }
+            public string Flag { get; set; } = "";
+            public string ColorsWithFlag { get; set; } = "89E5AE,88E0E0,87A9DD,9887DB,D088E2";
             public float GradientSizeWithFlag { get; set; }
             public bool LoopColorsWithFlag { get; set; }
             public Vector2 CenterWithFlag { get; set; } = new Vector2(0, 0);
