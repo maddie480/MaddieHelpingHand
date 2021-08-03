@@ -24,6 +24,7 @@ namespace Celeste.Mod.MaxHelpingHand.Module {
             public float Transparency { get; set; }
             public float ParticleTransparency { get; set; }
             public float ParticleDirection { get; set; }
+            public int? Depth { get; set; } = null;
         }
 
         public class CustomizableGlassBlockState {

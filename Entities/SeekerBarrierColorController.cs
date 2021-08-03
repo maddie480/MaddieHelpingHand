@@ -1,6 +1,7 @@
 ﻿using Celeste.Mod.Entities;
 using Celeste.Mod.MaxHelpingHand.Module;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using Mono.Cecil.Cil;
 using Monocle;
 using MonoMod.Cil;
@@ -34,6 +35,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
                     { "transparency", MaxHelpingHandModule.Instance.Session.SeekerBarrierCurrentColors.Transparency },
                     { "particleTransparency", MaxHelpingHandModule.Instance.Session.SeekerBarrierCurrentColors.ParticleTransparency },
                     { "particleDirection", MaxHelpingHandModule.Instance.Session.SeekerBarrierCurrentColors.ParticleDirection },
+                    { "depth", MaxHelpingHandModule.Instance.Session.SeekerBarrierCurrentColors.Depth?.ToString() ?? "" },
                     { "persistent", true }
                 };
 
@@ -60,7 +62,10 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
         private float transparency;
         private float particleTransparency;
         private float particleDirection;
+        private int? depth;
         private bool persistent;
+
+        private VirtualRenderTarget levelRenderTarget;
 
         internal static bool HasControllerOnNextScreen() {
             return nextController != null;
@@ -73,6 +78,13 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             particleTransparency = data.Float("particleTransparency", 0.5f);
             particleDirection = data.Float("particleDirection", 0f);
             persistent = data.Bool("persistent");
+
+            if (int.TryParse(data.Attr("depth"), out int depthInt)) {
+                depth = depthInt;
+
+                // we are going to need this for bloom rendering.
+                levelRenderTarget = VirtualContent.CreateRenderTarget("helping-hand-seeker-barrier-color-controller-" + data.ID, 320, 180);
+            }
 
             Add(new TransitionListener {
                 OnIn = progress => transitionProgress = progress,
@@ -88,7 +100,8 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
                     ParticleColor = data.Attr("particleColor", "FFFFFF"),
                     Transparency = data.Float("transparency", 0.15f),
                     ParticleTransparency = data.Float("particleTransparency", 0.5f),
-                    ParticleDirection = data.Float("particleDirection", 0f)
+                    ParticleDirection = data.Float("particleDirection", 0f),
+                    Depth = depth
                 };
             } else {
                 MaxHelpingHandModule.Instance.Session.SeekerBarrierCurrentColors = null;
@@ -108,6 +121,20 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             }
         }
 
+        public override void Awake(Scene scene) {
+            base.Awake(scene);
+
+            // apply depth to all barriers and to the renderer.
+            if (depth.HasValue) {
+                foreach (SeekerBarrier barrier in scene.Tracker.GetEntities<SeekerBarrier>()) {
+                    barrier.Depth = depth.Value;
+                }
+                foreach (SeekerBarrierRenderer renderer in scene.Tracker.GetEntities<SeekerBarrierRenderer>()) {
+                    renderer.Depth = depth.Value + 1;
+                }
+            }
+        }
+
         public override void Removed(Scene scene) {
             base.Removed(scene);
 
@@ -123,6 +150,9 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
                 unhookSeekerBarrierRenderer();
                 seekerBarrierRendererHooked = false;
             }
+
+            levelRenderTarget?.Dispose();
+            levelRenderTarget = null;
         }
 
         public override void SceneEnd(Scene scene) {
@@ -135,6 +165,9 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
                 unhookSeekerBarrierRenderer();
                 seekerBarrierRendererHooked = false;
             };
+
+            levelRenderTarget?.Dispose();
+            levelRenderTarget = null;
         }
 
         public override void Update() {
@@ -153,6 +186,10 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             IL.Celeste.SeekerBarrierRenderer.Render += hookBarrierColor;
             IL.Celeste.SeekerBarrier.Render += hookParticleColors;
             On.Celeste.SeekerBarrier.Update += hookSeekerBarrierParticles;
+
+            On.Celeste.SeekerBarrierRenderer.OnRenderBloom += onSeekerBarrierRendererRenderBloom;
+            IL.Celeste.BloomRenderer.Apply += modBloomRendererApply;
+            On.Celeste.SeekerBarrierRenderer.Render += onSeekerBarrierRendererRender;
         }
 
         private static void unhookSeekerBarrierRenderer() {
@@ -160,6 +197,10 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             IL.Celeste.SeekerBarrierRenderer.Render -= hookBarrierColor;
             IL.Celeste.SeekerBarrier.Render -= hookParticleColors;
             On.Celeste.SeekerBarrier.Update -= hookSeekerBarrierParticles;
+
+            On.Celeste.SeekerBarrierRenderer.OnRenderBloom -= onSeekerBarrierRendererRenderBloom;
+            IL.Celeste.BloomRenderer.Apply -= modBloomRendererApply;
+            On.Celeste.SeekerBarrierRenderer.Render -= onSeekerBarrierRendererRender;
         }
 
         private static void hookSeekerBarrierParticles(On.Celeste.SeekerBarrier.orig_Update orig, SeekerBarrier self) {
@@ -315,6 +356,94 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
 
                 // transition smoothly between both.
                 return lerp(fromRoomValue, toRoomValue, transitionProgress);
+            }
+        }
+
+
+        // ===== The mess ahead handles being able to set a depth for seeker barrier bloom.
+
+        private static bool allowedToRenderBloom = false;
+
+        private static void onSeekerBarrierRendererRenderBloom(On.Celeste.SeekerBarrierRenderer.orig_OnRenderBloom orig, SeekerBarrierRenderer self) {
+            // only run RenderBloom if no depth setting is activated, or if we are allowed to do so.
+            if (!(controllerOnScreen?.depth.HasValue ?? false) || allowedToRenderBloom) {
+                orig(self);
+            }
+        }
+
+        private static void modBloomRendererApply(ILContext il) {
+            ILCursor cursor = new ILCursor(il);
+            if (cursor.TryGotoNext(MoveType.After, instr => instr.MatchCallvirt<Tracker>("GetEntities"))) {
+                Logger.Log("MaxHelpingHand/SeekerBarrierColorController", $"Disabling seeker barrier rendering in BloomRenderer.Apply at {cursor.Index} in IL");
+                cursor.EmitDelegate<Func<List<Entity>, List<Entity>>>(orig => {
+                    if (controllerOnScreen?.depth.HasValue ?? false) {
+                        // pretend there is no seeker barrier.
+                        return new List<Entity>();
+                    }
+                    return orig;
+                });
+            }
+        }
+
+        private static void onSeekerBarrierRendererRender(On.Celeste.SeekerBarrierRenderer.orig_Render orig, SeekerBarrierRenderer self) {
+            orig(self);
+
+            if ((controllerOnScreen?.depth.HasValue ?? false) && controllerOnScreen.Scene is Level level) {
+                // stop rendering gameplay: we're going to render BLOOM now. Yeaaaaah
+                GameplayRenderer.End();
+
+                // first, build the scene with background + gameplay that was rendered so far.
+                Engine.Instance.GraphicsDevice.SetRenderTarget(controllerOnScreen.levelRenderTarget);
+                Engine.Instance.GraphicsDevice.Clear(Color.Transparent);
+                level.Background.Render(level);
+                Draw.SpriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.PointClamp, DepthStencilState.None, RasterizerState.CullNone);
+                Draw.SpriteBatch.Draw(GameplayBuffers.Gameplay, Vector2.Zero, Color.White);
+                Draw.SpriteBatch.End();
+
+                // blur it out.
+                Texture2D blurredLevel = GaussianBlur.Blur(controllerOnScreen.levelRenderTarget, GameplayBuffers.TempA, GameplayBuffers.TempB);
+
+                // paint all custom bloom for seeker barriers on buffer A
+                Engine.Instance.GraphicsDevice.SetRenderTarget(GameplayBuffers.TempA);
+                Engine.Instance.GraphicsDevice.Clear(Color.Transparent);
+
+                Camera camera = level.Camera;
+                Draw.SpriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.PointClamp, DepthStencilState.None, RasterizerState.CullNone, null, camera.Matrix);
+                allowedToRenderBloom = true;
+                foreach (CustomBloom component in level.Tracker.GetComponents<CustomBloom>()) {
+                    if (component.Visible && component.OnRenderBloom != null && component.Entity is SeekerBarrierRenderer) {
+                        component.OnRenderBloom();
+                    }
+                }
+                allowedToRenderBloom = false;
+                Draw.SpriteBatch.End();
+
+                // take cutouts into account
+                List<Component> cutouts = level.Tracker.GetComponents<EffectCutout>();
+                if (cutouts.Count > 0) {
+                    Draw.SpriteBatch.Begin(SpriteSortMode.Deferred, BloomRenderer.CutoutBlendstate, SamplerState.PointClamp, null, null, null, camera.Matrix);
+                    foreach (Component item2 in cutouts) {
+                        EffectCutout effectCutout = item2 as EffectCutout;
+                        if (effectCutout.Visible) {
+                            Draw.Rect(effectCutout.Left, effectCutout.Top, effectCutout.Right - effectCutout.Left, effectCutout.Bottom - effectCutout.Top, Color.White * (1f - effectCutout.Alpha));
+                        }
+                    }
+                    Draw.SpriteBatch.End();
+                }
+
+                // apply the mask on the screen
+                Draw.SpriteBatch.Begin(SpriteSortMode.Deferred, BloomRenderer.BlurredScreenToMask);
+                Draw.SpriteBatch.Draw(blurredLevel, Vector2.Zero, Color.White);
+                Draw.SpriteBatch.End();
+
+                // then apply it to the current gameplay
+                Engine.Instance.GraphicsDevice.SetRenderTarget(GameplayBuffers.Gameplay);
+                Draw.SpriteBatch.Begin(SpriteSortMode.Deferred, BloomRenderer.AdditiveMaskToScreen);
+                Draw.SpriteBatch.Draw(GameplayBuffers.TempA, Vector2.Zero, Color.White);
+                Draw.SpriteBatch.End();
+
+                // resume normal gameplay rendering
+                GameplayRenderer.Begin();
             }
         }
     }

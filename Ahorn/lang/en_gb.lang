@@ -529,6 +529,7 @@ placements.entities.MaxHelpingHand/SeekerBarrierColorController.tooltips.transpa
 placements.entities.MaxHelpingHand/SeekerBarrierColorController.tooltips.particleTransparency=The opacity, between 0 and 1, of the particles inside the seeker barriers. Vanilla value is 0.5.
 placements.entities.MaxHelpingHand/SeekerBarrierColorController.tooltips.particleDirection=The direction of the particles in degrees, 0 being the default (down), 90 being left, etc.
 placements.entities.MaxHelpingHand/SeekerBarrierColorController.tooltips.persistent=If checked, the chosen colors will persist until the player enters a room with another Seeker Barrier Color Controller.\nIf unchecked, the chosen colors will only apply to the current room.
+placements.entities.MaxHelpingHand/SeekerBarrierColorController.tooltips.depth=Allows you to set the depth of the seeker barriers, to make them render behind other entities. Leave empty for default behavior.\nActivating this setting will change the barriers' colors, so you will need to set them again.
 
 # Custom Seeker Barrier
 placements.entities.MaxHelpingHand/CustomSeekerBarrier.names.transparency=Opacity
