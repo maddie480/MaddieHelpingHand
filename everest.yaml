@@ -1,5 +1,5 @@
 ﻿- Name: MaxHelpingHand
-  Version: 1.16.8
+  Version: 1.16.9
   DLL: bin/Debug/MaxHelpingHand.dll
   Dependencies:
     - Name: Everest
@@ -7,3 +7,7 @@
   OptionalDependencies:
     - Name: OutbackHelper
       Version: 1.4.0
+    # MaxHelpingHand 1.16.9+ makes JungleHelper < 1.0.4 potentially CRASH the game,
+    # so the player should ABSOLUTELY update
+    - Name: JungleHelper
+      Version: 1.0.4

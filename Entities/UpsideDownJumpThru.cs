@@ -16,7 +16,6 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
     [Tracked]
     public class UpsideDownJumpThru : JumpThru {
 
-        private static FieldInfo actorMovementCounter = typeof(Actor).GetField("movementCounter", BindingFlags.Instance | BindingFlags.NonPublic);
         private static FieldInfo playerVarJumpTimer = typeof(Player).GetField("varJumpTimer", BindingFlags.Instance | BindingFlags.NonPublic);
         private static MethodInfo playerJumpthruBoostBlockedCheck = typeof(Player).GetMethod("JumpThruBoostBlockedCheck", BindingFlags.Instance | BindingFlags.NonPublic);
 
@@ -64,26 +63,22 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
 
             Logger.Log(LogLevel.Info, "MaxHelpingHand/UpsideDownJumpThru", "=== Activating upside-down jumpthru hooks");
 
-            using (new DetourContext { Before = { "*" } }) { // these don't always call the orig methods, better apply them first.
-                // fix general actor/platform behavior to make them comply with jumpthrus.
-                On.Celeste.Actor.MoveVExact += onActorMoveVExact;
-                On.Celeste.Platform.MoveVExactCollideSolids += onPlatformMoveVExactCollideSolids;
-            }
+            // fix general actor/platform behavior to make them comply with jumpthrus.
+            IL.Celeste.Actor.MoveVExact += addUpsideDownJumpthrusInMoveVExact;
+            IL.Celeste.Platform.MoveVExactCollideSolids += addUpsideDownJumpthrusInCollideSolids;
 
             using (new DetourContext { After = { "*" } }) {
                 // fix player specific behavior allowing them to go through upside-down jumpthrus.
                 On.Celeste.Player.OnCollideV += onPlayerOnCollideV;
             }
 
-            using (new DetourContext { Before = { "*" } }) { // let's take over Spring Collab 2020, we can break it, this is not a collab map!
-                // block player if they try to climb past an upside-down jumpthru.
-                IL.Celeste.Player.ClimbUpdate += patchPlayerClimbUpdate;
+            // block player if they try to climb past an upside-down jumpthru.
+            IL.Celeste.Player.ClimbUpdate += patchPlayerClimbUpdate;
 
-                // ignore upside-down jumpthrus in select places.
-                playerOrigUpdateHook = new ILHook(typeof(Player).GetMethod("orig_Update"), filterOutJumpThrusFromCollideChecks);
-                IL.Celeste.Player.DashUpdate += filterOutJumpThrusFromCollideChecks;
-                IL.Celeste.Player.RedDashUpdate += filterOutJumpThrusFromCollideChecks;
-            }
+            // ignore upside-down jumpthrus in select places.
+            playerOrigUpdateHook = new ILHook(typeof(Player).GetMethod("orig_Update"), filterOutJumpThrusFromCollideChecks);
+            IL.Celeste.Player.DashUpdate += filterOutJumpThrusFromCollideChecks;
+            IL.Celeste.Player.RedDashUpdate += filterOutJumpThrusFromCollideChecks;
 
             // listen for the player unducking, to knock the player down before they would go through upside down jumpthrus.
             On.Celeste.Player.Update += onPlayerUpdate;
@@ -102,8 +97,8 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
 
             Logger.Log(LogLevel.Info, "MaxHelpingHand/UpsideDownJumpThru", "=== Deactivating upside-down jumpthru hooks");
 
-            On.Celeste.Actor.MoveVExact -= onActorMoveVExact;
-            On.Celeste.Platform.MoveVExactCollideSolids -= onPlatformMoveVExactCollideSolids;
+            IL.Celeste.Actor.MoveVExact -= addUpsideDownJumpthrusInMoveVExact;
+            IL.Celeste.Platform.MoveVExactCollideSolids -= addUpsideDownJumpthrusInCollideSolids;
 
             On.Celeste.Player.OnCollideV -= onPlayerOnCollideV;
             IL.Celeste.Player.ClimbUpdate -= patchPlayerClimbUpdate;
@@ -120,118 +115,91 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             canUnDuckHook = null;
         }
 
-        private static bool onActorMoveVExact(On.Celeste.Actor.orig_MoveVExact orig, Actor self, int moveV, Collision onCollide, Solid pusher) {
-            // fall back to vanilla if no upside-down jumpthru is in the room.
-            if (self.Scene == null || self.Scene.Tracker.CountEntities<UpsideDownJumpThru>() == 0)
-                return orig(self, moveV, onCollide, pusher);
 
-            Vector2 targetPosition = self.Position + Vector2.UnitY * moveV;
-            int moveDirection = Math.Sign(moveV);
-            int moveAmount = 0;
-            while (moveV != 0) {
-                bool didCollide = false;
+        private static void addUpsideDownJumpthrusInMoveVExact(ILContext il) {
+            ILCursor cursor = new ILCursor(il);
 
-                Platform platform = self.CollideFirst<Solid>(self.Position + Vector2.UnitY * moveDirection);
-                CollisionData data;
-                if (platform != null) {
-                    // hit platform
-                    didCollide = true;
-                } else if (!self.IgnoreJumpThrus) {
-                    if (moveV > 0) {
-                        platform = self.CollideFirstOutside<JumpThru>(self.Position + Vector2.UnitY * moveDirection);
-                        if (platform != null && platform.GetType() != typeof(UpsideDownJumpThru)) {
-                            // hit vanilla jumpthru while going down
-                            didCollide = true;
-                        }
-                    } else if (moveV < 0) {
-                        platform = self.CollideFirstOutside<UpsideDownJumpThru>(self.Position + Vector2.UnitY * moveDirection);
-                        if (platform != null) {
-                            // hit upside-down jumpthru while going up
-                            didCollide = true;
-                        }
-                    }
-                }
-
-                if (didCollide) {
-                    Vector2 movementCounter = (Vector2) actorMovementCounter.GetValue(self);
-                    movementCounter.Y = 0f;
-                    actorMovementCounter.SetValue(self, movementCounter);
-                    if (onCollide != null) {
-                        data = new CollisionData {
-                            Direction = Vector2.UnitY * moveDirection,
-                            Moved = Vector2.UnitY * moveAmount,
-                            TargetPosition = targetPosition,
-                            Hit = platform,
-                            Pusher = pusher
-                        };
-                        onCollide(data);
-                    }
-                    return true;
-                }
-
-                // continue moving
-                moveAmount += moveDirection;
-                moveV -= moveDirection;
-                self.Y += moveDirection;
-            }
-            return false;
-        }
-
-        private static bool onPlatformMoveVExactCollideSolids(On.Celeste.Platform.orig_MoveVExactCollideSolids orig,
-            Platform self, int moveV, bool thruDashBlocks, Action<Vector2, Vector2, Platform> onCollide) {
-
-            // fall back to vanilla if no upside-down jumpthru is in the room.
-            if (self.Scene == null || self.Scene.Tracker.CountEntities<UpsideDownJumpThru>() == 0)
-                return orig(self, moveV, thruDashBlocks, onCollide);
-
-            float y = self.Y;
-            int moveDirection = Math.Sign(moveV);
-            int moveAmount = 0;
-
-            Platform platform = null;
-            while (moveV != 0) {
-                if (thruDashBlocks) {
-                    foreach (DashBlock dashBlock in self.Scene.Tracker.GetEntities<DashBlock>()) {
-                        if (self.CollideCheck(dashBlock, self.Position + Vector2.UnitY * moveDirection)) {
-                            // break any dash block we collide with.
-                            dashBlock.Break(self.Center, Vector2.UnitY * moveDirection, true, true);
-                            self.SceneAs<Level>().Shake(0.2f);
-                            Input.Rumble(RumbleStrength.Medium, RumbleLength.Medium);
-                        }
-                    }
-                }
-                platform = self.CollideFirst<Solid>(self.Position + Vector2.UnitY * moveDirection);
-                if (platform != null) {
-                    // hit a solid
+            VariableDefinition localPlatform = null;
+            foreach (VariableDefinition local in il.Method.Body.Variables) {
+                if (local.VariableType.FullName == "Celeste.Platform") {
+                    localPlatform = local;
                     break;
                 }
-                if (moveV > 0) {
-                    platform = self.CollideFirstOutside<JumpThru>(self.Position + Vector2.UnitY * moveDirection);
-                    if (platform != null && platform.GetType() != typeof(UpsideDownJumpThru)) {
-                        // hit a vanilla jumpthru while going down
-                        break;
-                    }
-                }
-                if (moveV < 0) {
-                    platform = self.CollideFirstOutside<UpsideDownJumpThru>(self.Position + Vector2.UnitY * moveDirection);
-                    if (platform != null) {
-                        // hit an upside-down jumpthru while going up
-                        break;
-                    }
-                }
-
-                // continue moving
-                moveAmount += moveDirection;
-                moveV -= moveDirection;
-                self.Y += moveDirection;
             }
 
-            self.Y = y;
-            self.MoveVExact(moveAmount);
-            if (platform != null && onCollide != null) {
-                onCollide(Vector2.UnitY * moveDirection, Vector2.UnitY * moveAmount, platform);
+            // position before the moveY > 0 check
+            if (cursor.TryGotoNext(MoveType.AfterLabel, instr => instr.MatchLdarg(1), instr => instr.MatchLdcI4(0))) {
+                // look for the code setting movementCounter
+                ILCursor cursor2 = cursor.Clone();
+                if (cursor2.TryGotoNext(MoveType.AfterLabel, instr => instr.MatchLdarg(0), instr => instr.MatchLdflda<Actor>("movementCounter"))) {
+                    Logger.Log("MaxHelpingHand/UpsideDownJumpThru", $"Injecting upside-down jumpthru check at {cursor.Index} in IL for {il.Method.Name}");
+
+                    // insert our check for upside-down jumpthrus
+                    cursor.Emit(OpCodes.Ldarg_0);
+                    cursor.Emit(OpCodes.Ldarg_1);
+                    cursor.EmitDelegate<Func<Actor, int, JumpThru>>((self, moveV) => {
+                        int moveDirection = Math.Sign(moveV);
+                        if (moveV < 0 && !self.IgnoreJumpThrus) {
+                            JumpThru jumpthru = self.CollideFirstOutside<UpsideDownJumpThru>(self.Position + Vector2.UnitY * moveDirection);
+                            if (jumpthru != null) {
+                                // hit upside-down jumpthru while going up
+                                return jumpthru;
+                            }
+                        }
+
+                        return null;
+                    });
+
+                    // store the platform in the local variable dedicated to it: if it is non-null, the variable will be used
+                    // to build the collision data.
+                    cursor.Emit(OpCodes.Stloc, localPlatform);
+                    cursor.Emit(OpCodes.Ldloc, localPlatform);
+
+                    // if non-null, jump to the same code vanilla uses when the actor hits something.
+                    cursor.Emit(OpCodes.Brtrue, cursor2.Next);
+                }
             }
-            return platform != null;
+        }
+
+        private static void addUpsideDownJumpthrusInCollideSolids(ILContext il) {
+            ILCursor cursor = new ILCursor(il);
+
+            VariableDefinition localPlatform = null;
+            foreach (VariableDefinition local in il.Method.Body.Variables) {
+                if (local.VariableType.FullName == "Celeste.Platform") {
+                    localPlatform = local;
+                    break;
+                }
+            }
+
+            // position before the moveY > 0 check
+            if (cursor.TryGotoNext(MoveType.AfterLabel, instr => instr.MatchLdarg(1), instr => instr.MatchLdcI4(0))) {
+                // look for the next platform != null check to figure out the target
+                ILCursor cursor2 = cursor.Clone();
+                if (cursor2.TryGotoNext(MoveType.After, instr => instr.MatchLdloc(localPlatform.Index), instr => instr.OpCode == OpCodes.Brtrue_S)) {
+
+                    Logger.Log("MaxHelpingHand/UpsideDownJumpThru", $"Injecting upside-down jumpthru check at {cursor.Index} in IL for {il.Method.Name}");
+
+                    // inject our check for jumpthrus
+                    cursor.Emit(OpCodes.Ldarg_0);
+                    cursor.Emit(OpCodes.Ldarg_1);
+                    cursor.EmitDelegate<Func<Platform, int, Platform>>((self, moveV) => {
+                        int moveDirection = Math.Sign(moveV);
+                        if (moveV < 0) {
+                            return self.CollideFirstOutside<UpsideDownJumpThru>(self.Position + Vector2.UnitY * moveDirection);
+                        }
+                        return null;
+                    });
+
+                    // store the platform in the local variable dedicated to it: if it is non-null, the variable will be used
+                    // to build the collision data.
+                    cursor.Emit(OpCodes.Stloc, localPlatform);
+                    cursor.Emit(OpCodes.Ldloc, localPlatform);
+
+                    // if the check passes, jump to the same target as vanilla.
+                    cursor.Emit(OpCodes.Brtrue_S, cursor2.Prev.Operand);
+                }
+            }
         }
 
         // those 2 methods are extracted for easier hooking by Gravity Helper. (see https://github.com/max4805/MaxHelpingHand/pull/1)
@@ -264,6 +232,10 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
         private static void filterOutJumpThrusFromCollideChecks(ILContext il) {
             ILCursor cursor = new ILCursor(il);
 
+            // create a Vector2 temporary variable
+            VariableDefinition checkAtPositionStore = new VariableDefinition(il.Import(typeof(Vector2)));
+            il.Body.Variables.Add(checkAtPositionStore);
+
             while (cursor.Next != null) {
                 Instruction nextInstruction = cursor.Next;
                 if (nextInstruction.OpCode == OpCodes.Call || nextInstruction.OpCode == OpCodes.Callvirt) {
@@ -282,10 +254,10 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
                         case "System.Boolean Monocle.Entity::CollideCheckOutside<Celeste.JumpThru>(Microsoft.Xna.Framework.Vector2)":
                             Logger.Log("MaxHelpingHand/UpsideDownJumpThru", $"Patching CollideCheckOutside at {cursor.Index} in IL for {il.Method.Name}");
 
-                            cursor.Remove();
+                            callOrigMethodKeepingEverythingOnStack(cursor, checkAtPositionStore);
 
                             // check if colliding with a jumpthru but not an upside-down jumpthru.
-                            cursor.EmitDelegate<Func<Entity, Vector2, bool>>((self, at) => self.CollideCheckOutside<JumpThru>(at) && !self.CollideCheckOutside<UpsideDownJumpThru>(at));
+                            cursor.EmitDelegate<Func<bool, Entity, Vector2, bool>>((orig, self, at) => orig && !self.CollideCheckOutside<UpsideDownJumpThru>(at));
                             break;
                         case "System.Boolean Monocle.Entity::CollideCheck<Celeste.JumpThru>()":
                             Logger.Log("MaxHelpingHand/UpsideDownJumpThru", $"Patching CollideCheck at {cursor.Index} in IL for {il.Method.Name}");
@@ -319,6 +291,19 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
 
                 cursor.Index++;
             }
+        }
+
+        private static void callOrigMethodKeepingEverythingOnStack(ILCursor cursor, VariableDefinition checkAtPositionStore) {
+            // store the position in the local variable
+            cursor.Emit(OpCodes.Stloc, checkAtPositionStore);
+            cursor.Emit(OpCodes.Ldloc, checkAtPositionStore);
+
+            // let vanilla call CollideCheck
+            cursor.Index++;
+
+            // reload the parameters
+            cursor.Emit(OpCodes.Ldarg_0);
+            cursor.Emit(OpCodes.Ldloc, checkAtPositionStore);
         }
 
         private static void patchPlayerClimbUpdate(ILContext il) {
