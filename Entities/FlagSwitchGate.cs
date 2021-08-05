@@ -1,9 +1,11 @@
-﻿using Celeste.Mod.Entities;
+using Celeste.Mod.Entities;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using Monocle;
 using MonoMod.Utils;
 using System;
 using System.Collections;
+using System.Runtime.CompilerServices;
 
 namespace Celeste.Mod.MaxHelpingHand.Entities {
     /// <summary>
@@ -22,7 +24,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
         private ParticleType P_RecoloredFire;
         private ParticleType P_RecoloredFireBack;
 
-        private MTexture[,] nineSlice;
+        private MTexture texture;
 
         private Sprite icon;
         private Vector2 iconOffset;
@@ -99,13 +101,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             }));
 
             blockSpriteName = data.Attr("sprite", "block");
-            MTexture nineSliceTexture = GFX.Game["objects/switchgate/" + blockSpriteName];
-            nineSlice = new MTexture[3, 3];
-            for (int i = 0; i < 3; i++) {
-                for (int j = 0; j < 3; j++) {
-                    nineSlice[i, j] = nineSliceTexture.GetSubtexture(new Rectangle(i * 8, j * 8, 8, 8));
-                }
-            }
+            texture = GFX.Game["objects/switchgate/" + blockSpriteName];
 
             Add(openSfx = new SoundSource());
             Add(new LightOcclude(0.5f));
@@ -140,15 +136,36 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             }
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        private bool InView()
+        {
+            Camera camera = (Scene as Level).Camera;
+            return Position.X + Width > camera.X - 16f && Position.Y + Height > camera.Y - 16f && Position.X < camera.X + 320f && Position.Y < camera.Y + 180f;
+        }
+
         public override void Render() {
-            float widthInTiles = Collider.Width / 8f - 1f;
-            float heightInTiles = Collider.Height / 8f - 1f;
+            if (!InView()) return;
+
+            int widthInTiles = (int)Collider.Width / 8 - 1;
+            int heightInTiles = (int)Collider.Height / 8 - 1;
+
+            Vector2 renderPos = new Vector2(Position.X + Shake.X, Position.Y + Shake.Y);
+            Texture2D baseTexture = texture.Texture.Texture;
+            int clipBaseX = texture.ClipRect.X;
+            int clipBaseY = texture.ClipRect.Y;
+
+            Rectangle clipRect = new Rectangle(clipBaseX, clipBaseY, 8, 8);
+
             for (int i = 0; i <= widthInTiles; i++) {
                 for (int j = 0; j <= heightInTiles; j++) {
-                    int tilePartX = (i < widthInTiles) ? Math.Min(i, 1) : 2;
-                    int tilePartY = (j < heightInTiles) ? Math.Min(j, 1) : 2;
-                    nineSlice[tilePartX, tilePartY].Draw(Position + Shake + new Vector2(i * 8, j * 8));
+                    int tilePartY = (j < heightInTiles) ? j == 0 ? 0 : 8 : 16;
+                    clipRect.Y = tilePartY + clipBaseY;
+                    Draw.SpriteBatch.Draw(baseTexture, renderPos, clipRect, Color.White);
+                    renderPos.Y += 8f;
                 }
+                renderPos.X += 8f;
+                renderPos.Y = Position.Y + Shake.Y;
+                clipRect.X = ((i + 1 < widthInTiles) ? 8 : 16) + clipBaseX;
             }
 
             icon.Position = iconOffset + Shake;
