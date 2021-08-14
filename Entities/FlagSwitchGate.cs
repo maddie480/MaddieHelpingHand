@@ -137,8 +137,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private bool InView()
-        {
+        private bool InView() {
             Camera camera = (Scene as Level).Camera;
             return Position.X + Width > camera.X - 16f && Position.Y + Height > camera.Y - 16f && Position.X < camera.X + 320f && Position.Y < camera.Y + 180f;
         }
@@ -146,8 +145,8 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
         public override void Render() {
             if (!InView()) return;
 
-            int widthInTiles = (int)Collider.Width / 8 - 1;
-            int heightInTiles = (int)Collider.Height / 8 - 1;
+            int widthInTiles = (int) Collider.Width / 8 - 1;
+            int heightInTiles = (int) Collider.Height / 8 - 1;
 
             Vector2 renderPos = new Vector2(Position.X + Shake.X, Position.Y + Shake.Y);
             Texture2D baseTexture = texture.Texture.Texture;
