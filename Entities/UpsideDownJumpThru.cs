@@ -79,6 +79,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             playerOrigUpdateHook = new ILHook(typeof(Player).GetMethod("orig_Update"), filterOutJumpThrusFromCollideChecks);
             IL.Celeste.Player.DashUpdate += filterOutJumpThrusFromCollideChecks;
             IL.Celeste.Player.RedDashUpdate += filterOutJumpThrusFromCollideChecks;
+            IL.Celeste.Actor.MoveVExact += filterOutJumpThrusFromCollideChecks;
 
             // listen for the player unducking, to knock the player down before they would go through upside down jumpthrus.
             On.Celeste.Player.Update += onPlayerUpdate;
@@ -106,6 +107,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             playerOrigUpdateHook?.Dispose();
             IL.Celeste.Player.DashUpdate -= filterOutJumpThrusFromCollideChecks;
             IL.Celeste.Player.RedDashUpdate -= filterOutJumpThrusFromCollideChecks;
+            IL.Celeste.Actor.MoveVExact -= filterOutJumpThrusFromCollideChecks;
 
             On.Celeste.Player.Update -= onPlayerUpdate;
 
