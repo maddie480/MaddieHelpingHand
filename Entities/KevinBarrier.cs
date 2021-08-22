@@ -11,13 +11,13 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
     public class KevinBarrier : Solid {
         public static void Load() {
             On.Celeste.LevelLoader.LoadingThread += onLevelLoadingThread;
-            On.Celeste.CrushBlock.MoveHCheck += onKevinMoveHCheck;
+            //On.Celeste.CrushBlock.MoveHCheck += onKevinMoveHCheck;
             On.Celeste.CrushBlock.MoveVCheck += onKevinMoveVCheck;
         }
 
         public static void Unload() {
             On.Celeste.LevelLoader.LoadingThread -= onLevelLoadingThread;
-            On.Celeste.CrushBlock.MoveHCheck -= onKevinMoveHCheck;
+            //On.Celeste.CrushBlock.MoveHCheck -= onKevinMoveHCheck;
             On.Celeste.CrushBlock.MoveVCheck -= onKevinMoveVCheck;
         }
 
