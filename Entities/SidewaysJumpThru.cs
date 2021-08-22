@@ -83,6 +83,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             IL.Celeste.Player.SlipCheck += modCollideChecks; // make climbing on jumpthrus not slippery
             IL.Celeste.Player.OnCollideH += modCollideChecks; // handle dashes against jumpthrus properly, without "shifting" down
 
+            // don't make Madeline duck when dashing against a sideways jumpthru
             On.Celeste.Player.DuckFreeAt += preventDuckWhenDashingAgainstJumpthru;
 
             // one extra hook that kills the player momentum when hitting a jumpthru so that they don't get "stuck" on them.
@@ -115,7 +116,6 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             IL.Celeste.Player.SlipCheck -= modCollideChecks;
             IL.Celeste.Player.OnCollideH -= modCollideChecks;
 
-            // don't make Madeline duck when dashing against a sideways jumpthru
             On.Celeste.Player.DuckFreeAt -= preventDuckWhenDashingAgainstJumpthru;
 
             On.Celeste.Player.NormalUpdate -= onPlayerNormalUpdate;
