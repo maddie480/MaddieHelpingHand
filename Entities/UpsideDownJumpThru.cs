@@ -374,7 +374,9 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             if (self.CollideCheck<UpsideDownJumpThru>()) {
                 // unducking would make it go through an upside-down jumpthru. aaaaaaaaa
                 // knock the player down if possible!
-                while (self.CollideCheck<UpsideDownJumpThru>() && !self.CollideCheck<Solid>(self.Position + new Vector2(0f, 1f))) {
+                while (self.CollideCheck<UpsideDownJumpThru>() && !self.CollideCheck<Solid>(self.Position + new Vector2(0f, 1f))
+                    && !self.CollideCheckOutside<JumpThru>(self.Position + new Vector2(0f, 1f))) {
+
                     self.Position.Y++;
                 }
 
