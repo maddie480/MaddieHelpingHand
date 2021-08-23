@@ -12,10 +12,17 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
         private readonly Rectangle? talkerZone;
         private readonly bool hasDialogue;
 
+        private readonly string onlyIfFlag;
+        private readonly string setFlag;
+        private bool shouldSetFlag = true;
+
         private Sprite sprite;
 
         public MoreCustomNPC(EntityData data, Vector2 offset, EntityID id) : base(data, offset, id) {
             hasDialogue = !string.IsNullOrEmpty(data.Attr("dialogId"));
+
+            onlyIfFlag = data.Attr("onlyIfFlag");
+            setFlag = data.Attr("setFlag");
 
             DynData<CustomNPC> npcData = new DynData<CustomNPC>(this);
 
@@ -67,6 +74,9 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
 
             if (!hasDialogue && Talker != null) {
                 Remove(Talker);
+                shouldSetFlag = false;
+            } else if (Talker == null) {
+                shouldSetFlag = false;
             }
         }
 
@@ -75,6 +85,18 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
 
             // CustomNPC overrides Render without calling base, so we need to manually render the sprite.
             sprite?.Render();
+        }
+
+        public override void Update() {
+            base.Update();
+
+            if (!string.IsNullOrEmpty(onlyIfFlag) && Talker?.Entity != null) {
+                Talker.Enabled = SceneAs<Level>().Session.GetFlag(onlyIfFlag);
+            }
+            if (shouldSetFlag && !string.IsNullOrEmpty(setFlag) && Talker?.Entity == null) {
+                SceneAs<Level>().Session.SetFlag(setFlag);
+                shouldSetFlag = false;
+            }
         }
     }
 }

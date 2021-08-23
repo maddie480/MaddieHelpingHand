@@ -639,6 +639,8 @@ placements.entities.MaxHelpingHand/MoreCustomNPC.tooltips.spriteRate=The animati
 placements.entities.MaxHelpingHand/MoreCustomNPC.tooltips.approachDistance=How far away from the NPC Madeline should stop when approaching.
 placements.entities.MaxHelpingHand/MoreCustomNPC.tooltips.sprite=Which sprite to use. `player/idle` will use the full path `Graphics/Atlases/Gameplay/characters/player/idle00` and loop from 00 to 08.
 placements.entities.MaxHelpingHand/MoreCustomNPC.tooltips.frames=The frames to use, in the same format as Sprites.xml:\n- 1,5,6 means frames 1, 5 and 6\n- 1-6 means frames 1 to 6\n- 2*4,3 means 4 times frame 2, then frame 3
+placements.entities.MaxHelpingHand/MoreCustomNPC.tooltips.onlyIfFlag=If set, the player will only be able to talk to the NPC when the given flag is active.
+placements.entities.MaxHelpingHand/MoreCustomNPC.tooltips.setFlag=If set, the given flag will be activated once the player is done talking to the NPC.
 
 # Custom NPC from XML
 placements.entities.MaxHelpingHand/CustomNPCSprite.tooltips.indicatorOffsetX=Offset for the chat icon on the X axis.
@@ -651,6 +653,8 @@ placements.entities.MaxHelpingHand/CustomNPCSprite.tooltips.endLevel=Whether fin
 placements.entities.MaxHelpingHand/CustomNPCSprite.tooltips.approachWhenTalking=Whether Madeline should walk towards the NPC when talking.
 placements.entities.MaxHelpingHand/CustomNPCSprite.tooltips.approachDistance=How far away from the NPC Madeline should stop when approaching.
 placements.entities.MaxHelpingHand/CustomNPCSprite.tooltips.spriteName=The name of the animation to use, from your map's Sprites.xml or from the vanilla one.
+placements.entities.MaxHelpingHand/CustomNPCSprite.tooltips.onlyIfFlag=If set, the player will only be able to talk to the NPC when the given flag is active.
+placements.entities.MaxHelpingHand/CustomNPCSprite.tooltips.setFlag=If set, the given flag will be activated once the player is done talking to the NPC.
 
 # Badeline Sprite
 placements.entities.MaxHelpingHand/BadelineSprite.tooltips.left=Whether Badeline is facing left.
