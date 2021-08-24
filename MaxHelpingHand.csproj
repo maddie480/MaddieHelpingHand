@@ -370,9 +370,6 @@
     <None Include="Ahorn\entities\maxHelpingHandRespawningJellyfish.jl">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Ahorn\entities\maxHelpingHandSidewaysJumpThru.jl">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
     <None Include="Ahorn\entities\maxHelpingHandReskinnableSwapBlock.jl">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -385,7 +382,7 @@
     <None Include="Ahorn\entities\maxHelpingHandTempleEyeTrackingMadeline.jl">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Ahorn\entities\maxHelpingHandUpsideDownJumpThru.jl">
+    <None Include="Ahorn\entities\maxHelpingHandDirectionalJumpthrus.jl">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Ahorn\lang\en_gb.lang">

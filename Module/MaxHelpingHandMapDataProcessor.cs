@@ -75,6 +75,12 @@ namespace Celeste.Mod.MaxHelpingHand.Module {
                     "entity:CommunalHelper/MaxHelpingHand/DreamFlagSwitchGate", flagSwitchGateHandler
                 },
                 {
+                    "entity:MaxHelpingHand/RegularJumpThru", jumpthru => {
+                        // those are actually just ... well, regular jumpthrus.
+                        jumpthru.Name = "jumpThru";
+                    }
+                },
+                {
                     "entity:MaxHelpingHand/MultiRoomStrawberrySeed", strawberrySeed => {
                         // auto-attribute indices for seeds, and save them.
                         string berryName = strawberrySeed.Attr("strawberryName");

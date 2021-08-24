@@ -73,6 +73,10 @@ placements.entities.MaxHelpingHand/UpsideDownJumpThru.tooltips.animationDelay=Th
 placements.entities.MaxHelpingHand/UpsideDownJumpThru.tooltips.pushPlayer=Whether the jumpthru should push the player down, like vanilla jumpthrus push the player up.
 placements.entities.MaxHelpingHand/UpsideDownJumpThru.tooltips.attached=Whether the jumpthru should attach to solids and move with them.
 
+# Regular Jump Thru
+placements.entities.MaxHelpingHand/RegularJumpThru.tooltips.texture=Changes the appearance of the platform.
+placements.entities.MaxHelpingHand/RegularJumpThru.tooltips.surfaceIndex=Footstep sound when walking on the platform.\nLeave at Default for game to decide automatically based on texture.
+
 # Sideways Jump Thru
 placements.entities.MaxHelpingHand/SidewaysJumpThru.tooltips.texture=Changes the appearance of the platform. Should be in the same format as vanilla for static jumpthrus, and a 8x8 image for animated ones.
 placements.entities.MaxHelpingHand/SidewaysJumpThru.tooltips.animationDelay=The delay in seconds between 2 frames of animation. Leave to 0 for no animation.
