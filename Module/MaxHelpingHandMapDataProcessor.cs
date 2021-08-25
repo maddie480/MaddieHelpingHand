@@ -168,6 +168,7 @@ namespace Celeste.Mod.MaxHelpingHand.Module {
                     foreach (BinaryPacker.Element strawberrySeed in multiRoomStrawberrySeedsByName[strawberryName]) {
                         strawberrySeed.SetAttr("berryLevel", strawberryID.Level);
                         strawberrySeed.SetAttr("berryID", strawberryID.ID);
+                        strawberrySeed.SetAttr("seedCount", multiRoomStrawberrySeedsByName[strawberryName].Count);
                     }
 
                     // and give the expected seed count to the strawberry.

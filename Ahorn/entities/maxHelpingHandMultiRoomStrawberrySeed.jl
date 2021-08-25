@@ -3,7 +3,7 @@
 using ..Ahorn, Maple
 
 @mapdef Entity "MaxHelpingHand/MultiRoomStrawberrySeed" MultiRoomStrawberrySeed(x::Integer, y::Integer,
-    strawberryName::String="multi_room_strawberry", sprite::String="MaxHelpingHand/miniberry/miniberry", ghostSprite::String="MaxHelpingHand/miniberry/ghostminiberry", index::Int=-1)
+    strawberryName::String="multi_room_strawberry", sprite::String="MaxHelpingHand/miniberry/miniberry", ghostSprite::String="MaxHelpingHand/miniberry/ghostminiberry", index::Int=-1, displaySeedCount::Bool=false)
     
 const bundledSprites = String["strawberry/seed", "MaxHelpingHand/miniberry/miniberry"]
 const bundledGhostSprites = String["ghostberry/seed", "MaxHelpingHand/miniberry/ghostminiberry"]

@@ -90,6 +90,7 @@
     <Compile Include="Entities\HintDecal.cs" />
     <Compile Include="Entities\MoreCustomNPC.cs" />
     <Compile Include="Entities\MovingFlagTouchSwitch.cs" />
+    <Compile Include="Entities\MultiRoomStrawberryCounter.cs" />
     <Compile Include="Entities\RainbowSpinnerColorAreaController.cs" />
     <Compile Include="Module\CustomWipe.cs" />
     <Compile Include="Triggers\PersistentMusicFadeTrigger.cs" />

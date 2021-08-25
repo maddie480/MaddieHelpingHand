@@ -6,6 +6,7 @@ using Monocle;
 using MonoMod.Cil;
 using MonoMod.Utils;
 using System;
+using System.Collections.Generic;
 
 namespace Celeste.Mod.MaxHelpingHand.Entities {
     [CustomEntity("MaxHelpingHand/MultiRoomStrawberrySeed")]
@@ -60,6 +61,8 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
 
         private int index;
         public EntityID BerryID;
+        private int seedCount;
+        private bool displaySeedCount;
 
         private float canLoseTimerMirror;
         private Player player;
@@ -87,6 +90,8 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             data.Attr("sprite", "MaxHelpingHand/miniberry/miniberry"), data.Attr("ghostSprite", "MaxHelpingHand/miniberry/ghostminiberry")) {
 
             BerryID = new EntityID(data.Attr("berryLevel"), data.Int("berryID"));
+            seedCount = data.Int("seedCount");
+            displaySeedCount = data.Bool("displaySeedCount");
         }
 
         private MultiRoomStrawberrySeed(Player player, Vector2 position, MaxHelpingHandSession.MultiRoomStrawberrySeedInfo sessionSeedInfo)
@@ -174,6 +179,22 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             sessionSeedInfo.BerryID = BerryID;
             sessionSeedInfo.Sprite = sprite;
             MaxHelpingHandModule.Instance.Session.CollectedMultiRoomStrawberrySeeds.Add(sessionSeedInfo);
+
+            if (displaySeedCount) {
+                // look at all the player followers, and filter all the seeds that match our berry.
+                List<StrawberrySeed> matchingSeeds = new List<StrawberrySeed>();
+                foreach (Follower follower in player.Leader.Followers) {
+                    if (follower.Entity is MultiRoomStrawberrySeed seed) {
+                        if (seed.BerryID.Level == BerryID.Level && seed.BerryID.ID == BerryID.ID) {
+                            matchingSeeds.Add(seed);
+                        }
+                    }
+                }
+
+                // display a counter over Madeline's head
+                Scene.Remove(Scene.Tracker.GetEntities<MultiRoomStrawberryCounter>());
+                Scene.Add(new MultiRoomStrawberryCounter(matchingSeeds.Count + "/" + seedCount));
+            }
         }
 
         public override void Update() {

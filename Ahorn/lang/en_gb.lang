@@ -447,6 +447,7 @@ placements.entities.MaxHelpingHand/MultiRoomStrawberrySeed.tooltips.strawberryNa
 placements.entities.MaxHelpingHand/MultiRoomStrawberrySeed.tooltips.sprite=The path to the sprite folder (relative to Graphics/Atlases/Gameplay/collectables).
 placements.entities.MaxHelpingHand/MultiRoomStrawberrySeed.tooltips.ghostSprite=The path to the sprite folder (relative to Graphics/Atlases/Gameplay/collectables) used when the strawberry is already collected.
 placements.entities.MaxHelpingHand/MultiRoomStrawberrySeed.tooltips.index=The order for this seed (determines the sound played on collection). If left to -1, Everest will auto-assign it.
+placements.entities.MaxHelpingHand/MultiRoomStrawberrySeed.tooltips.displaySeedCount=If checked, a counter will appear over Maddy's head when she collects a strawberry seed, showing how many she has and how many there are on the map (for example "3/5").
 
 # Multi-Room Strawberry
 placements.entities.MaxHelpingHand/MultiRoomStrawberry.tooltips.name=The strawberry name, used to pair it with its seeds.
