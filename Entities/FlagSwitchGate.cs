@@ -156,6 +156,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             Rectangle clipRect = new Rectangle(clipBaseX, clipBaseY, 8, 8);
 
             for (int i = 0; i <= widthInTiles; i++) {
+                clipRect.X = clipBaseX + ((i < widthInTiles) ? i == 0 ? 0 : 8 : 16);
                 for (int j = 0; j <= heightInTiles; j++) {
                     int tilePartY = (j < heightInTiles) ? j == 0 ? 0 : 8 : 16;
                     clipRect.Y = tilePartY + clipBaseY;
@@ -164,7 +165,6 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
                 }
                 renderPos.X += 8f;
                 renderPos.Y = Position.Y + Shake.Y;
-                clipRect.X = ((i + 1 < widthInTiles) ? 8 : 16) + clipBaseX;
             }
 
             icon.Position = iconOffset + Shake;
