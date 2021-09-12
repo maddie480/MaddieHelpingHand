@@ -76,7 +76,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
 
         private float alpha = 1f;
 
-        public CustomizableGlassBlockController(EntityData data, Vector2 offset) {
+        public CustomizableGlassBlockController(EntityData data, Vector2 offset) : base(data.Position + offset) {
             // parse the "starColors" and "bgColor" parameters
             string[] starColorsAsStrings = data.Attr("starColors").Split(',');
             starColors = new Color[starColorsAsStrings.Length];
@@ -111,7 +111,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             // check if there is already a CustomizableGlassBlockController in the room (supposedly from the previous room)
             // so that we can carry values over.
             if (scene.Tracker.GetEntities<CustomizableGlassBlockController>()
-                .Find(controller => controller != this) is CustomizableGlassBlockController controllerFromPreviousRoom) {
+                .Find(controller => controller != this && !(controller is CustomizableGlassBlockAreaController)) is CustomizableGlassBlockController controllerFromPreviousRoom) {
 
                 // carry over the state so that stars/rays don't change places.
                 stars = (Star[]) controllerFromPreviousRoom.stars.Clone();
@@ -156,7 +156,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
         }
 
         private void BeforeRender() {
-            List<Entity> glassBlocks = Scene.Tracker.GetEntities<CustomizableGlassBlock>();
+            List<CustomizableGlassBlock> glassBlocks = getGlassBlocksToAffect().ToList();
             hasBlocks = (glassBlocks.Count > 0);
             if (!hasBlocks) {
                 return;
@@ -275,7 +275,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
         public override void Render() {
             if (hasBlocks) {
                 Vector2 position = (Scene as Level).Camera.Position;
-                IEnumerable<CustomizableGlassBlock> glassBlocks = Scene.Tracker.GetEntities<CustomizableGlassBlock>().OfType<CustomizableGlassBlock>();
+                IEnumerable<CustomizableGlassBlock> glassBlocks = getGlassBlocksToAffect();
 
                 foreach (CustomizableGlassBlock glassBlock in glassBlocks) {
                     Draw.Rect(glassBlock.X, glassBlock.Y, glassBlock.Width, glassBlock.Height, bgColor * alpha * glassBlock.Alpha);
@@ -295,6 +295,11 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
                     }
                 }
             }
+        }
+
+        protected virtual IEnumerable<CustomizableGlassBlock> getGlassBlocksToAffect() {
+            // all of them
+            return Scene.Tracker.GetEntities<CustomizableGlassBlock>().OfType<CustomizableGlassBlock>();
         }
 
         public override void Removed(Scene scene) {
@@ -324,7 +329,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
         }
 
         private void OnDisplacementRender() {
-            List<Entity> blocks = Scene.Tracker.GetEntities<CustomizableGlassBlock>();
+            IEnumerable<CustomizableGlassBlock> blocks = getGlassBlocksToAffect();
             foreach (Entity block in blocks) {
                 Draw.Rect(block.X + 1, block.Y + 1, block.Width - 2, block.Height - 2, new Color(0.5f, 0.5f, 0.2f, 1f));
             }

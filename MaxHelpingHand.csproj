@@ -85,6 +85,7 @@
   <ItemGroup>
     <Compile Include="Effects\AllSideTentacles.cs" />
     <Compile Include="Entities\BadelineSprite.cs" />
+    <Compile Include="Entities\CustomizableGlassBlockAreaController.cs" />
     <Compile Include="Entities\CustomizableGlassExitBlock.cs" />
     <Compile Include="Entities\CustomSeekerBarrier.cs" />
     <Compile Include="Entities\HintDecal.cs" />
@@ -107,6 +108,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Ahorn\entities\maxHelpingHandCustomSeekerBarrier.jl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Ahorn\entities\maxHelpingHandCustomizableGlassBlockAreaController.jl">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Ahorn\entities\maxHelpingHandRainbowSpinnerColorAreaController.jl">
