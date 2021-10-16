@@ -18,6 +18,7 @@ namespace Celeste.Mod.MaxHelpingHand.Triggers {
             IL.Celeste.PlayerHair.AfterUpdate += hookHairCount;
             On.Celeste.PlayerHair.GetHairColor += hookHairColor;
             On.Celeste.Player.DashUpdate += hookParticleColor;
+            IL.Celeste.PlayerHair.ctor += hookHairCount;
         }
 
         public static void Unload() {
@@ -25,6 +26,7 @@ namespace Celeste.Mod.MaxHelpingHand.Triggers {
             IL.Celeste.PlayerHair.AfterUpdate -= hookHairCount;
             On.Celeste.PlayerHair.GetHairColor -= hookHairColor;
             On.Celeste.Player.DashUpdate -= hookParticleColor;
+            IL.Celeste.PlayerHair.ctor -= hookHairCount;
         }
 
         public static void LoadContent() {
@@ -70,7 +72,7 @@ namespace Celeste.Mod.MaxHelpingHand.Triggers {
 
                 cursor.Emit(OpCodes.Ldarg_0);
                 cursor.EmitDelegate<Func<int, PlayerHair, int>>((orig, self) => {
-                    if (MaxHelpingHandModule.Instance.Session.MadelineHasPonytail && self.Entity is Player) {
+                    if (MaxHelpingHandModule.Instance.Session.MadelineHasPonytail && (self.Entity == null || self.Entity is Player)) {
                         // make Madeline's hair longer.
                         return 6;
                     }
