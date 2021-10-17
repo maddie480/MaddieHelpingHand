@@ -4,7 +4,10 @@ using Microsoft.Xna.Framework;
 using Mono.Cecil.Cil;
 using Monocle;
 using MonoMod.Cil;
+using MonoMod.RuntimeDetour;
 using System;
+using System.Linq;
+using System.Reflection;
 
 namespace Celeste.Mod.MaxHelpingHand.Triggers {
     [CustomEntity("MaxHelpingHand/MadelinePonytailTrigger")]
@@ -27,6 +30,9 @@ namespace Celeste.Mod.MaxHelpingHand.Triggers {
             On.Celeste.PlayerHair.GetHairColor -= hookHairColor;
             On.Celeste.Player.DashUpdate -= hookParticleColor;
             IL.Celeste.PlayerHair.ctor -= hookHairCount;
+
+            madelineInWonderlandHook?.Dispose();
+            madelineInWonderlandHook = null;
         }
 
         public static void LoadContent() {
@@ -34,6 +40,13 @@ namespace Celeste.Mod.MaxHelpingHand.Triggers {
                 Color = mainHairColor,
                 Color2 = Calc.HexToColor("AF584D")
             };
+
+            // hook Madeline in Wonderland in order to bypass a hook that overrides hair rendering when Madeline Ponytail Trigger is active.
+            EverestModule tomorrowHelper = Everest.Modules.FirstOrDefault(module => module.GetType().ToString() == "Celeste.Mod.TomorrowHelper.TomorrowHelperModule");
+            if (tomorrowHelper != null) {
+                MethodInfo hook = tomorrowHelper.GetType().Assembly.GetType("Celeste.Mod.TomorrowHelper.Triggers.ChangeHitboxTrigger").GetMethod("ModPlayerHairRender", BindingFlags.NonPublic | BindingFlags.Static);
+                madelineInWonderlandHook = new Hook(hook, typeof(MadelinePonytailTrigger).GetMethod("skipMadelineInWonderlandHook", BindingFlags.NonPublic | BindingFlags.Static));
+            }
         }
 
         private static void hookHairScaleAndHairCount(ILContext il) {
@@ -116,6 +129,19 @@ namespace Celeste.Mod.MaxHelpingHand.Triggers {
             Player.P_DashBadB = bakDashBadB;
 
             return result;
+        }
+
+        private static Hook madelineInWonderlandHook;
+
+        private delegate void orig_ModPlayerHairRender(On.Celeste.PlayerHair.orig_Render orig, PlayerHair self);
+        private static void skipMadelineInWonderlandHook(orig_ModPlayerHairRender origOrig, On.Celeste.PlayerHair.orig_Render orig, PlayerHair self) {
+            if (MaxHelpingHandModule.Instance.Session.MadelineHasPonytail) {
+                // skip the Madeline in Wonderland hook, to avoid breaking the hair.
+                orig(self);
+            } else {
+                // do run the hook
+                origOrig(orig, self);
+            }
         }
 
 
