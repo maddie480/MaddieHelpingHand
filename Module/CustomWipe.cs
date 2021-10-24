@@ -31,8 +31,19 @@ namespace Celeste.Mod.MaxHelpingHand.Module {
                     if (wipeName != currentWipeAnimation) {
                         // lazily load the wipe. (we can afford this because this generally lasts less than 100 ms)
                         Stopwatch stopwatch = Stopwatch.StartNew();
-                        currentWipeIn = parseWipe("MaxHelpingHandWipes/" + wipeName + "/wipe-in.bin");
-                        currentWipeOut = parseWipe("MaxHelpingHandWipes/" + wipeName + "/wipe-out.bin");
+
+                        if (Everest.Content.Map.ContainsKey("MaxHelpingHandWipes/" + wipeName + "/spawn-wipe.bin")) {
+                            currentWipeIn = parseWipe("MaxHelpingHandWipes/" + wipeName + "/spawn-wipe.bin");
+                        } else {
+                            currentWipeIn = parseWipe("MaxHelpingHandWipes/" + wipeName + "/wipe-in.bin");
+                        }
+
+                        if (Everest.Content.Map.ContainsKey("MaxHelpingHandWipes/" + wipeName + "/death-wipe.bin")) {
+                            currentWipeOut = parseWipe("MaxHelpingHandWipes/" + wipeName + "/death-wipe.bin");
+                        } else {
+                            currentWipeOut = parseWipe("MaxHelpingHandWipes/" + wipeName + "/wipe-out.bin");
+                        }
+
                         stopwatch.Stop();
 
                         currentWipeAnimation = wipeName;
