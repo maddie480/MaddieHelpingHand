@@ -222,7 +222,16 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
         }
 
         private static bool preventDuckWhenDashingAgainstJumpthru(On.Celeste.Player.orig_DuckFreeAt orig, Player self, Vector2 at) {
-            return orig(self, at) && !entityCollideCheckWithSidewaysJumpthrus(self, at, false, false);
+            if (orig(self, at)) {
+                // check for collisions against sideways jumpthrus while ducked.
+                Collider origHitbox = self.Collider;
+                self.Collider = new Hitbox(8f, 6f, -4f, -6f); // duck hitbox
+                bool result = !entityCollideCheckWithSidewaysJumpthrus(self, at, false, false);
+                self.Collider = origHitbox;
+
+                return result;
+            }
+            return false;
         }
 
         private static void callOrigMethodKeepingEverythingOnStack(ILCursor cursor, VariableDefinition checkAtPositionStore, bool isSceneCollideCheck) {
