@@ -37,6 +37,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
         private int nextNodeIndex = 1;
         private float percent;
         private int direction = 1;
+        private bool teleporting = false;
 
         // sinking effect status tracking
         private float addY;
@@ -387,6 +388,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
                             // go back to the first node instantly.
                             prevNodeIndex = 0;
                             nextNodeIndex = 1;
+                            teleporting = true;
                         } else if (mode == Mode.BackAndForth) {
                             // start going back
                             nextNodeIndex -= 2;
@@ -400,8 +402,14 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
         }
 
         private void moveToPosition(Vector2 position) {
-            MoveTo(position);
+            if (teleporting) {
+                MoveToNaive(position);
+            } else {
+                MoveTo(position);
+            }
+
             previousPosition = position - new Vector2(0f, addY);
+            teleporting = false;
         }
 
         /// <summary>
