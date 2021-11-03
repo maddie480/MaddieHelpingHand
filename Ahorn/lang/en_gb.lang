@@ -69,6 +69,7 @@ placements.entities.MaxHelpingHand/MultiNodeFlagSwitchGate.tooltips.icon=Changes
 placements.entities.MaxHelpingHand/MultiNodeFlagSwitchGate.tooltips.canReturn=Whether the block will return to its original position if all flags are deactivated.
 placements.entities.MaxHelpingHand/MultiNodeFlagSwitchGate.tooltips.resetFlags=Whether setting one of the block's flags will unset the rest. Does not work with Progression Mode enabled.
 placements.entities.MaxHelpingHand/MultiNodeFlagSwitchGate.tooltips.progressionMode=Forces all previous flags to be true before moving to another node.
+placements.entities.MaxHelpingHand/MultiNodeFlagSwitchGate.tooltips.persistent=If unchecked, all flags will be reset when the player respawns or changes rooms, to move back the gate each time the room is reset.
 
 # Customizable Crumble Platform
 placements.entities.MaxHelpingHand/CustomizableCrumblePlatform.tooltips.texture=What texture to use for the crumble block.

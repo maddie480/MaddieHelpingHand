@@ -54,6 +54,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
         private readonly Color inactiveColor;
         private readonly Color activeColor;
         private readonly Color finishColor;
+        private readonly bool persistent;
 
         private Sprite icon;
         private MTexture texture;
@@ -81,6 +82,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             inactiveColor = data.HexColor("inactiveColor", Calc.HexToColor("5fcde4"));
             activeColor = data.HexColor("activeColor", Color.White);
             finishColor = data.HexColor("finishColor", Calc.HexToColor("f141df"));
+            persistent = data.Bool("persistent", true);
             var spriteName = data.Attr("sprite", "block");
             var iconName = data.Attr("icon", "vanilla");
 
@@ -111,6 +113,13 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
 
         public override void Awake(Scene scene) {
             base.Awake(scene);
+
+            if (!persistent) {
+                // reset all session flags.
+                foreach (string flag in flags) {
+                    (scene as Level).Session.SetFlag(flag, false);
+                }
+            }
 
             // check if we should move to a further node right away.
             nodeIndex = getNode();
