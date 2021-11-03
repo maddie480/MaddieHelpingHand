@@ -4,7 +4,7 @@ using Monocle;
 
 namespace Celeste.Mod.MaxHelpingHand.Entities {
     [CustomEntity("MaxHelpingHand/BadelineSprite")]
-    static class BadelineSprite {
+    public static class BadelineSprite {
         public static Entity Load(Level level, LevelData levelData, Vector2 offset, EntityData entityData) {
             // there is literally something made for this in vanilla... but it cannot be placed as an entity.
             BadelineDummy dummy = new BadelineDummy(entityData.Position + offset);

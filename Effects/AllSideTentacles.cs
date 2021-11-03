@@ -5,7 +5,7 @@ using MonoMod.Cil;
 using System;
 
 namespace Celeste.Mod.MaxHelpingHand.Effects {
-    class AllSideTentacles : Tentacles {
+    public class AllSideTentacles : Tentacles {
         public static void Load() {
             IL.Celeste.Tentacles.Update += modTentaclesUpdate;
         }

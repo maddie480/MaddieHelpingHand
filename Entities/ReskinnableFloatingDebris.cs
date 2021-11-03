@@ -6,7 +6,7 @@ using System;
 
 namespace Celeste.Mod.MaxHelpingHand.Entities {
     [CustomEntity("MaxHelpingHand/ReskinnableFloatingDebris")]
-    static class ReskinnableFloatingDebris {
+    public static class ReskinnableFloatingDebris {
         private static string floatingDebrisSkin;
 
         public static Entity Load(Level level, LevelData levelData, Vector2 offset, EntityData entityData) {

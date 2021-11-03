@@ -6,7 +6,7 @@ using System.Diagnostics;
 using System.IO;
 
 namespace Celeste.Mod.MaxHelpingHand.Module {
-    class CustomWipe : ScreenWipe {
+    public class CustomWipe : ScreenWipe {
         // the current wipe animation (lazily loaded and 1 at a time)
         private static string currentWipeAnimation = null;
         private static VertexPositionColor[][] currentWipeIn;

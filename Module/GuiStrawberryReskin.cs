@@ -4,7 +4,7 @@ using System;
 using System.Collections;
 
 namespace Celeste.Mod.MaxHelpingHand.Module {
-    static class GuiStrawberryReskin {
+    public static class GuiStrawberryReskin {
         private static bool isFileSelect;
 
         public static void Load() {

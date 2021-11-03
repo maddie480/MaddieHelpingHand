@@ -14,7 +14,7 @@ using System.Reflection;
 namespace Celeste.Mod.MaxHelpingHand.Entities {
     // this instanciates a moving touch switch from Outback Helper, but applies hooks and DynData to make it act like a flag touch switch.
     [CustomEntity("MaxHelpingHand/MovingFlagTouchSwitch")]
-    static class MovingFlagTouchSwitch {
+    public static class MovingFlagTouchSwitch {
         private static Type movingTouchSwitchType;
         private static FieldInfo movingTouchSwitchIcon;
         private static Type movingTouchSwitchStateMachineType;

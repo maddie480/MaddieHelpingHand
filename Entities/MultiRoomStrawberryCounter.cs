@@ -9,7 +9,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
     /// An indicator for the strawberry seeds Madeline has and still has to get, that appears above Madeline's head.
     /// </summary>
     [Tracked]
-    class MultiRoomStrawberryCounter : Entity {
+    public class MultiRoomStrawberryCounter : Entity {
         private const int normalDepth = (Depths.FGTerrain + Depths.FGDecals) / 2; // between fg tiles and fg decals
         private const int depthInFrontOfSolids = Depths.FakeWalls - 1; // in front of fake walls
 

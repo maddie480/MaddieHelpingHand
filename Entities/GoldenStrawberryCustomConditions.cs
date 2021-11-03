@@ -6,7 +6,7 @@ using MonoMod.Utils;
 namespace Celeste.Mod.MaxHelpingHand.Entities {
     [CustomEntity("MaxHelpingHand/GoldenStrawberryCustomConditions")]
     [RegisterStrawberry(tracked: false, blocksCollection: true)]
-    static class GoldenStrawberryCustomConditions {
+    public static class GoldenStrawberryCustomConditions {
         public static void Load() {
             On.Celeste.MapData.Load += modMapDataLoad;
         }
