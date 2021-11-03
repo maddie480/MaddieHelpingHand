@@ -70,6 +70,8 @@ placements.entities.MaxHelpingHand/MultiNodeFlagSwitchGate.tooltips.canReturn=Wh
 placements.entities.MaxHelpingHand/MultiNodeFlagSwitchGate.tooltips.resetFlags=Whether setting one of the block's flags will unset the rest. Does not work with Progression Mode enabled.
 placements.entities.MaxHelpingHand/MultiNodeFlagSwitchGate.tooltips.progressionMode=Forces all previous flags to be true before moving to another node.
 placements.entities.MaxHelpingHand/MultiNodeFlagSwitchGate.tooltips.persistent=If unchecked, all flags will be reset when the player respawns or changes rooms, to move back the gate each time the room is reset.
+placements.entities.MaxHelpingHand/MultiNodeFlagSwitchGate.tooltips.pauseTimes=Only useful if "Do Not Skip Nodes" is checked, you can keep empty otherwise:\nDefines the durations (in seconds) the switch gate should wait for at each node.\nFor example, with 4 positions A B C D, setting this option to "0.5,1" will make the block wait for 0.5 seconds at B and 1 second at C when going from A to D.
+placements.entities.MaxHelpingHand/MultiNodeFlagSwitchGate.tooltips.doNotSkipNodes=If checked, the gate will stop at each node instead of going straight to its target node.
 
 # Customizable Crumble Platform
 placements.entities.MaxHelpingHand/CustomizableCrumblePlatform.tooltips.texture=What texture to use for the crumble block.

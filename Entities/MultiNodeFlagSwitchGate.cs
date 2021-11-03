@@ -55,6 +55,8 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
         private readonly Color activeColor;
         private readonly Color finishColor;
         private readonly bool persistent;
+        private readonly float[] pauseTimes;
+        private readonly bool doNotSkipNodes;
 
         private Sprite icon;
         private MTexture texture;
@@ -64,7 +66,8 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
 
         private bool moving;
         private bool cancelMoving;
-        private int nodeIndex;
+        private int targetNodeIndex;
+        private int currentNodeIndex;
         private bool[] wasEnabled;
 
         public MultiNodeFlagSwitchGate(EntityData data, Vector2 offset) : base(data.Position + offset, data.Width, data.Height, safe: false) {
@@ -85,6 +88,15 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             persistent = data.Bool("persistent", true);
             var spriteName = data.Attr("sprite", "block");
             var iconName = data.Attr("icon", "vanilla");
+
+            string[] pauseTimesStrings = data.Attr("pauseTimes").Split(',');
+            if (pauseTimesStrings[0] == "")
+                pauseTimesStrings = new string[0];
+            pauseTimes = new float[pauseTimesStrings.Length];
+            for (int i = 0; i < pauseTimesStrings.Length; i++) {
+                pauseTimes[i] = float.Parse(pauseTimesStrings[i]);
+            }
+            doNotSkipNodes = data.Bool("doNotSkipNodes", false);
 
             startPos = Position;
             wasEnabled = new bool[flags.Length];
@@ -122,9 +134,9 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             }
 
             // check if we should move to a further node right away.
-            nodeIndex = getNode();
-            if (nodeIndex > 0) {
-                MoveTo(nodes[nodeIndex - 1]);
+            targetNodeIndex = currentNodeIndex = getNode();
+            if (targetNodeIndex > 0) {
+                MoveTo(nodes[targetNodeIndex - 1]);
                 icon.Rate = 0f;
                 icon.SetAnimationFrame(0);
                 icon.Color = finishColor;
@@ -171,12 +183,22 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
 
         public override void Update() {
             var newIndex = getNode();
-            if (newIndex != nodeIndex) {
+            if (newIndex != targetNodeIndex) {
+                targetNodeIndex = newIndex;
+
                 // move to new node
-                nodeIndex = newIndex;
-                Add(new Coroutine(Sequence(nodeIndex > 0 ? nodes[nodeIndex - 1] : startPos)));
+                if (doNotSkipNodes) {
+                    // move towards the target node by a step of 1.
+                    currentNodeIndex += Math.Sign(targetNodeIndex - currentNodeIndex);
+                } else {
+                    // just go to the target node.
+                    currentNodeIndex = targetNodeIndex;
+                }
+
+                Add(new Coroutine(sequence(currentNodeIndex > 0 ? nodes[currentNodeIndex - 1] : startPos)));
                 resetAllFlags();
             }
+
             base.Update();
         }
 
@@ -218,9 +240,9 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
                 // jump to newly enabled flags.
                 return firstNewEnabled;
 
-            } else if (!canReturn || (nodeIndex > 0 && wasEnabled[nodeIndex - 1])) {
+            } else if (!canReturn || (targetNodeIndex > 0 && wasEnabled[targetNodeIndex - 1])) {
                 // do not move.
-                return nodeIndex;
+                return targetNodeIndex;
 
             } else {
                 // jump back to the first enabled flag.
@@ -232,14 +254,14 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             if (resetFlags && !progressionMode) {
                 // reset all flags except the current one.
                 for (int i = 0; i < Math.Min(nodes.Length, flags.Length); i++) {
-                    if (nodeIndex != i + 1) {
+                    if (targetNodeIndex != i + 1) {
                         SceneAs<Level>().Session.SetFlag(flags[i], false);
                     }
                 }
             }
         }
 
-        private IEnumerator Sequence(Vector2 node) {
+        private IEnumerator sequence(Vector2 node) {
             while (moving) {
                 // cancel the current move, and wait for the move to be effectively cancelled
                 cancelMoving = true;
@@ -371,7 +393,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
                 // shake after arriving at destination
                 StartShaking(0.2f);
                 while (icon.Rate > 0f && !cancelMoving) {
-                    icon.Color = Color.Lerp(activeColor, nodeIndex > 0 ? finishColor : inactiveColor, 1f - icon.Rate);
+                    icon.Color = Color.Lerp(activeColor, targetNodeIndex > 0 ? finishColor : inactiveColor, 1f - icon.Rate);
                     icon.Rate -= Engine.DeltaTime * 4f;
                     yield return null;
                 }
@@ -399,13 +421,32 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
                 icon.Rate = 1f;
                 while (icon.Rate > 0f && !cancelMoving) {
                     var lastColor = icon.Color;
-                    icon.Color = Color.Lerp(lastColor, nodeIndex > 0 ? finishColor : inactiveColor, 1f - icon.Rate);
+                    icon.Color = Color.Lerp(lastColor, targetNodeIndex > 0 ? finishColor : inactiveColor, 1f - icon.Rate);
                     icon.Rate -= Engine.DeltaTime * 4f;
                     yield return null;
                 }
                 icon.Color = finishColor;
                 icon.Rate = 0f;
                 icon.SetAnimationFrame(0);
+            }
+
+            // check if the block should continue moving, in case it is configured not to skip nodes.
+            if (doNotSkipNodes && currentNodeIndex != targetNodeIndex) {
+                // wait at position for the configured time.
+                float delay = pauseTimes[currentNodeIndex - 1];
+                while (delay > 0f && !cancelMoving) {
+                    delay -= Engine.DeltaTime;
+                    yield return null;
+                }
+
+                if (cancelMoving) {
+                    moving = false;
+                    yield break;
+                }
+
+                // then move to the next node.
+                currentNodeIndex += Math.Sign(targetNodeIndex - currentNodeIndex);
+                Add(new Coroutine(sequence(currentNodeIndex > 0 ? nodes[currentNodeIndex - 1] : startPos)));
             }
 
             moving = false;
