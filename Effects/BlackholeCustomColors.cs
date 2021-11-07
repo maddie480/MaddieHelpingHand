@@ -43,9 +43,10 @@ namespace Celeste.Mod.MaxHelpingHand.Effects {
                 && !effectData.Attr("colorsWild").Contains("|")
                 && !effectData.Attr("bgColorInner").Contains("|")
                 && !effectData.Attr("bgColorOuterMild").Contains("|")
-                && !effectData.Attr("bgColorOuterWild").Contains("|")) {
+                && !effectData.Attr("bgColorOuterWild").Contains("|")
+                && effectData.AttrBool("affectedByWind", true)) {
 
-                // there is no gradient on any color: we can just instanciate a vanilla blackhole and mess with its properties.
+                // there is no gradient on any color, and wind should affect the blackhole: we can just instanciate a vanilla blackhole and mess with its properties.
 
                 // set up colorsMild for the hook above. we can't use DynData to pass this over, since the object does not exist yet!
                 colorsMild = parseColors(effectData.Attr("colorsMild", "6e3199,851f91,3026b0"));
@@ -66,7 +67,7 @@ namespace Celeste.Mod.MaxHelpingHand.Effects {
 
                 return blackhole;
             } else {
-                // there are gradients: we need a custom blackhole!
+                // there are gradients, or the blackhole should not be affected by wind: we need a custom blackhole!
 
                 // set up colorsMild for the hook above. we can't use DynData to pass this over, since the object does not exist yet!
                 colorsMild = new ColorCycle(effectData.Attr("colorsMild", "6e3199,851f91,3026b0"), 0.8f).GetColors();
@@ -77,7 +78,8 @@ namespace Celeste.Mod.MaxHelpingHand.Effects {
                     effectData.Attr("colorsWild", "ca4ca7,b14cca,ca4ca7"),
                     effectData.Attr("bgColorInner", "000000"),
                     effectData.Attr("bgColorOuterMild", "512a8b"),
-                    effectData.Attr("bgColorOuterWild", "bd2192"));
+                    effectData.Attr("bgColorOuterWild", "bd2192"),
+                    effectData.AttrBool("affectedByWind", true));
 
                 // ... now we've got to set the initial values of everything else.
                 blackhole.blackholeData["colorsWild"] = blackhole.cycleColorsWild.GetColors();
@@ -169,7 +171,9 @@ namespace Celeste.Mod.MaxHelpingHand.Effects {
         private readonly ColorCycle cycleBgColorOuterMild;
         private readonly ColorCycle cycleBgColorOuterWild;
 
-        public BlackholeCustomColors(string colorsMild, string colorsWild, string bgColorInner, string bgColorOuterMild, string bgColorOuterWild) : base() {
+        private readonly bool affectedByWind;
+
+        public BlackholeCustomColors(string colorsMild, string colorsWild, string bgColorInner, string bgColorOuterMild, string bgColorOuterWild, bool affectedByWind) : base() {
             blackholeData = new DynData<BlackholeBG>(this);
 
             // parse all color cycles.
@@ -178,10 +182,25 @@ namespace Celeste.Mod.MaxHelpingHand.Effects {
             cycleBgColorInner = new ColorCycle(bgColorInner);
             cycleBgColorOuterMild = new ColorCycle(bgColorOuterMild);
             cycleBgColorOuterWild = new ColorCycle(bgColorOuterWild);
+
+            this.affectedByWind = affectedByWind;
         }
 
         public override void Update(Scene scene) {
-            base.Update(scene);
+            if (affectedByWind) {
+                base.Update(scene);
+            } else {
+                Level level = scene as Level;
+
+                // remove wind
+                Vector2 bakWind = level.Wind;
+                level.Wind = Vector2.Zero;
+
+                base.Update(scene);
+
+                // restore wind
+                level.Wind = bakWind;
+            }
 
             // update all color cycles...
             cycleColorsMild.Update();
