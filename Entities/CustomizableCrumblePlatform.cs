@@ -16,14 +16,19 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
     [Tracked]
     public class CustomizableCrumblePlatform : CrumblePlatform {
         private static ILHook crumblePlatformOrigAddedHook = null;
+        private static ILHook crumblePlatformTileOutHook = null;
 
         public static void Load() {
             crumblePlatformOrigAddedHook = new ILHook(typeof(CrumblePlatform).GetMethod("orig_Added"), onCrumblePlatformAdded);
+            crumblePlatformTileOutHook = new ILHook(crumblePlatformTileOut.GetStateMachineTarget(), onCrumblePlatformTileOut);
         }
 
         public static void Unload() {
             crumblePlatformOrigAddedHook?.Dispose();
             crumblePlatformOrigAddedHook = null;
+
+            crumblePlatformTileOutHook?.Dispose();
+            crumblePlatformTileOutHook = null;
         }
 
         private static MethodInfo crumblePlatformOutlineFade = typeof(CrumblePlatform).GetMethod("OutlineFade", BindingFlags.NonPublic | BindingFlags.Instance);
@@ -46,6 +51,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
         private float crumbleDurationOnSide;
         private bool grouped;
         private bool onlyEmitSoundForPlayer;
+        private Color fadeOutTint;
 
         private HashSet<CustomizableCrumblePlatform> groupedCrumblePlatforms = new HashSet<CustomizableCrumblePlatform>();
 
@@ -59,6 +65,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             crumbleDurationOnSide = data.Float("crumbleDurationOnSide", 1f);
             grouped = data.Bool("grouped", false);
             onlyEmitSoundForPlayer = data.Bool("onlyEmitSoundForPlayer", false);
+            fadeOutTint = data.HexColor("fadeOutTint", Color.Gray);
         }
 
         private static void onCrumblePlatformAdded(ILContext il) {
@@ -71,6 +78,23 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
                 cursor.EmitDelegate<Func<string, CrumblePlatform, string>>((orig, self) => {
                     if (self is CustomizableCrumblePlatform customPlatform) {
                         return customPlatform.outlineTexture;
+                    }
+                    return orig;
+                });
+            }
+        }
+
+        private static void onCrumblePlatformTileOut(ILContext il) {
+            ILCursor cursor = new ILCursor(il);
+
+            while (cursor.TryGotoNext(MoveType.After, instr => instr.MatchCall<Color>("get_Gray"))) {
+                Logger.Log("MaxHelpingHand/CustomizableCrumblePlatform", $"Modding crumble platform tile out tinting at {cursor.Index} in IL for CrumblePlatform.TileOut");
+
+                cursor.Emit(OpCodes.Ldarg_0);
+                cursor.Emit(OpCodes.Ldfld, crumblePlatformTileOut.GetStateMachineTarget().DeclaringType.GetField("img"));
+                cursor.EmitDelegate<Func<Color, Image, Color>>((orig, self) => {
+                    if (self.Entity is CustomizableCrumblePlatform customPlatform) {
+                        return customPlatform.fadeOutTint;
                     }
                     return orig;
                 });
