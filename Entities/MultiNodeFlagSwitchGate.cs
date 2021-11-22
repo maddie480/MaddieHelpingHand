@@ -54,7 +54,6 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
         private readonly Color inactiveColor;
         private readonly Color activeColor;
         private readonly Color finishColor;
-        private readonly bool persistent;
         private readonly float[] pauseTimes;
         private readonly bool doNotSkipNodes;
 
@@ -85,7 +84,6 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             inactiveColor = data.HexColor("inactiveColor", Calc.HexToColor("5fcde4"));
             activeColor = data.HexColor("activeColor", Color.White);
             finishColor = data.HexColor("finishColor", Calc.HexToColor("f141df"));
-            persistent = data.Bool("persistent", true);
             var spriteName = data.Attr("sprite", "block");
             var iconName = data.Attr("icon", "vanilla");
 
@@ -121,17 +119,23 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             }));
             Add(openSfx = new SoundSource());
             Add(new LightOcclude(0.5f));
+
+            if (!data.Bool("persistent", true)) {
+                // use the Set Flag on Spawn Controller strategy to reset the flags, to be sure to affect matching Flag Touch Switches.
+                Level level = Engine.Scene as Level;
+                if (level == null) {
+                    level = (Engine.Scene as LevelLoader)?.Level;
+                }
+
+                // reset all session flags.
+                foreach (string flag in flags) {
+                    level.Session.SetFlag(flag, false);
+                }
+            }
         }
 
         public override void Awake(Scene scene) {
             base.Awake(scene);
-
-            if (!persistent) {
-                // reset all session flags.
-                foreach (string flag in flags) {
-                    (scene as Level).Session.SetFlag(flag, false);
-                }
-            }
 
             // check if we should move to a further node right away.
             targetNodeIndex = currentNodeIndex = getNode();
