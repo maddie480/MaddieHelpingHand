@@ -1,4 +1,5 @@
 ﻿using Celeste.Mod.Entities;
+using Celeste.Mod.MaxHelpingHand.Module;
 using Microsoft.Xna.Framework;
 using Monocle;
 using System;
@@ -18,8 +19,9 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
 
         public override void Update() {
             base.Update();
+            Session session = SceneAs<Level>().Session;
 
-            bool hints = MaxHelpingHandModule.Instance.Settings.ShowHints.Check();
+            bool hints = MaxHelpingHandModule.Instance.Settings.ShowHints.Check;
             if (inverted) {
                 session.SetFlag(outputFlag, !hints);
             } else {
