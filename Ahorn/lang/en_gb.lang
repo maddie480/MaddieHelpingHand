@@ -601,6 +601,10 @@ placements.entities.MaxHelpingHand/HintDecal.tooltips.scaleX=The horizontal scal
 placements.entities.MaxHelpingHand/HintDecal.tooltips.scaleY=The vertical scale of this decal (1 = normal).
 placements.entities.MaxHelpingHand/HintDecal.tooltips.foreground=Whether this decal should appear in the foreground.
 
+# Hints Flag Controller
+placements.entities.MaxHelpingHand/HintsFlagController.tooltips.outputFlag=The session flag that will be set depending on the hints state.
+placements.entities.MaxHelpingHand/HintsFlagController.tooltips.not=If checked, the value of the output flag will be inverted.
+
 # Camera Offset Border
 placements.triggers.MaxHelpingHand/CameraOffsetBorder.tooltips.topLeft=Whether this border should have an effect when the player is on the top-left of it.
 placements.triggers.MaxHelpingHand/CameraOffsetBorder.tooltips.topCenter=Whether this border should have an effect when the player is on the top of it and aligned horizontally.

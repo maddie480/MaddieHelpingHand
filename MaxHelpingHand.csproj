@@ -182,6 +182,7 @@
     <Compile Include="Entities\CustomTutorialWithNoBird.cs" />
     <Compile Include="Entities\FlagExitBlock.cs" />
     <Compile Include="Entities\FlagLogicGate.cs" />
+    <Compile Include="Entities\HintsFlagController.cs" />
     <Compile Include="Entities\FloatySpaceBlockWithAttachedSidewaysJumpthruSupport.cs" />
     <Compile Include="Entities\MultiNodeBumper.cs" />
     <Compile Include="Entities\MultiRoomStrawberry.cs" />
@@ -242,6 +243,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Ahorn\entities\maxHelpingHandFlagLogicGate.jl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Ahorn\entities\maxHelpingHandHintsFlagController.jl">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Ahorn\entities\maxHelpingHandSidewaysLava.jl">
@@ -462,6 +466,12 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Graphics\Atlases\Gameplay\ahorn\MaxHelpingHand\flag_logic_gate.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Graphics\Atlases\Gameplay\ahorn\MaxHelpingHand\hints_flag_controller.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Graphics\Atlases\Gameplay\ahorn\MaxHelpingHand\hints_flag_controller_inv.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Graphics\Atlases\Gameplay\ahorn\MaxHelpingHand\greyscale_birb.png">
