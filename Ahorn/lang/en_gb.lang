@@ -448,6 +448,8 @@ placements.triggers.MaxHelpingHand/FlagToggleSmoothCameraOffsetTrigger.tooltips.
 placements.triggers.MaxHelpingHand/FlagToggleSmoothCameraOffsetTrigger.tooltips.offsetYTo=The Y offset to fade to.
 placements.triggers.MaxHelpingHand/FlagToggleSmoothCameraOffsetTrigger.tooltips.positionMode=The fade direction.
 placements.triggers.MaxHelpingHand/FlagToggleSmoothCameraOffsetTrigger.tooltips.onlyOnce=If checked, the trigger will be disabled when the player first leaves it.
+placements.triggers.MaxHelpingHand/FlagToggleSmoothCameraOffsetTrigger.tooltips.xOnly=Whether the trigger should only update the horizontal offset, keeping the current vertical offset.
+placements.triggers.MaxHelpingHand/FlagToggleSmoothCameraOffsetTrigger.tooltips.yOnly=Whether the trigger should only update the vertical offset, keeping the current horizontal offset.
 placements.triggers.MaxHelpingHand/FlagToggleSmoothCameraOffsetTrigger.tooltips.flag=The flag this trigger should react to.
 placements.triggers.MaxHelpingHand/FlagToggleSmoothCameraOffsetTrigger.tooltips.inverted=If checked, the trigger will be disabled when the flag is active.\nIf unchecked, the trigger will be enabled when the flag is active.
 
