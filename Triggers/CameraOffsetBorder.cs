@@ -12,7 +12,7 @@ namespace Celeste.Mod.MaxHelpingHand.Triggers {
     [CustomEntity("MaxHelpingHand/CameraOffsetBorder")]
     [Tracked]
     public class CameraOffsetBorder : Trigger {
-        private readonly bool topLeft, topCenter, topRight, centerLeft, centerRight, bottomLeft, bottomCenter, bottomRight, inside;
+        private readonly bool topLeft, topCenter, topRight, centerLeft, centerRight, bottomLeft, bottomCenter, bottomRight, inside, inverted;
         private readonly string flag;
 
         public CameraOffsetBorder(EntityData data, Vector2 offset) : base(data, offset) {
@@ -27,6 +27,7 @@ namespace Celeste.Mod.MaxHelpingHand.Triggers {
             inside = data.Bool("inside");
 
             flag = data.Attr("flag");
+            inverted = data.Bool("inverted");
             AddTag(Tags.TransitionUpdate);
         }
 
@@ -40,8 +41,11 @@ namespace Celeste.Mod.MaxHelpingHand.Triggers {
 
             Player player = Scene.Tracker.GetEntity<Player>();
             if (player != null) {
-                if (!string.IsNullOrEmpty(flag) && !(Scene as Level).Session.GetFlag(flag)) {
-                    // trigger is flag-toggled, but the associated flag is disabled.
+                if (!string.IsNullOrEmpty(flag) && !(Scene as Level).Session.GetFlag(flag) && !inverted) {
+                    // trigger is flag-toggled, but the associated flag is disabled and the trigger has "inverted" disabled.
+                    Collidable = false;
+                } else if (!string.IsNullOrEmpty(flag) && (Scene as Level).Session.GetFlag(flag) && inverted) {
+                    // trigger is flag-toggled, but the associated flag is enabled and the trigger has "inverted" enabled.
                     Collidable = false;
                 } else {
                     bool top = player.Bottom <= Top;
