@@ -56,6 +56,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
         private readonly Color finishColor;
         private readonly float[] pauseTimes;
         private readonly bool doNotSkipNodes;
+        private readonly bool smoke;
 
         private Sprite icon;
         private MTexture texture;
@@ -86,6 +87,8 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             finishColor = data.HexColor("finishColor", Calc.HexToColor("f141df"));
             var spriteName = data.Attr("sprite", "block");
             var iconName = data.Attr("icon", "vanilla");
+
+            smoke = data.Bool("smoke", true);
 
             string[] pauseTimesStrings = data.Attr("pauseTimes").Split(',');
             if (pauseTimesStrings[0] == "")
@@ -413,7 +416,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
                 wiggler.Start();
                 wasCollidable = Collidable;
                 Collidable = false;
-                if (!Scene.CollideCheck<Solid>(Center)) {
+                if (!Scene.CollideCheck<Solid>(Center) && smoke) {
                     for (int i = 0; i < 32; i++) {
                         float angle = Calc.Random.NextFloat((float) Math.PI * 2f);
                         SceneAs<Level>().ParticlesFG.Emit(TouchSwitch.P_Fire, Position + iconOffset + Calc.AngleToVector(angle, 4f), angle);

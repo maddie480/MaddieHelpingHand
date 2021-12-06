@@ -51,6 +51,8 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
         private readonly string moveSound;
         private readonly string finishedSound;
 
+        private readonly bool smoke;
+
         private readonly bool allowReturn;
 
         private readonly bool isShatter;
@@ -77,6 +79,8 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
 
             moveSound = data.Attr("moveSound", "event:/game/general/touchswitch_gate_open");
             finishedSound = data.Attr("finishedSound", "event:/game/general/touchswitch_gate_finish");
+
+            smoke = data.Bool("smoke", true);
 
             allowReturn = data.Bool("allowReturn", false);
 
@@ -335,7 +339,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             // emit fire particles if the block is not behind a solid.
             collidableBackup = Collidable;
             Collidable = false;
-            if (!Scene.CollideCheck<Solid>(Center)) {
+            if (!Scene.CollideCheck<Solid>(Center) && smoke) {
                 for (int i = 0; i < 32; i++) {
                     float angle = Calc.Random.NextFloat((float) Math.PI * 2f);
                     SceneAs<Level>().ParticlesFG.Emit(goingBack ? P_RecoloredFireBack : P_RecoloredFire, Position + iconOffset + Calc.AngleToVector(angle, 4f), angle);

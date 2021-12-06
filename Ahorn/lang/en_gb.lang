@@ -44,6 +44,7 @@ placements.entities.MaxHelpingHand/FlagSwitchGate.tooltips.moveEased=Whether the
 placements.entities.MaxHelpingHand/FlagSwitchGate.tooltips.allowReturn=Whether the block should return to its original position if the flag is turned off. Only works if the gate is persistent.
 placements.entities.MaxHelpingHand/FlagSwitchGate.tooltips.moveSound=The sound played by the gate when it starts moving.
 placements.entities.MaxHelpingHand/FlagSwitchGate.tooltips.finishedSound=The sound played by the gate when it is done moving.
+placements.entities.MaxHelpingHand/FlagSwitchGate.tooltips.smoke=Whether the switch gate should emit smoke when reaching its final position.
 
 # Shatter Flag Switch Gate
 placements.entities.MaxHelpingHand/ShatterFlagSwitchGate.tooltips.flag=The session flag this switch gate reacts to. Give the same to multiple touch switches and switch gates to group them.
@@ -72,6 +73,7 @@ placements.entities.MaxHelpingHand/MultiNodeFlagSwitchGate.tooltips.progressionM
 placements.entities.MaxHelpingHand/MultiNodeFlagSwitchGate.tooltips.persistent=If unchecked, all flags will be reset when the player respawns or changes rooms, to move back the gate each time the room is reset.
 placements.entities.MaxHelpingHand/MultiNodeFlagSwitchGate.tooltips.pauseTimes=Only useful if "Do Not Skip Nodes" is checked, you can keep empty otherwise:\nDefines the durations (in seconds) the switch gate should wait for at each node.\nFor example, with 4 positions A B C D, setting this option to "0.5,1" will make the block wait for 0.5 seconds at B and 1 second at C when going from A to D.
 placements.entities.MaxHelpingHand/MultiNodeFlagSwitchGate.tooltips.doNotSkipNodes=If checked, the gate will stop at each node instead of going straight to its target node.
+placements.entities.MaxHelpingHand/MultiNodeFlagSwitchGate.tooltips.smoke=Whether the switch gate should emit smoke when reaching its target node.
 
 # Customizable Crumble Platform
 placements.entities.MaxHelpingHand/CustomizableCrumblePlatform.tooltips.texture=What texture to use for the crumble block.
