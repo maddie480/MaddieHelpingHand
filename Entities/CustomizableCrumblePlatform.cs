@@ -52,6 +52,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
         private bool grouped;
         private bool onlyEmitSoundForPlayer;
         private Color fadeOutTint;
+        private bool attachStaticMovers;
 
         private HashSet<CustomizableCrumblePlatform> groupedCrumblePlatforms = new HashSet<CustomizableCrumblePlatform>();
 
@@ -66,6 +67,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             grouped = data.Bool("grouped", false);
             onlyEmitSoundForPlayer = data.Bool("onlyEmitSoundForPlayer", false);
             fadeOutTint = data.HexColor("fadeOutTint", Color.Gray);
+            attachStaticMovers = data.Bool("attachStaticMovers", false);
         }
 
         private static void onCrumblePlatformAdded(ILContext il) {
@@ -208,6 +210,9 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
                 outlineFader.Replace((IEnumerator) crumblePlatformOutlineFade.Invoke(this, new object[] { 1f }));
                 occluder.Visible = false;
                 Collidable = false;
+                if (attachStaticMovers) {
+                    DisableStaticMovers();
+                }
                 float delay = 0.05f;
                 for (int m = 0; m < 4; m++) {
                     for (int i = 0; i < images.Count; i++) {
@@ -236,6 +241,9 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
                 outlineFader.Replace((IEnumerator) crumblePlatformOutlineFade.Invoke(this, new object[] { 0f }));
                 occluder.Visible = true;
                 Collidable = true;
+                if (attachStaticMovers) {
+                    EnableStaticMovers();
+                }
                 for (int m = 0; m < 4; m++) {
                     for (int i = 0; i < images.Count; i++) {
                         if (i % 4 - m == 0) {

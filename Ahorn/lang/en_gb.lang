@@ -86,6 +86,7 @@ placements.entities.MaxHelpingHand/CustomizableCrumblePlatform.tooltips.crumbleD
 placements.entities.MaxHelpingHand/CustomizableCrumblePlatform.tooltips.outlineTexture=The path to the outline texture (that appears while the platform is respawning), in Graphics/Atlases/Gameplay.\nTo use the texture at Graphics/Atlases/Gameplay/somefolder/texturename.png in your mod, write "somefolder/texturename" here.\nYou'll find the vanilla texture in the graphics dump, in Graphics/Atlases/Gameplay/objects/crumbleBlock/outline.png.
 placements.entities.MaxHelpingHand/CustomizableCrumblePlatform.tooltips.onlyEmitSoundForPlayer=If checked, the crumble block will only emit sound when triggered by the player (not when triggered by another crumble block in the group).
 placements.entities.MaxHelpingHand/CustomizableCrumblePlatform.tooltips.fadeOutTint=The tint/color to use while the crumble block falls apart.
+placements.entities.MaxHelpingHand/CustomizableCrumblePlatform.tooltips.attachStaticMovers=If checked, any static movers (spikes, springs, etc.) attached to the platform will crumble along with it when it crumbles.
 
 # Upside Down Jump Thru
 placements.entities.MaxHelpingHand/UpsideDownJumpThru.tooltips.texture=Changes the appearance of the platform. Should be in the same format as vanilla for static jumpthrus, and a 8x8 image for animated ones.
