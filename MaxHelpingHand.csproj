@@ -94,6 +94,7 @@
     <Compile Include="Entities\MultiNodeFlagSwitchGate.cs" />
     <Compile Include="Entities\MultiRoomStrawberryCounter.cs" />
     <Compile Include="Entities\RainbowSpinnerColorAreaController.cs" />
+    <Compile Include="Entities\UpsideDownMovingPlatform.cs" />
     <Compile Include="Module\CustomWipe.cs" />
     <Compile Include="Module\FixesThatShouldBeInEverest.cs" />
     <Compile Include="Triggers\PersistentMusicFadeTrigger.cs" />
@@ -113,6 +114,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Ahorn\entities\maxHelpingHandCustomizableGlassBlockAreaController.jl">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Ahorn\entities\maxHelpingHandUpsideDownMovingPlatform.jl">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Ahorn\entities\maxHelpingHandRainbowSpinnerColorAreaController.jl">

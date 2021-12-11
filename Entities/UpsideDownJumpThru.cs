@@ -248,7 +248,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
 
                             // nullify if mod jumpthru.
                             cursor.EmitDelegate<Func<JumpThru, JumpThru>>(jumpThru => {
-                                if (jumpThru?.GetType() == typeof(UpsideDownJumpThru))
+                                if (jumpThru?.GetType() == typeof(UpsideDownJumpThru) || jumpThru?.GetType() == typeof(UpsideDownMovingPlatform))
                                     return null;
                                 return jumpThru;
                             });
@@ -280,7 +280,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
                             // remove all mod jumpthrus from the returned list.
                             cursor.EmitDelegate<Func<List<Entity>, List<Entity>>>(matches => {
                                 for (int i = 0; i < matches.Count; i++) {
-                                    if (matches[i].GetType() == typeof(UpsideDownJumpThru)) {
+                                    if (matches[i].GetType() == typeof(UpsideDownJumpThru) || matches[i].GetType() == typeof(UpsideDownMovingPlatform)) {
                                         matches.RemoveAt(i);
                                         i--;
                                     }
@@ -393,7 +393,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
 
 
         private int columns;
-        private string overrideTexture;
+        protected string overrideTexture;
         private float animationDelay;
         private bool pushPlayer;
         private bool attached;
