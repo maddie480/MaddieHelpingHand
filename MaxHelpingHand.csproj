@@ -95,6 +95,7 @@
     <Compile Include="Entities\MultiRoomStrawberryCounter.cs" />
     <Compile Include="Entities\RainbowSpinnerColorAreaController.cs" />
     <Compile Include="Module\CustomWipe.cs" />
+    <Compile Include="Module\FixesThatShouldBeInEverest.cs" />
     <Compile Include="Triggers\PersistentMusicFadeTrigger.cs" />
     <Compile Include="Triggers\RainbowSpinnerColorTrigger.cs" />
     <Compile Include="Entities\ReskinnableBillboard.cs" />

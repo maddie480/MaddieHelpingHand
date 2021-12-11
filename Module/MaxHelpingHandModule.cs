@@ -63,6 +63,7 @@ namespace Celeste.Mod.MaxHelpingHand.Module {
             AllSideTentacles.Load();
             SetFlagOnSpawnController.Load();
             NoDashRefillSpring.Load();
+            FixesThatShouldBeInEverest.Load();
 
             Everest.Events.Level.OnLoadBackdrop += onLoadBackdrop;
         }
@@ -109,6 +110,7 @@ namespace Celeste.Mod.MaxHelpingHand.Module {
             AllSideTentacles.Unload();
             SetFlagOnSpawnController.Unload();
             NoDashRefillSpring.Unload();
+            FixesThatShouldBeInEverest.Unload();
 
             Everest.Events.Level.OnLoadBackdrop -= onLoadBackdrop;
         }
