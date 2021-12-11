@@ -48,7 +48,7 @@ namespace Celeste.Mod.MaxHelpingHand.Module {
         }
 
 
-        // === if you save & quit in a level after collecting the heart, the heart will disappear based on whether it's a A-side or not, instead of whether it ends the level or not.
+        // === reimplementation of https://github.com/EverestAPI/Everest/pull/403
 
         private static void fixHeartsDisappearingAfterSaveAndQuit(ILContext il) {
             ILCursor cursor = new ILCursor(il);
@@ -75,10 +75,12 @@ namespace Celeste.Mod.MaxHelpingHand.Module {
 
                     MapMetaModeProperties properties = self.Session.MapData.GetMeta();
                     if (properties != null && (properties.HeartIsEnd ?? false)) {
-                        // heart is end: this is like vanilla B- and C-sides.
+                        // heart ends the level: this is like B-Sides.
+                        // the heart will appear even if it was collected, to avoid a softlock if we save & quit after collecting it.
                         return AreaMode.BSide;
                     } else {
-                        // heart is end: this is like vanilla A-sides.
+                        // heart does not end the level: this is like A-Sides.
+                        // the heart will disappear after it is collected.
                         return AreaMode.Normal;
                     }
                 });
