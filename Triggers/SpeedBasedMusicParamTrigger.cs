@@ -31,7 +31,10 @@ namespace Celeste.Mod.MaxHelpingHand.Triggers {
                         musicParam.Value.MinimumParamValue, musicParam.Value.MaximumParamValue));
                 }
 
-                audio.Apply();
+                // apply the music param changes, but make sure doing that is not going to change the level music.
+                if (audio.Music.Event == Audio.CurrentMusic) {
+                    audio.Apply();
+                }
             }
         }
 
