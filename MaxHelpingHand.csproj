@@ -96,7 +96,6 @@
     <Compile Include="Entities\RainbowSpinnerColorAreaController.cs" />
     <Compile Include="Entities\UpsideDownMovingPlatform.cs" />
     <Compile Include="Module\CustomWipe.cs" />
-    <Compile Include="Module\FixesThatShouldBeInEverest.cs" />
     <Compile Include="Triggers\PersistentMusicFadeTrigger.cs" />
     <Compile Include="Triggers\RainbowSpinnerColorTrigger.cs" />
     <Compile Include="Entities\ReskinnableBillboard.cs" />
