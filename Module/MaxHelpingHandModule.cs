@@ -118,6 +118,7 @@ namespace Celeste.Mod.MaxHelpingHand.Module {
 
             MadelinePonytailTrigger.LoadContent();
             MultiRoomStrawberryCounter.Initialize();
+            KevinBarrier.Initialize();
         }
 
         private Backdrop onLoadBackdrop(MapData map, BinaryPacker.Element child, BinaryPacker.Element above) {

@@ -1,24 +1,74 @@
 ﻿using Celeste.Mod.Entities;
 using Microsoft.Xna.Framework;
 using Monocle;
+using MonoMod.RuntimeDetour;
 using MonoMod.Utils;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 
 namespace Celeste.Mod.MaxHelpingHand.Entities {
     [CustomEntity("MaxHelpingHand/KevinBarrier")]
     [Tracked]
     public class KevinBarrier : Solid {
+        private static List<Hook> allSetHooks = new List<Hook>();
+
         public static void Load() {
             On.Celeste.LevelLoader.LoadingThread += onLevelLoadingThread;
-            On.Celeste.CrushBlock.MoveHCheck += onKevinMoveHCheck;
-            On.Celeste.CrushBlock.MoveVCheck += onKevinMoveVCheck;
+
+            hookKevin(typeof(CrushBlock));
+
+            Type slowKevinClass = Everest.Modules.FirstOrDefault(module => module.GetType().ToString() == "FrostHelper.FrostModule")?.GetType().Assembly
+                .GetType("FrostHelper.CustomCrushBlock");
+            if (slowKevinClass != null) {
+                hookKevin(slowKevinClass);
+            }
+
+            Type nonReturnKevinClass = Everest.Modules.FirstOrDefault(module => module.GetType().ToString() == "Celeste.Mod.CherryHelper.CherryHelper")?.GetType().Assembly
+                .GetType("Celeste.Mod.CherryHelper.NonReturnCrushBlock");
+            if (nonReturnKevinClass != null) {
+                hookKevin(nonReturnKevinClass);
+            }
+
+            Type uninterruptedNonReturnKevinClass = Everest.Modules.FirstOrDefault(module => module.GetType().ToString() == "Celeste.Mod.CherryHelper.CherryHelper")?.GetType().Assembly
+                .GetType("Celeste.Mod.CherryHelper.UninterruptedNRCB");
+            if (uninterruptedNonReturnKevinClass != null) {
+                hookKevin(uninterruptedNonReturnKevinClass);
+            }
+
+            Type nonReturnSokobanClass = Everest.Modules.FirstOrDefault(module => module.GetType().ToString() == "Celeste.Mod.CherryHelper.CherryHelper")?.GetType().Assembly
+                .GetType("Celeste.Mod.CherryHelper.NonReturnSokoban");
+            if (nonReturnSokobanClass != null) {
+                hookKevin(nonReturnSokobanClass);
+            }
+        }
+
+        public static void Initialize() {
+            // using Sardine7 too early makes the game crash, because particles need to be loaded in order to initialize the static fields in SokobanBlock.
+            Type sokobanBlockClass = Everest.Modules.FirstOrDefault(module => module.GetType().ToString() == "Celeste.Mod.Sardine7.Sardine7Module")?.GetType().Assembly
+                .GetType("Celeste.Mod.Sardine7.Entities.SokobanBlock");
+            if (sokobanBlockClass != null) {
+                hookKevin(sokobanBlockClass);
+            }
+        }
+
+        // everyone is copy pasting vanilla Kevin, so everyone has the same methods, that's handy :p
+        private static void hookKevin(Type type) {
+            MethodInfo onMoveHCheck = typeof(KevinBarrier).GetMethod("onKevinMoveHCheck", BindingFlags.NonPublic | BindingFlags.Static);
+            MethodInfo onMoveVCheck = typeof(KevinBarrier).GetMethod("onKevinMoveVCheck", BindingFlags.NonPublic | BindingFlags.Static);
+
+            allSetHooks.Add(new Hook(type.GetMethod("MoveHCheck", BindingFlags.NonPublic | BindingFlags.Instance), onMoveHCheck));
+            allSetHooks.Add(new Hook(type.GetMethod("MoveVCheck", BindingFlags.NonPublic | BindingFlags.Instance), onMoveVCheck));
         }
 
         public static void Unload() {
             On.Celeste.LevelLoader.LoadingThread -= onLevelLoadingThread;
-            On.Celeste.CrushBlock.MoveHCheck -= onKevinMoveHCheck;
-            On.Celeste.CrushBlock.MoveVCheck -= onKevinMoveVCheck;
+
+            foreach (Hook h in allSetHooks) {
+                h.Dispose();
+            }
+            allSetHooks.Clear();
         }
 
         private static void onLevelLoadingThread(On.Celeste.LevelLoader.orig_LoadingThread orig, LevelLoader self) {
@@ -30,7 +80,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             orig(self);
         }
 
-        private static bool onKevinMoveHCheck(On.Celeste.CrushBlock.orig_MoveHCheck orig, CrushBlock self, float amount) {
+        private static bool onKevinMoveHCheck(Func<Solid, float, bool> orig, Solid self, float amount) {
             IEnumerable<KevinBarrier> kevinBarriers = self.Scene.Tracker.GetEntities<KevinBarrier>().OfType<KevinBarrier>();
             foreach (KevinBarrier barrier in kevinBarriers) {
                 barrier.Collidable = true;
@@ -51,7 +101,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             return isHit;
         }
 
-        private static bool onKevinMoveVCheck(On.Celeste.CrushBlock.orig_MoveVCheck orig, CrushBlock self, float amount) {
+        private static bool onKevinMoveVCheck(Func<Solid, float, bool> orig, Solid self, float amount) {
             IEnumerable<KevinBarrier> kevinBarriers = self.Scene.Tracker.GetEntities<KevinBarrier>().OfType<KevinBarrier>();
             foreach (KevinBarrier barrier in kevinBarriers) {
                 barrier.Collidable = true;
