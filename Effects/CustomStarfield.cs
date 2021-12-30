@@ -37,16 +37,9 @@ namespace Celeste.Mod.MaxHelpingHand.Effects
 
                 if (!shuffle)
                 {
-                    texture_i++;
-                    color_i++;
-                    alpha_i++;
-
-                    if (texture_i >= textures.Length || color_i >= colors.Length || alpha_i >= alphas.Length)
-                    {
-                        texture_i = 0;
-                        color_i = 0;
-                        alpha_i = 0;
-                    }
+                    texture_i = (texture_i + 1) % textures.Length;
+                    color_i = (color_i + 1) % colors.Length;
+                    alpha_i = (alpha_i + 1) % alphas.Length;
                 }
             }
         }
