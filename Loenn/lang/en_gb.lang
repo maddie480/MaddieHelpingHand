@@ -1,0 +1,815 @@
+# Badeline Sprite
+entities.MaxHelpingHand/BadelineSprite.placements.name.badelineSprite=Badeline Sprite [max480's Helping Hand]
+entities.MaxHelpingHand/BadelineSprite.attributes.description.left=Whether Badeline is facing left.
+entities.MaxHelpingHand/BadelineSprite.attributes.description.floating=Whether Badeline is floating in the air. If unchecked, Badeline will stand on the ground.
+
+# Core Mode Spikes
+entities.MaxHelpingHand/CoreModeSpikesUp.placements.name.spike=Core Mode Spikes (Up) [max480's Helping Hand]
+entities.MaxHelpingHand/CoreModeSpikesUp.attributes.description.hotType=Changes the visual appearance of the spikes while in Hot or None core mode.
+entities.MaxHelpingHand/CoreModeSpikesUp.attributes.description.coldType=Changes the visual appearance of the spikes while in Cold core mode.
+entities.MaxHelpingHand/CoreModeSpikesDown.placements.name.spike=Core Mode Spikes (Down) [max480's Helping Hand]
+entities.MaxHelpingHand/CoreModeSpikesDown.attributes.description.hotType=Changes the visual appearance of the spikes while in Hot or None core mode.
+entities.MaxHelpingHand/CoreModeSpikesDown.attributes.description.coldType=Changes the visual appearance of the spikes while in Cold core mode.
+entities.MaxHelpingHand/CoreModeSpikesLeft.placements.name.spike=Core Mode Spikes (Left) [max480's Helping Hand]
+entities.MaxHelpingHand/CoreModeSpikesLeft.attributes.description.hotType=Changes the visual appearance of the spikes while in Hot or None core mode.
+entities.MaxHelpingHand/CoreModeSpikesLeft.attributes.description.coldType=Changes the visual appearance of the spikes while in Cold core mode.
+entities.MaxHelpingHand/CoreModeSpikesRight.placements.name.spike=Core Mode Spikes (Right) [max480's Helping Hand]
+entities.MaxHelpingHand/CoreModeSpikesRight.attributes.description.hotType=Changes the visual appearance of the spikes while in Hot or None core mode.
+entities.MaxHelpingHand/CoreModeSpikesRight.attributes.description.coldType=Changes the visual appearance of the spikes while in Cold core mode.
+
+# Customizable Crumble Platform
+entities.MaxHelpingHand/CustomizableCrumblePlatform.placements.name.default=Crumble Blocks (Default, Customizable) [max480's Helping Hand]
+entities.MaxHelpingHand/CustomizableCrumblePlatform.placements.name.cliffside=Crumble Blocks (Cliffside, Customizable) [max480's Helping Hand]
+entities.MaxHelpingHand/CustomizableCrumblePlatform.attributes.description.texture=What texture to use for the crumble block.
+entities.MaxHelpingHand/CustomizableCrumblePlatform.attributes.description.oneUse=If checked, the platform will not respawn once it crumbled.
+entities.MaxHelpingHand/CustomizableCrumblePlatform.attributes.description.respawnDelay=The delay in seconds before the platform respawns after it crumbled (vanilla is 2 seconds).
+entities.MaxHelpingHand/CustomizableCrumblePlatform.attributes.description.grouped=Whether this crumble platform should be "grouped" with crumble platforms that are next to it and also have the option enabled.\nAll crumble platforms in a "group" crumble together when the player steps on / grabs one of them.
+entities.MaxHelpingHand/CustomizableCrumblePlatform.attributes.description.minCrumbleDurationOnTop=The time (in seconds) the platform will take to disappear when the player stands on it, but immediately jumps off it.
+entities.MaxHelpingHand/CustomizableCrumblePlatform.attributes.description.maxCrumbleDurationOnTop=The time (in seconds) the platform will take to disappear when the player stands on it and doesn't jump off.
+entities.MaxHelpingHand/CustomizableCrumblePlatform.attributes.description.crumbleDurationOnSide=The time (in seconds) the platform will take to disappear when the player grabs a side of it. Should be equal to or higher than "Max Crumble Duration On Top".
+entities.MaxHelpingHand/CustomizableCrumblePlatform.attributes.description.outlineTexture=The path to the outline texture (that appears while the platform is respawning), in Graphics/Atlases/Gameplay.\nTo use the texture at Graphics/Atlases/Gameplay/somefolder/texturename.png in your mod, write "somefolder/texturename" here.\nYou'll find the vanilla texture in the graphics dump, in Graphics/Atlases/Gameplay/objects/crumbleBlock/outline.png.
+entities.MaxHelpingHand/CustomizableCrumblePlatform.attributes.description.onlyEmitSoundForPlayer=If checked, the crumble block will only emit sound when triggered by the player (not when triggered by another crumble block in the group).
+entities.MaxHelpingHand/CustomizableCrumblePlatform.attributes.description.fadeOutTint=The tint/color to use while the crumble block falls apart.
+entities.MaxHelpingHand/CustomizableCrumblePlatform.attributes.description.attachStaticMovers=If checked, any static movers (spikes, springs, etc.) attached to the platform will crumble along with it when it crumbles.
+
+# Customizable Glass Block
+entities.MaxHelpingHand/CustomizableGlassBlock.placements.name.glass_block=Customizable Glass Block [max480's Helping Hand]
+entities.MaxHelpingHand/CustomizableGlassBlock.attributes.description.behindFgTiles=Whether the glass block outline should appear behind foreground tiles.
+
+# Customizable Glass Block Controller
+entities.MaxHelpingHand/CustomizableGlassBlockController.placements.name.controller=Customizable Glass Block Controller [max480's Helping Hand]
+entities.MaxHelpingHand/CustomizableGlassBlockController.attributes.description.starColors=A comma-separated list of all star colours visible in glass blocks in the room.
+entities.MaxHelpingHand/CustomizableGlassBlockController.attributes.description.bgColor=The background colour for glass blocks in the room.
+entities.MaxHelpingHand/CustomizableGlassBlockController.attributes.description.wavy=Whether the glass blocks in the room should be wavy, like if they contained water. Vanilla glass blocks use this effect.
+entities.MaxHelpingHand/CustomizableGlassBlockController.attributes.description.persistent=If checked, the chosen settings will persist until the player enters a room with another Customizable Glass Block Controller.\nIf unchecked, the chosen settings will only apply to the current room.
+
+# Customizable Glass Block Area Controller
+entities.MaxHelpingHand/CustomizableGlassBlockAreaController.placements.name.field=Customizable Glass Block Area Controller [max480's Helping Hand]
+entities.MaxHelpingHand/CustomizableGlassBlockAreaController.attributes.description.starColors=A comma-separated list of all star colours visible in glass blocks in the area.
+entities.MaxHelpingHand/CustomizableGlassBlockAreaController.attributes.description.bgColor=The background colour for glass blocks in the area.
+entities.MaxHelpingHand/CustomizableGlassBlockAreaController.attributes.description.wavy=Whether the glass blocks in the area should be wavy, like if they contained water. Vanilla glass blocks use this effect.
+
+# Customizable Glass Exit Block
+entities.MaxHelpingHand/CustomizableGlassExitBlock.placements.name.glass_block=Customizable Glass Exit Block [max480's Helping Hand]
+entities.MaxHelpingHand/CustomizableGlassExitBlock.attributes.description.behindFgTiles=Whether the glass block outline should appear behind foreground tiles.
+
+# Customizable Refill
+entities.MaxHelpingHand/CustomizableRefill.placements.name.one_dash=Refill (Customizable) [max480's Helping Hand]
+entities.MaxHelpingHand/CustomizableRefill.placements.name.two_dashes=Refill (Two Dashes, Customizable) [max480's Helping Hand]
+entities.MaxHelpingHand/CustomizableRefill.attributes.description.twoDash=Whether the refill should give two dashes.
+entities.MaxHelpingHand/CustomizableRefill.attributes.description.oneUse=Whether the refill should respawn after being used.
+entities.MaxHelpingHand/CustomizableRefill.attributes.description.respawnTime=The delay (in seconds) before the refill respawns after being collected.
+entities.MaxHelpingHand/CustomizableRefill.attributes.description.sprite=The name of the custom sprite to use for the refill. Leave empty to use vanilla sprites.\nTo create one:\n- copy the Graphics/Atlases/Gameplay/objects/refill directory from the graphics dump\n- copy it to Mods/yourmod/Graphics/Atlases/Gameplay/objects/MaxHelpingHand/refill/myRefillName\n- input "myRefillName" in this field
+entities.MaxHelpingHand/CustomizableRefill.attributes.description.shatterParticleColor1=One of the 2 colors of the particles the refill emits when collected. If one of the colors is left empty, the refill will use vanilla particle colors.
+entities.MaxHelpingHand/CustomizableRefill.attributes.description.shatterParticleColor2=One of the 2 colors of the particles the refill emits when collected. If one of the colors is left empty, the refill will use vanilla particle colors.
+entities.MaxHelpingHand/CustomizableRefill.attributes.description.glowParticleColor1=One of the 2 colors of the particles the refill emits when glowing or respawning. If one of the colors is left empty, the refill will use vanilla particle colors.
+entities.MaxHelpingHand/CustomizableRefill.attributes.description.glowParticleColor2=One of the 2 colors of the particles the refill emits when glowing or respawning. If one of the colors is left empty, the refill will use vanilla particle colors.
+entities.MaxHelpingHand/CustomizableRefill.attributes.description.wave=Whether the refill should wave up and down, like vanilla refills. This is only visual, the hitbox does not move.
+
+# Custom Memorial (with Dreaming attribute)
+entities.MaxHelpingHand/CustomMemorialWithDreamingAttribute.placements.name.dreaming=Custom Memorial (Dreaming) [max480's Helping Hand]
+entities.MaxHelpingHand/CustomMemorialWithDreamingAttribute.placements.name.not_dreaming=Custom Memorial (Not Dreaming) [max480's Helping Hand]
+entities.MaxHelpingHand/CustomMemorialWithDreamingAttribute.attributes.description.dreaming=Changes the memorial's text to the dream state from Old Site.
+entities.MaxHelpingHand/CustomMemorialWithDreamingAttribute.attributes.description.dialog=What dialog ID to pull the memorial's text from.
+entities.MaxHelpingHand/CustomMemorialWithDreamingAttribute.attributes.description.sprite=What sprite to render for the memorial.
+entities.MaxHelpingHand/CustomMemorialWithDreamingAttribute.attributes.description.spacing=The spacing for the letters.
+
+# Custom Sandwich Lava
+entities.MaxHelpingHand/CustomSandwichLava.placements.name.lava_sandwich=Sandwich Lava (Customizable) [max480's Helping Hand]
+entities.MaxHelpingHand/CustomSandwichLava.attributes.description.direction=Changes the sandwich lava direction. CoreModeBased is the same behaviour as vanilla, depending on core mode.
+entities.MaxHelpingHand/CustomSandwichLava.attributes.description.speed=Changes the speed the lava is moving at, in pixels per second. Vanilla value is 20.
+entities.MaxHelpingHand/CustomSandwichLava.attributes.description.sandwichGap=The gap in pixels between both sides of the lava. Vanilla value is 160.
+entities.MaxHelpingHand/CustomSandwichLava.attributes.description.hotEdgeColor=The color at the edge of the lava when in Hot mode.
+entities.MaxHelpingHand/CustomSandwichLava.attributes.description.hotSurfaceColor=The color at the surface of the lava when in Hot mode.
+entities.MaxHelpingHand/CustomSandwichLava.attributes.description.hotCenterColor=The color at the center of the lava when in Hot mode.
+entities.MaxHelpingHand/CustomSandwichLava.attributes.description.coldEdgeColor=The color at the edge of the lava when in Cold mode.
+entities.MaxHelpingHand/CustomSandwichLava.attributes.description.coldSurfaceColor=The color at the surface of the lava when in Cold mode.
+entities.MaxHelpingHand/CustomSandwichLava.attributes.description.coldCenterColor=The color at the center of the lava when in Cold mode.
+
+# Custom Seeker Barrier
+entities.MaxHelpingHand/CustomSeekerBarrier.placements.name.seeker_barrier=Seeker Barrier (Custom) [max480's Helping Hand]
+entities.MaxHelpingHand/CustomSeekerBarrier.attributes.name.transparency=Opacity
+entities.MaxHelpingHand/CustomSeekerBarrier.attributes.name.particleTransparency=Particle Opacity
+entities.MaxHelpingHand/CustomSeekerBarrier.attributes.description.color=The color the seeker barriers will take.
+entities.MaxHelpingHand/CustomSeekerBarrier.attributes.description.particleColor=The color the particles inside the seeker barriers will take.
+entities.MaxHelpingHand/CustomSeekerBarrier.attributes.description.transparency=The opacity, between 0 and 1, of the seeker barriers. Vanilla value is 0.15.
+entities.MaxHelpingHand/CustomSeekerBarrier.attributes.description.particleTransparency=The opacity, between 0 and 1, of the particles inside the seeker barriers. Vanilla value is 0.5.
+entities.MaxHelpingHand/CustomSeekerBarrier.attributes.description.particleDirection=The direction of the particles in degrees, 0 being the default (down), 90 being left, etc.
+
+# Custom Summit Checkpoints
+entities.MaxHelpingHand/CustomSummitCheckpoint.placements.name.summit_checkpoint=Custom Summit Checkpoint [max480's Helping Hand]
+entities.MaxHelpingHand/CustomSummitCheckpoint.attributes.description.firstDigit=The first digit to display. (You can make your own by dropping textures in the Graphics/Atlases/Gameplay/(Sprite Directory setting)/texturename folder.)
+entities.MaxHelpingHand/CustomSummitCheckpoint.attributes.description.secondDigit=The second digit to display. (You can make your own by dropping textures in the Graphics/Atlases/Gameplay/(Sprite Directory setting)/texturename folder.)
+entities.MaxHelpingHand/CustomSummitCheckpoint.attributes.description.spriteDirectory=The directory that contains the sprites for the checkpoint, including the base and the digits.
+entities.MaxHelpingHand/CustomSummitCheckpoint.attributes.description.confettiColors=The colors of the confetti the summit checkpoint will emit when triggered, separated by commas.
+
+# Custom Tutorial with No Bird
+entities.MaxHelpingHand/CustomTutorialWithNoBird.placements.name.bird=Custom Tutorial with No Bird [max480's Helping Hand]
+entities.MaxHelpingHand/CustomTutorialWithNoBird.attributes.description.birdId=The unique id of the tutorial when used in combination with Custom Tutorial Bird triggers. Useful for extra control over multiple birds in one room.
+entities.MaxHelpingHand/CustomTutorialWithNoBird.attributes.description.controls=The controls to display in the bubble, separated by commas. Each part can be:\n- a path to a texture in the Gui atlas (for example "tinyarrow")\n- a direction: Down, DownRight, Right, UpRight, Up, UpLeft, Left, DownLeft\n- a button: Jump, Dash, Grab, Talk, ESC, Pause, MenuLeft, MenuRight, MenuUp, MenuDown, MenuConfirm, MenuCancel, MenuJournal, QuickRestart\n- a dialog ID, if you prefix it with "dialog:" (for example, "dialog:TUTORIAL_DREAMJUMP")\n- plain text
+entities.MaxHelpingHand/CustomTutorialWithNoBird.attributes.description.info=The speech bubble title. Can either be a dialog ID or a path to a texture in the GUI atlas.
+entities.MaxHelpingHand/CustomTutorialWithNoBird.attributes.description.onlyOnce=Whether the tutorial should reappear after displaying the speech bubble and disappearing.
+entities.MaxHelpingHand/CustomTutorialWithNoBird.attributes.description.hasPointer=Whether the tutorial should be a bubble pointing down. If unchecked, the tutorial will be displayed in a rectangle instead.
+
+# Upside Down Jump Thru
+entities.MaxHelpingHand/UpsideDownJumpThru.placements.name.jumpthru=Upside Down Jump Through [max480's Helping Hand]
+entities.MaxHelpingHand/UpsideDownJumpThru.attributes.description.texture=Changes the appearance of the platform. Should be in the same format as vanilla for static jumpthrus, and a 8x8 image for animated ones.
+entities.MaxHelpingHand/UpsideDownJumpThru.attributes.description.animationDelay=The delay in seconds between 2 frames of animation. Leave to 0 for no animation.
+entities.MaxHelpingHand/UpsideDownJumpThru.attributes.description.pushPlayer=Whether the jumpthru should push the player down, like vanilla jumpthrus push the player up.
+entities.MaxHelpingHand/UpsideDownJumpThru.attributes.description.attached=Whether the jumpthru should attach to solids and move with them.
+
+# Sideways Jump Thru
+entities.MaxHelpingHand/SidewaysJumpThru.placements.name.left=Sideways Jump Through (Left) [max480's Helping Hand]
+entities.MaxHelpingHand/SidewaysJumpThru.placements.name.right=Sideways Jump Through (Right) [max480's Helping Hand]
+entities.MaxHelpingHand/SidewaysJumpThru.attributes.description.texture=Changes the appearance of the platform. Should be in the same format as vanilla for static jumpthrus, and a 8x8 image for animated ones.
+entities.MaxHelpingHand/SidewaysJumpThru.attributes.description.animationDelay=The delay in seconds between 2 frames of animation. Leave to 0 for no animation.
+entities.MaxHelpingHand/SidewaysJumpThru.attributes.description.left=Whether the solid side of the jumpthru is the left side.
+entities.MaxHelpingHand/SidewaysJumpThru.attributes.description.letSeekersThrough=Whether the seekers should be able to go through the jumpthru, like vanilla ones.
+entities.MaxHelpingHand/SidewaysJumpThru.attributes.description.surfaceIndex=Determines which sound the jumpthru will make when the player climbs on it.
+entities.MaxHelpingHand/SidewaysJumpThru.attributes.description.pushPlayer=Whether the jumpthru should push the player to its solid side for more leniency, like vanilla jumpthrus do.
+
+# Attached Sideways Jump Thru
+entities.MaxHelpingHand/AttachedSidewaysJumpThru.placements.name.left=Sideways Jump Through (Attached, Left) [max480's Helping Hand]
+entities.MaxHelpingHand/AttachedSidewaysJumpThru.placements.name.right=Sideways Jump Through (Attached, Right) [max480's Helping Hand]
+entities.MaxHelpingHand/AttachedSidewaysJumpThru.attributes.description.texture=Changes the appearance of the platform. Should be in the same format as vanilla for static jumpthrus, and a 8x8 image for animated ones.
+entities.MaxHelpingHand/AttachedSidewaysJumpThru.attributes.description.animationDelay=The delay in seconds between 2 frames of animation. Leave to 0 for no animation.
+entities.MaxHelpingHand/AttachedSidewaysJumpThru.attributes.description.left=Whether the solid side of the jumpthru is the left side.
+entities.MaxHelpingHand/AttachedSidewaysJumpThru.attributes.description.letSeekersThrough=Whether the seekers should be able to go through the jumpthru, like vanilla ones.
+entities.MaxHelpingHand/AttachedSidewaysJumpThru.attributes.description.surfaceIndex=Determines which sound the jumpthru will make when the player climbs on it.
+entities.MaxHelpingHand/AttachedSidewaysJumpThru.attributes.description.pushPlayer=Whether the jumpthru should push the player to its solid side for more leniency, like vanilla jumpthrus do.
+
+# Flag Exit Block
+entities.MaxHelpingHand/FlagExitBlock.placements.name.exit_block=Flag Exit Block [max480's Helping Hand]
+entities.MaxHelpingHand/FlagExitBlock.attributes.description.tileType=Determines the visual appearance of the wall.
+entities.MaxHelpingHand/FlagExitBlock.attributes.description.flag=The flag this exit block will react to.
+entities.MaxHelpingHand/FlagExitBlock.attributes.description.inverted=If checked, the exit block will disappear when the flag is active.\nIf unchecked, the exit block will appear when the flag is active.
+entities.MaxHelpingHand/FlagExitBlock.attributes.description.playSound=Whether the exit block should play a sound when appearing, like vanilla ones.
+entities.MaxHelpingHand/FlagExitBlock.attributes.description.instant=If checked, the exit block will instantly appear or disappear when the flag is toggled, with no animation.
+
+# Flag Logic Gate
+entities.MaxHelpingHand/FlagLogicGate.placements.name.flag_logic_gate=Flag Logic Gate [max480's Helping Hand]
+entities.MaxHelpingHand/FlagLogicGate.attributes.description.inputFlags=The session flags to use as an input, separated by commas. You can invert one of the flags by adding a ! in front of its name (!flagName).
+entities.MaxHelpingHand/FlagLogicGate.attributes.description.outputFlag=The session flag that will be changed depending on the input flags.
+entities.MaxHelpingHand/FlagLogicGate.attributes.description.func=The function used on the input flags to get the output flag. For example, if input flags are "flag1,flag2", function is AND, and output flag is flag3, then flag3 will be set if flag1 AND flag2 are set.\nXOR is "exclusive OR", it will set the flag if ONLY one of the input flags is set.
+entities.MaxHelpingHand/FlagLogicGate.attributes.name.func=Function
+entities.MaxHelpingHand/FlagLogicGate.attributes.description.not=If checked, the value of the output flag will be inverted.
+
+# Flag Switch Gate
+entities.MaxHelpingHand/FlagSwitchGate.placements.name.block=Flag Switch Gate (Block) [max480's Helping Hand]
+entities.MaxHelpingHand/FlagSwitchGate.placements.name.mirror=Flag Switch Gate (Mirror) [max480's Helping Hand]
+entities.MaxHelpingHand/FlagSwitchGate.placements.name.temple=Flag Switch Gate (Temple) [max480's Helping Hand]
+entities.MaxHelpingHand/FlagSwitchGate.placements.name.stars=Flag Switch Gate (Stars) [max480's Helping Hand]
+entities.MaxHelpingHand/FlagSwitchGate.attributes.description.flag=The session flag this switch gate reacts to. Give the same to multiple touch switches and switch gates to group them.
+entities.MaxHelpingHand/FlagSwitchGate.attributes.description.icon=The name of the icon for the switch gate (relative to objects/MaxHelpingHand/flagSwitchGate), or "vanilla" for the default one.
+entities.MaxHelpingHand/FlagSwitchGate.attributes.description.persistent=If enabled, the switch gate will stay open when the player dies or changes rooms.\nThis switch gate will also set a flag when it is enabled: [flagName]_gate[entityID]
+entities.MaxHelpingHand/FlagSwitchGate.attributes.description.inactiveColor=The gate icon colour when not triggered yet.
+entities.MaxHelpingHand/FlagSwitchGate.attributes.description.activeColor=The gate icon colour when triggered, but the group is not complete yet.
+entities.MaxHelpingHand/FlagSwitchGate.attributes.description.finishColor=The gate icon colour when the group is complete.
+entities.MaxHelpingHand/FlagSwitchGate.attributes.description.sprite=The texture for the gate block.
+entities.MaxHelpingHand/FlagSwitchGate.attributes.description.shakeTime=The time (in seconds) the block spends shaking before starting to move. Vanilla value is 0.5 seconds.
+entities.MaxHelpingHand/FlagSwitchGate.attributes.description.moveTime=The time (in seconds) the block takes to move to its destination after shaking. Vanilla value is 1.8 seconds.
+entities.MaxHelpingHand/FlagSwitchGate.attributes.description.moveEased=Whether the block should slow down before reaching its final position. If unchecked, the block will move at constant speed.
+entities.MaxHelpingHand/FlagSwitchGate.attributes.description.allowReturn=Whether the block should return to its original position if the flag is turned off. Only works if the gate is persistent.
+entities.MaxHelpingHand/FlagSwitchGate.attributes.description.moveSound=The sound played by the gate when it starts moving.
+entities.MaxHelpingHand/FlagSwitchGate.attributes.description.finishedSound=The sound played by the gate when it is done moving.
+entities.MaxHelpingHand/FlagSwitchGate.attributes.description.smoke=Whether the switch gate should emit smoke when reaching its final position.
+
+# Flag Touch Switch
+entities.MaxHelpingHand/FlagTouchSwitch.placements.name.touch_switch=Flag Touch Switch [max480's Helping Hand]
+entities.MaxHelpingHand/FlagTouchSwitch.attributes.description.flag=The session flag this touch switch sets. Give the same to multiple touch switches and switch gates to group them.
+entities.MaxHelpingHand/FlagTouchSwitch.attributes.description.icon=The name of the icon for the touch switch (relative to objects/MaxHelpingHand/flagTouchSwitch), or "vanilla" for the default one.
+entities.MaxHelpingHand/FlagTouchSwitch.attributes.description.persistent=If enabled, the touch switch will stay active when the player dies or changes rooms.\nThis touch switch will also set a flag when it is enabled: [flagName]_switch[entityID]
+entities.MaxHelpingHand/FlagTouchSwitch.attributes.description.inactiveColor=The switch colour when not triggered yet.
+entities.MaxHelpingHand/FlagTouchSwitch.attributes.description.activeColor=The switch colour when triggered, but the group is not complete yet.
+entities.MaxHelpingHand/FlagTouchSwitch.attributes.description.finishColor=The switch colour when the group is complete.
+entities.MaxHelpingHand/FlagTouchSwitch.attributes.description.smoke=Whether the touch switch emits smoke when the group is complete.
+entities.MaxHelpingHand/FlagTouchSwitch.attributes.description.inverted=Whether the touch switch should turn off the flag instead of turning it on. The option should match on all touch switches of the group.
+entities.MaxHelpingHand/FlagTouchSwitch.attributes.description.allowDisable=Whether the touch switch can be disabled once the group is complete, if the flag change is reverted. Does not work with non-persistent flag switch gates.
+entities.MaxHelpingHand/FlagTouchSwitch.attributes.description.hitSound=The sound played when the switch is hit by the player.
+entities.MaxHelpingHand/FlagTouchSwitch.attributes.description.completeSoundFromSwitch=The sound emitted by the latest switch collected when the group is complete.
+entities.MaxHelpingHand/FlagTouchSwitch.attributes.description.completeSoundFromScene=A global sound emitted when the group is complete. As opposed to "Complete Sound (Switch)", this sound isn't emitted by a particular switch.
+entities.MaxHelpingHand/FlagTouchSwitch.attributes.name.completeSoundFromSwitch=Complete Sound (Switch)
+entities.MaxHelpingHand/FlagTouchSwitch.attributes.name.completeSoundFromScene=Complete Sound (Global)
+
+# Floaty Space Block with Attached Sideways Jumpthru support
+entities.MaxHelpingHand/FloatySpaceBlockWithAttachedSidewaysJumpthruSupport.placements.name.floaty_space_block=Floaty Space Block (supporting Sideways Jump Throughs) [max480's Helping Hand]
+entities.MaxHelpingHand/FloatySpaceBlockWithAttachedSidewaysJumpthruSupport.attributes.description.tiletype=Determines the visual appearance of the wall.
+entities.MaxHelpingHand/FloatySpaceBlockWithAttachedSidewaysJumpthruSupport.attributes.description.disableSpawnOffset=Whether or not the entity should spawn without the random offset.
+
+# Golden Strawberry with Custom Conditions
+entities.MaxHelpingHand/GoldenStrawberryCustomConditions.placements.name.golden=Golden Strawberry (Custom Conditions) [max480's Helping Hand]
+entities.MaxHelpingHand/GoldenStrawberryCustomConditions.attributes.description.mustNotDieAndVisitFurtherRooms=If enabled, the golden strawberry will disappear if the player visited further rooms and died at least once.
+entities.MaxHelpingHand/GoldenStrawberryCustomConditions.attributes.description.mustHaveUnlockedCSides=If enabled, the golden strawberry will not appear if the player did not unlock C-Sides. The strawberry will still appear if debug mode or cheat mode is enabled.
+entities.MaxHelpingHand/GoldenStrawberryCustomConditions.attributes.description.mustHaveCompletedLevel=If enabled, the golden strawberry will not appear if the player did not complete the level yet. The strawberry will still appear if cheat mode is enabled.
+entities.MaxHelpingHand/GoldenStrawberryCustomConditions.attributes.description.showGoldenChapterCard=Whether this golden berry should trigger the golden chapter card on the chapter select screen when collected.
+
+# Grouped Trigger Spikes
+entities.MaxHelpingHand/GroupedTriggerSpikesUp.placements.name.up_default=Grouped Trigger Spikes (Up, Default) [max480's Helping Hand]
+entities.MaxHelpingHand/GroupedTriggerSpikesUp.placements.name.up_outline=Grouped Trigger Spikes (Up, Outline) [max480's Helping Hand]
+entities.MaxHelpingHand/GroupedTriggerSpikesUp.placements.name.up_cliffside=Grouped Trigger Spikes (Up, Cliffside) [max480's Helping Hand]
+entities.MaxHelpingHand/GroupedTriggerSpikesUp.placements.name.up_reflection=Grouped Trigger Spikes (Up, Reflection) [max480's Helping Hand]
+entities.MaxHelpingHand/GroupedTriggerSpikesDown.placements.name.down_default=Grouped Trigger Spikes (Down, Default) [max480's Helping Hand]
+entities.MaxHelpingHand/GroupedTriggerSpikesDown.placements.name.down_outline=Grouped Trigger Spikes (Down, Outline) [max480's Helping Hand]
+entities.MaxHelpingHand/GroupedTriggerSpikesDown.placements.name.down_cliffside=Grouped Trigger Spikes (Down, Cliffside) [max480's Helping Hand]
+entities.MaxHelpingHand/GroupedTriggerSpikesDown.placements.name.down_reflection=Grouped Trigger Spikes (Down, Reflection) [max480's Helping Hand]
+entities.MaxHelpingHand/GroupedTriggerSpikesLeft.placements.name.left_default=Grouped Trigger Spikes (Left, Default) [max480's Helping Hand]
+entities.MaxHelpingHand/GroupedTriggerSpikesLeft.placements.name.left_outline=Grouped Trigger Spikes (Left, Outline) [max480's Helping Hand]
+entities.MaxHelpingHand/GroupedTriggerSpikesLeft.placements.name.left_cliffside=Grouped Trigger Spikes (Left, Cliffside) [max480's Helping Hand]
+entities.MaxHelpingHand/GroupedTriggerSpikesLeft.placements.name.left_reflection=Grouped Trigger Spikes (Left, Reflection) [max480's Helping Hand]
+entities.MaxHelpingHand/GroupedTriggerSpikesRight.placements.name.right_default=Grouped Trigger Spikes (Right, Default) [max480's Helping Hand]
+entities.MaxHelpingHand/GroupedTriggerSpikesRight.placements.name.right_outline=Grouped Trigger Spikes (Right, Outline) [max480's Helping Hand]
+entities.MaxHelpingHand/GroupedTriggerSpikesRight.placements.name.right_cliffside=Grouped Trigger Spikes (Right, Cliffside) [max480's Helping Hand]
+entities.MaxHelpingHand/GroupedTriggerSpikesRight.placements.name.right_reflection=Grouped Trigger Spikes (Right, Reflection) [max480's Helping Hand]
+entities.MaxHelpingHand/GroupedTriggerSpikesUp.attributes.description.type=Changes the visual appearance of the spikes.
+entities.MaxHelpingHand/GroupedTriggerSpikesDown.attributes.description.type=Changes the visual appearance of the spikes.
+entities.MaxHelpingHand/GroupedTriggerSpikesLeft.attributes.description.type=Changes the visual appearance of the spikes.
+entities.MaxHelpingHand/GroupedTriggerSpikesRight.attributes.description.type=Changes the visual appearance of the spikes.
+entities.MaxHelpingHand/GroupedTriggerSpikesUp.attributes.description.behindMoveBlocks=Determines whether the trigger spikes appear behind move blocks. Not supported for dust spikes.
+entities.MaxHelpingHand/GroupedTriggerSpikesDown.attributes.description.behindMoveBlocks=Determines whether the trigger spikes appear behind move blocks. Not supported for dust spikes.
+entities.MaxHelpingHand/GroupedTriggerSpikesLeft.attributes.description.behindMoveBlocks=Determines whether the trigger spikes appear behind move blocks. Not supported for dust spikes.
+entities.MaxHelpingHand/GroupedTriggerSpikesRight.attributes.description.behindMoveBlocks=Determines whether the trigger spikes appear behind move blocks. Not supported for dust spikes.
+entities.MaxHelpingHand/GroupedTriggerSpikesUp.attributes.description.triggerIfSameDirection=Whether the spikes should trigger even if Madeline moves in the direction they are pointing. Useful to make them more consistent if they are attached to Kevins. Not supported for dust spikes.
+entities.MaxHelpingHand/GroupedTriggerSpikesDown.attributes.description.triggerIfSameDirection=Whether the spikes should trigger even if Madeline moves in the direction they are pointing. Useful to make them more consistent if they are attached to Kevins. Not supported for dust spikes.
+entities.MaxHelpingHand/GroupedTriggerSpikesLeft.attributes.description.triggerIfSameDirection=Whether the spikes should trigger even if Madeline moves in the direction they are pointing. Useful to make them more consistent if they are attached to Kevins. Not supported for dust spikes.
+entities.MaxHelpingHand/GroupedTriggerSpikesRight.attributes.description.triggerIfSameDirection=Whether the spikes should trigger even if Madeline moves in the direction they are pointing. Useful to make them more consistent if they are attached to Kevins. Not supported for dust spikes.
+
+# Hint Decal
+entities.MaxHelpingHand/HintDecal.placements.name.decal=Hint Decal [max480's Helping Hand]
+entities.MaxHelpingHand/HintDecal.attributes.description.texture=The path to the decal, relative to Graphics/Atlases/Gameplay/decals.
+entities.MaxHelpingHand/HintDecal.attributes.description.scaleX=The horizontal scale of this decal (1 = normal).
+entities.MaxHelpingHand/HintDecal.attributes.description.scaleY=The vertical scale of this decal (1 = normal).
+entities.MaxHelpingHand/HintDecal.attributes.description.foreground=Whether this decal should appear in the foreground.
+
+# Hints Flag Controller
+entities.MaxHelpingHand/HintsFlagController.placements.name.hints_flag_controller=Hints Flag Controller [max480's Helping Hand]
+entities.MaxHelpingHand/HintsFlagController.attributes.description.outputFlag=The session flag that will be set depending on the hints state.
+entities.MaxHelpingHand/HintsFlagController.attributes.description.not=If checked, the value of the output flag will be inverted.
+
+# Horizontal Room Wrap Controller
+entities.MaxHelpingHand/HorizontalRoomWrapController.placements.name.controller=Horizontal Room Wrap Controller [max480's Helping Hand]
+
+# Kevin Barrier
+entities.MaxHelpingHand/KevinBarrier.placements.name.barrier=Kevin Barrier [max480's Helping Hand]
+entities.MaxHelpingHand/KevinBarrier.attributes.description.color=Changes the color of the barrier.
+entities.MaxHelpingHand/KevinBarrier.attributes.description.particleColor=Changes the color of the particles moving inside the barrier.
+entities.MaxHelpingHand/KevinBarrier.attributes.description.flashOnHit=Determines whether the barrier flashes when it is hit by a Kevin.
+entities.MaxHelpingHand/KevinBarrier.attributes.description.invisible=If checked, the Kevin barrier will be invisible (doesn't apply to the flashing).
+
+# Lit Blue Torch
+entities.MaxHelpingHand/LitBlueTorch.placements.name.torch=Torch (Lit, Blue) [max480's Helping Hand]
+
+# More Custom NPC
+entities.MaxHelpingHand/MoreCustomNPC.placements.name.npc=More Custom NPC [Everest + max480's Helping Hand]
+entities.MaxHelpingHand/MoreCustomNPC.attributes.description.indicatorOffsetX=Offset for the chat icon on the X axis.
+entities.MaxHelpingHand/MoreCustomNPC.attributes.description.indicatorOffsetY=Offset for the chat icon on the Y axis.
+entities.MaxHelpingHand/MoreCustomNPC.attributes.description.dialogId=The dialog ID to use for the dialogue. Leave empty to make no bubble appear.
+entities.MaxHelpingHand/MoreCustomNPC.attributes.description.flipY=Flips the sprite of the NPC vertically.
+entities.MaxHelpingHand/MoreCustomNPC.attributes.description.flipX=Flips the sprite of the NPC horizontally.
+entities.MaxHelpingHand/MoreCustomNPC.attributes.description.onlyOnce=Whether the dialogue should only be completable once.
+entities.MaxHelpingHand/MoreCustomNPC.attributes.description.endLevel=Whether finishing the dialogue should count as completing the map.
+entities.MaxHelpingHand/MoreCustomNPC.attributes.description.approachWhenTalking=Whether Madeline should walk towards the NPC when talking.
+entities.MaxHelpingHand/MoreCustomNPC.attributes.description.spriteRate=The animation rate for the sprite (in frames per second).
+entities.MaxHelpingHand/MoreCustomNPC.attributes.description.approachDistance=How far away from the NPC Madeline should stop when approaching.
+entities.MaxHelpingHand/MoreCustomNPC.attributes.description.sprite=Which sprite to use. `player/idle` will use the full path `Graphics/Atlases/Gameplay/characters/player/idle00` and loop from 00 to 08.
+entities.MaxHelpingHand/MoreCustomNPC.attributes.description.frames=The frames to use, in the same format as Sprites.xml:\n- 1,5,6 means frames 1, 5 and 6\n- 1-6 means frames 1 to 6\n- 2*4,3 means 4 times frame 2, then frame 3
+entities.MaxHelpingHand/MoreCustomNPC.attributes.description.onlyIfFlag=If set, the player will only be able to talk to the NPC when the given flag is active.
+entities.MaxHelpingHand/MoreCustomNPC.attributes.description.setFlag=If set, the given flag will be activated once the player is done talking to the NPC.
+
+# Custom NPC from XML
+entities.MaxHelpingHand/CustomNPCSprite.placements.name.npc=Custom NPC (from XML) [Everest + max480's Helping Hand]
+entities.MaxHelpingHand/CustomNPCSprite.attributes.description.indicatorOffsetX=Offset for the chat icon on the X axis.
+entities.MaxHelpingHand/CustomNPCSprite.attributes.description.indicatorOffsetY=Offset for the chat icon on the Y axis.
+entities.MaxHelpingHand/CustomNPCSprite.attributes.description.dialogId=The dialog ID to use for the dialogue. Leave empty to make no bubble appear.
+entities.MaxHelpingHand/CustomNPCSprite.attributes.description.flipY=Flips the sprite of the NPC vertically.
+entities.MaxHelpingHand/CustomNPCSprite.attributes.description.flipX=Flips the sprite of the NPC horizontally.
+entities.MaxHelpingHand/CustomNPCSprite.attributes.description.onlyOnce=Whether the dialogue should only be completable once.
+entities.MaxHelpingHand/CustomNPCSprite.attributes.description.endLevel=Whether finishing the dialogue should count as completing the map.
+entities.MaxHelpingHand/CustomNPCSprite.attributes.description.approachWhenTalking=Whether Madeline should walk towards the NPC when talking.
+entities.MaxHelpingHand/CustomNPCSprite.attributes.description.approachDistance=How far away from the NPC Madeline should stop when approaching.
+entities.MaxHelpingHand/CustomNPCSprite.attributes.description.spriteName=The name of the animation to use, from your map's Sprites.xml or from the vanilla one.
+entities.MaxHelpingHand/CustomNPCSprite.attributes.description.onlyIfFlag=If set, the player will only be able to talk to the NPC when the given flag is active.
+entities.MaxHelpingHand/CustomNPCSprite.attributes.description.setFlag=If set, the given flag will be activated once the player is done talking to the NPC.
+
+# Moving Flag Touch Switch
+entities.MaxHelpingHand/MovingFlagTouchSwitch.placements.name.touch_switch=Flag Touch Switch (Moving) [max480's Helping Hand + Outback Helper]
+entities.MaxHelpingHand/MovingFlagTouchSwitch.attributes.description.flag=The session flag this touch switch sets. Give the same to multiple touch switches and switch gates to group them.
+entities.MaxHelpingHand/MovingFlagTouchSwitch.attributes.description.icon=The name of the icon for the touch switch (relative to objects/MaxHelpingHand/flagTouchSwitch), or "vanilla" for the default one.
+entities.MaxHelpingHand/MovingFlagTouchSwitch.attributes.description.persistent=If enabled, the touch switch will stay active when the player dies or changes rooms.\nThis touch switch will also set a flag when it is enabled: [flagName]_switch[entityID]
+entities.MaxHelpingHand/MovingFlagTouchSwitch.attributes.description.inactiveColor=The switch colour when not triggered yet.
+entities.MaxHelpingHand/MovingFlagTouchSwitch.attributes.description.movingColor=The switch colour when it is moving between two positions.
+entities.MaxHelpingHand/MovingFlagTouchSwitch.attributes.description.activeColor=The switch colour when triggered, but the group is not complete yet.
+entities.MaxHelpingHand/MovingFlagTouchSwitch.attributes.description.finishColor=The switch colour when the group is complete.
+
+# Multi-Node Bumper
+entities.MaxHelpingHand/MultiNodeBumper.placements.name.bumper=Bumper (Multi-Node) [max480's Helping Hand]
+entities.MaxHelpingHand/MultiNodeBumper.attributes.description.moveTime=The time the bumper takes to move between two successive positions. Default is 2 seconds.
+entities.MaxHelpingHand/MultiNodeBumper.attributes.description.pauseTime=The time the bumper stops at each position. Default is 0 seconds.
+entities.MaxHelpingHand/MultiNodeBumper.attributes.description.mode=Determines the way the bumper will move between its nodes. For example, with 3 nodes A, B, C:\n- Loop: A > B > C > A\n- LoopNoPause: A > A (going through B and C)\n- BackAndForth: A > B > C > B > A\n- BackAndForthNoPause: A > C > A (going through B)\n- TeleportBack: A > B > C, then the platform teleports to A upon reaching C
+entities.MaxHelpingHand/MultiNodeBumper.attributes.description.easing=Whether the bumper movement should be eased (speedup/slowdown around each position).
+entities.MaxHelpingHand/MultiNodeBumper.attributes.description.notCoreMode=If checked, this bumper will never take the "fire" form that kills the player.
+entities.MaxHelpingHand/MultiNodeBumper.attributes.description.amount=The number of bumpers that will be on the track. If more than 1, they will be evenly spread across the track.
+entities.MaxHelpingHand/MultiNodeBumper.attributes.description.offset=An offset in starting position, between 0 and 1.
+entities.MaxHelpingHand/MultiNodeBumper.attributes.description.wobble=Whether the bumper should wobble, like vanilla bumpers.
+entities.MaxHelpingHand/MultiNodeBumper.attributes.description.flag=If specified, the bumper will only move when the specified flag is active.
+
+# Multi-Node Flag Switch Gate
+entities.MaxHelpingHand/MultiNodeFlagSwitchGate.placements.name.block=Flag Switch Gate (Block, Multi-Node) [max480's Helping Hand]
+entities.MaxHelpingHand/MultiNodeFlagSwitchGate.placements.name.mirror=Flag Switch Gate (Mirror, Multi-Node) [max480's Helping Hand]
+entities.MaxHelpingHand/MultiNodeFlagSwitchGate.placements.name.temple=Flag Switch Gate (Temple, Multi-Node) [max480's Helping Hand]
+entities.MaxHelpingHand/MultiNodeFlagSwitchGate.placements.name.stars=Flag Switch Gate (Stars, Multi-Node) [max480's Helping Hand]
+entities.MaxHelpingHand/MultiNodeFlagSwitchGate.attributes.description.activeColor=The color of the block while it's moving.
+entities.MaxHelpingHand/MultiNodeFlagSwitchGate.attributes.description.finishColor=The color of the block after it reaches its destination.
+entities.MaxHelpingHand/MultiNodeFlagSwitchGate.attributes.description.inactiveColor=The color of the block while it's at the start position.
+entities.MaxHelpingHand/MultiNodeFlagSwitchGate.attributes.description.flags=A comma-separated list of flags that each correspond to a node for the block to move to (the first flag in the list activates the first node in the list).
+entities.MaxHelpingHand/MultiNodeFlagSwitchGate.attributes.description.moveTime=How long, in seconds, the block takes to move to another node.
+entities.MaxHelpingHand/MultiNodeFlagSwitchGate.attributes.description.shakeTime=How long the block shakes before moving.
+entities.MaxHelpingHand/MultiNodeFlagSwitchGate.attributes.description.easing=The easing of the block's movement between nodes.
+entities.MaxHelpingHand/MultiNodeFlagSwitchGate.attributes.description.sprite=Changes the appearance of the block.
+entities.MaxHelpingHand/MultiNodeFlagSwitchGate.attributes.description.icon=Changes the icon in the center of the block.
+entities.MaxHelpingHand/MultiNodeFlagSwitchGate.attributes.description.canReturn=Whether the block will return to its original position if all flags are deactivated.
+entities.MaxHelpingHand/MultiNodeFlagSwitchGate.attributes.description.resetFlags=Whether setting one of the block's flags will unset the rest. Does not work with Progression Mode enabled.
+entities.MaxHelpingHand/MultiNodeFlagSwitchGate.attributes.description.progressionMode=Forces all previous flags to be true before moving to another node.
+entities.MaxHelpingHand/MultiNodeFlagSwitchGate.attributes.description.persistent=If unchecked, all flags will be reset when the player respawns or changes rooms, to move back the gate each time the room is reset.
+entities.MaxHelpingHand/MultiNodeFlagSwitchGate.attributes.description.pauseTimes=Only useful if "Do Not Skip Nodes" is checked, you can keep empty otherwise:\nDefines the durations (in seconds) the switch gate should wait for at each node.\nFor example, with 4 positions A B C D, setting this option to "0.5,1" will make the block wait for 0.5 seconds at B and 1 second at C when going from A to D.
+entities.MaxHelpingHand/MultiNodeFlagSwitchGate.attributes.description.doNotSkipNodes=If checked, the gate will stop at each node instead of going straight to its target node.
+entities.MaxHelpingHand/MultiNodeFlagSwitchGate.attributes.description.smoke=Whether the switch gate should emit smoke when reaching its target node.
+
+# Multi-Node Moving Platform
+entities.MaxHelpingHand/MultiNodeMovingPlatform.placements.name.default=Moving Platform (Default, Multi-Node) [max480's Helping Hand]
+entities.MaxHelpingHand/MultiNodeMovingPlatform.placements.name.cliffside=Moving Platform (Cliffside, Multi-Node) [max480's Helping Hand]
+entities.MaxHelpingHand/MultiNodeMovingPlatform.attributes.description.moveTime=The time the platform takes to move between two successive positions. Default is 2 seconds.
+entities.MaxHelpingHand/MultiNodeMovingPlatform.attributes.description.pauseTime=The time the platform stops at each position. Default is 0 seconds.
+entities.MaxHelpingHand/MultiNodeMovingPlatform.attributes.description.mode=Determines the way the platform will move between its nodes. For example, with 3 nodes A, B, C:\n- Loop: A > B > C > A\n- LoopNoPause: A > A (going through B and C)\n- BackAndForth: A > B > C > B > A\n- BackAndForthNoPause: A > C > A (going through B)\n- TeleportBack: A > B > C, then the platform teleports to A upon reaching C
+entities.MaxHelpingHand/MultiNodeMovingPlatform.attributes.description.texture=What texture to use for the platform.
+entities.MaxHelpingHand/MultiNodeMovingPlatform.attributes.description.easing=Whether the platform movement should be eased (speedup/slowdown around each position).
+entities.MaxHelpingHand/MultiNodeMovingPlatform.attributes.description.amount=The number of platforms that will be on the track. If more than 1, they will be evenly spread across the track.
+entities.MaxHelpingHand/MultiNodeMovingPlatform.attributes.description.offset=An offset in starting position, between 0 and 1.
+entities.MaxHelpingHand/MultiNodeMovingPlatform.attributes.description.flag=If specified, the platform will only move when the specified flag is active.
+entities.MaxHelpingHand/MultiNodeMovingPlatform.attributes.description.moveLater=If checked, objects like spikes will attach to the platform before it is moved to the offset.
+entities.MaxHelpingHand/MultiNodeMovingPlatform.attributes.description.emitSound=Whether the platform should emit sound when moving.
+
+# Multi-Room Strawberry
+entities.MaxHelpingHand/MultiRoomStrawberry.placements.name.normal=Multi-Room Strawberry [max480's Helping Hand]
+entities.MaxHelpingHand/MultiRoomStrawberry.placements.name.normal_winged=Multi-Room Strawberry (Winged) [max480's Helping Hand]
+entities.MaxHelpingHand/MultiRoomStrawberry.placements.name.moon=Multi-Room Strawberry (Moon) [max480's Helping Hand]
+entities.MaxHelpingHand/MultiRoomStrawberry.attributes.description.name=The strawberry name, used to pair it with its seeds.
+entities.MaxHelpingHand/MultiRoomStrawberry.attributes.description.winged=The strawberry attempts to vertically rise offscreen when the player dashes.
+entities.MaxHelpingHand/MultiRoomStrawberry.attributes.description.checkpointID=Manually determine what checkpoint section strawberries are visually grouped up in, showing up on the start menu during gameplay and level select. Overrides Everest's automatic berry IDs. (Default= -1)
+entities.MaxHelpingHand/MultiRoomStrawberry.attributes.description.order=Manually determine what order strawberries are visually placed in on the start menu during gameplay and level select. Overrides Everest's automatic berry IDs. (Default= -1)
+entities.MaxHelpingHand/MultiRoomStrawberry.attributes.description.moon=Makes the strawberry render as a space berry.\nDoes not work with wings or nodes in the base game.
+
+# Multi-Room Strawberry Seed
+entities.MaxHelpingHand/MultiRoomStrawberrySeed.placements.name.seed=Multi-Room Strawberry Seed [max480's Helping Hand]
+entities.MaxHelpingHand/MultiRoomStrawberrySeed.attributes.description.strawberryName=The name of the strawberry this seed belongs to.
+entities.MaxHelpingHand/MultiRoomStrawberrySeed.attributes.description.sprite=The path to the sprite folder (relative to Graphics/Atlases/Gameplay/collectables).
+entities.MaxHelpingHand/MultiRoomStrawberrySeed.attributes.description.ghostSprite=The path to the sprite folder (relative to Graphics/Atlases/Gameplay/collectables) used when the strawberry is already collected.
+entities.MaxHelpingHand/MultiRoomStrawberrySeed.attributes.description.index=The order for this seed (determines the sound played on collection). If left to -1, Everest will auto-assign it.
+entities.MaxHelpingHand/MultiRoomStrawberrySeed.attributes.description.displaySeedCount=If checked, a counter will appear over Maddy's head when she collects a strawberry seed, showing how many she has and how many there are on the map (for example "3/5").
+
+# No Dash Refill Spring
+entities.MaxHelpingHand/NoDashRefillSpring.placements.name.up=No Dash Refill Spring (Up) [max480's Helping Hand]
+entities.MaxHelpingHand/NoDashRefillSpringLeft.placements.name.right=No Dash Refill Spring (Right) [max480's Helping Hand]
+entities.MaxHelpingHand/NoDashRefillSpringRight.placements.name.left=No Dash Refill Spring (Left) [max480's Helping Hand]
+entities.MaxHelpingHand/NoDashRefillSpring.attributes.description.spriteDirectory=The directory to take the sprites from.\nTo reskin the no-dash refill springs, place the sprites in your mod in Graphics/Atlases/Gameplay/mymod/myspring, and write "mymod/myspring" here. The default sprites are in the zip for max480's Helping Hand, in Graphics/Atlases/Gameplay/objects/MaxHelpingHand/noDashRefillSpring.
+entities.MaxHelpingHand/NoDashRefillSpringRight.attributes.description.spriteDirectory=The directory to take the sprites from.\nTo reskin the no-dash refill springs, place the sprites in your mod in Graphics/Atlases/Gameplay/mymod/myspring, and write "mymod/myspring" here. The default sprites are in the zip for max480's Helping Hand, in Graphics/Atlases/Gameplay/objects/MaxHelpingHand/noDashRefillSpring.
+entities.MaxHelpingHand/NoDashRefillSpringLeft.attributes.description.spriteDirectory=The directory to take the sprites from.\nTo reskin the no-dash refill springs, place the sprites in your mod in Graphics/Atlases/Gameplay/mymod/myspring, and write "mymod/myspring" here. The default sprites are in the zip for max480's Helping Hand, in Graphics/Atlases/Gameplay/objects/MaxHelpingHand/noDashRefillSpring.
+entities.MaxHelpingHand/NoDashRefillSpring.attributes.description.playerCanUse=Determines whether the player is able to interact with the spring.
+entities.MaxHelpingHand/NoDashRefillSpring.attributes.description.ignoreLighting=If checked, the spring won't be affected by room darkness.
+entities.MaxHelpingHand/NoDashRefillSpringRight.attributes.description.ignoreLighting=If checked, the spring won't be affected by room darkness.
+entities.MaxHelpingHand/NoDashRefillSpringLeft.attributes.description.ignoreLighting=If checked, the spring won't be affected by room darkness.
+
+# One-Way Invisible Barrier (Horizontal)
+entities.MaxHelpingHand/OneWayInvisibleBarrierHorizontal.placements.name.left=One-Way Invisible Barrier (Left) [max480's Helping Hand]
+entities.MaxHelpingHand/OneWayInvisibleBarrierHorizontal.placements.name.right=One-Way Invisible Barrier (Right) [max480's Helping Hand]
+entities.MaxHelpingHand/OneWayInvisibleBarrierHorizontal.attributes.description.left=Whether the solid side of the barrier is the left side.
+entities.MaxHelpingHand/OneWayInvisibleBarrierHorizontal.attributes.description.letSeekersThrough=Whether the seekers should be able to go through the barrier.
+
+# Parallax Fade Out Controller
+entities.MaxHelpingHand/ParallaxFadeOutController.placements.name.controller=Parallax Fade Out Controller [max480's Helping Hand]
+
+# Rainbow Spinner Color Area Controller
+entities.MaxHelpingHand/RainbowSpinnerColorAreaController.placements.name.field=Rainbow Spinner Color Area Controller [max480's Helping Hand]
+entities.MaxHelpingHand/RainbowSpinnerColorAreaController.attributes.description.colors=The colours the rainbow spinners in the room will take, separated by commas.
+entities.MaxHelpingHand/RainbowSpinnerColorAreaController.attributes.description.gradientSize=The distance required to achieve a complete loop across all colours.
+entities.MaxHelpingHand/RainbowSpinnerColorAreaController.attributes.description.loopColors=Determines how the colors loop. For example, if 3 colours A, B and C are specified:\n- when unchecked, the colours will cycle in the following order: A > B > C > B > A\n- when checked, the colours will cycle in the following order: A > B > C > A > B > C
+entities.MaxHelpingHand/RainbowSpinnerColorAreaController.attributes.description.centerX=The horizontal position of the center of the gradient. Uses "world" coordinates. Vanilla value is 0.
+entities.MaxHelpingHand/RainbowSpinnerColorAreaController.attributes.description.centerY=The vertical position of the center of the gradient. Uses "world" coordinates. Vanilla value is 0.
+entities.MaxHelpingHand/RainbowSpinnerColorAreaController.attributes.description.gradientSpeed=Determines how fast the gradient scrolls, in pixels per second. You can use negative values to make it scroll in the opposite direction. Vanilla value is 50.
+
+# Flag Rainbow Spinner Color Area Controller
+entities.MaxHelpingHand/FlagRainbowSpinnerColorAreaController.placements.name.field=Flag Rainbow Spinner Color Area Controller [max480's Helping Hand]
+entities.MaxHelpingHand/FlagRainbowSpinnerColorAreaController.attributes.description.colors=The colours the rainbow spinners in the room will take when the flag is not active, separated by commas.
+entities.MaxHelpingHand/FlagRainbowSpinnerColorAreaController.attributes.description.gradientSize=The distance required to achieve a complete loop across all colours when the flag is not active.
+entities.MaxHelpingHand/FlagRainbowSpinnerColorAreaController.attributes.description.loopColors=Determines how the colors loop when the flag is not active. For example, if 3 colours A, B and C are specified:\n- when unchecked, the colours will cycle in the following order: A > B > C > B > A\n- when checked, the colours will cycle in the following order: A > B > C > A > B > C
+entities.MaxHelpingHand/FlagRainbowSpinnerColorAreaController.attributes.description.centerX=The horizontal position of the center of the gradient when the flag is not active. Uses "world" coordinates. Vanilla value is 0.
+entities.MaxHelpingHand/FlagRainbowSpinnerColorAreaController.attributes.description.centerY=The vertical position of the center of the gradient when the flag is not active. Uses "world" coordinates. Vanilla value is 0.
+entities.MaxHelpingHand/FlagRainbowSpinnerColorAreaController.attributes.description.gradientSpeed=Determines how fast the gradient scrolls, in pixels per second,  when the flag is not active. You can use negative values to make it scroll in the opposite direction. Vanilla value is 50.
+entities.MaxHelpingHand/FlagRainbowSpinnerColorAreaController.attributes.description.colorsWithFlag=The colours the rainbow spinners in the room will take when the flag is not active, separated by commas.
+entities.MaxHelpingHand/FlagRainbowSpinnerColorAreaController.attributes.description.gradientSizeWithFlag=The distance required to achieve a complete loop across all colours when the flag is active.
+entities.MaxHelpingHand/FlagRainbowSpinnerColorAreaController.attributes.description.loopColorsWithFlag=Determines how the colors loop when the flag is active. For example, if 3 colours A, B and C are specified:\n- when unchecked, the colours will cycle in the following order: A > B > C > B > A\n- when checked, the colours will cycle in the following order: A > B > C > A > B > C
+entities.MaxHelpingHand/FlagRainbowSpinnerColorAreaController.attributes.description.centerXWithFlag=The horizontal position of the center of the gradient when the flag is active. Uses "world" coordinates. Vanilla value is 0.
+entities.MaxHelpingHand/FlagRainbowSpinnerColorAreaController.attributes.description.centerYWithFlag=The vertical position of the center of the gradient when the flag is active. Uses "world" coordinates. Vanilla value is 0.
+entities.MaxHelpingHand/FlagRainbowSpinnerColorAreaController.attributes.description.gradientSpeedWithFlag=Determines how fast the gradient scrolls, in pixels per second, when the flag is active. You can use negative values to make it scroll in the opposite direction. Vanilla value is 50.
+entities.MaxHelpingHand/FlagRainbowSpinnerColorAreaController.attributes.description.flag=The flag that allows to switch between the 2 different color setups.
+entities.MaxHelpingHand/FlagRainbowSpinnerColorAreaController.attributes.name.colors=Colors (Flag Off)
+entities.MaxHelpingHand/FlagRainbowSpinnerColorAreaController.attributes.name.gradientSize=Gradient Size (Flag Off)
+entities.MaxHelpingHand/FlagRainbowSpinnerColorAreaController.attributes.name.loopColors=Loop Colors (Flag Off)
+entities.MaxHelpingHand/FlagRainbowSpinnerColorAreaController.attributes.name.centerX=Center X (Flag Off)
+entities.MaxHelpingHand/FlagRainbowSpinnerColorAreaController.attributes.name.centerY=Center Y (Flag Off)
+entities.MaxHelpingHand/FlagRainbowSpinnerColorAreaController.attributes.name.gradientSpeed=Gradient Speed (Flag Off)
+entities.MaxHelpingHand/FlagRainbowSpinnerColorAreaController.attributes.name.colorsWithFlag=Colors (Flag On)
+entities.MaxHelpingHand/FlagRainbowSpinnerColorAreaController.attributes.name.gradientSizeWithFlag=Gradient Size (Flag On)
+entities.MaxHelpingHand/FlagRainbowSpinnerColorAreaController.attributes.name.loopColorsWithFlag=Loop Colors (Flag On)
+entities.MaxHelpingHand/FlagRainbowSpinnerColorAreaController.attributes.name.centerXWithFlag=Center X (Flag On)
+entities.MaxHelpingHand/FlagRainbowSpinnerColorAreaController.attributes.name.centerYWithFlag=Center Y (Flag On)
+entities.MaxHelpingHand/FlagRainbowSpinnerColorAreaController.attributes.name.gradientSpeedWithFlag=Gradient Speed (Flag On)
+
+# Rainbow Spinner Color Controller
+entities.MaxHelpingHand/RainbowSpinnerColorController.placements.name.controller=Rainbow Spinner Color Controller [max480's Helping Hand]
+entities.MaxHelpingHand/RainbowSpinnerColorController.attributes.description.colors=The colours the rainbow spinners in the room will take, separated by commas.
+entities.MaxHelpingHand/RainbowSpinnerColorController.attributes.description.gradientSize=The distance required to achieve a complete loop across all colours.
+entities.MaxHelpingHand/RainbowSpinnerColorController.attributes.description.loopColors=Determines how the colors loop. For example, if 3 colours A, B and C are specified:\n- when unchecked, the colours will cycle in the following order: A > B > C > B > A\n- when checked, the colours will cycle in the following order: A > B > C > A > B > C
+entities.MaxHelpingHand/RainbowSpinnerColorController.attributes.description.centerX=The horizontal position of the center of the gradient. Uses "world" coordinates. Vanilla value is 0.
+entities.MaxHelpingHand/RainbowSpinnerColorController.attributes.description.centerY=The vertical position of the center of the gradient. Uses "world" coordinates. Vanilla value is 0.
+entities.MaxHelpingHand/RainbowSpinnerColorController.attributes.description.gradientSpeed=Determines how fast the gradient scrolls, in pixels per second. You can use negative values to make it scroll in the opposite direction. Vanilla value is 50.
+entities.MaxHelpingHand/RainbowSpinnerColorController.attributes.description.persistent=If checked, the chosen colors will persist until the player enters a room with another Rainbow Spinner Color Controller.\nIf unchecked, the chosen colors will only apply to the current room.
+
+# Flag Rainbow Spinner Color Controller
+entities.MaxHelpingHand/FlagRainbowSpinnerColorController.placements.name.controller=Flag Rainbow Spinner Color Controller [max480's Helping Hand]
+entities.MaxHelpingHand/FlagRainbowSpinnerColorController.attributes.description.colors=The colours the rainbow spinners in the room will take when the flag is not active, separated by commas.
+entities.MaxHelpingHand/FlagRainbowSpinnerColorController.attributes.description.gradientSize=The distance required to achieve a complete loop across all colours when the flag is not active.
+entities.MaxHelpingHand/FlagRainbowSpinnerColorController.attributes.description.loopColors=Determines how the colors loop when the flag is not active. For example, if 3 colours A, B and C are specified:\n- when unchecked, the colours will cycle in the following order: A > B > C > B > A\n- when checked, the colours will cycle in the following order: A > B > C > A > B > C
+entities.MaxHelpingHand/FlagRainbowSpinnerColorController.attributes.description.centerX=The horizontal position of the center of the gradient when the flag is not active. Uses "world" coordinates. Vanilla value is 0.
+entities.MaxHelpingHand/FlagRainbowSpinnerColorController.attributes.description.centerY=The vertical position of the center of the gradient when the flag is not active. Uses "world" coordinates. Vanilla value is 0.
+entities.MaxHelpingHand/FlagRainbowSpinnerColorController.attributes.description.gradientSpeed=Determines how fast the gradient scrolls, in pixels per second,  when the flag is not active. You can use negative values to make it scroll in the opposite direction. Vanilla value is 50.
+entities.MaxHelpingHand/FlagRainbowSpinnerColorController.attributes.description.colorsWithFlag=The colours the rainbow spinners in the room will take when the flag is not active, separated by commas.
+entities.MaxHelpingHand/FlagRainbowSpinnerColorController.attributes.description.gradientSizeWithFlag=The distance required to achieve a complete loop across all colours when the flag is active.
+entities.MaxHelpingHand/FlagRainbowSpinnerColorController.attributes.description.loopColorsWithFlag=Determines how the colors loop when the flag is active. For example, if 3 colours A, B and C are specified:\n- when unchecked, the colours will cycle in the following order: A > B > C > B > A\n- when checked, the colours will cycle in the following order: A > B > C > A > B > C
+entities.MaxHelpingHand/FlagRainbowSpinnerColorController.attributes.description.centerXWithFlag=The horizontal position of the center of the gradient when the flag is active. Uses "world" coordinates. Vanilla value is 0.
+entities.MaxHelpingHand/FlagRainbowSpinnerColorController.attributes.description.centerYWithFlag=The vertical position of the center of the gradient when the flag is active. Uses "world" coordinates. Vanilla value is 0.
+entities.MaxHelpingHand/FlagRainbowSpinnerColorController.attributes.description.gradientSpeedWithFlag=Determines how fast the gradient scrolls, in pixels per second, when the flag is active. You can use negative values to make it scroll in the opposite direction. Vanilla value is 50.
+entities.MaxHelpingHand/FlagRainbowSpinnerColorController.attributes.description.persistent=If checked, the chosen colors will persist until the player enters a room with another Rainbow Spinner Color Controller.\nIf unchecked, the chosen colors will only apply to the current room.
+entities.MaxHelpingHand/FlagRainbowSpinnerColorController.attributes.description.flag=The flag that allows to switch between the 2 different color setups.
+entities.MaxHelpingHand/FlagRainbowSpinnerColorController.attributes.name.colors=Colors (Flag Off)
+entities.MaxHelpingHand/FlagRainbowSpinnerColorController.attributes.name.gradientSize=Gradient Size (Flag Off)
+entities.MaxHelpingHand/FlagRainbowSpinnerColorController.attributes.name.loopColors=Loop Colors (Flag Off)
+entities.MaxHelpingHand/FlagRainbowSpinnerColorController.attributes.name.centerX=Center X (Flag Off)
+entities.MaxHelpingHand/FlagRainbowSpinnerColorController.attributes.name.centerY=Center Y (Flag Off)
+entities.MaxHelpingHand/FlagRainbowSpinnerColorController.attributes.name.gradientSpeed=Gradient Speed (Flag Off)
+entities.MaxHelpingHand/FlagRainbowSpinnerColorController.attributes.name.colorsWithFlag=Colors (Flag On)
+entities.MaxHelpingHand/FlagRainbowSpinnerColorController.attributes.name.gradientSizeWithFlag=Gradient Size (Flag On)
+entities.MaxHelpingHand/FlagRainbowSpinnerColorController.attributes.name.loopColorsWithFlag=Loop Colors (Flag On)
+entities.MaxHelpingHand/FlagRainbowSpinnerColorController.attributes.name.centerXWithFlag=Center X (Flag On)
+entities.MaxHelpingHand/FlagRainbowSpinnerColorController.attributes.name.centerYWithFlag=Center Y (Flag On)
+entities.MaxHelpingHand/FlagRainbowSpinnerColorController.attributes.name.gradientSpeedWithFlag=Gradient Speed (Flag On)
+
+# Rainbow Spinner Color Controller Disabler
+entities.MaxHelpingHand/RainbowSpinnerColorControllerDisabler.placements.name.controller=Rainbow Spinner Color Controller (Disable) [max480's Helping Hand]
+
+# Reskinnable Billboard
+entities.MaxHelpingHand/ReskinnableBillboard.placements.name.playback_billboard=Reskinnable Playback Billboard [max480's Helping Hand]
+entities.MaxHelpingHand/ReskinnableBillboard.attributes.description.borderTexture=The path to your custom texture for the borders, in Graphics/Atlases/Gameplay.\nYou can find the vanilla texture in the graphics dump, at Graphics/Atlases/Gameplay/scenery/tvSlices.png.
+entities.MaxHelpingHand/ReskinnableBillboard.attributes.description.renderBloom=Whether the billboard should add bloom in front of the TV screens, like vanilla billboards.
+
+# Reskinnable Crush Block
+entities.MaxHelpingHand/ReskinnableCrushBlock.placements.name.both=Kevin (Both, Reskinnable) [max480's Helping Hand]
+entities.MaxHelpingHand/ReskinnableCrushBlock.placements.name.vertical=Kevin (Vertical, Reskinnable) [max480's Helping Hand]
+entities.MaxHelpingHand/ReskinnableCrushBlock.placements.name.horizontal=Kevin (Horizontal, Reskinnable) [max480's Helping Hand]
+entities.MaxHelpingHand/ReskinnableCrushBlock.attributes.description.axes=Determines which sides of the Kevin block are hittable.
+entities.MaxHelpingHand/ReskinnableCrushBlock.attributes.description.chillout=Whether the block should have the large face and get tired after being hit.
+entities.MaxHelpingHand/ReskinnableCrushBlock.attributes.description.spriteDirectory=The directory containing all the Kevin sprites.\nTo make your own, copy Graphics/Atlases/Gameplay/objects/crushblock to Mods/yourmod/Graphics/Atlases/Gameplay/MyMap/mycrushblock and type MyMap/mycrushblock in this field.
+entities.MaxHelpingHand/ReskinnableCrushBlock.attributes.description.fillColor=The color used to fill the Kevin, used between the face sprite and the borders.
+entities.MaxHelpingHand/ReskinnableCrushBlock.attributes.description.crushParticleColor1=One of the 2 colors of the particles the crush block emits when it moves.
+entities.MaxHelpingHand/ReskinnableCrushBlock.attributes.description.crushParticleColor2=One of the 2 colors of the particles the crush block emits when it moves.
+entities.MaxHelpingHand/ReskinnableCrushBlock.attributes.name.crushParticleColor1=Crush Particle Color 1
+entities.MaxHelpingHand/ReskinnableCrushBlock.attributes.name.crushParticleColor2=Crush Particle Color 2
+entities.MaxHelpingHand/ReskinnableCrushBlock.attributes.description.activateParticleColor1=One of the 2 colors of the particles the crush block emits when it is hit by the player.
+entities.MaxHelpingHand/ReskinnableCrushBlock.attributes.description.activateParticleColor2=One of the 2 colors of the particles the crush block emits when it is hit by the player.
+entities.MaxHelpingHand/ReskinnableCrushBlock.attributes.name.activateParticleColor1=Activate Particle Color 1
+entities.MaxHelpingHand/ReskinnableCrushBlock.attributes.name.activateParticleColor2=Activate Particle Color 2
+
+# Reskinnable Floating Debris
+entities.MaxHelpingHand/ReskinnableFloatingDebris.placements.name.floating_debris=Floating Debris (Reskinnable) [max480's Helping Hand]
+entities.MaxHelpingHand/ReskinnableFloatingDebris.attributes.description.texture=The path to the texture to use for the debris.\nTo make your own, copy Graphics/Atlases/Gameplay/scenery/debris.png from the graphics dump, paste it in your mod's folder in Graphics/Atlases/Gameplay/yourmod/mydebris.png, then type "yourmod/mydebris" in this field.\nEach debris in the image is 8x8, and you can give more or less debris to pick from by changing the width of the image (which should remain a multiple of 8).
+
+# Reskinnable Star Rotate Spinner
+entities.MaxHelpingHand/ReskinnableStarRotateSpinner.placements.name.clockwise=Rotating Spinner (Starfish, Clockwise, Reskinnable) [max480's Helping Hand]
+entities.MaxHelpingHand/ReskinnableStarRotateSpinner.placements.name.counter_clockwise=Rotating Spinner (Starfish, Counter Clockwise, Reskinnable) [max480's Helping Hand]
+entities.MaxHelpingHand/ReskinnableStarRotateSpinner.attributes.description.clockwise=The spinning star will run clockwise.
+entities.MaxHelpingHand/ReskinnableStarRotateSpinner.attributes.description.spriteFolder=The folder containing the star sprites. You can make your own by taking example on the Graphics/Atlases/Gameplay/danger/MaxHelpingHand/starSpinner folder that ships with the mod.
+entities.MaxHelpingHand/ReskinnableStarRotateSpinner.attributes.description.particleColors=The colors for the particles following the stars, in the format color1|color2,color1|color2... There should be the same amount of color pairs as there are different sprites for the star spinners.
+
+# Reskinnable Star Track Spinner
+entities.MaxHelpingHand/ReskinnableStarTrackSpinner.placements.name.slow=Track Spinner (Starfish, Slow, Reskinnable) [max480's Helping Hand]
+entities.MaxHelpingHand/ReskinnableStarTrackSpinner.placements.name.normal=Track Spinner (Starfish, Normal, Reskinnable) [max480's Helping Hand]
+entities.MaxHelpingHand/ReskinnableStarTrackSpinner.placements.name.fast=Track Spinner (Starfish, Fast, Reskinnable) [max480's Helping Hand]
+entities.MaxHelpingHand/ReskinnableStarTrackSpinner.attributes.description.speed=Changes the speed of the spinner's rotation.
+entities.MaxHelpingHand/ReskinnableStarTrackSpinner.attributes.description.startCenter=The spinner will start at the end of the track.
+entities.MaxHelpingHand/ReskinnableStarTrackSpinner.attributes.description.spriteFolder=The folder containing the star sprites. You can make your own by taking example on the Graphics/Atlases/Gameplay/danger/MaxHelpingHand/starSpinner folder that ships with the mod.
+entities.MaxHelpingHand/ReskinnableStarTrackSpinner.attributes.description.particleColors=The colors for the particles following the stars, in the format color1|color2,color1|color2... There should be the same amount of color pairs as there are different sprites for the star spinners.
+
+# Reskinnable Swap Block
+entities.MaxHelpingHand/ReskinnableSwapBlock.placements.name.swapblock=Swap Block (Reskinnable) [max480's Helping Hand]
+entities.MaxHelpingHand/ReskinnableSwapBlock.attributes.description.spriteDirectory=The directory containing all the swap block sprites.\nTo make your own, copy Graphics/Atlases/Gameplay/objects/swapblock (or objects/swapblock/moon) to Mods/yourmod/Graphics/Atlases/Gameplay/MyMap/myswapblock and type MyMap/myswapblock in this field.
+entities.MaxHelpingHand/ReskinnableSwapBlock.attributes.description.particleColor1=One of the 2 colors of the particles the swap block emits when it moves.
+entities.MaxHelpingHand/ReskinnableSwapBlock.attributes.description.particleColor2=One of the 2 colors of the particles the swap block emits when it moves.
+entities.MaxHelpingHand/ReskinnableSwapBlock.attributes.name.particleColor1=Particle Color 1
+entities.MaxHelpingHand/ReskinnableSwapBlock.attributes.name.particleColor2=Particle Color 2
+entities.MaxHelpingHand/ReskinnableSwapBlock.attributes.description.moveSound=The sound the swap block makes when it starts moving.
+entities.MaxHelpingHand/ReskinnableSwapBlock.attributes.description.moveEndSound=The sound the swap block makes when it ends moving forward.
+entities.MaxHelpingHand/ReskinnableSwapBlock.attributes.description.returnSound=The sound the swap block makes when it returns to its original position.
+entities.MaxHelpingHand/ReskinnableSwapBlock.attributes.description.returnEndSound=The sound the swap block makes when it is done returning to its original position.
+
+# Respawning Jellyfish
+entities.MaxHelpingHand/RespawningJellyfish.placements.name.normal=Respawning Jellyfish [max480's Helping Hand]
+entities.MaxHelpingHand/RespawningJellyfish.placements.name.floating=Respawning Jellyfish (Floating) [max480's Helping Hand]
+entities.MaxHelpingHand/RespawningJellyfish.attributes.description.bubble=Whether the entity should hover in the air before being grabbed.
+entities.MaxHelpingHand/RespawningJellyfish.attributes.description.tutorial=Whether the entity should show the usage tutorial.
+entities.MaxHelpingHand/RespawningJellyfish.attributes.description.respawnTime=The jellyfish will respawn at its starting location after this amount of time (in seconds) after being destroyed.
+entities.MaxHelpingHand/RespawningJellyfish.attributes.description.spriteDirectory=The directory containing all the sprites for the respawning jellyfish.\nTo make your own, copy Graphics/Atlases/Gameplay/objects/MaxHelpingHand/glider from the mod zip to Mods/yourmod/Graphics/Atlases/Gameplay/MyMap/myglider and type MyMap/myglider in this field.
+
+# Rotating Bumper
+entities.MaxHelpingHand/RotatingBumper.placements.name.bumper=Bumper (Rotating) [max480's Helping Hand]
+entities.MaxHelpingHand/RotatingBumper.attributes.description.speed=The rotating speed in degrees per second. Use a negative number for counterclockwise rotation.
+entities.MaxHelpingHand/RotatingBumper.attributes.description.attachToCenter=Whether the spinner should attach to any solid colliding with the rotation center.
+entities.MaxHelpingHand/RotatingBumper.attributes.description.notCoreMode=If checked, this bumper will never take the "fire" form that kills the player.
+entities.MaxHelpingHand/RotatingBumper.attributes.description.wobble=Whether the bumper should wobble, like vanilla bumpers.
+
+# Secret Berry
+entities.MaxHelpingHand/SecretBerry.placements.name.berry=Secret Berry [max480's Helping Hand]
+entities.MaxHelpingHand/SecretBerry.attributes.description.checkpointID=Manually determine what checkpoint section strawberries are visually grouped up in, showing up on the start menu during gameplay and level select. Overrides Everest's automatic berry IDs. (Default= -1)
+entities.MaxHelpingHand/SecretBerry.attributes.description.order=Manually determine what order strawberries are visually placed in on the start menu during gameplay and level select. Overrides Everest's automatic berry IDs. (Default= -1)
+entities.MaxHelpingHand/SecretBerry.attributes.description.strawberrySprite=The strawberry sprite name. To define your own, copy the "strawberry" sprite from Content/Graphics/Sprites.xml into your mod's Sprites.xml, rename it, and put the new name here.
+entities.MaxHelpingHand/SecretBerry.attributes.description.ghostberrySprite=The ghost (collected) strawberry sprite name. To define your own, copy the "ghostberry" sprite from Content/Graphics/Sprites.xml into your mod's Sprites.xml, rename it, and put the new name here.
+entities.MaxHelpingHand/SecretBerry.attributes.description.strawberryPulseSound=The pulse sound the strawberry makes while idle.
+entities.MaxHelpingHand/SecretBerry.attributes.description.strawberryBlueTouchSound=The sound the strawberry makes when touched by the player, if it was already collected.
+entities.MaxHelpingHand/SecretBerry.attributes.description.strawberryTouchSound=The sound the strawberry makes when touched by the player, if it was not already collected.
+entities.MaxHelpingHand/SecretBerry.attributes.description.strawberryGetSound=The sound the strawberry makes when collected.\nIf already collected, the "colour" audio param of this sound will be set to 1. If not, it will be set to 0.
+entities.MaxHelpingHand/SecretBerry.attributes.description.countTowardsTotal=Whether this berry should be counted in the total number of berries the map contains.
+entities.MaxHelpingHand/SecretBerry.attributes.description.particleColor1=One of the colors to use for the particles the strawberry emits when not already collected.
+entities.MaxHelpingHand/SecretBerry.attributes.description.particleColor2=One of the colors to use for the particles the strawberry emits when not already collected.
+entities.MaxHelpingHand/SecretBerry.attributes.description.ghostParticleColor1=One of the colors to use for the particles the strawberry emits when already collected.
+entities.MaxHelpingHand/SecretBerry.attributes.description.ghostParticleColor2=One of the colors to use for the particles the strawberry emits when already collected.
+entities.MaxHelpingHand/SecretBerry.attributes.name.strawberryPulseSound=Pulse Sound
+entities.MaxHelpingHand/SecretBerry.attributes.name.strawberryBlueTouchSound=Collected Touch Sound
+entities.MaxHelpingHand/SecretBerry.attributes.name.strawberryTouchSound=Uncollected Touch Sound
+entities.MaxHelpingHand/SecretBerry.attributes.name.strawberryGetSound=Collect Sound
+entities.MaxHelpingHand/SecretBerry.attributes.name.strawberrySprite=Sprite
+entities.MaxHelpingHand/SecretBerry.attributes.name.ghostberrySprite=Ghost Sprite
+entities.MaxHelpingHand/SecretBerry.attributes.name.particleColor1=Uncollected Particle Color 1
+entities.MaxHelpingHand/SecretBerry.attributes.name.particleColor2=Uncollected Particle Color 2
+entities.MaxHelpingHand/SecretBerry.attributes.name.ghostParticleColor1=Collected Particle Color 1
+entities.MaxHelpingHand/SecretBerry.attributes.name.ghostParticleColor2=Collected Particle Color 2
+
+# Seeker Barrier Color Controller
+entities.MaxHelpingHand/SeekerBarrierColorController.placements.name.controller=Seeker Barrier Color Controller [max480's Helping Hand]
+entities.MaxHelpingHand/SeekerBarrierColorController.attributes.name.transparency=Opacity
+entities.MaxHelpingHand/SeekerBarrierColorController.attributes.name.particleTransparency=Particle Opacity
+entities.MaxHelpingHand/SeekerBarrierColorController.attributes.description.color=The color the seeker barriers will take.
+entities.MaxHelpingHand/SeekerBarrierColorController.attributes.description.particleColor=The color the particles inside the seeker barriers will take.
+entities.MaxHelpingHand/SeekerBarrierColorController.attributes.description.transparency=The opacity, between 0 and 1, of the seeker barriers. Vanilla value is 0.15.
+entities.MaxHelpingHand/SeekerBarrierColorController.attributes.description.particleTransparency=The opacity, between 0 and 1, of the particles inside the seeker barriers. Vanilla value is 0.5.
+entities.MaxHelpingHand/SeekerBarrierColorController.attributes.description.particleDirection=The direction of the particles in degrees, 0 being the default (down), 90 being left, etc.
+entities.MaxHelpingHand/SeekerBarrierColorController.attributes.description.persistent=If checked, the chosen colors will persist until the player enters a room with another Seeker Barrier Color Controller.\nIf unchecked, the chosen colors will only apply to the current room.
+entities.MaxHelpingHand/SeekerBarrierColorController.attributes.description.depth=Allows you to set the depth of the seeker barriers, to make them render behind other entities. Leave empty for default behavior.\nActivating this setting will change the barriers' colors, so you will need to set them again.
+
+# Seeker Barrier Color Controller Disabler
+entities.MaxHelpingHand/SeekerBarrierColorControllerDisabler.placements.name.controller=Seeker Barrier Color Controller (Disable) [max480's Helping Hand]
+
+# Set Flag On Spawn Controller
+entities.MaxHelpingHand/SetFlagOnSpawnController.placements.name.controller=Set Flag On Spawn Controller [max480's Helping Hand]
+entities.MaxHelpingHand/SetFlagOnSpawnController.attributes.name.flag=Flags
+entities.MaxHelpingHand/SetFlagOnSpawnController.attributes.description.flag=The session flags to modify when the player enters the room or respawns in it. You can set multiple flags at once by giving a list separated by commas (flag1,flag2).
+entities.MaxHelpingHand/SetFlagOnSpawnController.attributes.description.enable=If checked, the flag will be enabled when the player enters the room or respawns in it. If unchecked, the flag will be disabled instead.
+entities.MaxHelpingHand/SetFlagOnSpawnController.attributes.description.onlyOnRespawn=If checked, the flag will only be set if the player dies and respawns in the room (and not when they enter the room).
+entities.MaxHelpingHand/SetFlagOnSpawnController.attributes.description.ifFlag=The flag will only be set if this other flag is active. Leave empty if you don't need your flag to depend on another flag.
+
+# Shatter Flag Switch Gate
+entities.MaxHelpingHand/ShatterFlagSwitchGate.placements.name.block=Shatter Flag Switch Gate (Block) [max480's Helping Hand + Vortex Helper]
+entities.MaxHelpingHand/ShatterFlagSwitchGate.placements.name.mirror=Shatter Flag Switch Gate (Mirror) [max480's Helping Hand + Vortex Helper]
+entities.MaxHelpingHand/ShatterFlagSwitchGate.placements.name.temple=Shatter Flag Switch Gate (Temple) [max480's Helping Hand + Vortex Helper]
+entities.MaxHelpingHand/ShatterFlagSwitchGate.placements.name.stars=Shatter Flag Switch Gate (Stars) [max480's Helping Hand + Vortex Helper]
+entities.MaxHelpingHand/ShatterFlagSwitchGate.attributes.description.flag=The session flag this switch gate reacts to. Give the same to multiple touch switches and switch gates to group them.
+entities.MaxHelpingHand/ShatterFlagSwitchGate.attributes.description.icon=The name of the icon for the switch gate (relative to objects/MaxHelpingHand/flagSwitchGate), or "vanilla" for the default one.
+entities.MaxHelpingHand/ShatterFlagSwitchGate.attributes.description.persistent=If enabled, the switch gate will stay destroyed when the player dies or changes rooms.\nThis switch gate will also set a flag when it is enabled: [flagName]_gate[entityID]
+entities.MaxHelpingHand/ShatterFlagSwitchGate.attributes.description.inactiveColor=The gate icon colour when not triggered yet.
+entities.MaxHelpingHand/ShatterFlagSwitchGate.attributes.description.activeColor=The gate icon colour when triggered, but the group is not complete yet.
+entities.MaxHelpingHand/ShatterFlagSwitchGate.attributes.description.finishColor=The gate icon colour when the group is complete.
+entities.MaxHelpingHand/ShatterFlagSwitchGate.attributes.description.sprite=The texture for the gate block.
+entities.MaxHelpingHand/ShatterFlagSwitchGate.attributes.description.shakeTime=The time (in seconds) the block spends shaking before shattering. Vanilla value is 0.5 seconds.
+entities.MaxHelpingHand/ShatterFlagSwitchGate.attributes.description.finishedSound=The sound played by the gate when it shatters.
+
+# Sideways Lava
+entities.MaxHelpingHand/SidewaysLava.placements.name.lava=Sideways Lava [max480's Helping Hand]
+entities.MaxHelpingHand/SidewaysLava.attributes.description.intro=Determines whether the lava moves into the screen or starts already present on the screen. Not suitable for sandwich lava.
+entities.MaxHelpingHand/SidewaysLava.attributes.description.lavaMode=Determines which side(s) of the screen the lava comes from.
+entities.MaxHelpingHand/SidewaysLava.attributes.description.speedMultiplier=Modifies the lava speed. 1 is vanilla lava speed, 2 is twice as fast.
+
+# Sideways Moving Platform
+entities.MaxHelpingHand/SidewaysMovingPlatform.placements.name.default=Sideways Moving Platform (Default) [max480's Helping Hand]
+entities.MaxHelpingHand/SidewaysMovingPlatform.placements.name.cliffside=Sideways Moving Platform (Cliffside) [max480's Helping Hand]
+entities.MaxHelpingHand/SidewaysMovingPlatform.attributes.description.moveTime=The time the platform takes to move between two successive positions. Default is 2 seconds.
+entities.MaxHelpingHand/SidewaysMovingPlatform.attributes.description.pauseTime=The time the platform stops at each position. Default is 0 seconds.
+entities.MaxHelpingHand/SidewaysMovingPlatform.attributes.description.mode=Determines the way the platform will move between its nodes. For example, with 3 nodes A, B, C:\n- Loop: A > B > C > A\n- LoopNoPause: A > A (going through B and C)\n- BackAndForth: A > B > C > B > A\n- BackAndForthNoPause: A > C > A (going through B)\n- TeleportBack: A > B > C, then the platform teleports to A upon reaching C
+entities.MaxHelpingHand/SidewaysMovingPlatform.attributes.description.texture=What texture to use for the platform.
+entities.MaxHelpingHand/SidewaysMovingPlatform.attributes.description.easing=Whether the platform movement should be eased (speedup/slowdown around each position).
+entities.MaxHelpingHand/SidewaysMovingPlatform.attributes.description.amount=The number of platforms that will be on the track. If more than 1, they will be evenly spread across the track.
+entities.MaxHelpingHand/SidewaysMovingPlatform.attributes.description.offset=An offset in starting position, between 0 and 1.
+entities.MaxHelpingHand/SidewaysMovingPlatform.attributes.description.left=Whether the solid side of the platform should be the left side.
+entities.MaxHelpingHand/SidewaysMovingPlatform.attributes.description.flag=If specified, the platform will only move when the specified flag is active.
+entities.MaxHelpingHand/SidewaysMovingPlatform.attributes.description.emitSound=Whether the platform should emit sound when moving.
+
+# Static Puffer
+entities.MaxHelpingHand/StaticPuffer.placements.name.left=Static Puffer (Left) [max480's Helping Hand]
+entities.MaxHelpingHand/StaticPuffer.placements.name.right=Static Puffer (Right) [max480's Helping Hand]
+entities.MaxHelpingHand/StaticPuffer.attributes.description.right=The initial direction of the puffer.
+
+# Non-Popping Strawberry
+entities.MaxHelpingHand/NonPoppingStrawberry.placements.name.normal=Strawberry (with Seeds Not Popping On Ground) [max480's Helping Hand]
+entities.MaxHelpingHand/NonPoppingStrawberry.attributes.description.winged=The strawberry attempts to vertically rise offscreen when the player dashes.
+entities.MaxHelpingHand/NonPoppingStrawberry.attributes.description.checkpointID=Manually determine what checkpoint section strawberries are visually grouped up in, showing up on the start menu during gameplay and level select. Overrides Everest's automatic berry IDs. (Default= -1)
+entities.MaxHelpingHand/NonPoppingStrawberry.attributes.description.order=Manually determine what order strawberries are visually placed in on the start menu during gameplay and level select. Overrides Everest's automatic berry IDs. (Default= -1)
+entities.MaxHelpingHand/NonPoppingStrawberry.attributes.description.moon=Makes the strawberry render as a space berry.\nDoes not work with wings or nodes in the base game.
+entities.MaxHelpingHand/NonPoppingStrawberry.attributes.description.pulseEffectOnSeeds=Whether the seeds of this strawberry should play their "pulse" effect (sound and flash) like vanilla ones.
+
+# Upside-Down Moving Platform
+entities.MaxHelpingHand/UpsideDownMovingPlatform.placements.name.default=Upside-Down Moving Platform (Default) [max480's Helping Hand]
+entities.MaxHelpingHand/UpsideDownMovingPlatform.placements.name.cliffside=Upside-Down Moving Platform (Cliffside) [max480's Helping Hand]
+entities.MaxHelpingHand/UpsideDownMovingPlatform.attributes.description.moveTime=The time the platform takes to move between two successive positions. Default is 2 seconds.
+entities.MaxHelpingHand/UpsideDownMovingPlatform.attributes.description.pauseTime=The time the platform stops at each position. Default is 0 seconds.
+entities.MaxHelpingHand/UpsideDownMovingPlatform.attributes.description.mode=Determines the way the platform will move between its nodes. For example, with 3 nodes A, B, C:\n- Loop: A > B > C > A\n- LoopNoPause: A > A (going through B and C)\n- BackAndForth: A > B > C > B > A\n- BackAndForthNoPause: A > C > A (going through B)\n- TeleportBack: A > B > C, then the platform teleports to A upon reaching C
+entities.MaxHelpingHand/UpsideDownMovingPlatform.attributes.description.texture=What texture to use for the platform.
+entities.MaxHelpingHand/UpsideDownMovingPlatform.attributes.description.easing=Whether the platform movement should be eased (speedup/slowdown around each position).
+entities.MaxHelpingHand/UpsideDownMovingPlatform.attributes.description.amount=The number of platforms that will be on the track. If more than 1, they will be evenly spread across the track.
+entities.MaxHelpingHand/UpsideDownMovingPlatform.attributes.description.offset=An offset in starting position, between 0 and 1.
+entities.MaxHelpingHand/UpsideDownMovingPlatform.attributes.description.flag=If specified, the platform will only move when the specified flag is active.
+entities.MaxHelpingHand/UpsideDownMovingPlatform.attributes.description.moveLater=If checked, objects like spikes will attach to the platform before it is moved to the offset.
+entities.MaxHelpingHand/UpsideDownMovingPlatform.attributes.description.emitSound=Whether the platform should emit sound when moving.
+entities.MaxHelpingHand/UpsideDownMovingPlatform.attributes.description.pushPlayer=Whether the platform should push the player down, like vanilla jumpthrus push the player up.
+
+# Activate Timed Touch Switches Timer Trigger
+triggers.MaxHelpingHand/ActivateTimedTouchSwitchesTimerTrigger.placements.name.trigger=Activate Timed Touch Switches Timer [max480's Helping Hand + Outback Helper]
+
+# All Black Holes Strength Trigger
+triggers.MaxHelpingHand/AllBlackholesStrengthTrigger.placements.name.trigger=Black Hole Strength (All Black Holes) [max480's Helping Hand]
+triggers.MaxHelpingHand/AllBlackholesStrengthTrigger.attributes.description.strength=Sets the next visual apparence of the black hole effects.
+
+# Ambience Volume Trigger
+triggers.MaxHelpingHand/AmbienceVolumeTrigger.placements.name.trigger=Ambience Volume [max480's Helping Hand]
+triggers.MaxHelpingHand/AmbienceVolumeTrigger.attributes.description.from=Determines the volume of the ambience (between 0 and 1) at closer distances.
+triggers.MaxHelpingHand/AmbienceVolumeTrigger.attributes.description.to=Determines the volume of the ambience (between 0 and 1) at farther distances.
+triggers.MaxHelpingHand/AmbienceVolumeTrigger.attributes.description.direction=Determines which direction the ambience comes from.
+
+# Camera Catchup Speed Trigger
+triggers.MaxHelpingHand/CameraCatchupSpeedTrigger.placements.name.trigger=Camera Catchup Speed [max480's Helping Hand]
+triggers.MaxHelpingHand/CameraCatchupSpeedTrigger.attributes.description.catchupSpeed=Raise this value to have the camera scroll quicker to its target. Vanilla values are 8 during the temple fall cutscene, and 1 everywhere else.
+triggers.MaxHelpingHand/CameraCatchupSpeedTrigger.attributes.description.revertOnLeave=Whether the camera catchup speed should go back to normal after leaving the trigger.
+
+# Camera Offset Border
+triggers.MaxHelpingHand/CameraOffsetBorder.placements.name.trigger=Camera Offset Border [max480's Helping Hand]
+triggers.MaxHelpingHand/CameraOffsetBorder.attributes.description.topLeft=Whether this border should have an effect when the player is on the top-left of it.
+triggers.MaxHelpingHand/CameraOffsetBorder.attributes.description.topCenter=Whether this border should have an effect when the player is on the top of it and aligned horizontally.
+triggers.MaxHelpingHand/CameraOffsetBorder.attributes.description.topRight=Whether this border should have an effect when the player is on the top-right of it.
+triggers.MaxHelpingHand/CameraOffsetBorder.attributes.description.centerLeft=Whether this border should have an effect when the player is on the left of it and aligned vertically.
+triggers.MaxHelpingHand/CameraOffsetBorder.attributes.description.centerRight=Whether this border should have an effect when the player is on the right of it and aligned vertically.
+triggers.MaxHelpingHand/CameraOffsetBorder.attributes.description.bottomLeft=Whether this border should have an effect when the player is on the bottom-left of it.
+triggers.MaxHelpingHand/CameraOffsetBorder.attributes.description.bottomCenter=Whether this border should have an effect when the player is on the bottom of it and aligned horizontally.
+triggers.MaxHelpingHand/CameraOffsetBorder.attributes.description.bottomRight=Whether this border should have an effect when the player is on the bottom-right of it.
+triggers.MaxHelpingHand/CameraOffsetBorder.attributes.description.inside=Whether this border should have an effect when the player is inside it.
+triggers.MaxHelpingHand/CameraOffsetBorder.attributes.description.flag=The flag that must be activated for this border to have an effect. Can be left empty to make activation depend on player position only.
+triggers.MaxHelpingHand/CameraOffsetBorder.attributes.description.inverted=If checked, this border will be disabled when the flag is active.\nIf unchecked, this border will be enabled when the flag is active.
+
+# Color Grade Fade Trigger
+triggers.MaxHelpingHand/ColorGradeFadeTrigger.placements.name.trigger=Color Grade Fade [max480's Helping Hand]
+triggers.MaxHelpingHand/ColorGradeFadeTrigger.attributes.description.colorGradeA=The color grade to fade from.
+triggers.MaxHelpingHand/ColorGradeFadeTrigger.attributes.description.colorGradeB=The color grade to fade to.
+triggers.MaxHelpingHand/ColorGradeFadeTrigger.attributes.description.direction=The direction of the fade. For example, if set to LeftToRight, the color grade will fade from color grade A to color grade B when the player crosses the trigger from left to right.
+triggers.MaxHelpingHand/ColorGradeFadeTrigger.attributes.description.evenDuringReflectionFall=Whether this trigger should work even during the reflection fall cutscene (this cutscene usually disables all triggers).
+
+# Custom Sandwich Lava Settings Trigger
+triggers.MaxHelpingHand/CustomSandwichLavaSettingsTrigger.placements.name.trigger=Custom Sandwich Lava Settings [max480's Helping Hand]
+triggers.MaxHelpingHand/CustomSandwichLavaSettingsTrigger.attributes.description.onlyOnce=If enabled, the settings will change only on the first time the player enters the trigger.
+triggers.MaxHelpingHand/CustomSandwichLavaSettingsTrigger.attributes.description.direction=Changes the sandwich lava direction. CoreModeBased is the same behaviour as vanilla, depending on core mode.
+triggers.MaxHelpingHand/CustomSandwichLavaSettingsTrigger.attributes.description.speed=Changes the speed the lava is moving at, in pixels per second. Vanilla value is 20.
+
+# Disable Ice Physics Trigger
+triggers.MaxHelpingHand/DisableIcePhysicsTrigger.placements.name.trigger=Disable Ice Physics [max480's Helping Hand]
+triggers.MaxHelpingHand/DisableIcePhysicsTrigger.attributes.description.disableIcePhysics=Check to disable ice physics when entering the trigger. Uncheck to enable them again.
+
+# Flag Toggle Camera Offset Trigger
+triggers.MaxHelpingHand/FlagToggleCameraOffsetTrigger.placements.name.trigger=Camera Offset (Flag-Toggled) [max480's Helping Hand]
+triggers.MaxHelpingHand/FlagToggleCameraOffsetTrigger.attributes.description.cameraX=Offsets the player camera on the X axis.
+triggers.MaxHelpingHand/FlagToggleCameraOffsetTrigger.attributes.description.cameraY=Offsets the player camera on the Y axis.
+triggers.MaxHelpingHand/FlagToggleCameraOffsetTrigger.attributes.description.flag=The flag this trigger should react to.
+triggers.MaxHelpingHand/FlagToggleCameraOffsetTrigger.attributes.description.inverted=If checked, the trigger will be disabled when the flag is active.\nIf unchecked, the trigger will be enabled when the flag is active.
+
+# Flag Toggle Camera Target Trigger
+triggers.MaxHelpingHand/FlagToggleCameraTargetTrigger.placements.name.trigger=Camera Target (Flag-Toggled) [max480's Helping Hand]
+triggers.MaxHelpingHand/FlagToggleCameraTargetTrigger.attributes.description.positionMode=Determines which direction the camera position moves in.
+triggers.MaxHelpingHand/FlagToggleCameraTargetTrigger.attributes.description.yOnly=The camera will only lock on the Y axis.
+triggers.MaxHelpingHand/FlagToggleCameraTargetTrigger.attributes.description.xOnly=The camera will only lock on the X axis.
+triggers.MaxHelpingHand/FlagToggleCameraTargetTrigger.attributes.description.lerpStrength=Determines how fast the camera moves to lock into place upon activation.
+triggers.MaxHelpingHand/FlagToggleCameraTargetTrigger.attributes.description.deleteFlag=Session flag to deactivate the trigger, ignored if left empty. Camera will not reset if player is inside the trigger as it deactivates.\nIf the player transitions into the room with the flag set, the trigger can not be reactivated. However, if it was enabled and then disabled in the room, the player can reactivate it.
+triggers.MaxHelpingHand/FlagToggleCameraTargetTrigger.attributes.description.flag=The flag this trigger should react to.
+triggers.MaxHelpingHand/FlagToggleCameraTargetTrigger.attributes.description.inverted=If checked, the trigger will be disabled when the flag is active.\nIf unchecked, the trigger will be enabled when the flag is active.
+
+# Flag Toggle Smooth Camera Offset Trigger
+triggers.MaxHelpingHand/FlagToggleSmoothCameraOffsetTrigger.placements.name.trigger=Smooth Camera Offset (Flag-Toggled) [max480's Helping Hand]
+triggers.MaxHelpingHand/FlagToggleSmoothCameraOffsetTrigger.attributes.description.offsetXFrom=The X offset to fade from.
+triggers.MaxHelpingHand/FlagToggleSmoothCameraOffsetTrigger.attributes.description.offsetXTo=The X offset to fade to.
+triggers.MaxHelpingHand/FlagToggleSmoothCameraOffsetTrigger.attributes.description.offsetYFrom=The Y offset to fade from.
+triggers.MaxHelpingHand/FlagToggleSmoothCameraOffsetTrigger.attributes.description.offsetYTo=The Y offset to fade to.
+triggers.MaxHelpingHand/FlagToggleSmoothCameraOffsetTrigger.attributes.description.positionMode=The fade direction.
+triggers.MaxHelpingHand/FlagToggleSmoothCameraOffsetTrigger.attributes.description.onlyOnce=If checked, the trigger will be disabled when the player first leaves it.
+triggers.MaxHelpingHand/FlagToggleSmoothCameraOffsetTrigger.attributes.description.xOnly=Whether the trigger should only update the horizontal offset, keeping the current vertical offset.
+triggers.MaxHelpingHand/FlagToggleSmoothCameraOffsetTrigger.attributes.description.yOnly=Whether the trigger should only update the vertical offset, keeping the current horizontal offset.
+triggers.MaxHelpingHand/FlagToggleSmoothCameraOffsetTrigger.attributes.description.flag=The flag this trigger should react to.
+triggers.MaxHelpingHand/FlagToggleSmoothCameraOffsetTrigger.attributes.description.inverted=If checked, the trigger will be disabled when the flag is active.\nIf unchecked, the trigger will be enabled when the flag is active.
+
+# Gradient Dust Trigger
+triggers.MaxHelpingHand/GradientDustTrigger.placements.name.trigger=Gradient Dust [max480's Helping Hand]
+triggers.MaxHelpingHand/GradientDustTrigger.attributes.description.gradientImage=Path to a gradient image in Mods/yourmod/Graphics/Atlases/Gameplay. This should be a horizontal gradient image with a height of 180 pixels. Check Graphics/Atlases/Gameplay/MaxHelpingHand/gradientdustbunnies/bluegreen.png in the mod zip for an example.\nLeave the field blank to revert the dust to its vanilla color.
+triggers.MaxHelpingHand/GradientDustTrigger.attributes.description.scrollSpeed=The gradient scrolling speed in pixels/second.
+
+# Madeline Ponytail Trigger
+triggers.MaxHelpingHand/MadelinePonytailTrigger.placements.name.trigger=Madeline Ponytail [max480's Helping Hand]
+triggers.MaxHelpingHand/MadelinePonytailTrigger.attributes.description.enable=Whether this trigger should enable or disable the Madeline ponytail skin.
+
+# Madeline Silhouette Trigger
+triggers.MaxHelpingHand/MadelineSilhouetteTrigger.placements.name.trigger=Madeline Silhouette [max480's Helping Hand]
+triggers.MaxHelpingHand/MadelineSilhouetteTrigger.attributes.description.enable=If checked, the trigger will turn Madeline into a silhouette. If unchecked, it will turn Madeline back to normal.
+
+# One-Way Camera Trigger
+triggers.MaxHelpingHand/OneWayCameraTrigger.placements.name.trigger=One-Way Camera [max480's Helping Hand]
+triggers.MaxHelpingHand/OneWayCameraTrigger.attributes.description.left=Whether the camera is allowed to go left while the player is in the trigger.
+triggers.MaxHelpingHand/OneWayCameraTrigger.attributes.description.right=Whether the camera is allowed to go right while the player is in the trigger.
+triggers.MaxHelpingHand/OneWayCameraTrigger.attributes.description.up=Whether the camera is allowed to go up while the player is in the trigger.
+triggers.MaxHelpingHand/OneWayCameraTrigger.attributes.description.down=Whether the camera is allowed to go down while the player is in the trigger.
+triggers.MaxHelpingHand/OneWayCameraTrigger.attributes.description.blockPlayer=Whether the player should be prevented from going off-camera with invisible barriers and killboxes if they are in the trigger.
+triggers.MaxHelpingHand/OneWayCameraTrigger.attributes.description.flag=If specified, this one-way camera trigger will only have an effect when the specified flag is enabled.
+
+# Pause Badeline Bosses Trigger
+triggers.MaxHelpingHand/PauseBadelineBossesTrigger.placements.name.trigger=Pause Badeline Bosses [max480's Helping Hand]
+
+# Persistent Music Fade Trigger
+triggers.MaxHelpingHand/PersistentMusicFadeTrigger.placements.name.trigger=Persistent Music Fade [max480's Helping Hand]
+triggers.MaxHelpingHand/PersistentMusicFadeTrigger.attributes.description.fadeA=Determines the parameter value at the start of the fade.
+triggers.MaxHelpingHand/PersistentMusicFadeTrigger.attributes.description.fadeB=Determines the parameter value at the end of the fade.
+triggers.MaxHelpingHand/PersistentMusicFadeTrigger.attributes.description.parameter=The music parameter this trigger will affect.
+triggers.MaxHelpingHand/PersistentMusicFadeTrigger.attributes.description.direction=The direction the music fades in.
+
+# Pop Strawberry Seeds Trigger
+triggers.MaxHelpingHand/PopStrawberrySeedsTrigger.placements.name.trigger=Pop Strawberry Seeds [max480's Helping Hand]
+
+# Rainbow Spinner Color Fade Trigger
+triggers.MaxHelpingHand/RainbowSpinnerColorFadeTrigger.placements.name.trigger=Rainbow Spinner Color Fade [max480's Helping Hand]
+triggers.MaxHelpingHand/RainbowSpinnerColorFadeTrigger.attributes.name.colorsA=Position A - Colors
+triggers.MaxHelpingHand/RainbowSpinnerColorFadeTrigger.attributes.name.gradientSizeA=Position A - Gradient Size
+triggers.MaxHelpingHand/RainbowSpinnerColorFadeTrigger.attributes.name.loopColorsA=Position A - Loop Colors
+triggers.MaxHelpingHand/RainbowSpinnerColorFadeTrigger.attributes.name.centerXA=Position A - Center X
+triggers.MaxHelpingHand/RainbowSpinnerColorFadeTrigger.attributes.name.centerYA=Position A - Center Y
+triggers.MaxHelpingHand/RainbowSpinnerColorFadeTrigger.attributes.name.gradientSpeedA=Position A - Gradient Speed
+triggers.MaxHelpingHand/RainbowSpinnerColorFadeTrigger.attributes.name.colorsB=Position B - Colors
+triggers.MaxHelpingHand/RainbowSpinnerColorFadeTrigger.attributes.name.gradientSizeB=Position B - Gradient Size
+triggers.MaxHelpingHand/RainbowSpinnerColorFadeTrigger.attributes.name.loopColorsB=Position B - Loop Colors
+triggers.MaxHelpingHand/RainbowSpinnerColorFadeTrigger.attributes.name.centerXB=Position B - Center X
+triggers.MaxHelpingHand/RainbowSpinnerColorFadeTrigger.attributes.name.centerYB=Position B - Center Y
+triggers.MaxHelpingHand/RainbowSpinnerColorFadeTrigger.attributes.name.gradientSpeedB=Position B - Gradient Speed
+triggers.MaxHelpingHand/RainbowSpinnerColorFadeTrigger.attributes.description.colorsA=(First position) The colours the rainbow spinners in the room will take, separated by commas.
+triggers.MaxHelpingHand/RainbowSpinnerColorFadeTrigger.attributes.description.gradientSizeA=(First position) The distance required to achieve a complete loop across all colours.
+triggers.MaxHelpingHand/RainbowSpinnerColorFadeTrigger.attributes.description.loopColorsA=(First position) Determines how the colors loop. For example, if 3 colours A, B and C are specified:\n- when unchecked, the colours will cycle in the following order: A > B > C > B > A\n- when checked, the colours will cycle in the following order: A > B > C > A > B > C
+triggers.MaxHelpingHand/RainbowSpinnerColorFadeTrigger.attributes.description.centerXA=(First position) The horizontal position of the center of the gradient. Uses "world" coordinates. Vanilla value is 0.
+triggers.MaxHelpingHand/RainbowSpinnerColorFadeTrigger.attributes.description.centerYA=(First position) The vertical position of the center of the gradient. Uses "world" coordinates. Vanilla value is 0.
+triggers.MaxHelpingHand/RainbowSpinnerColorFadeTrigger.attributes.description.gradientSpeedA=(First position) Determines how fast the gradient scrolls, in pixels per second. You can use negative values to make it scroll in the opposite direction. Vanilla value is 50.
+triggers.MaxHelpingHand/RainbowSpinnerColorFadeTrigger.attributes.description.colorsB=(Second position) The colours the rainbow spinners in the room will take, separated by commas.
+triggers.MaxHelpingHand/RainbowSpinnerColorFadeTrigger.attributes.description.gradientSizeB=(Second position) The distance required to achieve a complete loop across all colours.
+triggers.MaxHelpingHand/RainbowSpinnerColorFadeTrigger.attributes.description.loopColorsB=(Second position) Determines how the colors loop. For example, if 3 colours A, B and C are specified:\n- when unchecked, the colours will cycle in the following order: A > B > C > B > A\n- when checked, the colours will cycle in the following order: A > B > C > A > B > C
+triggers.MaxHelpingHand/RainbowSpinnerColorFadeTrigger.attributes.description.centerXB=(Second position) The horizontal position of the center of the gradient. Uses "world" coordinates. Vanilla value is 0.
+triggers.MaxHelpingHand/RainbowSpinnerColorFadeTrigger.attributes.description.centerYB=(Second position) The vertical position of the center of the gradient. Uses "world" coordinates. Vanilla value is 0.
+triggers.MaxHelpingHand/RainbowSpinnerColorFadeTrigger.attributes.description.gradientSpeedB=(Second position) Determines how fast the gradient scrolls, in pixels per second. You can use negative values to make it scroll in the opposite direction. Vanilla value is 50.
+triggers.MaxHelpingHand/RainbowSpinnerColorFadeTrigger.attributes.description.direction=The direction the player will have to walk in to switch from position A to position B.
+triggers.MaxHelpingHand/RainbowSpinnerColorFadeTrigger.attributes.description.persistent=If checked, the chosen colors will persist until the player enters a room with another Rainbow Spinner Color Controller.\nIf unchecked, the chosen colors will only apply to the current room.
+
+# Rainbow Spinner Color Trigger
+triggers.MaxHelpingHand/RainbowSpinnerColorTrigger.placements.name.trigger=Rainbow Spinner Color [max480's Helping Hand]
+triggers.MaxHelpingHand/RainbowSpinnerColorTrigger.attributes.description.colors=The colours the rainbow spinners in the room will take, separated by commas.
+triggers.MaxHelpingHand/RainbowSpinnerColorTrigger.attributes.description.gradientSize=The distance required to achieve a complete loop across all colours.
+triggers.MaxHelpingHand/RainbowSpinnerColorTrigger.attributes.description.loopColors=Determines how the colors loop. For example, if 3 colours A, B and C are specified:\n- when unchecked, the colours will cycle in the following order: A > B > C > B > A\n- when checked, the colours will cycle in the following order: A > B > C > A > B > C
+triggers.MaxHelpingHand/RainbowSpinnerColorTrigger.attributes.description.centerX=The horizontal position of the center of the gradient. Uses "world" coordinates. Vanilla value is 0.
+triggers.MaxHelpingHand/RainbowSpinnerColorTrigger.attributes.description.centerY=The vertical position of the center of the gradient. Uses "world" coordinates. Vanilla value is 0.
+triggers.MaxHelpingHand/RainbowSpinnerColorTrigger.attributes.description.gradientSpeed=Determines how fast the gradient scrolls, in pixels per second. You can use negative values to make it scroll in the opposite direction. Vanilla value is 50.
+triggers.MaxHelpingHand/RainbowSpinnerColorTrigger.attributes.description.persistent=If checked, the chosen colors will persist until the player enters a room with another Rainbow Spinner Color Controller.\nIf unchecked, the chosen colors will only apply to the current room.
+
+# Speed-Based Music Param Trigger
+triggers.MaxHelpingHand/SpeedBasedMusicParamTrigger.placements.name.trigger=Speed-Based Music Param [max480's Helping Hand]
+triggers.MaxHelpingHand/SpeedBasedMusicParamTrigger.attributes.description.paramName=The name of the music parameter to change.
+triggers.MaxHelpingHand/SpeedBasedMusicParamTrigger.attributes.description.minSpeed=The minimum speed at which the music parameter will change.
+triggers.MaxHelpingHand/SpeedBasedMusicParamTrigger.attributes.description.maxSpeed=The maximum speed at which the music parameter will change.
+triggers.MaxHelpingHand/SpeedBasedMusicParamTrigger.attributes.description.minParamValue=The value the music parameter will take when the player speed is "Min Speed" or below.
+triggers.MaxHelpingHand/SpeedBasedMusicParamTrigger.attributes.description.maxParamValue=The value the music parameter will take when the player speed is "Max Speed" or above.
+triggers.MaxHelpingHand/SpeedBasedMusicParamTrigger.attributes.description.activate=If ticked, the trigger will start adjusting the music parameter to match the player's speed.\nIf unticked, the trigger will stop adjusting that music parameter, and set it to the "Min Param Value".
+
+# Strawberry Collection Field
+triggers.MaxHelpingHand/StrawberryCollectionField.placements.name.trigger=Strawberry Collection Field [max480's Helping Hand]
+triggers.MaxHelpingHand/StrawberryCollectionField.attributes.description.delayBetweenBerries=Whether there should be a 0.3 second delay between each berry collection (like when berries are collected on the ground).
+triggers.MaxHelpingHand/StrawberryCollectionField.attributes.description.includeGoldens=Whether this trigger should collect golden strawberries and other berries that block normal collection.
