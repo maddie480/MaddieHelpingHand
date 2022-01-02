@@ -362,9 +362,9 @@ placements.effects.MaxHelpingHand/CustomStars.tooltips.starAlpha=The opacity of 
 placements.effects.MaxHelpingHand/CustomStars.tooltips.bgAlpha=The opacity of the black background of the effect (1 is opaque, 0 is fully transparent).
 
 # Custom Starfield
-placements.effects.MaxHelpingHand/CustomStarfield.tooltips.paths=Comma-separated list of paths to use for the sprites.
-placements.effects.MaxHelpingHand/CustomStarfield.tooltips.colors=Colours to use from for the stars.
-placements.effects.MaxHelpingHand/CustomStarfield.tooltips.alphas=Transparency values to use for the stars.
+placements.effects.MaxHelpingHand/CustomStarfield.tooltips.paths=Comma-separated list of paths to use for the sprites.\nFor example, typing "mystarfield" will use sprites from the Graphics/Atlases/Gameplay/particles/mystarfield folder.
+placements.effects.MaxHelpingHand/CustomStarfield.tooltips.colors=Comma-separated list of colours to use from for the stars.
+placements.effects.MaxHelpingHand/CustomStarfield.tooltips.alphas=Comma-separated list of transparency values to use for the stars.
 placements.effects.MaxHelpingHand/CustomStarfield.tooltips.shuffle=Whether to randomly pick a path, colour, and alpha value for each star.\nIf off, the first path, colour, and alpha are used for the first star, the second of each for the second, and so on, repeating from the start.
 placements.effects.MaxHelpingHand/CustomStarfield.tooltips.speed=How fast the stars move.
 
