@@ -84,6 +84,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             string[] stringsToLookUp = new string[2] { "event:/game/06_reflection/crushblock_activate", "event:/game/06_reflection/crushblock_move_loop"};
             while (cursor.TryGotoNext(MoveType.After, (Instruction instr) => instr.OpCode == OpCodes.Ldstr && stringsToLookUp.Contains((string)instr.Operand)))
             {
+                Logger.Log("MaxHelpingHand/ReskinnableCrushBlock", $"Injecting code to change sound for reskinned Kevins at {cursor.Index} in IL for {cursor.Method.Name}");
                 cursor.Emit(OpCodes.Ldarg_0);
                 cursor.EmitDelegate<Func<string, CrushBlock, string>>((orig, self) => {
                     if (self is ReskinnableCrushBlock crushBlock)
