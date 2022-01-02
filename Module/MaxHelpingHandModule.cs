@@ -154,15 +154,13 @@ namespace Celeste.Mod.MaxHelpingHand.Module {
 
                 string[] colorsAsStrings = child.Attr("colors", "ffffff").Split(',');
                 Color[] colors = new Color[colorsAsStrings.Length];
-                for (int i = 0; i < colorsAsStrings.Length; i++)
-                {
+                for (int i = 0; i < colorsAsStrings.Length; i++) {
                     colors[i] = Calc.HexToColor(colorsAsStrings[i]);
                 }
 
                 string[] alphasAsStrings = child.Attr("alphas", "1").Split(',');
                 float[] alphas = new float[alphasAsStrings.Length];
-                for (int i = 0; i < alphasAsStrings.Length; i++)
-                {
+                for (int i = 0; i < alphasAsStrings.Length; i++) {
                     alphas[i] = float.Parse(alphasAsStrings[i]);
                 }
 
