@@ -1,4 +1,5 @@
 local drawableRectangle = require("structs.drawable_rectangle")
+local utils = require("utils")
 
 local everestNpc = {}
 
@@ -39,6 +40,14 @@ everestNpc.placements = {
         setFlag = ""
     }
 }
+
+local borderColor = {1.0, 1.0, 1.0, 1.0}
+local fillColor = {1.0, 1.0, 1.0, 0.8}
+
+function everestNpc.nodeSprite(room, entity, node, index)
+    local rectangle = utils.rectangle(node.x, node.y, 8, 8)
+    return drawableRectangle.fromRectangle("bordered", rectangle, fillColor, borderColor):getDrawableSprite()
+end
 
 everestNpc.texture = "ahorn/MaxHelpingHand/custom_npc_xml"
 everestNpc.nodeTexture = "ahorn/MaxHelpingHand/orange_rectangle"
