@@ -18,4 +18,6 @@ trigger.placements = {
     }
 }
 
+trigger.fieldOrder = {"x", "y", "width", "height", "topLeft", "topCenter", "topRight", "centerLeft", "centerRight", "bottomLeft", "bottomCenter", "bottomRight", "flag", "inverted", "inside"}
+
 return trigger

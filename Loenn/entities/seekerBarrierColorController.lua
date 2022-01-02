@@ -16,6 +16,8 @@ colorController.placements = {
     }
 }
 
+colorController.fieldOrder = {"x", "y", "color", "transparency", "particleColor", "particleTransparency"}
+
 colorController.fieldInformation = {
     color = {
         fieldType = "color"

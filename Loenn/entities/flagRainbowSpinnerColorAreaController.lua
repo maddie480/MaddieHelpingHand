@@ -24,4 +24,6 @@ areaController.placements = {
     }
 }
 
+areaController.fieldOrder = {"x", "y", "width", "height", "centerX", "centerXWithFlag", "centerY", "centerYWithFlag", "colors", "colorsWithFlag", "gradientSize", "gradientSizeWithFlag", "gradientSpeed", "gradientSpeedWithFlag"}
+
 return areaController

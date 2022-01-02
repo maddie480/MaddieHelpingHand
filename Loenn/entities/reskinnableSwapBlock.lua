@@ -53,6 +53,8 @@ swapBlock.placements = {
     }
 }
 
+swapBlock.fieldOrder = {"x", "y", "width", "height", "moveSound", "moveEndSound", "returnSound", "returnEndSound"}
+
 local function addBlockSprites(sprites, entity, frameTexture, middleTexture)
     local x, y = entity.x or 0, entity.y or 0
     local width, height = entity.width or 8, entity.height or 8

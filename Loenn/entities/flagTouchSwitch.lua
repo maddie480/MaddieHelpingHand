@@ -25,6 +25,8 @@ touchSwitch.placements = {
     }
 }
 
+touchSwitch.fieldOrder = {"x", "y", "width", "height", "inactiveColor", "activeColor", "finishColor", "hitSound", "completeSoundFromSwitch", "completeSoundFromScene"}
+
 touchSwitch.fieldInformation = {
     inactiveColor = {
         fieldType = "color"

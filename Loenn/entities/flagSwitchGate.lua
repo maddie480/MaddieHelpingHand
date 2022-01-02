@@ -38,6 +38,8 @@ for i, texture in ipairs(textures) do
     }
 end
 
+switchGate.fieldOrder = {"x", "y", "width", "height", "flag", "inactiveColor", "activeColor", "finishColor", "hitSound", "moveSound", "finishedSound", "shakeTime", "moveTime"}
+
 switchGate.fieldInformation = {
     inactiveColor = {
         fieldType = "color"

@@ -24,6 +24,8 @@ strawberry.placements = {
     }
 }
 
+strawberry.fieldOrder = {"x", "y", "strawberrySprite", "ghostberrySprite", "strawberryPulseSound", "strawberryTouchSound", "strawberryBlueTouchSound", "strawberryGetSound", "particleColor1", "particleColor2", "ghostParticleColor1", "ghostParticleColor2"}
+
 strawberry.fieldInformation = {
     particleColor1 = {
         fieldType = "color"

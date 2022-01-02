@@ -31,6 +31,8 @@ for _, texture in ipairs(textures) do
     })
 end
 
+crumbleBlock.fieldOrder = {"x", "y", "width", "crumbleDurationOnSide", "minCrumbleDurationOnTop", "maxCrumbleDurationOnTop"}
+
 crumbleBlock.fieldInformation = {
     fadeOutTint = {
         fieldType = "color"

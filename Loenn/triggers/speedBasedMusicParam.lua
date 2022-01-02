@@ -13,4 +13,6 @@ trigger.placements = {
     }
 }
 
+trigger.editingOrder = {"x", "y", "width", "height", "minSpeed", "maxSpeed", "minParamValue", "maxParamValue"}
+
 return trigger

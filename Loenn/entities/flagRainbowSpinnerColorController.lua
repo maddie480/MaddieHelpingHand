@@ -23,4 +23,6 @@ colorController.placements = {
     }
 }
 
+colorController.fieldOrder = {"x", "y", "centerX", "centerXWithFlag", "centerY", "centerYWithFlag", "colors", "colorsWithFlag", "gradientSize", "gradientSizeWithFlag", "gradientSpeed", "gradientSpeedWithFlag"}
+
 return colorController
