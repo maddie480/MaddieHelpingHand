@@ -149,6 +149,25 @@ namespace Celeste.Mod.MaxHelpingHand.Module {
                 return new CustomStars(starCount, string.IsNullOrEmpty(tint) ? (Color?) null : Calc.HexToColor(tint), child.Attr("spriteDirectory", "bgs/02/stars"),
                     child.AttrFloat("wrapHeight", 180f), alpha, child.AttrFloat("bgAlpha", 1f));
             }
+            if (child.Name.Equals("MaxHelpingHand/CustomStarfield", StringComparison.OrdinalIgnoreCase)) {
+                string[] paths = child.Attr("paths", "starfield").Split(',');
+
+                string[] colorsAsStrings = child.Attr("colors", "ffffff").Split(',');
+                Color[] colors = new Color[colorsAsStrings.Length];
+                for (int i = 0; i < colorsAsStrings.Length; i++)
+                {
+                    colors[i] = Calc.HexToColor(colorsAsStrings[i]);
+                }
+
+                string[] alphasAsStrings = child.Attr("alphas", "1").Split(',');
+                float[] alphas = new float[alphasAsStrings.Length];
+                for (int i = 0; i < alphasAsStrings.Length; i++)
+                {
+                    alphas[i] = float.Parse(alphasAsStrings[i]);
+                }
+
+                return new CustomStarfield(paths, colors, alphas, child.AttrBool("shuffle", true), child.AttrFloat("speed", 1f));
+            }
             if (child.Name.Equals("MaxHelpingHand/SnowCustomColors", StringComparison.OrdinalIgnoreCase)) {
                 string[] colorsAsStrings = child.Attr("colors").Split(',');
                 Color[] colors = new Color[colorsAsStrings.Length];
