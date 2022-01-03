@@ -1,6 +1,7 @@
 ﻿using Celeste.Mod.Entities;
 using Microsoft.Xna.Framework;
 using Monocle;
+using MonoMod.Utils;
 using System;
 using System.Collections.Generic;
 
@@ -64,6 +65,11 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
         private Vector2[] spikePositions;
         private List<MTexture> spikeTextures;
 
+        // "attached to cassette block" stuff
+        private Color enabledColor = Color.White;
+        private Color disabledColor = Color.White;
+        private bool visibleWhenDisabled = false;
+
         private bool blockingLedge = false;
 
         public GroupedTriggerSpikes(EntityData data, Vector2 offset, Directions dir)
@@ -116,8 +122,10 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
 
             Add(new StaticMover {
                 OnShake = OnShake,
-                SolidChecker = IsRiding,
-                JumpThruChecker = IsRiding
+                SolidChecker = CheckAttachToSolid,
+                JumpThruChecker = IsRiding,
+                OnEnable = OnEnable,
+                OnDisable = OnDisable
             });
 
             if (behindMoveBlocks) {
@@ -163,6 +171,36 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
                         break;
                 }
             }
+        }
+
+        private bool CheckAttachToSolid(Solid solid) {
+            bool collides = IsRiding(solid);
+
+            // if we happen to be attached to a cassette block, take its color.
+            if (collides && solid is CassetteBlock cassetteBlock) {
+                enabledColor = new DynData<CassetteBlock>(cassetteBlock).Get<Color>("color");
+
+                // same formula as cassette blocks do.
+                Color color = Calc.HexToColor("667da5");
+                disabledColor = new Color(
+                    color.R / 255f * (enabledColor.R / 255f),
+                    color.G / 255f * (enabledColor.G / 255f),
+                    color.B / 255f * (enabledColor.B / 255f),
+                    1f);
+
+                visibleWhenDisabled = true;
+            }
+
+            return collides;
+        }
+
+        private void OnEnable() {
+            Collidable = Visible = true;
+        }
+
+        private void OnDisable() {
+            Collidable = false;
+            Visible = visibleWhenDisabled;
         }
 
         private void OnShake(Vector2 amount) {
@@ -311,7 +349,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             for (int i = 0; i < spikePositions.Length; i++) {
                 MTexture tex = spikeTextures[0];
                 Vector2 pos = Position + shakeOffset + spikePositions[i] + outwards * (-4f + Lerp * 4f);
-                tex.DrawJustified(pos, justify);
+                tex.DrawJustified(pos, justify, Collidable ? enabledColor : disabledColor);
             }
         }
 
