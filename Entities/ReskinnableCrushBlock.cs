@@ -13,24 +13,28 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
     [CustomEntity("MaxHelpingHand/ReskinnableCrushBlock")]
     public class ReskinnableCrushBlock : CrushBlock {
         private static MethodInfo modCrushBlockAttackSequenceInfo = typeof(CrushBlock).GetMethod("AttackSequence", BindingFlags.NonPublic | BindingFlags.Instance).GetStateMachineTarget();
+
         private static ILHook modCrushBlockAttackSequenceHook;
+
         public static void Load() {
-            modCrushBlockAttackSequenceHook = new ILHook(modCrushBlockAttackSequenceInfo, modCrushBlockAttackSequence);
             IL.Celeste.CrushBlock.Attack += modCrushBlockAttack;
             On.Celeste.CrushBlock.ctor_EntityData_Vector2 += onCrushBlockConstruct;
             IL.Celeste.CrushBlock.ctor_Vector2_float_float_Axes_bool += modCrushBlockSprites;
             IL.Celeste.CrushBlock.AddImage += modCrushBlockSprites;
             On.Celeste.CrushBlock.ActivateParticles += activateParticles;
+
+            modCrushBlockAttackSequenceHook = new ILHook(modCrushBlockAttackSequenceInfo, modCrushBlockAttackSequence);
         }
 
         public static void Unload() {
-            modCrushBlockAttackSequenceHook?.Dispose();
-            modCrushBlockAttackSequenceHook = null;
             IL.Celeste.CrushBlock.Attack -= modCrushBlockAttack;
             On.Celeste.CrushBlock.ctor_EntityData_Vector2 -= onCrushBlockConstruct;
             IL.Celeste.CrushBlock.ctor_Vector2_float_float_Axes_bool -= modCrushBlockSprites;
             IL.Celeste.CrushBlock.AddImage -= modCrushBlockSprites;
             On.Celeste.CrushBlock.ActivateParticles -= activateParticles;
+
+            modCrushBlockAttackSequenceHook?.Dispose();
+            modCrushBlockAttackSequenceHook = null;
         }
 
         private static void onCrushBlockConstruct(On.Celeste.CrushBlock.orig_ctor_EntityData_Vector2 orig, CrushBlock self, EntityData data, Vector2 offset) {
@@ -60,17 +64,14 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             }
         }
 
-        private static void modCrushBlockAttackSequence(ILContext il)
-        {
+        private static void modCrushBlockAttackSequence(ILContext il) {
             ILCursor cursor = new ILCursor(il);
-            string[] stringsToLookUp = new string[4] {"event:/game/06_reflection/crushblock_impact", "event:/game/06_reflection/crushblock_return_loop", "event:/game/06_reflection/crushblock_rest_waypoint", "event:/game/06_reflection/crushblock_rest" };
-            while (cursor.TryGotoNext(MoveType.After, instr => instr.OpCode == OpCodes.Ldstr && stringsToLookUp.Contains((string)instr.Operand)))
-            {
+            string[] stringsToLookUp = { "event:/game/06_reflection/crushblock_impact", "event:/game/06_reflection/crushblock_return_loop", "event:/game/06_reflection/crushblock_rest_waypoint", "event:/game/06_reflection/crushblock_rest" };
+            while (cursor.TryGotoNext(MoveType.After, instr => instr.OpCode == OpCodes.Ldstr && stringsToLookUp.Contains((string) instr.Operand))) {
                 Logger.Log("MaxHelpingHand/ReskinnableCrushBlock", $"Injecting code to change sound for reskinned Kevins at {cursor.Index} in IL for {cursor.Method.Name}");
                 cursor.Emit(OpCodes.Ldloc_1);
                 cursor.EmitDelegate<Func<string, CrushBlock, string>>((orig, self) => {
-                    if (self is ReskinnableCrushBlock crushBlock)
-                    {
+                    if (self is ReskinnableCrushBlock crushBlock) {
                         return orig.Replace("event:/game/06_reflection", crushBlock.soundDirectory);
                     }
                     return orig;
@@ -78,17 +79,14 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             }
         }
 
-        private static void modCrushBlockAttack(ILContext il)
-        {
+        private static void modCrushBlockAttack(ILContext il) {
             ILCursor cursor = new ILCursor(il);
-            string[] stringsToLookUp = new string[2] { "event:/game/06_reflection/crushblock_activate", "event:/game/06_reflection/crushblock_move_loop"};
-            while (cursor.TryGotoNext(MoveType.After, (Instruction instr) => instr.OpCode == OpCodes.Ldstr && stringsToLookUp.Contains((string)instr.Operand)))
-            {
+            string[] stringsToLookUp = new string[2] { "event:/game/06_reflection/crushblock_activate", "event:/game/06_reflection/crushblock_move_loop" };
+            while (cursor.TryGotoNext(MoveType.After, instr => instr.OpCode == OpCodes.Ldstr && stringsToLookUp.Contains((string) instr.Operand))) {
                 Logger.Log("MaxHelpingHand/ReskinnableCrushBlock", $"Injecting code to change sound for reskinned Kevins at {cursor.Index} in IL for {cursor.Method.Name}");
                 cursor.Emit(OpCodes.Ldarg_0);
                 cursor.EmitDelegate<Func<string, CrushBlock, string>>((orig, self) => {
-                    if (self is ReskinnableCrushBlock crushBlock)
-                    {
+                    if (self is ReskinnableCrushBlock crushBlock) {
                         return orig.Replace("event:/game/06_reflection", crushBlock.soundDirectory);
                     }
                     return orig;

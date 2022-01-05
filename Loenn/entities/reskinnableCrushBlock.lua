@@ -27,7 +27,8 @@ for _, axes in ipairs(axesOptions) do
             crushParticleColor1 = "ff66e2",
             crushParticleColor2 = "68fcff",
             activateParticleColor1 = "5fcde4",
-            activateParticleColor2 = "ffffff"
+            activateParticleColor2 = "ffffff",
+            soundDirectory = "event:/game/06_reflection"
         }
     })
 end

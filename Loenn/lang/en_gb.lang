@@ -487,6 +487,7 @@ entities.MaxHelpingHand/ReskinnableCrushBlock.attributes.description.activatePar
 entities.MaxHelpingHand/ReskinnableCrushBlock.attributes.description.activateParticleColor2=One of the 2 colors of the particles the crush block emits when it is hit by the player.
 entities.MaxHelpingHand/ReskinnableCrushBlock.attributes.name.activateParticleColor1=Activate Particle Color 1
 entities.MaxHelpingHand/ReskinnableCrushBlock.attributes.name.activateParticleColor2=Activate Particle Color 2
+entities.MaxHelpingHand/ReskinnableCrushBlock.attributes.description.soundDirectory=The FMOD event "directory" where Kevin sounds should be pulled from.\nShould have events crushblock_activate, crushblock_move_loop, crushblock_impact, crushblock_return_loop, crushblock_rest_waypoint, and crushblock_rest.
 
 # Reskinnable Floating Debris
 entities.MaxHelpingHand/ReskinnableFloatingDebris.placements.name.floating_debris=Floating Debris (Reskinnable) [max480's Helping Hand]
