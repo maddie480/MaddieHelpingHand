@@ -3,14 +3,20 @@ using Microsoft.Xna.Framework;
 using Mono.Cecil.Cil;
 using Monocle;
 using MonoMod.Cil;
+using MonoMod.RuntimeDetour;
 using MonoMod.Utils;
 using System;
 using System.Linq;
+using System.Reflection;
 
 namespace Celeste.Mod.MaxHelpingHand.Entities {
     [CustomEntity("MaxHelpingHand/ReskinnableCrushBlock")]
     public class ReskinnableCrushBlock : CrushBlock {
+        private static MethodInfo modCrushBlockAttackSequenceInfo = typeof(CrushBlock).GetMethod("AttackSequence", BindingFlags.NonPublic | BindingFlags.Instance).GetStateMachineTarget();
+        private static ILHook modCrushBlockAttackSequenceHook;
         public static void Load() {
+            modCrushBlockAttackSequenceHook = new ILHook(modCrushBlockAttackSequenceInfo, modCrushBlockAttackSequence);
+            IL.Celeste.CrushBlock.Attack += modCrushBlockAttack;
             On.Celeste.CrushBlock.ctor_EntityData_Vector2 += onCrushBlockConstruct;
             IL.Celeste.CrushBlock.ctor_Vector2_float_float_Axes_bool += modCrushBlockSprites;
             IL.Celeste.CrushBlock.AddImage += modCrushBlockSprites;
@@ -18,6 +24,9 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
         }
 
         public static void Unload() {
+            modCrushBlockAttackSequenceHook?.Dispose();
+            modCrushBlockAttackSequenceHook = null;
+            IL.Celeste.CrushBlock.Attack -= modCrushBlockAttack;
             On.Celeste.CrushBlock.ctor_EntityData_Vector2 -= onCrushBlockConstruct;
             IL.Celeste.CrushBlock.ctor_Vector2_float_float_Axes_bool -= modCrushBlockSprites;
             IL.Celeste.CrushBlock.AddImage -= modCrushBlockSprites;
@@ -28,6 +37,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             // we are using a hook rather than the constructor, because we want to run our code before the base constructor.
             if (self is ReskinnableCrushBlock crushBlock) {
                 crushBlock.spriteDirectory = data.Attr("spriteDirectory", "objects/crushblock");
+                crushBlock.soundDirectory = data.Attr("soundDirectory", "event:/game/06_reflection");
             }
 
             orig(self, data, offset);
@@ -50,8 +60,45 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             }
         }
 
+        private static void modCrushBlockAttackSequence(ILContext il)
+        {
+            ILCursor cursor = new ILCursor(il);
+            string[] stringsToLookUp = new string[4] {"event:/game/06_reflection/crushblock_impact", "event:/game/06_reflection/crushblock_return_loop", "event:/game/06_reflection/crushblock_rest_waypoint", "event:/game/06_reflection/crushblock_rest" };
+            while (cursor.TryGotoNext(MoveType.After, instr => instr.OpCode == OpCodes.Ldstr && stringsToLookUp.Contains((string)instr.Operand)))
+            {
+                Logger.Log("MaxHelpingHand/ReskinnableCrushBlock", $"Injecting code to change sound for reskinned Kevins at {cursor.Index} in IL for {cursor.Method.Name}");
+                cursor.Emit(OpCodes.Ldloc_1);
+                cursor.EmitDelegate<Func<string, CrushBlock, string>>((orig, self) => {
+                    if (self is ReskinnableCrushBlock crushBlock)
+                    {
+                        return orig.Replace("event:/game/06_reflection", crushBlock.soundDirectory);
+                    }
+                    return orig;
+                });
+            }
+        }
+
+        private static void modCrushBlockAttack(ILContext il)
+        {
+            ILCursor cursor = new ILCursor(il);
+            string[] stringsToLookUp = new string[2] { "event:/game/06_reflection/crushblock_activate", "event:/game/06_reflection/crushblock_move_loop"};
+            while (cursor.TryGotoNext(MoveType.After, (Instruction instr) => instr.OpCode == OpCodes.Ldstr && stringsToLookUp.Contains((string)instr.Operand)))
+            {
+                Logger.Log("MaxHelpingHand/ReskinnableCrushBlock", $"Injecting code to change sound for reskinned Kevins at {cursor.Index} in IL for {cursor.Method.Name}");
+                cursor.Emit(OpCodes.Ldarg_0);
+                cursor.EmitDelegate<Func<string, CrushBlock, string>>((orig, self) => {
+                    if (self is ReskinnableCrushBlock crushBlock)
+                    {
+                        return orig.Replace("event:/game/06_reflection", crushBlock.soundDirectory);
+                    }
+                    return orig;
+                });
+            }
+        }
+
 
         private string spriteDirectory;
+        private string soundDirectory;
 
         private ParticleType crushParticleColor;
         private ParticleType activateParticleColor;

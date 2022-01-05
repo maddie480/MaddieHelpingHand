@@ -324,6 +324,7 @@ placements.entities.MaxHelpingHand/ReskinnableCrushBlock.tooltips.spriteDirector
 placements.entities.MaxHelpingHand/ReskinnableCrushBlock.tooltips.fillColor=The color used to fill the Kevin, used between the face sprite and the borders.
 placements.entities.MaxHelpingHand/ReskinnableCrushBlock.tooltips.crushParticleColor1=One of the 2 colors of the particles the crush block emits when it moves.
 placements.entities.MaxHelpingHand/ReskinnableCrushBlock.tooltips.crushParticleColor2=One of the 2 colors of the particles the crush block emits when it moves.
+placements.entities.MaxHelpingHand/ReskinnableCrushBlock.tooltips.soundDirectory=The FMOD event directory where Kevin sounds should be pulled from. \nShould have events crushblock_activate, crushblock_move_loop, crushblock_impact, crushblock_return_loop, crushblock_rest_waypoint, and crushblock_rest.
 placements.entities.MaxHelpingHand/ReskinnableCrushBlock.names.crushParticleColor1=Crush Particle Color 1
 placements.entities.MaxHelpingHand/ReskinnableCrushBlock.names.crushParticleColor2=Crush Particle Color 2
 placements.entities.MaxHelpingHand/ReskinnableCrushBlock.tooltips.activateParticleColor1=One of the 2 colors of the particles the crush block emits when it is hit by the player.

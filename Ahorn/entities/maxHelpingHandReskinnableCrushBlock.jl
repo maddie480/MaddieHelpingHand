@@ -4,7 +4,7 @@ using ..Ahorn, Maple
 
 @mapdef Entity "MaxHelpingHand/ReskinnableCrushBlock" ReskinnableCrushBlock(x::Integer, y::Integer, width::Integer=Maple.defaultBlockWidth, height::Integer=Maple.defaultBlockHeight,
 	axes::String="both", chillout::Bool=false, spriteDirectory::String="objects/crushblock", fillColor::String="62222b", crushParticleColor1::String="ff66e2", crushParticleColor2::String="68fcff",
-    activateParticleColor1::String="5fcde4", activateParticleColor2::String="ffffff")
+    activateParticleColor1::String="5fcde4", activateParticleColor2::String="ffffff", soundDirectory::String="event:/game/06_reflection")
 
 const placements = Ahorn.PlacementDict(
     "Kevin (Both, Reskinnable) (max480's Helping Hand)" => Ahorn.EntityPlacement(
