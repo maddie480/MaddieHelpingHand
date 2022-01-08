@@ -1,4 +1,4 @@
-﻿# Temple Eye tracking Madeline
+﻿# Temple Eye Tracking Madeline (legacy attribute, this is now a separate entity with no attribute)
 placements.entities.templeEye.tooltips.followMadeline=(From max480's Helping Hand) Tick this checkbox to make the eye follow Madeline instead of Theo.
 
 # Camera Catchup Speed Trigger

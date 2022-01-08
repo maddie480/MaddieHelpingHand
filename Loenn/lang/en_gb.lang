@@ -814,3 +814,6 @@ triggers.MaxHelpingHand/SpeedBasedMusicParamTrigger.attributes.description.activ
 triggers.MaxHelpingHand/StrawberryCollectionField.placements.name.trigger=Strawberry Collection Field [max480's Helping Hand]
 triggers.MaxHelpingHand/StrawberryCollectionField.attributes.description.delayBetweenBerries=Whether there should be a 0.3 second delay between each berry collection (like when berries are collected on the ground).
 triggers.MaxHelpingHand/StrawberryCollectionField.attributes.description.includeGoldens=Whether this trigger should collect golden strawberries and other berries that block normal collection.
+
+# Temple Eye Tracking Madeline
+entities.MaxHelpingHand/TempleEyeTrackingMadeline.placements.name.temple_eye=Temple Eye (Follow Madeline) [max480's Helping Hand]
