@@ -14,42 +14,56 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
     public class KevinBarrier : Solid {
         private static List<Hook> allSetHooks = new List<Hook>();
 
+        private static bool frostHelperHooked = false;
+        private static bool cherryHelperHooked = false;
+        private static bool sardine7Hooked = false;
+
         public static void Load() {
             On.Celeste.LevelLoader.LoadingThread += onLevelLoadingThread;
 
             hookKevin(typeof(CrushBlock));
-
-            Type slowKevinClass = Everest.Modules.FirstOrDefault(module => module.GetType().ToString() == "FrostHelper.FrostModule")?.GetType().Assembly
-                .GetType("FrostHelper.CustomCrushBlock");
-            if (slowKevinClass != null) {
-                hookKevin(slowKevinClass);
-            }
-
-            Type nonReturnKevinClass = Everest.Modules.FirstOrDefault(module => module.GetType().ToString() == "Celeste.Mod.CherryHelper.CherryHelper")?.GetType().Assembly
-                .GetType("Celeste.Mod.CherryHelper.NonReturnCrushBlock");
-            if (nonReturnKevinClass != null) {
-                hookKevin(nonReturnKevinClass);
-            }
-
-            Type uninterruptedNonReturnKevinClass = Everest.Modules.FirstOrDefault(module => module.GetType().ToString() == "Celeste.Mod.CherryHelper.CherryHelper")?.GetType().Assembly
-                .GetType("Celeste.Mod.CherryHelper.UninterruptedNRCB");
-            if (uninterruptedNonReturnKevinClass != null) {
-                hookKevin(uninterruptedNonReturnKevinClass);
-            }
-
-            Type nonReturnSokobanClass = Everest.Modules.FirstOrDefault(module => module.GetType().ToString() == "Celeste.Mod.CherryHelper.CherryHelper")?.GetType().Assembly
-                .GetType("Celeste.Mod.CherryHelper.NonReturnSokoban");
-            if (nonReturnSokobanClass != null) {
-                hookKevin(nonReturnSokobanClass);
-            }
         }
 
-        public static void Initialize() {
-            // using Sardine7 too early makes the game crash, because particles need to be loaded in order to initialize the static fields in SokobanBlock.
-            Type sokobanBlockClass = Everest.Modules.FirstOrDefault(module => module.GetType().ToString() == "Celeste.Mod.Sardine7.Sardine7Module")?.GetType().Assembly
-                .GetType("Celeste.Mod.Sardine7.Entities.SokobanBlock");
-            if (sokobanBlockClass != null) {
-                hookKevin(sokobanBlockClass);
+        public static void HookMods() {
+            if (!frostHelperHooked) {
+                Type slowKevinClass = Everest.Modules.FirstOrDefault(module => module.GetType().ToString() == "FrostHelper.FrostModule")?.GetType().Assembly
+                    .GetType("FrostHelper.CustomCrushBlock");
+                if (slowKevinClass != null) {
+                    hookKevin(slowKevinClass);
+                    frostHelperHooked = true;
+                }
+            }
+
+            if (!cherryHelperHooked) {
+                Type nonReturnKevinClass = Everest.Modules.FirstOrDefault(module => module.GetType().ToString() == "Celeste.Mod.CherryHelper.CherryHelper")?.GetType().Assembly
+                    .GetType("Celeste.Mod.CherryHelper.NonReturnCrushBlock");
+                if (nonReturnKevinClass != null) {
+                    hookKevin(nonReturnKevinClass);
+                    cherryHelperHooked = true;
+                }
+
+                Type uninterruptedNonReturnKevinClass = Everest.Modules.FirstOrDefault(module => module.GetType().ToString() == "Celeste.Mod.CherryHelper.CherryHelper")?.GetType().Assembly
+                    .GetType("Celeste.Mod.CherryHelper.UninterruptedNRCB");
+                if (uninterruptedNonReturnKevinClass != null) {
+                    hookKevin(uninterruptedNonReturnKevinClass);
+                    cherryHelperHooked = true;
+                }
+
+                Type nonReturnSokobanClass = Everest.Modules.FirstOrDefault(module => module.GetType().ToString() == "Celeste.Mod.CherryHelper.CherryHelper")?.GetType().Assembly
+                    .GetType("Celeste.Mod.CherryHelper.NonReturnSokoban");
+                if (nonReturnSokobanClass != null) {
+                    hookKevin(nonReturnSokobanClass);
+                    cherryHelperHooked = true;
+                }
+            }
+
+            if (!sardine7Hooked) {
+                Type sokobanBlockClass = Everest.Modules.FirstOrDefault(module => module.GetType().ToString() == "Celeste.Mod.Sardine7.Sardine7Module")?.GetType().Assembly
+                    .GetType("Celeste.Mod.Sardine7.Entities.SokobanBlock");
+                if (sokobanBlockClass != null) {
+                    hookKevin(sokobanBlockClass);
+                    sardine7Hooked = true;
+                }
             }
         }
 
@@ -69,6 +83,10 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
                 h.Dispose();
             }
             allSetHooks.Clear();
+
+            frostHelperHooked = false;
+            cherryHelperHooked = false;
+            sardine7Hooked = false;
         }
 
         private static void onLevelLoadingThread(On.Celeste.LevelLoader.orig_LoadingThread orig, LevelLoader self) {

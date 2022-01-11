@@ -50,7 +50,6 @@ namespace Celeste.Mod.MaxHelpingHand.Module {
             CustomTutorialWithNoBird.Load();
             NonPoppingStrawberrySeed.Load();
             CustomizableCrumblePlatform.Load();
-            MovingFlagTouchSwitch.Load();
             HintDecal.Load();
             CameraOffsetBorder.Load();
             DisableIcePhysicsTrigger.Load();
@@ -65,6 +64,7 @@ namespace Celeste.Mod.MaxHelpingHand.Module {
             NoDashRefillSpring.Load();
 
             Everest.Events.Level.OnLoadBackdrop += onLoadBackdrop;
+            On.Celeste.Mod.Everest.Register += onModRegister;
         }
 
         public override void Unload() {
@@ -111,6 +111,7 @@ namespace Celeste.Mod.MaxHelpingHand.Module {
             NoDashRefillSpring.Unload();
 
             Everest.Events.Level.OnLoadBackdrop -= onLoadBackdrop;
+            On.Celeste.Mod.Everest.Register -= onModRegister;
         }
 
         public override void LoadContent(bool firstLoad) {
@@ -118,7 +119,17 @@ namespace Celeste.Mod.MaxHelpingHand.Module {
 
             MadelinePonytailTrigger.LoadContent();
             MultiRoomStrawberryCounter.Initialize();
-            KevinBarrier.Initialize();
+            KevinBarrier.HookMods();
+            MovingFlagTouchSwitch.HookMods();
+        }
+
+        private void onModRegister(On.Celeste.Mod.Everest.orig_Register orig, EverestModule module) {
+            orig(module);
+
+            // if the mod that was just registered is one of those we want to hook, do that now.
+            KevinBarrier.HookMods();
+            MovingFlagTouchSwitch.HookMods();
+            MadelinePonytailTrigger.HookMods();
         }
 
         private Backdrop onLoadBackdrop(MapData map, BinaryPacker.Element child, BinaryPacker.Element above) {

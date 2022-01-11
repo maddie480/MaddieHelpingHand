@@ -21,8 +21,8 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
 
         private static ILHook hookMovingTouchSwitchColor;
 
-        public static void Load() {
-            if (Everest.Loader.DependencyLoaded(new EverestModuleMetadata { Name = "OutbackHelper", Version = new Version(1, 4, 0) })) {
+        public static void HookMods() {
+            if (hookMovingTouchSwitchColor == null && Everest.Loader.DependencyLoaded(new EverestModuleMetadata { Name = "OutbackHelper", Version = new Version(1, 4, 0) })) {
                 movingTouchSwitchType = Everest.Modules.First(module => module.GetType().ToString() == "Celeste.Mod.OutbackHelper.OutbackModule")
                     .GetType().Assembly.GetType("Celeste.Mod.OutbackHelper.MovingTouchSwitch");
                 movingTouchSwitchIcon = movingTouchSwitchType.GetField("icon", BindingFlags.NonPublic | BindingFlags.Instance);
