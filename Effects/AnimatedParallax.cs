@@ -24,6 +24,10 @@ namespace Celeste.Mod.MaxHelpingHand.Effects {
                         // nah, this is an ANIMATED parallax, mind you!
                         return new AnimatedParallax(orig.Texture);
                     }
+                    if (orig.Texture?.AtlasPath?.StartsWith("bgs/MaxHelpingHand/hdParallax/") ?? false) {
+                        // and this is an HD parallax.
+                        return new HdParallax(orig.Texture);
+                    }
                     return orig;
                 });
             }
