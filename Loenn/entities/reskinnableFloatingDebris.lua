@@ -8,7 +8,14 @@ floatingDebris.depth = -5
 floatingDebris.placements = {
     name = "floating_debris",
     data = {
-        texture = "scenery/debris"
+        texture = "scenery/debris",
+        depth = -5
+    }
+}
+
+floatingDebris.fieldInformation = {
+    fadeOutTint = {
+        depth = "integer"
     }
 }
 

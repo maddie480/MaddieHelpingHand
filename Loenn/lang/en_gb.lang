@@ -492,6 +492,7 @@ entities.MaxHelpingHand/ReskinnableCrushBlock.attributes.description.soundDirect
 # Reskinnable Floating Debris
 entities.MaxHelpingHand/ReskinnableFloatingDebris.placements.name.floating_debris=Floating Debris (Reskinnable) [max480's Helping Hand]
 entities.MaxHelpingHand/ReskinnableFloatingDebris.attributes.description.texture=The path to the texture to use for the debris.\nTo make your own, copy Graphics/Atlases/Gameplay/scenery/debris.png from the graphics dump, paste it in your mod's folder in Graphics/Atlases/Gameplay/yourmod/mydebris.png, then type "yourmod/mydebris" in this field.\nEach debris in the image is 8x8, and you can give more or less debris to pick from by changing the width of the image (which should remain a multiple of 8).
+entities.MaxHelpingHand/ReskinnableFloatingDebris.attributes.description.depth=The depth of the debris (default -5). A bigger number will make the debris appear further behind other objects.
 
 # Reskinnable Star Rotate Spinner
 entities.MaxHelpingHand/ReskinnableStarRotateSpinner.placements.name.clockwise=Rotating Spinner (Starfish, Clockwise, Reskinnable) [max480's Helping Hand]
