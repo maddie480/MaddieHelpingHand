@@ -1,27 +1,43 @@
-﻿using Microsoft.Xna.Framework;
+﻿using Celeste.Mod.Entities;
+using Microsoft.Xna.Framework;
 using Mono.Cecil;
 using Mono.Cecil.Cil;
 using MonoMod.Cil;
-using MonoMod.Utils;
 using System;
 
 namespace Celeste.Mod.MaxHelpingHand.Entities {
-    public class TempleEyeTrackingMadeline {
+    [CustomEntity("MaxHelpingHand/TempleEyeTrackingMadeline")]
+    public class TempleEyeTrackingMadeline : TempleEye {
         public static void Load() {
-            On.Celeste.TempleEye.ctor += modTempleEyeConstructor;
+            IL.Celeste.TempleEye.Added += modTempleEyeAdded;
             IL.Celeste.TempleEye.Update += modTempleEyeUpdate;
         }
 
         public static void Unload() {
-            On.Celeste.TempleEye.ctor -= modTempleEyeConstructor;
+            IL.Celeste.TempleEye.Added -= modTempleEyeAdded;
             IL.Celeste.TempleEye.Update -= modTempleEyeUpdate;
         }
 
-        // ================ Temple eye handling ================
+        private string spriteDirectory;
 
-        private static void modTempleEyeConstructor(On.Celeste.TempleEye.orig_ctor orig, TempleEye self, EntityData data, Vector2 offset) {
-            orig(self, data, offset);
-            new DynData<TempleEye>(self)["followMadeline"] = data.Bool("followMadeline");
+        public TempleEyeTrackingMadeline(EntityData data, Vector2 offset) : base(data, offset) {
+            spriteDirectory = data.Attr("spriteDirectory", defaultValue: "scenery/temple/eye");
+        }
+
+        private static void modTempleEyeAdded(ILContext il) {
+            ILCursor cursor = new ILCursor(il);
+
+            while (cursor.TryGotoNext(MoveType.After, instr => instr.OpCode == OpCodes.Ldstr && ((string) instr.Operand).StartsWith("scenery/temple/eye/"))) {
+                Logger.Log("MaxHelpingHand/TempleEyeTrackingMadeline", $"Replacing sprite path {cursor.Prev.Operand} at {cursor.Index} in TempleEye.Added");
+
+                cursor.Emit(OpCodes.Ldarg_0);
+                cursor.EmitDelegate<Func<string, TempleEye, string>>((orig, self) => {
+                    if (self is TempleEyeTrackingMadeline eye) {
+                        return orig.Replace("scenery/temple/eye/", eye.spriteDirectory + "/");
+                    }
+                    return orig;
+                });
+            }
         }
 
         private static void modTempleEyeUpdate(ILContext il) {
@@ -45,7 +61,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
         }
 
         private static Actor returnTrackedActor(TempleEye self) {
-            if (new DynData<TempleEye>(self).Get<bool>("followMadeline")) {
+            if (self is TempleEyeTrackingMadeline) {
                 return self.Scene.Tracker.GetEntity<Player>();
             }
             return self.Scene.Tracker.GetEntity<TheoCrystal>();

@@ -5,7 +5,10 @@ local templeEye = {}
 
 templeEye.name = "MaxHelpingHand/TempleEyeTrackingMadeline"
 templeEye.placements = {
-    name = "temple_eye"
+    name = "temple_eye",
+    data = {
+        spriteDirectory = "scenery/temple/eye"
+    }
 }
 
 local function isBackground(room, entity)

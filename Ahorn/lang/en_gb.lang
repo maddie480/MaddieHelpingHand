@@ -1,6 +1,9 @@
 ﻿# Temple Eye Tracking Madeline (legacy attribute, this is now a separate entity with no attribute)
 placements.entities.templeEye.tooltips.followMadeline=(From max480's Helping Hand) Tick this checkbox to make the eye follow Madeline instead of Theo.
 
+# Temple Eye Tracking Madeline
+placements.entities.MaxHelpingHand/TempleEyeTrackingMadeline.tooltips.spriteDirectory=The directory to read the sprites from.\nTo make your own sprites, copy the Graphics/Atlases/Gameplay/scenery/temple/eye directory from the graphics dump, paste it into Graphics/Atlases/Gameplay/yourname/modname/eye in your mod, then type "yourname/modname/eye" here. (You can delete the "burst" sprites, they are unused.)
+
 # Camera Catchup Speed Trigger
 placements.triggers.MaxHelpingHand/CameraCatchupSpeedTrigger.tooltips.catchupSpeed=Raise this value to have the camera scroll quicker to its target. Vanilla values are 8 during the temple fall cutscene, and 1 everywhere else.
 placements.triggers.MaxHelpingHand/CameraCatchupSpeedTrigger.tooltips.revertOnLeave=Whether the camera catchup speed should go back to normal after leaving the trigger.

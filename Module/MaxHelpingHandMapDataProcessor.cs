@@ -129,12 +129,12 @@ namespace Celeste.Mod.MaxHelpingHand.Module {
                     }
                 },
                 {
-                    "entity:MaxHelpingHand/TempleEyeTrackingMadeline", eye => {
-                        // Temple Eye Tracking Madeline is a vanilla entity with a custom attribute.
-                        // Though a custom entity is placed in the map, because that's how custom stuff is usually handled.
-                        // (this was my first custom entity...)
-                        eye.Name = "templeEye";
-                        eye.SetAttr("followMadeline", true);
+                    "entity:templeEye", eye => {
+                        if (eye.AttrBool("followMadeline")) {
+                            // this is a Temple Eye Tracking Madeline, except it used to be made with a custom attribute instead of a custom entity.
+                            // so, convert it now!
+                            eye.Name = "MaxHelpingHand/TempleEyeTrackingMadeline";
+                        }
                     }
                 }
             };

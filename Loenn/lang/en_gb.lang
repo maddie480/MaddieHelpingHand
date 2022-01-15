@@ -818,3 +818,4 @@ triggers.MaxHelpingHand/StrawberryCollectionField.attributes.description.include
 
 # Temple Eye Tracking Madeline
 entities.MaxHelpingHand/TempleEyeTrackingMadeline.placements.name.temple_eye=Temple Eye (Follow Madeline) [max480's Helping Hand]
+entities.MaxHelpingHand/TempleEyeTrackingMadeline.attributes.description.spriteDirectory=The directory to read the sprites from.\nTo make your own sprites, copy the Graphics/Atlases/Gameplay/scenery/temple/eye directory from the graphics dump,\npaste it into Graphics/Atlases/Gameplay/yourname/modname/eye in your mod, then type "yourname/modname/eye" here.\n(You can delete the "burst" sprites, they are unused.)

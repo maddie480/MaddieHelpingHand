@@ -2,7 +2,7 @@
 
 using ..Ahorn, Maple
 
-@mapdef Entity "MaxHelpingHand/TempleEyeTrackingMadeline" TempleEyeTrackingMadeline(x::Integer, y::Integer)
+@mapdef Entity "MaxHelpingHand/TempleEyeTrackingMadeline" TempleEyeTrackingMadeline(x::Integer, y::Integer, spriteDirectory::String="scenery/temple/eye")
 
 const placements = Ahorn.PlacementDict(
     "Temple Eye (Small, Follow Madeline) (max480's Helping Hand)" => Ahorn.EntityPlacement(
@@ -22,9 +22,11 @@ function Ahorn.render(ctx::Ahorn.Cairo.CairoContext, entity::TempleEyeTrackingMa
 
     layer = get(room.fgTiles.data, (ty, tx), '0') == '0' ? "bg" : "fg"
 
-    Ahorn.drawSprite(ctx, "scenery/temple/eye/$(layer)_eye.png", 0, 0)
-    Ahorn.drawSprite(ctx, "scenery/temple/eye/$(layer)_lid00.png", 0, 0)
-    Ahorn.drawSprite(ctx, "scenery/temple/eye/$(layer)_pupil.png", 0, 0)
+    spriteDirectory = get(entity, "spriteDirectory", "scenery/temple/eye")
+
+    Ahorn.drawSprite(ctx, "$(spriteDirectory)/$(layer)_eye.png", 0, 0)
+    Ahorn.drawSprite(ctx, "$(spriteDirectory)/$(layer)_lid00.png", 0, 0)
+    Ahorn.drawSprite(ctx, "$(spriteDirectory)/$(layer)_pupil.png", 0, 0)
 end
 
 end
