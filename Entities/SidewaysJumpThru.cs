@@ -125,6 +125,10 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             hookOnUpdateSprite?.Dispose();
         }
 
+        private class FakeCollidingSolid : Solid {
+            public FakeCollidingSolid() : base(Vector2.Zero, 0, 0, false) { }
+        }
+
         private static void addSidewaysJumpthrusInHorizontalMoveMethods(ILContext il) {
             ILCursor cursor = new ILCursor(il);
 
@@ -138,7 +142,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
                     int moveDirection = Math.Sign(moveH);
                     bool movingLeftToRight = moveH > 0;
                     if (checkCollisionWithSidewaysJumpthruWhileMoving(self, moveDirection, movingLeftToRight)) {
-                        return new Solid(Vector2.Zero, 0, 0, false); // what matters is that it is non null.
+                        return new FakeCollidingSolid();
                     }
 
                     return null;
