@@ -138,7 +138,7 @@ namespace Celeste.Mod.MaxHelpingHand.Module {
                 // make sure whe applied all mod hooks we want to apply.
                 KevinBarrier.HookMods();
                 MovingFlagTouchSwitch.HookMods();
-                MadelinePonytailTrigger.HookMods();
+                MadelinePonytailTrigger.LoadContent();
             }
         }
 

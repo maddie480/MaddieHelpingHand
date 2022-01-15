@@ -41,10 +41,6 @@ namespace Celeste.Mod.MaxHelpingHand.Triggers {
                 Color2 = Calc.HexToColor("AF584D")
             };
 
-            HookMods();
-        }
-
-        public static void HookMods() {
             // hook Madeline in Wonderland in order to bypass a hook that overrides hair rendering when Madeline Ponytail Trigger is active.
             EverestModule tomorrowHelper = Everest.Modules.FirstOrDefault(module => module.GetType().ToString() == "Celeste.Mod.TomorrowHelper.TomorrowHelperModule");
             if (madelineInWonderlandHook == null && tomorrowHelper != null) {
