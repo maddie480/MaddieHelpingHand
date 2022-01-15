@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text.RegularExpressions;
 
 namespace Celeste.Mod.MaxHelpingHand.Effects {
-    public class CustomPlanets : Backdrop {
+    public class CustomPlanets : CustomBackdrop {
         private struct Planet {
             public MTexture[] Textures;
             public Vector2 Position;
@@ -54,13 +54,15 @@ namespace Celeste.Mod.MaxHelpingHand.Effects {
         }
 
         public override void Render(Scene scene) {
+            float fadeAlpha = GetFadeAlpha(scene);
+
             Vector2 cameraPosition = (scene as Level).Camera.Position;
             Color color = Color * FadeAlphaMultiplier;
             for (int i = 0; i < planets.Length; i++) {
                 Vector2 planetPosition = default;
                 planetPosition.X = -32f + mod(planets[i].Position.X - cameraPosition.X * Scroll.X + Position.X, mapWidth);
                 planetPosition.Y = -32f + mod(planets[i].Position.Y - cameraPosition.Y * Scroll.Y + Position.Y, mapHeight);
-                planets[i].Textures[(int) ((Engine.Scene.TimeActive / animationDelay) % planets[i].Textures.Length)].DrawCentered(planetPosition, color);
+                planets[i].Textures[(int) ((Engine.Scene.TimeActive / animationDelay) % planets[i].Textures.Length)].DrawCentered(planetPosition, color * fadeAlpha);
             }
         }
 

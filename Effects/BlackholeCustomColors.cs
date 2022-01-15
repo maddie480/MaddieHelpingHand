@@ -44,9 +44,11 @@ namespace Celeste.Mod.MaxHelpingHand.Effects {
                 && !effectData.Attr("bgColorInner").Contains("|")
                 && !effectData.Attr("bgColorOuterMild").Contains("|")
                 && !effectData.Attr("bgColorOuterWild").Contains("|")
-                && effectData.AttrBool("affectedByWind", true)) {
+                && effectData.AttrBool("affectedByWind", true)
+                && string.IsNullOrEmpty(effectData.Attr("fadex"))
+                && string.IsNullOrEmpty(effectData.Attr("fadey"))) {
 
-                // there is no gradient on any color, and wind should affect the blackhole: we can just instanciate a vanilla blackhole and mess with its properties.
+                // there is no gradient on any color, wind should affect the blackhole, and there is no fade: we can just instanciate a vanilla blackhole and mess with its properties.
 
                 // set up colorsMild for the hook above. we can't use DynData to pass this over, since the object does not exist yet!
                 colorsMild = parseColors(effectData.Attr("colorsMild", "6e3199,851f91,3026b0"));
@@ -215,6 +217,15 @@ namespace Celeste.Mod.MaxHelpingHand.Effects {
             blackholeData["bgColorInner"] = cycleBgColorInner.GetColors()[0];
             blackholeData["bgColorOuterMild"] = cycleBgColorOuterMild.GetColors()[0];
             blackholeData["bgColorOuterWild"] = cycleBgColorOuterWild.GetColors()[0];
+        }
+
+        public override void Render(Scene scene) {
+            float origAlpha = Alpha;
+            Alpha *= CustomBackdrop.GetFadeAlphaFor(this, scene);
+
+            base.Render(scene);
+
+            Alpha = origAlpha;
         }
     }
 }

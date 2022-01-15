@@ -6,7 +6,9 @@ using ..Ahorn, Maple
     only::String="*", exclude::String="",
     paths::String="starfield", colors::String="ffffff", alphas::String="1",
     shuffle::Bool=true,
-    speed::Number=1.0)
+    speed::Number=1.0,
+    fadex::String="",
+    fadey::String="")
 
 placements = CustomStarfield
 

@@ -39,5 +39,14 @@ namespace Celeste.Mod.MaxHelpingHand.Effects {
                 }
             }
         }
+
+        public override void Render(Scene scene) {
+            float origFadeAlpha = FadeAlphaMultiplier;
+            FadeAlphaMultiplier *= CustomBackdrop.GetFadeAlphaFor(this, scene);
+
+            base.Render(scene);
+
+            FadeAlphaMultiplier = origFadeAlpha;
+        }
     }
 }

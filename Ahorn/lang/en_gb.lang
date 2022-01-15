@@ -282,12 +282,16 @@ placements.effects.MaxHelpingHand/HeatWaveNoColorGrade.tooltips.controlColorGrad
 placements.entities.MaxHelpingHand/StaticPuffer.tooltips.right=The initial direction of the puffer.
 
 # Blackhole with Custom Colors
+placements.effects.MaxHelpingHand/BlackholeCustomColors.names.fadex=Fade X
+placements.effects.MaxHelpingHand/BlackholeCustomColors.names.fadey=Fade Y
 placements.effects.MaxHelpingHand/BlackholeCustomColors.tooltips.colorsMild=Colors of the shapes going towards the center of the screen when the blackhole strength is Mild.\nThere should be as many colors defined in Colors Mild and in Colors Wild for both to work.\nYou can set up a gradient with multiple sets of colors to fade between: for example, "0.5|ffffff,000000|000000,ffffff" will fade between the 2 sets of colors every 0.5 seconds.
 placements.effects.MaxHelpingHand/BlackholeCustomColors.tooltips.colorsWild=Colors of the shapes going towards the center of the screen when the blackhole strength is Wild.\nThere should be as many colors defined in Colors Mild and in Colors Wild for both to work.\nYou can set up a gradient with multiple sets of colors to fade between: for example, "0.5|ffffff,000000|000000,ffffff" will fade between the 2 sets of colors every 0.5 seconds.
 placements.effects.MaxHelpingHand/BlackholeCustomColors.tooltips.bgColorInner=The color used for the background at the center of the screen.\nYou can set up a gradient with multiple colors to fade between: for example, "0.5|ffffff|000000" will fade between the 2 colors every 0.5 seconds.
 placements.effects.MaxHelpingHand/BlackholeCustomColors.tooltips.bgColorOuterMild=The color used for the background at the edges of the screen, when the blackhole strength is Mild.\nYou can set up a gradient with multiple colors to fade between: for example, "0.5|ffffff|000000" will fade between the 2 colors every 0.5 seconds.
 placements.effects.MaxHelpingHand/BlackholeCustomColors.tooltips.bgColorOuterWild=The color used for the background at the edges of the screen, when the blackhole strength is Wild.\nYou can set up a gradient with multiple colors to fade between: for example, "0.5|ffffff|000000" will fade between the 2 colors every 0.5 seconds.
 placements.effects.MaxHelpingHand/BlackholeCustomColors.tooltips.affectedByWind=Whether the blackhole should be offset when there is wind in the room.
+placements.effects.MaxHelpingHand/BlackholeCustomColors.tooltips.fadex=Advanced horizontal fading zones.\nFormat is "FromPosition-ToPosition,FromAlpha-ToAlpha". Example "n500-500,1-0".\nNegative numbers in position are denoted with "n" rather than minus. Position numbers are in pixels and use map coordinates.\nMultiple zones can be set up by using ":" as separator.
+placements.effects.MaxHelpingHand/BlackholeCustomColors.tooltips.fadey=Advanced vertical fading zones.\nFormat is "FromPosition-ToPosition,FromAlpha-ToAlpha". Example "n500-500,1-0".\nNegative numbers in position are denoted with "n" rather than minus. Position numbers are in pixels and use map coordinates.\nMultiple zones can be set up by using ":" as separator.
 
 # Color Grade Fade Trigger
 placements.triggers.MaxHelpingHand/ColorGradeFadeTrigger.tooltips.colorGradeA=The color grade to fade from.
@@ -307,6 +311,8 @@ placements.entities.MaxHelpingHand/ReskinnableSwapBlock.tooltips.returnSound=The
 placements.entities.MaxHelpingHand/ReskinnableSwapBlock.tooltips.returnEndSound=The sound the swap block makes when it is done returning to its original position.
 
 # Custom Planets
+placements.effects.MaxHelpingHand/CustomPlanets.names.fadex=Fade X
+placements.effects.MaxHelpingHand/CustomPlanets.names.fadey=Fade Y
 placements.effects.MaxHelpingHand/CustomPlanets.names.scrollx=Scroll X
 placements.effects.MaxHelpingHand/CustomPlanets.names.scrolly=Scroll Y
 placements.effects.MaxHelpingHand/CustomPlanets.names.speedx=Speed X
@@ -319,6 +325,8 @@ placements.effects.MaxHelpingHand/CustomPlanets.tooltips.speedx=Determines the s
 placements.effects.MaxHelpingHand/CustomPlanets.tooltips.speedy=Determines the scrolling speed of the planets (in pixels per second) along the Y axis.
 placements.effects.MaxHelpingHand/CustomPlanets.tooltips.directory=The directory to read the planet sprites from (in Graphics/Atlases/Gameplay).
 placements.effects.MaxHelpingHand/CustomPlanets.tooltips.animationDelay=The delay between 2 frames (in seconds) for the planets animations.
+placements.effects.MaxHelpingHand/CustomPlanets.tooltips.fadex=Advanced horizontal fading zones.\nFormat is "FromPosition-ToPosition,FromAlpha-ToAlpha". Example "n500-500,1-0".\nNegative numbers in position are denoted with "n" rather than minus. Position numbers are in pixels and use map coordinates.\nMultiple zones can be set up by using ":" as separator.
+placements.effects.MaxHelpingHand/CustomPlanets.tooltips.fadey=Advanced vertical fading zones.\nFormat is "FromPosition-ToPosition,FromAlpha-ToAlpha". Example "n500-500,1-0".\nNegative numbers in position are denoted with "n" rather than minus. Position numbers are in pixels and use map coordinates.\nMultiple zones can be set up by using ":" as separator.
 
 # Reskinnable Crush Block
 placements.entities.MaxHelpingHand/ReskinnableCrushBlock.tooltips.axes=Determines which sides of the Kevin block are hittable.
@@ -358,19 +366,27 @@ placements.entities.MaxHelpingHand/GoldenStrawberryCustomConditions.tooltips.mus
 placements.entities.MaxHelpingHand/GoldenStrawberryCustomConditions.tooltips.showGoldenChapterCard=Whether this golden berry should trigger the golden chapter card on the chapter select screen when collected.
 
 # Custom Stars
+placements.effects.MaxHelpingHand/CustomStars.names.fadex=Fade X
+placements.effects.MaxHelpingHand/CustomStars.names.fadey=Fade Y
 placements.effects.MaxHelpingHand/CustomStars.tooltips.spriteDirectory=The directory containing all the star sprites.\nTo make your own, you can take example on Graphics/Atlases/Gameplay/bgs/02/stars, and drop your sprites in Mods/yourmod/Graphics/Atlases/Gameplay/MyMap/mystars. Then, type MyMap/mystars in this field.
 placements.effects.MaxHelpingHand/CustomStars.tooltips.tint=Allows you to tint the stars. Works better with the "bgs/MaxHelpingHand/graystars" sprite directory. Leave empty to use vanilla values ("008080" when dreaming, "ffffff" otherwise).
 placements.effects.MaxHelpingHand/CustomStars.tooltips.starCount=Determines the number of stars present in the background. Leave empty to use vanilla values (100 when dreaming, 50 otherwise).
 placements.effects.MaxHelpingHand/CustomStars.tooltips.wrapHeight=The height the stars will fall (in pixels) before wrapping. Increase this value if you notice that the stars "teleport" to the top of the screen before they are offscreen at the bottom.
 placements.effects.MaxHelpingHand/CustomStars.tooltips.starAlpha=The opacity of the stars (1 is opaque, 0 is fully transparent). Leave empty to use vanilla values (0.7 if dreaming, 1 if not dreaming).
 placements.effects.MaxHelpingHand/CustomStars.tooltips.bgAlpha=The opacity of the black background of the effect (1 is opaque, 0 is fully transparent).
+placements.effects.MaxHelpingHand/CustomStars.tooltips.fadex=Advanced horizontal fading zones.\nFormat is "FromPosition-ToPosition,FromAlpha-ToAlpha". Example "n500-500,1-0".\nNegative numbers in position are denoted with "n" rather than minus. Position numbers are in pixels and use map coordinates.\nMultiple zones can be set up by using ":" as separator.
+placements.effects.MaxHelpingHand/CustomStars.tooltips.fadey=Advanced vertical fading zones.\nFormat is "FromPosition-ToPosition,FromAlpha-ToAlpha". Example "n500-500,1-0".\nNegative numbers in position are denoted with "n" rather than minus. Position numbers are in pixels and use map coordinates.\nMultiple zones can be set up by using ":" as separator.
 
 # Custom Starfield
+placements.effects.MaxHelpingHand/CustomStarfield.names.fadex=Fade X
+placements.effects.MaxHelpingHand/CustomStarfield.names.fadey=Fade Y
 placements.effects.MaxHelpingHand/CustomStarfield.tooltips.paths=Comma-separated list of paths to use for the sprites.\nFor example, typing "mystarfield" will use sprites from the Graphics/Atlases/Gameplay/particles/mystarfield folder.
 placements.effects.MaxHelpingHand/CustomStarfield.tooltips.colors=Comma-separated list of colours to use from for the stars.
 placements.effects.MaxHelpingHand/CustomStarfield.tooltips.alphas=Comma-separated list of transparency values to use for the stars.
 placements.effects.MaxHelpingHand/CustomStarfield.tooltips.shuffle=Whether to randomly pick a path, colour, and alpha value for each star.\nIf off, the first path, colour, and alpha are used for the first star, the second of each for the second, and so on, repeating from the start.
 placements.effects.MaxHelpingHand/CustomStarfield.tooltips.speed=How fast the stars move.
+placements.effects.MaxHelpingHand/CustomStarfield.tooltips.fadex=Advanced horizontal fading zones.\nFormat is "FromPosition-ToPosition,FromAlpha-ToAlpha". Example "n500-500,1-0".\nNegative numbers in position are denoted with "n" rather than minus. Position numbers are in pixels and use map coordinates.\nMultiple zones can be set up by using ":" as separator.
+placements.effects.MaxHelpingHand/CustomStarfield.tooltips.fadey=Advanced vertical fading zones.\nFormat is "FromPosition-ToPosition,FromAlpha-ToAlpha". Example "n500-500,1-0".\nNegative numbers in position are denoted with "n" rather than minus. Position numbers are in pixels and use map coordinates.\nMultiple zones can be set up by using ":" as separator.
 
 # Core Mode Spikes
 placements.entities.MaxHelpingHand/CoreModeSpikesUp.tooltips.hotType=Changes the visual appearance of the spikes while in Hot or None core mode.
@@ -735,4 +751,3 @@ placements.triggers.MaxHelpingHand/PersistentMusicFadeTrigger.tooltips.direction
 placements.effects.MaxHelpingHand/AllSideTentacles.tooltips.sides=The side of the screen that the tentacles should attach to.
 placements.effects.MaxHelpingHand/AllSideTentacles.tooltips.offset=Determines the lerp strength of the tentacles, and their offset compared to the player's position.
 placements.effects.MaxHelpingHand/AllSideTentacles.tooltips.color=The color of the tentacles.
-

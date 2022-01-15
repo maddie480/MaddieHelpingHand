@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text.RegularExpressions;
 
 namespace Celeste.Mod.MaxHelpingHand.Effects {
-    public class CustomStars : Backdrop {
+    public class CustomStars : CustomBackdrop {
         private struct Star {
             public Vector2 Position;
             public int TextureSet;
@@ -86,6 +86,8 @@ namespace Celeste.Mod.MaxHelpingHand.Effects {
         }
 
         public override void Render(Scene scene) {
+            float fadeAlpha = GetFadeAlpha(scene);
+
             Draw.Rect(0f, 0f, 320f, 180f, Color.Black * bgAlpha);
             Level level = scene as Level;
             Color color = (tint * (starAlpha ?? 1f)) ?? (level.Session.Dreaming ? Color.Teal * (starAlpha ?? 0.7f) : Color.White);
@@ -105,10 +107,10 @@ namespace Celeste.Mod.MaxHelpingHand.Effects {
                     }
                     position.Y -= (wrapHeight - 180f) / 2;
                     for (int j = 0; j < colors.Length; j++) {
-                        frameToRender.Draw(position - Vector2.UnitY * j, center, colors[j]);
+                        frameToRender.Draw(position - Vector2.UnitY * j, center, colors[j] * fadeAlpha);
                     }
                 }
-                frameToRender.Draw(position, center, color);
+                frameToRender.Draw(position, center, color * fadeAlpha);
             }
         }
     }
