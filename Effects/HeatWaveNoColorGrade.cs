@@ -1,5 +1,8 @@
-﻿using Monocle;
+﻿using Mono.Cecil.Cil;
+using Monocle;
+using MonoMod.Cil;
 using MonoMod.Utils;
+using System;
 
 namespace Celeste.Mod.MaxHelpingHand.Effects {
     /// <summary>
@@ -8,10 +11,20 @@ namespace Celeste.Mod.MaxHelpingHand.Effects {
     public class HeatWaveNoColorGrade : HeatWave {
         private DynData<HeatWave> self = new DynData<HeatWave>();
         private bool controlColorGradeWhenActive;
+        private bool renderParticles;
 
-        public HeatWaveNoColorGrade(bool controlColorGradeWhenActive) : base() {
+        public static void Load() {
+            IL.Celeste.HeatWave.Render += modHeatWaveRender;
+        }
+
+        public static void Unload() {
+            IL.Celeste.HeatWave.Render -= modHeatWaveRender;
+        }
+
+        public HeatWaveNoColorGrade(bool controlColorGradeWhenActive, bool renderParticles) : base() {
             self = new DynData<HeatWave>(this);
             this.controlColorGradeWhenActive = controlColorGradeWhenActive;
+            this.renderParticles = renderParticles;
         }
 
         public override void Update(Scene scene) {
@@ -45,6 +58,22 @@ namespace Celeste.Mod.MaxHelpingHand.Effects {
             } else {
                 // heat wave is visible and we want it to control the color grade when active: update as usual.
                 base.Update(scene);
+            }
+        }
+
+        private static void modHeatWaveRender(ILContext il) {
+            ILCursor cursor = new ILCursor(il);
+
+            if (cursor.TryGotoNext(MoveType.After, instr => instr.MatchLdfld<HeatWave>("particles"), instr => instr.MatchLdlen())) {
+                Logger.Log("MaxHelpingHand/HeatWaveNoColorGrade", $"Hiding particles at {cursor.Index} in IL for HeatWave.Render");
+
+                cursor.Emit(OpCodes.Ldarg_0);
+                cursor.EmitDelegate<Func<int, HeatWave, int>>((orig, self) => {
+                    if (self is HeatWaveNoColorGrade heatWave && !heatWave.renderParticles) {
+                        return 0; // there are no particles.
+                    }
+                    return orig;
+                });
             }
         }
     }

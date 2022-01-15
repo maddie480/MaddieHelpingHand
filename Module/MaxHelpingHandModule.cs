@@ -63,6 +63,7 @@ namespace Celeste.Mod.MaxHelpingHand.Module {
             SetFlagOnSpawnController.Load();
             NoDashRefillSpring.Load();
             HdParallax.Load();
+            HeatWaveNoColorGrade.Load();
 
             Everest.Events.Level.OnLoadBackdrop += onLoadBackdrop;
             On.Celeste.Mod.Everest.Register += onModRegister;
@@ -111,6 +112,7 @@ namespace Celeste.Mod.MaxHelpingHand.Module {
             SetFlagOnSpawnController.Unload();
             NoDashRefillSpring.Unload();
             HdParallax.Unload();
+            HeatWaveNoColorGrade.Unload();
 
             Everest.Events.Level.OnLoadBackdrop -= onLoadBackdrop;
             On.Celeste.Mod.Everest.Register -= onModRegister;
@@ -136,7 +138,7 @@ namespace Celeste.Mod.MaxHelpingHand.Module {
 
         private Backdrop onLoadBackdrop(MapData map, BinaryPacker.Element child, BinaryPacker.Element above) {
             if (child.Name.Equals("MaxHelpingHand/HeatWaveNoColorGrade", StringComparison.OrdinalIgnoreCase)) {
-                return new HeatWaveNoColorGrade(child.AttrBool("controlColorGradeWhenActive"));
+                return new HeatWaveNoColorGrade(child.AttrBool("controlColorGradeWhenActive"), child.AttrBool("renderParticles", defaultValue: true));
             }
             if (child.Name.Equals("MaxHelpingHand/BlackholeCustomColors", StringComparison.OrdinalIgnoreCase)) {
                 return BlackholeCustomColors.CreateBlackholeWithCustomColors(child);
