@@ -4,9 +4,12 @@ using Celeste.Mod.MaxHelpingHand.Triggers;
 using Monocle;
 using Microsoft.Xna.Framework;
 using System;
+using System.Reflection;
 
 namespace Celeste.Mod.MaxHelpingHand.Module {
     public class MaxHelpingHandModule : EverestModule {
+        private static FieldInfo contentLoaded = typeof(Everest).GetField("_ContentLoaded", BindingFlags.NonPublic | BindingFlags.Static);
+
         public static MaxHelpingHandModule Instance { get; private set; }
 
         public override Type SettingsType => typeof(MaxHelpingHandSettings);
@@ -121,19 +124,22 @@ namespace Celeste.Mod.MaxHelpingHand.Module {
         public override void LoadContent(bool firstLoad) {
             base.LoadContent(firstLoad);
 
-            MadelinePonytailTrigger.LoadContent();
             MultiRoomStrawberryCounter.Initialize();
             KevinBarrier.HookMods();
             MovingFlagTouchSwitch.HookMods();
+            MadelinePonytailTrigger.LoadContent();
         }
 
         private void onModRegister(On.Celeste.Mod.Everest.orig_Register orig, EverestModule module) {
             orig(module);
 
-            // if the mod that was just registered is one of those we want to hook, do that now.
-            KevinBarrier.HookMods();
-            MovingFlagTouchSwitch.HookMods();
-            MadelinePonytailTrigger.HookMods();
+            if ((bool) contentLoaded.GetValue(null)) {
+                // the game was already initialized and a new mod was loaded at runtime:
+                // make sure whe applied all mod hooks we want to apply.
+                KevinBarrier.HookMods();
+                MovingFlagTouchSwitch.HookMods();
+                MadelinePonytailTrigger.HookMods();
+            }
         }
 
         private Backdrop onLoadBackdrop(MapData map, BinaryPacker.Element child, BinaryPacker.Element above) {
