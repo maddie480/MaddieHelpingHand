@@ -1,18 +1,33 @@
 ﻿using Celeste.Mod.Entities;
 using Microsoft.Xna.Framework;
 using Monocle;
-using System.Collections;
 using System.Collections.Generic;
-using System.Reflection;
 
 namespace Celeste.Mod.MaxHelpingHand.Triggers {
     [CustomEntity("MaxHelpingHand/ActivateTimedTouchSwitchesTimerTrigger")]
     [Tracked]
     public class ActivateTimedTouchSwitchesTimerTrigger : Trigger {
-        private static FieldInfo timedTouchSwitchIcon;
-        private static FieldInfo timedTouchSwitchStartColor;
-
         private Dictionary<Entity, Coroutine> timedTouchSwitches;
+
+        public static void Load() {
+            On.Celeste.TouchSwitch.TurnOn += onTouchSwitchTurnOn;
+        }
+
+        public static void Unload() {
+            On.Celeste.TouchSwitch.TurnOn -= onTouchSwitchTurnOn;
+        }
+
+        private static void onTouchSwitchTurnOn(On.Celeste.TouchSwitch.orig_TurnOn orig, TouchSwitch self) {
+            Dictionary<Entity, Coroutine> timedTouchSwitches = self.Scene?.Tracker.GetEntity<ActivateTimedTouchSwitchesTimerTrigger>()?.timedTouchSwitches;
+
+            if (timedTouchSwitches != null && timedTouchSwitches.ContainsKey(self)) {
+                // reactivate this touch switch right now, in order not to block the activation animation.
+                self.Add(timedTouchSwitches[self]);
+                timedTouchSwitches.Remove(self);
+            }
+
+            orig(self);
+        }
 
         public ActivateTimedTouchSwitchesTimerTrigger(EntityData data, Vector2 offset) : base(data, offset) { }
 
@@ -34,15 +49,6 @@ namespace Celeste.Mod.MaxHelpingHand.Triggers {
                         }
                         entity.Remove(coroutine);
                         timedTouchSwitches.Add(entity, coroutine);
-
-                        if (timedTouchSwitchIcon == null) {
-                            // resolve reflections
-                            timedTouchSwitchIcon = entity.GetType().GetField("icon", BindingFlags.NonPublic | BindingFlags.Instance);
-                            timedTouchSwitchStartColor = entity.GetType().GetField("starterColor", BindingFlags.NonPublic | BindingFlags.Instance);
-                        }
-
-                        // make sure the touch switch color remains correct until the timer is activated.
-                        entity.Add(new Coroutine(lockColorRoutine(entity)));
                     }
                 }
 
@@ -53,20 +59,8 @@ namespace Celeste.Mod.MaxHelpingHand.Triggers {
             }
         }
 
-        private static IEnumerator lockColorRoutine(Entity timedTouchSwitch) {
-            Sprite sprite = (Sprite) timedTouchSwitchIcon.GetValue(timedTouchSwitch);
-            Color startColor = (Color) timedTouchSwitchStartColor.GetValue(timedTouchSwitch);
-            while (!((TouchSwitch) timedTouchSwitch).Switch.Activated) {
-                sprite.Color = startColor;
-                yield return null;
-            }
-        }
-
         public override void OnEnter(Player player) {
             foreach (KeyValuePair<Entity, Coroutine> pair in timedTouchSwitches) {
-                // remove lockColorRoutine
-                pair.Key.Remove(pair.Key.Get<Coroutine>());
-
                 // add the "time ticking" coroutine back
                 pair.Key.Add(pair.Value);
             }
