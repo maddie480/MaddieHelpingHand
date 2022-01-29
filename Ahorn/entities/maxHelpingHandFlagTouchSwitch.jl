@@ -16,7 +16,7 @@ const placements = Ahorn.PlacementDict(
     )
 )
 
-Ahorn.editingOrder(entity::FlagTouchSwitch) = String["x", "y", "width", "height", "inactiveColor", "activeColor", "finishColor", "hitSound", "completeSoundFromSwitch", "completeSoundFromScene"]
+Ahorn.editingOrder(entity::FlagTouchSwitch) = String["x", "y", "inactiveColor", "activeColor", "finishColor", "hitSound", "completeSoundFromSwitch", "completeSoundFromScene"]
 
 Ahorn.editingOptions(entity::FlagTouchSwitch) = Dict{String,Any}(
     "icon" => bundledIcons

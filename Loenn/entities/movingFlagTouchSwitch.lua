@@ -22,7 +22,7 @@ touchSwitch.placements = {
     }
 }
 
-touchSwitch.fieldOrder = {"x", "y", "width", "height", "inactiveColor", "movingColor", "activeColor", "finishColor"}
+touchSwitch.fieldOrder = {"x", "y", "inactiveColor", "movingColor", "activeColor", "finishColor"}
 
 touchSwitch.fieldInformation = {
     inactiveColor = {

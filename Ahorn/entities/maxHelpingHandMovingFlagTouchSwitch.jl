@@ -18,7 +18,7 @@ Ahorn.editingOptions(entity::MovingFlagTouchSwitch) = Dict{String,Any}(
     "icon" => bundledIcons
 )
 
-Ahorn.editingOrder(entity::MovingFlagTouchSwitch) = String["x", "y", "width", "height", "inactiveColor", "movingColor", "activeColor", "finishColor"]
+Ahorn.editingOrder(entity::MovingFlagTouchSwitch) = String["x", "y", "inactiveColor", "movingColor", "activeColor", "finishColor"]
 
 function Ahorn.renderSelectedAbs(ctx::Ahorn.Cairo.CairoContext, entity::MovingFlagTouchSwitch)
     px, py = Ahorn.position(entity)
