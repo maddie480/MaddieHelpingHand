@@ -754,3 +754,8 @@ placements.triggers.MaxHelpingHand/PersistentMusicFadeTrigger.tooltips.direction
 placements.effects.MaxHelpingHand/AllSideTentacles.tooltips.sides=The side of the screen that the tentacles should attach to.
 placements.effects.MaxHelpingHand/AllSideTentacles.tooltips.offset=Determines the lerp strength of the tentacles, and their offset compared to the player's position.
 placements.effects.MaxHelpingHand/AllSideTentacles.tooltips.color=The color of the tentacles.
+
+# Flag Badeline Chaser
+placements.entities.MaxHelpingHand/FlagBadelineChaser.tooltips.canChangeMusic=Whether the chaser should be able to change the music to the "chasing" track.
+placements.entities.MaxHelpingHand/FlagBadelineChaser.tooltips.flag=The flag the chaser should react to. The chaser will appear when this flag is set, and vanish when it is unset.
+placements.entities.MaxHelpingHand/FlagBadelineChaser.tooltips.index=The order of this chaser relative to other chasers in the room, counting from 0.
