@@ -381,6 +381,8 @@ placements.effects.MaxHelpingHand/CustomStars.tooltips.fadey=Advanced vertical f
 # Custom Starfield
 placements.effects.MaxHelpingHand/CustomStarfield.names.fadex=Fade X
 placements.effects.MaxHelpingHand/CustomStarfield.names.fadey=Fade Y
+placements.effects.MaxHelpingHand/CustomStarfield.names.scrollx=Scroll X
+placements.effects.MaxHelpingHand/CustomStarfield.names.scrolly=Scroll Y
 placements.effects.MaxHelpingHand/CustomStarfield.tooltips.paths=Comma-separated list of paths to use for the sprites.\nFor example, typing "mystarfield" will use sprites from the Graphics/Atlases/Gameplay/particles/mystarfield folder.
 placements.effects.MaxHelpingHand/CustomStarfield.tooltips.colors=Comma-separated list of colours to use from for the stars.
 placements.effects.MaxHelpingHand/CustomStarfield.tooltips.alphas=Comma-separated list of transparency values to use for the stars.
@@ -388,6 +390,8 @@ placements.effects.MaxHelpingHand/CustomStarfield.tooltips.shuffle=Whether to ra
 placements.effects.MaxHelpingHand/CustomStarfield.tooltips.speed=How fast the stars move.
 placements.effects.MaxHelpingHand/CustomStarfield.tooltips.fadex=Advanced horizontal fading zones.\nFormat is "FromPosition-ToPosition,FromAlpha-ToAlpha". Example "n500-500,1-0".\nNegative numbers in position are denoted with "n" rather than minus. Position numbers are in pixels and use map coordinates.\nMultiple zones can be set up by using ":" as separator.
 placements.effects.MaxHelpingHand/CustomStarfield.tooltips.fadey=Advanced vertical fading zones.\nFormat is "FromPosition-ToPosition,FromAlpha-ToAlpha". Example "n500-500,1-0".\nNegative numbers in position are denoted with "n" rather than minus. Position numbers are in pixels and use map coordinates.\nMultiple zones can be set up by using ":" as separator.
+placements.effects.MaxHelpingHand/CustomStarfield.tooltips.scrollx=Determines the parallax scrolling of the starfield along the X axis.
+placements.effects.MaxHelpingHand/CustomStarfield.tooltips.scrolly=Determines the parallax scrolling of the starfield along the Y axis.
 
 # Core Mode Spikes
 placements.entities.MaxHelpingHand/CoreModeSpikesUp.tooltips.hotType=Changes the visual appearance of the spikes while in Hot or None core mode.
