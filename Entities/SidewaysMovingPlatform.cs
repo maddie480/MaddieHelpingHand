@@ -117,16 +117,30 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             HashSet<Actor> ridersBackup = new HashSet<Actor>(solidRiders);
             solidRiders.Clear();
 
-            // move the hidden solid, making it actually solid if needed. When solid, it will push the player and carry them if they climb the platform.
+            // make the hidden solid collidable if it needs to push the player.
             playerInteractingSolid.Collidable = playerHasToMove;
+
+            // determine who is riding the platform, we will need that later.
+            List<Actor> platformRiders = new List<Actor>();
+            if (playerInteractingSolid.Collidable) {
+                foreach (Actor entity in platform.Scene.Tracker.GetEntities<Actor>()) {
+                    if (entity.IsRiding(playerInteractingSolid)) {
+                        platformRiders.Add(entity);
+                    }
+                }
+            }
+
+            // move the hidden solid. If it is solid, it will push the player and carry them if they climb the platform.
             playerInteractingSolid.MoveH(move.X);
             playerInteractingSolid.MoveV(move.Y);
             playerInteractingSolid.Collidable = false;
 
-            // restore the riders
+            // restore the riders; skip those that were also riding the platform, to avoid a double move.
             solidRiders.Clear();
             foreach (Actor rider in ridersBackup) {
-                solidRiders.Add(rider);
+                if (!platformRiders.Contains(rider)) {
+                    solidRiders.Add(rider);
+                }
             }
         }
 
