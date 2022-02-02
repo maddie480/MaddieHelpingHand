@@ -422,6 +422,8 @@ placements.entities.MaxHelpingHand/KevinBarrier.tooltips.invisible=If checked, t
 
 # Snow with Custom Colors
 placements.effects.MaxHelpingHand/SnowCustomColors.tooltips.colors=Comma-separated list of all colors the particles can take from.
+placements.effects.MaxHelpingHand/SnowCustomColors.tooltips.speedMin=The minimum speed a snowflake can have. Vanilla uses 40 for background snow, 120 for foreground snow.
+placements.effects.MaxHelpingHand/SnowCustomColors.tooltips.speedMax=The maximum speed a snowflake can have. Vanilla uses 100 for background snow, 300 for foreground snow.
 
 # Customizable Glass Block
 placements.entities.MaxHelpingHand/CustomizableGlassBlock.tooltips.behindFgTiles=Whether the glass block outline should appear behind foreground tiles.
