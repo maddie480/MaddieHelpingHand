@@ -70,6 +70,7 @@ namespace Celeste.Mod.MaxHelpingHand.Module {
             HdParallax.Load();
             HeatWaveNoColorGrade.Load();
             ActivateTimedTouchSwitchesTimerTrigger.Load();
+            SetBloomStrengthTrigger.Load();
 
             Everest.Events.Level.OnLoadBackdrop += onLoadBackdrop;
             On.Celeste.Mod.Everest.Register += onModRegister;
@@ -120,6 +121,7 @@ namespace Celeste.Mod.MaxHelpingHand.Module {
             HdParallax.Unload();
             HeatWaveNoColorGrade.Unload();
             ActivateTimedTouchSwitchesTimerTrigger.Unload();
+            SetBloomStrengthTrigger.Unload();
 
             Everest.Events.Level.OnLoadBackdrop -= onLoadBackdrop;
             On.Celeste.Mod.Everest.Register -= onModRegister;

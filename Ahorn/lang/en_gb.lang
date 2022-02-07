@@ -763,3 +763,12 @@ placements.effects.MaxHelpingHand/AllSideTentacles.tooltips.color=The color of t
 placements.entities.MaxHelpingHand/FlagBadelineChaser.tooltips.canChangeMusic=Whether the chaser should be able to change the music to the "chasing" track.
 placements.entities.MaxHelpingHand/FlagBadelineChaser.tooltips.flag=The flag the chaser should react to. The chaser will appear when this flag is set, and vanish when it is unset.
 placements.entities.MaxHelpingHand/FlagBadelineChaser.tooltips.index=The order of this chaser relative to other chasers in the room, counting from 0.
+
+# Set Bloom Base Trigger
+placements.triggers.MaxHelpingHand/SetBloomBaseTrigger.tooltips.value=The new value for the bloom base, between 0 and 1.
+
+# Set Bloom Strength Trigger
+placements.triggers.MaxHelpingHand/SetBloomStrengthTrigger.tooltips.value=The new value for the bloom strength.
+
+# Set Darkness Alpha Trigger
+placements.triggers.MaxHelpingHand/SetDarknessAlphaTrigger.tooltips.value=The new value for the darkness alpha, between 0 and 1. 1 is darkest, 0 is lightest.

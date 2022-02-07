@@ -825,3 +825,15 @@ entities.MaxHelpingHand/FlagBadelineChaser.placements.name.dark_chaser=Flag Bade
 entities.MaxHelpingHand/FlagBadelineChaser.attributes.description.canChangeMusic=Whether the chaser should be able to change the music to the "chasing" track.
 entities.MaxHelpingHand/FlagBadelineChaser.attributes.description.flag=The flag the chaser should react to. The chaser will appear when this flag is set, and vanish when it is unset.
 entities.MaxHelpingHand/FlagBadelineChaser.attributes.description.index=The order of this chaser relative to other chasers in the room, counting from 0.
+
+# Set Bloom Base Trigger
+triggers.MaxHelpingHand/SetBloomBaseTrigger.placements.name.trigger=Set Bloom Base Trigger [max480's Helping Hand]
+triggers.MaxHelpingHand/SetBloomBaseTrigger.attributes.description.value=The new value for the bloom base, between 0 and 1.
+
+# Set Bloom Strength Trigger
+triggers.MaxHelpingHand/SetBloomStrengthTrigger.placements.name.trigger=Set Bloom Strength Trigger [max480's Helping Hand]
+triggers.MaxHelpingHand/SetBloomStrengthTrigger.attributes.description.value=The new value for the bloom strength.
+
+# Set Darkness Alpha Trigger
+triggers.MaxHelpingHand/SetDarknessAlphaTrigger.placements.name.trigger=Set Darkness Alpha Trigger [max480's Helping Hand]
+triggers.MaxHelpingHand/SetDarknessAlphaTrigger.attributes.description.value=The new value for the darkness alpha, between 0 and 1. 1 is darkest, 0 is lightest.

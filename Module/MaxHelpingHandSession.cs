@@ -62,5 +62,7 @@ namespace Celeste.Mod.MaxHelpingHand.Module {
         public Dictionary<string, SpeedBasedMusicParamInfo> ActiveSpeedBasedMusicParams = new Dictionary<string, SpeedBasedMusicParamInfo>();
 
         public bool MadelineHasPonytail { get; set; } = false;
+
+        public float? BloomStregth = null;
     }
 }
