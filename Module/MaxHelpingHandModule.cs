@@ -8,6 +8,8 @@ using System.Reflection;
 
 namespace Celeste.Mod.MaxHelpingHand.Module {
     public class MaxHelpingHandModule : EverestModule {
+        private bool hookedSineParallax = false;
+
         private static FieldInfo contentLoaded = typeof(Everest).GetField("_ContentLoaded", BindingFlags.NonPublic | BindingFlags.Static);
 
         public static MaxHelpingHandModule Instance { get; private set; }
@@ -121,15 +123,17 @@ namespace Celeste.Mod.MaxHelpingHand.Module {
 
             Everest.Events.Level.OnLoadBackdrop -= onLoadBackdrop;
             On.Celeste.Mod.Everest.Register -= onModRegister;
+
+            if (hookedSineParallax) {
+                unhookSineParallax();
+            }
         }
 
         public override void LoadContent(bool firstLoad) {
             base.LoadContent(firstLoad);
 
             MultiRoomStrawberryCounter.Initialize();
-            KevinBarrier.HookMods();
-            MovingFlagTouchSwitch.HookMods();
-            MadelinePonytailTrigger.LoadContent();
+            HookMods();
         }
 
         private void onModRegister(On.Celeste.Mod.Everest.orig_Register orig, EverestModule module) {
@@ -138,10 +142,28 @@ namespace Celeste.Mod.MaxHelpingHand.Module {
             if ((bool) contentLoaded.GetValue(null)) {
                 // the game was already initialized and a new mod was loaded at runtime:
                 // make sure whe applied all mod hooks we want to apply.
-                KevinBarrier.HookMods();
-                MovingFlagTouchSwitch.HookMods();
-                MadelinePonytailTrigger.LoadContent();
+                HookMods();
             }
+        }
+
+        private void HookMods() {
+            KevinBarrier.HookMods();
+            MovingFlagTouchSwitch.HookMods();
+            MadelinePonytailTrigger.LoadContent();
+
+            if (!hookedSineParallax && Everest.Loader.DependencyLoaded(new EverestModuleMetadata() { Name = "FlaglinesAndSuch", Version = new Version(1, 4, 17) })) {
+                hookSineParallax();
+            }
+        }
+
+        private void hookSineParallax() {
+            SineAnimatedParallax.Load();
+            hookedSineParallax = true;
+        }
+
+        private void unhookSineParallax() {
+            SineAnimatedParallax.Unload();
+            hookedSineParallax = false;
         }
 
         private Backdrop onLoadBackdrop(MapData map, BinaryPacker.Element child, BinaryPacker.Element above) {

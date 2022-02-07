@@ -18,6 +18,10 @@
     <Reference Include="$(CelestePrefix)\MMHOOK_Celeste.dll">
       <Private>false</Private>
     </Reference>
+    <Reference Include="FlaglinesAndSuch">
+      <HintPath>lib-stripped\FlaglinesAndSuch.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Mono.Cecil" Version="0.11.4" PrivateAssets="all" ExcludeAssets="runtime" />
