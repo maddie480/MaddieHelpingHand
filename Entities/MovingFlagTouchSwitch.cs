@@ -48,7 +48,20 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             On.Celeste.TouchSwitch.Update -= onTouchSwitchUpdate;
         }
 
+        private class ErrorSpawner : Entity {
+            public override void Update() {
+                // error postcards are nicer than crashes!
+                Audio.SetMusic(null);
+                LevelEnter.ErrorMessage = "{big}Oops!{/big}{n}To use {# F94A4A}Moving Flag Touch Switches{#}, you need to have {# d678db}Outback Helper{#} installed!";
+                LevelEnter.Go(new Session(SceneAs<Level>().Session.Area), fromSaveData: false);
+            }
+        }
+
         public static Entity Load(Level level, LevelData levelData, Vector2 offset, EntityData entityData) {
+            if (!Everest.Loader.DependencyLoaded(new EverestModuleMetadata { Name = "OutbackHelper", Version = new Version(1, 4, 0) })) {
+                return new ErrorSpawner();
+            }
+
             string flag = entityData.Attr("flag");
             if (level.Session.GetFlag(flag) || level.Session.GetFlag(flag + "_switch" + entityData.ID)) {
                 // moving touch switches can't be persistent, but we can very much spawn a flag touch switch instead!

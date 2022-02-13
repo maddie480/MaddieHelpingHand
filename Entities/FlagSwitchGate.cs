@@ -366,6 +366,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
         private IEnumerator shatterSequence() {
             if (!Everest.Loader.DependencyLoaded(new EverestModuleMetadata { Name = "VortexHelper", Version = new Version(1, 1, 0) })) {
                 // error postcards are nicer than crashes!
+                Audio.SetMusic(null);
                 LevelEnter.ErrorMessage = "{big}Oops!{/big}{n}To use {# F94A4A}Shatter Flag Switch Gates{#}, you need to have {# d678db}Vortex Helper{#} installed!";
                 LevelEnter.Go(new Session(SceneAs<Level>().Session.Area), fromSaveData: false);
                 yield break;

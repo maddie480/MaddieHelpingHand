@@ -261,7 +261,7 @@ entities.MaxHelpingHand/KevinBarrier.attributes.description.invisible=If checked
 entities.MaxHelpingHand/LitBlueTorch.placements.name.torch=Torch (Lit, Blue)
 
 # More Custom NPC
-entities.MaxHelpingHand/MoreCustomNPC.placements.name.npc=More Custom NPC [Everest + max480's Helping Hand]
+entities.MaxHelpingHand/MoreCustomNPC.placements.name.npc=More Custom NPC
 entities.MaxHelpingHand/MoreCustomNPC.attributes.description.indicatorOffsetX=Offset for the chat icon on the X axis.
 entities.MaxHelpingHand/MoreCustomNPC.attributes.description.indicatorOffsetY=Offset for the chat icon on the Y axis.
 entities.MaxHelpingHand/MoreCustomNPC.attributes.description.dialogId=The dialog ID to use for the dialogue. Leave empty to make no bubble appear.
@@ -278,7 +278,7 @@ entities.MaxHelpingHand/MoreCustomNPC.attributes.description.onlyIfFlag=If set, 
 entities.MaxHelpingHand/MoreCustomNPC.attributes.description.setFlag=If set, the given flag will be activated once the player is done talking to the NPC.
 
 # Custom NPC from XML
-entities.MaxHelpingHand/CustomNPCSprite.placements.name.npc=Custom NPC (from XML) [Everest + max480's Helping Hand]
+entities.MaxHelpingHand/CustomNPCSprite.placements.name.npc=Custom NPC (from XML)
 entities.MaxHelpingHand/CustomNPCSprite.attributes.description.indicatorOffsetX=Offset for the chat icon on the X axis.
 entities.MaxHelpingHand/CustomNPCSprite.attributes.description.indicatorOffsetY=Offset for the chat icon on the Y axis.
 entities.MaxHelpingHand/CustomNPCSprite.attributes.description.dialogId=The dialog ID to use for the dialogue. Leave empty to make no bubble appear.
@@ -293,7 +293,7 @@ entities.MaxHelpingHand/CustomNPCSprite.attributes.description.onlyIfFlag=If set
 entities.MaxHelpingHand/CustomNPCSprite.attributes.description.setFlag=If set, the given flag will be activated once the player is done talking to the NPC.
 
 # Moving Flag Touch Switch
-entities.MaxHelpingHand/MovingFlagTouchSwitch.placements.name.touch_switch=Flag Touch Switch (Moving) [max480's Helping Hand + Outback Helper]
+entities.MaxHelpingHand/MovingFlagTouchSwitch.placements.name.touch_switch=Flag Touch Switch (Moving)
 entities.MaxHelpingHand/MovingFlagTouchSwitch.attributes.description.flag=The session flag this touch switch sets. Give the same to multiple touch switches and switch gates to group them.
 entities.MaxHelpingHand/MovingFlagTouchSwitch.attributes.description.icon=The name of the icon for the touch switch (relative to objects/MaxHelpingHand/flagTouchSwitch), or "vanilla" for the default one.
 entities.MaxHelpingHand/MovingFlagTouchSwitch.attributes.description.persistent=If enabled, the touch switch will stay active when the player dies or changes rooms.\nThis touch switch will also set a flag when it is enabled: [flagName]_switch[entityID]
@@ -589,10 +589,10 @@ entities.MaxHelpingHand/SetFlagOnSpawnController.attributes.description.onlyOnRe
 entities.MaxHelpingHand/SetFlagOnSpawnController.attributes.description.ifFlag=The flag will only be set if this other flag is active. Leave empty if you don't need your flag to depend on another flag.
 
 # Shatter Flag Switch Gate
-entities.MaxHelpingHand/ShatterFlagSwitchGate.placements.name.block=Shatter Flag Switch Gate (Block) [max480's Helping Hand + Vortex Helper]
-entities.MaxHelpingHand/ShatterFlagSwitchGate.placements.name.mirror=Shatter Flag Switch Gate (Mirror) [max480's Helping Hand + Vortex Helper]
-entities.MaxHelpingHand/ShatterFlagSwitchGate.placements.name.temple=Shatter Flag Switch Gate (Temple) [max480's Helping Hand + Vortex Helper]
-entities.MaxHelpingHand/ShatterFlagSwitchGate.placements.name.stars=Shatter Flag Switch Gate (Stars) [max480's Helping Hand + Vortex Helper]
+entities.MaxHelpingHand/ShatterFlagSwitchGate.placements.name.block=Shatter Flag Switch Gate (Block)
+entities.MaxHelpingHand/ShatterFlagSwitchGate.placements.name.mirror=Shatter Flag Switch Gate (Mirror)
+entities.MaxHelpingHand/ShatterFlagSwitchGate.placements.name.temple=Shatter Flag Switch Gate (Temple)
+entities.MaxHelpingHand/ShatterFlagSwitchGate.placements.name.stars=Shatter Flag Switch Gate (Stars)
 entities.MaxHelpingHand/ShatterFlagSwitchGate.attributes.description.flag=The session flag this switch gate reacts to. Give the same to multiple touch switches and switch gates to group them.
 entities.MaxHelpingHand/ShatterFlagSwitchGate.attributes.description.icon=The name of the icon for the switch gate (relative to objects/MaxHelpingHand/flagSwitchGate), or "vanilla" for the default one.
 entities.MaxHelpingHand/ShatterFlagSwitchGate.attributes.description.persistent=If enabled, the switch gate will stay destroyed when the player dies or changes rooms.\nThis switch gate will also set a flag when it is enabled: [flagName]_gate[entityID]
@@ -652,7 +652,7 @@ entities.MaxHelpingHand/UpsideDownMovingPlatform.attributes.description.emitSoun
 entities.MaxHelpingHand/UpsideDownMovingPlatform.attributes.description.pushPlayer=Whether the platform should push the player down, like vanilla jumpthrus push the player up.
 
 # Activate Timed Touch Switches Timer Trigger
-triggers.MaxHelpingHand/ActivateTimedTouchSwitchesTimerTrigger.placements.name.trigger=Activate Timed Touch Switches Timer [max480's Helping Hand + Outback Helper]
+triggers.MaxHelpingHand/ActivateTimedTouchSwitchesTimerTrigger.placements.name.trigger=Activate Timed Touch Switches Timer
 
 # All Black Holes Strength Trigger
 triggers.MaxHelpingHand/AllBlackholesStrengthTrigger.placements.name.trigger=Black Hole Strength (All Black Holes)
