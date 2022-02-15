@@ -4,7 +4,8 @@ local spikeVariants = {
     "default",
     "outline",
     "cliffside",
-    "reflection"
+    "reflection",
+    "dust" -- TODO actually render them
 }
 
 local spikeUp = spikeHelper.createEntityHandler("MaxHelpingHand/GroupedTriggerSpikesUp", "up", false, true, spikeVariants)

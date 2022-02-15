@@ -12,18 +12,31 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             On.Celeste.TriggerSpikes.GetPlayerCollideIndex -= onTriggerSpikesGetPlayerCollideIndex;
         }
 
+        private readonly bool triggerIfSameDirection;
+
         public GroupedDustTriggerSpikes(EntityData data, Vector2 offset, Directions dir) : base(data, offset, dir) {
-            new DynData<TriggerSpikes>(this)["grouped"] = true;
+            triggerIfSameDirection = data.Bool("triggerIfSameDirection", defaultValue: false);
         }
 
         private static void onTriggerSpikesGetPlayerCollideIndex(On.Celeste.TriggerSpikes.orig_GetPlayerCollideIndex orig,
             TriggerSpikes self, Player player, out int minIndex, out int maxIndex) {
 
+            // if we want the spikes to trigger when the player is going in the same direction, we should set the speed to 0 because a 0 speed always triggers spikes.
+            Vector2 initialPlayerSpeed = player.Speed;
+            bool triggerIfSameDirection = (self is GroupedDustTriggerSpikes grouped && grouped.triggerIfSameDirection);
+            if (triggerIfSameDirection) {
+                player.Speed = Vector2.Zero;
+            }
+
             orig(self, player, out minIndex, out maxIndex);
 
-            DynData<TriggerSpikes> selfData = new DynData<TriggerSpikes>(self);
-            if (selfData.Data.ContainsKey("grouped") && selfData.Get<bool>("grouped")) {
-                int spikeCount = selfData.Get<int>("size") / 4;
+            // ... don't forget to restore the speed afterwards though!
+            if (triggerIfSameDirection) {
+                player.Speed = initialPlayerSpeed;
+            }
+
+            if (self is GroupedDustTriggerSpikes) {
+                int spikeCount = new DynData<TriggerSpikes>(self).Get<int>("size") / 4;
 
                 if (maxIndex >= 0 && minIndex < spikeCount) {
                     // let's pretend the player is pressing every trigger spike at once.

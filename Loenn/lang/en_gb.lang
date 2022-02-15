@@ -210,18 +210,22 @@ entities.MaxHelpingHand/GroupedTriggerSpikesUp.placements.name.up_default=Groupe
 entities.MaxHelpingHand/GroupedTriggerSpikesUp.placements.name.up_outline=Grouped Trigger Spikes (Up, Outline)
 entities.MaxHelpingHand/GroupedTriggerSpikesUp.placements.name.up_cliffside=Grouped Trigger Spikes (Up, Cliffside)
 entities.MaxHelpingHand/GroupedTriggerSpikesUp.placements.name.up_reflection=Grouped Trigger Spikes (Up, Reflection)
+entities.MaxHelpingHand/GroupedTriggerSpikesUp.placements.name.up_dust=Grouped Trigger Spikes (Up, Dust)
 entities.MaxHelpingHand/GroupedTriggerSpikesDown.placements.name.down_default=Grouped Trigger Spikes (Down, Default)
 entities.MaxHelpingHand/GroupedTriggerSpikesDown.placements.name.down_outline=Grouped Trigger Spikes (Down, Outline)
 entities.MaxHelpingHand/GroupedTriggerSpikesDown.placements.name.down_cliffside=Grouped Trigger Spikes (Down, Cliffside)
 entities.MaxHelpingHand/GroupedTriggerSpikesDown.placements.name.down_reflection=Grouped Trigger Spikes (Down, Reflection)
+entities.MaxHelpingHand/GroupedTriggerSpikesDown.placements.name.down_dust=Grouped Trigger Spikes (Down, Dust)
 entities.MaxHelpingHand/GroupedTriggerSpikesLeft.placements.name.left_default=Grouped Trigger Spikes (Left, Default)
 entities.MaxHelpingHand/GroupedTriggerSpikesLeft.placements.name.left_outline=Grouped Trigger Spikes (Left, Outline)
 entities.MaxHelpingHand/GroupedTriggerSpikesLeft.placements.name.left_cliffside=Grouped Trigger Spikes (Left, Cliffside)
 entities.MaxHelpingHand/GroupedTriggerSpikesLeft.placements.name.left_reflection=Grouped Trigger Spikes (Left, Reflection)
+entities.MaxHelpingHand/GroupedTriggerSpikesLeft.placements.name.left_dust=Grouped Trigger Spikes (Left, Dust)
 entities.MaxHelpingHand/GroupedTriggerSpikesRight.placements.name.right_default=Grouped Trigger Spikes (Right, Default)
 entities.MaxHelpingHand/GroupedTriggerSpikesRight.placements.name.right_outline=Grouped Trigger Spikes (Right, Outline)
 entities.MaxHelpingHand/GroupedTriggerSpikesRight.placements.name.right_cliffside=Grouped Trigger Spikes (Right, Cliffside)
 entities.MaxHelpingHand/GroupedTriggerSpikesRight.placements.name.right_reflection=Grouped Trigger Spikes (Right, Reflection)
+entities.MaxHelpingHand/GroupedTriggerSpikesRight.placements.name.right_dust=Grouped Trigger Spikes (Right, Dust)
 entities.MaxHelpingHand/GroupedTriggerSpikesUp.attributes.description.type=Changes the visual appearance of the spikes.
 entities.MaxHelpingHand/GroupedTriggerSpikesDown.attributes.description.type=Changes the visual appearance of the spikes.
 entities.MaxHelpingHand/GroupedTriggerSpikesLeft.attributes.description.type=Changes the visual appearance of the spikes.
@@ -230,10 +234,10 @@ entities.MaxHelpingHand/GroupedTriggerSpikesUp.attributes.description.behindMove
 entities.MaxHelpingHand/GroupedTriggerSpikesDown.attributes.description.behindMoveBlocks=Determines whether the trigger spikes appear behind move blocks. Not supported for dust spikes.
 entities.MaxHelpingHand/GroupedTriggerSpikesLeft.attributes.description.behindMoveBlocks=Determines whether the trigger spikes appear behind move blocks. Not supported for dust spikes.
 entities.MaxHelpingHand/GroupedTriggerSpikesRight.attributes.description.behindMoveBlocks=Determines whether the trigger spikes appear behind move blocks. Not supported for dust spikes.
-entities.MaxHelpingHand/GroupedTriggerSpikesUp.attributes.description.triggerIfSameDirection=Whether the spikes should trigger even if Madeline moves in the direction they are pointing. Useful to make them more consistent if they are attached to Kevins. Not supported for dust spikes.
-entities.MaxHelpingHand/GroupedTriggerSpikesDown.attributes.description.triggerIfSameDirection=Whether the spikes should trigger even if Madeline moves in the direction they are pointing. Useful to make them more consistent if they are attached to Kevins. Not supported for dust spikes.
-entities.MaxHelpingHand/GroupedTriggerSpikesLeft.attributes.description.triggerIfSameDirection=Whether the spikes should trigger even if Madeline moves in the direction they are pointing. Useful to make them more consistent if they are attached to Kevins. Not supported for dust spikes.
-entities.MaxHelpingHand/GroupedTriggerSpikesRight.attributes.description.triggerIfSameDirection=Whether the spikes should trigger even if Madeline moves in the direction they are pointing. Useful to make them more consistent if they are attached to Kevins. Not supported for dust spikes.
+entities.MaxHelpingHand/GroupedTriggerSpikesUp.attributes.description.triggerIfSameDirection=Whether the spikes should trigger even if Madeline moves in the direction they are pointing. Useful to make them more consistent if they are attached to Kevins.
+entities.MaxHelpingHand/GroupedTriggerSpikesDown.attributes.description.triggerIfSameDirection=Whether the spikes should trigger even if Madeline moves in the direction they are pointing. Useful to make them more consistent if they are attached to Kevins.
+entities.MaxHelpingHand/GroupedTriggerSpikesLeft.attributes.description.triggerIfSameDirection=Whether the spikes should trigger even if Madeline moves in the direction they are pointing. Useful to make them more consistent if they are attached to Kevins.
+entities.MaxHelpingHand/GroupedTriggerSpikesRight.attributes.description.triggerIfSameDirection=Whether the spikes should trigger even if Madeline moves in the direction they are pointing. Useful to make them more consistent if they are attached to Kevins.
 
 # Hint Decal
 entities.MaxHelpingHand/HintDecal.placements.name.decal=Hint Decal
