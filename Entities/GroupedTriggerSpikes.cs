@@ -55,6 +55,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
         private Directions direction;
         private string overrideType;
         private bool triggerIfSameDirection;
+        private bool killIfSameDirection;
 
         private Vector2 outwards;
 
@@ -73,20 +74,22 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
         private bool blockingLedge = false;
 
         public GroupedTriggerSpikes(EntityData data, Vector2 offset, Directions dir)
-            : this(data.Position + offset, GetSize(data, dir), dir, data.Attr("type", "default"), data.Bool("behindMoveBlocks", false), data.Bool("triggerIfSameDirection", false)) {
+            : this(data.Position + offset, GetSize(data, dir), dir, data.Attr("type", "default"), data.Bool("behindMoveBlocks", false), data.Bool("triggerIfSameDirection", false),
+                  data.Bool("killIfSameDirection", defaultValue: data.Bool("triggerIfSameDirection", false))) {
         }
 
         public GroupedTriggerSpikes(Vector2 position, int size, Directions direction, string overrideType, bool behindMoveBlocks)
-            : this(position, size, direction, overrideType, behindMoveBlocks, triggerIfSameDirection: false) {
+            : this(position, size, direction, overrideType, behindMoveBlocks, triggerIfSameDirection: false, killIfSameDirection: false) {
         }
 
-        public GroupedTriggerSpikes(Vector2 position, int size, Directions direction, string overrideType, bool behindMoveBlocks, bool triggerIfSameDirection)
+        public GroupedTriggerSpikes(Vector2 position, int size, Directions direction, string overrideType, bool behindMoveBlocks, bool triggerIfSameDirection, bool killIfSameDirection)
             : base(position) {
 
             this.size = size;
             this.direction = direction;
             this.overrideType = overrideType;
             this.triggerIfSameDirection = triggerIfSameDirection;
+            this.killIfSameDirection = killIfSameDirection;
 
             switch (direction) {
                 case Directions.Up:
@@ -249,32 +252,40 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
 
             switch (direction) {
                 case Directions.Up:
-                    if (player.Speed.Y >= 0f || triggerIfSameDirection) {
+                    if (player.Speed.Y >= 0f || EvenIfSameDirection()) {
                         minIndex = (int) ((player.Left - Left) / 8f);
                         maxIndex = (int) ((player.Right - Left) / 8f);
                     }
                     break;
 
                 case Directions.Down:
-                    if (player.Speed.Y <= 0f || triggerIfSameDirection) {
+                    if (player.Speed.Y <= 0f || EvenIfSameDirection()) {
                         minIndex = (int) ((player.Left - Left) / 8f);
                         maxIndex = (int) ((player.Right - Left) / 8f);
                     }
                     break;
 
                 case Directions.Left:
-                    if (player.Speed.X >= 0f || triggerIfSameDirection) {
+                    if (player.Speed.X >= 0f || EvenIfSameDirection()) {
                         minIndex = (int) ((player.Top - Top) / 8f);
                         maxIndex = (int) ((player.Bottom - Top) / 8f);
                     }
                     break;
 
                 case Directions.Right:
-                    if (player.Speed.X <= 0f || triggerIfSameDirection) {
+                    if (player.Speed.X <= 0f || EvenIfSameDirection()) {
                         minIndex = (int) ((player.Top - Top) / 8f);
                         maxIndex = (int) ((player.Bottom - Top) / 8f);
                     }
                     break;
+            }
+        }
+
+        private bool EvenIfSameDirection() {
+            if (Triggered) {
+                return killIfSameDirection;
+            } else {
+                return triggerIfSameDirection;
             }
         }
 

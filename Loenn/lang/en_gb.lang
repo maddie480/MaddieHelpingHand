@@ -238,6 +238,10 @@ entities.MaxHelpingHand/GroupedTriggerSpikesUp.attributes.description.triggerIfS
 entities.MaxHelpingHand/GroupedTriggerSpikesDown.attributes.description.triggerIfSameDirection=Whether the spikes should trigger even if Madeline moves in the direction they are pointing. Useful to make them more consistent if they are attached to Kevins.
 entities.MaxHelpingHand/GroupedTriggerSpikesLeft.attributes.description.triggerIfSameDirection=Whether the spikes should trigger even if Madeline moves in the direction they are pointing. Useful to make them more consistent if they are attached to Kevins.
 entities.MaxHelpingHand/GroupedTriggerSpikesRight.attributes.description.triggerIfSameDirection=Whether the spikes should trigger even if Madeline moves in the direction they are pointing. Useful to make them more consistent if they are attached to Kevins.
+entities.MaxHelpingHand/GroupedTriggerSpikesUp.attributes.description.killIfSameDirection=Whether the spikes should kill the player even if they move in the direction they are pointing. Useful to make them more consistent if they are attached to Kevins.
+entities.MaxHelpingHand/GroupedTriggerSpikesDown.attributes.description.killIfSameDirection=Whether the spikes should kill the player even if they move in the direction they are pointing. Useful to make them more consistent if they are attached to Kevins.
+entities.MaxHelpingHand/GroupedTriggerSpikesLeft.attributes.description.killIfSameDirection=Whether the spikes should kill the player even if they move in the direction they are pointing. Useful to make them more consistent if they are attached to Kevins.
+entities.MaxHelpingHand/GroupedTriggerSpikesRight.attributes.description.killIfSameDirection=Whether the spikes should kill the player even if they move in the direction they are pointing. Useful to make them more consistent if they are attached to Kevins.
 
 # Hint Decal
 entities.MaxHelpingHand/HintDecal.placements.name.decal=Hint Decal
