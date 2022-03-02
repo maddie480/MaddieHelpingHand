@@ -738,6 +738,15 @@ triggers.MaxHelpingHand/FlagToggleSmoothCameraOffsetTrigger.attributes.descripti
 triggers.MaxHelpingHand/FlagToggleSmoothCameraOffsetTrigger.attributes.description.flag=The flag this trigger should react to.
 triggers.MaxHelpingHand/FlagToggleSmoothCameraOffsetTrigger.attributes.description.inverted=If checked, the trigger will be disabled when the flag is active.\nIf unchecked, the trigger will be enabled when the flag is active.
 
+# Flag Toggle Music Fade Trigger
+triggers.MaxHelpingHand/FlagToggleMusicFadeTrigger.placements.name.music_fade=Music Fade (Flag-Toggled)
+triggers.MaxHelpingHand/FlagToggleMusicFadeTrigger.attributes.description.fadeB=Determines the ending volume of the fade.
+triggers.MaxHelpingHand/FlagToggleMusicFadeTrigger.attributes.description.fadeA=Determines the starting volume of the fade.
+triggers.MaxHelpingHand/FlagToggleMusicFadeTrigger.attributes.description.parameter=Uses the fade properties if left blank, otherwise uses FMOD's escape property.
+triggers.MaxHelpingHand/FlagToggleMusicFadeTrigger.attributes.description.direction=The direction the music fades in.
+triggers.MaxHelpingHand/FlagToggleMusicFadeTrigger.attributes.description.flag=The flag this trigger should react to.
+triggers.MaxHelpingHand/FlagToggleMusicFadeTrigger.attributes.description.inverted=If checked, the trigger will be disabled when the flag is active.\nIf unchecked, the trigger will be enabled when the flag is active.
+
 # Gradient Dust Trigger
 triggers.MaxHelpingHand/GradientDustTrigger.placements.name.trigger=Gradient Dust
 triggers.MaxHelpingHand/GradientDustTrigger.attributes.description.gradientImage=Path to a gradient image in Mods/yourmod/Graphics/Atlases/Gameplay. This should be a horizontal gradient image with a height of 180 pixels. Check Graphics/Atlases/Gameplay/MaxHelpingHand/gradientdustbunnies/bluegreen.png in the mod zip for an example.\nLeave the field blank to revert the dust to its vanilla color.

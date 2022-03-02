@@ -522,6 +522,14 @@ placements.triggers.MaxHelpingHand/FlagToggleCameraOffsetTrigger.tooltips.camera
 placements.triggers.MaxHelpingHand/FlagToggleCameraOffsetTrigger.tooltips.flag=The flag this trigger should react to.
 placements.triggers.MaxHelpingHand/FlagToggleCameraOffsetTrigger.tooltips.inverted=If checked, the trigger will be disabled when the flag is active.\nIf unchecked, the trigger will be enabled when the flag is active.
 
+# Flag Toggle Music Fade Trigger
+placements.triggers.MaxHelpingHand/FlagToggleMusicFadeTrigger.tooltips.fadeB=Determines the ending volume of the fade.
+placements.triggers.MaxHelpingHand/FlagToggleMusicFadeTrigger.tooltips.fadeA=Determines the starting volume of the fade.
+placements.triggers.MaxHelpingHand/FlagToggleMusicFadeTrigger.tooltips.parameter=Uses the fade properties if left blank, otherwise uses FMOD's escape property.
+placements.triggers.MaxHelpingHand/FlagToggleMusicFadeTrigger.tooltips.direction=The direction the music fades in.
+placements.triggers.MaxHelpingHand/FlagToggleMusicFadeTrigger.tooltips.flag=The flag this trigger should react to.
+placements.triggers.MaxHelpingHand/FlagToggleMusicFadeTrigger.tooltips.inverted=If checked, the trigger will be disabled when the flag is active.\nIf unchecked, the trigger will be enabled when the flag is active.
+
 # Multi-Room Strawberry Seed
 placements.entities.MaxHelpingHand/MultiRoomStrawberrySeed.tooltips.strawberryName=The name of the strawberry this seed belongs to.
 placements.entities.MaxHelpingHand/MultiRoomStrawberrySeed.tooltips.sprite=The path to the sprite folder (relative to Graphics/Atlases/Gameplay/collectables).
