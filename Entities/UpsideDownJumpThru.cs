@@ -77,6 +77,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
 
             // ignore upside-down jumpthrus in select places.
             playerOrigUpdateHook = new ILHook(typeof(Player).GetMethod("orig_Update"), filterOutJumpThrusFromCollideChecks);
+            IL.Celeste.Platform.MoveVExactCollideSolids += filterOutJumpThrusFromCollideChecks;
             IL.Celeste.Player.DashUpdate += filterOutJumpThrusFromCollideChecks;
             IL.Celeste.Player.RedDashUpdate += filterOutJumpThrusFromCollideChecks;
             IL.Celeste.Actor.MoveVExact += filterOutJumpThrusFromCollideChecks;
@@ -105,6 +106,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             IL.Celeste.Player.ClimbUpdate -= patchPlayerClimbUpdate;
 
             playerOrigUpdateHook?.Dispose();
+            IL.Celeste.Platform.MoveVExactCollideSolids -= filterOutJumpThrusFromCollideChecks;
             IL.Celeste.Player.DashUpdate -= filterOutJumpThrusFromCollideChecks;
             IL.Celeste.Player.RedDashUpdate -= filterOutJumpThrusFromCollideChecks;
             IL.Celeste.Actor.MoveVExact -= filterOutJumpThrusFromCollideChecks;
