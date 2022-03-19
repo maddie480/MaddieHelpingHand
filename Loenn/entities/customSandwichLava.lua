@@ -35,6 +35,14 @@ lavaSandwich.fieldInformation = {
     },
     coldCenterColor = {
         fieldType = "color"
+    },
+    direction = {
+        options = {
+            ["Always Up"] = "AlwaysUp", 
+            ["Always Down"] = "AlwaysDown",
+            ["Based on Core Mode"] = "CoreModeBased"
+        },
+        editable = false
     }
 }
 

@@ -21,4 +21,11 @@ musicFade.placements = {
     }
 }
 
+musicFade.fieldInformation = {
+    direction = {
+        options = enums.music_fade_trigger_directions,
+        editable = false
+    }
+}
+
 return musicFade

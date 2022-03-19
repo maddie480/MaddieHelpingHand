@@ -13,6 +13,9 @@ switchGate.placements = {}
 local textures = {
     "block", "mirror", "temple", "stars"
 }
+local bundledIcons = {
+    "vanilla", "tall", "triangle", "circle", "diamond", "double", "heart", "square", "wide", "winged"
+}
 
 for i, texture in ipairs(textures) do
     switchGate.placements[i] = {
@@ -49,6 +52,12 @@ switchGate.fieldInformation = {
     },
     finishColor = {
         fieldType = "color"
+    },
+    sprite = {
+        options = textures
+    },
+    icon = {
+        options = bundledIcons
     }
 }
 

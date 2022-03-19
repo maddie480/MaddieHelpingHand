@@ -108,7 +108,14 @@ local function getNormalSpikeSprites(entity, direction)
 end
 -- Lönn spike helper copypaste end
 
--- TODO use right spike textures
+local spikeTypes = {
+    "default",
+    "outline",
+    "cliffside",
+    "reflection",
+    "MaxHelpingHand/heatspike"
+}
+
 for _, spike in ipairs(spikes) do
     spike.placements = getSpikePlacements(spike.direction)
 
@@ -116,6 +123,15 @@ for _, spike in ipairs(spikes) do
     function spike.sprite(room, entity)
         return getNormalSpikeSprites(entity, direction)
     end
+
+    spike.fieldInformation = {
+        hotType = {
+            options = spikeTypes
+        },
+        coldType = {
+            options = spikeTypes
+        }
+    }
 end
 
 return spikes

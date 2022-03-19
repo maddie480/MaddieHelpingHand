@@ -23,6 +23,10 @@ bumper.placements = {
 bumper.fieldInformation = {
     amount = {
         fieldType = "integer"
+    },
+    mode = {
+        options = { "Loop", "LoopNoPause", "BackAndForth", "BackAndForthNoPause", "TeleportBack" },
+        editable = false
     }
 }
 

@@ -15,6 +15,17 @@ summitCheckpoint.placements = {
     }
 }
 
+local numberlist =  { "zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "minus", "questionmark" }
+
+summitCheckpoint.fieldInformation = {
+    firstDigit = {
+        options = numberlist
+    },
+    secondDigit = {
+        options = numberlist
+    }
+}
+
 local backTexture = "%s/base02"
 local digitBackground = "%s/%s/numberbg"
 local digitForeground = "%s/%s/number"

@@ -48,6 +48,10 @@ kevin.fieldInformation = {
     },
     activateParticleColor2 = {
         fieldType = "color"
+    },
+    axes = {
+        options = axesOptions,
+        editable = false
     }
 }
 

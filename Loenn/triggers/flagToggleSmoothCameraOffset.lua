@@ -1,3 +1,5 @@
+local enums = require("consts.celeste_enums")
+
 local trigger = {}
 
 trigger.name = "MaxHelpingHand/FlagToggleSmoothCameraOffsetTrigger"
@@ -14,6 +16,13 @@ trigger.placements = {
         yOnly = false,
         flag = "flag_toggle_smooth_camera_offset",
         inverted = false
+    }
+}
+
+trigger.fieldInformation = {
+    positionMode = {
+        options = enums.trigger_position_modes,
+        editable = false
     }
 }
 

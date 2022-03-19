@@ -36,6 +36,9 @@ touchSwitch.fieldInformation = {
     },
     finishColor = {
         fieldType = "color"
+    },
+    icon = {
+        options = { "vanilla", "tall", "triangle", "circle", "diamond", "double", "heart", "square", "wide", "winged" }
     }
 }
 

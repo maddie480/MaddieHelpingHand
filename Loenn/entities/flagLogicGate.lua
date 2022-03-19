@@ -12,6 +12,13 @@ flagLogicGate.placements = {
     }
 }
 
+flagLogicGate.fieldInformation = {
+    func = {
+        options = { "AND", "OR", "XOR" },
+        editable = false
+    }
+}
+
 function flagLogicGate.texture(room, entity)
     text = entity.func
     if entity["not"] then

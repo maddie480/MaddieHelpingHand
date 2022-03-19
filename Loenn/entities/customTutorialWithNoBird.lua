@@ -1,3 +1,5 @@
+local enums = require("consts.celeste_enums")
+
 local birdNpc = {}
 
 birdNpc.name = "MaxHelpingHand/CustomTutorialWithNoBird"
@@ -12,6 +14,11 @@ birdNpc.placements = {
         info = "TUTORIAL_DREAMJUMP",
         controls = "DownRight,+,Dash,tinyarrow,Jump",
         hasPointer = true
+    }
+}
+birdNpc.fieldInformation = {
+    info = {
+        options = enums.everest_bird_tutorial_tutorials
     }
 }
 

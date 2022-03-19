@@ -13,6 +13,12 @@ switchGate.placements = {}
 local textures = {
     "block", "mirror", "temple", "stars"
 }
+local bundledIcons = {
+    "vanilla", "tall", "triangle", "circle", "diamond", "double", "heart", "square", "wide", "winged"
+}
+local easeTypes = {
+    "Linear", "SineIn", "SineOut", "SineInOut", "QuadIn", "QuadOut", "QuadInOut", "CubeIn", "CubeOut", "CubeInOut", "QuintIn", "QuintOut", "QuintInOut", "BackIn", "BackOut", "BackInOut", "ExpoIn", "ExpoOut", "ExpoInOut", "BigBackIn", "BigBackOut", "BigBackInOut", "ElasticIn", "ElasticOut", "ElasticInOut", "BounceIn", "BounceOut", "BounceInOut"
+}
 
 for i, texture in ipairs(textures) do
     switchGate.placements[i] = {
@@ -49,6 +55,16 @@ switchGate.fieldInformation = {
     },
     finishColor = {
         fieldType = "color"
+    },
+    sprite = {
+        options = textures
+    },
+    icon = {
+        options = bundledIcons
+    },
+    easing = {
+        options = easeTypes,
+        editable = false
     }
 }
 

@@ -14,6 +14,15 @@ strawberrySeed.placements = {
     }
 }
 
+strawberrySeed.fieldInformation = {
+    sprite = {
+        options = { "strawberry/seed", "MaxHelpingHand/miniberry/miniberry" }
+    },
+    ghostSprite = {
+        options = { "ghostberry/seed", "MaxHelpingHand/miniberry/ghostminiberry" }
+    }
+}
+
 function strawberrySeed.texture(room, entity)
     return "collectables/" .. entity.sprite .. "00"
 end

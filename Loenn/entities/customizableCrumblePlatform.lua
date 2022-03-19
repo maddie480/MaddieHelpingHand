@@ -36,6 +36,9 @@ crumbleBlock.fieldOrder = {"x", "y", "width", "crumbleDurationOnSide", "minCrumb
 crumbleBlock.fieldInformation = {
     fadeOutTint = {
         fieldType = "color"
+    },
+    texture = {
+        options = textures
     }
 }
 

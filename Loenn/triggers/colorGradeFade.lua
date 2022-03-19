@@ -1,5 +1,9 @@
 local trigger = {}
 
+local colorGrades = {
+    "none", "oldsite", "panicattack", "templevoid", "reflection", "credits", "cold", "hot", "feelingdown", "golden"
+}
+
 trigger.name = "MaxHelpingHand/ColorGradeFadeTrigger"
 trigger.placements = {
     name = "trigger",
@@ -8,6 +12,19 @@ trigger.placements = {
         colorGradeB = "none",
         direction = "LeftToRight",
         evenDuringReflectionFall = false
+    }
+}
+
+trigger.fieldInformation = {
+    colorGradeA = {
+        options = colorGrades
+    },
+    colorGradeB = {
+        options = colorGrades
+    },
+    direction = {
+        options = { "LeftToRight", "TopToBottom" },
+        editable = false
     }
 }
 

@@ -13,13 +13,18 @@ lava.placements = {
     }
 }
 
+lava.fieldInformation = {
+    lavaMode = {
+        options = { "LeftToRight", "RightToLeft", "Sandwich" },
+        editable = false
+    }
+}
+
 function lava.rotation(room, entity)
-    if entity.lavaMode == "LeftToRight" then
-        return math.pi / 2
-    elseif entity.lavaMode == "RightToLeft" then
+    if entity.lavaMode == "RightToLeft" then
         return - math.pi / 2
     else
-        return 0
+        return math.pi / 2
     end
 end
 

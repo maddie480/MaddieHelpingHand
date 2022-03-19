@@ -1,6 +1,7 @@
 local drawableSpriteStruct = require("structs.drawable_sprite")
 local drawing = require("utils.drawing")
 local utils = require("utils")
+local enums = require("consts.celeste_enums")
 
 local function getTexture(entity)
     return entity.texture and entity.texture ~= "default" and entity.texture or "wood"
@@ -11,6 +12,15 @@ local jumpthru = {}
 jumpthru.name = "MaxHelpingHand/SidewaysJumpThru"
 jumpthru.depth = -9000
 jumpthru.canResize = {false, true}
+jumpthru.fieldInformation = {
+    texture = {
+        options = textures
+    },
+    surfaceIndex = {
+        options = enums.tileset_sound_ids,
+        fieldType = "integer"
+    }
+}
 jumpthru.placements = {}
 
 jumpthru.placements = {

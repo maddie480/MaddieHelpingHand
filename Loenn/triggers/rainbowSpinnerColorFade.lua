@@ -1,3 +1,5 @@
+local enums = require("consts.celeste_enums")
+
 local trigger = {}
 
 trigger.name = "MaxHelpingHand/RainbowSpinnerColorFadeTrigger"
@@ -18,6 +20,13 @@ trigger.placements = {
         gradientSpeedB = 50.0,
         direction = "NoEffect",
         persistent = false
+    }
+}
+
+trigger.fieldInformation = {
+    direction = {
+        options = enums.trigger_position_modes,
+        editable = false
     }
 }
 
