@@ -785,3 +785,7 @@ placements.triggers.MaxHelpingHand/SetBloomStrengthTrigger.tooltips.value=The ne
 
 # Set Darkness Alpha Trigger
 placements.triggers.MaxHelpingHand/SetDarknessAlphaTrigger.tooltips.value=The new value for the darkness alpha, between 0 and 1. 1 is darkest, 0 is lightest.
+
+# Custom Ch3 Memo
+placements.triggers.MaxHelpingHand/CustomCh3Memo.tooltips.paperSpriteFolderName=The folder to use for the paper sprites. Leave empty to use the vanilla paper sprites.\nTo make your own, copy Graphics/Atlases/Memo from the graphics dump to your mod, in Graphics/Atlases/MaxHelpingHandCustomMemos/MyUniqueFolderName, and type "MyUniqueFolderName" here.
+placements.triggers.MaxHelpingHand/CustomCh3Memo.tooltips.dialogId=The ID of the dialog to use for the text the memo will display.
