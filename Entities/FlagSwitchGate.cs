@@ -57,6 +57,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
 
         private readonly bool isShatter;
         private readonly string blockSpriteName;
+        private readonly string debrisPath;
 
         public FlagSwitchGate(EntityData data, Vector2 offset)
             : base(data.Position + offset, data.Width, data.Height, safe: false) {
@@ -106,6 +107,24 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
 
             blockSpriteName = data.Attr("sprite", "block");
             texture = GFX.Game["objects/switchgate/" + blockSpriteName];
+
+            debrisPath = data.Attr("debrisPath");
+            if (string.IsNullOrEmpty(debrisPath)) {
+                switch (blockSpriteName) {
+                    default:
+                        debrisPath = "debris/VortexHelper/disintegate/1";
+                        break;
+                    case "mirror":
+                        debrisPath = "debris/VortexHelper/disintegate/2";
+                        break;
+                    case "temple":
+                        debrisPath = "debris/VortexHelper/disintegate/3";
+                        break;
+                    case "stars":
+                        debrisPath = "debris/VortexHelper/disintegate/4";
+                        break;
+                }
+            }
 
             Add(openSfx = new SoundSource());
             Add(new LightOcclude(0.5f));
@@ -400,22 +419,6 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             Audio.Play("event:/game/general/wall_break_stone", Center);
             Audio.Play(finishedSound, Center);
             level.Shake();
-
-            string debrisPath;
-            switch (blockSpriteName) {
-                default:
-                    debrisPath = "debris/VortexHelper/disintegate/1";
-                    break;
-                case "mirror":
-                    debrisPath = "debris/VortexHelper/disintegate/2";
-                    break;
-                case "temple":
-                    debrisPath = "debris/VortexHelper/disintegate/3";
-                    break;
-                case "stars":
-                    debrisPath = "debris/VortexHelper/disintegate/4";
-                    break;
-            }
 
             for (int i = 0; i < Width / 8f; i++) {
                 for (int j = 0; j < Height / 8f; j++) {
