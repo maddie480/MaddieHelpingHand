@@ -397,6 +397,10 @@ entities.MaxHelpingHand/OneWayInvisibleBarrierHorizontal.attributes.description.
 # Parallax Fade Out Controller
 entities.MaxHelpingHand/ParallaxFadeOutController.placements.name.controller=Parallax Fade Out Controller
 
+# Parallax Fade Speed Controller
+entities.MaxHelpingHand/ParallaxFadeSpeedController.placements.name.controller=Parallax Fade Speed Controller
+entities.MaxHelpingHand/ParallaxFadeSpeedController.attributes.description.fadeTime=The time it will take for the parallax stylegrounds to fully fade in or out, in seconds. Vanilla value is 1 second.
+
 # Rainbow Spinner Color Area Controller
 entities.MaxHelpingHand/RainbowSpinnerColorAreaController.placements.name.field=Rainbow Spinner Color Area Controller
 entities.MaxHelpingHand/RainbowSpinnerColorAreaController.attributes.description.colors=The colours the rainbow spinners in the room will take, separated by commas.
