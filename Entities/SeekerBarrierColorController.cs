@@ -36,6 +36,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
                     { "particleTransparency", MaxHelpingHandModule.Instance.Session.SeekerBarrierCurrentColors.ParticleTransparency },
                     { "particleDirection", MaxHelpingHandModule.Instance.Session.SeekerBarrierCurrentColors.ParticleDirection },
                     { "depth", MaxHelpingHandModule.Instance.Session.SeekerBarrierCurrentColors.Depth?.ToString() ?? "" },
+                    { "wavy", MaxHelpingHandModule.Instance.Session.SeekerBarrierCurrentColors.Wavy },
                     { "persistent", true }
                 };
 
@@ -63,6 +64,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
         private float particleTransparency;
         private float particleDirection;
         private int? depth;
+        private bool wavy;
         private bool persistent;
 
         private VirtualRenderTarget levelRenderTarget;
@@ -77,6 +79,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             transparency = data.Float("transparency", 0.15f);
             particleTransparency = data.Float("particleTransparency", 0.5f);
             particleDirection = data.Float("particleDirection", 0f);
+            wavy = data.Bool("wavy", defaultValue: true);
             persistent = data.Bool("persistent");
 
             if (int.TryParse(data.Attr("depth"), out int depthInt)) {
@@ -185,7 +188,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             IL.Celeste.SeekerBarrierRenderer.OnRenderBloom += hookBarrierColor;
             IL.Celeste.SeekerBarrierRenderer.Render += hookBarrierColor;
             IL.Celeste.SeekerBarrier.Render += hookParticleColors;
-            On.Celeste.SeekerBarrier.Update += hookSeekerBarrierParticles;
+            On.Celeste.SeekerBarrier.Update += hookSeekerBarrierParticlesAndWave;
 
             On.Celeste.SeekerBarrierRenderer.OnRenderBloom += onSeekerBarrierRendererRenderBloom;
             IL.Celeste.BloomRenderer.Apply += modBloomRendererApply;
@@ -196,21 +199,24 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             IL.Celeste.SeekerBarrierRenderer.OnRenderBloom -= hookBarrierColor;
             IL.Celeste.SeekerBarrierRenderer.Render -= hookBarrierColor;
             IL.Celeste.SeekerBarrier.Render -= hookParticleColors;
-            On.Celeste.SeekerBarrier.Update -= hookSeekerBarrierParticles;
+            On.Celeste.SeekerBarrier.Update -= hookSeekerBarrierParticlesAndWave;
 
             On.Celeste.SeekerBarrierRenderer.OnRenderBloom -= onSeekerBarrierRendererRenderBloom;
             IL.Celeste.BloomRenderer.Apply -= modBloomRendererApply;
             On.Celeste.SeekerBarrierRenderer.Render -= onSeekerBarrierRendererRender;
         }
 
-        private static void hookSeekerBarrierParticles(On.Celeste.SeekerBarrier.orig_Update orig, SeekerBarrier self) {
+        private static void hookSeekerBarrierParticlesAndWave(On.Celeste.SeekerBarrier.orig_Update orig, SeekerBarrier self) {
             float particleDirection = controllerOnScreen?.particleDirection ?? 0f;
+            bool wavy = controllerOnScreen?.wavy ?? true;
+
             if (self is CustomSeekerBarrier customBarrier) {
                 particleDirection = customBarrier.particleDirection;
+                wavy = customBarrier.wavy;
             }
 
             // no need to account for screen transitions: particles are frozen during them.
-            if (particleDirection == 0f) {
+            if (particleDirection == 0f && wavy) {
                 // default settings: do nothing
                 orig(self);
                 return;
@@ -241,6 +247,12 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
 
             // replace them.
             selfData["particles"] = particles;
+
+            if (!wavy) {
+                // this is normally used to cancel out the waviness when a seeker hits the barrier...
+                // here, we will force it to be active all the time.
+                self.Solidify = 1f;
+            }
         }
 
         private static void hookBarrierColor(ILContext il) {

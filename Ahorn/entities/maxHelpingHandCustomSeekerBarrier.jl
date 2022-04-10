@@ -3,7 +3,7 @@
 using ..Ahorn, Maple
 
 @mapdef Entity "MaxHelpingHand/CustomSeekerBarrier" CustomSeekerBarrier(x::Integer, y::Integer, width::Integer=Maple.defaultBlockWidth, height::Integer=Maple.defaultBlockHeight,
-    color::String="FFFFFF", particleColor::String="FFFFFF", transparency::Number=0.15, particleTransparency::Number=0.5, particleDirection::Number=0.0)
+    color::String="FFFFFF", particleColor::String="FFFFFF", transparency::Number=0.15, particleTransparency::Number=0.5, particleDirection::Number=0.0, wavy::Bool=true)
 
 const placements = Ahorn.PlacementDict(
     "Seeker Barrier (Custom) (max480's Helping Hand)" => Ahorn.EntityPlacement(

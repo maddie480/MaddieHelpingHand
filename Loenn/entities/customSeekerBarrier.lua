@@ -12,7 +12,8 @@ seekerBarrier.placements = {
         particleColor = "FFFFFF",
         transparency = 0.15,
         particleTransparency = 0.5,
-        particleDirection = 0.0
+        particleDirection = 0.0,
+        wavy = true
     }
 }
 

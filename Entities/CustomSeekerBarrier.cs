@@ -17,6 +17,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
         internal Color particleColor;
         internal float particleTransparency;
         internal float particleDirection;
+        internal bool wavy;
 
         public CustomSeekerBarrier(EntityData data, Vector2 offset) : base(data, offset) {
             renderer = new Renderer() {
@@ -29,6 +30,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             particleColor = Calc.HexToColor(data.Attr("particleColor", "FFFFFF"));
             particleTransparency = data.Float("particleTransparency", 0.5f);
             particleDirection = data.Float("particleDirection", 0f);
+            wavy = data.Bool("wavy", defaultValue: true);
         }
 
         public override void Added(Scene scene) {

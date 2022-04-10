@@ -12,7 +12,8 @@ colorController.placements = {
         particleTransparency = 0.5,
         persistent = false,
         particleDirection = 0.0,
-        depth = ""
+        depth = "",
+        wavy = true
     }
 }
 

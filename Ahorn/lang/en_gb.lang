@@ -626,15 +626,17 @@ placements.entities.MaxHelpingHand/SeekerBarrierColorController.tooltips.particl
 placements.entities.MaxHelpingHand/SeekerBarrierColorController.tooltips.particleDirection=The direction of the particles in degrees, 0 being the default (down), 90 being left, etc.
 placements.entities.MaxHelpingHand/SeekerBarrierColorController.tooltips.persistent=If checked, the chosen colors will persist until the player enters a room with another Seeker Barrier Color Controller.\nIf unchecked, the chosen colors will only apply to the current room.
 placements.entities.MaxHelpingHand/SeekerBarrierColorController.tooltips.depth=Allows you to set the depth of the seeker barriers, to make them render behind other entities. Leave empty for default behavior.\nActivating this setting will change the barriers' colors, so you will need to set them again.
+placements.entities.MaxHelpingHand/SeekerBarrierColorController.tooltips.wavy=Whether the edges of the seeker barriers should be wavy.
 
 # Custom Seeker Barrier
 placements.entities.MaxHelpingHand/CustomSeekerBarrier.names.transparency=Opacity
 placements.entities.MaxHelpingHand/CustomSeekerBarrier.names.particleTransparency=Particle Opacity
-placements.entities.MaxHelpingHand/CustomSeekerBarrier.tooltips.color=The color the seeker barriers will take.
-placements.entities.MaxHelpingHand/CustomSeekerBarrier.tooltips.particleColor=The color the particles inside the seeker barriers will take.
-placements.entities.MaxHelpingHand/CustomSeekerBarrier.tooltips.transparency=The opacity, between 0 and 1, of the seeker barriers. Vanilla value is 0.15.
-placements.entities.MaxHelpingHand/CustomSeekerBarrier.tooltips.particleTransparency=The opacity, between 0 and 1, of the particles inside the seeker barriers. Vanilla value is 0.5.
+placements.entities.MaxHelpingHand/CustomSeekerBarrier.tooltips.color=The color the seeker barrier will take.
+placements.entities.MaxHelpingHand/CustomSeekerBarrier.tooltips.particleColor=The color the particles inside the seeker barrier will take.
+placements.entities.MaxHelpingHand/CustomSeekerBarrier.tooltips.transparency=The opacity, between 0 and 1, of the seeker barrier. Vanilla value is 0.15.
+placements.entities.MaxHelpingHand/CustomSeekerBarrier.tooltips.particleTransparency=The opacity, between 0 and 1, of the particles inside the seeker barrier. Vanilla value is 0.5.
 placements.entities.MaxHelpingHand/CustomSeekerBarrier.tooltips.particleDirection=The direction of the particles in degrees, 0 being the default (down), 90 being left, etc.
+placements.entities.MaxHelpingHand/CustomSeekerBarrier.tooltips.wavy=Whether the edges of the seeker barrier should be wavy.
 
 # Ambience Volume Trigger
 placements.triggers.MaxHelpingHand/AmbienceVolumeTrigger.tooltips.from=Determines the volume of the ambience (between 0 and 1) at closer distances.
