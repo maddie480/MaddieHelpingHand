@@ -627,6 +627,7 @@ placements.entities.MaxHelpingHand/SeekerBarrierColorController.tooltips.particl
 placements.entities.MaxHelpingHand/SeekerBarrierColorController.tooltips.persistent=If checked, the chosen colors will persist until the player enters a room with another Seeker Barrier Color Controller.\nIf unchecked, the chosen colors will only apply to the current room.
 placements.entities.MaxHelpingHand/SeekerBarrierColorController.tooltips.depth=Allows you to set the depth of the seeker barriers, to make them render behind other entities. Leave empty for default behavior.\nActivating this setting will change the barriers' colors, so you will need to set them again.
 placements.entities.MaxHelpingHand/SeekerBarrierColorController.tooltips.wavy=Whether the edges of the seeker barriers should be wavy.
+placements.entities.MaxHelpingHand/SeekerBarrierColorController.tooltips.renderBloom=Whether the seeker barriers should have bloom applied to them, making them more shiny.
 
 # Custom Seeker Barrier
 placements.entities.MaxHelpingHand/CustomSeekerBarrier.names.transparency=Opacity

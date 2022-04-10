@@ -13,7 +13,8 @@ colorController.placements = {
         persistent = false,
         particleDirection = 0.0,
         depth = "",
-        wavy = true
+        wavy = true,
+        renderBloom = true
     }
 }
 

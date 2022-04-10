@@ -37,6 +37,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
                     { "particleDirection", MaxHelpingHandModule.Instance.Session.SeekerBarrierCurrentColors.ParticleDirection },
                     { "depth", MaxHelpingHandModule.Instance.Session.SeekerBarrierCurrentColors.Depth?.ToString() ?? "" },
                     { "wavy", MaxHelpingHandModule.Instance.Session.SeekerBarrierCurrentColors.Wavy },
+                    { "renderBloom", MaxHelpingHandModule.Instance.Session.SeekerBarrierCurrentColors.RenderBloom },
                     { "persistent", true }
                 };
 
@@ -65,6 +66,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
         private float particleDirection;
         private int? depth;
         private bool wavy;
+        private bool renderBloom;
         private bool persistent;
 
         private VirtualRenderTarget levelRenderTarget;
@@ -80,6 +82,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             particleTransparency = data.Float("particleTransparency", 0.5f);
             particleDirection = data.Float("particleDirection", 0f);
             wavy = data.Bool("wavy", defaultValue: true);
+            renderBloom = data.Bool("renderBloom", defaultValue: true);
             persistent = data.Bool("persistent");
 
             if (int.TryParse(data.Attr("depth"), out int depthInt)) {
@@ -104,7 +107,9 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
                     Transparency = data.Float("transparency", 0.15f),
                     ParticleTransparency = data.Float("particleTransparency", 0.5f),
                     ParticleDirection = data.Float("particleDirection", 0f),
-                    Depth = depth
+                    Depth = depth,
+                    Wavy = data.Bool("wavy", defaultValue: true),
+                    RenderBloom = data.Bool("renderBloom", defaultValue: true)
                 };
             } else {
                 MaxHelpingHandModule.Instance.Session.SeekerBarrierCurrentColors = null;
@@ -378,7 +383,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
 
         private static void onSeekerBarrierRendererRenderBloom(On.Celeste.SeekerBarrierRenderer.orig_OnRenderBloom orig, SeekerBarrierRenderer self) {
             // only run RenderBloom if no depth setting is activated, or if we are allowed to do so.
-            if (!(controllerOnScreen?.depth.HasValue ?? false) || allowedToRenderBloom) {
+            if ((controllerOnScreen?.renderBloom ?? true) && (!(controllerOnScreen?.depth.HasValue ?? false) || allowedToRenderBloom)) {
                 orig(self);
             }
         }
@@ -388,7 +393,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             if (cursor.TryGotoNext(MoveType.After, instr => instr.MatchCallvirt<Tracker>("GetEntities"))) {
                 Logger.Log("MaxHelpingHand/SeekerBarrierColorController", $"Disabling seeker barrier rendering in BloomRenderer.Apply at {cursor.Index} in IL");
                 cursor.EmitDelegate<Func<List<Entity>, List<Entity>>>(orig => {
-                    if (controllerOnScreen?.depth.HasValue ?? false) {
+                    if ((controllerOnScreen?.depth.HasValue ?? false) || !(controllerOnScreen?.renderBloom ?? true)) {
                         // pretend there is no seeker barrier.
                         return new List<Entity>();
                     }
@@ -400,7 +405,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
         private static void onSeekerBarrierRendererRender(On.Celeste.SeekerBarrierRenderer.orig_Render orig, SeekerBarrierRenderer self) {
             orig(self);
 
-            if ((controllerOnScreen?.depth.HasValue ?? false) && controllerOnScreen.Scene is Level level) {
+            if ((controllerOnScreen?.renderBloom ?? true) && (controllerOnScreen?.depth.HasValue ?? false) && controllerOnScreen.Scene is Level level) {
                 // stop rendering gameplay: we're going to render BLOOM now. Yeaaaaah
                 GameplayRenderer.End();
 
