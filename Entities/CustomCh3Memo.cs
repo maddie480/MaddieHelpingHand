@@ -4,7 +4,7 @@ using Monocle;
 
 namespace Celeste.Mod.MaxHelpingHand.Entities {
     [CustomEntity("MaxHelpingHand/CustomCh3Memo")]
-    class CustomCh3Memo : Trigger {
+    public class CustomCh3Memo : Trigger {
         private readonly string paperSpriteFolderName;
         private readonly string dialogId;
 

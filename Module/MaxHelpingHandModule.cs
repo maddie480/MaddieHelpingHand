@@ -71,6 +71,7 @@ namespace Celeste.Mod.MaxHelpingHand.Module {
             HeatWaveNoColorGrade.Load();
             ActivateTimedTouchSwitchesTimerTrigger.Load();
             SetBloomStrengthTrigger.Load();
+            InstantLavaBlockerTrigger.Load();
 
             Everest.Events.Level.OnLoadBackdrop += onLoadBackdrop;
             On.Celeste.Mod.Everest.Register += onModRegister;
@@ -122,6 +123,7 @@ namespace Celeste.Mod.MaxHelpingHand.Module {
             HeatWaveNoColorGrade.Unload();
             ActivateTimedTouchSwitchesTimerTrigger.Unload();
             SetBloomStrengthTrigger.Unload();
+            InstantLavaBlockerTrigger.Unload();
 
             Everest.Events.Level.OnLoadBackdrop -= onLoadBackdrop;
             On.Celeste.Mod.Everest.Register -= onModRegister;
@@ -152,6 +154,7 @@ namespace Celeste.Mod.MaxHelpingHand.Module {
             KevinBarrier.HookMods();
             MovingFlagTouchSwitch.HookMods();
             MadelinePonytailTrigger.LoadContent();
+            InstantLavaBlockerTrigger.HookMods();
 
             if (!hookedSineParallax && Everest.Loader.DependencyLoaded(new EverestModuleMetadata() { Name = "FlaglinesAndSuch", Version = new Version(1, 4, 17) })) {
                 hookSineParallax();

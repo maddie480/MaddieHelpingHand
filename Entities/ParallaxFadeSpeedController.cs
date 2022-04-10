@@ -7,7 +7,7 @@ using System;
 namespace Celeste.Mod.MaxHelpingHand.Entities {
     [CustomEntity("MaxHelpingHand/ParallaxFadeSpeedController")]
     [Tracked]
-    class ParallaxFadeSpeedController : Entity {
+    public class ParallaxFadeSpeedController : Entity {
 
         private static bool backdropHooked = false;
 

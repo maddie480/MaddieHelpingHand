@@ -868,3 +868,7 @@ triggers.MaxHelpingHand/SetDarknessAlphaTrigger.attributes.description.value=The
 triggers.MaxHelpingHand/CustomCh3Memo.placements.name.trigger=Custom Chapter 3 Memo
 triggers.MaxHelpingHand/CustomCh3Memo.attributes.description.paperSpriteFolderName=The folder to use for the paper sprites. Leave empty to use the vanilla paper sprites.\nTo make your own, copy Graphics/Atlases/Memo from the graphics dump to your mod, in Graphics/Atlases/MaxHelpingHandCustomMemos/MyUniqueFolderName, and type "MyUniqueFolderName" here.
 triggers.MaxHelpingHand/CustomCh3Memo.attributes.description.dialogId=The ID of the dialog to use for the text the memo will display.
+
+# Instant Lava Blocker
+triggers.MaxHelpingHand/InstantLavaBlockerTrigger.placements.name.lava_blocker=Instant Lava Blocker
+triggers.MaxHelpingHand/InstantLavaBlockerTrigger.attributes.description.canReenter=Whether the trigger should still be functional after leaving it once.

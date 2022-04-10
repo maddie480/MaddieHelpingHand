@@ -794,3 +794,6 @@ placements.triggers.MaxHelpingHand/CustomCh3Memo.tooltips.dialogId=The ID of the
 
 # Parallax Fade Speed Controller
 placements.entities.MaxHelpingHand/ParallaxFadeSpeedController.tooltips.fadeTime=The time it will take for the parallax stylegrounds to fully fade in or out, in seconds. Vanilla value is 1 second.
+
+# Instant Lava Blocker Trigger
+placements.triggers.MaxHelpingHand/InstantLavaBlockerTrigger.tooltips.canReenter=Whether the trigger should still be functional after leaving it once.

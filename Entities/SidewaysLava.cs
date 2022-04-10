@@ -1,4 +1,5 @@
 ﻿using Celeste.Mod.Entities;
+using Celeste.Mod.MaxHelpingHand.Triggers;
 using Microsoft.Xna.Framework;
 using Monocle;
 using System.Collections.Generic;
@@ -294,7 +295,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
                             target = player.X - 288f;
                         }
 
-                        if (!intro && player != null && player.JustRespawned) {
+                        if (!intro && player != null && player.JustRespawned && !player.CollideCheck<InstantLavaBlockerTrigger>()) {
                             X = Calc.Approach(X, target, 32f * speedMultiplier * Engine.DeltaTime);
                         }
                     }

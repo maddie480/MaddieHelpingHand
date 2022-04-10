@@ -5,7 +5,7 @@ using Monocle;
 namespace Celeste.Mod.MaxHelpingHand.Entities {
     [CustomEntity("MaxHelpingHand/FlagBadelineChaser")]
     [TrackedAs(typeof(BadelineOldsite))]
-    class FlagBadelineChaser : BadelineOldsite {
+    public class FlagBadelineChaser : BadelineOldsite {
         private readonly string flagName;
         private bool started;
 
