@@ -26,7 +26,10 @@ for _, texture in ipairs(textures) do
             outlineTexture = "objects/crumbleBlock/outline",
             onlyEmitSoundForPlayer = false,
             fadeOutTint = "808080",
-            attachStaticMovers = false
+            attachStaticMovers = false,
+            flag = "",
+            flagMode = "None",
+            flagInverted = false
         }
     })
 end
@@ -39,6 +42,10 @@ crumbleBlock.fieldInformation = {
     },
     texture = {
         options = textures
+    },
+    flagMode = {
+        options = { "None", "UntilPlatformRespawn", "UntilDeathOrRoomChange", "Permanent" },
+        editable = false
     }
 }
 

@@ -15,6 +15,8 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
     [CustomEntity("MaxHelpingHand/CustomizableCrumblePlatform")]
     [Tracked]
     public class CustomizableCrumblePlatform : CrumblePlatform {
+        private enum FlagMode { None, UntilPlatformRespawn, UntilDeathOrRoomChange, Permanent }
+
         private static ILHook crumblePlatformOrigAddedHook = null;
         private static ILHook crumblePlatformTileOutHook = null;
 
@@ -53,6 +55,9 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
         private bool onlyEmitSoundForPlayer;
         private Color fadeOutTint;
         private bool attachStaticMovers;
+        private string flag;
+        private FlagMode flagMode;
+        private bool flagInverted;
 
         private HashSet<CustomizableCrumblePlatform> groupedCrumblePlatforms = new HashSet<CustomizableCrumblePlatform>();
 
@@ -68,6 +73,9 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             onlyEmitSoundForPlayer = data.Bool("onlyEmitSoundForPlayer", false);
             fadeOutTint = data.HexColor("fadeOutTint", Color.Gray);
             attachStaticMovers = data.Bool("attachStaticMovers", false);
+            flag = data.Attr("flag");
+            flagMode = data.Enum("flagMode", defaultValue: FlagMode.None);
+            flagInverted = data.Bool("flagInverted");
         }
 
         private static void onCrumblePlatformAdded(ILContext il) {
@@ -213,6 +221,9 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
                 if (attachStaticMovers) {
                     DisableStaticMovers();
                 }
+                if (flagMode != FlagMode.None) {
+                    SceneAs<Level>().Session.SetFlag(flag, !flagInverted);
+                }
                 float delay = 0.05f;
                 for (int m = 0; m < 4; m++) {
                     for (int i = 0; i < images.Count; i++) {
@@ -244,6 +255,9 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
                 if (attachStaticMovers) {
                     EnableStaticMovers();
                 }
+                if (flagMode == FlagMode.UntilPlatformRespawn) {
+                    SceneAs<Level>().Session.SetFlag(flag, flagInverted);
+                }
                 for (int m = 0; m < 4; m++) {
                     for (int i = 0; i < images.Count; i++) {
                         if (i % 4 - m == 0) {
@@ -257,6 +271,22 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
                     }
                 }
             }
+        }
+
+        public override void Removed(Scene scene) {
+            if (flagMode == FlagMode.UntilPlatformRespawn || flagMode == FlagMode.UntilDeathOrRoomChange) {
+                SceneAs<Level>().Session.SetFlag(flag, flagInverted);
+            }
+
+            base.Removed(scene);
+        }
+
+        public override void SceneEnd(Scene scene) {
+            if (flagMode == FlagMode.UntilPlatformRespawn || flagMode == FlagMode.UntilDeathOrRoomChange) {
+                SceneAs<Level>().Session.SetFlag(flag, flagInverted);
+            }
+
+            base.SceneEnd(scene);
         }
 
         // copy-paste of the vanilla TileIn method, except without the sound.

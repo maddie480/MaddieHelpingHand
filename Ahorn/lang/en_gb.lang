@@ -91,6 +91,9 @@ placements.entities.MaxHelpingHand/CustomizableCrumblePlatform.tooltips.outlineT
 placements.entities.MaxHelpingHand/CustomizableCrumblePlatform.tooltips.onlyEmitSoundForPlayer=If checked, the crumble block will only emit sound when triggered by the player (not when triggered by another crumble block in the group).
 placements.entities.MaxHelpingHand/CustomizableCrumblePlatform.tooltips.fadeOutTint=The tint/color to use while the crumble block falls apart.
 placements.entities.MaxHelpingHand/CustomizableCrumblePlatform.tooltips.attachStaticMovers=If checked, any static movers (spikes, springs, etc.) attached to the platform will crumble along with it when it crumbles.
+placements.entities.MaxHelpingHand/CustomizableCrumblePlatform.tooltips.flag=The flag this platform should set when it crumbles.
+placements.entities.MaxHelpingHand/CustomizableCrumblePlatform.tooltips.flagInverted=If this option is enabled, the platform will unset the flag rather than setting it when it crumbles.
+placements.entities.MaxHelpingHand/CustomizableCrumblePlatform.tooltips.flagMode=Determines how the flag specified in the "Flag" option should be set.\n- None: the platform will not mess with flags at all.\n- UntilPlatformRespawn: the platform will set the flag when it crumbles, and will unset it when it becomes solid again.\n- UntilDeathOrRoomChange: the platform will set the flag when it crumbles, and will unset it if the player dies or leaves the room.\n- Permanent: the platform will set the flag when it crumbles, and will never unset it by itself.
 
 # Upside Down Jump Thru
 placements.entities.MaxHelpingHand/UpsideDownJumpThru.tooltips.texture=Changes the appearance of the platform. Should be in the same format as vanilla for static jumpthrus, and a 8x8 image for animated ones.
