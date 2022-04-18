@@ -819,3 +819,8 @@ placements.entities.MaxHelpingHand/ParallaxFadeSpeedController.tooltips.fadeTime
 
 # Instant Lava Blocker Trigger
 placements.triggers.MaxHelpingHand/InstantLavaBlockerTrigger.tooltips.canReenter=Whether the trigger should still be functional after leaving it once.
+
+# Madeline Sprite
+placements.entities.MaxHelpingHand/MadelineSprite.tooltips.hasBackpack=Whether the Madeline sprite should have a backpack.
+placements.entities.MaxHelpingHand/MadelineSprite.tooltips.left=Whether the Madeline sprite should face left.
+placements.entities.MaxHelpingHand/MadelineSprite.tooltips.dashCount=The dash count Madeline has. Determines Madeline's hair color.

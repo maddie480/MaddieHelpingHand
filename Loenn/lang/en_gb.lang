@@ -897,3 +897,9 @@ triggers.MaxHelpingHand/CustomCh3Memo.attributes.description.dialogId=The ID of 
 # Instant Lava Blocker
 triggers.MaxHelpingHand/InstantLavaBlockerTrigger.placements.name.lava_blocker=Instant Lava Blocker
 triggers.MaxHelpingHand/InstantLavaBlockerTrigger.attributes.description.canReenter=Whether the trigger should still be functional after leaving it once.
+
+# Madeline Sprite
+entities.MaxHelpingHand/MadelineSprite.placements.name.player=Madeline Sprite
+entities.MaxHelpingHand/MadelineSprite.attributes.description.hasBackpack=Whether the Madeline sprite should have a backpack.
+entities.MaxHelpingHand/MadelineSprite.attributes.description.left=Whether the Madeline sprite should face left.
+entities.MaxHelpingHand/MadelineSprite.attributes.description.dashCount=The dash count Madeline has. Determines Madeline's hair color.
