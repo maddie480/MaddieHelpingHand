@@ -16,8 +16,6 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
         private readonly int dashCount;
 
         public MadelineSprite(EntityData data, Vector2 offset) : base(data.Position + offset, data.Bool("hasBackpack") ? PlayerSpriteMode.Madeline : PlayerSpriteMode.MadelineNoBackpack) {
-            StateMachine.State = StDummy;
-
             if (data.Bool("left")) {
                 Facing = Facings.Left;
             }
@@ -32,6 +30,8 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
         public override void Added(Scene scene) {
             base.Added(scene);
             Dashes = dashCount;
+
+            StateMachine.State = StDummy;
         }
 
         private static bool onRefillDash(On.Celeste.Player.orig_RefillDash orig, Player self) {
