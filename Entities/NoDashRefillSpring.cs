@@ -9,7 +9,7 @@ using System.Reflection;
 
 namespace Celeste.Mod.MaxHelpingHand.Entities {
     [CustomEntity("MaxHelpingHand/NoDashRefillSpring", "MaxHelpingHand/NoDashRefillSpringLeft", "MaxHelpingHand/NoDashRefillSpringRight")]
-    [Tracked]
+    [Tracked(inherited: true)]
     public class NoDashRefillSpring : Spring {
         public static void Load() {
             On.Celeste.LightingRenderer.BeforeRender += onLightingBeforeRender;
@@ -78,13 +78,16 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
         private static Orientations GetOrientationFromName(string name) {
             switch (name) {
                 case "MaxHelpingHand/NoDashRefillSpring":
+                case "MaxHelpingHand/CustomDashRefillSpring":
                     return Orientations.Floor;
                 case "MaxHelpingHand/NoDashRefillSpringRight":
+                case "MaxHelpingHand/CustomDashRefillSpringRight":
                     return Orientations.WallRight;
                 case "MaxHelpingHand/NoDashRefillSpringLeft":
+                case "MaxHelpingHand/CustomDashRefillSpringLeft":
                     return Orientations.WallLeft;
                 default:
-                    throw new Exception("No Dash Refill Spring name doesn't correlate to a valid Orientation!");
+                    throw new Exception("Custom Dash Refill Spring name doesn't correlate to a valid Orientation!");
             }
         }
 
@@ -116,6 +119,12 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
 
             // Restore original dash count.
             player.Dashes = originalDashCount;
+
+            RefillDashes(player);
+        }
+
+        protected virtual void RefillDashes(Player player) {
+            // this is here for handy reuse by Custom Dash Refill Spring.
         }
     }
 }

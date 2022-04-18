@@ -392,6 +392,27 @@ entities.MaxHelpingHand/NoDashRefillSpring.attributes.description.ignoreLighting
 entities.MaxHelpingHand/NoDashRefillSpringRight.attributes.description.ignoreLighting=If checked, the spring won't be affected by room darkness.
 entities.MaxHelpingHand/NoDashRefillSpringLeft.attributes.description.ignoreLighting=If checked, the spring won't be affected by room darkness.
 
+# Custom Dash Refill Spring
+entities.MaxHelpingHand/CustomDashRefillSpring.placements.name.up=Custom Dash Refill Spring (Up)
+entities.MaxHelpingHand/CustomDashRefillSpringLeft.placements.name.right=Custom Dash Refill Spring (Right)
+entities.MaxHelpingHand/CustomDashRefillSpringRight.placements.name.left=Custom Dash Refill Spring (Left)
+entities.MaxHelpingHand/CustomDashRefillSpring.attributes.description.spriteDirectory=The directory to take the sprites from.\nTo reskin the no-dash refill springs, place the sprites in your mod in Graphics/Atlases/Gameplay/mymod/myspring, and write "mymod/myspring" here. The default sprites are in the zip for max480's Helping Hand, in Graphics/Atlases/Gameplay/objects/MaxHelpingHand/CustomDashRefillSpring.
+entities.MaxHelpingHand/CustomDashRefillSpringRight.attributes.description.spriteDirectory=The directory to take the sprites from.\nTo reskin the no-dash refill springs, place the sprites in your mod in Graphics/Atlases/Gameplay/mymod/myspring, and write "mymod/myspring" here. The default sprites are in the zip for max480's Helping Hand, in Graphics/Atlases/Gameplay/objects/MaxHelpingHand/CustomDashRefillSpring.
+entities.MaxHelpingHand/CustomDashRefillSpringLeft.attributes.description.spriteDirectory=The directory to take the sprites from.\nTo reskin the no-dash refill springs, place the sprites in your mod in Graphics/Atlases/Gameplay/mymod/myspring, and write "mymod/myspring" here. The default sprites are in the zip for max480's Helping Hand, in Graphics/Atlases/Gameplay/objects/MaxHelpingHand/CustomDashRefillSpring.
+entities.MaxHelpingHand/CustomDashRefillSpring.attributes.description.playerCanUse=Determines whether the player is able to interact with the spring.
+entities.MaxHelpingHand/CustomDashRefillSpring.attributes.description.ignoreLighting=If checked, the spring won't be affected by room darkness.
+entities.MaxHelpingHand/CustomDashRefillSpringRight.attributes.description.ignoreLighting=If checked, the spring won't be affected by room darkness.
+entities.MaxHelpingHand/CustomDashRefillSpringLeft.attributes.description.ignoreLighting=If checked, the spring won't be affected by room darkness.
+entities.MaxHelpingHand/CustomDashRefillSpring.attributes.description.dashCount=The amount of dashes this spring should give. (Can be negative to remove dashes from the player.)
+entities.MaxHelpingHand/CustomDashRefillSpringLeft.attributes.description.dashCount=The amount of dashes this spring should give. (Can be negative to remove dashes from the player.)
+entities.MaxHelpingHand/CustomDashRefillSpringRight.attributes.description.dashCount=The amount of dashes this spring should give. (Can be negative to remove dashes from the player.)
+entities.MaxHelpingHand/CustomDashRefillSpring.attributes.description.dashCountCap=If "Mode" is set to "AddCapped", this will determine the maximum amount of dashes the player can get from the spring.
+entities.MaxHelpingHand/CustomDashRefillSpringLeft.attributes.description.dashCountCap=If "Mode" is set to "AddCapped", this will determine the maximum amount of dashes the player can get from the spring.
+entities.MaxHelpingHand/CustomDashRefillSpringRight.attributes.description.dashCountCap=If "Mode" is set to "AddCapped", this will determine the maximum amount of dashes the player can get from the spring.
+entities.MaxHelpingHand/CustomDashRefillSpring.attributes.description.mode=Determines how the spring will change the player's dash count.\n- Set: sets the player's dash count to the given amount.\n- Add: adds the given amount of dashes to the player's dash count.\n- AddCapped: adds the given amount of dashes to the player's dash count, without going beyond the "Dash Count Cap" option.\nIt will not remove dashes from the player if they have more than the cap, though.
+entities.MaxHelpingHand/CustomDashRefillSpringLeft.attributes.description.mode=Determines how the spring will change the player's dash count.\n- Set: sets the player's dash count to the given amount.\n- Add: adds the given amount of dashes to the player's dash count.\n- AddCapped: adds the given amount of dashes to the player's dash count, without going beyond the "Dash Count Cap" option.\nIt will not remove dashes from the player if they have more than the cap, though.
+entities.MaxHelpingHand/CustomDashRefillSpringRight.attributes.description.mode=Determines how the spring will change the player's dash count.\n- Set: sets the player's dash count to the given amount.\n- Add: adds the given amount of dashes to the player's dash count.\n- AddCapped: adds the given amount of dashes to the player's dash count, without going beyond the "Dash Count Cap" option.\nIt will not remove dashes from the player if they have more than the cap, though.
+
 # One-Way Invisible Barrier (Horizontal)
 entities.MaxHelpingHand/OneWayInvisibleBarrierHorizontal.placements.name.left=One-Way Invisible Barrier (Left)
 entities.MaxHelpingHand/OneWayInvisibleBarrierHorizontal.placements.name.right=One-Way Invisible Barrier (Right)
