@@ -66,8 +66,9 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             }
 
             // add a multi-node moving platform, pass the platform settings to it, and attach the bumper to it.
-            StaticMover staticMover = new StaticMover() {
-                OnMove = move => SidewaysJumpthruOnMove(this, playerInteractingSolid, left, move)
+            StaticMover staticMover = new StaticMoverWithLiftSpeed() {
+                OnMove = move => SidewaysJumpthruOnMove(this, playerInteractingSolid, left, move),
+                OnSetLiftSpeed = liftSpeed => playerInteractingSolid.LiftSpeed = liftSpeed
             };
             Add(staticMover);
             animatingPlatform = new MultiNodeMovingPlatform(thisEntityData, thisOffset, otherPlatform => {
@@ -78,8 +79,9 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
                     Scene.Add(otherSidewaysPlatform);
 
                     // ... and attach it to that new platform.
-                    StaticMover otherStaticMover = new StaticMover() {
-                        OnMove = move => SidewaysJumpthruOnMove(otherSidewaysPlatform, otherSidewaysPlatform.playerInteractingSolid, otherSidewaysPlatform.left, move)
+                    StaticMover otherStaticMover = new StaticMoverWithLiftSpeed() {
+                        OnMove = move => SidewaysJumpthruOnMove(otherSidewaysPlatform, otherSidewaysPlatform.playerInteractingSolid, otherSidewaysPlatform.left, move),
+                        OnSetLiftSpeed = liftSpeed => otherSidewaysPlatform.playerInteractingSolid.LiftSpeed = liftSpeed
                     };
                     otherSidewaysPlatform.Add(otherStaticMover);
                     otherPlatform.AnimateObject(otherStaticMover, forcedTrackOffset: new Vector2(Width + 4f, Height) / 2f);
@@ -130,9 +132,10 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
                 }
             }
 
-            // move the hidden solid. If it is solid, it will push the player and carry them if they climb the platform.
-            playerInteractingSolid.MoveH(move.X);
-            playerInteractingSolid.MoveV(move.Y);
+            // move the hidden solid, keeping its lift speed. If it is solid, it will push the player and carry them if they climb the platform.
+            Vector2 liftSpeed = playerInteractingSolid.LiftSpeed;
+            playerInteractingSolid.MoveH(move.X, liftSpeed.X);
+            playerInteractingSolid.MoveV(move.Y, liftSpeed.Y);
             playerInteractingSolid.Collidable = false;
 
             // restore the riders; skip those that were also riding the platform, to avoid a double move.

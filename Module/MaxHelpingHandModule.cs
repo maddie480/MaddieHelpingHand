@@ -73,6 +73,7 @@ namespace Celeste.Mod.MaxHelpingHand.Module {
             SetBloomStrengthTrigger.Load();
             InstantLavaBlockerTrigger.Load();
             MadelineSprite.Load();
+            StaticMoverWithLiftSpeed.Load();
 
             Everest.Events.Level.OnLoadBackdrop += onLoadBackdrop;
             On.Celeste.Mod.Everest.Register += onModRegister;
@@ -126,6 +127,7 @@ namespace Celeste.Mod.MaxHelpingHand.Module {
             SetBloomStrengthTrigger.Unload();
             InstantLavaBlockerTrigger.Unload();
             MadelineSprite.Unload();
+            StaticMoverWithLiftSpeed.Unload();
 
             Everest.Events.Level.OnLoadBackdrop -= onLoadBackdrop;
             On.Celeste.Mod.Everest.Register -= onModRegister;

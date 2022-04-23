@@ -27,10 +27,11 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             }
 
             // create the StaticMover that will make this jumpthru attached.
-            StaticMover staticMover = new StaticMover() {
+            StaticMover staticMover = new StaticMoverWithLiftSpeed() {
                 SolidChecker = solid => solid.CollideRect(new Rectangle((int) X, (int) Y - 1, (int) Width, (int) Height + 2)),
                 OnMove = move => SidewaysMovingPlatform.SidewaysJumpthruOnMove(this, playerInteractingSolid, Left, move),
-                OnShake = shake => SidewaysMovingPlatform.SidewaysJumpthruOnMove(this, playerInteractingSolid, Left, shake)
+                OnShake = shake => SidewaysMovingPlatform.SidewaysJumpthruOnMove(this, playerInteractingSolid, Left, shake),
+                OnSetLiftSpeed = liftSpeed => playerInteractingSolid.LiftSpeed = liftSpeed
             };
             Add(staticMover);
         }
