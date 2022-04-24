@@ -74,6 +74,7 @@ namespace Celeste.Mod.MaxHelpingHand.Module {
             InstantLavaBlockerTrigger.Load();
             MadelineSprite.Load();
             StaticMoverWithLiftSpeed.Load();
+            SpinnerBreakingBall.Load();
 
             Everest.Events.Level.OnLoadBackdrop += onLoadBackdrop;
             On.Celeste.Mod.Everest.Register += onModRegister;
@@ -128,6 +129,7 @@ namespace Celeste.Mod.MaxHelpingHand.Module {
             InstantLavaBlockerTrigger.Unload();
             MadelineSprite.Unload();
             StaticMoverWithLiftSpeed.Unload();
+            SpinnerBreakingBall.Unload();
 
             Everest.Events.Level.OnLoadBackdrop -= onLoadBackdrop;
             On.Celeste.Mod.Everest.Register -= onModRegister;

@@ -904,3 +904,12 @@ entities.MaxHelpingHand/MadelineSprite.placements.name.player=Madeline Sprite
 entities.MaxHelpingHand/MadelineSprite.attributes.description.hasBackpack=Whether the Madeline sprite should have a backpack.
 entities.MaxHelpingHand/MadelineSprite.attributes.description.left=Whether the Madeline sprite should face left.
 entities.MaxHelpingHand/MadelineSprite.attributes.description.dashCount=The dash count Madeline has. Determines Madeline's hair color.
+
+# Spinner Breaking Ball
+entities.MaxHelpingHand/SpinnerBreakingBall.placements.name.blue=Spinner Breaking Ball (Blue)
+entities.MaxHelpingHand/SpinnerBreakingBall.placements.name.red=Spinner Breaking Ball (Red)
+entities.MaxHelpingHand/SpinnerBreakingBall.placements.name.purple=Spinner Breaking Ball (Purple)
+entities.MaxHelpingHand/SpinnerBreakingBall.placements.name.rainbow=Spinner Breaking Ball (Rainbow)
+entities.MaxHelpingHand/SpinnerBreakingBall.attributes.description.color=The color of the spinners this ball is able to break.
+entities.MaxHelpingHand/SpinnerBreakingBall.attributes.description.spritePath=The sprite this ball should use, from your mod's Graphics/Atlases/Gameplay folder.\nContributions for proper default sprites are welcome.
+entities.MaxHelpingHand/SpinnerBreakingBall.attributes.description.startFloating=Whether the ball should float in mid-air until the player picks it up.

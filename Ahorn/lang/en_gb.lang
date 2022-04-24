@@ -825,3 +825,8 @@ placements.triggers.MaxHelpingHand/InstantLavaBlockerTrigger.tooltips.canReenter
 placements.entities.MaxHelpingHand/MadelineSprite.tooltips.hasBackpack=Whether the Madeline sprite should have a backpack.
 placements.entities.MaxHelpingHand/MadelineSprite.tooltips.left=Whether the Madeline sprite should face left.
 placements.entities.MaxHelpingHand/MadelineSprite.tooltips.dashCount=The dash count Madeline has. Determines Madeline's hair color.
+
+# Spinner Breaking Ball
+placements.entities.MaxHelpingHand/SpinnerBreakingBall.tooltips.color=The color of the spinners this ball is able to break.
+placements.entities.MaxHelpingHand/SpinnerBreakingBall.tooltips.spritePath=The sprite this ball should use, from your mod's Graphics/Atlases/Gameplay folder.\nContributions for proper default sprites are welcome.
+placements.entities.MaxHelpingHand/SpinnerBreakingBall.tooltips.startFloating=Whether the ball should float in mid-air until the player picks it up.
