@@ -24,6 +24,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
         private string flag;
         private bool moveLater;
         private bool emitSound;
+        private bool giveHorizontalBoost;
 
         private MTexture[] textures;
         private float[] nodePercentages;
@@ -38,6 +39,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
         private float percent;
         private int direction = 1;
         private bool teleporting = false;
+        private bool movingHorizontally = false;
 
         // sinking effect status tracking
         private float addY;
@@ -74,6 +76,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             flag = data.Attr("flag");
             moveLater = data.Bool("moveLater", false);
             emitSound = data.Bool("emitSound", defaultValue: true);
+            giveHorizontalBoost = data.Bool("giveHorizontalBoost", defaultValue: false);
 
             entityProperties = data.Values;
             entityPosition = data.Position;
@@ -270,6 +273,37 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             sinkTimer = 0.4f;
         }
 
+        public override void MoveHExact(int move) {
+            if (!giveHorizontalBoost || !movingHorizontally) {
+                // do not change the vanilla behavior
+                base.MoveHExact(move);
+                return;
+            }
+
+            // a slightly edited version of vanilla's MoveHExact, edited to give lift boost like MoveVExact does.
+            // (pulled from Vortex Helper's Attached Jump Thrus)
+
+            if (Collidable) {
+                foreach (Actor entity in Scene.Tracker.GetEntities<Actor>()) {
+                    if (entity.IsRiding(this)) {
+                        Collidable = false;
+
+                        if (entity.TreatNaive) {
+                            entity.NaiveMove(Vector2.UnitX * move);
+                        } else {
+                            entity.MoveHExact(move);
+                        }
+
+                        entity.LiftSpeed = LiftSpeed;
+                        Collidable = true;
+                    }
+                }
+            }
+
+            X += move;
+            MoveStaticMovers(Vector2.UnitX * move);
+        }
+
         /// <summary>
         /// Makes this platform animate another entity, instead of ... serving as a platform.
         /// </summary>
@@ -402,6 +436,8 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
         }
 
         private void moveToPosition(Vector2 position) {
+            movingHorizontally = (position.Y == ExactPosition.Y);
+
             if (teleporting) {
                 MoveToNaive(position);
             } else {

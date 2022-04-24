@@ -361,6 +361,7 @@ entities.MaxHelpingHand/MultiNodeMovingPlatform.attributes.description.offset=An
 entities.MaxHelpingHand/MultiNodeMovingPlatform.attributes.description.flag=If specified, the platform will only move when the specified flag is active.
 entities.MaxHelpingHand/MultiNodeMovingPlatform.attributes.description.moveLater=If checked, objects like spikes will attach to the platform before it is moved to the offset.
 entities.MaxHelpingHand/MultiNodeMovingPlatform.attributes.description.emitSound=Whether the platform should emit sound when moving.
+entities.MaxHelpingHand/MultiNodeMovingPlatform.attributes.description.giveHorizontalBoost=Whether the platform should give the player a horizontal boost when moving purely horizontally, unlike vanilla moving platforms.
 
 # Multi-Room Strawberry
 entities.MaxHelpingHand/MultiRoomStrawberry.placements.name.normal=Multi-Room Strawberry

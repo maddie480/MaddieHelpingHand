@@ -27,7 +27,8 @@ for i, texture in ipairs(textures) do
             offset = 0.0,
             flag = "",
             moveLater = true,
-            emitSound = true
+            emitSound = true,
+            giveHorizontalBoost = false
         }
     }
 end

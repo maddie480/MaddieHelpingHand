@@ -465,6 +465,7 @@ placements.entities.MaxHelpingHand/MultiNodeMovingPlatform.tooltips.offset=An of
 placements.entities.MaxHelpingHand/MultiNodeMovingPlatform.tooltips.flag=If specified, the platform will only move when the specified flag is active.
 placements.entities.MaxHelpingHand/MultiNodeMovingPlatform.tooltips.moveLater=If checked, objects like spikes will attach to the platform before it is moved to the offset.
 placements.entities.MaxHelpingHand/MultiNodeMovingPlatform.tooltips.emitSound=Whether the platform should emit sound when moving.
+placements.entities.MaxHelpingHand/MultiNodeMovingPlatform.tooltips.giveHorizontalBoost=Whether the platform should give the player a horizontal boost when moving purely horizontally, unlike vanilla moving platforms.
 
 # Upside-Down Moving Platform
 placements.entities.MaxHelpingHand/UpsideDownMovingPlatform.tooltips.moveTime=The time the platform takes to move between two successive positions. Default is 2 seconds.
