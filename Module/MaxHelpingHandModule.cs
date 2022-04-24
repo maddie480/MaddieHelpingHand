@@ -159,6 +159,7 @@ namespace Celeste.Mod.MaxHelpingHand.Module {
             MovingFlagTouchSwitch.HookMods();
             MadelinePonytailTrigger.LoadContent();
             InstantLavaBlockerTrigger.HookMods();
+            MadelineSprite.HookMods();
 
             if (!hookedSineParallax && Everest.Loader.DependencyLoaded(new EverestModuleMetadata() { Name = "FlaglinesAndSuch", Version = new Version(1, 4, 17) })) {
                 hookSineParallax();
