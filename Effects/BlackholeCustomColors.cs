@@ -45,6 +45,8 @@ namespace Celeste.Mod.MaxHelpingHand.Effects {
                 && !effectData.Attr("bgColorOuterMild").Contains("|")
                 && !effectData.Attr("bgColorOuterWild").Contains("|")
                 && effectData.AttrBool("affectedByWind", true)
+                && effectData.AttrFloat("additionalWindX", 0f) == 0f
+                && effectData.AttrFloat("additionalWindY", 0f) == 0f
                 && string.IsNullOrEmpty(effectData.Attr("fadex"))
                 && string.IsNullOrEmpty(effectData.Attr("fadey"))) {
 
@@ -66,6 +68,7 @@ namespace Celeste.Mod.MaxHelpingHand.Effects {
                 blackholeData["bgColorOuterMild"] = Calc.HexToColor(effectData.Attr("bgColorOuterMild", "512a8b"));
                 blackholeData["bgColorOuterWild"] = Calc.HexToColor(effectData.Attr("bgColorOuterWild", "bd2192"));
                 blackhole.Alpha = effectData.AttrFloat("alpha", 1f);
+                blackhole.Direction = effectData.AttrFloat("direction", 1f);
 
                 return blackhole;
             } else {
@@ -81,7 +84,8 @@ namespace Celeste.Mod.MaxHelpingHand.Effects {
                     effectData.Attr("bgColorInner", "000000"),
                     effectData.Attr("bgColorOuterMild", "512a8b"),
                     effectData.Attr("bgColorOuterWild", "bd2192"),
-                    effectData.AttrBool("affectedByWind", true));
+                    effectData.AttrBool("affectedByWind", true),
+                    new Vector2(effectData.AttrFloat("additionalWindX", 0f), effectData.AttrFloat("additionalWindY", 0f)));
 
                 // ... now we've got to set the initial values of everything else.
                 blackhole.blackholeData["colorsWild"] = blackhole.cycleColorsWild.GetColors();
@@ -89,6 +93,7 @@ namespace Celeste.Mod.MaxHelpingHand.Effects {
                 blackhole.blackholeData["bgColorOuterMild"] = blackhole.cycleBgColorOuterMild.GetColors()[0];
                 blackhole.blackholeData["bgColorOuterWild"] = blackhole.cycleBgColorOuterWild.GetColors()[0];
                 blackhole.Alpha = effectData.AttrFloat("alpha", 1f);
+                blackhole.Direction = effectData.AttrFloat("direction", 1f);
 
                 return blackhole;
             }
@@ -174,8 +179,11 @@ namespace Celeste.Mod.MaxHelpingHand.Effects {
         private readonly ColorCycle cycleBgColorOuterWild;
 
         private readonly bool affectedByWind;
+        private readonly Vector2 additionalWind;
 
-        public BlackholeCustomColors(string colorsMild, string colorsWild, string bgColorInner, string bgColorOuterMild, string bgColorOuterWild, bool affectedByWind) : base() {
+        public BlackholeCustomColors(string colorsMild, string colorsWild, string bgColorInner, string bgColorOuterMild, string bgColorOuterWild,
+            bool affectedByWind, Vector2 additionalWind) : base() {
+
             blackholeData = new DynData<BlackholeBG>(this);
 
             // parse all color cycles.
@@ -186,17 +194,21 @@ namespace Celeste.Mod.MaxHelpingHand.Effects {
             cycleBgColorOuterWild = new ColorCycle(bgColorOuterWild);
 
             this.affectedByWind = affectedByWind;
+            this.additionalWind = additionalWind;
         }
 
         public override void Update(Scene scene) {
-            if (affectedByWind) {
+            if (affectedByWind && additionalWind == Vector2.Zero) {
                 base.Update(scene);
             } else {
                 Level level = scene as Level;
 
-                // remove wind
+                // remove and/or modify wind
                 Vector2 bakWind = level.Wind;
-                level.Wind = Vector2.Zero;
+                if (!affectedByWind) {
+                    level.Wind = Vector2.Zero;
+                }
+                level.Wind += additionalWind;
 
                 base.Update(scene);
 
