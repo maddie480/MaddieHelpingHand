@@ -8,11 +8,13 @@ using MonoMod.RuntimeDetour;
 using MonoMod.Utils;
 using System;
 using System.Linq;
+using System.Reflection;
 
 namespace Celeste.Mod.MaxHelpingHand.Entities {
     [CustomEntity("MaxHelpingHand/MadelineSprite")]
     public class MadelineSprite : Player {
         private static ILHook hyperlineHook;
+        private static MethodInfo moreDashelinePlayerUpdateHook;
 
         public static void Load() {
             IL.Celeste.Player.UpdateHair += onUpdateHair;
@@ -29,6 +31,11 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             if (hyperlineHook == null && Everest.Loader.DependencyLoaded(new EverestModuleMetadata { Name = "Hyperline", Version = new Version(0, 2, 4) })) {
                 Type hyperlineModule = Everest.Modules.FirstOrDefault(module => module.GetType().ToString() == "Celeste.Mod.Hyperline.Hyperline")?.GetType();
                 hyperlineHook = new ILHook(hyperlineModule.GetMethod("GetHairColor"), modHyperlineHairFlash);
+            }
+
+            if (moreDashelinePlayerUpdateHook == null && Everest.Loader.DependencyLoaded(new EverestModuleMetadata { Name = "MoreDasheline", Version = new Version(1, 6, 5) })) {
+                moreDashelinePlayerUpdateHook = Everest.Modules.FirstOrDefault(module => module.GetType().ToString() == "MoreDasheline.MoreDashelineModule")
+                    .GetType().GetMethod("Player_Update", BindingFlags.NonPublic | BindingFlags.Instance);
             }
         }
 
@@ -110,8 +117,16 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
         public override void Added(Scene scene) {
             base.Added(scene);
 
-            // initialize the hair color.
             Dashes = dashCount;
+
+            // invoke More Dasheline if it is installed, to let it set hair color.
+            if (moreDashelinePlayerUpdateHook != null) {
+                EverestModule moreDashelineModule = Everest.Modules.FirstOrDefault(module => module.GetType().ToString() == "MoreDasheline.MoreDashelineModule");
+                On.Celeste.Player.orig_Update fakeOrig = (player) => { };
+                moreDashelinePlayerUpdateHook.Invoke(moreDashelineModule, new object[] { fakeOrig, this });
+            }
+
+            // initialize the hair color.
             new DynData<Player>(this)["lastDashes"] = dashCount;
             UpdateHair(true);
         }
