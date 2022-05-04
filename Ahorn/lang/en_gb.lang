@@ -833,3 +833,8 @@ placements.entities.MaxHelpingHand/MadelineSprite.tooltips.dashCount=The dash co
 placements.entities.MaxHelpingHand/SpinnerBreakingBall.tooltips.color=The color of the spinners this ball is able to break.
 placements.entities.MaxHelpingHand/SpinnerBreakingBall.tooltips.spritePath=The sprite this ball should use, from your mod's Graphics/Atlases/Gameplay folder.\nContributions for proper default sprites are welcome.
 placements.entities.MaxHelpingHand/SpinnerBreakingBall.tooltips.startFloating=Whether the ball should float in mid-air until the player picks it up.
+
+# Styleground Fade Controller
+placements.entities.MaxHelpingHand/StylegroundFadeController.tooltips.flag=This controller will affect the stylegrounds that have this flag in their "Flag" field.\nThe stylegrounds should be toggled by this flag, not with room names for example.
+placements.entities.MaxHelpingHand/StylegroundFadeController.tooltips.fadeInTime=The time it will take for the parallax stylegrounds to fully fade in, in seconds. Vanilla value is 1 second.
+placements.entities.MaxHelpingHand/StylegroundFadeController.tooltips.fadeOutTime=The time it will take for the parallax stylegrounds to fully fade out, in seconds. Vanilla stylegrounds don't fade out.
