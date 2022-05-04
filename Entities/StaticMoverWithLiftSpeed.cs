@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Monocle;
 using System;
+using System.Collections.Generic;
 
 namespace Celeste.Mod.MaxHelpingHand.Entities {
     /// <summary>
@@ -11,7 +12,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
     public class StaticMoverWithLiftSpeed : StaticMover {
         public Action<Vector2> OnSetLiftSpeed;
 
-        private static Platform currentPlatform;
+        private static LinkedList<Platform> currentPlatforms = new LinkedList<Platform>();
 
         public static void Load() {
             On.Celeste.Platform.MoveStaticMovers += onMoveStaticMovers;
@@ -24,14 +25,14 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
         }
 
         private static void onMoveStaticMovers(On.Celeste.Platform.orig_MoveStaticMovers orig, Platform self, Vector2 amount) {
-            currentPlatform = self;
+            currentPlatforms.AddLast(self);
             orig(self, amount);
-            currentPlatform = null;
+            currentPlatforms.RemoveLast();
         }
 
         private static void onStaticMoverMove(On.Celeste.StaticMover.orig_Move orig, StaticMover self, Vector2 amount) {
             if (self is StaticMoverWithLiftSpeed staticMover) {
-                staticMover.OnSetLiftSpeed?.Invoke(currentPlatform.LiftSpeed);
+                staticMover.OnSetLiftSpeed?.Invoke(currentPlatforms.Last.Value.LiftSpeed);
             }
 
             orig(self, amount);
