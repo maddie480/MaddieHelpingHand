@@ -5,7 +5,7 @@ using MonoMod.Utils;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Celeste.Mod.MaxHelpingHand {
+namespace Celeste.Mod.MaxHelpingHand.Entities {
     [CustomEntity("MaxHelpingHand/SpinnerBreakingBall")]
     public class SpinnerBreakingBall : TheoCrystal {
         public static void Load() {
