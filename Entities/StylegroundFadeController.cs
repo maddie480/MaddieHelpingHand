@@ -18,6 +18,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
         private static Dictionary<string, float> fades = new Dictionary<string, float>();
         private static Dictionary<string, float> fadeInTimes = new Dictionary<string, float>();
         private static Dictionary<string, float> fadeOutTimes = new Dictionary<string, float>();
+        private static Dictionary<string, StylegroundFadeController> controllers = new Dictionary<string, StylegroundFadeController>();
 
         private static VirtualRenderTarget tempRenderTarget = null;
 
@@ -47,6 +48,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             fades[flag] = SceneAs<Level>().Session.GetFlag(flag) ? 1 : 0;
             fadeInTimes[flag] = fadeInTime;
             fadeOutTimes[flag] = fadeOutTime;
+            controllers[flag] = this;
         }
 
         public override void Removed(Scene scene) {
@@ -60,10 +62,14 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
         }
 
         private void deregisterFlag() {
-            // deregister the current flag settings.
-            fades.Remove(flag);
-            fadeInTimes.Remove(flag);
-            fadeOutTimes.Remove(flag);
+            // first, make sure there isn't another controller that took the flag over.
+            if (controllers[flag] == this) {
+                // deregister the current flag settings.
+                fades.Remove(flag);
+                fadeInTimes.Remove(flag);
+                fadeOutTimes.Remove(flag);
+                controllers.Remove(flag);
+            }
 
             // if there is no flag settings left, disable the hooks on backdrop rendering.
             if (fades.Count == 0) {
