@@ -18,8 +18,12 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
         private static bool cherryHelperHooked = false;
         private static bool sardine7Hooked = false;
 
+        private static bool kevinBarriersAreCollidable = false;
+
         public static void Load() {
             On.Celeste.LevelLoader.LoadingThread += onLevelLoadingThread;
+            On.Celeste.Actor.MoveHExact += onActorMoveHExact;
+            On.Celeste.Actor.MoveVExact += onActorMoveVExact;
 
             hookKevin(typeof(CrushBlock));
         }
@@ -78,6 +82,8 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
 
         public static void Unload() {
             On.Celeste.LevelLoader.LoadingThread -= onLevelLoadingThread;
+            On.Celeste.Actor.MoveHExact -= onActorMoveHExact;
+            On.Celeste.Actor.MoveVExact -= onActorMoveVExact;
 
             foreach (Hook h in allSetHooks) {
                 h.Dispose();
@@ -99,6 +105,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
         }
 
         private static bool onKevinMoveHCheck(Func<Solid, float, bool> orig, Solid self, float amount) {
+            kevinBarriersAreCollidable = true;
             IEnumerable<KevinBarrier> kevinBarriers = self.Scene.Tracker.GetEntities<KevinBarrier>().OfType<KevinBarrier>();
             foreach (KevinBarrier barrier in kevinBarriers) {
                 barrier.Collidable = true;
@@ -113,6 +120,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
                 });
             }
 
+            kevinBarriersAreCollidable = false;
             foreach (KevinBarrier barrier in kevinBarriers) {
                 barrier.Collidable = false;
             }
@@ -120,6 +128,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
         }
 
         private static bool onKevinMoveVCheck(Func<Solid, float, bool> orig, Solid self, float amount) {
+            kevinBarriersAreCollidable = true;
             IEnumerable<KevinBarrier> kevinBarriers = self.Scene.Tracker.GetEntities<KevinBarrier>().OfType<KevinBarrier>();
             foreach (KevinBarrier barrier in kevinBarriers) {
                 barrier.Collidable = true;
@@ -134,10 +143,44 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
                 }, checkBottom: false);
             }
 
+            kevinBarriersAreCollidable = false;
             foreach (KevinBarrier barrier in kevinBarriers) {
                 barrier.Collidable = false;
             }
             return isHit;
+        }
+
+        private static bool onActorMoveHExact(On.Celeste.Actor.orig_MoveHExact orig, Actor self, int moveH, Collision onCollide, Solid pusher) {
+            if (!kevinBarriersAreCollidable) {
+                return orig(self, moveH, onCollide, pusher);
+            }
+
+            // make sure the barriers are not collidable while actors are being moved.
+            return turnOffBarrierCollisionThenRun(self, () => orig(self, moveH, onCollide, pusher));
+        }
+
+        private static bool onActorMoveVExact(On.Celeste.Actor.orig_MoveVExact orig, Actor self, int moveV, Collision onCollide, Solid pusher) {
+            if (!kevinBarriersAreCollidable) {
+                return orig(self, moveV, onCollide, pusher);
+            }
+
+            // make sure the barriers are not collidable while actors are being moved.
+            return turnOffBarrierCollisionThenRun(self, () => orig(self, moveV, onCollide, pusher));
+        }
+
+        private static bool turnOffBarrierCollisionThenRun(Actor self, Func<bool> function) {
+            IEnumerable<KevinBarrier> kevinBarriers = self.Scene.Tracker.GetEntities<KevinBarrier>().OfType<KevinBarrier>();
+            foreach (KevinBarrier barrier in kevinBarriers) {
+                barrier.Collidable = false;
+            }
+
+            bool result = function();
+
+            foreach (KevinBarrier barrier in kevinBarriers) {
+                barrier.Collidable = true;
+            }
+
+            return result;
         }
 
         private float flash = 0f;
