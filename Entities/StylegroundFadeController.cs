@@ -22,12 +22,12 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
 
         private static VirtualRenderTarget tempRenderTarget = null;
 
-        private string flag;
+        private string[] flags;
         private float fadeInTime;
         private float fadeOutTime;
 
         public StylegroundFadeController(EntityData data, Vector2 offset) : base(data.Position + offset) {
-            flag = data.Attr("flag");
+            flags = data.Attr("flag").Split(',');
             fadeInTime = data.Float("fadeInTime");
             fadeOutTime = data.Float("fadeOutTime");
         }
@@ -44,11 +44,13 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
                 tempRenderTarget = VirtualContent.CreateRenderTarget("max-helping-hand-styleground-fade-controller", 320, 280);
             }
 
-            // register the current flag settings so that the renderer can pick them.
-            fades[flag] = SceneAs<Level>().Session.GetFlag(flag) ? 1 : 0;
-            fadeInTimes[flag] = fadeInTime;
-            fadeOutTimes[flag] = fadeOutTime;
-            controllers[flag] = this;
+            foreach (string flag in flags) {
+                // register the current flag settings so that the renderer can pick them.
+                fades[flag] = SceneAs<Level>().Session.GetFlag(flag) ? 1 : 0;
+                fadeInTimes[flag] = fadeInTime;
+                fadeOutTimes[flag] = fadeOutTime;
+                controllers[flag] = this;
+            }
         }
 
         public override void Removed(Scene scene) {
@@ -62,13 +64,15 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
         }
 
         private void deregisterFlag() {
-            // first, make sure there isn't another controller that took the flag over.
-            if (controllers[flag] == this) {
-                // deregister the current flag settings.
-                fades.Remove(flag);
-                fadeInTimes.Remove(flag);
-                fadeOutTimes.Remove(flag);
-                controllers.Remove(flag);
+            foreach (string flag in flags) {
+                // first, make sure there isn't another controller that took the flag over.
+                if (controllers[flag] == this) {
+                    // deregister the current flag settings.
+                    fades.Remove(flag);
+                    fadeInTimes.Remove(flag);
+                    fadeOutTimes.Remove(flag);
+                    controllers.Remove(flag);
+                }
             }
 
             // if there is no flag settings left, disable the hooks on backdrop rendering.
@@ -82,9 +86,9 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             }
         }
 
-        private bool modBackdropIsVisible(On.Celeste.Backdrop.orig_IsVisible orig, Backdrop self, Level level) {
+        private static bool modBackdropIsVisible(On.Celeste.Backdrop.orig_IsVisible orig, Backdrop self, Level level) {
             // force the backdrops that did not fade out yet to be visible, so that the player can see them fade out.
-            if (fades.ContainsKey(self.OnlyIfFlag) && fades[self.OnlyIfFlag] > 0) {
+            if (self.OnlyIfFlag != null && fades.ContainsKey(self.OnlyIfFlag) && fades[self.OnlyIfFlag] > 0) {
                 return true;
             }
 
@@ -109,7 +113,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             }
         }
 
-        private void modBackdropRendererRender(ILContext il) {
+        private static void modBackdropRendererRender(ILContext il) {
             ILCursor cursor = new ILCursor(il);
 
             VariableDefinition blendStateLocal = null;
@@ -135,7 +139,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
                 cursor.Emit(OpCodes.Ldloc, backdropLocal);
                 cursor.Emit(OpCodes.Ldloc, blendStateLocal);
                 cursor.EmitDelegate<Action<BackdropRenderer, Backdrop, BlendState>>((self, backdrop, blendState) => {
-                    if (fades.ContainsKey(backdrop.OnlyIfFlag) && fades[backdrop.OnlyIfFlag] < 1) {
+                    if (backdrop.OnlyIfFlag != null && fades.ContainsKey(backdrop.OnlyIfFlag) && fades[backdrop.OnlyIfFlag] < 1) {
                         self.EndSpritebatch();
 
                         Engine.Graphics.GraphicsDevice.SetRenderTarget(tempRenderTarget);
@@ -154,7 +158,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
                 cursor.Emit(OpCodes.Ldloc, backdropLocal);
                 cursor.Emit(OpCodes.Ldloc, blendStateLocal);
                 cursor.EmitDelegate<Action<BackdropRenderer, Backdrop, BlendState>>((self, backdrop, blendState) => {
-                    if (fades.ContainsKey(backdrop.OnlyIfFlag) && fades[backdrop.OnlyIfFlag] < 1) {
+                    if (backdrop.OnlyIfFlag != null && fades.ContainsKey(backdrop.OnlyIfFlag) && fades[backdrop.OnlyIfFlag] < 1) {
                         self.EndSpritebatch();
 
                         Engine.Graphics.GraphicsDevice.SetRenderTarget(GameplayBuffers.Level);

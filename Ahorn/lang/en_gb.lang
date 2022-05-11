@@ -835,6 +835,7 @@ placements.entities.MaxHelpingHand/SpinnerBreakingBall.tooltips.spritePath=The s
 placements.entities.MaxHelpingHand/SpinnerBreakingBall.tooltips.startFloating=Whether the ball should float in mid-air until the player picks it up.
 
 # Styleground Fade Controller
-placements.entities.MaxHelpingHand/StylegroundFadeController.tooltips.flag=This controller will affect the stylegrounds that have this flag in their "Flag" field.\nThe stylegrounds should be toggled by this flag, not with room names for example.
+placements.entities.MaxHelpingHand/StylegroundFadeController.names.flag=Flags
+placements.entities.MaxHelpingHand/StylegroundFadeController.tooltips.flag=This controller will affect the stylegrounds that have one of these flags in their "Flag" field.\nThe stylegrounds should be toggled by one flag only, not with room names for example.\nIf you specify multiple flags separated by commas, it will work the same as placing multiple controllers with one flag each.
 placements.entities.MaxHelpingHand/StylegroundFadeController.tooltips.fadeInTime=The time it will take for the parallax stylegrounds to fully fade in, in seconds. Vanilla value is 1 second.
 placements.entities.MaxHelpingHand/StylegroundFadeController.tooltips.fadeOutTime=The time it will take for the parallax stylegrounds to fully fade out, in seconds. Vanilla stylegrounds don't fade out.
