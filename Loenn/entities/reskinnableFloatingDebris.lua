@@ -9,13 +9,14 @@ floatingDebris.placements = {
     name = "floating_debris",
     data = {
         texture = "scenery/debris",
-        depth = -5
+        depth = -5,
+        interactWithPlayer = true
     }
 }
 
 floatingDebris.fieldInformation = {
-    fadeOutTint = {
-        depth = "integer"
+    depth = {
+        fieldType = "integer"
     }
 }
 

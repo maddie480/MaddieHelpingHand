@@ -19,6 +19,8 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             floatingDebrisSkin = null;
             floatingDebrisDepth = null;
 
+            debris.Collidable = entityData.Bool("interactWithPlayer", defaultValue: true);
+
             return debris;
         }
 
