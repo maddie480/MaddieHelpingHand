@@ -75,6 +75,7 @@ namespace Celeste.Mod.MaxHelpingHand.Module {
             MadelineSprite.Load();
             StaticMoverWithLiftSpeed.Load();
             SpinnerBreakingBall.Load();
+            ReskinnableCrystalHeart.Load();
 
             Everest.Events.Level.OnLoadBackdrop += onLoadBackdrop;
             On.Celeste.Mod.Everest.Register += onModRegister;
@@ -130,6 +131,7 @@ namespace Celeste.Mod.MaxHelpingHand.Module {
             MadelineSprite.Unload();
             StaticMoverWithLiftSpeed.Unload();
             SpinnerBreakingBall.Unload();
+            ReskinnableCrystalHeart.Unload();
 
             Everest.Events.Level.OnLoadBackdrop -= onLoadBackdrop;
             On.Celeste.Mod.Everest.Register -= onModRegister;
