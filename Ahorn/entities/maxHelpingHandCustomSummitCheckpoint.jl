@@ -3,7 +3,7 @@
 using ..Ahorn, Maple
 
 @mapdef Entity "MaxHelpingHand/CustomSummitCheckpoint" CustomSummitCheckpoint(x::Integer, y::Integer, firstDigit::String="zero", secondDigit::String="zero",
-    spriteDirectory::String="MaxHelpingHand/summitcheckpoints", confettiColors::String="fe2074,205efe,cefe20")
+    spriteDirectory::String="MaxHelpingHand/summitcheckpoints", confettiColors::String="fe2074,205efe,cefe20", groupFlag::String="")
 
 const placements = Ahorn.PlacementDict(
     "Custom Summit Checkpoint (max480's Helping Hand)" => Ahorn.EntityPlacement(

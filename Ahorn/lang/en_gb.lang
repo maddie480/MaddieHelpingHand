@@ -134,6 +134,7 @@ placements.entities.MaxHelpingHand/CustomSummitCheckpoint.tooltips.firstDigit=Th
 placements.entities.MaxHelpingHand/CustomSummitCheckpoint.tooltips.secondDigit=The second digit to display. (You can make your own by dropping textures in the Graphics/Atlases/Gameplay/(Sprite Directory setting)/texturename folder.)
 placements.entities.MaxHelpingHand/CustomSummitCheckpoint.tooltips.spriteDirectory=The directory that contains the sprites for the checkpoint, including the base and the digits.
 placements.entities.MaxHelpingHand/CustomSummitCheckpoint.tooltips.confettiColors=The colors of the confetti the summit checkpoint will emit when triggered, separated by commas.
+placements.entities.MaxHelpingHand/CustomSummitCheckpoint.tooltips.groupFlag=If set, the summit checkpoint will set the given session flag when activated by the player, and all other checkpoints with the same flag will activate along with it.
 
 # Respawning Jellyfish
 placements.entities.MaxHelpingHand/RespawningJellyfish.tooltips.bubble=Whether the entity should hover in the air before being grabbed.

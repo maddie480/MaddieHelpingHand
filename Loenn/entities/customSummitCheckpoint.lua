@@ -11,7 +11,8 @@ summitCheckpoint.placements = {
         firstDigit = "zero",
         secondDigit = "zero",
         spriteDirectory = "MaxHelpingHand/summitcheckpoints",
-        confettiColors = "fe2074,205efe,cefe20"
+        confettiColors = "fe2074,205efe,cefe20",
+        groupFlag = ""
     }
 }
 

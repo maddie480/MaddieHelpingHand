@@ -2,7 +2,7 @@
 
 This helper provides a few entities and triggers that were requested, and that could be useful for other people as well.  
 
-Download it [here!](https://0x0a.de/twoclick?https://gamebanana.com/mmdl/799516)
+Download it [here!](https://0x0a.de/twoclick?https://gamebanana.com/mmdl/802999)
 
 Check the Mod Resources wiki for a list of features:  
 - [New entities](https://github.com/EverestAPI/ModResources/wiki/Helping-Hand-Entities)

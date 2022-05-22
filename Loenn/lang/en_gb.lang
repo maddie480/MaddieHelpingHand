@@ -108,6 +108,7 @@ entities.MaxHelpingHand/CustomSummitCheckpoint.attributes.description.firstDigit
 entities.MaxHelpingHand/CustomSummitCheckpoint.attributes.description.secondDigit=The second digit to display. (You can make your own by dropping textures in the Graphics/Atlases/Gameplay/(Sprite Directory setting)/texturename folder.)
 entities.MaxHelpingHand/CustomSummitCheckpoint.attributes.description.spriteDirectory=The directory that contains the sprites for the checkpoint, including the base and the digits.
 entities.MaxHelpingHand/CustomSummitCheckpoint.attributes.description.confettiColors=The colors of the confetti the summit checkpoint will emit when triggered, separated by commas.
+entities.MaxHelpingHand/CustomSummitCheckpoint.attributes.description.groupFlag=If set, the summit checkpoint will set the given session flag when activated by the player, and all other checkpoints with the same flag will activate along with it.
 
 # Custom Tutorial with No Bird
 entities.MaxHelpingHand/CustomTutorialWithNoBird.placements.name.bird=Custom Tutorial with No Bird
