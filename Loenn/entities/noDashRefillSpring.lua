@@ -15,7 +15,8 @@ springUp.placements = {
     data = {
         spriteDirectory = "objects/MaxHelpingHand/noDashRefillSpring",
         playerCanUse = true,
-        ignoreLighting = false
+        ignoreLighting = false,
+        refillStamina = true
     }
 }
 
@@ -30,7 +31,8 @@ springRight.placements = {
     name = "right",
     data = {
         spriteDirectory = "objects/MaxHelpingHand/noDashRefillSpring",
-        ignoreLighting = false
+        ignoreLighting = false,
+        refillStamina = true
     }
 }
 
@@ -45,7 +47,8 @@ springLeft.placements = {
     name = "left",
     data = {
         spriteDirectory = "objects/MaxHelpingHand/noDashRefillSpring",
-        ignoreLighting = false
+        ignoreLighting = false,
+        refillStamina = true
     }
 }
 

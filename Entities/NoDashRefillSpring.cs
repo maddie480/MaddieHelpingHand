@@ -43,11 +43,13 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
         private static object[] noParams = new object[0];
 
         private readonly bool ignoreLighting;
+        private readonly bool refillStamina;
 
         public NoDashRefillSpring(EntityData data, Vector2 offset)
             : base(data.Position + offset, GetOrientationFromName(data.Name), data.Bool("playerCanUse", true)) {
 
             ignoreLighting = data.Bool("ignoreLighting", defaultValue: false);
+            refillStamina = data.Bool("refillStamina", defaultValue: true);
 
             DynData<Spring> selfSpring = new DynData<Spring>(this);
 
@@ -97,8 +99,9 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
                 return;
             }
 
-            // Save dash count. Dashes are reloaded by SideBounce and SuperBounce.
+            // Save dash and stamina count. Dashes / stamina are reloaded by SideBounce and SuperBounce.
             int originalDashCount = player.Dashes;
+            float originalStamina = player.Stamina;
 
             if (Orientation == Orientations.Floor) {
                 if (player.Speed.Y >= 0f) {
@@ -119,6 +122,11 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
 
             // Restore original dash count.
             player.Dashes = originalDashCount;
+
+            if (!refillStamina) {
+                // Also restore original stamina count.
+                player.Stamina = originalStamina;
+            }
 
             RefillDashes(player);
         }

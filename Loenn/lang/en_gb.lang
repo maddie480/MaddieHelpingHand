@@ -393,6 +393,9 @@ entities.MaxHelpingHand/NoDashRefillSpring.attributes.description.playerCanUse=D
 entities.MaxHelpingHand/NoDashRefillSpring.attributes.description.ignoreLighting=If checked, the spring won't be affected by room darkness.
 entities.MaxHelpingHand/NoDashRefillSpringRight.attributes.description.ignoreLighting=If checked, the spring won't be affected by room darkness.
 entities.MaxHelpingHand/NoDashRefillSpringLeft.attributes.description.ignoreLighting=If checked, the spring won't be affected by room darkness.
+entities.MaxHelpingHand/NoDashRefillSpring.attributes.description.refillStamina=Whether the spring should refill the player's stamina when used.
+entities.MaxHelpingHand/NoDashRefillSpringRight.attributes.description.refillStamina=Whether the spring should refill the player's stamina when used.
+entities.MaxHelpingHand/NoDashRefillSpringLeft.attributes.description.refillStamina=Whether the spring should refill the player's stamina when used.
 
 # Custom Dash Refill Spring
 entities.MaxHelpingHand/CustomDashRefillSpring.placements.name.up=Custom Dash Refill Spring (Up)
@@ -414,6 +417,9 @@ entities.MaxHelpingHand/CustomDashRefillSpringRight.attributes.description.dashC
 entities.MaxHelpingHand/CustomDashRefillSpring.attributes.description.mode=Determines how the spring will change the player's dash count.\n- Set: sets the player's dash count to the given amount.\n- Add: adds the given amount of dashes to the player's dash count.\n- AddCapped: adds the given amount of dashes to the player's dash count, without going beyond the "Dash Count Cap" option.\nIt will not remove dashes from the player if they have more than the cap, though.
 entities.MaxHelpingHand/CustomDashRefillSpringLeft.attributes.description.mode=Determines how the spring will change the player's dash count.\n- Set: sets the player's dash count to the given amount.\n- Add: adds the given amount of dashes to the player's dash count.\n- AddCapped: adds the given amount of dashes to the player's dash count, without going beyond the "Dash Count Cap" option.\nIt will not remove dashes from the player if they have more than the cap, though.
 entities.MaxHelpingHand/CustomDashRefillSpringRight.attributes.description.mode=Determines how the spring will change the player's dash count.\n- Set: sets the player's dash count to the given amount.\n- Add: adds the given amount of dashes to the player's dash count.\n- AddCapped: adds the given amount of dashes to the player's dash count, without going beyond the "Dash Count Cap" option.\nIt will not remove dashes from the player if they have more than the cap, though.
+entities.MaxHelpingHand/CustomDashRefillSpring.attributes.description.refillStamina=Whether the spring should refill the player's stamina when used.
+entities.MaxHelpingHand/CustomDashRefillSpringLeft.attributes.description.refillStamina=Whether the spring should refill the player's stamina when used.
+entities.MaxHelpingHand/CustomDashRefillSpringRight.attributes.description.refillStamina=Whether the spring should refill the player's stamina when used.
 
 # One-Way Invisible Barrier (Horizontal)
 entities.MaxHelpingHand/OneWayInvisibleBarrierHorizontal.placements.name.left=One-Way Invisible Barrier (Left)

@@ -3,11 +3,11 @@
 using ..Ahorn, Maple
 
 @mapdef Entity "MaxHelpingHand/CustomDashRefillSpring" CustomDashRefillSpring(x::Integer, y::Integer, spriteDirectory::String="objects/MaxHelpingHand/twoDashRefillSpring", playerCanUse::Bool=true,
-    ignoreLighting::Bool=false, dashCount::Int=2, dashCountCap::Int=2, mode::String="Set")
+    ignoreLighting::Bool=false, refillStamina::Bool=true, dashCount::Int=2, dashCountCap::Int=2, mode::String="Set")
 @mapdef Entity "MaxHelpingHand/CustomDashRefillSpringRight" CustomDashRefillSpringRight(x::Integer, y::Integer, spriteDirectory::String="objects/MaxHelpingHand/twoDashRefillSpring",
-    ignoreLighting::Bool=false, dashCount::Int=2, dashCountCap::Int=2, mode::String="Set")
+    ignoreLighting::Bool=false, refillStamina::Bool=true, dashCount::Int=2, dashCountCap::Int=2, mode::String="Set")
 @mapdef Entity "MaxHelpingHand/CustomDashRefillSpringLeft" CustomDashRefillSpringLeft(x::Integer, y::Integer, spriteDirectory::String="objects/MaxHelpingHand/twoDashRefillSpring",
-    ignoreLighting::Bool=false, dashCount::Int=2, dashCountCap::Int=2, mode::String="Set")
+    ignoreLighting::Bool=false, refillStamina::Bool=true, dashCount::Int=2, dashCountCap::Int=2, mode::String="Set")
 
 const placements = Ahorn.PlacementDict(
     "Custom Dash Refill Spring (Up) (max480's Helping Hand)" => Ahorn.EntityPlacement(
