@@ -4,13 +4,18 @@ using Microsoft.Xna.Framework;
 using Mono.Cecil.Cil;
 using Monocle;
 using MonoMod.Cil;
+using MonoMod.RuntimeDetour;
 using MonoMod.Utils;
 using System;
+using System.Linq;
+using System.Reflection;
 
 namespace Celeste.Mod.MaxHelpingHand.Entities {
     [CustomEntity("MaxHelpingHand/ReskinnableCrystalHeart")]
     [TrackedAs(typeof(HeartGem))]
     public class ReskinnableCrystalHeart : HeartGem {
+        private static Hook altSidesHelperHook = null;
+
         public static void Load() {
             IL.Celeste.HeartGem.Awake += onHeartGemAwake;
             On.Celeste.HeartGem.Collect += onHeartGemCollect;
@@ -19,6 +24,17 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
         public static void Unload() {
             IL.Celeste.HeartGem.Awake -= onHeartGemAwake;
             On.Celeste.HeartGem.Collect -= onHeartGemCollect;
+
+            altSidesHelperHook?.Dispose();
+            altSidesHelperHook = null;
+        }
+
+        public static void HookMods() {
+            if (altSidesHelperHook == null && Everest.Loader.DependencyLoaded(new EverestModuleMetadata { Name = "AltSidesHelper", Version = new Version(1, 6, 0) })) {
+                Type altSidesHelperModule = Everest.Modules.FirstOrDefault(module => module.GetType().ToString() == "AltSidesHelper.AltSidesHelperModule")?.GetType();
+                altSidesHelperHook = new Hook(altSidesHelperModule.GetMethod("SetCrystalHeartSprite", BindingFlags.NonPublic | BindingFlags.Instance),
+                    typeof(ReskinnableCrystalHeart).GetMethod("disableAltSidesHelperReskinning", BindingFlags.NonPublic | BindingFlags.Static));
+            }
         }
 
         private readonly string sprite;
@@ -103,6 +119,38 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             }
 
             orig(self, player);
+        }
+
+        private static void disableAltSidesHelperReskinning(Action<EverestModule, On.Celeste.HeartGem.orig_Awake, HeartGem, Scene> orig, EverestModule self,
+             On.Celeste.HeartGem.orig_Awake origAwake, HeartGem selfAwake, Scene scene) {
+
+            // we're hooking a hook on HeartGem.Awake, so we get the orig/self from the hook, and the orig/self from the vanilla method.
+
+            // only mess with reskinnable crystal hearts.
+            if (!(selfAwake is ReskinnableCrystalHeart heart)) {
+                orig(self, origAwake, selfAwake, scene);
+                return;
+            }
+
+
+            AreaKey area = (heart.Scene as Level).Session.Area;
+            bool isGhost = !heart.IsFake && SaveData.Instance.Areas_Safe[area.ID].Modes[(int) area.Mode].HeartGem;
+
+            // only mess with actually reskinned crystal hearts.
+            bool isReskinned;
+            if (isGhost && !heart.disableGhostSprite) {
+                isReskinned = !string.IsNullOrEmpty(heart.ghostSprite);
+            } else {
+                isReskinned = !string.IsNullOrEmpty(heart.sprite);
+            }
+
+            if (isReskinned) {
+                // skip the Alt Sides Helper method in order to make sure the crystal heart is reskinned.
+                origAwake(selfAwake, scene);
+            } else {
+                // do not touch anything!
+                orig(self, origAwake, selfAwake, scene);
+            }
         }
     }
 }

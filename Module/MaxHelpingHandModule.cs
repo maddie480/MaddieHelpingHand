@@ -164,6 +164,7 @@ namespace Celeste.Mod.MaxHelpingHand.Module {
             MadelinePonytailTrigger.LoadContent();
             InstantLavaBlockerTrigger.HookMods();
             MadelineSprite.HookMods();
+            ReskinnableCrystalHeart.HookMods();
 
             if (!hookedSineParallax && Everest.Loader.DependencyLoaded(new EverestModuleMetadata() { Name = "FlaglinesAndSuch", Version = new Version(1, 4, 17) })) {
                 hookSineParallax();
