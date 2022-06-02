@@ -56,6 +56,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
         private Color fadeOutTint;
         private bool attachStaticMovers;
         private string flag;
+        private bool setFlagOnPlayerContact;
         private FlagMode flagMode;
         private bool flagInverted;
 
@@ -74,6 +75,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             fadeOutTint = data.HexColor("fadeOutTint", Color.Gray);
             attachStaticMovers = data.Bool("attachStaticMovers", false);
             flag = data.Attr("flag");
+            setFlagOnPlayerContact = data.Bool("setFlagOnPlayerContact", false);
             flagMode = data.Enum("flagMode", defaultValue: FlagMode.None);
             flagInverted = data.Bool("flagInverted");
         }
@@ -187,6 +189,11 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
                     Audio.Play("event:/game/general/platform_disintegrate", Center);
                 }
 
+                // the player touched the platform!
+                if (flagMode != FlagMode.None && setFlagOnPlayerContact) {
+                    SceneAs<Level>().Session.SetFlag(flag, !flagInverted);
+                }
+
                 // make pieces shake and emit particles
                 shaker.ShakeFor(onTop ? maxCrumbleDurationOnTop : crumbleDurationOnSide, removeOnFinish: false);
                 foreach (Image image in images) {
@@ -221,7 +228,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
                 if (attachStaticMovers) {
                     DisableStaticMovers();
                 }
-                if (flagMode != FlagMode.None) {
+                if (flagMode != FlagMode.None && !setFlagOnPlayerContact) {
                     SceneAs<Level>().Session.SetFlag(flag, !flagInverted);
                 }
                 float delay = 0.05f;

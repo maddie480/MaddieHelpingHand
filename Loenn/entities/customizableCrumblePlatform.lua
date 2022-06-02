@@ -28,6 +28,7 @@ for _, texture in ipairs(textures) do
             fadeOutTint = "808080",
             attachStaticMovers = false,
             flag = "",
+            setFlagOnPlayerContact = false,
             flagMode = "None",
             flagInverted = false
         }
