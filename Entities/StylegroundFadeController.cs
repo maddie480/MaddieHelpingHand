@@ -34,9 +34,32 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
 
         public override void Awake(Scene scene) {
             base.Awake(scene);
+            initializeFlag();
+        }
 
+        public override void Update() {
+            base.Update();
+
+            // Speedrun Tool conveniently backs up fades, fadeInTimes and fadeOutTimes in its savestates, but not controllers.
+            // It also skips Awake, so we need to catch up!
+            if (!controllers.ContainsValue(this)) {
+                initializeFlag();
+            }
+        }
+
+        public override void Removed(Scene scene) {
+            base.Removed(scene);
+            deregisterFlag();
+        }
+
+        public override void SceneEnd(Scene scene) {
+            base.SceneEnd(scene);
+            deregisterFlag();
+        }
+
+        private void initializeFlag() {
             // enable the hooks on backdrop rendering.
-            if (fades.Count == 0) {
+            if (controllers.Count == 0) {
                 On.Celeste.Backdrop.IsVisible += modBackdropIsVisible;
                 On.Celeste.BackdropRenderer.Update += onBackdropRendererUpdate;
                 IL.Celeste.BackdropRenderer.Render += modBackdropRendererRender;
@@ -53,16 +76,6 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             }
         }
 
-        public override void Removed(Scene scene) {
-            base.Removed(scene);
-            deregisterFlag();
-        }
-
-        public override void SceneEnd(Scene scene) {
-            base.SceneEnd(scene);
-            deregisterFlag();
-        }
-
         private void deregisterFlag() {
             foreach (string flag in flags) {
                 // first, make sure there isn't another controller that took the flag over.
@@ -76,7 +89,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             }
 
             // if there is no flag settings left, disable the hooks on backdrop rendering.
-            if (fades.Count == 0) {
+            if (controllers.Count == 0) {
                 On.Celeste.Backdrop.IsVisible -= modBackdropIsVisible;
                 On.Celeste.BackdropRenderer.Update -= onBackdropRendererUpdate;
                 IL.Celeste.BackdropRenderer.Render -= modBackdropRendererRender;
