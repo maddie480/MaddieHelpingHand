@@ -5,7 +5,6 @@ using MonoMod.Cil;
 using MonoMod.RuntimeDetour;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
 using System.Text.RegularExpressions;
 
@@ -14,8 +13,14 @@ namespace Celeste.Mod.MaxHelpingHand.Effects {
         private static ILHook hookOnStylegroundConstructor;
         private static Hook hookOnStylegroundUpdate;
 
+        // if we do not do this ourselves, the compiler is going to do it for us... using a nested class,
+        // which makes the game crash on startup due to this class extending a type that does not exist if you don't have Flaglines and Such installed.
+        private static ILContext.Manipulator _onParseBackdrop = onParseBackdrop;
+        private static Func<Instruction, bool> _isSineParallaxStylegroundGettingConstructed = isSineParallaxStylegroundGettingConstructed;
+        private static Func<BinaryPacker.Element, bool> _isAnimatedParallax = isAnimatedParallax;
+
         public static void Load() {
-            hookOnStylegroundConstructor = new ILHook(typeof(Class1).GetMethod("Level_OnLoadBackdrop", BindingFlags.NonPublic | BindingFlags.Instance), onParseBackdrop);
+            hookOnStylegroundConstructor = new ILHook(typeof(Class1).GetMethod("Level_OnLoadBackdrop", BindingFlags.NonPublic | BindingFlags.Instance), _onParseBackdrop);
             hookOnStylegroundUpdate = new Hook(typeof(SineParallaxStyleground).GetMethod("Update"), typeof(SineAnimatedParallax).GetMethod("Update", BindingFlags.NonPublic | BindingFlags.Static));
         }
 
@@ -29,14 +34,14 @@ namespace Celeste.Mod.MaxHelpingHand.Effects {
 
         private static void onParseBackdrop(ILContext il) {
             ILCursor cursor = new ILCursor(il);
-            if (cursor.TryGotoNext(isSineParallaxStylegroundGettingConstructed)) {
+            if (cursor.TryGotoNext(_isSineParallaxStylegroundGettingConstructed)) {
                 Logger.Log("MaxHelpingHand/SineAnimatedParallax", $"Handling animated parallaxes at {cursor.Index} in IL for FlaglinesAndSuch's ParseBackdrop");
 
                 // this results in the following nonsensical code:
                 // bool isAnimated = child.Attr("Texture")?.StartsWith("bgs/MaxHelpingHand/animatedParallax/") ?? false;
                 // (isAnimated ? new SineAnimatedParallax : new SineParallaxStyleground)(parameters)
                 cursor.Emit(OpCodes.Ldarg_2);
-                cursor.EmitDelegate<Func<BinaryPacker.Element, bool>>(isAnimatedParallax);
+                cursor.EmitDelegate<Func<BinaryPacker.Element, bool>>(_isAnimatedParallax);
                 cursor.Emit(OpCodes.Brfalse, cursor.Next);
                 cursor.Emit(OpCodes.Newobj, typeof(SineAnimatedParallax).GetConstructor(new Type[] { typeof(string), typeof(float), typeof(float), typeof(float), typeof(float),
                     typeof(float), typeof(float), typeof(bool), typeof(bool), typeof(float), typeof(float), typeof(float), typeof(bool) }));
