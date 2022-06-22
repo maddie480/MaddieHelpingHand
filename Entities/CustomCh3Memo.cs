@@ -7,12 +7,18 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
     public class CustomCh3Memo : Trigger {
         private readonly string paperSpriteFolderName;
         private readonly string dialogId;
+        private readonly string dialogBeforeId;
+        private readonly string dialogAfterId;
+        private readonly string flagOnCompletion;
 
         private TalkComponent talker;
 
         public CustomCh3Memo(EntityData data, Vector2 offset) : base(data, offset) {
             paperSpriteFolderName = data.Attr("paperSpriteFolderName");
             dialogId = data.Attr("dialogId");
+            dialogBeforeId = data.Attr("dialogBeforeId");
+            dialogAfterId = data.Attr("dialogAfterId");
+            flagOnCompletion = data.Attr("flagOnCompletion");
 
             Collider = new Hitbox(data.Width, data.Height);
 
@@ -26,7 +32,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
         }
 
         public void OnTalk(Player player) {
-            Scene.Add(new CustomCh3MemoCutscene(player, paperSpriteFolderName, dialogId));
+            Scene.Add(new CustomCh3MemoCutscene(player, paperSpriteFolderName, dialogId, dialogBeforeId, dialogAfterId, flagOnCompletion));
         }
     }
 }

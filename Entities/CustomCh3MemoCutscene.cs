@@ -166,11 +166,17 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
 
         private readonly string folderName;
         private readonly string dialogId;
+        private readonly string dialogBeforeId;
+        private readonly string dialogAfterId;
+        private readonly string flagOnCompletion;
 
-        public CustomCh3MemoCutscene(Player player, string folderName, string dialogId) {
+        public CustomCh3MemoCutscene(Player player, string folderName, string dialogId, string dialogBeforeId, string dialogAfterId, string flagOnCompletion) {
             this.player = player;
             this.folderName = folderName;
             this.dialogId = dialogId;
+            this.dialogBeforeId = dialogBeforeId;
+            this.dialogAfterId = dialogAfterId;
+            this.flagOnCompletion = flagOnCompletion;
         }
 
         public override void OnBegin(Level level) {
@@ -181,6 +187,12 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             player.StateMachine.State = 11;
             player.StateMachine.Locked = true;
 
+            // slow dialog before if present
+            if (!string.IsNullOrEmpty(dialogBeforeId)) {
+                yield return Textbox.Say(dialogBeforeId);
+            }
+
+            // show the memo
             memo = new MemoPage(folderName, dialogId);
             Scene.Add(memo);
 
@@ -189,6 +201,12 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             yield return memo.EaseOut();
 
             memo = null;
+
+            // show dialog after if present
+            if (!string.IsNullOrEmpty(dialogAfterId)) {
+                yield return Textbox.Say(dialogAfterId);
+            }
+
             EndCutscene(Level);
         }
 
@@ -197,6 +215,11 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             player.StateMachine.State = 0;
             if (memo != null) {
                 memo.RemoveSelf();
+            }
+
+            // set the flag on completion if present
+            if (!string.IsNullOrEmpty(flagOnCompletion)) {
+                level.Session.SetFlag(flagOnCompletion);
             }
         }
     }
