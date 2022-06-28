@@ -20,6 +20,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
     public class SidewaysJumpThru : Entity {
 
         private static ILHook hookOnUpdateSprite;
+        private static ILHook hookOnOrigUpdate;
 
         private static MethodInfo playerJumpthruBoostBlockedCheck = typeof(Player).GetMethod("JumpThruBoostBlockedCheck", BindingFlags.Instance | BindingFlags.NonPublic);
 
@@ -82,6 +83,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             IL.Celeste.Player.ClimbUpdate += modCollideChecks; // when climbing, jumpthrus are handled like walls
             IL.Celeste.Player.SlipCheck += modCollideChecks; // make climbing on jumpthrus not slippery
             IL.Celeste.Player.OnCollideH += modCollideChecks; // handle dashes against jumpthrus properly, without "shifting" down
+            hookOnOrigUpdate = new ILHook(typeof(Player).GetMethod("orig_Update"), modCollideChecks); // patch wall retention to include sideways jumpthru detection as well
 
             // don't make Madeline duck when dashing against a sideways jumpthru
             On.Celeste.Player.DuckFreeAt += preventDuckWhenDashingAgainstJumpthru;
@@ -115,6 +117,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             IL.Celeste.Player.ClimbUpdate -= modCollideChecks;
             IL.Celeste.Player.SlipCheck -= modCollideChecks;
             IL.Celeste.Player.OnCollideH -= modCollideChecks;
+            hookOnOrigUpdate?.Dispose();
 
             On.Celeste.Player.DuckFreeAt -= preventDuckWhenDashingAgainstJumpthru;
 
