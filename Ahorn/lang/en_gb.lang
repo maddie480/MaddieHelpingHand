@@ -863,3 +863,8 @@ placements.entities.MaxHelpingHand/ReskinnableCrystalHeart.tooltips.particleColo
 placements.entities.MaxHelpingHand/ReskinnableCrystalHeart.tooltips.flagOnCollect=The session flag to set when the heart is collected.\nLeave blank if you do not want any flag to be set.
 placements.entities.MaxHelpingHand/ReskinnableCrystalHeart.tooltips.flagInverted=If enabled, the flag specified in "Flag On Collect" will be disabled when the heart is collected, instead of being enabled.
 placements.entities.MaxHelpingHand/ReskinnableCrystalHeart.tooltips.disableGhostSprite=If this option is enabled, the heart will look the same no matter if it was already collected or not, and will never use its ghost sprite.
+
+# Set Flag on Button Press Controller
+placements.entities.MaxHelpingHand/SetFlagOnButtonPressController.tooltips.button=The button this controller should react to.
+placements.entities.MaxHelpingHand/SetFlagOnButtonPressController.tooltips.flag=The flag that should be set whenever the button is held.
+placements.entities.MaxHelpingHand/SetFlagOnButtonPressController.tooltips.inverted=If checked, the flag will be disabled rather than enabled when the button is held.
