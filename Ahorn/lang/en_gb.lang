@@ -868,3 +868,8 @@ placements.entities.MaxHelpingHand/ReskinnableCrystalHeart.tooltips.disableGhost
 placements.entities.MaxHelpingHand/SetFlagOnButtonPressController.tooltips.button=The button this controller should react to.
 placements.entities.MaxHelpingHand/SetFlagOnButtonPressController.tooltips.flag=The flag that should be set whenever the button is held.
 placements.entities.MaxHelpingHand/SetFlagOnButtonPressController.tooltips.inverted=If checked, the flag will be disabled rather than enabled when the button is held.
+
+# Set Flag on Action Controller
+placements.entities.MaxHelpingHand/SetFlagOnActionController.tooltips.action=The player action this controller should react to.
+placements.entities.MaxHelpingHand/SetFlagOnActionController.tooltips.flag=The flag that should be set whenever the player is doing the action.
+placements.entities.MaxHelpingHand/SetFlagOnActionController.tooltips.inverted=If checked, the flag will be disabled rather than enabled when the player is doing the action.

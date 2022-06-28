@@ -951,3 +951,9 @@ entities.MaxHelpingHand/SetFlagOnButtonPressController.placements.name.controlle
 entities.MaxHelpingHand/SetFlagOnButtonPressController.attributes.description.button=The button this controller should react to.
 entities.MaxHelpingHand/SetFlagOnButtonPressController.attributes.description.flag=The flag that should be set whenever the button is held.
 entities.MaxHelpingHand/SetFlagOnButtonPressController.attributes.description.inverted=If checked, the flag will be disabled rather than enabled when the button is held.
+
+# Set Flag on Action Controller
+entities.MaxHelpingHand/SetFlagOnActionController.placements.name.controller=Set Flag On Action Controller
+entities.MaxHelpingHand/SetFlagOnActionController.attributes.description.action=The player action this controller should react to.
+entities.MaxHelpingHand/SetFlagOnActionController.attributes.description.flag=The flag that should be set whenever the player is doing the action.
+entities.MaxHelpingHand/SetFlagOnActionController.attributes.description.inverted=If checked, the flag will be disabled rather than enabled when the player is doing the action.
