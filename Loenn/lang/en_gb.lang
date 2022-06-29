@@ -905,7 +905,8 @@ triggers.MaxHelpingHand/CustomCh3Memo.attributes.description.paperSpriteFolderNa
 triggers.MaxHelpingHand/CustomCh3Memo.attributes.description.dialogId=The ID of the dialog to use for the text the memo will display.
 triggers.MaxHelpingHand/CustomCh3Memo.attributes.description.dialogBeforeId=The ID of the dialog to display before seeing the memo.\nLeave empty if you do not want any dialogue before the memo.
 triggers.MaxHelpingHand/CustomCh3Memo.attributes.description.dialogAfterId=The ID of the dialog to display after seeing the memo.\nLeave empty if you do not want any dialogue after the memo.
-triggers.MaxHelpingHand/CustomCh3Memo.attributes.description.flagOnCompletion=If specified, the given session flag will be activated once the memo cutscene is over.
+triggers.MaxHelpingHand/CustomCh3Memo.attributes.description.dialogBeforeOnlyOnce=If enabled, the dialog before the memo will only display when interacting with the memo for the first time in the session.
+triggers.MaxHelpingHand/CustomCh3Memo.attributes.description.dialogAfterOnlyOnce=If enabled, the dialog after the memo will only display when interacting with the memo for the first time in the session.
 
 # Instant Lava Blocker
 triggers.MaxHelpingHand/InstantLavaBlockerTrigger.placements.name.lava_blocker=Instant Lava Blocker

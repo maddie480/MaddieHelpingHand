@@ -169,27 +169,39 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
         private readonly string dialogBeforeId;
         private readonly string dialogAfterId;
         private readonly string flagOnCompletion;
+        private readonly bool dialogBeforeOnlyOnce;
+        private readonly bool dialogAfterOnlyOnce;
+        private readonly EntityID id;
 
-        public CustomCh3MemoCutscene(Player player, string folderName, string dialogId, string dialogBeforeId, string dialogAfterId, string flagOnCompletion) {
+        public CustomCh3MemoCutscene(Player player, string folderName, string dialogId, string dialogBeforeId, string dialogAfterId, string flagOnCompletion,
+            bool dialogBeforeOnlyOnce, bool dialogAfterOnlyOnce, EntityID id) {
+
             this.player = player;
             this.folderName = folderName;
             this.dialogId = dialogId;
             this.dialogBeforeId = dialogBeforeId;
             this.dialogAfterId = dialogAfterId;
             this.flagOnCompletion = flagOnCompletion;
+            this.dialogBeforeOnlyOnce = dialogBeforeOnlyOnce;
+            this.dialogAfterOnlyOnce = dialogAfterOnlyOnce;
+            this.id = id;
         }
 
         public override void OnBegin(Level level) {
-            Add(new Coroutine(Routine()));
+            Add(new Coroutine(Routine(level.Session)));
         }
 
-        private IEnumerator Routine() {
+        private IEnumerator Routine(Session session) {
             player.StateMachine.State = 11;
             player.StateMachine.Locked = true;
 
             // slow dialog before if present
-            if (!string.IsNullOrEmpty(dialogBeforeId)) {
+            if (!string.IsNullOrEmpty(dialogBeforeId) && !session.GetFlag("CUSTOM_CH3_MEMO_BEFORE_" + id.ToString())) {
                 yield return Textbox.Say(dialogBeforeId);
+
+                if (dialogBeforeOnlyOnce) {
+                    session.SetFlag("CUSTOM_CH3_MEMO_BEFORE_" + id.ToString());
+                }
             }
 
             // show the memo
@@ -203,8 +215,12 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             memo = null;
 
             // show dialog after if present
-            if (!string.IsNullOrEmpty(dialogAfterId)) {
+            if (!string.IsNullOrEmpty(dialogAfterId) && !session.GetFlag("CUSTOM_CH3_MEMO_AFTER_" + id.ToString())) {
                 yield return Textbox.Say(dialogAfterId);
+
+                if (dialogAfterOnlyOnce) {
+                    session.SetFlag("CUSTOM_CH3_MEMO_AFTER_" + id.ToString());
+                }
             }
 
             EndCutscene(Level);

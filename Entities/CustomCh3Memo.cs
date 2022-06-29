@@ -10,15 +10,21 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
         private readonly string dialogBeforeId;
         private readonly string dialogAfterId;
         private readonly string flagOnCompletion;
+        private readonly bool dialogBeforeOnlyOnce;
+        private readonly bool dialogAfterOnlyOnce;
+        private readonly EntityID id;
 
         private TalkComponent talker;
 
-        public CustomCh3Memo(EntityData data, Vector2 offset) : base(data, offset) {
+        public CustomCh3Memo(EntityData data, Vector2 offset, EntityID gid) : base(data, offset) {
             paperSpriteFolderName = data.Attr("paperSpriteFolderName");
             dialogId = data.Attr("dialogId");
             dialogBeforeId = data.Attr("dialogBeforeId");
             dialogAfterId = data.Attr("dialogAfterId");
             flagOnCompletion = data.Attr("flagOnCompletion");
+            dialogBeforeOnlyOnce = data.Bool("dialogBeforeOnlyOnce");
+            dialogAfterOnlyOnce = data.Bool("dialogAfterOnlyOnce");
+            id = gid;
 
             Collider = new Hitbox(data.Width, data.Height);
 
@@ -32,7 +38,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
         }
 
         public void OnTalk(Player player) {
-            Scene.Add(new CustomCh3MemoCutscene(player, paperSpriteFolderName, dialogId, dialogBeforeId, dialogAfterId, flagOnCompletion));
+            Scene.Add(new CustomCh3MemoCutscene(player, paperSpriteFolderName, dialogId, dialogBeforeId, dialogAfterId, flagOnCompletion, dialogBeforeOnlyOnce, dialogAfterOnlyOnce, id));
         }
     }
 }

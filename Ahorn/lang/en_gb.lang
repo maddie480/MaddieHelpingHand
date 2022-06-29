@@ -829,6 +829,8 @@ placements.triggers.MaxHelpingHand/CustomCh3Memo.tooltips.dialogId=The ID of the
 placements.triggers.MaxHelpingHand/CustomCh3Memo.tooltips.dialogBeforeId=The ID of the dialog to display before seeing the memo.\nLeave empty if you do not want any dialogue before the memo.
 placements.triggers.MaxHelpingHand/CustomCh3Memo.tooltips.dialogAfterId=The ID of the dialog to display after seeing the memo.\nLeave empty if you do not want any dialogue after the memo.
 placements.triggers.MaxHelpingHand/CustomCh3Memo.tooltips.flagOnCompletion=If specified, the given session flag will be activated once the memo cutscene is over.
+placements.triggers.MaxHelpingHand/CustomCh3Memo.tooltips.dialogBeforeOnlyOnce=If enabled, the dialog before the memo will only display when interacting with the memo for the first time in the session.
+placements.triggers.MaxHelpingHand/CustomCh3Memo.tooltips.dialogAfterOnlyOnce=If enabled, the dialog after the memo will only display when interacting with the memo for the first time in the session.
 
 # Parallax Fade Speed Controller
 placements.entities.MaxHelpingHand/ParallaxFadeSpeedController.tooltips.fadeTime=The time it will take for the parallax stylegrounds to fully fade in or out, in seconds. Vanilla value is 1 second.

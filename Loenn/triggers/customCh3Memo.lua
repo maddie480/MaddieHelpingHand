@@ -10,7 +10,9 @@ trigger.placements = {
         dialogId = "CH3_MEMO",
         dialogBeforeId = "CH3_MEMO_OPENING",
         dialogAfterId = "",
-        flagOnCompletion = ""
+        flagOnCompletion = "",
+        dialogBeforeOnlyOnce = false,
+        dialogAfterOnlyOnce = false
     }
 }
 
