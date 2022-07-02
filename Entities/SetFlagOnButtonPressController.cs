@@ -18,7 +18,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             orig();
 
             // in case someone decided to change their bindings mid-game, we need to do reflection stuff again to get the new VirtualButton instance.
-            if (Engine.Scene != null) {
+            if (Engine.Scene is Level) {
                 foreach (SetFlagOnButtonPressController controller in Engine.Scene.Tracker.GetEntities<SetFlagOnButtonPressController>()) {
                     controller.resolveVirtualButton();
                 }
