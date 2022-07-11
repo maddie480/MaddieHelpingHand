@@ -48,6 +48,11 @@ namespace Celeste.Mod.MaxHelpingHand.Module {
             public float MaximumParamValue { get; set; }
         }
 
+        public class FlagPickupInfo {
+            public string Sprite { get; set; }
+            public string CollectFlag { get; set; }
+        }
+
         public RainbowSpinnerColorState RainbowSpinnerCurrentColors { get; set; } = null;
         public SeekerBarrierColorState SeekerBarrierCurrentColors { get; set; } = null;
         public CustomizableGlassBlockState GlassBlockCurrentSettings { get; set; } = null;
@@ -60,6 +65,8 @@ namespace Celeste.Mod.MaxHelpingHand.Module {
         public bool IcePhysicsDisabled { get; set; } = false;
 
         public List<MultiRoomStrawberrySeedInfo> CollectedMultiRoomStrawberrySeeds { get; set; } = new List<MultiRoomStrawberrySeedInfo>();
+
+        public List<FlagPickupInfo> PickedUpFlagPickups { get; set; } = new List<FlagPickupInfo>();
 
         public Dictionary<string, SpeedBasedMusicParamInfo> ActiveSpeedBasedMusicParams = new Dictionary<string, SpeedBasedMusicParamInfo>();
 

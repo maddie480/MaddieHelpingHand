@@ -958,3 +958,10 @@ entities.MaxHelpingHand/SetFlagOnActionController.placements.name.controller=Set
 entities.MaxHelpingHand/SetFlagOnActionController.attributes.description.action=The player action this controller should react to.
 entities.MaxHelpingHand/SetFlagOnActionController.attributes.description.flag=The flag that should be set whenever the player is doing the action.
 entities.MaxHelpingHand/SetFlagOnActionController.attributes.description.inverted=If checked, the flag will be disabled rather than enabled when the player is doing the action.
+
+# Flag Pickup
+entities.MaxHelpingHand/FlagPickup.placements.name.flag_pickup=Flag Pickup
+entities.MaxHelpingHand/FlagPickup.attributes.description.appearOnFlag=If specified, the pickup will only appear when the given flag is active.
+entities.MaxHelpingHand/FlagPickup.attributes.description.flagOnPickup=If specified, the pickup will activate the given flag when collected.
+entities.MaxHelpingHand/FlagPickup.attributes.description.collectFlag=If specified, the pickup will follow the player and only collect when the specified flag is activated.\nIf not specified, the pickup will behave like a strawberry, and collect if the player is on safe ground.
+entities.MaxHelpingHand/FlagPickup.attributes.description.spriteName=The sprite to use for the pickup.\nYou can make your own by copying "MaxHelpingHand_FlagPickup_Flag" from Graphics/Sprites.xml in Helping Hand's zip,\nand pasting it in your map's Sprites.xml in order to customize it.

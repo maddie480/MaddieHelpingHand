@@ -77,6 +77,7 @@ namespace Celeste.Mod.MaxHelpingHand.Module {
             SpinnerBreakingBall.Load();
             ReskinnableCrystalHeart.Load();
             SetFlagOnButtonPressController.Load();
+            FlagPickup.Load();
 
             Everest.Events.Level.OnLoadBackdrop += onLoadBackdrop;
             On.Celeste.Mod.Everest.Register += onModRegister;
@@ -134,6 +135,7 @@ namespace Celeste.Mod.MaxHelpingHand.Module {
             SpinnerBreakingBall.Unload();
             ReskinnableCrystalHeart.Unload();
             SetFlagOnButtonPressController.Unload();
+            FlagPickup.Unload();
 
             Everest.Events.Level.OnLoadBackdrop -= onLoadBackdrop;
             On.Celeste.Mod.Everest.Register -= onModRegister;

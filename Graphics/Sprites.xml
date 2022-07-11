@@ -16,4 +16,17 @@
       <Frames path="idleC" hair="0,-2|0,-1|0,-3|0,-2|0,-1|0,-3| 0,-1|0,-3|0,-1|0,-2|0,-3|0,-1|0,-2|0,-2|0,-2"/>
     </Metadata>
   </player_playback>
+
+  <MaxHelpingHand_FlagPickup_Coin path="MaxHelpingHand/flagpickup/Coin/">
+    <Center/>
+    <Loop id="still" path="Coin" frames="0"/>
+    <Loop id="following" path="Coin" frames="1-8" delay="0.07"/>
+    <Anim id="collect" path="Coin" frames="9-19" delay="0.07"/>
+  </MaxHelpingHand_FlagPickup_Coin>
+  <MaxHelpingHand_FlagPickup_Flag path="MaxHelpingHand/flagpickup/Flag/">
+    <Center/>
+    <Loop id="still" path="Flag" frames="0"/>
+    <Loop id="following" path="Flag" frames="1-8" delay="0.07"/>
+    <Anim id="collect" path="Flag" frames="9-19" delay="0.07"/>
+  </MaxHelpingHand_FlagPickup_Flag>
 </Sprites>
