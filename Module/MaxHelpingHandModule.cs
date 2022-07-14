@@ -136,6 +136,7 @@ namespace Celeste.Mod.MaxHelpingHand.Module {
             ReskinnableCrystalHeart.Unload();
             SetFlagOnButtonPressController.Unload();
             FlagPickup.Unload();
+            AvBdaySpeechBubbleFixup.Unload();
 
             Everest.Events.Level.OnLoadBackdrop -= onLoadBackdrop;
             On.Celeste.Mod.Everest.Register -= onModRegister;
@@ -169,6 +170,7 @@ namespace Celeste.Mod.MaxHelpingHand.Module {
             InstantLavaBlockerTrigger.HookMods();
             MadelineSprite.HookMods();
             ReskinnableCrystalHeart.HookMods();
+            AvBdaySpeechBubbleFixup.LoadMods();
 
             if (!hookedSineParallax && Everest.Loader.DependencyLoaded(new EverestModuleMetadata() { Name = "FlaglinesAndSuch", Version = new Version(1, 4, 17) })) {
                 hookSineParallax();

@@ -25,6 +25,8 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
 
             hyperlineHook?.Dispose();
             hyperlineHook = null;
+
+            moreDashelinePlayerUpdateHook = null;
         }
 
         public static void HookMods() {
