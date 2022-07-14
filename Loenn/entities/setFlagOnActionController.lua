@@ -14,7 +14,7 @@ controller.placements = {
 
 controller.fieldInformation = {
     action = {
-        options = { "OnGround", "InAir", "Climb", "Dash", "Swim" },
+        options = { "OnGround", "InAir", "Climb", "Dash", "Swim", "HoldItem", "NoDashLeft", "FullDashes", "NoStaminaLeft", "LowStamina", "FullStamina" },
         editable = false
     }
 }

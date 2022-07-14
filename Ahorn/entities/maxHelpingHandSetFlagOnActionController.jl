@@ -11,7 +11,7 @@ const placements = Ahorn.PlacementDict(
 )
 
 Ahorn.editingOptions(entity::SetFlagOnActionController) = Dict{String, Any}(
-    "action" => String["OnGround", "InAir", "Climb", "Dash", "Swim"]
+    "action" => String["OnGround", "InAir", "Climb", "Dash", "Swim", "HoldItem", "NoDashLeft", "FullDashes", "NoStaminaLeft", "LowStamina", "FullStamina"]
 )
 
 function Ahorn.selection(entity::SetFlagOnActionController)

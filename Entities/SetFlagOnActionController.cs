@@ -5,7 +5,7 @@ using Monocle;
 namespace Celeste.Mod.MaxHelpingHand.Entities {
     [CustomEntity("MaxHelpingHand/SetFlagOnActionController")]
     public class SetFlagOnActionController : Entity {
-        private enum Action { OnGround, InAir, Climb, Dash, Swim }
+        private enum Action { OnGround, InAir, Climb, Dash, Swim, HoldItem, NoDashLeft, FullDashes, NoStaminaLeft, LowStamina, FullStamina }
 
         private readonly Action action;
         private readonly string flag;
@@ -44,6 +44,30 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
 
                     case Action.Swim:
                         isDoingAction = (p.StateMachine.State == Player.StSwim);
+                        break;
+
+                    case Action.HoldItem:
+                        isDoingAction = (p.Holding != null);
+                        break;
+
+                    case Action.NoDashLeft:
+                        isDoingAction = (p.Dashes == 0);
+                        break;
+
+                    case Action.FullDashes:
+                        isDoingAction = (p.Dashes == p.MaxDashes);
+                        break;
+
+                    case Action.NoStaminaLeft:
+                        isDoingAction = (p.Stamina <= 0f);
+                        break;
+
+                    case Action.LowStamina:
+                        isDoingAction = (p.Stamina <= Player.ClimbTiredThreshold);
+                        break;
+
+                    case Action.FullStamina:
+                        isDoingAction = (p.Stamina >= Player.ClimbMaxStamina);
                         break;
                 }
             }
