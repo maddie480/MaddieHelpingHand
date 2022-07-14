@@ -965,3 +965,13 @@ entities.MaxHelpingHand/FlagPickup.attributes.description.appearOnFlag=If specif
 entities.MaxHelpingHand/FlagPickup.attributes.description.flagOnPickup=If specified, the pickup will activate the given flag when collected.
 entities.MaxHelpingHand/FlagPickup.attributes.description.collectFlag=If specified, the pickup will follow the player and only collect when the specified flag is activated.\nIf not specified, the pickup will behave like a strawberry, and collect if the player is on safe ground.
 entities.MaxHelpingHand/FlagPickup.attributes.description.spriteName=The sprite to use for the pickup.\nYou can make your own by copying "MaxHelpingHand_FlagPickup_Flag" from Graphics/Sprites.xml in Helping Hand's zip,\nand pasting it in your map's Sprites.xml in order to customize it.
+
+# Flag Decal
+entities.MaxHelpingHand/FlagDecal.placements.name.flag_decal=Flag Decal
+entities.MaxHelpingHand/FlagDecal.attributes.name.fps=Frame Rate (FPS)
+entities.MaxHelpingHand/FlagDecal.attributes.description.fps=The speed of the animations, in frames per second.
+entities.MaxHelpingHand/FlagDecal.attributes.description.flag=The flag this decal should react to.
+entities.MaxHelpingHand/FlagDecal.attributes.description.inverted=If enabled, the decal will appear when the flag is inactive, rather than when it is active.
+entities.MaxHelpingHand/FlagDecal.attributes.description.decalPath=The path to the decal, starting from Graphics/Atlases/Gameplay/decals in the graphics dump or in your mod's folder.
+entities.MaxHelpingHand/FlagDecal.attributes.description.appearAnimationPath=The path to an appearing animation for the decal, starting from Graphics/Atlases/Gameplay/decals in the graphics dump or in your mod's folder.\nIf none is specified, the decal will appear immediately.
+entities.MaxHelpingHand/FlagDecal.attributes.description.disappearAnimationPath=The path to a disappearing animation for the decal, starting from Graphics/Atlases/Gameplay/decals in the graphics dump or in your mod's folder.\nIf none is specified, the decal will disappear immediately.
