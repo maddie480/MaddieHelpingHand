@@ -117,7 +117,7 @@ entities.MaxHelpingHand/CustomTutorialWithNoBird.attributes.description.birdId=T
 entities.MaxHelpingHand/CustomTutorialWithNoBird.attributes.description.controls=The controls to display in the bubble, separated by commas. Each part can be:\n- a path to a texture in the Gui atlas (for example "tinyarrow")\n- a direction: Down, DownRight, Right, UpRight, Up, UpLeft, Left, DownLeft\n- a button: Jump, Dash, Grab, Talk, ESC, Pause, MenuLeft, MenuRight, MenuUp, MenuDown, MenuConfirm, MenuCancel, MenuJournal, QuickRestart\n- a dialog ID, if you prefix it with "dialog:" (for example, "dialog:TUTORIAL_DREAMJUMP")\n- plain text
 entities.MaxHelpingHand/CustomTutorialWithNoBird.attributes.description.info=The speech bubble title. Can either be a dialog ID or a path to a texture in the GUI atlas.
 entities.MaxHelpingHand/CustomTutorialWithNoBird.attributes.description.onlyOnce=Whether the tutorial should reappear after displaying the speech bubble and disappearing.
-entities.MaxHelpingHand/CustomTutorialWithNoBird.attributes.description.hasPointer=Whether the tutorial should be a bubble pointing down. If unchecked, the tutorial will be displayed in a rectangle instead.
+entities.MaxHelpingHand/CustomTutorialWithNoBird.attributes.description.direction=The direction the bubble points to. "None" shows the message in a rectangle rather than in a bubble.
 
 # Upside Down Jump Thru
 entities.MaxHelpingHand/UpsideDownJumpThru.placements.name.jumpthru=Upside Down Jump Through

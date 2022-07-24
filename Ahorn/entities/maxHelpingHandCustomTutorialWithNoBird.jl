@@ -3,7 +3,7 @@
 using ..Ahorn, Maple
 
 @mapdef Entity "MaxHelpingHand/CustomTutorialWithNoBird" CustomTutorialWithNoBird(x::Integer, y::Integer, birdId::String="", onlyOnce::Bool=false, 
-    info::String="TUTORIAL_DREAMJUMP", controls::String="DownRight,+,Dash,tinyarrow,Jump", hasPointer::Bool=true)
+    info::String="TUTORIAL_DREAMJUMP", controls::String="DownRight,+,Dash,tinyarrow,Jump", direction::String="Down")
     
 using ..Ahorn, Maple
 
@@ -14,7 +14,8 @@ const placements = Ahorn.PlacementDict(
 )
 
 Ahorn.editingOptions(entity::CustomTutorialWithNoBird) = return Dict{String, Any}(
-    "info" => Maple.everest_bird_tutorial_tutorials
+    "info" => Maple.everest_bird_tutorial_tutorials,
+    "direction" => String["Up", "Down", "Left", "Right", "None"]
 )
 
 sprite = "ahorn/MaxHelpingHand/greyscale_birb"

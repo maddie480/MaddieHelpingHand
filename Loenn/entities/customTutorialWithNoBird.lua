@@ -13,12 +13,16 @@ birdNpc.placements = {
         onlyOnce = false,
         info = "TUTORIAL_DREAMJUMP",
         controls = "DownRight,+,Dash,tinyarrow,Jump",
-        hasPointer = true
+        direction = "Down"
     }
 }
 birdNpc.fieldInformation = {
     info = {
         options = enums.everest_bird_tutorial_tutorials
+    },
+    direction = {
+        options = { "Up", "Down", "Left", "Right", "None" },
+        editable = false
     }
 }
 
