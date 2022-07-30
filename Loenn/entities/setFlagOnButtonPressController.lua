@@ -8,7 +8,8 @@ controller.placements = {
     data = {
         button = "Grab",
         flag = "flag_name",
-        inverted = false
+        inverted = false,
+        toggleMode = false
     }
 }
 

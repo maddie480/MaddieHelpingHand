@@ -28,12 +28,14 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
         private readonly string buttonName;
         private readonly string flagName;
         private readonly bool inverted;
+        private readonly bool toggleMode;
         private VirtualButton button;
 
         public SetFlagOnButtonPressController(EntityData data, Vector2 offset) : base(data.Position + offset) {
             buttonName = data.Attr("button");
             flagName = data.Attr("flag");
             inverted = data.Bool("inverted");
+            toggleMode = data.Bool("toggleMode");
 
             resolveVirtualButton();
         }
@@ -45,13 +47,22 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
         public override void Update() {
             base.Update();
 
-            bool enableFlag = button.Check;
+            if (toggleMode) {
+                // invert the flag whenever the button is pressed
+                if (button.Pressed) {
+                    Session session = SceneAs<Level>().Session;
+                    session.SetFlag(flagName, !session.GetFlag(flagName));
+                }
+            } else {
+                // enable the flag (or disable, depending on the inverted setting) whenever the button is held
+                bool enableFlag = button.Check;
 
-            if (inverted) {
-                enableFlag = !enableFlag;
+                if (inverted) {
+                    enableFlag = !enableFlag;
+                }
+
+                SceneAs<Level>().Session.SetFlag(flagName, enableFlag);
             }
-
-            SceneAs<Level>().Session.SetFlag(flagName, enableFlag);
         }
     }
 }
