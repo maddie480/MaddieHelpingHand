@@ -8,6 +8,7 @@ using System.Collections.Generic;
 namespace Celeste.Mod.MaxHelpingHand.Entities {
     // Everest Custom NPC but with some more options
     [CustomEntity("MaxHelpingHand/MoreCustomNPC", "MaxHelpingHand/CustomNPCSprite")]
+    [Tracked]
     public class MoreCustomNPC : CustomNPC {
         private readonly Rectangle? talkerZone;
         private readonly bool hasDialogue;
@@ -17,6 +18,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
         private bool shouldSetFlag = true;
 
         private Sprite sprite;
+        private string spriteName;
 
         public MoreCustomNPC(EntityData data, Vector2 offset, EntityID id) : base(data, offset, id) {
             hasDialogue = !string.IsNullOrEmpty(data.Attr("dialogId"));
@@ -26,7 +28,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
 
             DynData<CustomNPC> npcData = new DynData<CustomNPC>(this);
 
-            string spriteName = data.Attr("spriteName", "");
+            spriteName = data.Attr("spriteName", "");
             if (!string.IsNullOrEmpty(spriteName)) {
                 // replace the NPC texture with a sprite.
                 npcData["textures"] = null;
@@ -96,6 +98,29 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             if (shouldSetFlag && !string.IsNullOrEmpty(setFlag) && Talker?.Entity == null) {
                 SceneAs<Level>().Session.SetFlag(setFlag);
                 shouldSetFlag = false;
+            }
+        }
+
+        public static MoreCustomNPC GetNPC(string spriteName) {
+            foreach (MoreCustomNPC result in Engine.Scene.Tracker.GetEntities<MoreCustomNPC>()) {
+                if (result.spriteName == spriteName) {
+                    return result;
+                }
+            }
+
+            Logger.Log(LogLevel.Warn, "MaxHelpingHand/MoreCustomNPC", $"Custom NPC with sprite name {spriteName} not found!");
+            return null;
+        }
+
+        public void PlayAnimation(string name) {
+            if (sprite != null) {
+                if (sprite.Has(name)) {
+                    sprite.Play(name);
+                } else {
+                    Logger.Log(LogLevel.Warn, "MaxHelpingHand/MoreCustomNPC", $"Tried to play non-existent animation {name}!");
+                }
+            } else {
+                Logger.Log(LogLevel.Warn, "MaxHelpingHand/MoreCustomNPC", "Tried to play an animation on a non-sprite-based custom NPC!");
             }
         }
     }
