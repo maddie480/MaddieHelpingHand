@@ -123,5 +123,21 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
                 Logger.Log(LogLevel.Warn, "MaxHelpingHand/MoreCustomNPC", "Tried to play an animation on a non-sprite-based custom NPC!");
             }
         }
+
+        public void SetHorizontalScale(float scale) {
+            if (sprite == null) {
+                DynData<CustomNPC> thisData = new DynData<CustomNPC>(this);
+                thisData["scale"] = new Vector2(scale, thisData.Get<Vector2>("scale").Y);
+            } else {
+                sprite.Scale.X = scale;
+            }
+        }
+
+        public Sprite GetSprite() {
+            if (sprite == null) {
+                Logger.Log(LogLevel.Warn, "MaxHelpingHand/MoreCustomNPC", "This NPC does not use a sprite!");
+            }
+            return sprite;
+        }
     }
 }
