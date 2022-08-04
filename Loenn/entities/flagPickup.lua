@@ -8,7 +8,8 @@ flagPickup.placements = {
         appearOnFlag = "",
         flagOnPickup = "",
         collectFlag = "",
-        spriteName = "MaxHelpingHand_FlagPickup_Flag"
+        spriteName = "MaxHelpingHand_FlagPickup_Flag",
+        collectSound = "event:/game/general/seed_touch"
     }
 }
 

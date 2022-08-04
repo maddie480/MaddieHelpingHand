@@ -966,6 +966,7 @@ entities.MaxHelpingHand/FlagPickup.attributes.description.appearOnFlag=If specif
 entities.MaxHelpingHand/FlagPickup.attributes.description.flagOnPickup=If specified, the pickup will activate the given flag when collected.
 entities.MaxHelpingHand/FlagPickup.attributes.description.collectFlag=If specified, the pickup will follow the player and only collect when the specified flag is activated.\nIf not specified, the pickup will behave like a strawberry, and collect if the player is on safe ground.
 entities.MaxHelpingHand/FlagPickup.attributes.description.spriteName=The sprite to use for the pickup.\nYou can make your own by copying "MaxHelpingHand_FlagPickup_Flag" from Graphics/Sprites.xml in Helping Hand's zip,\nand pasting it in your map's Sprites.xml in order to customize it.
+entities.MaxHelpingHand/FlagPickup.attributes.description.collectSound=The sound that plays when the pickup is collected.\nLeave this field empty for no sound.
 
 # Flag Decal
 entities.MaxHelpingHand/FlagDecal.placements.name.flag_decal=Flag Decal

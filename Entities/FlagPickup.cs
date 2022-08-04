@@ -36,6 +36,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
         private readonly string flagOnPickup;
         private readonly string collectFlag;
         private readonly string spriteName;
+        private readonly string collectSound;
         private readonly EntityID id;
 
         private TalkComponent talker = null;
@@ -55,6 +56,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             flagOnPickup = data.Attr("flagOnPickup");
             collectFlag = data.Attr("collectFlag");
             spriteName = data.Attr("spriteName");
+            collectSound = data.Attr("collectSound", "event:/game/general/seed_touch");
 
             // create the activation zone for the talk button
             Add(talker = new TalkComponent(new Rectangle(-16, -8, 32, 16), new Vector2(0, -4f), onPickup));
@@ -64,6 +66,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
         private FlagPickup(MaxHelpingHandSession.FlagPickupInfo savedInfo, Player player, Vector2 position) : base(position) {
             collectFlag = savedInfo.CollectFlag;
             spriteName = savedInfo.Sprite;
+            collectSound = savedInfo.CollectSound;
 
             pickupInfo = savedInfo;
 
@@ -134,7 +137,8 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             SceneAs<Level>().Session.DoNotLoad.Add(id);
             MaxHelpingHandModule.Instance.Session.PickedUpFlagPickups.Add(pickupInfo = new MaxHelpingHandSession.FlagPickupInfo() {
                 Sprite = spriteName,
-                CollectFlag = collectFlag
+                CollectFlag = collectFlag,
+                CollectSound = collectSound
             });
 
             // raise the flag on pickup
@@ -155,8 +159,10 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             // play the collect animation to disappear!
             sprite.Play("collect");
 
-            // play a sound as well
-            Audio.Play("event:/game/general/seed_touch", Position);
+            if (!string.IsNullOrEmpty(collectSound)) {
+                // play a sound as well
+                Audio.Play(collectSound, Position);
+            }
         }
     }
 }

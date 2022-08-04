@@ -51,6 +51,7 @@ namespace Celeste.Mod.MaxHelpingHand.Module {
         public class FlagPickupInfo {
             public string Sprite { get; set; }
             public string CollectFlag { get; set; }
+            public string CollectSound { get; set; } = "event:/game/general/seed_touch";
         }
 
         public RainbowSpinnerColorState RainbowSpinnerCurrentColors { get; set; } = null;

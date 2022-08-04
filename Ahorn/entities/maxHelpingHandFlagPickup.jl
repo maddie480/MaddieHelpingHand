@@ -3,7 +3,8 @@
 using ..Ahorn, Maple
 
 @mapdef Entity "MaxHelpingHand/FlagPickup" FlagPickup(x::Integer, y::Integer,
-    appearOnFlag::String="", flagOnPickup::String="", collectFlag::String="", spriteName::String="MaxHelpingHand_FlagPickup_Flag")
+    appearOnFlag::String="", flagOnPickup::String="", collectFlag::String="", spriteName::String="MaxHelpingHand_FlagPickup_Flag",
+    collectSound::String="event:/game/general/seed_touch")
 
 const placements = Ahorn.PlacementDict(
     "Flag Pickup (max480's Helping Hand)" => Ahorn.EntityPlacement(
