@@ -880,9 +880,10 @@ placements.entities.MaxHelpingHand/SetFlagOnActionController.tooltips.inverted=I
 # Flag Pickup
 placements.entities.MaxHelpingHand/FlagPickup.tooltips.appearOnFlag=If specified, the pickup will only appear when the given flag is active.
 placements.entities.MaxHelpingHand/FlagPickup.tooltips.flagOnPickup=If specified, the pickup will activate the given flag when collected.
-placements.entities.MaxHelpingHand/FlagPickup.tooltips.collectFlag=If specified, the pickup will follow the player and only collect when the specified flag is activated.\nIf not specified, the pickup will behave like a strawberry, and collect if the player is on safe ground.
+placements.entities.MaxHelpingHand/FlagPickup.tooltips.collectFlag=If specified, the pickup will follow the player and only collect when the specified flag is activated.\nIf not specified, the pickup will be collected immediately when picked up.
 placements.entities.MaxHelpingHand/FlagPickup.tooltips.spriteName=The sprite to use for the pickup.\nYou can make your own by copying "MaxHelpingHand_FlagPickup_Flag" from Graphics/Sprites.xml in Helping Hand's zip,\nand pasting it in your map's Sprites.xml in order to customize it.
 placements.entities.MaxHelpingHand/FlagPickup.tooltips.collectSound=The sound that plays when the pickup is collected.\nLeave this field empty for no sound.
+placements.entities.MaxHelpingHand/FlagPickup.tooltips.allowRespawn=Whether the flag pickup should respawn after being picked up and dying / changing rooms.\nWarning: this can cause multiple instances of the pickup to coexist if you have defined a "Collect Flag".
 
 # Flag Decal
 placements.entities.MaxHelpingHand/FlagDecal.names.fps=Frame Rate (FPS)

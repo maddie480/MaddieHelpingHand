@@ -37,12 +37,12 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
         private readonly string collectFlag;
         private readonly string spriteName;
         private readonly string collectSound;
+        private readonly bool allowRespawn;
         private readonly EntityID id;
 
         private TalkComponent talker = null;
 
         private Follower follower = null;
-        private float collectTimer = 0f;
 
         private MaxHelpingHandSession.FlagPickupInfo pickupInfo;
 
@@ -57,6 +57,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             collectFlag = data.Attr("collectFlag");
             spriteName = data.Attr("spriteName");
             collectSound = data.Attr("collectSound", "event:/game/general/seed_touch");
+            allowRespawn = data.Bool("allowRespawn");
 
             // create the activation zone for the talk button
             Add(talker = new TalkComponent(new Rectangle(-16, -8, 32, 16), new Vector2(0, -4f), onPickup));
@@ -100,46 +101,41 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             base.Update();
 
             if (follower != null) {
-                // the pickup is following the player, we should check if it should get collected.
-                if (!string.IsNullOrEmpty(collectFlag)) {
-                    // trigger the collect whenever the flag is active...
-                    if (SceneAs<Level>().Session.GetFlag(collectFlag)) {
-                        onCollect();
-                    }
-                } else {
-                    // ... and if there is no flag, mimic strawberries.
-                    Player player = Scene.Tracker.GetEntity<Player>();
-                    if (player != null && player.OnSafeGround) {
-                        collectTimer += Engine.DeltaTime;
-                        if (collectTimer > 0.15f) {
-                            onCollect();
-                        }
-                    } else {
-                        collectTimer = 0f;
-                    }
+                // the pickup is following the player => collect it whenever the collect flag is active.
+                if (SceneAs<Level>().Session.GetFlag(collectFlag)) {
+                    onCollect();
                 }
             }
         }
 
         private void onPickup(Player player) {
-            // switch the sprite
-            sprite.Play("following");
-
-            // start following the player
-            Add(follower = new Follower());
-            SceneAs<Level>().OnEndOfFrame += () => player.Leader.GainFollower(follower);
-
             // there is no reason to interact with the pickup anymore
             talker.RemoveSelf();
             talker = null;
 
-            // switch from being spawned as part of the map to being spawned with the player
-            SceneAs<Level>().Session.DoNotLoad.Add(id);
-            MaxHelpingHandModule.Instance.Session.PickedUpFlagPickups.Add(pickupInfo = new MaxHelpingHandSession.FlagPickupInfo() {
-                Sprite = spriteName,
-                CollectFlag = collectFlag,
-                CollectSound = collectSound
-            });
+            if (!allowRespawn) {
+                // prevent the pickup from respawning
+                SceneAs<Level>().Session.DoNotLoad.Add(id);
+            }
+
+            if (string.IsNullOrEmpty(collectFlag)) {
+                // no collect flag => collect the pickup immediately
+                onCollect();
+            } else {
+                // switch the sprite
+                sprite.Play("following");
+
+                // start following the player
+                Add(follower = new Follower());
+                SceneAs<Level>().OnEndOfFrame += () => player.Leader.GainFollower(follower);
+
+                // remember the pickup in the session in case the player dies or saves & quits
+                MaxHelpingHandModule.Instance.Session.PickedUpFlagPickups.Add(pickupInfo = new MaxHelpingHandSession.FlagPickupInfo() {
+                    Sprite = spriteName,
+                    CollectFlag = collectFlag,
+                    CollectSound = collectSound
+                });
+            }
 
             // raise the flag on pickup
             if (!string.IsNullOrEmpty(flagOnPickup)) {
@@ -148,10 +144,12 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
         }
 
         private void onCollect() {
-            // stop following the player
-            follower.Leader?.LoseFollower(follower);
-            follower.RemoveSelf();
-            follower = null;
+            if (follower != null) {
+                // stop following the player
+                follower.Leader?.LoseFollower(follower);
+                follower.RemoveSelf();
+                follower = null;
+            }
 
             // remove ourselves from session to avoid respawning the next time the player dies
             MaxHelpingHandModule.Instance.Session.PickedUpFlagPickups.Remove(pickupInfo);

@@ -9,7 +9,8 @@ flagPickup.placements = {
         flagOnPickup = "",
         collectFlag = "",
         spriteName = "MaxHelpingHand_FlagPickup_Flag",
-        collectSound = "event:/game/general/seed_touch"
+        collectSound = "event:/game/general/seed_touch",
+        allowRespawn = false
     }
 }
 
