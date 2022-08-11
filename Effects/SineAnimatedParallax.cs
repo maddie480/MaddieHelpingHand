@@ -93,7 +93,7 @@ namespace Celeste.Mod.MaxHelpingHand.Effects {
         private static void Update(Action<SineParallaxStyleground, Scene> orig, SineParallaxStyleground self, Scene scene) {
             orig(self, scene);
 
-            if (self is SineAnimatedParallax animated) {
+            if (self is SineAnimatedParallax animated && self.IsVisible(scene as Level)) {
                 animated.currentFrameTimer -= Engine.DeltaTime;
                 if (animated.currentFrameTimer < 0f) {
                     animated.currentFrameTimer += (1f / animated.fps);

@@ -64,12 +64,14 @@ namespace Celeste.Mod.MaxHelpingHand.Effects {
         public override void Update(Scene scene) {
             base.Update(scene);
 
-            currentFrameTimer -= Engine.DeltaTime;
-            if (currentFrameTimer < 0f) {
-                currentFrameTimer += (1f / fps);
-                currentFrame++;
-                currentFrame %= frames.Count;
-                Texture = frames[currentFrame];
+            if (IsVisible(scene as Level)) {
+                currentFrameTimer -= Engine.DeltaTime;
+                if (currentFrameTimer < 0f) {
+                    currentFrameTimer += (1f / fps);
+                    currentFrame++;
+                    currentFrame %= frames.Count;
+                    Texture = frames[currentFrame];
+                }
             }
         }
     }
