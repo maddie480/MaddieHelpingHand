@@ -1,12 +1,23 @@
 ﻿using Celeste.Mod.Entities;
 using Microsoft.Xna.Framework;
+using Mono.Cecil.Cil;
 using Monocle;
+using MonoMod.Cil;
 using MonoMod.Utils;
+using System;
 using System.Collections;
 
 namespace Celeste.Mod.MaxHelpingHand.Entities {
     [CustomEntity("MaxHelpingHand/RespawningJellyfish")]
     public class RespawningJellyfish : Glider {
+        public static void Load() {
+            IL.Celeste.Glider.Update += modGliderUpdate;
+        }
+
+        public static void Unload() {
+            IL.Celeste.Glider.Update -= modGliderUpdate;
+        }
+
         private static ParticleType P_NotGlow;
 
         private DynData<Glider> self;
@@ -76,16 +87,22 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             base.Update();
 
             P_Glow = vanillaGlow;
+        }
 
-            if (shouldRespawn && !respawning && self.Get<bool>("destroyed")) {
-                // replace the vanilla destroy routine with our custom one.
-                foreach (Component component in this) {
-                    if (component is Coroutine) {
-                        Remove(component);
-                        Add(new Coroutine(destroyThenRespawnRoutine()));
-                        break;
+        private static void modGliderUpdate(ILContext il) {
+            ILCursor cursor = new ILCursor(il);
+
+            while (cursor.TryGotoNext(MoveType.After, instr => instr.MatchNewobj<Coroutine>())) {
+                Logger.Log("MaxHelpingHand/RespawningJellyfish", $"Replacing coroutine to make jellyfish respawn at {cursor.Index} in IL for Glider.Update");
+
+                cursor.Emit(OpCodes.Ldarg_0);
+                cursor.EmitDelegate<Func<Coroutine, Glider, Coroutine>>((orig, self) => {
+                    if (self is RespawningJellyfish jelly) {
+                        return new Coroutine(jelly.destroyThenRespawnRoutine());
                     }
-                }
+
+                    return orig;
+                });
             }
         }
 

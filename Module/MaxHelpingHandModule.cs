@@ -78,6 +78,7 @@ namespace Celeste.Mod.MaxHelpingHand.Module {
             ReskinnableCrystalHeart.Load();
             SetFlagOnButtonPressController.Load();
             FlagPickup.Load();
+            RespawningJellyfish.Load();
 
             Everest.Events.Level.OnLoadBackdrop += onLoadBackdrop;
             On.Celeste.Mod.Everest.Register += onModRegister;
@@ -137,6 +138,7 @@ namespace Celeste.Mod.MaxHelpingHand.Module {
             SetFlagOnButtonPressController.Unload();
             FlagPickup.Unload();
             AvBdaySpeechBubbleFixup.Unload();
+            RespawningJellyfish.Unload();
 
             Everest.Events.Level.OnLoadBackdrop -= onLoadBackdrop;
             On.Celeste.Mod.Everest.Register -= onModRegister;
