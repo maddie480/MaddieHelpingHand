@@ -6,9 +6,11 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
     // The forbidden crossing between glass blocks and exit blocks.
     [CustomEntity("MaxHelpingHand/CustomizableGlassExitBlock")]
     public class CustomizableGlassExitBlock : CustomizableGlassBlock {
+        private bool playerMustEnterFirst;
         private EffectCutout cutout;
 
         public CustomizableGlassExitBlock(EntityData data, Vector2 offset) : base(data, offset) {
+            playerMustEnterFirst = data.Bool("playerMustEnterFirst");
             Add(cutout = new EffectCutout());
         }
 
@@ -21,7 +23,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
         }
 
         public override void Awake(Scene scene) {
-            if (CollideCheck<Player>()) {
+            if (playerMustEnterFirst || CollideCheck<Player>()) {
                 cutout.Alpha = Alpha = 0f;
                 Collidable = false;
             }
@@ -30,7 +32,18 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
         }
 
         public override void Update() {
+            if (playerMustEnterFirst) {
+                if (CollideCheck<Player>()) {
+                    // player entered!
+                    playerMustEnterFirst = false;
+                } else {
+                    // do nothing until the player entered the block.
+                    return;
+                }
+            }
+
             base.Update();
+
             if (Collidable) {
                 cutout.Alpha = Alpha = Calc.Approach(Alpha, 1f, Engine.DeltaTime);
             } else if (!CollideCheck<Player>()) {

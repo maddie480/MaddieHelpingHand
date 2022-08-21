@@ -447,6 +447,7 @@ placements.entities.MaxHelpingHand/CustomizableGlassBlock.tooltips.behindFgTiles
 
 # Customizable Glass Exit Block
 placements.entities.MaxHelpingHand/CustomizableGlassExitBlock.tooltips.behindFgTiles=Whether the glass block outline should appear behind foreground tiles.
+placements.entities.MaxHelpingHand/CustomizableGlassExitBlock.tooltips.playerMustEnterFirst=Whether the exit block should fade in when the player enters, then exits it.\nIf this is unchecked and the player spawns outside of the block, the block will instantly appear.
 
 # Customizable Glass Block Controller
 placements.entities.MaxHelpingHand/CustomizableGlassBlockController.tooltips.starColors=A comma-separated list of all star colours visible in glass blocks in the room.

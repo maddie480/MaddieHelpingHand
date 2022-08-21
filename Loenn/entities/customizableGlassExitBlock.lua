@@ -7,6 +7,7 @@ glassBlock.placements = {
     name = "glass_block",
     data = {
         behindFgTiles = false,
+        playerMustEnterFirst = false,
         width = 8,
         height = 8
     }

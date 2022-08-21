@@ -58,6 +58,7 @@ entities.MaxHelpingHand/CustomizableGlassBlockAreaController.attributes.descript
 # Customizable Glass Exit Block
 entities.MaxHelpingHand/CustomizableGlassExitBlock.placements.name.glass_block=Customizable Glass Exit Block
 entities.MaxHelpingHand/CustomizableGlassExitBlock.attributes.description.behindFgTiles=Whether the glass block outline should appear behind foreground tiles.
+entities.MaxHelpingHand/CustomizableGlassExitBlock.attributes.description.playerMustEnterFirst=Whether the exit block should fade in when the player enters, then exits it.\nIf this is unchecked and the player spawns outside of the block, the block will instantly appear.
 
 # Customizable Refill
 entities.MaxHelpingHand/CustomizableRefill.placements.name.one_dash=Refill (Customizable)

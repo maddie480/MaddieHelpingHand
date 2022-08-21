@@ -2,7 +2,8 @@
 
 using ..Ahorn, Maple
 
-@mapdef Entity "MaxHelpingHand/CustomizableGlassExitBlock" CustomizableGlassExitBlock(x::Integer, y::Integer, width::Integer=Maple.defaultBlockWidth, height::Integer=Maple.defaultBlockHeight, behindFgTiles::Bool=false)
+@mapdef Entity "MaxHelpingHand/CustomizableGlassExitBlock" CustomizableGlassExitBlock(x::Integer, y::Integer, width::Integer=Maple.defaultBlockWidth, height::Integer=Maple.defaultBlockHeight,
+    behindFgTiles::Bool=false, playerMustEnterFirst::Bool=false)
 
 const placements = Ahorn.PlacementDict(
     "Customizable Glass Exit Block (max480's Helping Hand)" => Ahorn.EntityPlacement(
