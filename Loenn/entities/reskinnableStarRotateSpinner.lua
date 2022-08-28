@@ -23,7 +23,8 @@ for i = 1, 2 do
         data = {
             clockwise = clockwise,
             spriteFolder = "danger/MaxHelpingHand/starSpinner",
-            particleColors = "EA64B7|3EE852,67DFEA|E85351,EA582C|33BDE8"
+            particleColors = "EA64B7|3EE852,67DFEA|E85351,EA582C|33BDE8",
+            immuneToGuneline = false
         }
     })
 end

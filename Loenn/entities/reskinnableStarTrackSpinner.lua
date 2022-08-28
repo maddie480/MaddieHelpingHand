@@ -30,7 +30,8 @@ for speedName, speedValue in pairs(speeds) do
             speed = speedValue,
             startCenter = false,
             spriteFolder = "danger/MaxHelpingHand/starSpinner", 
-            particleColors = "EA64B7|3EE852,67DFEA|E85351,EA582C|33BDE8"
+            particleColors = "EA64B7|3EE852,67DFEA|E85351,EA582C|33BDE8",
+            immuneToGuneline = false
         }
     })
 end

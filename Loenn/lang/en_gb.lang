@@ -551,6 +551,7 @@ entities.MaxHelpingHand/ReskinnableStarRotateSpinner.placements.name.counter_clo
 entities.MaxHelpingHand/ReskinnableStarRotateSpinner.attributes.description.clockwise=The spinning star will run clockwise.
 entities.MaxHelpingHand/ReskinnableStarRotateSpinner.attributes.description.spriteFolder=The folder containing the star sprites. You can make your own by taking example on the Graphics/Atlases/Gameplay/danger/MaxHelpingHand/starSpinner folder that ships with the mod.
 entities.MaxHelpingHand/ReskinnableStarRotateSpinner.attributes.description.particleColors=The colors for the particles following the stars, in the format color1|color2,color1|color2... There should be the same amount of color pairs as there are different sprites for the star spinners.
+entities.MaxHelpingHand/ReskinnableStarRotateSpinner.attributes.description.immuneToGuneline=Whether the spinner should be immune to gunshots (with the Guneline mod).
 
 # Reskinnable Star Track Spinner
 entities.MaxHelpingHand/ReskinnableStarTrackSpinner.placements.name.slow=Track Spinner (Starfish, Slow, Reskinnable)
@@ -560,6 +561,7 @@ entities.MaxHelpingHand/ReskinnableStarTrackSpinner.attributes.description.speed
 entities.MaxHelpingHand/ReskinnableStarTrackSpinner.attributes.description.startCenter=The spinner will start at the end of the track.
 entities.MaxHelpingHand/ReskinnableStarTrackSpinner.attributes.description.spriteFolder=The folder containing the star sprites. You can make your own by taking example on the Graphics/Atlases/Gameplay/danger/MaxHelpingHand/starSpinner folder that ships with the mod.
 entities.MaxHelpingHand/ReskinnableStarTrackSpinner.attributes.description.particleColors=The colors for the particles following the stars, in the format color1|color2,color1|color2... There should be the same amount of color pairs as there are different sprites for the star spinners.
+entities.MaxHelpingHand/ReskinnableStarTrackSpinner.attributes.description.immuneToGuneline=Whether the spinner should be immune to gunshots (with the Guneline mod).
 
 # Reskinnable Swap Block
 entities.MaxHelpingHand/ReskinnableSwapBlock.placements.name.swapblock=Swap Block (Reskinnable)

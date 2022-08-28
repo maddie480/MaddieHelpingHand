@@ -139,6 +139,8 @@ namespace Celeste.Mod.MaxHelpingHand.Module {
             FlagPickup.Unload();
             AvBdaySpeechBubbleFixup.Unload();
             RespawningJellyfish.Unload();
+            ReskinnableStarRotateSpinner.Unload();
+            ReskinnableStarTrackSpinner.Unload();
 
             Everest.Events.Level.OnLoadBackdrop -= onLoadBackdrop;
             On.Celeste.Mod.Everest.Register -= onModRegister;
@@ -173,6 +175,8 @@ namespace Celeste.Mod.MaxHelpingHand.Module {
             MadelineSprite.HookMods();
             ReskinnableCrystalHeart.HookMods();
             AvBdaySpeechBubbleFixup.LoadMods();
+            ReskinnableStarRotateSpinner.LoadMods();
+            ReskinnableStarTrackSpinner.LoadMods();
 
             if (!hookedSineParallax && Everest.Loader.DependencyLoaded(new EverestModuleMetadata() { Name = "FlaglinesAndSuch", Version = new Version(1, 4, 17) })) {
                 hookSineParallax();

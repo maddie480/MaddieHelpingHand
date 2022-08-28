@@ -2,8 +2,8 @@
 
 using ..Ahorn, Maple
 
-@pardef ReskinnableStarRotateSpinner(x1::Integer, y1::Integer, x2::Integer=x1 + 16, y2::Integer=y1, clockwise::Bool=false, spriteFolder::String="danger/MaxHelpingHand/starSpinner", particleColors::String="EA64B7|3EE852,67DFEA|E85351,EA582C|33BDE8") =
-    Entity("MaxHelpingHand/ReskinnableStarRotateSpinner", x=x1, y=y1, nodes=Tuple{Int, Int}[(x2, y2)], clockwise=clockwise, spriteFolder=spriteFolder, particleColors=particleColors)
+@pardef ReskinnableStarRotateSpinner(x1::Integer, y1::Integer, x2::Integer=x1 + 16, y2::Integer=y1, clockwise::Bool=false, spriteFolder::String="danger/MaxHelpingHand/starSpinner", particleColors::String="EA64B7|3EE852,67DFEA|E85351,EA582C|33BDE8", immuneToGuneline::Bool=false) =
+    Entity("MaxHelpingHand/ReskinnableStarRotateSpinner", x=x1, y=y1, nodes=Tuple{Int, Int}[(x2, y2)], clockwise=clockwise, spriteFolder=spriteFolder, particleColors=particleColors, immuneToGuneline=immuneToGuneline)
 
 function rotatingSpinnerFinalizer(entity::ReskinnableStarRotateSpinner)
     x, y = Int(entity.data["x"]), Int(entity.data["y"])
