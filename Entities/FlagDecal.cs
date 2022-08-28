@@ -16,7 +16,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             flag = data.Attr("flag");
             inverted = data.Bool("inverted");
 
-            Depth = data.Bool("foreground") ? Depths.FGDecals : Depths.BGDecals;
+            Depth = data.Int("depth");
 
             // set up the sprite like a Sprites.xml one, based on the entity settings
             // "idle" = the decal
