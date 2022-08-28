@@ -3,7 +3,7 @@
 using ..Ahorn, Maple
 
 @mapdef Entity "MaxHelpingHand/FlagDecal" FlagDecal(x::Integer, y::Integer, fps::Number=12.0, flag::String="decal_flag", inverted::Bool=false,
-    decalPath::String="1-forsakencity/flag", appearAnimationPath::String="", disappearAnimationPath::String="")
+    decalPath::String="1-forsakencity/flag", appearAnimationPath::String="", disappearAnimationPath::String="", foreground::Bool=false)
 
 const placements = Ahorn.PlacementDict(
     "Flag Decal (max480's Helping Hand)" => Ahorn.EntityPlacement(

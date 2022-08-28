@@ -894,3 +894,4 @@ placements.entities.MaxHelpingHand/FlagDecal.tooltips.inverted=If enabled, the d
 placements.entities.MaxHelpingHand/FlagDecal.tooltips.decalPath=The path to the decal, starting from Graphics/Atlases/Gameplay/decals in the graphics dump or in your mod's folder.
 placements.entities.MaxHelpingHand/FlagDecal.tooltips.appearAnimationPath=The path to an appearing animation for the decal, starting from Graphics/Atlases/Gameplay/decals in the graphics dump or in your mod's folder.\nIf none is specified, the decal will appear immediately.
 placements.entities.MaxHelpingHand/FlagDecal.tooltips.disappearAnimationPath=The path to a disappearing animation for the decal, starting from Graphics/Atlases/Gameplay/decals in the graphics dump or in your mod's folder.\nIf none is specified, the decal will disappear immediately.
+placements.entities.MaxHelpingHand/FlagDecal.tooltips.foreground=Determines whether this flag decal is a foreground or background decal.

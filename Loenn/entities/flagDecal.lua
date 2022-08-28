@@ -12,7 +12,8 @@ flagDecal.placements = {
         inverted = false,
         decalPath = "1-forsakencity/flag",
         appearAnimationPath = "",
-        disappearAnimationPath = ""
+        disappearAnimationPath = "",
+        foreground = false
     }
 }
 function flagDecal.texture(room, entity)

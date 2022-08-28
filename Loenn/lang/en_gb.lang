@@ -979,6 +979,7 @@ entities.MaxHelpingHand/FlagDecal.attributes.description.inverted=If enabled, th
 entities.MaxHelpingHand/FlagDecal.attributes.description.decalPath=The path to the decal, starting from Graphics/Atlases/Gameplay/decals in the graphics dump or in your mod's folder.
 entities.MaxHelpingHand/FlagDecal.attributes.description.appearAnimationPath=The path to an appearing animation for the decal, starting from Graphics/Atlases/Gameplay/decals in the graphics dump or in your mod's folder.\nIf none is specified, the decal will appear immediately.
 entities.MaxHelpingHand/FlagDecal.attributes.description.disappearAnimationPath=The path to a disappearing animation for the decal, starting from Graphics/Atlases/Gameplay/decals in the graphics dump or in your mod's folder.\nIf none is specified, the decal will disappear immediately.
+entities.MaxHelpingHand/FlagDecal.attributes.description.foreground=Determines whether this flag decal is a foreground or background decal.
 
 # Expand Trigger Controller
 entities.MaxHelpingHand/ExpandTriggerController.placements.name.controller=Expand Trigger Controller
