@@ -19,17 +19,17 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
         private static FieldInfo movingTouchSwitchIcon;
         private static Type movingTouchSwitchStateMachineType;
 
-        private static ILHook hookMovingTouchSwitchColor;
+        private static ILHook hookMovingTouchSwitch;
 
         public static void HookMods() {
-            if (hookMovingTouchSwitchColor == null && Everest.Loader.DependencyLoaded(new EverestModuleMetadata { Name = "OutbackHelper", Version = new Version(1, 4, 0) })) {
+            if (hookMovingTouchSwitch == null && Everest.Loader.DependencyLoaded(new EverestModuleMetadata { Name = "OutbackHelper", Version = new Version(1, 4, 0) })) {
                 movingTouchSwitchType = Everest.Modules.First(module => module.GetType().ToString() == "Celeste.Mod.OutbackHelper.OutbackModule")
                     .GetType().Assembly.GetType("Celeste.Mod.OutbackHelper.MovingTouchSwitch");
                 movingTouchSwitchIcon = movingTouchSwitchType.GetField("icon", BindingFlags.NonPublic | BindingFlags.Instance);
 
                 MethodInfo movingTouchSwitchRoutine = movingTouchSwitchType.GetMethod("TriggeredSwitch", BindingFlags.NonPublic | BindingFlags.Instance).GetStateMachineTarget();
                 movingTouchSwitchStateMachineType = movingTouchSwitchRoutine.DeclaringType;
-                hookMovingTouchSwitchColor = new ILHook(movingTouchSwitchRoutine, modMovingTouchSwitchColor);
+                hookMovingTouchSwitch = new ILHook(movingTouchSwitchRoutine, modMovingTouchSwitchColor);
 
                 On.Celeste.Switch.Activate += onSwitchActivate;
                 On.Celeste.TouchSwitch.Update += onTouchSwitchUpdate;
@@ -41,8 +41,8 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             movingTouchSwitchIcon = null;
             movingTouchSwitchStateMachineType = null;
 
-            hookMovingTouchSwitchColor?.Dispose();
-            hookMovingTouchSwitchColor = null;
+            hookMovingTouchSwitch?.Dispose();
+            hookMovingTouchSwitch = null;
 
             On.Celeste.Switch.Activate -= onSwitchActivate;
             On.Celeste.TouchSwitch.Update -= onTouchSwitchUpdate;
@@ -82,6 +82,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
                 switchData["id"] = entityData.ID;
                 switchData["persistent"] = entityData.Bool("persistent", false);
                 switchData["movingColor"] = Calc.HexToColor(entityData.Attr("movingColor", "FF8080"));
+                switchData["movingDelay"] = entityData.Float("movingDelay", 0.8f);
 
                 // these attributes actually exist in TouchSwitch and as such, they work!
                 switchData["inactiveColor"] = Calc.HexToColor(entityData.Attr("inactiveColor", "5FCDE4"));
@@ -154,6 +155,22 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
                     DynData<TouchSwitch> data = new DynData<TouchSwitch>(self);
                     if (data.Data.ContainsKey("movingColor")) {
                         return data.Get<Color>("movingColor");
+                    }
+                    return orig;
+                });
+            }
+
+            cursor.Index = 0;
+
+            while (cursor.TryGotoNext(MoveType.After, instr => instr.MatchLdcR4(0.8f))) {
+                Logger.Log("MaxHelpingHand/MovingFlagTouchSwitch", $"Customizing moving flag touch switch delay at {cursor.Index} in IL for MovingTouchSwitch.TriggeredSwitch");
+
+                cursor.Emit(OpCodes.Ldarg_0);
+                cursor.Emit(OpCodes.Ldfld, movingTouchSwitchStateMachineType.GetField("<>4__this"));
+                cursor.EmitDelegate<Func<float, TouchSwitch, float>>((orig, self) => {
+                    DynData<TouchSwitch> data = new DynData<TouchSwitch>(self);
+                    if (data.Data.ContainsKey("movingDelay")) {
+                        return data.Get<float>("movingDelay");
                     }
                     return orig;
                 });

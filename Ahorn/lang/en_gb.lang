@@ -28,6 +28,7 @@ placements.entities.MaxHelpingHand/FlagTouchSwitch.names.completeSoundFromScene=
 placements.entities.MaxHelpingHand/MovingFlagTouchSwitch.tooltips.flag=The session flag this touch switch sets. Give the same to multiple touch switches and switch gates to group them.
 placements.entities.MaxHelpingHand/MovingFlagTouchSwitch.tooltips.icon=The name of the icon for the touch switch (relative to objects/MaxHelpingHand/flagTouchSwitch), or "vanilla" for the default one.
 placements.entities.MaxHelpingHand/MovingFlagTouchSwitch.tooltips.persistent=If enabled, the touch switch will stay active when the player dies or changes rooms.\nThis touch switch will also set a flag when it is enabled: [flagName]_switch[entityID]
+placements.entities.MaxHelpingHand/MovingFlagTouchSwitch.tooltips.movingDelay=The time (in seconds) the touch switch takes to move from one position to another.
 placements.entities.MaxHelpingHand/MovingFlagTouchSwitch.tooltips.inactiveColor=The switch colour when not triggered yet.
 placements.entities.MaxHelpingHand/MovingFlagTouchSwitch.tooltips.movingColor=The switch colour when it is moving between two positions.
 placements.entities.MaxHelpingHand/MovingFlagTouchSwitch.tooltips.activeColor=The switch colour when triggered, but the group is not complete yet.

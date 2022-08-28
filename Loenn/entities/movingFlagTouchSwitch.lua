@@ -14,6 +14,7 @@ touchSwitch.placements = {
             flag = "moving_flag_touch_switch",
             icon = "vanilla",
             persistent = false,
+            movingDelay = 0.8,
             inactiveColor = "5FCDE4",
             movingColor = "FF8080",
             activeColor = "FFFFFF",
