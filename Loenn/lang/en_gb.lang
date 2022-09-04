@@ -986,3 +986,94 @@ entities.MaxHelpingHand/FlagDecal.attributes.description.depth=The depth of the 
 
 # Expand Trigger Controller
 entities.MaxHelpingHand/ExpandTriggerController.placements.name.controller=Expand Trigger Controller
+
+# All Side Tentacles
+style.effects.MaxHelpingHand/AllSideTentacles.name=Tentacles (All Sides)
+style.effects.MaxHelpingHand/AllSideTentacles.description.sides=The side of the screen that the tentacles should attach to.
+style.effects.MaxHelpingHand/AllSideTentacles.description.offset=Determines the lerp strength of the tentacles, and their offset compared to the player's position.
+style.effects.MaxHelpingHand/AllSideTentacles.description.color=The color of the tentacles.
+
+# Blackhole with Custom Colors
+style.effects.MaxHelpingHand/BlackholeCustomColors.name=Blackhole (Custom)
+style.effects.MaxHelpingHand/BlackholeCustomColors.attribute.fadex=Fade X
+style.effects.MaxHelpingHand/BlackholeCustomColors.attribute.fadey=Fade Y
+style.effects.MaxHelpingHand/BlackholeCustomColors.description.colorsMild=Colors of the shapes going towards the center of the screen when the blackhole strength is Mild.\nThere should be as many colors defined in Colors Mild and in Colors Wild for both to work.\nYou can set up a gradient with multiple sets of colors to fade between: for example, "0.5|ffffff,000000|000000,ffffff" will fade between the 2 sets of colors every 0.5 seconds.
+style.effects.MaxHelpingHand/BlackholeCustomColors.description.colorsWild=Colors of the shapes going towards the center of the screen when the blackhole strength is Wild.\nThere should be as many colors defined in Colors Mild and in Colors Wild for both to work.\nYou can set up a gradient with multiple sets of colors to fade between: for example, "0.5|ffffff,000000|000000,ffffff" will fade between the 2 sets of colors every 0.5 seconds.
+style.effects.MaxHelpingHand/BlackholeCustomColors.description.bgColorInner=The color used for the background at the center of the screen.\nYou can set up a gradient with multiple colors to fade between: for example, "0.5|ffffff|000000" will fade between the 2 colors every 0.5 seconds.
+style.effects.MaxHelpingHand/BlackholeCustomColors.description.bgColorOuterMild=The color used for the background at the edges of the screen, when the blackhole strength is Mild.\nYou can set up a gradient with multiple colors to fade between: for example, "0.5|ffffff|000000" will fade between the 2 colors every 0.5 seconds.
+style.effects.MaxHelpingHand/BlackholeCustomColors.description.bgColorOuterWild=The color used for the background at the edges of the screen, when the blackhole strength is Wild.\nYou can set up a gradient with multiple colors to fade between: for example, "0.5|ffffff|000000" will fade between the 2 colors every 0.5 seconds.
+style.effects.MaxHelpingHand/BlackholeCustomColors.description.affectedByWind=Whether the blackhole should be offset when there is wind in the room.
+style.effects.MaxHelpingHand/BlackholeCustomColors.description.fadex=Advanced horizontal fading zones.\nFormat is "FromPosition-ToPosition,FromAlpha-ToAlpha". Example "n500-500,1-0".\nNegative numbers in position are denoted with "n" rather than minus. Position numbers are in pixels and use map coordinates.\nMultiple zones can be set up by using ":" as separator.
+style.effects.MaxHelpingHand/BlackholeCustomColors.description.fadey=Advanced vertical fading zones.\nFormat is "FromPosition-ToPosition,FromAlpha-ToAlpha". Example "n500-500,1-0".\nNegative numbers in position are denoted with "n" rather than minus. Position numbers are in pixels and use map coordinates.\nMultiple zones can be set up by using ":" as separator.
+style.effects.MaxHelpingHand/BlackholeCustomColors.description.direction=Determines the direction and speed of the shapes. Positive values make them go inwards, negative values make them go outwards, and bigger values make them go faster.\nThe default vanilla value is 1, and -2.5 after using the final Badeline boost in Farewell.
+style.effects.MaxHelpingHand/BlackholeCustomColors.description.additionalWindX=The value given here will be added to the horizontal wind to compute the position of the blackhole.\nIf "Affected By Wind" is unchecked, this value will replace the wind strength entirely instead of adding to it.
+style.effects.MaxHelpingHand/BlackholeCustomColors.description.additionalWindY=The value given here will be added to the vertical wind to compute the position of the blackhole.\nIf "Affected By Wind" is unchecked, this value will replace the wind strength entirely instead of adding to it.
+
+# Custom Planets
+style.effects.MaxHelpingHand/CustomPlanets.name=Planets (Custom)
+style.effects.MaxHelpingHand/CustomPlanets.attribute.fadex=Fade X
+style.effects.MaxHelpingHand/CustomPlanets.attribute.fadey=Fade Y
+style.effects.MaxHelpingHand/CustomPlanets.attribute.scrollx=Scroll X
+style.effects.MaxHelpingHand/CustomPlanets.attribute.scrolly=Scroll Y
+style.effects.MaxHelpingHand/CustomPlanets.attribute.speedx=Speed X
+style.effects.MaxHelpingHand/CustomPlanets.attribute.speedy=Speed Y
+style.effects.MaxHelpingHand/CustomPlanets.description.count=The amount of planets to render.
+style.effects.MaxHelpingHand/CustomPlanets.description.color=The colour of the planets.
+style.effects.MaxHelpingHand/CustomPlanets.description.scrollx=Determines the parallax scrolling of the planets along the X axis.
+style.effects.MaxHelpingHand/CustomPlanets.description.scrolly=Determines the parallax scrolling of the planets along the Y axis.
+style.effects.MaxHelpingHand/CustomPlanets.description.speedx=Determines the scrolling speed of the planets (in pixels per second) along the X axis.
+style.effects.MaxHelpingHand/CustomPlanets.description.speedy=Determines the scrolling speed of the planets (in pixels per second) along the Y axis.
+style.effects.MaxHelpingHand/CustomPlanets.description.directory=The directory to read the planet sprites from (in Graphics/Atlases/Gameplay).
+style.effects.MaxHelpingHand/CustomPlanets.description.animationDelay=The delay between 2 frames (in seconds) for the planets animations.
+style.effects.MaxHelpingHand/CustomPlanets.description.fadex=Advanced horizontal fading zones.\nFormat is "FromPosition-ToPosition,FromAlpha-ToAlpha". Example "n500-500,1-0".\nNegative numbers in position are denoted with "n" rather than minus. Position numbers are in pixels and use map coordinates.\nMultiple zones can be set up by using ":" as separator.
+style.effects.MaxHelpingHand/CustomPlanets.description.fadey=Advanced vertical fading zones.\nFormat is "FromPosition-ToPosition,FromAlpha-ToAlpha". Example "n500-500,1-0".\nNegative numbers in position are denoted with "n" rather than minus. Position numbers are in pixels and use map coordinates.\nMultiple zones can be set up by using ":" as separator.
+
+# Custom Starfield
+style.effects.MaxHelpingHand/CustomStarfield.name=Starfield (Custom)
+style.effects.MaxHelpingHand/CustomStarfield.attribute.fadex=Fade X
+style.effects.MaxHelpingHand/CustomStarfield.attribute.fadey=Fade Y
+style.effects.MaxHelpingHand/CustomStarfield.attribute.scrollx=Scroll X
+style.effects.MaxHelpingHand/CustomStarfield.attribute.scrolly=Scroll Y
+style.effects.MaxHelpingHand/CustomStarfield.description.paths=Comma-separated list of paths to use for the sprites.\nFor example, typing "mystarfield" will use sprites from the Graphics/Atlases/Gameplay/particles/mystarfield folder.
+style.effects.MaxHelpingHand/CustomStarfield.description.colors=Comma-separated list of colours to use from for the stars.
+style.effects.MaxHelpingHand/CustomStarfield.description.alphas=Comma-separated list of transparency values to use for the stars.
+style.effects.MaxHelpingHand/CustomStarfield.description.shuffle=Whether to randomly pick a path, colour, and alpha value for each star.\nIf off, the first path, colour, and alpha are used for the first star, the second of each for the second, and so on, repeating from the start.
+style.effects.MaxHelpingHand/CustomStarfield.description.speed=How fast the stars move.
+style.effects.MaxHelpingHand/CustomStarfield.description.fadex=Advanced horizontal fading zones.\nFormat is "FromPosition-ToPosition,FromAlpha-ToAlpha". Example "n500-500,1-0".\nNegative numbers in position are denoted with "n" rather than minus. Position numbers are in pixels and use map coordinates.\nMultiple zones can be set up by using ":" as separator.
+style.effects.MaxHelpingHand/CustomStarfield.description.fadey=Advanced vertical fading zones.\nFormat is "FromPosition-ToPosition,FromAlpha-ToAlpha". Example "n500-500,1-0".\nNegative numbers in position are denoted with "n" rather than minus. Position numbers are in pixels and use map coordinates.\nMultiple zones can be set up by using ":" as separator.
+style.effects.MaxHelpingHand/CustomStarfield.description.scrollx=Determines the parallax scrolling of the starfield along the X axis.
+style.effects.MaxHelpingHand/CustomStarfield.description.scrolly=Determines the parallax scrolling of the starfield along the Y axis.
+
+# Custom Stars
+style.effects.MaxHelpingHand/CustomStars.name=Stars (Custom)
+style.effects.MaxHelpingHand/CustomStars.attribute.fadex=Fade X
+style.effects.MaxHelpingHand/CustomStars.attribute.fadey=Fade Y
+style.effects.MaxHelpingHand/CustomStars.description.spriteDirectory=The directory containing all the star sprites.\nTo make your own, you can take example on Graphics/Atlases/Gameplay/bgs/02/stars, and drop your sprites in Mods/yourmod/Graphics/Atlases/Gameplay/MyMap/mystars. Then, type MyMap/mystars in this field.
+style.effects.MaxHelpingHand/CustomStars.description.tint=Allows you to tint the stars. Works better with the "bgs/MaxHelpingHand/graystars" sprite directory. Leave empty to use vanilla values ("008080" when dreaming, "ffffff" otherwise).
+style.effects.MaxHelpingHand/CustomStars.description.starCount=Determines the number of stars present in the background. Leave empty to use vanilla values (100 when dreaming, 50 otherwise).
+style.effects.MaxHelpingHand/CustomStars.description.wrapHeight=The height the stars will fall (in pixels) before wrapping. Increase this value if you notice that the stars "teleport" to the top of the screen before they are offscreen at the bottom.
+style.effects.MaxHelpingHand/CustomStars.description.starAlpha=The opacity of the stars (1 is opaque, 0 is fully transparent). Leave empty to use vanilla values (0.7 if dreaming, 1 if not dreaming).
+style.effects.MaxHelpingHand/CustomStars.description.bgAlpha=The opacity of the black background of the effect (1 is opaque, 0 is fully transparent).
+style.effects.MaxHelpingHand/CustomStars.description.fadex=Advanced horizontal fading zones.\nFormat is "FromPosition-ToPosition,FromAlpha-ToAlpha". Example "n500-500,1-0".\nNegative numbers in position are denoted with "n" rather than minus. Position numbers are in pixels and use map coordinates.\nMultiple zones can be set up by using ":" as separator.
+style.effects.MaxHelpingHand/CustomStars.description.fadey=Advanced vertical fading zones.\nFormat is "FromPosition-ToPosition,FromAlpha-ToAlpha". Example "n500-500,1-0".\nNegative numbers in position are denoted with "n" rather than minus. Position numbers are in pixels and use map coordinates.\nMultiple zones can be set up by using ":" as separator.
+
+# Heat Wave not affecting color grade
+style.effects.MaxHelpingHand/HeatWaveNoColorGrade.name=Heatwave (not affecting Color Grade)
+style.effects.MaxHelpingHand/HeatWaveNoColorGrade.description.controlColorGradeWhenActive=If checked, this Heat Wave effect will change the color grade when it is visible. In all cases, it won't affect color grading when hidden, unlike the vanilla Heat Wave effect.
+style.effects.MaxHelpingHand/HeatWaveNoColorGrade.description.renderParticles=Whether the heat wave should have particles or not. If unchecked, only the mist effects and the color grade (if enabled) will be left.
+
+# Northern Lights with Custom Colors
+style.effects.MaxHelpingHand/NorthernLightsCustomColors.name=Northern Lights (Custom Colors)
+style.effects.MaxHelpingHand/NorthernLightsCustomColors.attribute.gradientColor1=Gradient Color Top
+style.effects.MaxHelpingHand/NorthernLightsCustomColors.attribute.gradientColor2=Gradient Color Bottom
+style.effects.MaxHelpingHand/NorthernLightsCustomColors.attribute.colors=Light Colors
+style.effects.MaxHelpingHand/NorthernLightsCustomColors.description.gradientColor1=The color of the background on the top of the screen.
+style.effects.MaxHelpingHand/NorthernLightsCustomColors.description.gradientColor2=The color of the background on the bottom of the screen.
+style.effects.MaxHelpingHand/NorthernLightsCustomColors.description.colors=The pool of colors the northern lights effects can take from, separated by commas.
+style.effects.MaxHelpingHand/NorthernLightsCustomColors.description.displayBackground=Whether the northern lights should have a gradient background. You can customize the background colors with "Gradient Color Top" and "Gradient Color Bottom".
+
+# Snow with Custom Colors
+style.effects.MaxHelpingHand/SnowCustomColors.name=Snow (Custom)
+style.effects.MaxHelpingHand/SnowCustomColors.description.colors=Comma-separated list of all colors the particles can take from.
+style.effects.MaxHelpingHand/SnowCustomColors.description.speedMin=The minimum speed a snowflake can have. Vanilla uses 40 for background snow, 120 for foreground snow.
+style.effects.MaxHelpingHand/SnowCustomColors.description.speedMax=The maximum speed a snowflake can have. Vanilla uses 100 for background snow, 300 for foreground snow.
