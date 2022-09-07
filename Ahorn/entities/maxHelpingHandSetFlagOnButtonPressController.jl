@@ -2,7 +2,8 @@
 
 using ..Ahorn, Maple
 
-@mapdef Entity "MaxHelpingHand/SetFlagOnButtonPressController" SetFlagOnButtonPressController(x::Integer, y::Integer, button::String="Grab", flag::String="flag_name", inverted::Bool=false, toggleMode::Bool=false)
+@mapdef Entity "MaxHelpingHand/SetFlagOnButtonPressController" SetFlagOnButtonPressController(x::Integer, y::Integer,
+    button::String="Grab", flag::String="flag_name", inverted::Bool=false, toggleMode::Bool=false, activationDelay::Number=0.0)
 
 const placements = Ahorn.PlacementDict(
     "Set Flag On Button Press Controller (max480's Helping Hand)" => Ahorn.EntityPlacement(

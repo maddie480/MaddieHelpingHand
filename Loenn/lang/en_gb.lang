@@ -958,6 +958,7 @@ entities.MaxHelpingHand/SetFlagOnButtonPressController.attributes.description.bu
 entities.MaxHelpingHand/SetFlagOnButtonPressController.attributes.description.flag=The flag that should be set whenever the button is held.
 entities.MaxHelpingHand/SetFlagOnButtonPressController.attributes.description.inverted=If checked, the flag will be disabled rather than enabled when the button is held.
 entities.MaxHelpingHand/SetFlagOnButtonPressController.attributes.description.toggleMode=If checked, the flag will be toggled each time the button is pressed, instead of being enabled whenever the button is held.
+entities.MaxHelpingHand/SetFlagOnButtonPressController.attributes.description.activationDelay=The time (in seconds) the button has to be held before the flag is activated or toggled.
 
 # Set Flag on Action Controller
 entities.MaxHelpingHand/SetFlagOnActionController.placements.name.controller=Set Flag On Action Controller

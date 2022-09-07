@@ -876,6 +876,7 @@ placements.entities.MaxHelpingHand/SetFlagOnButtonPressController.tooltips.butto
 placements.entities.MaxHelpingHand/SetFlagOnButtonPressController.tooltips.flag=The flag that should be set whenever the button is held.
 placements.entities.MaxHelpingHand/SetFlagOnButtonPressController.tooltips.inverted=If checked, the flag will be disabled rather than enabled when the button is held.
 placements.entities.MaxHelpingHand/SetFlagOnButtonPressController.tooltips.toggleMode=If checked, the flag will be toggled each time the button is pressed, instead of being enabled whenever the button is held.
+placements.entities.MaxHelpingHand/SetFlagOnButtonPressController.tooltips.activationDelay=The time (in seconds) the button has to be held before the flag is activated or toggled.
 
 # Set Flag on Action Controller
 placements.entities.MaxHelpingHand/SetFlagOnActionController.tooltips.action=The player action this controller should react to.

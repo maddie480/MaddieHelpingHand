@@ -9,7 +9,8 @@ controller.placements = {
         button = "Grab",
         flag = "flag_name",
         inverted = false,
-        toggleMode = false
+        toggleMode = false,
+        activationDelay = 0.0
     }
 }
 
