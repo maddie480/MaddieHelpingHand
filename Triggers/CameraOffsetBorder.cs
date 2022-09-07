@@ -69,65 +69,44 @@ namespace Celeste.Mod.MaxHelpingHand.Triggers {
             }
         }
 
-        private static ILHook hookOrigUpdate;
-        private static ILHook hookLoadLevel;
-        private static ILHook hookTransitionRoutine;
+        private static Hook hookPlayerCameraTarget;
 
         public static void Load() {
-            hookOrigUpdate = new ILHook(typeof(Player).GetMethod("orig_Update"), ilHookCameraTarget);
-            hookLoadLevel = new ILHook(typeof(Level).GetMethod("orig_LoadLevel"), ilHookGetFullCameraTarget);
-            hookTransitionRoutine = new ILHook(typeof(Level).GetMethod("orig_TransitionRoutine", BindingFlags.NonPublic | BindingFlags.Instance).GetStateMachineTarget(), ilHookGetFullCameraTarget);
+            hookPlayerCameraTarget = new Hook(
+                typeof(Player).GetMethod("get_CameraTarget"),
+                typeof(CameraOffsetBorder).GetMethod("modCameraTarget", BindingFlags.NonPublic | BindingFlags.Static));
         }
 
         public static void Unload() {
-            hookOrigUpdate?.Dispose();
-            hookLoadLevel?.Dispose();
-            hookTransitionRoutine?.Dispose();
-
-            hookOrigUpdate = null;
-            hookLoadLevel = null;
-            hookTransitionRoutine = null;
+            hookPlayerCameraTarget?.Dispose();
+            hookPlayerCameraTarget = null;
         }
 
-        private static void ilHookCameraTarget(ILContext il) {
-            ILCursor cursor = new ILCursor(il);
-            while (cursor.TryGotoNext(MoveType.After, instr => instr.MatchCallvirt<Player>("get_CameraTarget"))) {
-                Logger.Log("MaxHelpingHand/CameraOffsetBorder", $"Enforcing camera offset borders at {cursor.Index} in IL for {il.Method.FullName}");
-                cursor.EmitDelegate<Func<Vector2, Vector2>>(modCameraTarget);
-            }
-        }
 
-        private static void ilHookGetFullCameraTarget(ILContext il) {
-            ILCursor cursor = new ILCursor(il);
-            while (cursor.TryGotoNext(MoveType.After, instr => instr.MatchCallvirt<Level>("GetFullCameraTargetAt"))) {
-                Logger.Log("MaxHelpingHand/CameraOffsetBorder", $"Enforcing camera offset borders at {cursor.Index} in IL for {il.Method.FullName}");
-                cursor.EmitDelegate<Func<Vector2, Vector2>>(modCameraTarget);
-            }
-        }
+        private static Vector2 modCameraTarget(Func<Player, Vector2> orig, Player self) {
+            if (self.Scene == null) return orig(self);
 
-        private static Vector2 modCameraTarget(Vector2 orig) {
-            Player p = Engine.Scene.Tracker.GetEntity<Player>();
-            if (p == null) return orig;
+            Vector2 target = orig(self);
 
-            Rectangle viewpoint = new Rectangle((int) orig.X, (int) orig.Y, 320, 180);
-            foreach (CameraOffsetBorder border in Engine.Scene.Tracker.GetEntities<CameraOffsetBorder>()) {
+            Rectangle viewpoint = new Rectangle((int) target.X, (int) target.Y, 320, 180);
+            foreach (CameraOffsetBorder border in self.Scene.Tracker.GetEntities<CameraOffsetBorder>()) {
                 while (border.Collidable && border.CollideRect(viewpoint)) {
                     // the border is enabled and on-screen, unacceptable!
-                    if (p.Left <= border.Right && viewpoint.Right >= border.Left && (border.topLeft || border.centerLeft || border.bottomLeft)) {
+                    if (self.Left <= border.Right && viewpoint.Right >= border.Left && (border.topLeft || border.centerLeft || border.bottomLeft)) {
                         // player is on the left, camera is too far right => push camera to the left.
-                        orig.X--;
+                        target.X--;
                         viewpoint.X--;
-                    } else if (p.Right >= border.Left && viewpoint.Left <= border.Right && (border.topRight || border.centerRight || border.bottomRight)) {
+                    } else if (self.Right >= border.Left && viewpoint.Left <= border.Right && (border.topRight || border.centerRight || border.bottomRight)) {
                         // player is on the right, camera is too far left => push camera to the right.
-                        orig.X++;
+                        target.X++;
                         viewpoint.X++;
-                    } else if (p.Bottom >= border.Top && viewpoint.Top <= border.Bottom && (border.bottomLeft || border.bottomCenter || border.bottomRight)) {
+                    } else if (self.Bottom >= border.Top && viewpoint.Top <= border.Bottom && (border.bottomLeft || border.bottomCenter || border.bottomRight)) {
                         // player is on the bottom, camera is too far up => push camera to the bottom.
-                        orig.Y++;
+                        target.Y++;
                         viewpoint.Y++;
-                    } else if (p.Top <= border.Bottom && viewpoint.Bottom >= border.Top && (border.topLeft || border.topCenter || border.topRight)) {
+                    } else if (self.Top <= border.Bottom && viewpoint.Bottom >= border.Top && (border.topLeft || border.topCenter || border.topRight)) {
                         // player is on the top, camera is too far down => push camera to the top;
-                        orig.Y--;
+                        target.Y--;
                         viewpoint.Y--;
                     } else {
                         Logger.Log("MaxHelpingHand/CameraOffsetBorder", "Camera offset border is on-screen but we didn't find any way to prevent that from happening!");
@@ -135,7 +114,8 @@ namespace Celeste.Mod.MaxHelpingHand.Triggers {
                     }
                 }
             }
-            return orig;
+
+            return target;
         }
     }
 }
