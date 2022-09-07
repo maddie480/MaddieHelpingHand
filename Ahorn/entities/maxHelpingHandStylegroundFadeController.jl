@@ -2,7 +2,8 @@
 
 using ..Ahorn, Maple
 
-@mapdef Entity "MaxHelpingHand/StylegroundFadeController" StylegroundFadeController(x::Integer, y::Integer, flag::String="flag1,flag2", fadeInTime::Number=1.0, fadeOutTime::Number=1.0)
+@mapdef Entity "MaxHelpingHand/StylegroundFadeController" StylegroundFadeController(x::Integer, y::Integer,
+    flag::String="flag1,flag2", fadeInTime::Number=1.0, fadeOutTime::Number=1.0, notFlag::Bool=false)
 
 const placements = Ahorn.PlacementDict(
     "Styleground Fade Controller (max480's Helping Hand)" => Ahorn.EntityPlacement(

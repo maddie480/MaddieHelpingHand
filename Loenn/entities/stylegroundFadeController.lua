@@ -8,7 +8,8 @@ sgController.placements = {
     data = {
         flag = "flag1,flag2",
         fadeInTime = 1.0,
-        fadeOutTime = 1.0
+        fadeOutTime = 1.0,
+        notFlag = false
     }
 }
 

@@ -937,6 +937,7 @@ entities.MaxHelpingHand/StylegroundFadeController.attributes.name.flag=Flags
 entities.MaxHelpingHand/StylegroundFadeController.attributes.description.flag=This controller will affect the stylegrounds that have one of these flags in their "Flag" field.\nThe stylegrounds should be toggled by one flag only, not with room names for example.\nIf you specify multiple flags separated by commas, it will work the same as placing multiple controllers with one flag each.
 entities.MaxHelpingHand/StylegroundFadeController.attributes.description.fadeInTime=The time it will take for the stylegrounds to fully fade in, in seconds. Vanilla value is 1 second.
 entities.MaxHelpingHand/StylegroundFadeController.attributes.description.fadeOutTime=The time it will take for the stylegrounds to fully fade out, in seconds. Vanilla stylegrounds don't fade out.
+entities.MaxHelpingHand/StylegroundFadeController.attributes.description.notFlag=Whether this controller will affect the stylegrounds that have the given flags in their "Not Flag" field, instead of their "Flag" field.
 
 # Reskinnable Crystal Heart
 entities.MaxHelpingHand/ReskinnableCrystalHeart.placements.name.crystal_heart=Crystal Heart (Reskinnable)

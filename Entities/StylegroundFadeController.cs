@@ -22,14 +22,21 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
 
         private static VirtualRenderTarget tempRenderTarget = null;
 
-        private string[] flags;
+        private string[] keys;
         private float fadeInTime;
         private float fadeOutTime;
 
         public StylegroundFadeController(EntityData data, Vector2 offset) : base(data.Position + offset) {
-            flags = data.Attr("flag").Split(',');
+            keys = data.Attr("flag").Split(',');
             fadeInTime = data.Float("fadeInTime");
             fadeOutTime = data.Float("fadeOutTime");
+
+            // settings are unique for a "flag + 'not flag' toggle" pair, we are storing both in a "key".
+            // this will allow using the same flag as a "flag" and as a "not flag" and have them controlled by separate controllers.
+            string prefix = data.Bool("notFlag") ? "n:" : "f:";
+            for (int i = 0; i < keys.Length; i++) {
+                keys[i] = prefix + keys[i];
+            }
         }
 
         public override void Awake(Scene scene) {
@@ -67,24 +74,29 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
                 tempRenderTarget = VirtualContent.CreateRenderTarget("max-helping-hand-styleground-fade-controller", 320, 280);
             }
 
-            foreach (string flag in flags) {
+            foreach (string key in keys) {
                 // register the current flag settings so that the renderer can pick them.
-                fades[flag] = SceneAs<Level>().Session.GetFlag(flag) ? 1 : 0;
-                fadeInTimes[flag] = fadeInTime;
-                fadeOutTimes[flag] = fadeOutTime;
-                controllers[flag] = this;
+                bool flagEnabled = SceneAs<Level>().Session.GetFlag(key.Substring(2));
+                if (key.StartsWith("n:")) {
+                    flagEnabled = !flagEnabled;
+                }
+
+                fades[key] = flagEnabled ? 1 : 0;
+                fadeInTimes[key] = fadeInTime;
+                fadeOutTimes[key] = fadeOutTime;
+                controllers[key] = this;
             }
         }
 
         private void deregisterFlag() {
-            foreach (string flag in flags) {
+            foreach (string key in keys) {
                 // first, make sure there isn't another controller that took the flag over.
-                if (controllers[flag] == this) {
+                if (controllers[key] == this) {
                     // deregister the current flag settings.
-                    fades.Remove(flag);
-                    fadeInTimes.Remove(flag);
-                    fadeOutTimes.Remove(flag);
-                    controllers.Remove(flag);
+                    fades.Remove(key);
+                    fadeInTimes.Remove(key);
+                    fadeOutTimes.Remove(key);
+                    controllers.Remove(key);
                 }
             }
 
@@ -101,7 +113,10 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
 
         private static bool modBackdropIsVisible(On.Celeste.Backdrop.orig_IsVisible orig, Backdrop self, Level level) {
             // force the backdrops that did not fade out yet to be visible, so that the player can see them fade out.
-            if (self.OnlyIfFlag != null && fades.ContainsKey(self.OnlyIfFlag) && fades[self.OnlyIfFlag] > 0) {
+            if (self.OnlyIfFlag != null && fades.ContainsKey("f:" + self.OnlyIfFlag) && fades["f:" + self.OnlyIfFlag] > 0) {
+                return true;
+            }
+            if (self.OnlyIfNotFlag != null && fades.ContainsKey("n:" + self.OnlyIfNotFlag) && fades["n:" + self.OnlyIfNotFlag] > 0) {
                 return true;
             }
 
@@ -116,11 +131,11 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
                 float delta = Engine.DeltaTime / 2f;
 
                 // update the fades of all the flags that are in the scene.
-                foreach (string flag in fades.Keys.ToList()) {
-                    if (level.Session.GetFlag(flag)) {
-                        fades[flag] = Calc.Approach(fades[flag], 1, delta / fadeInTimes[flag]);
+                foreach (string key in fades.Keys.ToList()) {
+                    if (level.Session.GetFlag(key.Substring(2)) == key.StartsWith("f:")) {
+                        fades[key] = Calc.Approach(fades[key], 1, delta / fadeInTimes[key]);
                     } else {
-                        fades[flag] = Calc.Approach(fades[flag], 0, delta / fadeOutTimes[flag]);
+                        fades[key] = Calc.Approach(fades[key], 0, delta / fadeOutTimes[key]);
                     }
                 }
             }
@@ -152,7 +167,10 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
                 cursor.Emit(OpCodes.Ldloc, backdropLocal);
                 cursor.Emit(OpCodes.Ldloc, blendStateLocal);
                 cursor.EmitDelegate<Action<BackdropRenderer, Backdrop, BlendState>>((self, backdrop, blendState) => {
-                    if (backdrop.OnlyIfFlag != null && fades.ContainsKey(backdrop.OnlyIfFlag) && fades[backdrop.OnlyIfFlag] < 1) {
+                    bool hasFlag = backdrop.OnlyIfFlag != null && fades.ContainsKey("f:" + backdrop.OnlyIfFlag) && fades["f:" + backdrop.OnlyIfFlag] < 1;
+                    bool hasNotFlag = backdrop.OnlyIfNotFlag != null && fades.ContainsKey("n:" + backdrop.OnlyIfNotFlag) && fades["n:" + backdrop.OnlyIfNotFlag] < 1;
+
+                    if (hasFlag || hasNotFlag) {
                         self.EndSpritebatch();
 
                         Engine.Graphics.GraphicsDevice.SetRenderTarget(tempRenderTarget);
@@ -171,13 +189,21 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
                 cursor.Emit(OpCodes.Ldloc, backdropLocal);
                 cursor.Emit(OpCodes.Ldloc, blendStateLocal);
                 cursor.EmitDelegate<Action<BackdropRenderer, Backdrop, BlendState>>((self, backdrop, blendState) => {
-                    if (backdrop.OnlyIfFlag != null && fades.ContainsKey(backdrop.OnlyIfFlag) && fades[backdrop.OnlyIfFlag] < 1) {
+                    string key = null;
+                    if (backdrop.OnlyIfFlag != null && fades.ContainsKey("f:" + backdrop.OnlyIfFlag) && fades["f:" + backdrop.OnlyIfFlag] < 1) {
+                        key = "f:" + backdrop.OnlyIfFlag;
+                    }
+                    if (backdrop.OnlyIfNotFlag != null && fades.ContainsKey("n:" + backdrop.OnlyIfNotFlag) && fades["n:" + backdrop.OnlyIfNotFlag] < 1) {
+                        key = "n:" + backdrop.OnlyIfNotFlag;
+                    }
+
+                    if (key != null) {
                         self.EndSpritebatch();
 
                         Engine.Graphics.GraphicsDevice.SetRenderTarget(GameplayBuffers.Level);
 
                         self.StartSpritebatch(blendState);
-                        Draw.SpriteBatch.Draw(tempRenderTarget, Vector2.Zero, Color.White * fades[backdrop.OnlyIfFlag]);
+                        Draw.SpriteBatch.Draw(tempRenderTarget, Vector2.Zero, Color.White * fades[key]);
                     }
                 });
 

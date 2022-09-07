@@ -857,6 +857,7 @@ placements.entities.MaxHelpingHand/StylegroundFadeController.names.flag=Flags
 placements.entities.MaxHelpingHand/StylegroundFadeController.tooltips.flag=This controller will affect the stylegrounds that have one of these flags in their "Flag" field.\nThe stylegrounds should be toggled by one flag only, not with room names for example.\nIf you specify multiple flags separated by commas, it will work the same as placing multiple controllers with one flag each.
 placements.entities.MaxHelpingHand/StylegroundFadeController.tooltips.fadeInTime=The time it will take for the stylegrounds to fully fade in, in seconds. Vanilla value is 1 second.
 placements.entities.MaxHelpingHand/StylegroundFadeController.tooltips.fadeOutTime=The time it will take for the stylegrounds to fully fade out, in seconds. Vanilla stylegrounds don't fade out.
+placements.entities.MaxHelpingHand/StylegroundFadeController.tooltips.notFlag=Whether this controller will affect the stylegrounds that have the given flags in their "Not Flag" field, instead of their "Flag" field.
 
 # Reskinnable Crystal Heart
 placements.entities.MaxHelpingHand/ReskinnableCrystalHeart.tooltips.fake=Whether the heart is fake and should visually be grey. Triggers the Farewell fake heart cutscene.
