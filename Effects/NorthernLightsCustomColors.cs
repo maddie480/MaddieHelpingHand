@@ -27,6 +27,8 @@ namespace Celeste.Mod.MaxHelpingHand.Effects {
         public static string GradientColor1;
         public static string GradientColor2;
         public static Color[] Colors;
+        public static int ParticleCount;
+        public static int StrandCount;
 
         private static void hookConstructor(ILContext il) {
             ILCursor cursor = new ILCursor(il);
@@ -67,6 +69,54 @@ namespace Celeste.Mod.MaxHelpingHand.Effects {
                 cursor.EmitDelegate<Func<string, NorthernLights, string>>((orig, self) => {
                     if (self is NorthernLightsCustomColors) {
                         return GradientColor2;
+                    }
+                    return orig;
+                });
+            }
+
+            cursor.Index = 0;
+
+            // hook #4: change the amount of particles in the constructor.
+            while (cursor.TryGotoNext(instr => instr.MatchLdcI4(50), instr => instr.OpCode == OpCodes.Newarr)) {
+                cursor.Index++;
+                Logger.Log("MaxHelpingHand/NorthernLightsCustomColors", $"Patching particle count in {cursor.Index} in IL for NorthernLights constructor");
+
+                cursor.Emit(OpCodes.Ldarg_0);
+                cursor.EmitDelegate<Func<int, NorthernLights, int>>((orig, self) => {
+                    if (self is NorthernLightsCustomColors) {
+                        return ParticleCount;
+                    }
+                    return orig;
+                });
+            }
+
+            cursor.Index = 0;
+
+            // hook #5: change the amount of strands in the constructor.
+            while (cursor.TryGotoNext(instr => instr.MatchLdcI4(3), instr => instr.OpCode == OpCodes.Blt_S)) {
+                cursor.Index++;
+                Logger.Log("MaxHelpingHand/NorthernLightsCustomColors", $"Patching strand count in {cursor.Index} in IL for NorthernLights constructor");
+
+                cursor.Emit(OpCodes.Ldarg_0);
+                cursor.EmitDelegate<Func<int, NorthernLights, int>>((orig, self) => {
+                    if (self is NorthernLightsCustomColors) {
+                        return StrandCount;
+                    }
+                    return orig;
+                });
+            }
+
+            cursor.Index = 0;
+
+            // hook #6: change the size of the array holding the strand vertices in the constructor, to adapt it to the amount of strands.
+            while (cursor.TryGotoNext(instr => instr.MatchLdcI4(1024), instr => instr.OpCode == OpCodes.Newarr)) {
+                cursor.Index++;
+                Logger.Log("MaxHelpingHand/NorthernLightsCustomColors", $"Patching strand vertex count in {cursor.Index} in IL for NorthernLights constructor");
+
+                cursor.Emit(OpCodes.Ldarg_0);
+                cursor.EmitDelegate<Func<int, NorthernLights, int>>((orig, self) => {
+                    if (self is NorthernLightsCustomColors) {
+                        return 234 * StrandCount; // each strand has 40 nodes (39 intervals) linked with 6 vertices each => 234 vertices per strand
                     }
                     return orig;
                 });

@@ -257,12 +257,16 @@ namespace Celeste.Mod.MaxHelpingHand.Module {
                 NorthernLightsCustomColors.GradientColor1 = child.Attr("gradientColor1", "020825");
                 NorthernLightsCustomColors.GradientColor2 = child.Attr("gradientColor2", "170c2f");
                 NorthernLightsCustomColors.Colors = colors;
+                NorthernLightsCustomColors.ParticleCount = child.AttrInt("particleCount", 50);
+                NorthernLightsCustomColors.StrandCount = child.AttrInt("strandCount", 3);
 
                 NorthernLightsCustomColors effect = new NorthernLightsCustomColors(colors, child.AttrBool("displayBackground", true));
 
                 NorthernLightsCustomColors.GradientColor1 = null;
                 NorthernLightsCustomColors.GradientColor2 = null;
                 NorthernLightsCustomColors.Colors = null;
+                NorthernLightsCustomColors.ParticleCount = 0;
+                NorthernLightsCustomColors.StrandCount = 0;
 
                 return effect;
             }

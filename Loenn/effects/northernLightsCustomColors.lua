@@ -10,6 +10,12 @@ effect.fieldInformation = {
     },
     gradientColor2 = {
         fieldType = "color"
+    },
+    particleCount = {
+        fieldType = "integer"
+    },
+    strandCount = {
+        fieldType = "integer"
     }
 }
 
@@ -17,7 +23,9 @@ effect.defaultData = {
     gradientColor1 = "020825",
     gradientColor2 = "170c2f",
     colors = "2de079,62f4f6,45bc2e,3856f0",
-    displayBackground = true
+    displayBackground = true,
+    particleCount = 50,
+    strandCount = 3
 }
 
 return effect

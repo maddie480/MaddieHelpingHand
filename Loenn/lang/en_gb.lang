@@ -1065,7 +1065,7 @@ style.effects.MaxHelpingHand/HeatWaveNoColorGrade.description.controlColorGradeW
 style.effects.MaxHelpingHand/HeatWaveNoColorGrade.description.renderParticles=Whether the heat wave should have particles or not. If unchecked, only the mist effects and the color grade (if enabled) will be left.
 
 # Northern Lights with Custom Colors
-style.effects.MaxHelpingHand/NorthernLightsCustomColors.name=Northern Lights (Custom Colors)
+style.effects.MaxHelpingHand/NorthernLightsCustomColors.name=Northern Lights (Custom)
 style.effects.MaxHelpingHand/NorthernLightsCustomColors.attribute.gradientColor1=Gradient Color Top
 style.effects.MaxHelpingHand/NorthernLightsCustomColors.attribute.gradientColor2=Gradient Color Bottom
 style.effects.MaxHelpingHand/NorthernLightsCustomColors.attribute.colors=Light Colors
@@ -1073,6 +1073,8 @@ style.effects.MaxHelpingHand/NorthernLightsCustomColors.description.gradientColo
 style.effects.MaxHelpingHand/NorthernLightsCustomColors.description.gradientColor2=The color of the background on the bottom of the screen.
 style.effects.MaxHelpingHand/NorthernLightsCustomColors.description.colors=The pool of colors the northern lights effects can take from, separated by commas.
 style.effects.MaxHelpingHand/NorthernLightsCustomColors.description.displayBackground=Whether the northern lights should have a gradient background. You can customize the background colors with "Gradient Color Top" and "Gradient Color Bottom".
+style.effects.MaxHelpingHand/NorthernLightsCustomColors.description.particleCount=The amount of falling particles this background has.
+style.effects.MaxHelpingHand/NorthernLightsCustomColors.description.strandCount=The amount of strands (moving lines) the northern lights have.
 
 # Snow with Custom Colors
 style.effects.MaxHelpingHand/SnowCustomColors.name=Snow (Custom)

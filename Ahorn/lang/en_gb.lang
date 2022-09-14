@@ -595,6 +595,8 @@ placements.effects.MaxHelpingHand/NorthernLightsCustomColors.tooltips.gradientCo
 placements.effects.MaxHelpingHand/NorthernLightsCustomColors.tooltips.gradientColor2=The color of the background on the bottom of the screen.
 placements.effects.MaxHelpingHand/NorthernLightsCustomColors.tooltips.colors=The pool of colors the northern lights effects can take from, separated by commas.
 placements.effects.MaxHelpingHand/NorthernLightsCustomColors.tooltips.displayBackground=Whether the northern lights should have a gradient background. You can customize the background colors with "Gradient Color Top" and "Gradient Color Bottom".
+placements.effects.MaxHelpingHand/NorthernLightsCustomColors.tooltips.particleCount=The amount of falling particles this background has.
+placements.effects.MaxHelpingHand/NorthernLightsCustomColors.tooltips.strandCount=The amount of strands (moving lines) the northern lights have.
 
 # All Black Holes Strength Trigger
 placements.triggers.MaxHelpingHand/AllBlackholesStrengthTrigger.tooltips.strength=Sets the next visual apparence of the black hole effects.
