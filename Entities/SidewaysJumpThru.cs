@@ -83,6 +83,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             IL.Celeste.Player.ClimbUpdate += modCollideChecks; // when climbing, jumpthrus are handled like walls
             IL.Celeste.Player.SlipCheck += modCollideChecks; // make climbing on jumpthrus not slippery
             IL.Celeste.Player.OnCollideH += modCollideChecks; // handle dashes against jumpthrus properly, without "shifting" down
+            IL.Celeste.Seeker.OnCollideH += modCollideChecks; // make seekers bump against jumpthrus, instead of vibrating at maximum velocity
             hookOnOrigUpdate = new ILHook(typeof(Player).GetMethod("orig_Update"), modCollideChecks); // patch wall retention to include sideways jumpthru detection as well
 
             // don't make Madeline duck when dashing against a sideways jumpthru
@@ -117,6 +118,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             IL.Celeste.Player.ClimbUpdate -= modCollideChecks;
             IL.Celeste.Player.SlipCheck -= modCollideChecks;
             IL.Celeste.Player.OnCollideH -= modCollideChecks;
+            IL.Celeste.Seeker.OnCollideH -= modCollideChecks;
             hookOnOrigUpdate?.Dispose();
 
             On.Celeste.Player.DuckFreeAt -= preventDuckWhenDashingAgainstJumpthru;
@@ -264,7 +266,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             // and we are checking the collision on the left side of the player for example.
             bool collideOnLeftSideOfPlayer = (self.Position.X > checkAtPosition.X);
             SidewaysJumpThru jumpthru = self.CollideFirstOutside<SidewaysJumpThru>(checkAtPosition);
-            return jumpthru != null && self is Player && (jumpthru.AllowLeftToRight == collideOnLeftSideOfPlayer
+            return jumpthru != null && (self is Player || self is Seeker) && (jumpthru.AllowLeftToRight == collideOnLeftSideOfPlayer
                 && (!isWallJump || jumpthru.allowWallJumping) && (!isClimb || jumpthru.allowClimbing))
                 && jumpthru.Bottom >= self.Top + checkAtPosition.Y - self.Position.Y + 3;
         }
