@@ -1,5 +1,6 @@
 local drawableNinePatch = require("structs.drawable_nine_patch")
 local drawableSprite = require("structs.drawable_sprite")
+local utils = require("utils")
 
 local switchGate = {}
 
@@ -96,6 +97,21 @@ function switchGate.sprite(room, entity)
     table.insert(sprites, middleSprite)
 
     return sprites
+end
+
+function switchGate.selection(room, entity)
+    local x, y = entity.x or 0, entity.y or 0
+    local width, height = entity.width or 24, entity.height or 24
+
+    local nodes = entity.nodes or {}
+    local nodeRectangles = {}
+
+    for i, node in ipairs(nodes) do
+        local rectangle = utils.rectangle(node.x or x, node.y or y, width, height)
+        table.insert(nodeRectangles, rectangle)
+    end
+
+    return utils.rectangle(x, y, width, height), nodeRectangles
 end
 
 return switchGate
