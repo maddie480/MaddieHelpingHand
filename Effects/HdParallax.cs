@@ -53,7 +53,7 @@ namespace Celeste.Mod.MaxHelpingHand.Effects {
                 matrix *= Matrix.CreateScale(-1f, 1f, 1f);
             }
 
-            Draw.SpriteBatch.Begin(SpriteSortMode.Deferred, BlendState, SamplerState.PointClamp, DepthStencilState.None, RasterizerState.CullNone, ColorGrade.Effect, matrix);
+            Draw.SpriteBatch.Begin(SpriteSortMode.Deferred, BlendState, SamplerState.PointWrap, DepthStencilState.None, RasterizerState.CullNone, ColorGrade.Effect, matrix);
             base.Render(scene);
             Draw.SpriteBatch.End();
         }

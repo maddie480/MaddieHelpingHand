@@ -7,6 +7,7 @@ using MonoMod.Cil;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 
 namespace Celeste.Mod.MaxHelpingHand.Entities {
     /// <summary>
@@ -21,6 +22,9 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
         private static Dictionary<string, StylegroundFadeController> controllers = new Dictionary<string, StylegroundFadeController>();
 
         private static VirtualRenderTarget tempRenderTarget = null;
+
+        // TODO: remove reflection when looping styleground improvements have reached stable
+        private static MethodInfo startSpritebatchLooping = typeof(BackdropRenderer).GetMethod("StartSpritebatchLooping");
 
         private string[] keys;
         private float fadeInTime;
@@ -177,7 +181,11 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
                         Engine.Graphics.GraphicsDevice.Clear(Color.Transparent);
 
                         if (backdrop.UseSpritebatch) {
-                            self.StartSpritebatch(blendState);
+                            if (startSpritebatchLooping != null && backdrop is Parallax) {
+                                startSpritebatchLooping.Invoke(self, new object[] { blendState });
+                            } else {
+                                self.StartSpritebatch(blendState);
+                            }
                         }
                     }
                 });
