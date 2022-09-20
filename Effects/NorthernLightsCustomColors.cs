@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Mono.Cecil;
 using Mono.Cecil.Cil;
 using Monocle;
 using MonoMod.Cil;
@@ -7,7 +8,7 @@ using System;
 using System.Reflection;
 
 namespace Celeste.Mod.MaxHelpingHand.Effects {
-    // Northern Lights, but with 6 more IL hooks!
+    // Northern Lights, but with 10 more IL hooks!
     public class NorthernLightsCustomColors : NorthernLights {
         private static ILHook strandILHook;
 
@@ -126,7 +127,7 @@ namespace Celeste.Mod.MaxHelpingHand.Effects {
         private static void hookBeforeRender(ILContext il) {
             ILCursor cursor = new ILCursor(il);
 
-            // hook #4: if the backdrop is transparent, make sure we clean it up, or else frames will "stack up".
+            // hook #7: if the backdrop is transparent, make sure we clean it up, or else frames will "stack up".
             if (cursor.TryGotoNext(MoveType.After, instr => instr.MatchCall(typeof(GFX), "DrawVertices"))) {
                 Logger.Log("MaxHelpingHand/NorthernLightsCustomColors", $"Cleaning background at {cursor.Index} in IL for NorthernLights.BeforeRender");
 
@@ -138,7 +139,7 @@ namespace Celeste.Mod.MaxHelpingHand.Effects {
                 });
             }
 
-            // hook #5: clean up the gaussian blur buffer when using it when we have transparency (no background).
+            // hook #8: clean up the gaussian blur buffer when using it when we have transparency (no background).
             if (cursor.TryGotoNext(MoveType.After,
                 instr => instr.MatchCall(typeof(GFX), "DrawVertices"),
                 instr => instr.MatchLdcI4(0) || (instr.MatchNop() && instr.Next.MatchLdcI4(0)))) {
@@ -156,12 +157,34 @@ namespace Celeste.Mod.MaxHelpingHand.Effects {
                     return orig;
                 });
             }
+
+            cursor.Index = 0;
+
+            // hook #9: skip DrawVertices if there is no vertex to draw because that crashes on XNA
+            if (cursor.TryGotoNext(instr => instr.MatchLdfld<NorthernLights>("verts"))
+                && cursor.TryGotoNext(instr => instr.OpCode == OpCodes.Call && (instr.Operand as MethodReference).Name == "DrawVertices")) {
+
+                Logger.Log("MaxHelpingHand/NorthernLightsCustomColors", $"Skipping DrawVertices if there is no vertex to draw {cursor.Index} in IL for NorthernLights.BeforeRender");
+
+                // if (verts.Length != 0), proceed with DrawVertices.
+                cursor.Emit(OpCodes.Ldarg_0);
+                cursor.Emit(OpCodes.Ldfld, typeof(NorthernLights).GetField("verts", BindingFlags.NonPublic | BindingFlags.Instance));
+                cursor.Emit(OpCodes.Ldlen);
+                cursor.Emit(OpCodes.Ldc_I4_0);
+                cursor.Emit(OpCodes.Bne_Un, cursor.Next);
+
+                // ... else, throw out all parameters and skip the call.
+                for (int i = 0; i < 5; i++) {
+                    cursor.Emit(OpCodes.Pop);
+                }
+                cursor.Emit(OpCodes.Br, cursor.Next.Next);
+            }
         }
 
         private static void modStrandReset(ILContext il) {
             ILCursor cursor = new ILCursor(il);
 
-            // hook #6: use the static variable defined in NorthernLightsCustomColors instead of vanilla colors.
+            // hook #10: use the static variable defined in NorthernLightsCustomColors instead of vanilla colors.
             // this static variable is filled when a custom northern lights BG is updated, and cleared when it's done.
             while (cursor.TryGotoNext(MoveType.After, instr => instr.MatchLdsfld<NorthernLights>("colors"))) {
                 Logger.Log("MaxHelpingHand/NorthernLightsCustomColors", $"Patching colors in {cursor.Index} in IL for NorthernLights.Strand.Reset");
