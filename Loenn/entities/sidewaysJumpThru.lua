@@ -9,6 +9,8 @@ end
 
 local jumpthru = {}
 
+local textures = {"wood", "dream", "temple", "templeB", "cliffside", "reflection", "core", "moon"}
+
 jumpthru.name = "MaxHelpingHand/SidewaysJumpThru"
 jumpthru.depth = -9000
 jumpthru.canResize = {false, true}
