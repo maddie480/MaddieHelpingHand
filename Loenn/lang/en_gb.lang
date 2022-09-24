@@ -996,7 +996,7 @@ style.effects.MaxHelpingHand/AllSideTentacles.description.offset=Determines the 
 style.effects.MaxHelpingHand/AllSideTentacles.description.color=The color of the tentacles.
 
 # Blackhole with Custom Colors
-style.effects.MaxHelpingHand/BlackholeCustomColors.name=Blackhole (Custom)
+style.effects.MaxHelpingHand/BlackholeCustomColors.name=Black Hole (Custom)
 style.effects.MaxHelpingHand/BlackholeCustomColors.attribute.fadex=Fade X
 style.effects.MaxHelpingHand/BlackholeCustomColors.attribute.fadey=Fade Y
 style.effects.MaxHelpingHand/BlackholeCustomColors.description.colorsMild=Colors of the shapes going towards the center of the screen when the blackhole strength is Mild.\nThere should be as many colors defined in Colors Mild and in Colors Wild for both to work.\nYou can set up a gradient with multiple sets of colors to fade between: for example, "0.5|ffffff,000000|000000,ffffff" will fade between the 2 sets of colors every 0.5 seconds.
@@ -1004,6 +1004,9 @@ style.effects.MaxHelpingHand/BlackholeCustomColors.description.colorsWild=Colors
 style.effects.MaxHelpingHand/BlackholeCustomColors.description.bgColorInner=The color used for the background at the center of the screen.\nYou can set up a gradient with multiple colors to fade between: for example, "0.5|ffffff|000000" will fade between the 2 colors every 0.5 seconds.
 style.effects.MaxHelpingHand/BlackholeCustomColors.description.bgColorOuterMild=The color used for the background at the edges of the screen, when the blackhole strength is Mild.\nYou can set up a gradient with multiple colors to fade between: for example, "0.5|ffffff|000000" will fade between the 2 colors every 0.5 seconds.
 style.effects.MaxHelpingHand/BlackholeCustomColors.description.bgColorOuterWild=The color used for the background at the edges of the screen, when the blackhole strength is Wild.\nYou can set up a gradient with multiple colors to fade between: for example, "0.5|ffffff|000000" will fade between the 2 colors every 0.5 seconds.
+style.effects.MaxHelpingHand/BlackholeCustomColors.description.bgAlpha=The opacity of the background, from 0 to 1.\n0 means invisible, 1 means fully opaque.
+style.effects.MaxHelpingHand/BlackholeCustomColors.description.fgAlpha=The opacity of the shapes going towards the center of the screen, from 0 to 1.\n0 means invisible, 1 means fully opaque.
+style.effects.MaxHelpingHand/BlackholeCustomColors.description.alpha=The opacity of the entire effect, from 0 to 1.\n0 means invisible, 1 means fully opaque.
 style.effects.MaxHelpingHand/BlackholeCustomColors.description.affectedByWind=Whether the blackhole should be offset when there is wind in the room.
 style.effects.MaxHelpingHand/BlackholeCustomColors.description.fadex=Advanced horizontal fading zones.\nFormat is "FromPosition-ToPosition,FromAlpha-ToAlpha". Example "n500-500,1-0".\nNegative numbers in position are denoted with "n" rather than minus. Position numbers are in pixels and use map coordinates.\nMultiple zones can be set up by using ":" as separator.
 style.effects.MaxHelpingHand/BlackholeCustomColors.description.fadey=Advanced vertical fading zones.\nFormat is "FromPosition-ToPosition,FromAlpha-ToAlpha". Example "n500-500,1-0".\nNegative numbers in position are denoted with "n" rather than minus. Position numbers are in pixels and use map coordinates.\nMultiple zones can be set up by using ":" as separator.

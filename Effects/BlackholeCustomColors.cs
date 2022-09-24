@@ -11,10 +11,12 @@ namespace Celeste.Mod.MaxHelpingHand.Effects {
 
         public static void Load() {
             IL.Celeste.BlackholeBG.ctor += onBlackholeConstructor;
+            IL.Celeste.BlackholeBG.Update += modBlackholeUpdate;
         }
 
         public static void Unload() {
             IL.Celeste.BlackholeBG.ctor -= onBlackholeConstructor;
+            IL.Celeste.BlackholeBG.Update -= modBlackholeUpdate;
         }
 
         private static void onBlackholeConstructor(ILContext il) {
@@ -47,6 +49,7 @@ namespace Celeste.Mod.MaxHelpingHand.Effects {
                 && effectData.AttrBool("affectedByWind", true)
                 && effectData.AttrFloat("additionalWindX", 0f) == 0f
                 && effectData.AttrFloat("additionalWindY", 0f) == 0f
+                && effectData.AttrFloat("fgAlpha", 1f) == 1f
                 && string.IsNullOrEmpty(effectData.Attr("fadex"))
                 && string.IsNullOrEmpty(effectData.Attr("fadey"))) {
 
@@ -62,11 +65,12 @@ namespace Celeste.Mod.MaxHelpingHand.Effects {
                 BlackholeBG blackhole = new BlackholeBG();
 
                 // ... now we've got to set everything else.
+                float bgAlpha = effectData.AttrFloat("bgAlpha", 1f);
                 DynData<BlackholeBG> blackholeData = new DynData<BlackholeBG>(blackhole);
                 blackholeData["colorsWild"] = parseColors(effectData.Attr("colorsWild", "ca4ca7,b14cca,ca4ca7"));
-                blackholeData["bgColorInner"] = Calc.HexToColor(effectData.Attr("bgColorInner", "000000"));
-                blackholeData["bgColorOuterMild"] = Calc.HexToColor(effectData.Attr("bgColorOuterMild", "512a8b"));
-                blackholeData["bgColorOuterWild"] = Calc.HexToColor(effectData.Attr("bgColorOuterWild", "bd2192"));
+                blackholeData["bgColorInner"] = Calc.HexToColor(effectData.Attr("bgColorInner", "000000")) * bgAlpha;
+                blackholeData["bgColorOuterMild"] = Calc.HexToColor(effectData.Attr("bgColorOuterMild", "512a8b")) * bgAlpha;
+                blackholeData["bgColorOuterWild"] = Calc.HexToColor(effectData.Attr("bgColorOuterWild", "bd2192")) * bgAlpha;
                 blackhole.Alpha = effectData.AttrFloat("alpha", 1f);
                 blackhole.Direction = effectData.AttrFloat("direction", 1f);
 
@@ -74,8 +78,10 @@ namespace Celeste.Mod.MaxHelpingHand.Effects {
             } else {
                 // there are gradients, or the blackhole should not be affected by wind: we need a custom blackhole!
 
+                float fgAlpha = effectData.AttrFloat("fgAlpha", 1f);
+
                 // set up colorsMild for the hook above. we can't use DynData to pass this over, since the object does not exist yet!
-                colorsMild = new ColorCycle(effectData.Attr("colorsMild", "6e3199,851f91,3026b0"), 0.8f).GetColors();
+                colorsMild = new ColorCycle(effectData.Attr("colorsMild", "6e3199,851f91,3026b0"), 0.8f * fgAlpha).GetColors();
 
                 // build the blackhole: the hook will take care of setting colorsMild.
                 BlackholeCustomColors blackhole = new BlackholeCustomColors(
@@ -84,6 +90,8 @@ namespace Celeste.Mod.MaxHelpingHand.Effects {
                     effectData.Attr("bgColorInner", "000000"),
                     effectData.Attr("bgColorOuterMild", "512a8b"),
                     effectData.Attr("bgColorOuterWild", "bd2192"),
+                    effectData.AttrFloat("bgAlpha", 1f),
+                    fgAlpha,
                     effectData.AttrBool("affectedByWind", true),
                     new Vector2(effectData.AttrFloat("additionalWindX", 0f), effectData.AttrFloat("additionalWindY", 0f)));
 
@@ -116,7 +124,7 @@ namespace Celeste.Mod.MaxHelpingHand.Effects {
             private int cycleProgress;
             private float cycleTimer;
 
-            public ColorCycle(string src, float multiplier = 1f) {
+            public ColorCycle(string src, float alpha) {
                 if (!src.Contains("|")) {
                     // there is only 1 set of colors, parse it.
                     colors = new Color[][] { parseColors(src) };
@@ -137,7 +145,7 @@ namespace Celeste.Mod.MaxHelpingHand.Effects {
                 // multiply colors with the given multiplier.
                 for (int i = 0; i < colors.Length; i++) {
                     for (int j = 0; j < colors[0].Length; j++) {
-                        colors[i][j] *= multiplier;
+                        colors[i][j] *= alpha;
                     }
                 }
             }
@@ -181,20 +189,24 @@ namespace Celeste.Mod.MaxHelpingHand.Effects {
         private readonly bool affectedByWind;
         private readonly Vector2 additionalWind;
 
+        private readonly float fgAlpha;
+
         public BlackholeCustomColors(string colorsMild, string colorsWild, string bgColorInner, string bgColorOuterMild, string bgColorOuterWild,
-            bool affectedByWind, Vector2 additionalWind) : base() {
+            float bgAlpha, float fgAlpha, bool affectedByWind, Vector2 additionalWind) : base() {
 
             blackholeData = new DynData<BlackholeBG>(this);
 
             // parse all color cycles.
-            cycleColorsMild = new ColorCycle(colorsMild, 0.8f);
-            cycleColorsWild = new ColorCycle(colorsWild);
-            cycleBgColorInner = new ColorCycle(bgColorInner);
-            cycleBgColorOuterMild = new ColorCycle(bgColorOuterMild);
-            cycleBgColorOuterWild = new ColorCycle(bgColorOuterWild);
+            cycleColorsMild = new ColorCycle(colorsMild, 0.8f * fgAlpha);
+            cycleColorsWild = new ColorCycle(colorsWild, fgAlpha);
+            cycleBgColorInner = new ColorCycle(bgColorInner, bgAlpha);
+            cycleBgColorOuterMild = new ColorCycle(bgColorOuterMild, bgAlpha);
+            cycleBgColorOuterWild = new ColorCycle(bgColorOuterWild, bgAlpha);
 
             this.affectedByWind = affectedByWind;
             this.additionalWind = additionalWind;
+
+            this.fgAlpha = fgAlpha;
         }
 
         public override void Update(Scene scene) {
@@ -238,6 +250,22 @@ namespace Celeste.Mod.MaxHelpingHand.Effects {
             base.Render(scene);
 
             Alpha = origAlpha;
+        }
+
+        private static void modBlackholeUpdate(ILContext il) {
+            ILCursor cursor = new ILCursor(il);
+
+            while (cursor.TryGotoNext(MoveType.After, instr => instr.MatchCall<Color>("get_Black"))) {
+                Logger.Log("MaxHelpingHand/BlackholeCustomColors", $"Applying fg opacity to black at {cursor.Index} in IL for BlackholeBG.Update");
+
+                cursor.Emit(OpCodes.Ldarg_0);
+                cursor.EmitDelegate<Func<Color, BlackholeBG, Color>>((orig, self) => {
+                    if (self is BlackholeCustomColors blackhole) {
+                        return orig * blackhole.fgAlpha;
+                    }
+                    return orig;
+                });
+            }
         }
     }
 }
