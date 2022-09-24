@@ -8,7 +8,6 @@ using System;
 using System.Reflection;
 
 namespace Celeste.Mod.MaxHelpingHand.Effects {
-    // Northern Lights, but with 10 more IL hooks!
     public class NorthernLightsCustomColors : NorthernLights {
         private static ILHook strandILHook;
 
@@ -34,100 +33,42 @@ namespace Celeste.Mod.MaxHelpingHand.Effects {
         private static void hookConstructor(ILContext il) {
             ILCursor cursor = new ILCursor(il);
 
-            // hook #1: change the northern lights colors in the constructor.
-            while (cursor.TryGotoNext(MoveType.After, instr => instr.MatchLdsfld<NorthernLights>("colors"))) {
-                Logger.Log("MaxHelpingHand/NorthernLightsCustomColors", $"Patching colors in {cursor.Index} in IL for NorthernLights constructor");
+            replacerHook(cursor, cursor => cursor.TryGotoNext(MoveType.After, instr => instr.MatchLdsfld<NorthernLights>("colors")), 0, () => Colors);
+            replacerHook(cursor, cursor => cursor.TryGotoNext(MoveType.After, instr => instr.MatchLdstr("020825")), 0, () => GradientColor1);
+            replacerHook(cursor, cursor => cursor.TryGotoNext(MoveType.After, instr => instr.MatchLdstr("170c2f")), 0, () => GradientColor2);
+            replacerHook(cursor, cursor => cursor.TryGotoNext(instr => instr.MatchLdcI4(50), instr => instr.OpCode == OpCodes.Newarr), 1, () => ParticleCount);
+            replacerHook(cursor, cursor => cursor.TryGotoNext(instr => instr.MatchLdcI4(3), instr => instr.OpCode == OpCodes.Blt_S), 1, () => StrandCount);
+
+            // resize the array holding the vertices to accomodate with the strand count, to avoid out of bounds exceptions.
+            replacerHook(cursor, cursor => cursor.TryGotoNext(instr => instr.MatchLdcI4(1024), instr => instr.OpCode == OpCodes.Newarr), 1, () => 234 * StrandCount);
+        }
+
+        /**
+         * The given condition should move the cursor after a method returning a T (optionally using the offset to do that).
+         * Then, if "this" is a NorthernLightsCustomColors, the return value of the method will be replaced with what replaceWith returns.
+         */
+        private static void replacerHook<T>(ILCursor cursor, Func<ILCursor, bool> condition, int offset, Func<T> replaceWith) {
+            while (condition(cursor)) {
+                Logger.Log("MaxHelpingHand/NorthernLightsCustomColors", $"Applying patch in {cursor.Index} in IL for NorthernLights constructor");
+
+                cursor.Index += offset;
 
                 cursor.Emit(OpCodes.Ldarg_0);
-                cursor.EmitDelegate<Func<Color[], NorthernLights, Color[]>>((orig, self) => {
+                cursor.EmitDelegate<Func<T, NorthernLights, T>>((orig, self) => {
                     if (self is NorthernLightsCustomColors) {
-                        return Colors;
+                        return replaceWith();
                     }
                     return orig;
                 });
             }
 
             cursor.Index = 0;
-
-            // hook #2: change the background top color in the constructor.
-            if (cursor.TryGotoNext(MoveType.After, instr => instr.MatchLdstr("020825"))) {
-                Logger.Log("MaxHelpingHand/NorthernLightsCustomColors", $"Patching gradient color 1 in {cursor.Index} in IL for NorthernLights constructor");
-
-                cursor.Emit(OpCodes.Ldarg_0);
-                cursor.EmitDelegate<Func<string, NorthernLights, string>>((orig, self) => {
-                    if (self is NorthernLightsCustomColors) {
-                        return GradientColor1;
-                    }
-                    return orig;
-                });
-            }
-
-            // hook #3: change the background bottom color in the constructor.
-            if (cursor.TryGotoNext(MoveType.After, instr => instr.MatchLdstr("170c2f"))) {
-                Logger.Log("MaxHelpingHand/NorthernLightsCustomColors", $"Patching gradient color 2 in {cursor.Index} in IL for NorthernLights constructor");
-
-                cursor.Emit(OpCodes.Ldarg_0);
-                cursor.EmitDelegate<Func<string, NorthernLights, string>>((orig, self) => {
-                    if (self is NorthernLightsCustomColors) {
-                        return GradientColor2;
-                    }
-                    return orig;
-                });
-            }
-
-            cursor.Index = 0;
-
-            // hook #4: change the amount of particles in the constructor.
-            while (cursor.TryGotoNext(instr => instr.MatchLdcI4(50), instr => instr.OpCode == OpCodes.Newarr)) {
-                cursor.Index++;
-                Logger.Log("MaxHelpingHand/NorthernLightsCustomColors", $"Patching particle count in {cursor.Index} in IL for NorthernLights constructor");
-
-                cursor.Emit(OpCodes.Ldarg_0);
-                cursor.EmitDelegate<Func<int, NorthernLights, int>>((orig, self) => {
-                    if (self is NorthernLightsCustomColors) {
-                        return ParticleCount;
-                    }
-                    return orig;
-                });
-            }
-
-            cursor.Index = 0;
-
-            // hook #5: change the amount of strands in the constructor.
-            while (cursor.TryGotoNext(instr => instr.MatchLdcI4(3), instr => instr.OpCode == OpCodes.Blt_S)) {
-                cursor.Index++;
-                Logger.Log("MaxHelpingHand/NorthernLightsCustomColors", $"Patching strand count in {cursor.Index} in IL for NorthernLights constructor");
-
-                cursor.Emit(OpCodes.Ldarg_0);
-                cursor.EmitDelegate<Func<int, NorthernLights, int>>((orig, self) => {
-                    if (self is NorthernLightsCustomColors) {
-                        return StrandCount;
-                    }
-                    return orig;
-                });
-            }
-
-            cursor.Index = 0;
-
-            // hook #6: change the size of the array holding the strand vertices in the constructor, to adapt it to the amount of strands.
-            while (cursor.TryGotoNext(instr => instr.MatchLdcI4(1024), instr => instr.OpCode == OpCodes.Newarr)) {
-                cursor.Index++;
-                Logger.Log("MaxHelpingHand/NorthernLightsCustomColors", $"Patching strand vertex count in {cursor.Index} in IL for NorthernLights constructor");
-
-                cursor.Emit(OpCodes.Ldarg_0);
-                cursor.EmitDelegate<Func<int, NorthernLights, int>>((orig, self) => {
-                    if (self is NorthernLightsCustomColors) {
-                        return 234 * StrandCount; // each strand has 40 nodes (39 intervals) linked with 6 vertices each => 234 vertices per strand
-                    }
-                    return orig;
-                });
-            }
         }
 
         private static void hookBeforeRender(ILContext il) {
             ILCursor cursor = new ILCursor(il);
 
-            // hook #7: if the backdrop is transparent, make sure we clean it up, or else frames will "stack up".
+            // if the backdrop is transparent, make sure we clean it up, or else frames will "stack up".
             if (cursor.TryGotoNext(MoveType.After, instr => instr.MatchCall(typeof(GFX), "DrawVertices"))) {
                 Logger.Log("MaxHelpingHand/NorthernLightsCustomColors", $"Cleaning background at {cursor.Index} in IL for NorthernLights.BeforeRender");
 
@@ -139,7 +80,7 @@ namespace Celeste.Mod.MaxHelpingHand.Effects {
                 });
             }
 
-            // hook #8: clean up the gaussian blur buffer when using it when we have transparency (no background).
+            // clean up the gaussian blur buffer when using it when we have transparency (no background).
             if (cursor.TryGotoNext(MoveType.After,
                 instr => instr.MatchCall(typeof(GFX), "DrawVertices"),
                 instr => instr.MatchLdcI4(0) || (instr.MatchNop() && instr.Next.MatchLdcI4(0)))) {
@@ -160,7 +101,7 @@ namespace Celeste.Mod.MaxHelpingHand.Effects {
 
             cursor.Index = 0;
 
-            // hook #9: skip DrawVertices if there is no vertex to draw because that crashes on XNA
+            // skip DrawVertices if there is no vertex to draw because that crashes on XNA
             if (cursor.TryGotoNext(instr => instr.MatchLdfld<NorthernLights>("verts"))
                 && cursor.TryGotoNext(instr => instr.OpCode == OpCodes.Call && (instr.Operand as MethodReference).Name == "DrawVertices")) {
 
@@ -184,7 +125,7 @@ namespace Celeste.Mod.MaxHelpingHand.Effects {
         private static void modStrandReset(ILContext il) {
             ILCursor cursor = new ILCursor(il);
 
-            // hook #10: use the static variable defined in NorthernLightsCustomColors instead of vanilla colors.
+            // use the static variable defined in NorthernLightsCustomColors instead of vanilla colors.
             // this static variable is filled when a custom northern lights BG is updated, and cleared when it's done.
             while (cursor.TryGotoNext(MoveType.After, instr => instr.MatchLdsfld<NorthernLights>("colors"))) {
                 Logger.Log("MaxHelpingHand/NorthernLightsCustomColors", $"Patching colors in {cursor.Index} in IL for NorthernLights.Strand.Reset");
