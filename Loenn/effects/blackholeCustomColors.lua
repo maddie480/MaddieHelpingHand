@@ -10,7 +10,8 @@ effect.defaultData = {
     bgColorInner = "000000",
     bgColorOuterMild = "512a8b",
     bgColorOuterWild = "bd2192",
-    bgAlpha = 1.0,
+    bgAlphaInner = 1.0,
+    bgAlphaOuter = 1.0,
     fgAlpha = 1.0,
     alpha = 1.0,
     affectedByWind = true,
@@ -19,6 +20,13 @@ effect.defaultData = {
     direction = 1.0,
     additionalWindX = 0.0,
     additionalWindY = 0.0
+}
+
+effect.fieldOrder = {
+    "only", "exclude", "flag", "notflag",
+    "colorsMild", "colorsWild", "fadex", "fadey",
+    "bgColorInner", "bgColorOuterMild", "bgColorOuterWild", "tag",
+    "bgAlphaInner", "bgAlphaOuter", "fgAlpha", "alpha"
 }
 
 return effect

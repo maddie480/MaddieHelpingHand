@@ -41,6 +41,15 @@ namespace Celeste.Mod.MaxHelpingHand.Effects {
         }
 
         public static BlackholeBG CreateBlackholeWithCustomColors(BinaryPacker.Element effectData) {
+            float bgAlphaInner = effectData.AttrFloat("bgAlphaInner", 1f);
+            float bgAlphaOuter = effectData.AttrFloat("bgAlphaOuter", 1f);
+
+            // backwards compat for an attribute that only existed in 1.21.8, that was the latest version for a whole 1 day
+            if (effectData.HasAttr("bgAlpha")) {
+                bgAlphaInner = effectData.AttrFloat("bgAlpha", 1f);
+                bgAlphaOuter = effectData.AttrFloat("bgAlpha", 1f);
+            }
+
             if (!effectData.Attr("colorsMild").Contains("|")
                 && !effectData.Attr("colorsWild").Contains("|")
                 && !effectData.Attr("bgColorInner").Contains("|")
@@ -65,12 +74,11 @@ namespace Celeste.Mod.MaxHelpingHand.Effects {
                 BlackholeBG blackhole = new BlackholeBG();
 
                 // ... now we've got to set everything else.
-                float bgAlpha = effectData.AttrFloat("bgAlpha", 1f);
                 DynData<BlackholeBG> blackholeData = new DynData<BlackholeBG>(blackhole);
                 blackholeData["colorsWild"] = parseColors(effectData.Attr("colorsWild", "ca4ca7,b14cca,ca4ca7"));
-                blackholeData["bgColorInner"] = Calc.HexToColor(effectData.Attr("bgColorInner", "000000")) * bgAlpha;
-                blackholeData["bgColorOuterMild"] = Calc.HexToColor(effectData.Attr("bgColorOuterMild", "512a8b")) * bgAlpha;
-                blackholeData["bgColorOuterWild"] = Calc.HexToColor(effectData.Attr("bgColorOuterWild", "bd2192")) * bgAlpha;
+                blackholeData["bgColorInner"] = Calc.HexToColor(effectData.Attr("bgColorInner", "000000")) * bgAlphaInner;
+                blackholeData["bgColorOuterMild"] = Calc.HexToColor(effectData.Attr("bgColorOuterMild", "512a8b")) * bgAlphaOuter;
+                blackholeData["bgColorOuterWild"] = Calc.HexToColor(effectData.Attr("bgColorOuterWild", "bd2192")) * bgAlphaOuter;
                 blackhole.Alpha = effectData.AttrFloat("alpha", 1f);
                 blackhole.Direction = effectData.AttrFloat("direction", 1f);
 
@@ -90,8 +98,7 @@ namespace Celeste.Mod.MaxHelpingHand.Effects {
                     effectData.Attr("bgColorInner", "000000"),
                     effectData.Attr("bgColorOuterMild", "512a8b"),
                     effectData.Attr("bgColorOuterWild", "bd2192"),
-                    effectData.AttrFloat("bgAlpha", 1f),
-                    fgAlpha,
+                    bgAlphaInner, bgAlphaOuter, fgAlpha,
                     effectData.AttrBool("affectedByWind", true),
                     new Vector2(effectData.AttrFloat("additionalWindX", 0f), effectData.AttrFloat("additionalWindY", 0f)));
 
@@ -192,16 +199,16 @@ namespace Celeste.Mod.MaxHelpingHand.Effects {
         private readonly float fgAlpha;
 
         public BlackholeCustomColors(string colorsMild, string colorsWild, string bgColorInner, string bgColorOuterMild, string bgColorOuterWild,
-            float bgAlpha, float fgAlpha, bool affectedByWind, Vector2 additionalWind) : base() {
+            float bgAlphaInner, float bgAlphaOuter, float fgAlpha, bool affectedByWind, Vector2 additionalWind) : base() {
 
             blackholeData = new DynData<BlackholeBG>(this);
 
             // parse all color cycles.
             cycleColorsMild = new ColorCycle(colorsMild, 0.8f * fgAlpha);
             cycleColorsWild = new ColorCycle(colorsWild, fgAlpha);
-            cycleBgColorInner = new ColorCycle(bgColorInner, bgAlpha);
-            cycleBgColorOuterMild = new ColorCycle(bgColorOuterMild, bgAlpha);
-            cycleBgColorOuterWild = new ColorCycle(bgColorOuterWild, bgAlpha);
+            cycleBgColorInner = new ColorCycle(bgColorInner, bgAlphaInner);
+            cycleBgColorOuterMild = new ColorCycle(bgColorOuterMild, bgAlphaOuter);
+            cycleBgColorOuterWild = new ColorCycle(bgColorOuterWild, bgAlphaOuter);
 
             this.affectedByWind = affectedByWind;
             this.additionalWind = additionalWind;
