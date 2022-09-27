@@ -1014,6 +1014,7 @@ style.effects.MaxHelpingHand/BlackholeCustomColors.description.fadey=Advanced ve
 style.effects.MaxHelpingHand/BlackholeCustomColors.description.direction=Determines the direction and speed of the shapes. Positive values make them go inwards, negative values make them go outwards, and bigger values make them go faster.\nThe default vanilla value is 1, and -2.5 after using the final Badeline boost in Farewell.
 style.effects.MaxHelpingHand/BlackholeCustomColors.description.additionalWindX=The value given here will be added to the horizontal wind to compute the position of the blackhole.\nIf "Affected By Wind" is unchecked, this value will replace the wind strength entirely instead of adding to it.
 style.effects.MaxHelpingHand/BlackholeCustomColors.description.additionalWindY=The value given here will be added to the vertical wind to compute the position of the blackhole.\nIf "Affected By Wind" is unchecked, this value will replace the wind strength entirely instead of adding to it.
+style.effects.MaxHelpingHand/BlackholeCustomColors.description.invertedRendering=Whether the black hole should be rendered from the edges to the center, rather than the other way around.\nThis can be useful with custom textures, or if the black hole should be transparent on the edges.
 
 # Custom Planets
 style.effects.MaxHelpingHand/CustomPlanets.name=Planets (Custom)

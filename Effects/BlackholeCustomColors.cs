@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using Mono.Cecil.Cil;
 using Monocle;
 using MonoMod.Cil;
@@ -12,11 +13,13 @@ namespace Celeste.Mod.MaxHelpingHand.Effects {
         public static void Load() {
             IL.Celeste.BlackholeBG.ctor += onBlackholeConstructor;
             IL.Celeste.BlackholeBG.Update += modBlackholeUpdate;
+            IL.Celeste.BlackholeBG.BeforeRender += modBlackholeBeforeRender;
         }
 
         public static void Unload() {
             IL.Celeste.BlackholeBG.ctor -= onBlackholeConstructor;
             IL.Celeste.BlackholeBG.Update -= modBlackholeUpdate;
+            IL.Celeste.BlackholeBG.BeforeRender -= modBlackholeBeforeRender;
         }
 
         private static void onBlackholeConstructor(ILContext il) {
@@ -60,7 +63,8 @@ namespace Celeste.Mod.MaxHelpingHand.Effects {
                 && effectData.AttrFloat("additionalWindY", 0f) == 0f
                 && effectData.AttrFloat("fgAlpha", 1f) == 1f
                 && string.IsNullOrEmpty(effectData.Attr("fadex"))
-                && string.IsNullOrEmpty(effectData.Attr("fadey"))) {
+                && string.IsNullOrEmpty(effectData.Attr("fadey"))
+                && !effectData.AttrBool("invertedRendering")) {
 
                 // there is no gradient on any color, wind should affect the blackhole, and there is no fade: we can just instanciate a vanilla blackhole and mess with its properties.
 
@@ -100,7 +104,8 @@ namespace Celeste.Mod.MaxHelpingHand.Effects {
                     effectData.Attr("bgColorOuterWild", "bd2192"),
                     bgAlphaInner, bgAlphaOuter, fgAlpha,
                     effectData.AttrBool("affectedByWind", true),
-                    new Vector2(effectData.AttrFloat("additionalWindX", 0f), effectData.AttrFloat("additionalWindY", 0f)));
+                    new Vector2(effectData.AttrFloat("additionalWindX", 0f), effectData.AttrFloat("additionalWindY", 0f)),
+                    effectData.AttrBool("invertedRendering"));
 
                 // ... now we've got to set the initial values of everything else.
                 blackhole.blackholeData["colorsWild"] = blackhole.cycleColorsWild.GetColors();
@@ -197,9 +202,10 @@ namespace Celeste.Mod.MaxHelpingHand.Effects {
         private readonly Vector2 additionalWind;
 
         private readonly float fgAlpha;
+        private readonly bool invertedRendering;
 
         public BlackholeCustomColors(string colorsMild, string colorsWild, string bgColorInner, string bgColorOuterMild, string bgColorOuterWild,
-            float bgAlphaInner, float bgAlphaOuter, float fgAlpha, bool affectedByWind, Vector2 additionalWind) : base() {
+            float bgAlphaInner, float bgAlphaOuter, float fgAlpha, bool affectedByWind, Vector2 additionalWind, bool invertedRendering) : base() {
 
             blackholeData = new DynData<BlackholeBG>(this);
 
@@ -214,6 +220,11 @@ namespace Celeste.Mod.MaxHelpingHand.Effects {
             this.additionalWind = additionalWind;
 
             this.fgAlpha = fgAlpha;
+            this.invertedRendering = invertedRendering;
+
+            if (invertedRendering) {
+                blackholeData["bgTexture"] = GFX.Game["objects/MaxHelpingHand/temple/portal_inverted"];
+            }
         }
 
         public override void Update(Scene scene) {
@@ -262,17 +273,43 @@ namespace Celeste.Mod.MaxHelpingHand.Effects {
         private static void modBlackholeUpdate(ILContext il) {
             ILCursor cursor = new ILCursor(il);
 
-            while (cursor.TryGotoNext(MoveType.After, instr => instr.MatchCall<Color>("get_Black"))) {
-                Logger.Log("MaxHelpingHand/BlackholeCustomColors", $"Applying fg opacity to black at {cursor.Index} in IL for BlackholeBG.Update");
+            replacerHook<Color>(cursor, cursor => cursor.TryGotoNext(MoveType.After, instr => instr.MatchCall<Color>("get_Black")), 0, (orig, self) => orig * self.fgAlpha);
+        }
+
+        private static void modBlackholeBeforeRender(ILContext il) {
+            ILCursor cursor = new ILCursor(il);
+
+            // if inverted is enabled, reverse the loop: for (int i = 19; 19 - i < 20; i--), 19 - i < 20 => i > -1 => i >= 0
+            replacerHook<int>(cursor, cursor => cursor.TryGotoNext(instr => instr.MatchLdcI4(0), instr => instr.MatchStloc(1)),
+                1, (orig, self) => self.invertedRendering ? 19 : orig);
+            replacerHook<int>(cursor, cursor => cursor.TryGotoNext(instr => instr.MatchLdcI4(1), instr => instr.MatchAdd(), instr => instr.MatchStloc(1)),
+                1, (orig, self) => self.invertedRendering ? -1 : orig);
+            replacerHook<int>(cursor, cursor => cursor.TryGotoNext(instr => instr.MatchLdloc(1), instr => instr.MatchLdcI4(20), instr => instr.OpCode == OpCodes.Blt),
+                1, (orig, self) => self.invertedRendering ? 19 - orig : orig);
+            replacerHook<Color>(cursor, cursor => cursor.TryGotoNext(instr => instr.MatchLdfld<BlackholeBG>("bgColorInner"), instr => instr.MatchCallvirt<GraphicsDevice>("Clear")),
+                1, (orig, self) => self.invertedRendering ? Color.Transparent : orig);
+        }
+
+        /**
+         * The given condition should move the cursor after a method returning a T (optionally using the offset to do that).
+         * Then, if "this" is a BlackholeCustomColors, the return value of the method will be replaced with what replaceWith returns.
+         */
+        private static void replacerHook<T>(ILCursor cursor, Func<ILCursor, bool> condition, int offset, Func<T, BlackholeCustomColors, T> replaceWith) {
+            while (condition(cursor)) {
+                Logger.Log("MaxHelpingHand/BlackholeCustomColors", $"Applying patch in {cursor.Index} in IL for {cursor.Method.FullName}");
+
+                cursor.Index += offset;
 
                 cursor.Emit(OpCodes.Ldarg_0);
-                cursor.EmitDelegate<Func<Color, BlackholeBG, Color>>((orig, self) => {
+                cursor.EmitDelegate<Func<T, BlackholeBG, T>>((orig, self) => {
                     if (self is BlackholeCustomColors blackhole) {
-                        return orig * blackhole.fgAlpha;
+                        return replaceWith(orig, blackhole);
                     }
                     return orig;
                 });
             }
+
+            cursor.Index = 0;
         }
     }
 }

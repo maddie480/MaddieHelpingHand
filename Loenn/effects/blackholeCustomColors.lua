@@ -19,7 +19,8 @@ effect.defaultData = {
     fadey = "",
     direction = 1.0,
     additionalWindX = 0.0,
-    additionalWindY = 0.0
+    additionalWindY = 0.0,
+    invertedRendering = false
 }
 
 effect.fieldOrder = {
