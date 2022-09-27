@@ -1015,6 +1015,7 @@ style.effects.MaxHelpingHand/BlackholeCustomColors.description.direction=Determi
 style.effects.MaxHelpingHand/BlackholeCustomColors.description.additionalWindX=The value given here will be added to the horizontal wind to compute the position of the blackhole.\nIf "Affected By Wind" is unchecked, this value will replace the wind strength entirely instead of adding to it.
 style.effects.MaxHelpingHand/BlackholeCustomColors.description.additionalWindY=The value given here will be added to the vertical wind to compute the position of the blackhole.\nIf "Affected By Wind" is unchecked, this value will replace the wind strength entirely instead of adding to it.
 style.effects.MaxHelpingHand/BlackholeCustomColors.description.invertedRendering=Whether the black hole should be rendered from the edges to the center, rather than the other way around.\nThis can be useful with custom textures, or if the black hole should be transparent on the edges.
+style.effects.MaxHelpingHand/BlackholeCustomColors.description.texture=The texture to use for the spinning black hole background, in the Graphics/Atlases/Gameplay folder of your mod.\nThe vanilla texture is located in Graphics/Atlases/Gameplay/objects/temple/portal/portal.png in the graphics dump.\nLeave empty to use the default texture.
 
 # Custom Planets
 style.effects.MaxHelpingHand/CustomPlanets.name=Planets (Custom)

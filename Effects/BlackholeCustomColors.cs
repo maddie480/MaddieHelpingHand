@@ -86,6 +86,10 @@ namespace Celeste.Mod.MaxHelpingHand.Effects {
                 blackhole.Alpha = effectData.AttrFloat("alpha", 1f);
                 blackhole.Direction = effectData.AttrFloat("direction", 1f);
 
+                if (!string.IsNullOrEmpty(effectData.Attr("texture"))) {
+                    blackholeData["bgTexture"] = GFX.Game[effectData.Attr("texture")];
+                }
+
                 return blackhole;
             } else {
                 // there are gradients, or the blackhole should not be affected by wind: we need a custom blackhole!
@@ -114,6 +118,10 @@ namespace Celeste.Mod.MaxHelpingHand.Effects {
                 blackhole.blackholeData["bgColorOuterWild"] = blackhole.cycleBgColorOuterWild.GetColors()[0];
                 blackhole.Alpha = effectData.AttrFloat("alpha", 1f);
                 blackhole.Direction = effectData.AttrFloat("direction", 1f);
+
+                if (!string.IsNullOrEmpty(effectData.Attr("texture"))) {
+                    blackhole.blackholeData["bgTexture"] = GFX.Game[effectData.Attr("texture")];
+                }
 
                 return blackhole;
             }

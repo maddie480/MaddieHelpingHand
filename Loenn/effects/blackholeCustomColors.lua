@@ -20,7 +20,8 @@ effect.defaultData = {
     direction = 1.0,
     additionalWindX = 0.0,
     additionalWindY = 0.0,
-    invertedRendering = false
+    invertedRendering = false,
+    texture = ""
 }
 
 effect.fieldOrder = {
