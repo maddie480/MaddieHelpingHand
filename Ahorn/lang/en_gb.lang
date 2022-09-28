@@ -579,6 +579,11 @@ placements.entities.MaxHelpingHand/SetFlagOnSpawnController.tooltips.enable=If c
 placements.entities.MaxHelpingHand/SetFlagOnSpawnController.tooltips.onlyOnRespawn=If checked, the flag will only be set if the player dies and respawns in the room (and not when they enter the room).
 placements.entities.MaxHelpingHand/SetFlagOnSpawnController.tooltips.ifFlag=The flag will only be set if this other flag is active. Leave empty if you don't need your flag to depend on another flag.
 
+# Set Flag On Spawn Trigger
+placements.triggers.MaxHelpingHand/SetFlagOnSpawnTrigger.tooltips.flags=The session flags to modify when the player respawns inside the trigger. You can set multiple flags at once by giving a list separated by commas (flag1,flag2).
+placements.triggers.MaxHelpingHand/SetFlagOnSpawnTrigger.tooltips.enable=If checked, the flag will be enabled when the player respawns inside the trigger. If unchecked, the flag will be disabled instead.
+placements.triggers.MaxHelpingHand/SetFlagOnSpawnTrigger.tooltips.ifFlag=The flag will only be set if this other flag is active. Leave empty if you don't need your flag to depend on another flag.
+
 # Flag Logic Gate
 placements.entities.MaxHelpingHand/FlagLogicGate.tooltips.inputFlags=The session flags to use as an input, separated by commas. You can invert one of the flags by adding a ! in front of its name (!flagName).
 placements.entities.MaxHelpingHand/FlagLogicGate.tooltips.outputFlag=The session flag that will be changed depending on the input flags.
