@@ -7,14 +7,22 @@ puffer.placements = {
     {
         name = "left",
         data = {
-            right = false
+            right = false,
+            downboostTolerance = -1
         }
     },
     {
         name = "right",
         data = {
-            right = true
+            right = true,
+            downboostTolerance = -1
         }
+    }
+}
+
+puffer.fieldInformation = {
+    downboostTolerance = {
+        fieldType = "integer"
     }
 }
 

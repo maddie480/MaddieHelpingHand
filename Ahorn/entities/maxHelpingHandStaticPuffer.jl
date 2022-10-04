@@ -2,7 +2,7 @@
 
 using ..Ahorn, Maple
 
-@mapdef Entity "MaxHelpingHand/StaticPuffer" StaticPuffer(x::Integer, y::Integer, right::Bool=false)
+@mapdef Entity "MaxHelpingHand/StaticPuffer" StaticPuffer(x::Integer, y::Integer, right::Bool=false, downboostTolerance::Int=-1)
 
 const placements = Ahorn.PlacementDict(
     "Static Puffer (Right) (max480's Helping Hand)" => Ahorn.EntityPlacement(

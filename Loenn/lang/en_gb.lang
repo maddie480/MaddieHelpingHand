@@ -687,6 +687,7 @@ entities.MaxHelpingHand/SidewaysMovingPlatform.attributes.description.emitSound=
 entities.MaxHelpingHand/StaticPuffer.placements.name.left=Static Puffer (Left)
 entities.MaxHelpingHand/StaticPuffer.placements.name.right=Static Puffer (Right)
 entities.MaxHelpingHand/StaticPuffer.attributes.description.right=The initial direction of the puffer.
+entities.MaxHelpingHand/StaticPuffer.attributes.description.downboostTolerance=The distance (in pixels) within which the player has to be from the center of the puffer to get launched downwards.\nFor example, 0 means they have to hit the center of the puffer pixel-perfectly.\nUse -1 to disable downboosting entirely (in that case, hitting the center will launch the player in the direction the puffer is facing).
 
 # Non-Popping Strawberry
 entities.MaxHelpingHand/NonPoppingStrawberry.placements.name.normal=Strawberry (with Seeds Not Popping On Ground)

@@ -292,6 +292,7 @@ placements.effects.MaxHelpingHand/HeatWaveNoColorGrade.tooltips.renderParticles=
 
 # Static Puffer
 placements.entities.MaxHelpingHand/StaticPuffer.tooltips.right=The initial direction of the puffer.
+placements.entities.MaxHelpingHand/StaticPuffer.tooltips.downboostTolerance=The distance (in pixels) within which the player has to be from the center of the puffer to get launched downwards.\nFor example, 0 means they have to hit the center of the puffer pixel-perfectly.\nUse -1 to disable downboosting entirely (in that case, hitting the center will launch the player in the direction the puffer is facing).
 
 # Blackhole with Custom Colors
 placements.effects.MaxHelpingHand/BlackholeCustomColors.names.fadex=Fade X
