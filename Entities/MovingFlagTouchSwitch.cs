@@ -67,7 +67,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
                 // moving touch switches can't be persistent, but we can very much spawn a flag touch switch instead!
                 Vector2[] nodes = entityData.Nodes;
                 Vector2 origPosition = entityData.Position;
-                entityData.Position = nodes[nodes.Length - 1];
+                if (nodes.Length != 0) entityData.Position = nodes[nodes.Length - 1];
                 FlagTouchSwitch flagTouchSwitch = new FlagTouchSwitch(entityData, offset);
                 entityData.Position = origPosition;
                 return flagTouchSwitch;
