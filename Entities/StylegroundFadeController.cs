@@ -169,8 +169,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
                 // before the rendering, switch to a dedicated render target if required.
                 cursor.Emit(OpCodes.Ldarg_0);
                 cursor.Emit(OpCodes.Ldloc, backdropLocal);
-                cursor.Emit(OpCodes.Ldloc, blendStateLocal);
-                cursor.EmitDelegate<Action<BackdropRenderer, Backdrop, BlendState>>((self, backdrop, blendState) => {
+                cursor.EmitDelegate<Action<BackdropRenderer, Backdrop>>((self, backdrop) => {
                     bool hasFlag = backdrop.OnlyIfFlag != null && fades.ContainsKey("f:" + backdrop.OnlyIfFlag) && fades["f:" + backdrop.OnlyIfFlag] < 1;
                     bool hasNotFlag = backdrop.OnlyIfNotFlag != null && fades.ContainsKey("n:" + backdrop.OnlyIfNotFlag) && fades["n:" + backdrop.OnlyIfNotFlag] < 1;
 
@@ -182,9 +181,9 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
 
                         if (backdrop.UseSpritebatch) {
                             if (startSpritebatchLooping != null && backdrop is Parallax) {
-                                startSpritebatchLooping.Invoke(self, new object[] { blendState });
+                                startSpritebatchLooping.Invoke(self, new object[] { BlendState.AlphaBlend });
                             } else {
-                                self.StartSpritebatch(blendState);
+                                self.StartSpritebatch(BlendState.AlphaBlend);
                             }
                         }
                     }
