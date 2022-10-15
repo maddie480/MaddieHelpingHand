@@ -10,6 +10,8 @@ floatingDebris.placements = {
     data = {
         texture = "scenery/debris",
         depth = -5,
+        debrisWidth = 8,
+        debrisHeight = 8,
         interactWithPlayer = true
     }
 }
@@ -17,25 +19,36 @@ floatingDebris.placements = {
 floatingDebris.fieldInformation = {
     depth = {
         fieldType = "integer"
+    },
+    debrisWidth = {
+        fieldType = "integer"
+    },
+    debrisHeight = {
+        fieldType = "integer"
     }
 }
 
 function floatingDebris.sprite(room, entity)
     utils.setSimpleCoordinateSeed(entity.x, entity.y)
 
+    local debrisWidth = entity.debrisWidth or 8
+    local debrisHeight = entity.debrisHeight or 8
+
     local sprite = drawableSprite.fromTexture(entity.texture, entity)
-    local offsetX = math.random(0, sprite.meta.width / 8 - 1) * 8
+    local offsetX = math.random(0, sprite.meta.width / debrisWidth - 1) * debrisWidth
 
     -- Manually offset the sprite, otherwise it will justify with the original image size
-    sprite:useRelativeQuad(offsetX, 0, 8, 8)
+    sprite:useRelativeQuad(offsetX, 0, debrisWidth, debrisHeight)
     sprite:setJustification(0.0, 0.0)
-    sprite:addPosition(-4, -4)
+    sprite:addPosition(-debrisWidth / 2, -debrisHeight / 2)
 
     return sprite
 end
 
 function floatingDebris.selection(room, entity)
-    return utils.rectangle(entity.x - 4, entity.y - 4, 8, 8)
+    local debrisWidth = entity.debrisWidth or 8
+    local debrisHeight = entity.debrisHeight or 8
+    return utils.rectangle(entity.x - (debrisWidth / 2), entity.y - (debrisHeight / 2), debrisWidth, debrisHeight)
 end
 
 return floatingDebris

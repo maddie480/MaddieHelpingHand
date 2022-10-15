@@ -2,7 +2,8 @@
 
 using ..Ahorn, Maple
 
-@mapdef Entity "MaxHelpingHand/ReskinnableFloatingDebris" ReskinnableFloatingDebris(x::Integer, y::Integer, texture::String="scenery/debris", depth::Int=-5, interactWithPlayer::Bool=true)
+@mapdef Entity "MaxHelpingHand/ReskinnableFloatingDebris" ReskinnableFloatingDebris(x::Integer, y::Integer, texture::String="scenery/debris", depth::Int=-5,
+    interactWithPlayer::Bool=true, debrisWidth::Int=8, debrisHeight::Int=8)
 
 const placements = Ahorn.PlacementDict(
     "Floating Debris (Reskinnable) (max480's Helping Hand)" => Ahorn.EntityPlacement(
@@ -13,12 +14,16 @@ const placements = Ahorn.PlacementDict(
 function Ahorn.selection(entity::ReskinnableFloatingDebris)
     x, y = Ahorn.position(entity)
 
-    return Ahorn.Rectangle(x - 6, y - 6, 12, 12)
+    debrisWidth = get(entity, "debrisWidth", 8)
+    debrisHeight = get(entity, "debrisHeight", 8)
+    return Ahorn.Rectangle(x - (debrisWidth / 2) - 2, y - (debrisHeight / 2) - 2, debrisWidth + 4, debrisHeight + 4)
 end
 
 function Ahorn.render(ctx::Ahorn.Cairo.CairoContext, entity::ReskinnableFloatingDebris, room::Maple.Room)
     debrisSprite = Ahorn.getSprite(entity.texture, "Gameplay")
-    Ahorn.drawImage(ctx, debrisSprite, -4, -4, 0, 0, 8, 8)
+    debrisWidth = get(entity, "debrisWidth", 8)
+    debrisHeight = get(entity, "debrisHeight", 8)
+    Ahorn.drawImage(ctx, debrisSprite, -(debrisWidth / 2), -(debrisHeight / 2), 0, 0, debrisWidth, debrisHeight)
 end
 
 end
