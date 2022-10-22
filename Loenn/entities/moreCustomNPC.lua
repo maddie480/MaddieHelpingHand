@@ -1,5 +1,6 @@
 local drawableRectangle = require("structs.drawable_rectangle")
 local utils = require("utils")
+local entities = require("entities")
 
 local everestNpc = {}
 
@@ -24,23 +25,82 @@ everestNpc.fieldInformation = {
 }
 
 everestNpc.placements = {
-    name = "npc",
-    data = {
-        sprite = "player/idle",
-        spriteRate = 1,
-        dialogId = "",
-        onlyOnce = true,
-        endLevel = false,
-        flipX = false,
-        flipY = false,
-        approachWhenTalking = false,
-        approachDistance = 16,
-        indicatorOffsetX = 0,
-        indicatorOffsetY = 0,
-        frames = "",
-        onlyIfFlag = "",
-        setFlag = ""
-    }
+    {
+        name = "npc",
+        data = {
+            sprite = "player/idle",
+            spriteRate = 1,
+            dialogId = "",
+            onlyOnce = true,
+            endLevel = false,
+            flipX = false,
+            flipY = false,
+            approachWhenTalking = false,
+            approachDistance = 16,
+            indicatorOffsetX = 0,
+            indicatorOffsetY = 0,
+            frames = "",
+            onlyIfFlag = "",
+            setFlag = ""
+        }
+    },
+    {
+        name = "theo",
+        data = {
+            sprite = "theo/theo",
+            spriteRate = 10,
+            dialogId = "",
+            onlyOnce = true,
+            endLevel = false,
+            flipX = false,
+            flipY = false,
+            approachWhenTalking = false,
+            approachDistance = 16,
+            indicatorOffsetX = 0,
+            indicatorOffsetY = -5,
+            frames = "0-9",
+            onlyIfFlag = "",
+            setFlag = ""
+        }
+    },
+    {
+        name = "oshiro",
+        data = {
+            sprite = "oshiro/oshiro",
+            spriteRate = 12,
+            dialogId = "",
+            onlyOnce = true,
+            endLevel = false,
+            flipX = false,
+            flipY = false,
+            approachWhenTalking = false,
+            approachDistance = 16,
+            indicatorOffsetX = 0,
+            indicatorOffsetY = -10,
+            frames = "31-41",
+            onlyIfFlag = "",
+            setFlag = ""
+        }
+    },
+    {
+        name = "badeline_boss",
+        data = {
+            sprite = "badelineBoss/boss",
+            spriteRate = 17,
+            dialogId = "",
+            onlyOnce = true,
+            endLevel = false,
+            flipX = false,
+            flipY = false,
+            approachWhenTalking = false,
+            approachDistance = 16,
+            indicatorOffsetX = 0,
+            indicatorOffsetY = -5,
+            frames = "0-23",
+            onlyIfFlag = "",
+            setFlag = ""
+        }
+    },
 }
 
 local borderColor = {1.0, 1.0, 1.0, 1.0}
@@ -59,9 +119,55 @@ function everestNpc.scale(room, entity)
 end
 
 function everestNpc.texture(room, entity)
-    local texture = string.format("characters/%s00", entity.sprite or "")
+    local spriteName = entity.sprite or ""
 
-    return texture
+    if spriteName == "oshiro/oshiro" then
+        return "characters/oshiro/oshiro31"
+    end
+
+    return string.format("characters/%s00", entity.sprite or "")
 end
+
+-- Add presets for frequently used Everest NPCs
+local customNPC = entities.registeredEntities["everest/npc"]
+
+if customNPC.placements.name then
+    -- turn "placements" into a table to be able to add another
+    customNPC.placements = { customNPC.placements }
+end
+
+table.insert(customNPC.placements, {
+    name = "maxhelpinghand_granny",
+    data = {
+        sprite = "oldlady/idle",
+        spriteRate = 7,
+        dialogId = "",
+        onlyOnce = true,
+        endLevel = false,
+        flipX = false,
+        flipY = false,
+        approachWhenTalking = false,
+        approachDistance = 16,
+        indicatorOffsetX = 0,
+        indicatorOffsetY = -2
+    }
+})
+
+table.insert(customNPC.placements, {
+    name = "maxhelpinghand_invisible",
+    data = {
+        sprite = "",
+        spriteRate = 1,
+        dialogId = "",
+        onlyOnce = true,
+        endLevel = false,
+        flipX = false,
+        flipY = false,
+        approachWhenTalking = false,
+        approachDistance = 16,
+        indicatorOffsetX = 0,
+        indicatorOffsetY = -16
+    }
+})
 
 return everestNpc

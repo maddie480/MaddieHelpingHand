@@ -277,6 +277,9 @@ entities.MaxHelpingHand/LitBlueTorch.placements.name.torch=Torch (Lit, Blue)
 
 # More Custom NPC
 entities.MaxHelpingHand/MoreCustomNPC.placements.name.npc=More Custom NPC
+entities.MaxHelpingHand/MoreCustomNPC.placements.name.theo=More Custom NPC (Theo)
+entities.MaxHelpingHand/MoreCustomNPC.placements.name.oshiro=More Custom NPC (Oshiro)
+entities.MaxHelpingHand/MoreCustomNPC.placements.name.badeline_boss=More Custom NPC (Badeline Boss)
 entities.MaxHelpingHand/MoreCustomNPC.attributes.description.indicatorOffsetX=Offset for the chat icon on the X axis.
 entities.MaxHelpingHand/MoreCustomNPC.attributes.description.indicatorOffsetY=Offset for the chat icon on the Y axis.
 entities.MaxHelpingHand/MoreCustomNPC.attributes.description.dialogId=The dialog ID to use for the dialogue. Leave empty to make no bubble appear.
@@ -1096,3 +1099,10 @@ style.effects.MaxHelpingHand/SnowCustomColors.name=Snow (Custom)
 style.effects.MaxHelpingHand/SnowCustomColors.description.colors=Comma-separated list of all colors the particles can take from.
 style.effects.MaxHelpingHand/SnowCustomColors.description.speedMin=The minimum speed a snowflake can have. Vanilla uses 40 for background snow, 120 for foreground snow.
 style.effects.MaxHelpingHand/SnowCustomColors.description.speedMax=The maximum speed a snowflake can have. Vanilla uses 100 for background snow, 300 for foreground snow.
+
+# Custom Bird Tutorial: extra "Show Hints" placement
+entities.everest/customBirdTutorial.placements.name.maxhelpinghand_showhints=Custom Bird Tutorial (Show Hints)
+
+# Custom NPC: extra placements
+entities.everest/npc.placements.name.maxhelpinghand_granny=Custom NPC (Granny)
+entities.everest/npc.placements.name.maxhelpinghand_invisible=Custom NPC (Invisible)
