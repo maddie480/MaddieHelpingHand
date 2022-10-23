@@ -619,6 +619,7 @@ placements.entities.MaxHelpingHand/ReskinnableFloatingDebris.tooltips.depth=The 
 placements.entities.MaxHelpingHand/ReskinnableFloatingDebris.tooltips.interactWithPlayer=Whether the debris should move around when the player passes by them.
 placements.entities.MaxHelpingHand/ReskinnableFloatingDebris.tooltips.debrisWidth=The width of the debris, in pixels.\nShould match the width of each variant of debris in the texture.
 placements.entities.MaxHelpingHand/ReskinnableFloatingDebris.tooltips.debrisHeight=The height of the debris, in pixels.\nShould match the height of the texture.
+placements.entities.MaxHelpingHand/ReskinnableFloatingDebris.tooltips.rotateSpeed=The rotation speed of the debris (in radians/s). Use negative values for counterclockwise rotation.\nLeave empty to get the vanilla behavior: a random integer value from -2 to 2.
 
 # Sideways Lava
 placements.entities.MaxHelpingHand/SidewaysLava.tooltips.intro=Determines whether the lava moves into the screen or starts already present on the screen. Not suitable for sandwich lava.

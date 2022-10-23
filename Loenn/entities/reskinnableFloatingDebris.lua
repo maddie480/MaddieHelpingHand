@@ -12,7 +12,8 @@ floatingDebris.placements = {
         depth = -5,
         debrisWidth = 8,
         debrisHeight = 8,
-        interactWithPlayer = true
+        interactWithPlayer = true,
+        rotateSpeed = ""
     }
 }
 
