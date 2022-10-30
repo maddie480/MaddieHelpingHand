@@ -278,20 +278,23 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
                 IEnumerable<CustomizableGlassBlock> glassBlocks = getGlassBlocksToAffect();
 
                 foreach (CustomizableGlassBlock glassBlock in glassBlocks) {
-                    Draw.Rect(glassBlock.X, glassBlock.Y, glassBlock.Width, glassBlock.Height, bgColor * alpha * glassBlock.Alpha);
+                    Draw.Rect(glassBlock.X + glassBlock.ShakeVector.X, glassBlock.Y + glassBlock.ShakeVector.Y,
+                        glassBlock.Width, glassBlock.Height, bgColor * alpha * glassBlock.Alpha);
                 }
 
                 if (starsTarget != null && !starsTarget.IsDisposed) {
                     foreach (CustomizableGlassBlock glassBlock in glassBlocks) {
-                        Rectangle target = new Rectangle((int) (glassBlock.X - position.X), (int) (glassBlock.Y - position.Y), (int) glassBlock.Width, (int) glassBlock.Height);
-                        Draw.SpriteBatch.Draw(starsTarget, glassBlock.Position, target, Color.White * glassBlock.Alpha);
+                        Rectangle target = new Rectangle((int) (glassBlock.X + glassBlock.ShakeVector.X - position.X), (int) (glassBlock.Y + glassBlock.ShakeVector.Y - position.Y),
+                            (int) glassBlock.Width, (int) glassBlock.Height);
+                        Draw.SpriteBatch.Draw(starsTarget, glassBlock.Position + glassBlock.ShakeVector, target, Color.White * glassBlock.Alpha);
                     }
                 }
 
                 if (beamsTarget != null && !beamsTarget.IsDisposed) {
                     foreach (CustomizableGlassBlock glassBlock in glassBlocks) {
-                        Rectangle target = new Rectangle((int) (glassBlock.X - position.X), (int) (glassBlock.Y - position.Y), (int) glassBlock.Width, (int) glassBlock.Height);
-                        Draw.SpriteBatch.Draw((RenderTarget2D) beamsTarget, glassBlock.Position, target, Color.White * glassBlock.Alpha);
+                        Rectangle target = new Rectangle((int) (glassBlock.X + glassBlock.ShakeVector.X - position.X), (int) (glassBlock.Y + glassBlock.ShakeVector.Y - position.Y),
+                            (int) glassBlock.Width, (int) glassBlock.Height);
+                        Draw.SpriteBatch.Draw((RenderTarget2D) beamsTarget, glassBlock.Position + glassBlock.ShakeVector, target, Color.White * glassBlock.Alpha);
                     }
                 }
             }

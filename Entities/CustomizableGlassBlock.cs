@@ -14,6 +14,8 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
     public class CustomizableGlassBlock : Solid {
         public float Alpha { get; protected set; } = 1;
 
+        public Vector2 ShakeVector { get; protected set; } = Vector2.Zero;
+
         private struct Line {
             public Vector2 A;
             public Vector2 B;
@@ -76,16 +78,19 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
         }
 
         private bool Open(Vector2 tile) {
+            if (this is CustomizableGlassFallingBlock) return true;
+
             Vector2 point = new Vector2(X + tile.X * 8f + 4f, Y + tile.Y * 8f + 4f);
             if (!Scene.CollideCheck<SolidTiles>(point)) {
-                return !Scene.CollideCheck<CustomizableGlassBlock>(point);
+                CustomizableGlassBlock block = Scene.CollideFirst<CustomizableGlassBlock>(point);
+                return block == null || block is CustomizableGlassFallingBlock;
             }
             return false;
         }
 
         public override void Render() {
             foreach (Line line in lines) {
-                Draw.Line(Position + line.A, Position + line.B, lineColor * line.Alpha() * Alpha);
+                Draw.Line(Position + ShakeVector + line.A, Position + ShakeVector + line.B, lineColor * line.Alpha() * Alpha);
             }
         }
 

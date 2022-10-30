@@ -42,6 +42,11 @@ entities.MaxHelpingHand/CustomizableCrumblePlatform.attributes.description.flagM
 entities.MaxHelpingHand/CustomizableGlassBlock.placements.name.glass_block=Customizable Glass Block
 entities.MaxHelpingHand/CustomizableGlassBlock.attributes.description.behindFgTiles=Whether the glass block outline should appear behind foreground tiles.
 
+# Customizable Glass Falling Block
+entities.MaxHelpingHand/CustomizableGlassFallingBlock.placements.name.glass_block=Customizable Glass Falling Block
+entities.MaxHelpingHand/CustomizableGlassFallingBlock.attributes.description.behindFgTiles=Whether the glass block outline should appear behind foreground tiles.
+entities.MaxHelpingHand/CustomizableGlassFallingBlock.attributes.description.climbFall=Whether the block should fall when the player grabs its sides.
+
 # Customizable Glass Block Controller
 entities.MaxHelpingHand/CustomizableGlassBlockController.placements.name.controller=Customizable Glass Block Controller
 entities.MaxHelpingHand/CustomizableGlassBlockController.attributes.description.starColors=A comma-separated list of all star colours visible in glass blocks in the room.
