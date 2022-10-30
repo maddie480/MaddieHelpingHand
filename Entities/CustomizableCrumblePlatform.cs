@@ -59,6 +59,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
         private bool setFlagOnPlayerContact;
         private FlagMode flagMode;
         private bool flagInverted;
+        private float lightBlockingOpacity;
 
         private HashSet<CustomizableCrumblePlatform> groupedCrumblePlatforms = new HashSet<CustomizableCrumblePlatform>();
 
@@ -78,6 +79,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             setFlagOnPlayerContact = data.Bool("setFlagOnPlayerContact", false);
             flagMode = data.Enum("flagMode", defaultValue: FlagMode.None);
             flagInverted = data.Bool("flagInverted");
+            lightBlockingOpacity = data.Float("lightBlockingOpacity", 0.2f);
         }
 
         private static void onCrumblePlatformAdded(ILContext il) {
@@ -137,6 +139,8 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
                 // prevent the outline from appearing.
                 outlineFader.RemoveSelf();
             }
+
+            occluder.Alpha = lightBlockingOpacity;
         }
 
         private void addRange(HashSet<CustomizableCrumblePlatform> set, IEnumerable<CustomizableCrumblePlatform> elements) {

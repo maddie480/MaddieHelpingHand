@@ -30,7 +30,8 @@ for _, texture in ipairs(textures) do
             flag = "",
             setFlagOnPlayerContact = false,
             flagMode = "None",
-            flagInverted = false
+            flagInverted = false,
+            lightBlockingOpacity = 0.2
         }
     })
 end
