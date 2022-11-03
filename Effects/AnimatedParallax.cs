@@ -2,6 +2,7 @@
 using MonoMod.Cil;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Text.RegularExpressions;
 
 namespace Celeste.Mod.MaxHelpingHand.Effects {
@@ -33,8 +34,14 @@ namespace Celeste.Mod.MaxHelpingHand.Effects {
             }
         }
 
+        private class ParallaxMeta {
+            public float? FPS { get; set; } = null;
+            public string Frames { get; set; } = null;
+        }
+
 
         private readonly List<MTexture> frames;
+        private readonly int[] frameOrder;
         private readonly float fps;
 
         private int currentFrame;
@@ -47,6 +54,12 @@ namespace Celeste.Mod.MaxHelpingHand.Effects {
             // then load all frames from that prefix.
             frames = GFX.Game.GetAtlasSubtextures(texturePath);
 
+            // by default, the frames are just in order and last the same duration.
+            frameOrder = new int[frames.Count];
+            for (int i = 0; i < frameOrder.Length; i++) {
+                frameOrder[i] = i;
+            }
+
             Match fpsCount = Regex.Match(texturePath, "[^0-9]((?:[0-9]+\\.)?[0-9]+)fps$");
             if (fpsCount.Success) {
                 // we found an FPS count! use it.
@@ -56,7 +69,23 @@ namespace Celeste.Mod.MaxHelpingHand.Effects {
                 fps = 12f;
             }
 
-            Texture = frames[0];
+            if (Everest.Content.Map.TryGetValue("Graphics/Atlases/Gameplay/" + texturePath + ".meta", out ModAsset metaYaml) && metaYaml.Type == typeof(AssetTypeYaml)) {
+                // the styleground has a metadata file! we should read it.
+                ParallaxMeta meta;
+                using (TextReader r = new StreamReader(metaYaml.Stream)) {
+                    meta = YamlHelper.Deserializer.Deserialize<ParallaxMeta>(r);
+                }
+
+                if (meta.FPS != null) {
+                    fps = meta.FPS.Value;
+                }
+
+                if (meta.Frames != null) {
+                    frameOrder = Calc.ReadCSVIntWithTricks(meta.Frames);
+                }
+            }
+
+            Texture = frames[frameOrder[0]];
             currentFrame = 0;
             currentFrameTimer = 1f / fps;
         }
@@ -69,8 +98,8 @@ namespace Celeste.Mod.MaxHelpingHand.Effects {
                 if (currentFrameTimer < 0f) {
                     currentFrameTimer += (1f / fps);
                     currentFrame++;
-                    currentFrame %= frames.Count;
-                    Texture = frames[currentFrame];
+                    currentFrame %= frameOrder.Length;
+                    Texture = frames[frameOrder[currentFrame]];
                 }
             }
         }
