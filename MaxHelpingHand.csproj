@@ -5,22 +5,23 @@
     <AssemblyName>MaxHelpingHand</AssemblyName>
     <RootNamespace>Celeste.Mod.MaxHelpingHand</RootNamespace>
     <LangVersion>preview</LangVersion>
-    <CelestePrefix Condition="'$(CelestePrefix)' == '' And Exists('..\..\..\Celeste.exe')">..\..\..</CelestePrefix>
-    <CelestePrefix Condition="'$(CelestePrefix)' == ''">lib-stripped</CelestePrefix>
-    <CelesteType Condition="'$(CelesteType)' == '' And Exists('$(CelestePrefix)\BuildIsXNA.txt')">XNA</CelesteType>
-    <CelesteType Condition="'$(CelesteType)' == ''">FNA</CelesteType>
-    <XNAPath Condition="'$(XNAPath)' == ''">$(WINDIR)\Microsoft.NET\assembly\GAC_32\{0}\v4.0_4.0.0.0__842cf8be1de50553\{0}.dll</XNAPath>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="$(CelestePrefix)\Celeste.exe">
-      <Private>false</Private>
-    </Reference>
-    <Reference Include="$(CelestePrefix)\MMHOOK_Celeste.dll">
-      <Private>false</Private>
+    <Reference Include="Celeste">
+      <HintPath>lib-stripped\Celeste.exe</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="FlaglinesAndSuch">
       <HintPath>lib-stripped\FlaglinesAndSuch.dll</HintPath>
       <Private>false</Private>
+    </Reference>
+    <Reference Include="FNA">
+      <HintPath>lib-stripped\FNA.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="MMHOOK_Celeste">
+      <HintPath>lib-stripped\MMHOOK_Celeste.dll</HintPath>
+      <Private>False</Private>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -30,26 +31,4 @@
     <PackageReference Include="MonoMod.Utils" Version="21.3.1.1" PrivateAssets="all" ExcludeAssets="runtime" />
     <PackageReference Include="YamlDotNet" Version="8.1.2" PrivateAssets="all" ExcludeAssets="runtime" />
   </ItemGroup>
-  <Choose>
-    <When Condition="'$(CelesteType)' == 'FNA'">
-      <ItemGroup>
-        <Reference Include="$(CelestePrefix)\FNA.dll">
-          <Private>false</Private>
-        </Reference>
-      </ItemGroup>
-    </When>
-    <When Condition="'$(CelesteType)' == 'XNA'">
-      <ItemGroup>
-        <Reference Include="$([System.String]::Format('$(XNAPath)', 'Microsoft.Xna.Framework'))">
-          <Private>false</Private>
-        </Reference>
-        <Reference Include="$([System.String]::Format('$(XNAPath)', 'Microsoft.Xna.Framework.Game'))">
-          <Private>false</Private>
-        </Reference>
-        <Reference Include="$([System.String]::Format('$(XNAPath)', 'Microsoft.Xna.Framework.Graphics'))">
-          <Private>false</Private>
-        </Reference>
-      </ItemGroup>
-    </When>
-  </Choose>
 </Project>
