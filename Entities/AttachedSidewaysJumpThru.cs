@@ -31,10 +31,15 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             StaticMover staticMover = new StaticMoverWithLiftSpeed() {
                 SolidChecker = solid => solid.CollideRect(new Rectangle((int) X, (int) Y - 1, (int) Width, (int) Height + 2)),
                 OnMove = move => SidewaysMovingPlatform.SidewaysJumpthruOnMove(this, playerInteractingSolid, Left, move),
-                OnShake = shake => shakeOffset += shake,
+                OnShake = onShake,
                 OnSetLiftSpeed = liftSpeed => playerInteractingSolid.LiftSpeed = liftSpeed
             };
             Add(staticMover);
+        }
+
+        private void onShake(Vector2 move) {
+            shakeOffset += move;
+            playerInteractingSolid.ShakeStaticMovers(move);
         }
 
         public override void Added(Scene scene) {
