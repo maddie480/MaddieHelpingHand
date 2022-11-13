@@ -14,6 +14,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
         public readonly new bool Left;
 
         public DashCollision OnDashCollide;
+        private Vector2 shakeOffset = Vector2.Zero;
 
         public AttachedSidewaysJumpThru(EntityData data, Vector2 offset) : base(data, offset) {
             Left = data.Bool("left");
@@ -30,7 +31,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             StaticMover staticMover = new StaticMoverWithLiftSpeed() {
                 SolidChecker = solid => solid.CollideRect(new Rectangle((int) X, (int) Y - 1, (int) Width, (int) Height + 2)),
                 OnMove = move => SidewaysMovingPlatform.SidewaysJumpthruOnMove(this, playerInteractingSolid, Left, move),
-                OnShake = shake => SidewaysMovingPlatform.SidewaysJumpthruOnMove(this, playerInteractingSolid, Left, shake),
+                OnShake = shake => shakeOffset += shake,
                 OnSetLiftSpeed = liftSpeed => playerInteractingSolid.LiftSpeed = liftSpeed
             };
             Add(staticMover);
@@ -41,6 +42,12 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
 
             // add the hidden solid to the scene as well.
             scene.Add(playerInteractingSolid);
+        }
+
+        public override void Render() {
+            Position += shakeOffset;
+            base.Render();
+            Position -= shakeOffset;
         }
     }
 }
