@@ -3,10 +3,13 @@ using Microsoft.Xna.Framework;
 using Monocle;
 using MonoMod.Utils;
 using System;
+using System.Reflection;
 
 namespace Celeste.Mod.MaxHelpingHand.Entities {
     [CustomEntity("MaxHelpingHand/CustomizableRefill")]
     public class CustomizableRefill : Refill {
+        private static MethodInfo refillUpdateY = typeof(Refill).GetMethod("UpdateY", BindingFlags.NonPublic | BindingFlags.Instance);
+
         public CustomizableRefill(EntityData data, Vector2 offset) : base(data, offset) {
             DynData<Refill> self = new DynData<Refill>(this);
             float respawnTime = data.Float("respawnTime", 2.5f);
@@ -62,6 +65,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
                 SineWave sine = Get<SineWave>();
                 Remove(sine);
                 sine.Counter = 0f;
+                refillUpdateY.Invoke(this, new object[0]);
             }
         }
     }
