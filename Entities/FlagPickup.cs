@@ -72,7 +72,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             pickupInfo = savedInfo;
 
             // spawn the follower right away!
-            Add(follower = new Follower());
+            Add(follower = new Follower(EntityID.None));
             player.Leader.GainFollower(follower);
         }
 
@@ -126,7 +126,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
                 sprite.Play("following");
 
                 // start following the player
-                Add(follower = new Follower());
+                Add(follower = new Follower(EntityID.None));
                 SceneAs<Level>().OnEndOfFrame += () => player.Leader.GainFollower(follower);
 
                 // remember the pickup in the session in case the player dies or saves & quits
