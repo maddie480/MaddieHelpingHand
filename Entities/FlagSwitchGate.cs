@@ -10,7 +10,7 @@ using System.Runtime.CompilerServices;
 namespace Celeste.Mod.MaxHelpingHand.Entities {
     /// <summary>
     /// A switch gate triggered by a flag touch switch.
-    /// 
+    ///
     /// Attributes:
     /// - flag: the session flag this switch gate reacts to. Must be the same across the touch switch group.
     /// - icon: the name of the icon for the switch gate (relative to objects/MaxHelpingHand/flagSwitchGate) or "vanilla" for the default one.

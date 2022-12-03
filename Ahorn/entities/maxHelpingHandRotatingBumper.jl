@@ -4,7 +4,7 @@ using ..Ahorn, Maple
 
 @pardef RotatingBumper(x1::Integer, y1::Integer, x2::Integer=x1 + 16, y2::Integer=y1, speed::Number=360.0, attachToCenter::Bool=false, notCoreMode::Bool=false, wobble::Bool=false) =
     Entity("MaxHelpingHand/RotatingBumper", x=x1, y=y1, nodes=Tuple{Int, Int}[(x2, y2)], speed=speed, attachToCenter=attachToCenter, notCoreMode=notCoreMode, wobble=wobble)
-    
+
 const placements = Ahorn.PlacementDict(
     "Bumper (Rotating) (max480's Helping Hand)" => Ahorn.EntityPlacement(
         RotatingBumper,
@@ -30,7 +30,7 @@ end
 
 function Ahorn.renderAbs(ctx::Ahorn.Cairo.CairoContext, entity::RotatingBumper, room::Maple.Room)
     x, y = Ahorn.position(entity)
-    
+
     Ahorn.drawSprite(ctx, sprite, x, y)
 end
 

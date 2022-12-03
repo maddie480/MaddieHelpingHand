@@ -18,7 +18,7 @@ const placements = Ahorn.PlacementDict(
         Dict{String, Any}(
             "right" => false
         )
-    )    
+    )
 )
 
 sprite = "objects/puffer/idle00"

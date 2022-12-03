@@ -2,8 +2,8 @@ module MaxHelpingHandMultiNodeFlagSwitchGate
 
 using ..Ahorn, Maple
 
-@mapdef Entity "MaxHelpingHand/MultiNodeFlagSwitchGate" MultiNodeFlagSwitchGate(x::Integer, y::Integer, width::Integer=16, height::Integer=16, 
-    inactiveColor::String="5FCDE4", activeColor::String="FFFFFF", finishColor::String="F141DF", flags::String="switch1,switch2", shakeTime::Number=0.5, moveTime::Number=2.0, easing::String="CubeOut", 
+@mapdef Entity "MaxHelpingHand/MultiNodeFlagSwitchGate" MultiNodeFlagSwitchGate(x::Integer, y::Integer, width::Integer=16, height::Integer=16,
+    inactiveColor::String="5FCDE4", activeColor::String="FFFFFF", finishColor::String="F141DF", flags::String="switch1,switch2", shakeTime::Number=0.5, moveTime::Number=2.0, easing::String="CubeOut",
     sprite::String="block", icon::String="vanilla", resetFlags::Bool=true, canReturn::Bool=true, progressionMode::Bool=false, persistent::Bool=true, pauseTimes::String="", doNotSkipNodes::Bool=false, smoke::Bool=true)
 
 function gateFinalizer(entity)
@@ -63,7 +63,7 @@ iconResource = "objects/switchgate/icon00"
 
 function renderGateSwitch(ctx::Ahorn.Cairo.CairoContext, x::Number, y::Number, width::Number, height::Number, sprite::String, icon::String)
     iconSprite = Ahorn.getSprite(icon, "Gameplay")
-    
+
     tilesWidth = div(width, 8)
     tilesHeight = div(height, 8)
 

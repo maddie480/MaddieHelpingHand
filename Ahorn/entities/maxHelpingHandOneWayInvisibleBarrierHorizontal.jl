@@ -2,7 +2,7 @@
 
 using ..Ahorn, Maple
 
-@mapdef Entity "MaxHelpingHand/OneWayInvisibleBarrierHorizontal" OneWayInvisibleBarrierHorizontal(x::Integer, y::Integer, height::Integer=Maple.defaultBlockHeight, 
+@mapdef Entity "MaxHelpingHand/OneWayInvisibleBarrierHorizontal" OneWayInvisibleBarrierHorizontal(x::Integer, y::Integer, height::Integer=Maple.defaultBlockHeight,
     left::Bool=true, letSeekersThrough::Bool=false)
 
 

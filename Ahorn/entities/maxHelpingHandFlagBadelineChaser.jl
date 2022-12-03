@@ -15,7 +15,7 @@ chaserSprite = "characters/badeline/sleep00.png"
 
 function Ahorn.selection(entity::FlagBadelineChaser)
     x, y = Ahorn.position(entity)
-    
+
     return Ahorn.getSpriteRectangle(chaserSprite, x + 4, y, jx=0.5, jy=1.0)
 end
 

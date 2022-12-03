@@ -4,7 +4,7 @@ using ..Ahorn, Maple
 
 @pardef MultiNodeBumper(x::Integer, y::Integer, width::Integer=Maple.defaultBlockWidth, mode::String="Loop", moveTime::Number=2.0, pauseTime::Number=0.0, easing::Bool=true, notCoreMode::Bool=false, amount::Int=1, offset::Number=0.0, wobble::Bool=false, flag::String="") =
     Entity("MaxHelpingHand/MultiNodeBumper", x=x, y=y, nodes=Tuple{Int, Int}[], width=width, mode=mode, moveTime=moveTime, pauseTime=pauseTime, easing=easing, notCoreMode=notCoreMode, amount=amount, offset=offset, wobble=wobble, flag=flag)
-    
+
 const placements = Ahorn.PlacementDict(
     "Bumper (Multi-Node) (max480's Helping Hand)" => Ahorn.EntityPlacement(
         MultiNodeBumper,
@@ -30,7 +30,7 @@ function Ahorn.selection(entity::MultiNodeBumper)
     x, y = Ahorn.position(entity)
     nodes = get(entity.data, "nodes", ())
     rectangles = Ahorn.Rectangle[Ahorn.getSpriteRectangle(sprite, x, y)]
-    
+
     for node in nodes
         nx, ny = Int.(node)
         push!(rectangles, Ahorn.getSpriteRectangle(sprite, nx, ny))
@@ -44,7 +44,7 @@ function Ahorn.renderSelectedAbs(ctx::Ahorn.Cairo.CairoContext, entity::MultiNod
     nodes = get(entity.data, "nodes", ())
     mode = get(entity.data, "mode", "Loop")
     previousNodeX, previousNodeY = x, y
-    
+
     for node in nodes
         nx, ny = Int.(node)
 
@@ -53,7 +53,7 @@ function Ahorn.renderSelectedAbs(ctx::Ahorn.Cairo.CairoContext, entity::MultiNod
         Ahorn.drawArrow(ctx, previousNodeX, previousNodeY, nx + cos(theta) * 8, ny + sin(theta) * 8, Ahorn.colors.selection_selected_fc, headLength=6)
         previousNodeX, previousNodeY = nx, ny
     end
-    
+
     if mode == "Loop" || mode == "LoopNoPause"
         theta = atan(previousNodeY - y, previousNodeX - x)
         Ahorn.drawArrow(ctx, previousNodeX, previousNodeY, x + cos(theta) * 8, y + sin(theta) * 8, Ahorn.colors.selection_selected_fc, headLength=6)

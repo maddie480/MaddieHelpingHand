@@ -39,7 +39,7 @@ function Ahorn.selection(entity::NonPoppingStrawberry)
     sprite = sprites[(winged, hasPips, moon)]
 
     res = Ahorn.Rectangle[Ahorn.getSpriteRectangle(sprite, x, y)]
-    
+
     for node in nodes
         nx, ny = node
 

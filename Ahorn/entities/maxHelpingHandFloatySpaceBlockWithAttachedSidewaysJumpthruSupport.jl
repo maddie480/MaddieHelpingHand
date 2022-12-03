@@ -2,9 +2,9 @@
 
 using ..Ahorn, Maple
 
-@mapdef Entity "MaxHelpingHand/FloatySpaceBlockWithAttachedSidewaysJumpthruSupport" FloatySpaceBlockWithAttachedSidewaysJumpthruSupport(x::Integer, y::Integer, 
+@mapdef Entity "MaxHelpingHand/FloatySpaceBlockWithAttachedSidewaysJumpthruSupport" FloatySpaceBlockWithAttachedSidewaysJumpthruSupport(x::Integer, y::Integer,
     width::Integer=Maple.defaultBlockWidth, height::Integer=Maple.defaultBlockHeight, tiletype::String="3", disableSpawnOffset::Bool=false)
-    
+
 const placements = Ahorn.PlacementDict(
     "Floaty Space Block (supporting Sideways Jump Throughs)\n(max480's Helping Hand)" => Ahorn.EntityPlacement(
         FloatySpaceBlockWithAttachedSidewaysJumpthruSupport,

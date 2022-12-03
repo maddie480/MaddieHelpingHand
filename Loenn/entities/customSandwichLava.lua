@@ -38,7 +38,7 @@ lavaSandwich.fieldInformation = {
     },
     direction = {
         options = {
-            ["Always Up"] = "AlwaysUp", 
+            ["Always Up"] = "AlwaysUp",
             ["Always Down"] = "AlwaysDown",
             ["Based on Core Mode"] = "CoreModeBased"
         },

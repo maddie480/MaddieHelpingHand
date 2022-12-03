@@ -3,12 +3,12 @@
 using ..Ahorn, Maple
 
 @mapdef Entity "MaxHelpingHand/MoreCustomNPC" MoreCustomNPC(x::Integer, y::Integer, sprite::String="player/idle", spriteRate::Int=1, dialogId::String="", onlyOnce::Bool=true, endLevel::Bool=false,
-	flipX::Bool=false, flipY::Bool=false, approachWhenTalking::Bool=false, approachDistance::Int=16, indicatorOffsetX::Int=0, indicatorOffsetY::Int=0,
-	frames::String="", onlyIfFlag::String="", setFlag::String="", nodes::Array{Tuple{Integer, Integer}, 1}=Tuple{Integer, Integer}[])
+    flipX::Bool=false, flipY::Bool=false, approachWhenTalking::Bool=false, approachDistance::Int=16, indicatorOffsetX::Int=0, indicatorOffsetY::Int=0,
+    frames::String="", onlyIfFlag::String="", setFlag::String="", nodes::Array{Tuple{Integer, Integer}, 1}=Tuple{Integer, Integer}[])
 
 @mapdef Entity "MaxHelpingHand/CustomNPCSprite" CustomNPCSprite(x::Integer, y::Integer, dialogId::String="", onlyOnce::Bool=true, endLevel::Bool=false,
-	flipX::Bool=false, flipY::Bool=false, approachWhenTalking::Bool=false, approachDistance::Int=16, indicatorOffsetX::Int=0, indicatorOffsetY::Int=-16,
-	spriteName::String="bird", onlyIfFlag::String="", setFlag::String="", nodes::Array{Tuple{Integer, Integer}, 1}=Tuple{Integer, Integer}[])
+    flipX::Bool=false, flipY::Bool=false, approachWhenTalking::Bool=false, approachDistance::Int=16, indicatorOffsetX::Int=0, indicatorOffsetY::Int=-16,
+    spriteName::String="bird", onlyIfFlag::String="", setFlag::String="", nodes::Array{Tuple{Integer, Integer}, 1}=Tuple{Integer, Integer}[])
 
 const npcUnion = Union{MoreCustomNPC, CustomNPCSprite}
 
@@ -123,7 +123,7 @@ function Ahorn.selection(entity::npcUnion)
     else
         res = Ahorn.Rectangle[Ahorn.getSpriteRectangle(spriteName, x, y, jx=0.5, jy=1.0, sx=scaleX, sy=scaleY)]
     end
-    
+
     for node in get(entity.data, "nodes", ())
         nx, ny = Int.(node)
         push!(res, Ahorn.Rectangle(nx, ny, 8, 8))

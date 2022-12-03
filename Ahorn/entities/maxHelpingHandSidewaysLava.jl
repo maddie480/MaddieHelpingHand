@@ -24,12 +24,12 @@ end
 
 function Ahorn.render(ctx::Ahorn.Cairo.CairoContext, entity::SidewaysLava, room::Maple.Room)
     Ahorn.Cairo.save(ctx)
-    
+
     lavaMode = get(entity.data, "lavaMode", "LeftToRight")
-    
+
     Ahorn.rotate(ctx, (lavaMode == "RightToLeft" ? -1 : 1) * pi / 2)
     Ahorn.drawImage(ctx, (lavaMode == "Sandwich" ? Ahorn.Assets.lavaSanwitch : Ahorn.Assets.risingLava), -12, -12)
-    
+
     Ahorn.Cairo.restore(ctx);
 end
 

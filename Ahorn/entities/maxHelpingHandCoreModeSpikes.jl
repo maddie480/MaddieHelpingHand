@@ -113,7 +113,7 @@ function Ahorn.render(ctx::Ahorn.Cairo.CairoContext, entity::spikesUnion)
     if haskey(directions, entity.name)
         variant = get(entity.data, "hotType", "default")
         direction = get(directions, entity.name, "up")
-    
+
         width = get(entity.data, "width", 8)
         height = get(entity.data, "height", 8)
 

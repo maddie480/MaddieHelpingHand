@@ -142,11 +142,11 @@ namespace Celeste.Mod.MaxHelpingHand.Module {
 
         public override void Reset() {
             while (FlagTouchSwitches.Count <= AreaKey.ID) {
-                // fill out the empty space before the current map with empty dictionaries. 
+                // fill out the empty space before the current map with empty dictionaries.
                 FlagTouchSwitches.Add(new List<Dictionary<KeyValuePair<string, bool>, List<EntityID>>>());
             }
             while (FlagTouchSwitches[AreaKey.ID].Count <= (int) AreaKey.Mode) {
-                // fill out the empty space before the current map MODE with empty dictionaries. 
+                // fill out the empty space before the current map MODE with empty dictionaries.
                 FlagTouchSwitches[AreaKey.ID].Add(new Dictionary<KeyValuePair<string, bool>, List<EntityID>>());
             }
 
@@ -155,11 +155,11 @@ namespace Celeste.Mod.MaxHelpingHand.Module {
 
 
             while (FlagSwitchGates.Count <= AreaKey.ID) {
-                // fill out the empty space before the current map with empty dictionaries. 
+                // fill out the empty space before the current map with empty dictionaries.
                 FlagSwitchGates.Add(new List<Dictionary<string, Dictionary<EntityID, bool>>>());
             }
             while (FlagSwitchGates[AreaKey.ID].Count <= (int) AreaKey.Mode) {
-                // fill out the empty space before the current map MODE with empty dictionaries. 
+                // fill out the empty space before the current map MODE with empty dictionaries.
                 FlagSwitchGates[AreaKey.ID].Add(new Dictionary<string, Dictionary<EntityID, bool>>());
             }
 

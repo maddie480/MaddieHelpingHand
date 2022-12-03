@@ -2,7 +2,7 @@
 
 using ..Ahorn, Maple
 
-@mapdef Entity "MaxHelpingHand/CustomSandwichLava" CustomSandwichLava(x::Integer, y::Integer, 
+@mapdef Entity "MaxHelpingHand/CustomSandwichLava" CustomSandwichLava(x::Integer, y::Integer,
     direction::String="CoreModeBased", speed::Number=20.0, sandwichGap::Number=160.0,
     hotSurfaceColor::String="ff8933", hotEdgeColor::String="f25e29", hotCenterColor::String="d01c01",
     coldSurfaceColor::String="33ffe7", coldEdgeColor::String="4ca2eb", coldCenterColor::String="0151d0")
@@ -25,7 +25,7 @@ function Ahorn.selection(entity::CustomSandwichLava)
     return Ahorn.Rectangle(x - 12, y - 12, 24, 24)
 end
 
-function Ahorn.render(ctx::Ahorn.Cairo.CairoContext, entity::CustomSandwichLava, room::Maple.Room)    
+function Ahorn.render(ctx::Ahorn.Cairo.CairoContext, entity::CustomSandwichLava, room::Maple.Room)
     direction = get(entity.data, "direction", "CoreModeBased")
 
     if direction == "AlwaysUp"

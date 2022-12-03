@@ -42,7 +42,7 @@ function Ahorn.selection(entity::MultiNodeMovingPlatform)
     nodes = get(entity.data, "nodes", ())
     startX, startY = Int(entity.data["x"]), Int(entity.data["y"])
     rectangles = Ahorn.Rectangle[Ahorn.Rectangle(startX, startY, width, 8)]
-    
+
     for node in nodes
         nodeX, nodeY = Int.(node)
         push!(rectangles, Ahorn.Rectangle(nodeX, nodeY, width, 8))
@@ -102,12 +102,12 @@ end
 function Ahorn.renderAbs(ctx::Ahorn.Cairo.CairoContext, entity::MultiNodeMovingPlatform, room::Maple.Room)
     width = Int(get(entity.data, "width", 8))
     mode = get(entity.data, "mode", "Loop")
-    
+
     firstNodeX, firstNodeY = Int(entity.data["x"]), Int(entity.data["y"])
     previousNodeX, previousNodeY = firstNodeX, firstNodeY
-    
+
     texture = get(entity.data, "texture", "default")
-    
+
     nodes = get(entity.data, "nodes", ())
     for node in nodes
         nodeX, nodeY = Int.(node)
@@ -125,12 +125,12 @@ end
 function Ahorn.renderSelectedAbs(ctx::Ahorn.Cairo.CairoContext, entity::MultiNodeMovingPlatform, room::Maple.Room)
     width = Int(get(entity.data, "width", 8))
     mode = get(entity.data, "mode", "Loop")
-    
+
     firstNodeX, firstNodeY = Int(entity.data["x"]), Int(entity.data["y"])
     previousNodeX, previousNodeY = firstNodeX, firstNodeY
 
     texture = get(entity.data, "texture", "default")
-    
+
     nodes = get(entity.data, "nodes", ())
     for node in nodes
         nodeX, nodeY = Int.(node)
@@ -138,7 +138,7 @@ function Ahorn.renderSelectedAbs(ctx::Ahorn.Cairo.CairoContext, entity::MultiNod
         Ahorn.drawArrow(ctx, previousNodeX + width / 2, previousNodeY, nodeX + width / 2, nodeY, Ahorn.colors.selection_selected_fc, headLength=6)
         previousNodeX, previousNodeY = nodeX, nodeY
     end
-    
+
     if mode == "Loop" || mode == "LoopNoPause"
         Ahorn.drawArrow(ctx, previousNodeX + width / 2, previousNodeY, firstNodeX + width / 2, firstNodeY, Ahorn.colors.selection_selected_fc, headLength=6)
     end

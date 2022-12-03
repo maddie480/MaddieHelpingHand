@@ -43,14 +43,14 @@ end
 
 function renderGateSwitch(ctx::Ahorn.Cairo.CairoContext, entity::ShatterFlagSwitchGate, x::Number, y::Number, width::Number, height::Number, sprite::String)
     icon = get(entity.data, "icon", "vanilla")
-    
+
     iconResource = "objects/switchgate/icon00"
     if icon != "vanilla"
         iconResource = "objects/MaxHelpingHand/flagSwitchGate/$(icon)/icon00"
     end
 
     iconSprite = Ahorn.getSprite(iconResource, "Gameplay")
-    
+
     tilesWidth = div(width, 8)
     tilesHeight = div(height, 8)
 

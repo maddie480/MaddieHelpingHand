@@ -2,9 +2,9 @@
 
 using ..Ahorn, Maple
 
-@mapdef Entity "MaxHelpingHand/CustomTutorialWithNoBird" CustomTutorialWithNoBird(x::Integer, y::Integer, birdId::String="", onlyOnce::Bool=false, 
+@mapdef Entity "MaxHelpingHand/CustomTutorialWithNoBird" CustomTutorialWithNoBird(x::Integer, y::Integer, birdId::String="", onlyOnce::Bool=false,
     info::String="TUTORIAL_DREAMJUMP", controls::String="DownRight,+,Dash,tinyarrow,Jump", direction::String="Down")
-    
+
 using ..Ahorn, Maple
 
 const placements = Ahorn.PlacementDict(
@@ -29,7 +29,7 @@ end
 
 function Ahorn.render(ctx::Ahorn.Cairo.CairoContext, entity::CustomTutorialWithNoBird, room::Maple.Room)
     scaleX = -1
-    
+
     Ahorn.drawSprite(ctx, sprite, 0, 0, sx=scaleX, jx=0.5, jy=1.0)
 end
 

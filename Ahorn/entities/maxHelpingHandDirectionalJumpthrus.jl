@@ -42,9 +42,9 @@ function Ahorn.render(ctx::Ahorn.Cairo.CairoContext, entity::UpsideDownJumpThru,
     stopX = startX + div(width, 8) - 1
     startY = div(y, 8) + 1
     animated = Number(get(entity.data, "animationDelay", 0)) > 0
-    
+
     Ahorn.Cairo.save(ctx)
-    
+
     Ahorn.scale(ctx, 1, -1)
 
     len = stopX - startX
@@ -67,7 +67,7 @@ function Ahorn.render(ctx::Ahorn.Cairo.CairoContext, entity::UpsideDownJumpThru,
             Ahorn.drawImage(ctx, "objects/jumpthru/$(texture)", 8 * i, -8, quad...)
         end
     end
-    
+
     Ahorn.Cairo.restore(ctx)
 end
 
@@ -141,9 +141,9 @@ Ahorn.rotated(entity::RegularJumpThru, steps::Int) = SidewaysJumpThru(entity.x, 
 
 # ==== Sideways jumpthrus
 
-@mapdef Entity "MaxHelpingHand/SidewaysJumpThru" SidewaysJumpThru(x::Integer, y::Integer, height::Integer=Maple.defaultBlockHeight, 
+@mapdef Entity "MaxHelpingHand/SidewaysJumpThru" SidewaysJumpThru(x::Integer, y::Integer, height::Integer=Maple.defaultBlockHeight,
     left::Bool=true, texture::String="wood", animationDelay::Number=0.0, letSeekersThrough::Bool=false, surfaceIndex::Int=-1, pushPlayer::Bool=false)
-@mapdef Entity "MaxHelpingHand/AttachedSidewaysJumpThru" AttachedSidewaysJumpThru(x::Integer, y::Integer, height::Integer=Maple.defaultBlockHeight, 
+@mapdef Entity "MaxHelpingHand/AttachedSidewaysJumpThru" AttachedSidewaysJumpThru(x::Integer, y::Integer, height::Integer=Maple.defaultBlockHeight,
     left::Bool=true, texture::String="wood", animationDelay::Number=0.0, letSeekersThrough::Bool=false, surfaceIndex::Int=-1, pushPlayer::Bool=false)
 
 const placements = Ahorn.PlacementDict(
@@ -231,16 +231,16 @@ function Ahorn.render(ctx::Ahorn.Cairo.CairoContext, entity::jumpthruUnion, room
 
     height = Int(get(entity.data, "height", 8))
     left = get(entity.data, "left", true)
-    
+
     startX = div(x, 8) + 1
     startY = div(y, 8) + 1
     stopY = startY + div(height, 8) - 1
     animated = Number(get(entity.data, "animationDelay", 0)) > 0
-    
+
     Ahorn.Cairo.save(ctx)
-    
+
     Ahorn.rotate(ctx, pi / 2)
-    
+
     if left
         Ahorn.scale(ctx, 1, -1)
     end
@@ -265,7 +265,7 @@ function Ahorn.render(ctx::Ahorn.Cairo.CairoContext, entity::jumpthruUnion, room
             Ahorn.drawImage(ctx, "objects/jumpthru/$(texture)", 8 * i, left ? 0 : -8, quad...)
         end
     end
-    
+
     Ahorn.Cairo.restore(ctx)
 end
 

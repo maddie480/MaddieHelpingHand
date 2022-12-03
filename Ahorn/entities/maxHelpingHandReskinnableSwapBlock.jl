@@ -8,7 +8,7 @@ using ..Ahorn, Maple
     moveEndSound::String="event:/game/05_mirror_temple/swapblock_move_end", returnEndSound::String="event:/game/05_mirror_temple/swapblock_return_end") =
     Entity("MaxHelpingHand/ReskinnableSwapBlock", x=x1, y=y1, nodes=Tuple{Int, Int}[(x2, y2)], width=width, height=height, spriteDirectory=spriteDirectory, particleColor1=particleColor1, particleColor2=particleColor2,
     moveSound=moveSound, returnSound=returnSound, moveEndSound=moveEndSound, returnEndSound=returnEndSound)
-    
+
 function swapFinalizer(entity)
     x, y = Ahorn.position(entity)
 
@@ -81,7 +81,7 @@ end
 
 function renderSwapBlock(ctx::Ahorn.Cairo.CairoContext, x::Number, y::Number, width::Number, height::Number, midResource::String, frame::String)
     midSprite = Ahorn.getSprite(midResource, "Gameplay")
-    
+
     tilesWidth = div(width, 8)
     tilesHeight = div(height, 8)
 

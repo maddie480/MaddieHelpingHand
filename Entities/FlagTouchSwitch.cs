@@ -12,7 +12,7 @@ using System.Reflection;
 namespace Celeste.Mod.MaxHelpingHand.Entities {
     /// <summary>
     /// A touch switch triggering an arbitrary session flag.
-    /// 
+    ///
     /// Attributes:
     /// - flag: the session flag this touch switch sets. Must be the same across the whole touch switch group.
     /// - icon: the name of the icon for the touch switch (relative to objects/MaxHelpingHand/flagTouchSwitch) or "vanilla" for the default one.

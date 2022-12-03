@@ -9,7 +9,7 @@ using System.Reflection;
 namespace Celeste.Mod.MaxHelpingHand.Entities {
     /// <summary>
     /// Mashup of vanilla RisingLava and SandwichLava, allowing for lava coming from the sides instead of from the top / bottom.
-    /// 
+    ///
     /// Attributes:
     /// - intro: if true, lava will be invisible until the player moves
     /// - lavaMode: allows picking the lava direction (left to right, right to left, or sandwich)

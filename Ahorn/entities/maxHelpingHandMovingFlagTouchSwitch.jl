@@ -43,7 +43,7 @@ function Ahorn.selection(entity::MovingFlagTouchSwitch)
     sprite = "collectables/outback/movingtouchswitch/container.png"
 
     res = Ahorn.Rectangle[Ahorn.getSpriteRectangle(sprite, x, y)]
-    
+
     for node in nodes
         nx, ny = Int.(node)
 
@@ -57,7 +57,7 @@ Ahorn.nodeLimits(entity::MovingFlagTouchSwitch) = 0, -1
 
 function Ahorn.render(ctx::Ahorn.Cairo.CairoContext, entity::MovingFlagTouchSwitch)
     icon = get(entity.data, "icon", "vanilla")
-    
+
     iconPath = "objects/touchswitch/icon00.png"
     if icon != "vanilla"
         iconPath = "objects/MaxHelpingHand/flagTouchSwitch/$(icon)/icon00.png"

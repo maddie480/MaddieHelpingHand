@@ -22,7 +22,7 @@ sprite = "collectables/moonBerry/normal00"
 
 function Ahorn.selection(entity::SecretBerry)
     x, y = Ahorn.position(entity)
-    
+
     return Ahorn.getSpriteRectangle(sprite, x, y)
 end
 

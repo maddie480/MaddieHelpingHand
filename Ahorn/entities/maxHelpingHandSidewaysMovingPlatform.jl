@@ -41,7 +41,7 @@ function Ahorn.selection(entity::SidewaysMovingPlatform)
     nodes = get(entity.data, "nodes", ())
     startX, startY = Int(entity.data["x"]), Int(entity.data["y"])
     rectangles = Ahorn.Rectangle[Ahorn.Rectangle(startX, startY, 8, height)]
-    
+
     for node in nodes
         nodeX, nodeY = Int.(node)
         push!(rectangles, Ahorn.Rectangle(nodeX, nodeY, 8, height))
@@ -102,7 +102,7 @@ function renderPlatform(ctx::Ahorn.Cairo.CairoContext, texture::String, x::Numbe
     Ahorn.drawImage(ctx, "objects/woodPlatform/$texture", offsetX, offsetY, 0, 0, 8, 8)
     Ahorn.drawImage(ctx, "objects/woodPlatform/$texture", tilesHeight * 8 - 8 + offsetX, offsetY, 24, 0, 8, 8)
     Ahorn.drawImage(ctx, "objects/woodPlatform/$texture", floor(Int, height / 2) - 4 + offsetX, offsetY, 16, 0, 8, 8)
-    
+
     Ahorn.Cairo.restore(ctx)
 end
 
@@ -110,12 +110,12 @@ function Ahorn.renderAbs(ctx::Ahorn.Cairo.CairoContext, entity::SidewaysMovingPl
     height = Int(get(entity.data, "height", 8))
     mode = get(entity.data, "mode", "Loop")
     left = get(entity.data, "left", true)
-    
+
     firstNodeX, firstNodeY = Int(entity.data["x"]), Int(entity.data["y"])
     previousNodeX, previousNodeY = firstNodeX, firstNodeY
-    
+
     texture = get(entity.data, "texture", "default")
-    
+
     nodes = get(entity.data, "nodes", ())
     for node in nodes
         nodeX, nodeY = Int.(node)
@@ -134,12 +134,12 @@ function Ahorn.renderSelectedAbs(ctx::Ahorn.Cairo.CairoContext, entity::Sideways
     height = Int(get(entity.data, "height", 8))
     mode = get(entity.data, "mode", "Loop")
     left = get(entity.data, "left", true)
-    
+
     firstNodeX, firstNodeY = Int(entity.data["x"]), Int(entity.data["y"])
     previousNodeX, previousNodeY = firstNodeX, firstNodeY
 
     texture = get(entity.data, "texture", "default")
-    
+
     nodes = get(entity.data, "nodes", ())
     for node in nodes
         nodeX, nodeY = Int.(node)
@@ -147,7 +147,7 @@ function Ahorn.renderSelectedAbs(ctx::Ahorn.Cairo.CairoContext, entity::Sideways
         Ahorn.drawArrow(ctx, previousNodeX + 4, previousNodeY + height / 2, nodeX + 4, nodeY + height / 2, Ahorn.colors.selection_selected_fc, headLength=6)
         previousNodeX, previousNodeY = nodeX, nodeY
     end
-    
+
     if mode == "Loop" || mode == "LoopNoPause"
         Ahorn.drawArrow(ctx, previousNodeX + 4, previousNodeY + height / 2, firstNodeX + 4, firstNodeY + height / 2, Ahorn.colors.selection_selected_fc, headLength=6)
     end
