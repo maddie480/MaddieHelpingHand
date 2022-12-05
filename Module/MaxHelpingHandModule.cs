@@ -143,6 +143,7 @@ namespace Celeste.Mod.MaxHelpingHand.Module {
             ReskinnableStarRotateSpinner.Unload();
             ReskinnableStarTrackSpinner.Unload();
             SetFlagOnSpawnTrigger.Unload();
+            SaveFileStrawberryGate.Unload();
 
             Everest.Events.Level.OnLoadBackdrop -= onLoadBackdrop;
             On.Celeste.Mod.Everest.Register -= onModRegister;
@@ -179,6 +180,7 @@ namespace Celeste.Mod.MaxHelpingHand.Module {
             AvBdaySpeechBubbleFixup.LoadMods();
             ReskinnableStarRotateSpinner.LoadMods();
             ReskinnableStarTrackSpinner.LoadMods();
+            SaveFileStrawberryGate.HookMods();
 
             if (!hookedSineParallax && Everest.Loader.DependencyLoaded(new EverestModuleMetadata() { Name = "FlaglinesAndSuch", Version = new Version(1, 4, 17) })) {
                 hookSineParallax();

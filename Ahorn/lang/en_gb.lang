@@ -922,3 +922,10 @@ placements.entities.MaxHelpingHand/FlagDecal.tooltips.decalPath=The path to the 
 placements.entities.MaxHelpingHand/FlagDecal.tooltips.appearAnimationPath=The path to an appearing animation for the decal, starting from Graphics/Atlases/Gameplay/decals in the graphics dump or in your mod's folder.\nIf none is specified, the decal will appear immediately.
 placements.entities.MaxHelpingHand/FlagDecal.tooltips.disappearAnimationPath=The path to a disappearing animation for the decal, starting from Graphics/Atlases/Gameplay/decals in the graphics dump or in your mod's folder.\nIf none is specified, the decal will disappear immediately.
 placements.entities.MaxHelpingHand/FlagDecal.tooltips.depth=The depth of the decal, relative to other decals. You can input a number if you want a custom depth.
+
+# Save File Strawberry Gate
+placements.entities.MaxHelpingHand/SaveFileStrawberryGate.tooltips.requires=Determines the number of strawberries required to open the gate.
+placements.entities.MaxHelpingHand/SaveFileStrawberryGate.tooltips.startHidden=Whether the door should start hidden and come crashing down when the player approaches.\nWill destroy dash blocks as it crashes down.
+placements.entities.MaxHelpingHand/SaveFileStrawberryGate.tooltips.freeze=Whether the opening animation should include time freezes.
+placements.entities.MaxHelpingHand/SaveFileStrawberryGate.tooltips.shake=Whether the opening animation should include screen shake.
+placements.entities.MaxHelpingHand/SaveFileStrawberryGate.tooltips.countFrom=Determines which strawberries are taken into account to unlock the gate.\nIf you want to only take strawberries collected during the current session into account, use a regular Strawberry Gate from Lunatic Helper instead.

@@ -1113,3 +1113,11 @@ entities.everest/customBirdTutorial.placements.name.maxhelpinghand_showhints=Cus
 # Custom NPC: extra placements
 entities.everest/npc.placements.name.maxhelpinghand_granny=Custom NPC (Granny)
 entities.everest/npc.placements.name.maxhelpinghand_invisible=Custom NPC (Invisible)
+
+# Save File Strawberry Gate
+entities.MaxHelpingHand/SaveFileStrawberryGate.placements.name.door=Strawberry Gate (from Save File) (req. Lunatic Helper)
+entities.MaxHelpingHand/SaveFileStrawberryGate.attributes.description.requires=Determines the number of strawberries required to open the gate.
+entities.MaxHelpingHand/SaveFileStrawberryGate.attributes.description.startHidden=Whether the door should start hidden and come crashing down when the player approaches.\nWill destroy dash blocks as it crashes down.
+entities.MaxHelpingHand/SaveFileStrawberryGate.attributes.description.freeze=Whether the opening animation should include time freezes.
+entities.MaxHelpingHand/SaveFileStrawberryGate.attributes.description.shake=Whether the opening animation should include screen shake.
+entities.MaxHelpingHand/SaveFileStrawberryGate.attributes.description.countFrom=Determines which strawberries are taken into account to unlock the gate.\nIf you want to only take strawberries collected during the current session into account, use a regular Strawberry Gate from Lunatic Helper instead.
