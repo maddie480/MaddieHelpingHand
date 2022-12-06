@@ -30,7 +30,8 @@ heartDoor.placements = {
         freeze = true,
         shake = true,
 
-        countFrom = "Campaign"
+        countFrom = "Campaign",
+        persistent = false
     }
 }
 

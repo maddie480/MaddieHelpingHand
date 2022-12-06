@@ -1121,3 +1121,4 @@ entities.MaxHelpingHand/SaveFileStrawberryGate.attributes.description.startHidde
 entities.MaxHelpingHand/SaveFileStrawberryGate.attributes.description.freeze=Whether the opening animation should include time freezes.
 entities.MaxHelpingHand/SaveFileStrawberryGate.attributes.description.shake=Whether the opening animation should include screen shake.
 entities.MaxHelpingHand/SaveFileStrawberryGate.attributes.description.countFrom=Determines which strawberries are taken into account to unlock the gate.\nIf you want to only take strawberries collected during the current session into account, use a regular Strawberry Gate from Lunatic Helper instead.
+entities.MaxHelpingHand/SaveFileStrawberryGate.attributes.description.persistent=Whether the strawberry gate should stay open having been opened for the first time, even if the player exits the map and enters it again.

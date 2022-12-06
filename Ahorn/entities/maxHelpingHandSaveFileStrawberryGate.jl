@@ -12,7 +12,8 @@ using ..Ahorn, Maple
     shake::Bool=true,
     width::Integer=Maple.defaultBlockWidth,
 
-    countFrom::String="Campaign"
+    countFrom::String="Campaign",
+    persistent::Bool=false
 )
 
 const placements = Ahorn.PlacementDict(

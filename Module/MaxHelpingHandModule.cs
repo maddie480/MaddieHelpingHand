@@ -17,6 +17,9 @@ namespace Celeste.Mod.MaxHelpingHand.Module {
         public override Type SettingsType => typeof(MaxHelpingHandSettings);
         public MaxHelpingHandSettings Settings => (MaxHelpingHandSettings) _Settings;
 
+        public override Type SaveDataType => typeof(MaxHelpingHandSaveData);
+        public MaxHelpingHandSaveData SaveData => (MaxHelpingHandSaveData) _SaveData;
+
         public override Type SessionType => typeof(MaxHelpingHandSession);
         public MaxHelpingHandSession Session => (MaxHelpingHandSession) _Session;
 
