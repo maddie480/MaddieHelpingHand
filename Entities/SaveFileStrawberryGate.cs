@@ -30,7 +30,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             MethodInfo strawberryGateRoutine = typeof(StrawberryGate).GetMethod("Routine", BindingFlags.NonPublic | BindingFlags.Instance).GetStateMachineTarget();
             hookStrawberryGateRoutine = new ILHook(strawberryGateRoutine, modStrawberryGateRoutine);
 
-            MethodInfo strawberryGateAdded = typeof(StrawberryGate).GetMethod("Added", BindingFlags.NonPublic | BindingFlags.Instance);
+            MethodInfo strawberryGateAdded = typeof(StrawberryGate).GetMethod("Added");
             hookStrawberryGateAdded = new ILHook(strawberryGateAdded, modStrawberryGateAdded);
         }
 
