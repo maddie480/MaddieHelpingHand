@@ -154,7 +154,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
 
                     // if the strawberry gate is persistent, also check if it was already opened in the past.
                     return orig || (thing.Persistent
-                        && MaxHelpingHandModule.Instance.SaveData.OpenedSaveDataStrawberryGates.TryGet((self.Scene as Level).Session.Area.GetSID(), out HashSet<int> openedIDs)
+                        && MaxHelpingHandModule.Instance.SaveData.OpenedSaveDataStrawberryGates.TryGetValue((self.Scene as Level).Session.Area.GetSID(), out HashSet<int> openedIDs)
                         && openedIDs.Contains(thing.EntityID));
                 });
             }
