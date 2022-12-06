@@ -10,6 +10,7 @@ using MonoMod.Utils;
 using System;
 using System.Reflection;
 using Celeste.Mod.MaxHelpingHand.Module;
+using System.Collections.Generic;
 
 namespace Celeste.Mod.MaxHelpingHand.Entities {
     [CustomEntity("MaxHelpingHand/SaveFileStrawberryGate")]
