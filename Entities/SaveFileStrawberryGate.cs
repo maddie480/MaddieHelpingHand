@@ -132,10 +132,10 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
                     if (thing != null && thing.Persistent) {
                         string sid = (self.Scene as Level).Session.Area.GetSID();
 
-                        if (!MaxHelpingHandModule.Instance.SaveData.OpenedSaveDataStrawberryGates.ContainsKey(sid)) {
-                            MaxHelpingHandModule.Instance.SaveData.OpenedSaveDataStrawberryGates[sid] = new HashSet<int>();
+                        if (!MaxHelpingHandModule.Instance.SaveData.OpenedSaveFileStrawberryGates.ContainsKey(sid)) {
+                            MaxHelpingHandModule.Instance.SaveData.OpenedSaveFileStrawberryGates[sid] = new HashSet<int>();
                         }
-                        MaxHelpingHandModule.Instance.SaveData.OpenedSaveDataStrawberryGates[sid].Add(thing.EntityID);
+                        MaxHelpingHandModule.Instance.SaveData.OpenedSaveFileStrawberryGates[sid].Add(thing.EntityID);
                     }
                 });
             }
@@ -157,7 +157,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
 
                     // if the strawberry gate is persistent, also check if it was already opened in the past.
                     return orig || (thing.Persistent
-                        && MaxHelpingHandModule.Instance.SaveData.OpenedSaveDataStrawberryGates.TryGetValue((self.Scene as Level).Session.Area.GetSID(), out HashSet<int> openedIDs)
+                        && MaxHelpingHandModule.Instance.SaveData.OpenedSaveFileStrawberryGates.TryGetValue((self.Scene as Level).Session.Area.GetSID(), out HashSet<int> openedIDs)
                         && openedIDs.Contains(thing.EntityID));
                 });
             }
