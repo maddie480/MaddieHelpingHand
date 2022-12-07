@@ -118,7 +118,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
                     .Entities.First(entity => entity.ID == BerryID.ID);
                 Vector2 startingPoint = originalEntityData.Position + roomOffset;
 
-                new DynData<StrawberrySeed>(self)["start"] = startingPoint;
+                new DynData<StrawberrySeed>(this)["start"] = startingPoint;
             } else {
                 if (SceneAs<Level>().Session.GetFlag("collected_seeds_of_" + BerryID.ToString())) {
                     // if all seeds for this berry were already collected (the berry was already formed), commit remove self.
