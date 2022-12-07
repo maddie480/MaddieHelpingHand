@@ -103,24 +103,15 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             // the seed is collected right away.
             this.player = player;
             spawnedAsFollower = true;
+
+            // set the starting point so that the berry seed can go back there if it pops.
+            new DynData<StrawberrySeed>(self)["start"] = sessionSeedInfo.StartingPoint;
         }
 
         public override void Added(Scene scene) {
             base.Added(scene);
 
-            if (spawnedAsFollower) {
-                // figure out the strawberry seed's starting point, so that it can be returned there if it pops.
-                LevelData originalRoomData = (scene as Level).Session.MapData
-                    .Levels.First(level => level.Name == BerryID.Level);
-                Vector2 roomOffset = new Vector2(originalRoomData.Bounds.Left, originalRoomData.Bounds.Top);
-
-                EntityData originalEntityData = originalRoomData
-                    .Entities.First(entity => entity.ID == BerryID.ID);
-                Vector2 startingPoint = originalEntityData.Position + roomOffset;
-                Console.WriteLine("starting point is at " + startingPoint);
-
-                new DynData<StrawberrySeed>(this)["start"] = startingPoint;
-            } else {
+            if (!spawnedAsFollower) {
                 if (SceneAs<Level>().Session.GetFlag("collected_seeds_of_" + BerryID.ToString())) {
                     // if all seeds for this berry were already collected (the berry was already formed), commit remove self.
                     RemoveSelf();
@@ -191,6 +182,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             sessionSeedInfo.Index = index;
             sessionSeedInfo.BerryID = BerryID;
             sessionSeedInfo.Sprite = sprite;
+            sessionSeedInfo.StartingPoint = new DynData<StrawberrySeed>(self).Get<Vector2>("start");
             MaxHelpingHandModule.Instance.Session.CollectedMultiRoomStrawberrySeeds.Add(sessionSeedInfo);
 
             if (displaySeedCount) {

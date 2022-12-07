@@ -39,6 +39,7 @@ namespace Celeste.Mod.MaxHelpingHand.Module {
             public int Index { get; set; }
             public EntityID BerryID { get; set; }
             public string Sprite { get; set; }
+            public Vector2 StartingPoint { get; set; }
         }
 
         public class SpeedBasedMusicParamInfo {
