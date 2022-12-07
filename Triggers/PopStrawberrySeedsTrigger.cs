@@ -16,7 +16,7 @@ namespace Celeste.Mod.MaxHelpingHand.Triggers {
             base.OnStay(player);
 
             foreach (Follower follower in player.Leader.Followers.ToArray()) {
-                if (follower.Entity is StrawberrySeed && 
+                if (follower.Entity is StrawberrySeed &&
                     (popMultiRoomStrawberrySeeds || !(follower.Entity is MultiRoomStrawberrySeed))) {
 
                     player.Leader.LoseFollower(follower);
