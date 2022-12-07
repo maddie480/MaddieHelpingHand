@@ -98,6 +98,9 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
                 if (component is PlayerCollider playerCollider) {
                     playerCollider.OnCollide = OnPlayer;
                 }
+                if (component is Follower follower) {
+                    follower.ParentEntityID = EntityID.None;
+                }
             }
         }
 
