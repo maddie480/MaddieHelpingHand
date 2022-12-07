@@ -117,6 +117,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
                 EntityData originalEntityData = originalRoomData
                     .Entities.First(entity => entity.ID == BerryID.ID);
                 Vector2 startingPoint = originalEntityData.Position + roomOffset;
+                Console.WriteLine("starting point is at " + startingPoint);
 
                 new DynData<StrawberrySeed>(this)["start"] = startingPoint;
             } else {
