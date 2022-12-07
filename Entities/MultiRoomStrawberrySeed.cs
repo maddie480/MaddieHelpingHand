@@ -105,7 +105,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             spawnedAsFollower = true;
 
             // set the starting point so that the berry seed can go back there if it pops.
-            new DynData<StrawberrySeed>(self)["start"] = sessionSeedInfo.StartingPoint;
+            new DynData<StrawberrySeed>(this)["start"] = sessionSeedInfo.StartingPoint;
         }
 
         public override void Added(Scene scene) {
@@ -182,7 +182,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             sessionSeedInfo.Index = index;
             sessionSeedInfo.BerryID = BerryID;
             sessionSeedInfo.Sprite = sprite;
-            sessionSeedInfo.StartingPoint = new DynData<StrawberrySeed>(self).Get<Vector2>("start");
+            sessionSeedInfo.StartingPoint = new DynData<StrawberrySeed>(this).Get<Vector2>("start");
             MaxHelpingHandModule.Instance.Session.CollectedMultiRoomStrawberrySeeds.Add(sessionSeedInfo);
 
             if (displaySeedCount) {
