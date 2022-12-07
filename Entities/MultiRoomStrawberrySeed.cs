@@ -8,6 +8,8 @@ using MonoMod.Utils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Collections;
+using Celeste.Mod;
 
 namespace Celeste.Mod.MaxHelpingHand.Entities {
     [CustomEntity("MaxHelpingHand/MultiRoomStrawberrySeed")]
@@ -16,11 +18,13 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
         public static void Load() {
             On.Celeste.Level.LoadLevel += onLoadLevel;
             IL.Celeste.Player.ClimbHopBlockedCheck += onClimbHopBlockedCheck;
+            On.Celeste.StrawberrySeed.ReturnRoutine += onStrawberrySeedReturnRoutine;
         }
 
         public static void Unload() {
             On.Celeste.Level.LoadLevel -= onLoadLevel;
             IL.Celeste.Player.ClimbHopBlockedCheck -= onClimbHopBlockedCheck;
+            On.Celeste.StrawberrySeed.ReturnRoutine -= onStrawberrySeedReturnRoutine;
         }
 
         private static void onLoadLevel(On.Celeste.Level.orig_LoadLevel orig, Level self, Player.IntroTypes playerIntro, bool isFromLoader) {
@@ -58,12 +62,23 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             }
         }
 
+        private static IEnumerator onStrawberrySeedReturnRoutine(On.Celeste.StrawberrySeed.orig_ReturnRoutine orig, StrawberrySeed self) {
+            yield return new SwapImmediately(orig(self));
+
+            // if the strawberry seed returned to another room, it should just disappear.
+            if (self is MultiRoomStrawberrySeed strawberrySeed && (self.Scene as Level).Session.Level != strawberrySeed.startingRoom) {
+                self.RemoveSelf();
+            }
+        }
+
         private DynData<StrawberrySeed> selfStrawberrySeed;
 
         private int index;
         public EntityID BerryID;
         private int seedCount;
         private bool displaySeedCount;
+
+        private string startingRoom;
 
         private float canLoseTimerMirror;
         private Player player;
@@ -99,6 +114,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             : this(position, sessionSeedInfo.Index, SaveData.Instance.CheckStrawberry(sessionSeedInfo.BerryID), sessionSeedInfo.Sprite, sessionSeedInfo.Sprite) {
 
             BerryID = sessionSeedInfo.BerryID;
+            startingRoom = sessionSeedInfo.StartingRoom;
 
             // the seed is collected right away.
             this.player = player;
@@ -112,6 +128,8 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             base.Added(scene);
 
             if (!spawnedAsFollower) {
+                startingRoom = (scene as Level).Session.Level;
+
                 if (SceneAs<Level>().Session.GetFlag("collected_seeds_of_" + BerryID.ToString())) {
                     // if all seeds for this berry were already collected (the berry was already formed), commit remove self.
                     RemoveSelf();
@@ -182,6 +200,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             sessionSeedInfo.Index = index;
             sessionSeedInfo.BerryID = BerryID;
             sessionSeedInfo.Sprite = sprite;
+            sessionSeedInfo.StartingRoom = startingRoom;
             sessionSeedInfo.StartingPoint = new DynData<StrawberrySeed>(this).Get<Vector2>("start");
             MaxHelpingHandModule.Instance.Session.CollectedMultiRoomStrawberrySeeds.Add(sessionSeedInfo);
 
