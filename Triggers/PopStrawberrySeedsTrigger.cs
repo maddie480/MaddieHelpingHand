@@ -20,6 +20,7 @@ namespace Celeste.Mod.MaxHelpingHand.Triggers {
                     (popMultiRoomStrawberrySeeds || !(follower.Entity is MultiRoomStrawberrySeed))) {
 
                     player.Leader.LoseFollower(follower);
+                    follower.Entity.RemoveTag(Tags.Persistent);
                 }
             }
 
