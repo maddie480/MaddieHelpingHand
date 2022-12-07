@@ -7,6 +7,7 @@ using MonoMod.Cil;
 using MonoMod.Utils;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Celeste.Mod.MaxHelpingHand.Entities {
     [CustomEntity("MaxHelpingHand/MultiRoomStrawberrySeed")]
@@ -107,7 +108,18 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
         public override void Added(Scene scene) {
             base.Added(scene);
 
-            if (!spawnedAsFollower) {
+            if (spawnedAsFollower) {
+                // figure out the strawberry seed's starting point, so that it can be returned there if it pops.
+                LevelData originalRoomData = (scene as Level).Session.MapData
+                    .Levels.First(level => level.Name == BerryID.Level);
+                Vector2 roomOffset = new Vector2(originalRoomData.Bounds.Left, originalRoomData.Bounds.Top);
+
+                EntityData originalEntityData = originalRoomData
+                    .Entities.First(entity => entity.ID == BerryID.ID);
+                Vector2 startingPoint = originalEntityData.Position + roomOffset;
+
+                new DynData<StrawberrySeed>(self)["start"] = startingPoint;
+            } else {
                 if (SceneAs<Level>().Session.GetFlag("collected_seeds_of_" + BerryID.ToString())) {
                     // if all seeds for this berry were already collected (the berry was already formed), commit remove self.
                     RemoveSelf();

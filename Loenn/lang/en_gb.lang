@@ -846,6 +846,7 @@ triggers.MaxHelpingHand/PersistentMusicFadeTrigger.attributes.description.direct
 
 # Pop Strawberry Seeds Trigger
 triggers.MaxHelpingHand/PopStrawberrySeedsTrigger.placements.name.trigger=Pop Strawberry Seeds
+triggers.MaxHelpingHand/PopStrawberrySeedsTrigger.attributes.description.popMultiRoomStrawberrySeeds=Whether Multi-Room Strawberry Seeds (from max480's Helping Hand) should pop as well while the player is in the trigger.
 
 # Rainbow Spinner Color Fade Trigger
 triggers.MaxHelpingHand/RainbowSpinnerColorFadeTrigger.placements.name.trigger=Rainbow Spinner Color Fade
