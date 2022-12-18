@@ -935,3 +935,7 @@ placements.entities.MaxHelpingHand/SaveFileStrawberryGate.tooltips.persistent=Wh
 
 # Pop Strawberry Seeds Trigger
 placements.triggers.MaxHelpingHand/PopStrawberrySeedsTrigger.tooltips.popMultiRoomStrawberrySeeds=Whether Multi-Room Strawberry Seeds (from max480's Helping Hand) should pop as well while the player is in the trigger.
+
+# Comment
+placements.entities.MaxHelpingHand/Comment.tooltips.comment=The comment.
+placements.entities.MaxHelpingHand/Comment.tooltips.displayOnMap=Whether the comment should be displayed on the map directly (in-editor only).
