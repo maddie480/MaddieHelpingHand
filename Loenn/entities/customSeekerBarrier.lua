@@ -13,7 +13,9 @@ seekerBarrier.placements = {
         transparency = 0.15,
         particleTransparency = 0.5,
         particleDirection = 0.0,
-        wavy = true
+        wavy = true,
+        killSeekers = true,
+        killJellyfish = true
     }
 }
 

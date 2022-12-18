@@ -109,6 +109,8 @@ entities.MaxHelpingHand/CustomSeekerBarrier.attributes.description.transparency=
 entities.MaxHelpingHand/CustomSeekerBarrier.attributes.description.particleTransparency=The opacity, between 0 and 1, of the particles inside the seeker barrier. Vanilla value is 0.5.
 entities.MaxHelpingHand/CustomSeekerBarrier.attributes.description.particleDirection=The direction of the particles in degrees, 0 being the default (down), 90 being left, etc.
 entities.MaxHelpingHand/CustomSeekerBarrier.attributes.description.wavy=Whether the edges of the seeker barrier should be wavy.
+entities.MaxHelpingHand/CustomSeekerBarrier.attributes.description.killSeekers=Whether this seeker barrier should kill seekers on contact.
+entities.MaxHelpingHand/CustomSeekerBarrier.attributes.description.killJellyfish=Whether this seeker barrier should kill jellyfish on contact.
 
 # Custom Summit Checkpoints
 entities.MaxHelpingHand/CustomSummitCheckpoint.placements.name.summit_checkpoint=Custom Summit Checkpoint

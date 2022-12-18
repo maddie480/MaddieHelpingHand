@@ -698,6 +698,8 @@ placements.entities.MaxHelpingHand/CustomSeekerBarrier.tooltips.transparency=The
 placements.entities.MaxHelpingHand/CustomSeekerBarrier.tooltips.particleTransparency=The opacity, between 0 and 1, of the particles inside the seeker barrier. Vanilla value is 0.5.
 placements.entities.MaxHelpingHand/CustomSeekerBarrier.tooltips.particleDirection=The direction of the particles in degrees, 0 being the default (down), 90 being left, etc.
 placements.entities.MaxHelpingHand/CustomSeekerBarrier.tooltips.wavy=Whether the edges of the seeker barrier should be wavy.
+placements.entities.MaxHelpingHand/CustomSeekerBarrier.tooltips.killSeekers=Whether this seeker barrier should kill seekers on contact.
+placements.entities.MaxHelpingHand/CustomSeekerBarrier.tooltips.killJellyfish=Whether this seeker barrier should kill jellyfish on contact.
 
 # Ambience Volume Trigger
 placements.triggers.MaxHelpingHand/AmbienceVolumeTrigger.tooltips.from=Determines the volume of the ambience (between 0 and 1) at closer distances.

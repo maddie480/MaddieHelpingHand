@@ -83,6 +83,7 @@ namespace Celeste.Mod.MaxHelpingHand.Module {
             FlagPickup.Load();
             RespawningJellyfish.Load();
             SetFlagOnSpawnTrigger.Load();
+            CustomSeekerBarrier.Load();
 
             Everest.Events.Level.OnLoadBackdrop += onLoadBackdrop;
             On.Celeste.Mod.Everest.Register += onModRegister;
@@ -147,6 +148,7 @@ namespace Celeste.Mod.MaxHelpingHand.Module {
             ReskinnableStarTrackSpinner.Unload();
             SetFlagOnSpawnTrigger.Unload();
             SaveFileStrawberryGate.Unload();
+            CustomSeekerBarrier.Unload();
 
             Everest.Events.Level.OnLoadBackdrop -= onLoadBackdrop;
             On.Celeste.Mod.Everest.Register -= onModRegister;

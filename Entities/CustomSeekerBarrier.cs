@@ -1,12 +1,50 @@
 ﻿using Celeste.Mod.Entities;
 using Microsoft.Xna.Framework;
+using Mono.Cecil.Cil;
 using Monocle;
+using MonoMod.Cil;
+using System;
 using System.Linq;
 
 namespace Celeste.Mod.MaxHelpingHand.Entities {
     [CustomEntity("MaxHelpingHand/CustomSeekerBarrier")]
     [TrackedAs(typeof(SeekerBarrier))]
     public class CustomSeekerBarrier : SeekerBarrier {
+        public static void Load() {
+            IL.Celeste.Seeker.Update += onSeekerUpdate;
+            IL.Celeste.Glider.Update += onJellyUpdate;
+        }
+
+        public static void Unload() {
+            IL.Celeste.Seeker.Update -= onSeekerUpdate;
+            IL.Celeste.Glider.Update -= onJellyUpdate;
+        }
+
+        private static void onSeekerUpdate(ILContext il) {
+            onSeekerOrJellyUpdate(il, seekerBarrier => seekerBarrier.killSeekers);
+        }
+
+        private static void onJellyUpdate(ILContext il) {
+            onSeekerOrJellyUpdate(il, seekerBarrier => seekerBarrier.killJellyfish);
+        }
+
+        private static void onSeekerOrJellyUpdate(ILContext il, Func<CustomSeekerBarrier, bool> collideCondition) {
+            ILCursor cursor = new ILCursor(il);
+
+            while (cursor.TryGotoNext(instr => instr.MatchLdcI4(1), instr => instr.MatchStfld<Entity>("Collidable"))) {
+                Logger.Log("MaxHelpingHand/CustomSeekerBarrier", $"Disabling collision on seeker barriers at {cursor.Index} in IL for {il.Method.Name}");
+
+                cursor.Emit(OpCodes.Dup);
+                cursor.Index++;
+                cursor.EmitDelegate<Func<Entity, bool, bool>>((entity, orig) => {
+                    if (entity is CustomSeekerBarrier seekerBarrier) {
+                        return collideCondition(seekerBarrier);
+                    }
+                    return orig;
+                });
+            }
+        }
+
         internal class Renderer : SeekerBarrierRenderer {
             internal Color color;
             internal float transparency;
@@ -18,6 +56,9 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
         internal float particleTransparency;
         internal float particleDirection;
         internal bool wavy;
+
+        private bool killSeekers;
+        private bool killJellyfish;
 
         public CustomSeekerBarrier(EntityData data, Vector2 offset) : base(data, offset) {
             renderer = new Renderer() {
@@ -31,6 +72,9 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             particleTransparency = data.Float("particleTransparency", 0.5f);
             particleDirection = data.Float("particleDirection", 0f);
             wavy = data.Bool("wavy", defaultValue: true);
+
+            killSeekers = data.Bool("killSeekers", defaultValue: true);
+            killJellyfish = data.Bool("killJellyfish", defaultValue: true);
         }
 
         public override void Added(Scene scene) {
