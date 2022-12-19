@@ -1130,3 +1130,10 @@ entities.MaxHelpingHand/SaveFileStrawberryGate.attributes.description.persistent
 entities.MaxHelpingHand/Comment.placements.name.comment=Comment
 entities.MaxHelpingHand/Comment.attributes.description.comment=The comment.
 entities.MaxHelpingHand/Comment.attributes.description.displayOnMap=Whether the comment should be displayed on the map directly (in-editor only).
+
+# Auto-Skip Dialog Cutscene Trigger
+triggers.MaxHelpingHand/AutoSkipDialogCutsceneTrigger.placements.name.trigger=Auto-Skip Dialog Cutscene
+triggers.MaxHelpingHand/AutoSkipDialogCutsceneTrigger.tooltips.onlyOnce=Whether the dialogue should only trigger once.
+triggers.MaxHelpingHand/AutoSkipDialogCutsceneTrigger.tooltips.dialogId=The dialog ID to use for the dialogue.\nIn this dialogue, use {trigger 0} to start auto-skipping dialogue, and {trigger 1} to stop auto-skipping.
+triggers.MaxHelpingHand/AutoSkipDialogCutsceneTrigger.tooltips.endLevel=Whether finishing the dialog triggers the level to end.
+triggers.MaxHelpingHand/AutoSkipDialogCutsceneTrigger.tooltips.deathCount=Determines the exact amount of deaths required to activate dialog trigger. Will always trigger if set to -1.
