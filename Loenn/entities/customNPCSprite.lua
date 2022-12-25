@@ -37,7 +37,8 @@ everestNpc.placements = {
         indicatorOffsetY = 0,
         spriteName = "bird",
         onlyIfFlag = "",
-        setFlag = ""
+        setFlag = "",
+        autoSkipEnabled = false
     }
 }
 

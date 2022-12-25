@@ -1,21 +1,72 @@
 ﻿using Celeste.Mod.Entities;
+using Celeste.Mod.MaxHelpingHand.Module;
 using Microsoft.Xna.Framework;
+using Mono.Cecil.Cil;
 using Monocle;
+using MonoMod.Cil;
+using MonoMod.RuntimeDetour;
 using MonoMod.Utils;
 using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Reflection;
 
 namespace Celeste.Mod.MaxHelpingHand.Entities {
     // Everest Custom NPC but with some more options
     [CustomEntity("MaxHelpingHand/MoreCustomNPC", "MaxHelpingHand/CustomNPCSprite")]
     [Tracked]
     public class MoreCustomNPC : CustomNPC {
+        private static Type customNPCTalkCoroutineType;
+        private static ILHook hookCustomNPCTalk;
+
+        public static void Load() {
+            MethodInfo customNPCTalkCoroutine = typeof(CustomNPC).GetMethod("Talk", BindingFlags.NonPublic | BindingFlags.Instance).GetStateMachineTarget();
+
+            customNPCTalkCoroutineType = customNPCTalkCoroutine.DeclaringType;
+            hookCustomNPCTalk = new ILHook(customNPCTalkCoroutine, modTalkCutscene);
+        }
+
+        public static void Unload() {
+            customNPCTalkCoroutineType = null;
+            hookCustomNPCTalk?.Dispose();
+            hookCustomNPCTalk = null;
+        }
+
+        private static void modTalkCutscene(ILContext il) {
+            ILCursor cursor = new ILCursor(il);
+
+            while (cursor.TryGotoNext(instr => instr.MatchLdnull(), instr => instr.MatchCall<Textbox>("Say"))) {
+                cursor.Index++;
+
+                Logger.Log("MaxHelpingHand/MoreCustomNPC", $"Injecting auto-skip at {cursor.Index} in IL for CustomNPC.Talk");
+
+                // ldarg.0 (aka "this") gives the state machine object, known as CustomNPC.<Talk>d__28 in ILSpy.
+                // To get the actual CustomNPC we are in, we need to read the <>4__this field that is in that state machine object.
+                // ... IEnumerators are weird.
+
+                cursor.Emit(OpCodes.Ldarg_0);
+                cursor.Emit(OpCodes.Ldfld, customNPCTalkCoroutineType.GetField("<>4__this"));
+                cursor.EmitDelegate<Func<Func<IEnumerator>[], CustomNPC, Func<IEnumerator>[]>>((orig, self) => {
+                    if (self is MoreCustomNPC customNPC && customNPC.autoSkipEnabled) {
+                        // we want to register {trigger 0} and {trigger 1} to start and stop auto-skip in this dialogue.
+                        return new Func<IEnumerator>[] { customNPC.startSkipping, customNPC.stopSkipping };
+                    }
+
+                    // don't mess with "vanilla" Everest. orig should be null (considering we're injecting ourselves just after an ldnull), but hey.
+                    return orig;
+                });
+            }
+        }
+
+
         private readonly Rectangle? talkerZone;
         private readonly bool hasDialogue;
 
         private readonly string onlyIfFlag;
         private readonly string setFlag;
         private bool shouldSetFlag = true;
+
+        private readonly bool autoSkipEnabled;
 
         private Sprite sprite;
         private string spriteName;
@@ -25,6 +76,8 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
 
             onlyIfFlag = data.Attr("onlyIfFlag");
             setFlag = data.Attr("setFlag");
+
+            autoSkipEnabled = data.Bool("autoSkipEnabled");
 
             DynData<CustomNPC> npcData = new DynData<CustomNPC>(this);
 
@@ -138,6 +191,18 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
                 Logger.Log(LogLevel.Warn, "MaxHelpingHand/MoreCustomNPC", "This NPC does not use a sprite!");
             }
             return sprite;
+        }
+
+        // this is triggered with {trigger 0}
+        private IEnumerator startSkipping() {
+            new DynData<Textbox>(Scene.Tracker.GetEntity<Textbox>())["autoPressContinue"] = !MaxHelpingHandModule.Instance.Settings.DisableDialogueAutoSkip;
+            yield break;
+        }
+
+        // this is triggered with {trigger 1}
+        private IEnumerator stopSkipping() {
+            new DynData<Textbox>(Scene.Tracker.GetEntity<Textbox>())["autoPressContinue"] = false;
+            yield break;
         }
     }
 }

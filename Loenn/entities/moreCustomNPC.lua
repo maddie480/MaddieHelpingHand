@@ -41,7 +41,8 @@ everestNpc.placements = {
             indicatorOffsetY = 0,
             frames = "",
             onlyIfFlag = "",
-            setFlag = ""
+            setFlag = "",
+            autoSkipEnabled = false
         }
     },
     {
@@ -60,7 +61,8 @@ everestNpc.placements = {
             indicatorOffsetY = -5,
             frames = "0-9",
             onlyIfFlag = "",
-            setFlag = ""
+            setFlag = "",
+            autoSkipEnabled = false
         }
     },
     {
@@ -79,7 +81,8 @@ everestNpc.placements = {
             indicatorOffsetY = -10,
             frames = "31-41",
             onlyIfFlag = "",
-            setFlag = ""
+            setFlag = "",
+            autoSkipEnabled = false
         }
     },
     {
@@ -98,7 +101,8 @@ everestNpc.placements = {
             indicatorOffsetY = -5,
             frames = "0-23",
             onlyIfFlag = "",
-            setFlag = ""
+            setFlag = "",
+            autoSkipEnabled = false
         }
     },
 }

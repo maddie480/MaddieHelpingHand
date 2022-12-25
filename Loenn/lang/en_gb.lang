@@ -302,6 +302,7 @@ entities.MaxHelpingHand/MoreCustomNPC.attributes.description.sprite=Which sprite
 entities.MaxHelpingHand/MoreCustomNPC.attributes.description.frames=The frames to use, in the same format as Sprites.xml:\n- 1,5,6 means frames 1, 5 and 6\n- 1-6 means frames 1 to 6\n- 2*4,3 means 4 times frame 2, then frame 3
 entities.MaxHelpingHand/MoreCustomNPC.attributes.description.onlyIfFlag=If set, the player will only be able to talk to the NPC when the given flag is active.
 entities.MaxHelpingHand/MoreCustomNPC.attributes.description.setFlag=If set, the given flag will be activated once the player is done talking to the NPC.
+entities.MaxHelpingHand/MoreCustomNPC.attributes.description.autoSkipEnabled=Checking this allows you to enable dialogue auto-skipping by using {trigger 0}, and to disable it with {trigger 1}.\nThese triggers have to be used within the dialogue text, in English.txt.
 
 # Custom NPC from XML
 entities.MaxHelpingHand/CustomNPCSprite.placements.name.npc=Custom NPC (from XML)
@@ -317,6 +318,7 @@ entities.MaxHelpingHand/CustomNPCSprite.attributes.description.approachDistance=
 entities.MaxHelpingHand/CustomNPCSprite.attributes.description.spriteName=The name of the animation to use, from your map's Sprites.xml or from the vanilla one.
 entities.MaxHelpingHand/CustomNPCSprite.attributes.description.onlyIfFlag=If set, the player will only be able to talk to the NPC when the given flag is active.
 entities.MaxHelpingHand/CustomNPCSprite.attributes.description.setFlag=If set, the given flag will be activated once the player is done talking to the NPC.
+entities.MaxHelpingHand/CustomNPCSprite.attributes.description.autoSkipEnabled=Checking this allows you to enable dialogue auto-skipping by using {trigger 0}, and to disable it with {trigger 1}.\nThese triggers have to be used within the dialogue text, in English.txt.
 
 # Moving Flag Touch Switch
 entities.MaxHelpingHand/MovingFlagTouchSwitch.placements.name.touch_switch=Flag Touch Switch (Moving) (req. Outback Helper)
