@@ -12,7 +12,7 @@ const placements = Ahorn.PlacementDict(
 
 function Ahorn.render(ctx::Ahorn.Cairo.CairoContext, entity::Comment, room::Maple.Room)
     if entity.displayOnMap && entity.comment != ""
-        Ahorn.drawCenteredText(ctx, entity.comment, entity.x - 8, entity.y - 8, entity.width, entity.height; tint=(1.0, 1.0, 1.0, 1.0))
+        Ahorn.drawCenteredText(ctx, entity.comment, 0, 0, entity.width, entity.height; tint=(1.0, 1.0, 1.0, 1.0))
     else
         Ahorn.drawImage(ctx, "ahorn/MaxHelpingHand/comment", -12, -12)
     end
