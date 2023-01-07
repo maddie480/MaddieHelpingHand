@@ -934,6 +934,7 @@ placements.entities.MaxHelpingHand/SaveFileStrawberryGate.tooltips.freeze=Whethe
 placements.entities.MaxHelpingHand/SaveFileStrawberryGate.tooltips.shake=Whether the opening animation should include screen shake.
 placements.entities.MaxHelpingHand/SaveFileStrawberryGate.tooltips.countFrom=Determines which strawberries are taken into account to unlock the gate.\nIf you want to only take strawberries collected during the current session into account, use a regular Strawberry Gate from Lunatic Helper instead.
 placements.entities.MaxHelpingHand/SaveFileStrawberryGate.tooltips.persistent=Whether the strawberry gate should stay open having been opened for the first time, even if the player exits the map and enters it again.
+placements.entities.MaxHelpingHand/SaveFileStrawberryGate.tooltips.showCounter=If enabled, a strawberry counter will appear on the gate instead of the berry icons.\nThis can be useful if the amount of strawberries required does not fit on the screen.
 
 # Pop Strawberry Seeds Trigger
 placements.triggers.MaxHelpingHand/PopStrawberrySeedsTrigger.tooltips.popMultiRoomStrawberrySeeds=Whether Multi-Room Strawberry Seeds (from max480's Helping Hand) should pop as well while the player is in the trigger.

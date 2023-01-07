@@ -51,7 +51,6 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             }
         }
 
-        [Tracked]
         private class BerryCountModdingThingy : Component {
             public readonly CountFrom CountFrom;
             public readonly bool Persistent;
@@ -64,6 +63,69 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             }
         }
 
+        private class StrawberryCounter : Component {
+            // just an entity that updates during transitions and calls back StrawberryCounter.TransitionUpdate to do so.
+            private class TransitionUpdateEntity : Entity {
+                private StrawberryCounter container;
+
+                public TransitionUpdateEntity(StrawberryCounter container) : base() {
+                    this.container = container;
+                    AddTag(Tags.TransitionUpdate);
+                }
+
+                public override void Update() {
+                    base.Update();
+                    container.TransitionUpdate();
+                }
+            }
+
+            private StrawberriesCounter strawberriesCounter;
+            private StrawberryGate strawberryGate;
+            private Solid strawberryGateSolid;
+            private Entity hudEntity;
+
+            public StrawberryCounter(StrawberryGate strawberryGate, float width) : base(active: true, visible: false) {
+                this.strawberryGate = strawberryGate;
+                strawberriesCounter = new StrawberriesCounter(true, 0, strawberryGate.Requires, true) { CanWiggle = false };
+
+                // the StrawberriesCounter is already a component, but we need to attach it to a HUD entity for it to be rendered as HUD.
+                hudEntity = new TransitionUpdateEntity(this) { strawberriesCounter };
+                hudEntity.AddTag(Tags.HUD);
+            }
+
+            public override void EntityAdded(Scene scene) {
+                base.EntityAdded(scene);
+                scene.Add(hudEntity);
+            }
+
+            public override void EntityAwake() {
+                base.EntityAwake();
+                strawberryGateSolid = new DynData<StrawberryGate>(strawberryGate).Get<Solid>("TopSolid");
+                strawberriesCounter.Amount = (int) strawberryGate.Counter;
+            }
+
+            public override void EntityRemoved(Scene scene) {
+                base.EntityRemoved(scene);
+                scene.Remove(hudEntity);
+            }
+
+            public override void Update() {
+                base.Update();
+
+                if (strawberriesCounter.Amount != (int) strawberryGate.Counter) {
+                    if (strawberriesCounter.Amount < (int) strawberryGate.Counter) {
+                        strawberriesCounter.Wiggle();
+                    }
+                    strawberriesCounter.Amount = (int) strawberryGate.Counter;
+                }
+            }
+
+            // Update that is called even during transitions
+            protected void TransitionUpdate() {
+                strawberriesCounter.Position = (strawberryGateSolid.BottomCenter - (Scene as Level).Camera.Position - new Vector2(0, 15f)) * 6f;
+            }
+        }
+
         public static Entity Load(Level level, LevelData levelData, Vector2 offset, EntityData entityData) {
             if (!Everest.Loader.DependencyLoaded(new EverestModuleMetadata { Name = "LunaticHelper", Version = new Version(1, 1, 1) })) {
                 return new ErrorSpawner();
@@ -72,9 +134,16 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
         }
 
         private static Entity createStrawberryGate(EntityData data, Vector2 offset) {
-            return new StrawberryGate(data, offset) {
+            StrawberryGate gate = new StrawberryGate(data, offset) {
                 new BerryCountModdingThingy(data.Enum<CountFrom>("countFrom"), data.Bool("persistent"), data.ID)
             };
+
+            if (data.Bool("showCounter")) {
+                new DynData<StrawberryGate>(gate)["icon"] = GFX.Game.GetAtlasSubtextures("objects/MaxHelpingHand/strawberry_gate_no_icon");
+                gate.Add(new StrawberryCounter(gate, data.Width));
+            }
+
+            return gate;
         }
 
         private static void modStrawberryGateRoutine(ILContext il) {

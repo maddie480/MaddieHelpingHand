@@ -31,7 +31,8 @@ heartDoor.placements = {
         shake = true,
 
         countFrom = "Campaign",
-        persistent = false
+        persistent = false,
+        showCounter = false
     }
 }
 
