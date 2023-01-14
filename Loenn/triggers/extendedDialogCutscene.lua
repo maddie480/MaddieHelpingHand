@@ -1,6 +1,6 @@
 local trigger = {}
 
-trigger.name = "MaxHelpingHand/AutoSkipDialogCutsceneTrigger"
+trigger.name = "MaxHelpingHand/ExtendedDialogCutsceneTrigger"
 
 trigger.placements = {
     name = "trigger",
@@ -8,7 +8,8 @@ trigger.placements = {
         endLevel = false,
         onlyOnce = true,
         dialogId = "",
-        deathCount = -1
+        deathCount = -1,
+        font = ""
     }
 }
 

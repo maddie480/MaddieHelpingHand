@@ -943,8 +943,9 @@ placements.triggers.MaxHelpingHand/PopStrawberrySeedsTrigger.tooltips.popMultiRo
 placements.entities.MaxHelpingHand/Comment.tooltips.comment=The comment.
 placements.entities.MaxHelpingHand/Comment.tooltips.displayOnMap=Whether the comment should be displayed on the map directly (in-editor only).
 
-# Auto-Skip Dialog Cutscene Trigger
-placements.triggers.MaxHelpingHand/AutoSkipDialogCutsceneTrigger.tooltips.onlyOnce=Whether the dialogue should only trigger once.
-placements.triggers.MaxHelpingHand/AutoSkipDialogCutsceneTrigger.tooltips.dialogId=The dialog ID to use for the dialogue.\nIn this dialogue, use {trigger 0} to start auto-skipping dialogue, and {trigger 1} to stop auto-skipping.
-placements.triggers.MaxHelpingHand/AutoSkipDialogCutsceneTrigger.tooltips.endLevel=Whether finishing the dialog triggers the level to end.
-placements.triggers.MaxHelpingHand/AutoSkipDialogCutsceneTrigger.tooltips.deathCount=Determines the exact amount of deaths required to activate dialog trigger. Will always trigger if set to -1.
+# Extended Dialog Cutscene Trigger
+placements.triggers.MaxHelpingHand/ExtendedDialogCutsceneTrigger.tooltips.onlyOnce=Whether the dialogue should only trigger once.
+placements.triggers.MaxHelpingHand/ExtendedDialogCutsceneTrigger.tooltips.dialogId=The dialog ID to use for the dialogue.\nIn this dialogue, use {trigger 0} to start auto-skipping dialogue, and {trigger 1} to stop auto-skipping.
+placements.triggers.MaxHelpingHand/ExtendedDialogCutsceneTrigger.tooltips.endLevel=Whether finishing the dialog triggers the level to end.
+placements.triggers.MaxHelpingHand/ExtendedDialogCutsceneTrigger.tooltips.deathCount=Determines the exact amount of deaths required to activate dialog trigger. Will always trigger if set to -1.
+placements.triggers.MaxHelpingHand/ExtendedDialogCutsceneTrigger.tooltips.font=The name of the font to use for the dialogue.\nShould match the name of the font file you sent to the Font Generator (without extension).

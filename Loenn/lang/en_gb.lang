@@ -1134,9 +1134,10 @@ entities.MaxHelpingHand/Comment.placements.name.comment=Comment
 entities.MaxHelpingHand/Comment.attributes.description.comment=The comment.
 entities.MaxHelpingHand/Comment.attributes.description.displayOnMap=Whether the comment should be displayed on the map directly (in-editor only).
 
-# Auto-Skip Dialog Cutscene Trigger
-triggers.MaxHelpingHand/AutoSkipDialogCutsceneTrigger.placements.name.trigger=Auto-Skip Dialog Cutscene
-triggers.MaxHelpingHand/AutoSkipDialogCutsceneTrigger.tooltips.onlyOnce=Whether the dialogue should only trigger once.
-triggers.MaxHelpingHand/AutoSkipDialogCutsceneTrigger.tooltips.dialogId=The dialog ID to use for the dialogue.\nIn this dialogue, use {trigger 0} to start auto-skipping dialogue, and {trigger 1} to stop auto-skipping.
-triggers.MaxHelpingHand/AutoSkipDialogCutsceneTrigger.tooltips.endLevel=Whether finishing the dialog triggers the level to end.
-triggers.MaxHelpingHand/AutoSkipDialogCutsceneTrigger.tooltips.deathCount=Determines the exact amount of deaths required to activate dialog trigger. Will always trigger if set to -1.
+# Extended Dialog Cutscene Trigger
+triggers.MaxHelpingHand/ExtendedDialogCutsceneTrigger.placements.name.trigger=Dialog Cutscene (Extended)
+triggers.MaxHelpingHand/ExtendedDialogCutsceneTrigger.attributes.description.onlyOnce=Whether the dialogue should only trigger once.
+triggers.MaxHelpingHand/ExtendedDialogCutsceneTrigger.attributes.description.dialogId=The dialog ID to use for the dialogue.\nIn this dialogue, use {trigger 0} to start auto-skipping dialogue, and {trigger 1} to stop auto-skipping.
+triggers.MaxHelpingHand/ExtendedDialogCutsceneTrigger.attributes.description.endLevel=Whether finishing the dialog triggers the level to end.
+triggers.MaxHelpingHand/ExtendedDialogCutsceneTrigger.attributes.description.deathCount=Determines the exact amount of deaths required to activate dialog trigger. Will always trigger if set to -1.
+triggers.MaxHelpingHand/ExtendedDialogCutsceneTrigger.attributes.description.font=The name of the font to use for the dialogue.\nShould match the name of the font file you sent to the Font Generator (without extension).
