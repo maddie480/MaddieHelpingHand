@@ -3,6 +3,7 @@ using Celeste.Mod.MaxHelpingHand.Module;
 using Microsoft.Xna.Framework;
 using Monocle;
 using MonoMod.Utils;
+using System;
 using System.Collections;
 using System.Linq;
 
@@ -52,26 +53,13 @@ namespace Celeste.Mod.MaxHelpingHand.Triggers {
             private Player player;
             private string dialogID;
             private bool endLevel;
-            private string fontName;
+            private string font;
 
-            private PixelFont font;
-            private bool disposeFont;
-
-            public ExtendedDialogCutscene(string dialogID, Player player, bool endLevel, string fontName) {
+            public ExtendedDialogCutscene(string dialogID, Player player, bool endLevel, string font) {
                 this.dialogID = dialogID;
                 this.player = player;
                 this.endLevel = endLevel;
-                this.fontName = fontName;
-
-                if (!string.IsNullOrEmpty(fontName)) {
-                    font = Fonts.Get(fontName);
-
-                    if (font == null) {
-                        // we are loading a new font for the dialogue, and we should dispose of it at the end of it.
-                        font = Fonts.Load(fontName);
-                        disposeFont = true;
-                    }
-                }
+                this.font = font;
             }
 
             public override void OnBegin(Level level) {
@@ -83,19 +71,8 @@ namespace Celeste.Mod.MaxHelpingHand.Triggers {
                 player.StateMachine.Locked = true;
                 player.ForceCameraUpdate = true;
 
-                IEnumerator say = Textbox.Say(dialogID, startSkipping, stopSkipping);
-
-                if (font != null && say.MoveNext()) {
-                    // the MoveNext above added the textbox to the scene, this is time to swap the font!
-                    Textbox textbox = Scene.Entities.GetToAdd().OfType<Textbox>().First();
-                    new DynData<Textbox>(textbox).Get<FancyText.Text>("text").Font = font;
-
-                    // pass the value (probably null) that we consumed by calling MoveNext above.
-                    yield return say.Current;
-                }
-
-                // now just exhaust the rest of the coroutine.
-                yield return say;
+                yield return new SwapImmediately(LoadFontForDurationOfCoroutine(font,
+                    fontFace => SayWithDifferentFont(fontFace, dialogID, startSkipping, stopSkipping)));
 
                 EndCutscene(level);
             }
@@ -113,10 +90,6 @@ namespace Celeste.Mod.MaxHelpingHand.Triggers {
             }
 
             public override void OnEnd(Level level) {
-                if (disposeFont) {
-                    Fonts.Unload(fontName);
-                }
-
                 player.StateMachine.Locked = false;
                 player.StateMachine.State = 0;
                 player.ForceCameraUpdate = false;
@@ -128,6 +101,43 @@ namespace Celeste.Mod.MaxHelpingHand.Triggers {
                     player.StateMachine.State = 11;
                     RemoveSelf();
                 }
+            }
+        }
+
+        internal static IEnumerator SayWithDifferentFont(PixelFont font, string dialog, params Func<IEnumerator>[] events) {
+            IEnumerator say = Textbox.Say(dialog, events);
+
+            if (font != null && say.MoveNext()) {
+                // the MoveNext above added the textbox to the scene, this is time to swap the font!
+                Textbox textbox = Engine.Scene.Entities.GetToAdd().OfType<Textbox>().First();
+                new DynData<Textbox>(textbox).Get<FancyText.Text>("text").Font = font;
+
+                // pass the value (probably null) that we consumed by calling MoveNext above.
+                yield return say.Current;
+            }
+
+            // now just exhaust the rest of the coroutine.
+            yield return new SwapImmediately(say);
+        }
+
+        internal static IEnumerator LoadFontForDurationOfCoroutine(string font, Func<PixelFont, IEnumerator> coroutineProducer) {
+            bool unloadFont = false;
+            PixelFont fontFace = null;
+
+            if (!string.IsNullOrEmpty(font)) {
+                fontFace = Fonts.Get(font);
+
+                if (fontFace == null) {
+                    // we are loading a new font for the duration of the coroutine, and we should dispose of it at the end of it.
+                    fontFace = Fonts.Load(font);
+                    unloadFont = true;
+                }
+            }
+
+            yield return new SwapImmediately(coroutineProducer(fontFace));
+
+            if (unloadFont) {
+                Fonts.Unload(font);
             }
         }
     }

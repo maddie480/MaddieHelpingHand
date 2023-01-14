@@ -19,6 +19,10 @@
       <HintPath>lib-stripped\FNA.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="LuaCutscenes">
+      <HintPath>lib-stripped\LuaCutscenes.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="LunaticHelper">
       <HintPath>lib-stripped\LunaticHelper.dll</HintPath>
       <Private>False</Private>
