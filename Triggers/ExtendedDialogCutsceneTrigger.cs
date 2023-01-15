@@ -1,11 +1,12 @@
 ﻿using Celeste.Mod.Entities;
 using Celeste.Mod.MaxHelpingHand.Module;
 using Microsoft.Xna.Framework;
+using Mono.Cecil.Cil;
 using Monocle;
+using MonoMod.Cil;
 using MonoMod.Utils;
 using System;
 using System.Collections;
-using System.Linq;
 
 namespace Celeste.Mod.MaxHelpingHand.Triggers {
     // Near copy-paste of Everest's Dialog Cutscene Trigger, that has the following extra features:
@@ -70,10 +71,7 @@ namespace Celeste.Mod.MaxHelpingHand.Triggers {
                 player.StateMachine.State = 11;
                 player.StateMachine.Locked = true;
                 player.ForceCameraUpdate = true;
-
-                yield return new SwapImmediately(LoadFontForDurationOfCoroutine(font,
-                    fontFace => SayWithDifferentFont(fontFace, dialogID, startSkipping, stopSkipping)));
-
+                yield return ReplaceFancyTextFontFor(Textbox.Say(dialogID, startSkipping, stopSkipping), font);
                 EndCutscene(level);
             }
 
@@ -104,39 +102,56 @@ namespace Celeste.Mod.MaxHelpingHand.Triggers {
             }
         }
 
-        internal static IEnumerator SayWithDifferentFont(PixelFont font, string dialog, params Func<IEnumerator>[] events) {
-            IEnumerator say = Textbox.Say(dialog, events);
+        internal static IEnumerator ReplaceFancyTextFontFor(IEnumerator coroutine, string font) {
+            if (!string.IsNullOrEmpty(font)) {
+                ILContext.Manipulator hook = replaceFontInFancyTextConstructor(font);
 
-            if (font != null && say.MoveNext()) {
-                // the MoveNext above added the textbox to the scene, this is time to swap the font!
-                Textbox textbox = Engine.Scene.Entities.GetToAdd().OfType<Textbox>().First();
-                new DynData<Textbox>(textbox).Get<FancyText.Text>("text").Font = font;
+                if (Fonts.Get(font) == null) {
+                    // this is a font we need to load for the cutscene specifically!
+                    Fonts.Load(font);
+                    Engine.Scene.Add(new FontHolderEntity(font));
+                }
 
-                // pass the value (probably null) that we consumed by calling MoveNext above.
-                yield return say.Current;
+                // the first step of the coroutine deals with the font setup, so we need to replace the font at that precise moment.
+                IL.Celeste.FancyText.ctor += hook;
+                coroutine.MoveNext();
+                IL.Celeste.FancyText.ctor -= hook;
+
+                // yield return whatever we consumed in the previous MoveNext.
+                yield return coroutine.Current;
             }
 
-            // now just exhaust the rest of the coroutine.
-            yield return new SwapImmediately(say);
+            // consume the rest of the coroutine.
+            yield return new SwapImmediately(coroutine);
         }
 
-        internal static IEnumerator LoadFontForDurationOfCoroutine(string font, Func<PixelFont, IEnumerator> coroutineProducer) {
-            bool unloadFont = false;
-            PixelFont fontFace = null;
-
-            if (!string.IsNullOrEmpty(font)) {
-                fontFace = Fonts.Get(font);
-
-                if (fontFace == null) {
-                    // we are loading a new font for the duration of the coroutine, and we should dispose of it at the end of it.
-                    fontFace = Fonts.Load(font);
-                    unloadFont = true;
+        private static ILContext.Manipulator replaceFontInFancyTextConstructor(string fontName) {
+            return il => {
+                ILCursor cursor = new ILCursor(il);
+                while (cursor.TryGotoNext(MoveType.After, instr => instr.MatchLdfld<Language>("FontFace"))) {
+                    Logger.Log("MaxHelpingHand/ExtendedDialogCutsceneTrigger", $"Replacing font at {cursor.Index} in IL for FancyText constructor");
+                    cursor.Emit(OpCodes.Pop);
+                    cursor.EmitDelegate<Func<string>>(() => fontName);
                 }
+            };
+        }
+
+        // a small entity that just ensures a font loaded by a cutscene doesn't stay loaded forever:
+        // it unloads the font whenever you leave the room or return to map (even during the cutscene).
+        private class FontHolderEntity : Entity {
+            private string font;
+
+            public FontHolderEntity(string font) {
+                this.font = font;
             }
 
-            yield return new SwapImmediately(coroutineProducer(fontFace));
+            public override void Removed(Scene scene) {
+                base.Removed(scene);
+                Fonts.Unload(font);
+            }
 
-            if (unloadFont) {
+            public override void SceneEnd(Scene scene) {
+                base.SceneEnd(scene);
                 Fonts.Unload(font);
             }
         }
