@@ -9,8 +9,8 @@ trigger.placements = {
             height = 8,
             dashes = 1,
             backpack = true,
-            dream_dash = false,
-            ground_refills = true,
+            dreamDash = false,
+            groundRefills = true,
         },
     },
 }
