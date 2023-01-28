@@ -17,8 +17,11 @@ namespace Celeste.Mod.MaxHelpingHand.Triggers {
         }
 
         public override void OnEnter(Player player) {
-            (base.Scene as Level).Session.Inventory = new PlayerInventory(dashes, dreamDash, backpack, !groundRefills);
-            player.ResetSprite(backpack ? PlayerSpriteMode.Madeline : PlayerSpriteMode.MadelineNoBackpack);
+            (Scene as Level).Session.Inventory = new PlayerInventory(dashes, dreamDash, backpack, !groundRefills);
+
+            if (!SaveData.Instance.Assists.PlayAsBadeline) {
+                player.ResetSprite(backpack ? PlayerSpriteMode.Madeline : PlayerSpriteMode.MadelineNoBackpack);
+            }
         }
     }
 }
