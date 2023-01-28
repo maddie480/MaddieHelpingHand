@@ -85,6 +85,8 @@ namespace Celeste.Mod.MaxHelpingHand.Module {
             SetFlagOnSpawnTrigger.Load();
             CustomSeekerBarrier.Load();
             MoreCustomNPC.Load();
+            ReskinnableTouchSwitch.Load();
+            ReskinnableSwitchGate.Load();
 
             Everest.Events.Level.OnLoadBackdrop += onLoadBackdrop;
             On.Celeste.Mod.Everest.Register += onModRegister;
@@ -151,6 +153,8 @@ namespace Celeste.Mod.MaxHelpingHand.Module {
             SaveFileStrawberryGate.Unload();
             CustomSeekerBarrier.Unload();
             MoreCustomNPC.Unload();
+            ReskinnableTouchSwitch.Unload();
+            ReskinnableSwitchGate.Unload();
 
             Everest.Events.Level.OnLoadBackdrop -= onLoadBackdrop;
             On.Celeste.Mod.Everest.Register -= onModRegister;

@@ -50,15 +50,15 @@ entities.MaxHelpingHand/CustomizableGlassFallingBlock.attributes.description.cli
 
 # Customizable Glass Block Controller
 entities.MaxHelpingHand/CustomizableGlassBlockController.placements.name.controller=Customizable Glass Block Controller
-entities.MaxHelpingHand/CustomizableGlassBlockController.attributes.description.starColors=A comma-separated list of all star colours visible in glass blocks in the room.
-entities.MaxHelpingHand/CustomizableGlassBlockController.attributes.description.bgColor=The background colour for glass blocks in the room.
+entities.MaxHelpingHand/CustomizableGlassBlockController.attributes.description.starColors=A comma-separated list of all star colors visible in glass blocks in the room.
+entities.MaxHelpingHand/CustomizableGlassBlockController.attributes.description.bgColor=The background color for glass blocks in the room.
 entities.MaxHelpingHand/CustomizableGlassBlockController.attributes.description.wavy=Whether the glass blocks in the room should be wavy, like if they contained water. Vanilla glass blocks use this effect.
 entities.MaxHelpingHand/CustomizableGlassBlockController.attributes.description.persistent=If checked, the chosen settings will persist until the player enters a room with another Customizable Glass Block Controller.\nIf unchecked, the chosen settings will only apply to the current room.
 
 # Customizable Glass Block Area Controller
 entities.MaxHelpingHand/CustomizableGlassBlockAreaController.placements.name.field=Customizable Glass Block Area Controller
-entities.MaxHelpingHand/CustomizableGlassBlockAreaController.attributes.description.starColors=A comma-separated list of all star colours visible in glass blocks in the area.
-entities.MaxHelpingHand/CustomizableGlassBlockAreaController.attributes.description.bgColor=The background colour for glass blocks in the area.
+entities.MaxHelpingHand/CustomizableGlassBlockAreaController.attributes.description.starColors=A comma-separated list of all star colors visible in glass blocks in the area.
+entities.MaxHelpingHand/CustomizableGlassBlockAreaController.attributes.description.bgColor=The background color for glass blocks in the area.
 entities.MaxHelpingHand/CustomizableGlassBlockAreaController.attributes.description.wavy=Whether the glass blocks in the area should be wavy, like if they contained water. Vanilla glass blocks use this effect.
 
 # Customizable Glass Exit Block
@@ -179,9 +179,9 @@ entities.MaxHelpingHand/FlagSwitchGate.placements.name.stars=Flag Switch Gate (S
 entities.MaxHelpingHand/FlagSwitchGate.attributes.description.flag=The session flag this switch gate reacts to. Give the same to multiple touch switches and switch gates to group them.
 entities.MaxHelpingHand/FlagSwitchGate.attributes.description.icon=The name of the icon for the switch gate (relative to objects/MaxHelpingHand/flagSwitchGate), or "vanilla" for the default one.
 entities.MaxHelpingHand/FlagSwitchGate.attributes.description.persistent=If enabled, the switch gate will stay open when the player dies or changes rooms.\nThis switch gate will also set a flag when it is enabled: [flagName]_gate[entityID]
-entities.MaxHelpingHand/FlagSwitchGate.attributes.description.inactiveColor=The gate icon colour when not triggered yet.
-entities.MaxHelpingHand/FlagSwitchGate.attributes.description.activeColor=The gate icon colour when triggered, but the group is not complete yet.
-entities.MaxHelpingHand/FlagSwitchGate.attributes.description.finishColor=The gate icon colour when the group is complete.
+entities.MaxHelpingHand/FlagSwitchGate.attributes.description.inactiveColor=The gate icon color when not triggered yet.
+entities.MaxHelpingHand/FlagSwitchGate.attributes.description.activeColor=The gate icon color when triggered, but the group is not complete yet.
+entities.MaxHelpingHand/FlagSwitchGate.attributes.description.finishColor=The gate icon color when the group is complete.
 entities.MaxHelpingHand/FlagSwitchGate.attributes.description.sprite=The texture for the gate block.
 entities.MaxHelpingHand/FlagSwitchGate.attributes.description.shakeTime=The time (in seconds) the block spends shaking before starting to move. Vanilla value is 0.5 seconds.
 entities.MaxHelpingHand/FlagSwitchGate.attributes.description.moveTime=The time (in seconds) the block takes to move to its destination after shaking. Vanilla value is 1.8 seconds.
@@ -197,9 +197,9 @@ entities.MaxHelpingHand/FlagTouchSwitch.attributes.description.flag=The session 
 entities.MaxHelpingHand/FlagTouchSwitch.attributes.description.icon=The name of the icon for the touch switch (relative to objects/MaxHelpingHand/flagTouchSwitch), or "vanilla" for the default one.
 entities.MaxHelpingHand/FlagTouchSwitch.attributes.description.borderTexture=The path to the texture to use for the background of the icon.\nTo make your own, place it in your mod folder in Graphics/Atlases/Gameplay/myfolder/myborder.png, then type "myfolder/myborder" here.\nThe vanilla border can be found in the graphics dump, at Graphics/Atlases/Gameplay/objects/touchswitch/container.png.
 entities.MaxHelpingHand/FlagTouchSwitch.attributes.description.persistent=If enabled, the touch switch will stay active when the player dies or changes rooms.\nThis touch switch will also set a flag when it is enabled: [flagName]_switch[entityID]
-entities.MaxHelpingHand/FlagTouchSwitch.attributes.description.inactiveColor=The switch colour when not triggered yet.
-entities.MaxHelpingHand/FlagTouchSwitch.attributes.description.activeColor=The switch colour when triggered, but the group is not complete yet.
-entities.MaxHelpingHand/FlagTouchSwitch.attributes.description.finishColor=The switch colour when the group is complete.
+entities.MaxHelpingHand/FlagTouchSwitch.attributes.description.inactiveColor=The switch color when not triggered yet.
+entities.MaxHelpingHand/FlagTouchSwitch.attributes.description.activeColor=The switch color when triggered, but the group is not complete yet.
+entities.MaxHelpingHand/FlagTouchSwitch.attributes.description.finishColor=The switch color when the group is complete.
 entities.MaxHelpingHand/FlagTouchSwitch.attributes.description.smoke=Whether the touch switch emits smoke when the group is complete.
 entities.MaxHelpingHand/FlagTouchSwitch.attributes.description.inverted=Whether the touch switch should turn off the flag instead of turning it on. The option should match on all touch switches of the group.
 entities.MaxHelpingHand/FlagTouchSwitch.attributes.description.allowDisable=Whether the touch switch can be disabled once the group is complete, if the flag change is reverted. Does not work with non-persistent flag switch gates.
@@ -327,10 +327,10 @@ entities.MaxHelpingHand/MovingFlagTouchSwitch.attributes.description.flag=The se
 entities.MaxHelpingHand/MovingFlagTouchSwitch.attributes.description.icon=The name of the icon for the touch switch (relative to objects/MaxHelpingHand/flagTouchSwitch), or "vanilla" for the default one.
 entities.MaxHelpingHand/MovingFlagTouchSwitch.attributes.description.persistent=If enabled, the touch switch will stay active when the player dies or changes rooms.\nThis touch switch will also set a flag when it is enabled: [flagName]_switch[entityID]
 entities.MaxHelpingHand/MovingFlagTouchSwitch.attributes.description.movingDelay=The time (in seconds) the touch switch takes to move from one position to another.
-entities.MaxHelpingHand/MovingFlagTouchSwitch.attributes.description.inactiveColor=The switch colour when not triggered yet.
-entities.MaxHelpingHand/MovingFlagTouchSwitch.attributes.description.movingColor=The switch colour when it is moving between two positions.
-entities.MaxHelpingHand/MovingFlagTouchSwitch.attributes.description.activeColor=The switch colour when triggered, but the group is not complete yet.
-entities.MaxHelpingHand/MovingFlagTouchSwitch.attributes.description.finishColor=The switch colour when the group is complete.
+entities.MaxHelpingHand/MovingFlagTouchSwitch.attributes.description.inactiveColor=The switch color when not triggered yet.
+entities.MaxHelpingHand/MovingFlagTouchSwitch.attributes.description.movingColor=The switch color when it is moving between two positions.
+entities.MaxHelpingHand/MovingFlagTouchSwitch.attributes.description.activeColor=The switch color when triggered, but the group is not complete yet.
+entities.MaxHelpingHand/MovingFlagTouchSwitch.attributes.description.finishColor=The switch color when the group is complete.
 
 # Multi-Node Bumper
 entities.MaxHelpingHand/MultiNodeBumper.placements.name.bumper=Bumper (Multi-Node)
@@ -453,24 +453,24 @@ entities.MaxHelpingHand/ParallaxFadeSpeedController.attributes.description.fadeT
 
 # Rainbow Spinner Color Area Controller
 entities.MaxHelpingHand/RainbowSpinnerColorAreaController.placements.name.field=Rainbow Spinner Color Area Controller
-entities.MaxHelpingHand/RainbowSpinnerColorAreaController.attributes.description.colors=The colours the rainbow spinners in the room will take, separated by commas.
-entities.MaxHelpingHand/RainbowSpinnerColorAreaController.attributes.description.gradientSize=The distance required to achieve a complete loop across all colours.
-entities.MaxHelpingHand/RainbowSpinnerColorAreaController.attributes.description.loopColors=Determines how the colors loop. For example, if 3 colours A, B and C are specified:\n- when unchecked, the colours will cycle in the following order: A > B > C > B > A\n- when checked, the colours will cycle in the following order: A > B > C > A > B > C
+entities.MaxHelpingHand/RainbowSpinnerColorAreaController.attributes.description.colors=The colors the rainbow spinners in the room will take, separated by commas.
+entities.MaxHelpingHand/RainbowSpinnerColorAreaController.attributes.description.gradientSize=The distance required to achieve a complete loop across all colors.
+entities.MaxHelpingHand/RainbowSpinnerColorAreaController.attributes.description.loopColors=Determines how the colors loop. For example, if 3 colors A, B and C are specified:\n- when unchecked, the colors will cycle in the following order: A > B > C > B > A\n- when checked, the colors will cycle in the following order: A > B > C > A > B > C
 entities.MaxHelpingHand/RainbowSpinnerColorAreaController.attributes.description.centerX=The horizontal position of the center of the gradient. Uses "world" coordinates. Vanilla value is 0.
 entities.MaxHelpingHand/RainbowSpinnerColorAreaController.attributes.description.centerY=The vertical position of the center of the gradient. Uses "world" coordinates. Vanilla value is 0.
 entities.MaxHelpingHand/RainbowSpinnerColorAreaController.attributes.description.gradientSpeed=Determines how fast the gradient scrolls, in pixels per second. You can use negative values to make it scroll in the opposite direction. Vanilla value is 50.
 
 # Flag Rainbow Spinner Color Area Controller
 entities.MaxHelpingHand/FlagRainbowSpinnerColorAreaController.placements.name.field=Flag Rainbow Spinner Color Area Controller
-entities.MaxHelpingHand/FlagRainbowSpinnerColorAreaController.attributes.description.colors=The colours the rainbow spinners in the room will take when the flag is not active, separated by commas.
-entities.MaxHelpingHand/FlagRainbowSpinnerColorAreaController.attributes.description.gradientSize=The distance required to achieve a complete loop across all colours when the flag is not active.
-entities.MaxHelpingHand/FlagRainbowSpinnerColorAreaController.attributes.description.loopColors=Determines how the colors loop when the flag is not active. For example, if 3 colours A, B and C are specified:\n- when unchecked, the colours will cycle in the following order: A > B > C > B > A\n- when checked, the colours will cycle in the following order: A > B > C > A > B > C
+entities.MaxHelpingHand/FlagRainbowSpinnerColorAreaController.attributes.description.colors=The colors the rainbow spinners in the room will take when the flag is not active, separated by commas.
+entities.MaxHelpingHand/FlagRainbowSpinnerColorAreaController.attributes.description.gradientSize=The distance required to achieve a complete loop across all colors when the flag is not active.
+entities.MaxHelpingHand/FlagRainbowSpinnerColorAreaController.attributes.description.loopColors=Determines how the colors loop when the flag is not active. For example, if 3 colors A, B and C are specified:\n- when unchecked, the colors will cycle in the following order: A > B > C > B > A\n- when checked, the colors will cycle in the following order: A > B > C > A > B > C
 entities.MaxHelpingHand/FlagRainbowSpinnerColorAreaController.attributes.description.centerX=The horizontal position of the center of the gradient when the flag is not active. Uses "world" coordinates. Vanilla value is 0.
 entities.MaxHelpingHand/FlagRainbowSpinnerColorAreaController.attributes.description.centerY=The vertical position of the center of the gradient when the flag is not active. Uses "world" coordinates. Vanilla value is 0.
 entities.MaxHelpingHand/FlagRainbowSpinnerColorAreaController.attributes.description.gradientSpeed=Determines how fast the gradient scrolls, in pixels per second,  when the flag is not active. You can use negative values to make it scroll in the opposite direction. Vanilla value is 50.
-entities.MaxHelpingHand/FlagRainbowSpinnerColorAreaController.attributes.description.colorsWithFlag=The colours the rainbow spinners in the room will take when the flag is not active, separated by commas.
-entities.MaxHelpingHand/FlagRainbowSpinnerColorAreaController.attributes.description.gradientSizeWithFlag=The distance required to achieve a complete loop across all colours when the flag is active.
-entities.MaxHelpingHand/FlagRainbowSpinnerColorAreaController.attributes.description.loopColorsWithFlag=Determines how the colors loop when the flag is active. For example, if 3 colours A, B and C are specified:\n- when unchecked, the colours will cycle in the following order: A > B > C > B > A\n- when checked, the colours will cycle in the following order: A > B > C > A > B > C
+entities.MaxHelpingHand/FlagRainbowSpinnerColorAreaController.attributes.description.colorsWithFlag=The colors the rainbow spinners in the room will take when the flag is not active, separated by commas.
+entities.MaxHelpingHand/FlagRainbowSpinnerColorAreaController.attributes.description.gradientSizeWithFlag=The distance required to achieve a complete loop across all colors when the flag is active.
+entities.MaxHelpingHand/FlagRainbowSpinnerColorAreaController.attributes.description.loopColorsWithFlag=Determines how the colors loop when the flag is active. For example, if 3 colors A, B and C are specified:\n- when unchecked, the colors will cycle in the following order: A > B > C > B > A\n- when checked, the colors will cycle in the following order: A > B > C > A > B > C
 entities.MaxHelpingHand/FlagRainbowSpinnerColorAreaController.attributes.description.centerXWithFlag=The horizontal position of the center of the gradient when the flag is active. Uses "world" coordinates. Vanilla value is 0.
 entities.MaxHelpingHand/FlagRainbowSpinnerColorAreaController.attributes.description.centerYWithFlag=The vertical position of the center of the gradient when the flag is active. Uses "world" coordinates. Vanilla value is 0.
 entities.MaxHelpingHand/FlagRainbowSpinnerColorAreaController.attributes.description.gradientSpeedWithFlag=Determines how fast the gradient scrolls, in pixels per second, when the flag is active. You can use negative values to make it scroll in the opposite direction. Vanilla value is 50.
@@ -490,9 +490,9 @@ entities.MaxHelpingHand/FlagRainbowSpinnerColorAreaController.attributes.name.gr
 
 # Rainbow Spinner Color Controller
 entities.MaxHelpingHand/RainbowSpinnerColorController.placements.name.controller=Rainbow Spinner Color Controller
-entities.MaxHelpingHand/RainbowSpinnerColorController.attributes.description.colors=The colours the rainbow spinners in the room will take, separated by commas.
-entities.MaxHelpingHand/RainbowSpinnerColorController.attributes.description.gradientSize=The distance required to achieve a complete loop across all colours.
-entities.MaxHelpingHand/RainbowSpinnerColorController.attributes.description.loopColors=Determines how the colors loop. For example, if 3 colours A, B and C are specified:\n- when unchecked, the colours will cycle in the following order: A > B > C > B > A\n- when checked, the colours will cycle in the following order: A > B > C > A > B > C
+entities.MaxHelpingHand/RainbowSpinnerColorController.attributes.description.colors=The colors the rainbow spinners in the room will take, separated by commas.
+entities.MaxHelpingHand/RainbowSpinnerColorController.attributes.description.gradientSize=The distance required to achieve a complete loop across all colors.
+entities.MaxHelpingHand/RainbowSpinnerColorController.attributes.description.loopColors=Determines how the colors loop. For example, if 3 colors A, B and C are specified:\n- when unchecked, the colors will cycle in the following order: A > B > C > B > A\n- when checked, the colors will cycle in the following order: A > B > C > A > B > C
 entities.MaxHelpingHand/RainbowSpinnerColorController.attributes.description.centerX=The horizontal position of the center of the gradient. Uses "world" coordinates. Vanilla value is 0.
 entities.MaxHelpingHand/RainbowSpinnerColorController.attributes.description.centerY=The vertical position of the center of the gradient. Uses "world" coordinates. Vanilla value is 0.
 entities.MaxHelpingHand/RainbowSpinnerColorController.attributes.description.gradientSpeed=Determines how fast the gradient scrolls, in pixels per second. You can use negative values to make it scroll in the opposite direction. Vanilla value is 50.
@@ -500,15 +500,15 @@ entities.MaxHelpingHand/RainbowSpinnerColorController.attributes.description.per
 
 # Flag Rainbow Spinner Color Controller
 entities.MaxHelpingHand/FlagRainbowSpinnerColorController.placements.name.controller=Flag Rainbow Spinner Color Controller
-entities.MaxHelpingHand/FlagRainbowSpinnerColorController.attributes.description.colors=The colours the rainbow spinners in the room will take when the flag is not active, separated by commas.
-entities.MaxHelpingHand/FlagRainbowSpinnerColorController.attributes.description.gradientSize=The distance required to achieve a complete loop across all colours when the flag is not active.
-entities.MaxHelpingHand/FlagRainbowSpinnerColorController.attributes.description.loopColors=Determines how the colors loop when the flag is not active. For example, if 3 colours A, B and C are specified:\n- when unchecked, the colours will cycle in the following order: A > B > C > B > A\n- when checked, the colours will cycle in the following order: A > B > C > A > B > C
+entities.MaxHelpingHand/FlagRainbowSpinnerColorController.attributes.description.colors=The colors the rainbow spinners in the room will take when the flag is not active, separated by commas.
+entities.MaxHelpingHand/FlagRainbowSpinnerColorController.attributes.description.gradientSize=The distance required to achieve a complete loop across all colors when the flag is not active.
+entities.MaxHelpingHand/FlagRainbowSpinnerColorController.attributes.description.loopColors=Determines how the colors loop when the flag is not active. For example, if 3 colors A, B and C are specified:\n- when unchecked, the colors will cycle in the following order: A > B > C > B > A\n- when checked, the colors will cycle in the following order: A > B > C > A > B > C
 entities.MaxHelpingHand/FlagRainbowSpinnerColorController.attributes.description.centerX=The horizontal position of the center of the gradient when the flag is not active. Uses "world" coordinates. Vanilla value is 0.
 entities.MaxHelpingHand/FlagRainbowSpinnerColorController.attributes.description.centerY=The vertical position of the center of the gradient when the flag is not active. Uses "world" coordinates. Vanilla value is 0.
 entities.MaxHelpingHand/FlagRainbowSpinnerColorController.attributes.description.gradientSpeed=Determines how fast the gradient scrolls, in pixels per second,  when the flag is not active. You can use negative values to make it scroll in the opposite direction. Vanilla value is 50.
-entities.MaxHelpingHand/FlagRainbowSpinnerColorController.attributes.description.colorsWithFlag=The colours the rainbow spinners in the room will take when the flag is not active, separated by commas.
-entities.MaxHelpingHand/FlagRainbowSpinnerColorController.attributes.description.gradientSizeWithFlag=The distance required to achieve a complete loop across all colours when the flag is active.
-entities.MaxHelpingHand/FlagRainbowSpinnerColorController.attributes.description.loopColorsWithFlag=Determines how the colors loop when the flag is active. For example, if 3 colours A, B and C are specified:\n- when unchecked, the colours will cycle in the following order: A > B > C > B > A\n- when checked, the colours will cycle in the following order: A > B > C > A > B > C
+entities.MaxHelpingHand/FlagRainbowSpinnerColorController.attributes.description.colorsWithFlag=The colors the rainbow spinners in the room will take when the flag is not active, separated by commas.
+entities.MaxHelpingHand/FlagRainbowSpinnerColorController.attributes.description.gradientSizeWithFlag=The distance required to achieve a complete loop across all colors when the flag is active.
+entities.MaxHelpingHand/FlagRainbowSpinnerColorController.attributes.description.loopColorsWithFlag=Determines how the colors loop when the flag is active. For example, if 3 colors A, B and C are specified:\n- when unchecked, the colors will cycle in the following order: A > B > C > B > A\n- when checked, the colors will cycle in the following order: A > B > C > A > B > C
 entities.MaxHelpingHand/FlagRainbowSpinnerColorController.attributes.description.centerXWithFlag=The horizontal position of the center of the gradient when the flag is active. Uses "world" coordinates. Vanilla value is 0.
 entities.MaxHelpingHand/FlagRainbowSpinnerColorController.attributes.description.centerYWithFlag=The vertical position of the center of the gradient when the flag is active. Uses "world" coordinates. Vanilla value is 0.
 entities.MaxHelpingHand/FlagRainbowSpinnerColorController.attributes.description.gradientSpeedWithFlag=Determines how fast the gradient scrolls, in pixels per second, when the flag is active. You can use negative values to make it scroll in the opposite direction. Vanilla value is 50.
@@ -616,7 +616,7 @@ entities.MaxHelpingHand/SecretBerry.attributes.description.ghostberrySprite=The 
 entities.MaxHelpingHand/SecretBerry.attributes.description.strawberryPulseSound=The pulse sound the strawberry makes while idle.
 entities.MaxHelpingHand/SecretBerry.attributes.description.strawberryBlueTouchSound=The sound the strawberry makes when touched by the player, if it was already collected.
 entities.MaxHelpingHand/SecretBerry.attributes.description.strawberryTouchSound=The sound the strawberry makes when touched by the player, if it was not already collected.
-entities.MaxHelpingHand/SecretBerry.attributes.description.strawberryGetSound=The sound the strawberry makes when collected.\nIf already collected, the "colour" audio param of this sound will be set to 1. If not, it will be set to 0.
+entities.MaxHelpingHand/SecretBerry.attributes.description.strawberryGetSound=The sound the strawberry makes when collected.\nIf already collected, the "color" audio param of this sound will be set to 1. If not, it will be set to 0.
 entities.MaxHelpingHand/SecretBerry.attributes.description.countTowardsTotal=Whether this berry should be counted in the total number of berries the map contains.
 entities.MaxHelpingHand/SecretBerry.attributes.description.particleColor1=One of the colors to use for the particles the strawberry emits when not already collected.
 entities.MaxHelpingHand/SecretBerry.attributes.description.particleColor2=One of the colors to use for the particles the strawberry emits when not already collected.
@@ -672,9 +672,9 @@ entities.MaxHelpingHand/ShatterFlagSwitchGate.placements.name.stars=Shatter Flag
 entities.MaxHelpingHand/ShatterFlagSwitchGate.attributes.description.flag=The session flag this switch gate reacts to. Give the same to multiple touch switches and switch gates to group them.
 entities.MaxHelpingHand/ShatterFlagSwitchGate.attributes.description.icon=The name of the icon for the switch gate (relative to objects/MaxHelpingHand/flagSwitchGate), or "vanilla" for the default one.
 entities.MaxHelpingHand/ShatterFlagSwitchGate.attributes.description.persistent=If enabled, the switch gate will stay destroyed when the player dies or changes rooms.\nThis switch gate will also set a flag when it is enabled: [flagName]_gate[entityID]
-entities.MaxHelpingHand/ShatterFlagSwitchGate.attributes.description.inactiveColor=The gate icon colour when not triggered yet.
-entities.MaxHelpingHand/ShatterFlagSwitchGate.attributes.description.activeColor=The gate icon colour when triggered, but the group is not complete yet.
-entities.MaxHelpingHand/ShatterFlagSwitchGate.attributes.description.finishColor=The gate icon colour when the group is complete.
+entities.MaxHelpingHand/ShatterFlagSwitchGate.attributes.description.inactiveColor=The gate icon color when not triggered yet.
+entities.MaxHelpingHand/ShatterFlagSwitchGate.attributes.description.activeColor=The gate icon color when triggered, but the group is not complete yet.
+entities.MaxHelpingHand/ShatterFlagSwitchGate.attributes.description.finishColor=The gate icon color when the group is complete.
 entities.MaxHelpingHand/ShatterFlagSwitchGate.attributes.description.sprite=The texture for the gate block.
 entities.MaxHelpingHand/ShatterFlagSwitchGate.attributes.description.shakeTime=The time (in seconds) the block spends shaking before shattering. Vanilla value is 0.5 seconds.
 entities.MaxHelpingHand/ShatterFlagSwitchGate.attributes.description.finishedSound=The sound played by the gate when it shatters.
@@ -867,15 +867,15 @@ triggers.MaxHelpingHand/RainbowSpinnerColorFadeTrigger.attributes.name.loopColor
 triggers.MaxHelpingHand/RainbowSpinnerColorFadeTrigger.attributes.name.centerXB=Position B - Center X
 triggers.MaxHelpingHand/RainbowSpinnerColorFadeTrigger.attributes.name.centerYB=Position B - Center Y
 triggers.MaxHelpingHand/RainbowSpinnerColorFadeTrigger.attributes.name.gradientSpeedB=Position B - Gradient Speed
-triggers.MaxHelpingHand/RainbowSpinnerColorFadeTrigger.attributes.description.colorsA=(First position) The colours the rainbow spinners in the room will take, separated by commas.
-triggers.MaxHelpingHand/RainbowSpinnerColorFadeTrigger.attributes.description.gradientSizeA=(First position) The distance required to achieve a complete loop across all colours.
-triggers.MaxHelpingHand/RainbowSpinnerColorFadeTrigger.attributes.description.loopColorsA=(First position) Determines how the colors loop. For example, if 3 colours A, B and C are specified:\n- when unchecked, the colours will cycle in the following order: A > B > C > B > A\n- when checked, the colours will cycle in the following order: A > B > C > A > B > C
+triggers.MaxHelpingHand/RainbowSpinnerColorFadeTrigger.attributes.description.colorsA=(First position) The colors the rainbow spinners in the room will take, separated by commas.
+triggers.MaxHelpingHand/RainbowSpinnerColorFadeTrigger.attributes.description.gradientSizeA=(First position) The distance required to achieve a complete loop across all colors.
+triggers.MaxHelpingHand/RainbowSpinnerColorFadeTrigger.attributes.description.loopColorsA=(First position) Determines how the colors loop. For example, if 3 colors A, B and C are specified:\n- when unchecked, the colors will cycle in the following order: A > B > C > B > A\n- when checked, the colors will cycle in the following order: A > B > C > A > B > C
 triggers.MaxHelpingHand/RainbowSpinnerColorFadeTrigger.attributes.description.centerXA=(First position) The horizontal position of the center of the gradient. Uses "world" coordinates. Vanilla value is 0.
 triggers.MaxHelpingHand/RainbowSpinnerColorFadeTrigger.attributes.description.centerYA=(First position) The vertical position of the center of the gradient. Uses "world" coordinates. Vanilla value is 0.
 triggers.MaxHelpingHand/RainbowSpinnerColorFadeTrigger.attributes.description.gradientSpeedA=(First position) Determines how fast the gradient scrolls, in pixels per second. You can use negative values to make it scroll in the opposite direction. Vanilla value is 50.
-triggers.MaxHelpingHand/RainbowSpinnerColorFadeTrigger.attributes.description.colorsB=(Second position) The colours the rainbow spinners in the room will take, separated by commas.
-triggers.MaxHelpingHand/RainbowSpinnerColorFadeTrigger.attributes.description.gradientSizeB=(Second position) The distance required to achieve a complete loop across all colours.
-triggers.MaxHelpingHand/RainbowSpinnerColorFadeTrigger.attributes.description.loopColorsB=(Second position) Determines how the colors loop. For example, if 3 colours A, B and C are specified:\n- when unchecked, the colours will cycle in the following order: A > B > C > B > A\n- when checked, the colours will cycle in the following order: A > B > C > A > B > C
+triggers.MaxHelpingHand/RainbowSpinnerColorFadeTrigger.attributes.description.colorsB=(Second position) The colors the rainbow spinners in the room will take, separated by commas.
+triggers.MaxHelpingHand/RainbowSpinnerColorFadeTrigger.attributes.description.gradientSizeB=(Second position) The distance required to achieve a complete loop across all colors.
+triggers.MaxHelpingHand/RainbowSpinnerColorFadeTrigger.attributes.description.loopColorsB=(Second position) Determines how the colors loop. For example, if 3 colors A, B and C are specified:\n- when unchecked, the colors will cycle in the following order: A > B > C > B > A\n- when checked, the colors will cycle in the following order: A > B > C > A > B > C
 triggers.MaxHelpingHand/RainbowSpinnerColorFadeTrigger.attributes.description.centerXB=(Second position) The horizontal position of the center of the gradient. Uses "world" coordinates. Vanilla value is 0.
 triggers.MaxHelpingHand/RainbowSpinnerColorFadeTrigger.attributes.description.centerYB=(Second position) The vertical position of the center of the gradient. Uses "world" coordinates. Vanilla value is 0.
 triggers.MaxHelpingHand/RainbowSpinnerColorFadeTrigger.attributes.description.gradientSpeedB=(Second position) Determines how fast the gradient scrolls, in pixels per second. You can use negative values to make it scroll in the opposite direction. Vanilla value is 50.
@@ -884,9 +884,9 @@ triggers.MaxHelpingHand/RainbowSpinnerColorFadeTrigger.attributes.description.pe
 
 # Rainbow Spinner Color Trigger
 triggers.MaxHelpingHand/RainbowSpinnerColorTrigger.placements.name.trigger=Rainbow Spinner Color
-triggers.MaxHelpingHand/RainbowSpinnerColorTrigger.attributes.description.colors=The colours the rainbow spinners in the room will take, separated by commas.
-triggers.MaxHelpingHand/RainbowSpinnerColorTrigger.attributes.description.gradientSize=The distance required to achieve a complete loop across all colours.
-triggers.MaxHelpingHand/RainbowSpinnerColorTrigger.attributes.description.loopColors=Determines how the colors loop. For example, if 3 colours A, B and C are specified:\n- when unchecked, the colours will cycle in the following order: A > B > C > B > A\n- when checked, the colours will cycle in the following order: A > B > C > A > B > C
+triggers.MaxHelpingHand/RainbowSpinnerColorTrigger.attributes.description.colors=The colors the rainbow spinners in the room will take, separated by commas.
+triggers.MaxHelpingHand/RainbowSpinnerColorTrigger.attributes.description.gradientSize=The distance required to achieve a complete loop across all colors.
+triggers.MaxHelpingHand/RainbowSpinnerColorTrigger.attributes.description.loopColors=Determines how the colors loop. For example, if 3 colors A, B and C are specified:\n- when unchecked, the colors will cycle in the following order: A > B > C > B > A\n- when checked, the colors will cycle in the following order: A > B > C > A > B > C
 triggers.MaxHelpingHand/RainbowSpinnerColorTrigger.attributes.description.centerX=The horizontal position of the center of the gradient. Uses "world" coordinates. Vanilla value is 0.
 triggers.MaxHelpingHand/RainbowSpinnerColorTrigger.attributes.description.centerY=The vertical position of the center of the gradient. Uses "world" coordinates. Vanilla value is 0.
 triggers.MaxHelpingHand/RainbowSpinnerColorTrigger.attributes.description.gradientSpeed=Determines how fast the gradient scrolls, in pixels per second. You can use negative values to make it scroll in the opposite direction. Vanilla value is 50.
@@ -1051,7 +1051,7 @@ style.effects.MaxHelpingHand/CustomPlanets.attribute.scrolly=Scroll Y
 style.effects.MaxHelpingHand/CustomPlanets.attribute.speedx=Speed X
 style.effects.MaxHelpingHand/CustomPlanets.attribute.speedy=Speed Y
 style.effects.MaxHelpingHand/CustomPlanets.description.count=The amount of planets to render.
-style.effects.MaxHelpingHand/CustomPlanets.description.color=The colour of the planets.
+style.effects.MaxHelpingHand/CustomPlanets.description.color=The color of the planets.
 style.effects.MaxHelpingHand/CustomPlanets.description.scrollx=Determines the parallax scrolling of the planets along the X axis.
 style.effects.MaxHelpingHand/CustomPlanets.description.scrolly=Determines the parallax scrolling of the planets along the Y axis.
 style.effects.MaxHelpingHand/CustomPlanets.description.speedx=Determines the scrolling speed of the planets (in pixels per second) along the X axis.
@@ -1068,9 +1068,9 @@ style.effects.MaxHelpingHand/CustomStarfield.attribute.fadey=Fade Y
 style.effects.MaxHelpingHand/CustomStarfield.attribute.scrollx=Scroll X
 style.effects.MaxHelpingHand/CustomStarfield.attribute.scrolly=Scroll Y
 style.effects.MaxHelpingHand/CustomStarfield.description.paths=Comma-separated list of paths to use for the sprites.\nFor example, typing "mystarfield" will use sprites from the Graphics/Atlases/Gameplay/particles/mystarfield folder.
-style.effects.MaxHelpingHand/CustomStarfield.description.colors=Comma-separated list of colours to use from for the stars.
+style.effects.MaxHelpingHand/CustomStarfield.description.colors=Comma-separated list of colors to use from for the stars.
 style.effects.MaxHelpingHand/CustomStarfield.description.alphas=Comma-separated list of transparency values to use for the stars.
-style.effects.MaxHelpingHand/CustomStarfield.description.shuffle=Whether to randomly pick a path, colour, and alpha value for each star.\nIf off, the first path, colour, and alpha are used for the first star, the second of each for the second, and so on, repeating from the start.
+style.effects.MaxHelpingHand/CustomStarfield.description.shuffle=Whether to randomly pick a path, color, and alpha value for each star.\nIf off, the first path, color, and alpha are used for the first star, the second of each for the second, and so on, repeating from the start.
 style.effects.MaxHelpingHand/CustomStarfield.description.speed=How fast the stars move.
 style.effects.MaxHelpingHand/CustomStarfield.description.fadex=Advanced horizontal fading zones.\nFormat is "FromPosition-ToPosition,FromAlpha-ToAlpha". Example "n500-500,1-0".\nNegative numbers in position are denoted with "n" rather than minus. Position numbers are in pixels and use map coordinates.\nMultiple zones can be set up by using ":" as separator.
 style.effects.MaxHelpingHand/CustomStarfield.description.fadey=Advanced vertical fading zones.\nFormat is "FromPosition-ToPosition,FromAlpha-ToAlpha". Example "n500-500,1-0".\nNegative numbers in position are denoted with "n" rather than minus. Position numbers are in pixels and use map coordinates.\nMultiple zones can be set up by using ":" as separator.
@@ -1149,3 +1149,23 @@ triggers.MaxHelpingHand/SetCustomInventoryTrigger.attributes.description.dashes=
 triggers.MaxHelpingHand/SetCustomInventoryTrigger.attributes.description.dreamDash=Whether the player can dash through dream blocks or not.
 triggers.MaxHelpingHand/SetCustomInventoryTrigger.attributes.description.backpack=Whether the player has a backpack or not.
 triggers.MaxHelpingHand/SetCustomInventoryTrigger.attributes.description.groundRefills=Whether the player gets a refill upon touching the ground.
+
+# Reskinnable Touch Switch
+entities.MaxHelpingHand/ReskinnableTouchSwitch.placements.name.touch_switch=Touch Switch (Reskinnable)
+entities.MaxHelpingHand/ReskinnableTouchSwitch.attributes.description.icon=The name of the icon for the touch switch.\nTo make your own, place your frames in Graphics/Atlases/Gameplay/myfolder/iconXX.png, then type "myfolder/icon" here.\nThe vanilla icon frames can be found in the graphics dump, at Graphics/Atlases/Gameplay/objects/touchswitch/iconXX.png.
+entities.MaxHelpingHand/ReskinnableTouchSwitch.attributes.description.borderTexture=The path to the texture to use for the background of the icon.\nTo make your own, place it in your mod folder in Graphics/Atlases/Gameplay/myfolder/myborder.png, then type "myfolder/myborder" here.\nThe vanilla border can be found in the graphics dump, at Graphics/Atlases/Gameplay/objects/touchswitch/container.png.
+entities.MaxHelpingHand/ReskinnableTouchSwitch.attributes.description.inactiveColor=The switch color when not triggered yet.
+entities.MaxHelpingHand/ReskinnableTouchSwitch.attributes.description.activeColor=The switch color when triggered, but the group is not complete yet.
+entities.MaxHelpingHand/ReskinnableTouchSwitch.attributes.description.finishColor=The switch color when the group is complete.
+
+# Reskinnable Switch Gate
+entities.MaxHelpingHand/ReskinnableSwitchGate.placements.name.block=Switch Gate (Stone, Reskinnable)
+entities.MaxHelpingHand/ReskinnableSwitchGate.placements.name.mirror=Switch Gate (Mirror, Reskinnable)
+entities.MaxHelpingHand/ReskinnableSwitchGate.placements.name.temple=Switch Gate (Temple, Reskinnable)
+entities.MaxHelpingHand/ReskinnableSwitchGate.placements.name.stars=Switch Gate (Moon, Reskinnable)
+entities.MaxHelpingHand/ReskinnableSwitchGate.attributes.description.persistent=Will stay open once activated, even if the player dies.
+entities.MaxHelpingHand/ReskinnableSwitchGate.attributes.description.sprite=Changes the visual appearance of the switch gate.
+entities.MaxHelpingHand/ReskinnableSwitchGate.attributes.description.icon=The name of the icon for the switch gate.\nTo make your own, place your frames in Graphics/Atlases/Gameplay/myfolder/iconXX.png, then type "myfolder/icon" here.\nThe vanilla icon frames can be found in the graphics dump, at Graphics/Atlases/Gameplay/objects/switchgate/iconXX.png.
+entities.MaxHelpingHand/ReskinnableSwitchGate.attributes.description.inactiveColor=The icon color when the door is not triggered yet.
+entities.MaxHelpingHand/ReskinnableSwitchGate.attributes.description.activeColor=The icon color when the door is triggered, but not done moving yet.
+entities.MaxHelpingHand/ReskinnableSwitchGate.attributes.description.finishColor=The icon color when the gate is done moving.
