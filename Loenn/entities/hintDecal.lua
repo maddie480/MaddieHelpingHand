@@ -35,6 +35,7 @@ end
 
 table.insert(customBirdTutorial.placements, {
     name = "maxhelpinghand_showhints",
+    associatedMods = { "MaxHelpingHand" },
     data = {
         faceLeft = true,
         birdId = "",
