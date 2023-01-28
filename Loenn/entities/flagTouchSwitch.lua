@@ -11,6 +11,7 @@ touchSwitch.placements = {
         data = {
             flag = "flag_touch_switch",
             icon = "vanilla",
+            borderTexture = "",
             persistent = false,
             inactiveColor = "5FCDE4",
             activeColor = "FFFFFF",
@@ -45,9 +46,10 @@ touchSwitch.fieldInformation = {
 local containerTexture = "objects/touchswitch/container"
 
 function touchSwitch.sprite(room, entity)
-    local containerSprite = drawableSprite.fromTexture(containerTexture, entity)
+    local borderTexture = entity.borderTexture ~= "" and entity.borderTexture or containerTexture
+    local containerSprite = drawableSprite.fromTexture(borderTexture, entity)
 
-    iconResource = "objects/touchswitch/icon00"
+    local iconResource = "objects/touchswitch/icon00"
     if entity.icon ~= "vanilla" then
         iconResource = "objects/MaxHelpingHand/flagTouchSwitch/" .. entity.icon .."/icon00"
     end

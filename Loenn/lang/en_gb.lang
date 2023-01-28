@@ -195,6 +195,7 @@ entities.MaxHelpingHand/FlagSwitchGate.attributes.description.smoke=Whether the 
 entities.MaxHelpingHand/FlagTouchSwitch.placements.name.touch_switch=Flag Touch Switch
 entities.MaxHelpingHand/FlagTouchSwitch.attributes.description.flag=The session flag this touch switch sets. Give the same to multiple touch switches and switch gates to group them.
 entities.MaxHelpingHand/FlagTouchSwitch.attributes.description.icon=The name of the icon for the touch switch (relative to objects/MaxHelpingHand/flagTouchSwitch), or "vanilla" for the default one.
+entities.MaxHelpingHand/FlagTouchSwitch.attributes.description.borderTexture=The path to the texture to use for the background of the icon.\nTo make your own, place it in your mod folder in Graphics/Atlases/Gameplay/myfolder/myborder.png, then type "myfolder/myborder" here.\nThe vanilla border can be found in the graphics dump, at Graphics/Atlases/Gameplay/objects/touchswitch/container.png.
 entities.MaxHelpingHand/FlagTouchSwitch.attributes.description.persistent=If enabled, the touch switch will stay active when the player dies or changes rooms.\nThis touch switch will also set a flag when it is enabled: [flagName]_switch[entityID]
 entities.MaxHelpingHand/FlagTouchSwitch.attributes.description.inactiveColor=The switch colour when not triggered yet.
 entities.MaxHelpingHand/FlagTouchSwitch.attributes.description.activeColor=The switch colour when triggered, but the group is not complete yet.
@@ -1145,6 +1146,6 @@ triggers.MaxHelpingHand/ExtendedDialogCutsceneTrigger.attributes.description.fon
 # Set Custom Inventory Trigger
 triggers.MaxHelpingHand/SetCustomInventoryTrigger.placements.name.normal=Set Custom Inventory Trigger
 triggers.MaxHelpingHand/SetCustomInventoryTrigger.attributes.description.dashes=The amount of dashes the player gets when their dash gets refilled.
-triggers.MaxHelpingHand/SetCustomInventoryTrigger.attributes.description.dream_dash=Whether the player can dash through dream blocks or not.
+triggers.MaxHelpingHand/SetCustomInventoryTrigger.attributes.description.dreamDash=Whether the player can dash through dream blocks or not.
 triggers.MaxHelpingHand/SetCustomInventoryTrigger.attributes.description.backpack=Whether the player has a backpack or not.
-triggers.MaxHelpingHand/SetCustomInventoryTrigger.attributes.description.ground_refills=Whether the player gets a refill upon touching the ground.
+triggers.MaxHelpingHand/SetCustomInventoryTrigger.attributes.description.groundRefills=Whether the player gets a refill upon touching the ground.

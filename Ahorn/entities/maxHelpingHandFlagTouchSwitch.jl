@@ -3,7 +3,7 @@
 using ..Ahorn, Maple
 
 @mapdef Entity "MaxHelpingHand/FlagTouchSwitch" FlagTouchSwitch(x::Integer, y::Integer,
-    flag::String="flag_touch_switch", icon::String="vanilla", persistent::Bool=false,
+    flag::String="flag_touch_switch", icon::String="vanilla", borderTexture::String="", persistent::Bool=false,
     inactiveColor::String="5FCDE4", activeColor::String="FFFFFF", finishColor::String="F141DF", smoke::Bool=true,
     inverted::Bool=false, allowDisable::Bool=false, hitSound::String="event:/game/general/touchswitch_any",
     completeSoundFromSwitch::String="event:/game/general/touchswitch_last_cutoff", completeSoundFromScene::String="event:/game/general/touchswitch_last_oneshot")
@@ -29,7 +29,8 @@ function Ahorn.selection(entity::FlagTouchSwitch)
 end
 
 function Ahorn.render(ctx::Ahorn.Cairo.CairoContext, entity::FlagTouchSwitch, room::Maple.Room)
-    Ahorn.drawSprite(ctx, "objects/touchswitch/container.png", 0, 0)
+    borderTexture = get(entity, "borderTexture", "") != "" ? entity.borderTexture : "objects/touchswitch/container.png"
+    Ahorn.drawSprite(ctx, borderTexture, 0, 0)
 
     icon = get(entity.data, "icon", "vanilla")
 

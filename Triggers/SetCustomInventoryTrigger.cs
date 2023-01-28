@@ -10,10 +10,10 @@ namespace Celeste.Mod.MaxHelpingHand.Triggers {
         private bool backpack = true;
 
         public SetCustomInventoryTrigger(EntityData data, Vector2 offset) : base(data, offset) {
-            dashes = (int)data.Values["dashes"];
-            dreamDash = (bool)data.Values["dreamDash"];
-            groundRefills = (bool)data.Values["groundRefills"];
-            backpack = (bool)data.Values["backpack"];
+            dashes = data.Int("dashes");
+            dreamDash = data.Bool("dreamDash");
+            groundRefills = data.Bool("groundRefills");
+            backpack = data.Bool("backpack");
         }
 
         public override void OnEnter(Player player) {

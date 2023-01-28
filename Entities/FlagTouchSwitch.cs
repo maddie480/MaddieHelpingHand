@@ -137,6 +137,11 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
 
             smoke = data.Bool("smoke", true);
 
+            string borderTexturePath = data.Attr("borderTexture");
+            if (!string.IsNullOrEmpty(borderTexturePath)) {
+                border = GFX.Game[borderTexturePath];
+            }
+
             P_RecoloredFire = new ParticleType(TouchSwitch.P_Fire) {
                 Color = finishColor
             };

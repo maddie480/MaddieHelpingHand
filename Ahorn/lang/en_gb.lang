@@ -11,6 +11,7 @@ placements.triggers.MaxHelpingHand/CameraCatchupSpeedTrigger.tooltips.revertOnLe
 # Flag Touch Switch
 placements.entities.MaxHelpingHand/FlagTouchSwitch.tooltips.flag=The session flag this touch switch sets. Give the same to multiple touch switches and switch gates to group them.
 placements.entities.MaxHelpingHand/FlagTouchSwitch.tooltips.icon=The name of the icon for the touch switch (relative to objects/MaxHelpingHand/flagTouchSwitch), or "vanilla" for the default one.
+placements.entities.MaxHelpingHand/FlagTouchSwitch.tooltips.borderTexture=The path to the texture to use for the background of the icon.\nTo make your own, place it in your mod folder in Graphics/Atlases/Gameplay/myfolder/myborder.png, then type "myfolder/myborder" here.\nThe vanilla border can be found in the graphics dump, at Graphics/Atlases/Gameplay/objects/touchswitch/container.png.
 placements.entities.MaxHelpingHand/FlagTouchSwitch.tooltips.persistent=If enabled, the touch switch will stay active when the player dies or changes rooms.\nThis touch switch will also set a flag when it is enabled: [flagName]_switch[entityID]
 placements.entities.MaxHelpingHand/FlagTouchSwitch.tooltips.inactiveColor=The switch colour when not triggered yet.
 placements.entities.MaxHelpingHand/FlagTouchSwitch.tooltips.activeColor=The switch colour when triggered, but the group is not complete yet.
@@ -952,6 +953,6 @@ placements.triggers.MaxHelpingHand/ExtendedDialogCutsceneTrigger.tooltips.font=T
 
 # Set Custom Inventory Trigger
 placements.triggers.MaxHelpingHand/SetCustomInventoryTrigger.tooltips.dashes=The amount of dashes the player gets when their dash gets refilled.
-placements.triggers.MaxHelpingHand/SetCustomInventoryTrigger.tooltips.dream_dash=Whether the player can dash through dream blocks or not.
+placements.triggers.MaxHelpingHand/SetCustomInventoryTrigger.tooltips.dreamDash=Whether the player can dash through dream blocks or not.
 placements.triggers.MaxHelpingHand/SetCustomInventoryTrigger.tooltips.backpack=Whether the player has a backpack or not.
-placements.triggers.MaxHelpingHand/SetCustomInventoryTrigger.tooltips.ground_refills=Whether the player gets a refill upon touching the ground.
+placements.triggers.MaxHelpingHand/SetCustomInventoryTrigger.tooltips.groundRefills=Whether the player gets a refill upon touching the ground.
