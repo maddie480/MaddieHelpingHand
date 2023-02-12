@@ -8,15 +8,35 @@ using System.Collections.Generic;
 using System.Reflection;
 
 namespace Celeste.Mod.MaxHelpingHand.Entities {
-    [CustomEntity("MaxHelpingHand/NoDashRefillSpring", "MaxHelpingHand/NoDashRefillSpringLeft", "MaxHelpingHand/NoDashRefillSpringRight")]
+    /**
+     * A spring that does not give a refill when used.
+     * Downwards spring code is based on Frost Helper's custom spring by JaThePlayer:
+     * https://github.com/JaThePlayer/FrostHelper/blob/master/Code/FrostHelper/Entities/VanillaExtended/CustomSpring.cs
+     */
+    [CustomEntity("MaxHelpingHand/NoDashRefillSpring", "MaxHelpingHand/NoDashRefillSpringLeft",
+        "MaxHelpingHand/NoDashRefillSpringRight", "MaxHelpingHand/NoDashRefillSpringDown")]
     [Tracked(inherited: true)]
     public class NoDashRefillSpring : Spring {
+        public new enum Orientations { Floor, WallLeft, WallRight, Ceiling }
+        public new Orientations Orientation;
+
+        private static MethodInfo pufferGotoHitSpeed = typeof(Puffer).GetMethod("GotoHitSpeed", BindingFlags.NonPublic | BindingFlags.Instance);
+        private static MethodInfo pufferAlert = typeof(Puffer).GetMethod("Alert", BindingFlags.NonPublic | BindingFlags.Instance);
+
         public static void Load() {
             On.Celeste.LightingRenderer.BeforeRender += onLightingBeforeRender;
+
+            On.Celeste.Puffer.HitSpring += onPufferHitSpring;
+            On.Celeste.Glider.HitSpring += onJellyHitSpring;
+            On.Celeste.TheoCrystal.HitSpring += onTheoHitSpring;
         }
 
         public static void Unload() {
             On.Celeste.LightingRenderer.BeforeRender -= onLightingBeforeRender;
+
+            On.Celeste.Puffer.HitSpring -= onPufferHitSpring;
+            On.Celeste.Glider.HitSpring -= onJellyHitSpring;
+            On.Celeste.TheoCrystal.HitSpring -= onTheoHitSpring;
         }
 
         private static void onLightingBeforeRender(On.Celeste.LightingRenderer.orig_BeforeRender orig, LightingRenderer self, Scene scene) {
@@ -39,14 +59,61 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             }
         }
 
+        private static bool onPufferHitSpring(On.Celeste.Puffer.orig_HitSpring orig, Puffer self, Spring spring) {
+            if (spring is NoDashRefillSpring noDashRefillSpring && noDashRefillSpring.Orientation == Orientations.Ceiling) {
+                DynData<Puffer> selfData = new DynData<Puffer>(self);
+                if (selfData.Get<Vector2>("hitSpeed").Y <= 0f) {
+                    pufferGotoHitSpeed.Invoke(self, new object[] { 224f * Vector2.UnitY });
+                    self.MoveTowardsX(spring.CenterX, 4f);
+                    selfData.Get<Wiggler>("bounceWiggler").Start();
+                    pufferAlert.Invoke(self, new object[] { true, false });
+                    return true;
+                }
+                return false;
+            }
+            return orig(self, spring);
+        }
+
+        private static bool onJellyHitSpring(On.Celeste.Glider.orig_HitSpring orig, Glider self, Spring spring) {
+            if (spring is NoDashRefillSpring noDashRefillSpring && noDashRefillSpring.Orientation == Orientations.Ceiling) {
+                if (!self.Hold.IsHeld && self.Speed.Y <= 0f) {
+                    DynData<Glider> selfData = new DynData<Glider>(self);
+                    self.Speed.X *= 0.5f;
+                    self.Speed.Y = -160f;
+                    selfData["noGravityTimer"] = 0.15f;
+                    selfData.Get<Wiggler>("wiggler").Start();
+                    return true;
+                }
+                return false;
+            }
+            return orig(self, spring);
+        }
+
+        private static bool onTheoHitSpring(On.Celeste.TheoCrystal.orig_HitSpring orig, TheoCrystal self, Spring spring) {
+            if (spring is NoDashRefillSpring noDashRefillSpring && noDashRefillSpring.Orientation == Orientations.Ceiling) {
+                if (!self.Hold.IsHeld && self.Speed.Y <= 0f) {
+                    self.Speed.X *= 0.5f;
+                    self.Speed.Y = -160f;
+                    new DynData<TheoCrystal>(self)["noGravityTimer"] = 0.15f;
+                    return true;
+                }
+                return false;
+            }
+            return orig(self, spring);
+        }
+
         private static MethodInfo bounceAnimate = typeof(Spring).GetMethod("BounceAnimate", BindingFlags.NonPublic | BindingFlags.Instance);
         private static object[] noParams = new object[0];
 
         private readonly bool ignoreLighting;
         private readonly bool refillStamina;
 
+        private float inactiveTimer;
+
         public NoDashRefillSpring(EntityData data, Vector2 offset)
-            : base(data.Position + offset, GetOrientationFromName(data.Name), data.Bool("playerCanUse", true)) {
+            : base(data.Position + offset, GetVanillaOrientationFromName(data.Name), data.Bool("playerCanUse", true)) {
+
+            Orientation = GetOrientationFromName(data.Name);
 
             ignoreLighting = data.Bool("ignoreLighting", defaultValue: false);
             refillStamina = data.Bool("refillStamina", defaultValue: true);
@@ -75,6 +142,15 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             sprite.Play("idle");
             sprite.Origin.X = sprite.Width / 2f;
             sprite.Origin.Y = sprite.Height;
+
+            // handle the Ceiling orientation, since vanilla does not handle it.
+            if (Orientation == Orientations.Ceiling) {
+                Collider = new Hitbox(16f, 6f, -8f);
+                Get<PufferCollider>().Collider = new Hitbox(16f, 10f, -8f, -4f);
+                Get<Sprite>().Rotation = (float) Math.PI;
+                Get<StaticMover>().SolidChecker = (Solid s) => CollideCheck(s, Position - Vector2.UnitY);
+                Get<StaticMover>().JumpThruChecker = (JumpThru jt) => CollideCheck(jt, Position - Vector2.UnitY);
+            }
         }
 
         private static Orientations GetOrientationFromName(string name) {
@@ -88,11 +164,27 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
                 case "MaxHelpingHand/NoDashRefillSpringLeft":
                 case "MaxHelpingHand/CustomDashRefillSpringLeft":
                     return Orientations.WallLeft;
+                case "MaxHelpingHand/NoDashRefillSpringDown":
+                case "MaxHelpingHand/CustomDashRefillSpringDown":
+                    return Orientations.Ceiling;
                 default:
                     throw new Exception("Custom Dash Refill Spring name doesn't correlate to a valid Orientation!");
             }
         }
 
+        private static Spring.Orientations GetVanillaOrientationFromName(string name) {
+            Orientations orientation = GetOrientationFromName(name);
+            if (orientation == Orientations.Ceiling) {
+                // doesn't exist in vanilla, use Floor as a placeholder to avoid a crash
+                return Spring.Orientations.Floor;
+            }
+            return (Spring.Orientations) orientation;
+        }
+
+        public override void Update() {
+            base.Update();
+            if (inactiveTimer > 0f) inactiveTimer -= Engine.DeltaTime;
+        }
 
         private void OnCollide(Player player) {
             if (player.StateMachine.State == 9) {
@@ -115,6 +207,14 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             } else if (Orientation == Orientations.WallRight) {
                 if (player.SideBounce(-1, Left, CenterY)) {
                     bounceAnimate.Invoke(this, noParams);
+                }
+            } else if (Orientation == Orientations.Ceiling) {
+                if (player.Speed.Y <= 0f && inactiveTimer <= 0f) {
+                    bounceAnimate.Invoke(this, noParams);
+                    player.SuperBounce(Bottom + player.Height);
+                    player.Speed.Y *= -1f;
+                    new DynData<Player>(player)["varJumpSpeed"] = player.Speed.Y;
+                    inactiveTimer = 0.1f;
                 }
             } else {
                 throw new Exception("Orientation not supported!");

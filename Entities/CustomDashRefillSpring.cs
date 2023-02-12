@@ -3,7 +3,8 @@ using Microsoft.Xna.Framework;
 using System;
 
 namespace Celeste.Mod.MaxHelpingHand.Entities {
-    [CustomEntity("MaxHelpingHand/CustomDashRefillSpring", "MaxHelpingHand/CustomDashRefillSpringLeft", "MaxHelpingHand/CustomDashRefillSpringRight")]
+    [CustomEntity("MaxHelpingHand/CustomDashRefillSpring", "MaxHelpingHand/CustomDashRefillSpringLeft",
+        "MaxHelpingHand/CustomDashRefillSpringRight", "MaxHelpingHand/CustomDashRefillSpringDown")]
     public class CustomDashRefillSpring : NoDashRefillSpring {
         private enum Mode { Set, Add, AddCapped }
 

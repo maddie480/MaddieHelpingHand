@@ -97,8 +97,40 @@ springLeft.fieldInformation = {
     }
 }
 
+local springDown = {}
+
+springDown.name = "MaxHelpingHand/CustomDashRefillSpringDown"
+springDown.depth = springDepth
+springDown.justification = {0.5, 1.0}
+springDown.texture = springTexture
+springDown.rotation = math.pi
+springDown.placements = {
+    name = "down",
+    data = {
+        spriteDirectory = "objects/MaxHelpingHand/twoDashRefillSpring",
+        ignoreLighting = false,
+        refillStamina = true,
+        dashCount = 2,
+        dashCountCap = 2,
+        mode = "Set"
+    }
+}
+springDown.fieldInformation = {
+    mode = {
+        options = { "Set", "Add", "AddCapped" },
+        editable = false
+    },
+    dashCount = {
+        fieldType = "integer"
+    },
+    dashCountCap = {
+        fieldType = "integer"
+    }
+}
+
 return {
     springUp,
     springRight,
-    springLeft
+    springLeft,
+    springDown
 }

@@ -52,8 +52,25 @@ springLeft.placements = {
     }
 }
 
+local springDown = {}
+
+springDown.name = "MaxHelpingHand/NoDashRefillSpringDown"
+springDown.depth = springDepth
+springDown.justification = {0.5, 1.0}
+springDown.texture = springTexture
+springDown.rotation = math.pi
+springDown.placements = {
+    name = "down",
+    data = {
+        spriteDirectory = "objects/MaxHelpingHand/noDashRefillSpring",
+        ignoreLighting = false,
+        refillStamina = true
+    }
+}
+
 return {
     springUp,
     springRight,
-    springLeft
+    springLeft,
+    springDown
 }
