@@ -6,7 +6,12 @@ namespace Celeste.Mod.MaxHelpingHand.Triggers {
     // same as Music Fade Trigger, but also modifies the given parameter in session to make it persist through deaths / save & quit.
     [CustomEntity("MaxHelpingHand/PersistentMusicFadeTrigger")]
     public class PersistentMusicFadeTrigger : MusicFadeTrigger {
-        public PersistentMusicFadeTrigger(EntityData data, Vector2 offset) : base(data, offset) { }
+        public PersistentMusicFadeTrigger(EntityData data, Vector2 offset) : base(data, offset) {
+            // vanilla defaults to "fade", we want to do the same.
+            if (string.IsNullOrEmpty(Parameter)) {
+                Parameter = "fade";
+            }
+        }
 
         public override void OnStay(Player player) {
             float paramValue = LeftToRight ? Calc.ClampedMap(player.Center.X, Left, Right, FadeA, FadeB) : Calc.ClampedMap(player.Center.Y, Top, Bottom, FadeA, FadeB);

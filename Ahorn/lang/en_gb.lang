@@ -832,7 +832,7 @@ placements.entities.MaxHelpingHand/BadelineSprite.tooltips.floating=Whether Bade
 # Persistent Music Fade Trigger
 placements.triggers.MaxHelpingHand/PersistentMusicFadeTrigger.tooltips.fadeA=Determines the parameter value at the start of the fade.
 placements.triggers.MaxHelpingHand/PersistentMusicFadeTrigger.tooltips.fadeB=Determines the parameter value at the end of the fade.
-placements.triggers.MaxHelpingHand/PersistentMusicFadeTrigger.tooltips.parameter=The music parameter this trigger will affect.
+placements.triggers.MaxHelpingHand/PersistentMusicFadeTrigger.tooltips.parameter=The music parameter this trigger will affect.\nDefaults to "fade", which is the one used to make music fade in/out.
 placements.triggers.MaxHelpingHand/PersistentMusicFadeTrigger.tooltips.direction=The direction the music fades in.
 
 # All Side Tentacles

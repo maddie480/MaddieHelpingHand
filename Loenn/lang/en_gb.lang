@@ -846,7 +846,7 @@ triggers.MaxHelpingHand/PauseBadelineBossesTrigger.placements.name.trigger=Pause
 triggers.MaxHelpingHand/PersistentMusicFadeTrigger.placements.name.trigger=Persistent Music Fade
 triggers.MaxHelpingHand/PersistentMusicFadeTrigger.attributes.description.fadeA=Determines the parameter value at the start of the fade.
 triggers.MaxHelpingHand/PersistentMusicFadeTrigger.attributes.description.fadeB=Determines the parameter value at the end of the fade.
-triggers.MaxHelpingHand/PersistentMusicFadeTrigger.attributes.description.parameter=The music parameter this trigger will affect.
+triggers.MaxHelpingHand/PersistentMusicFadeTrigger.attributes.description.parameter=The music parameter this trigger will affect.\nDefaults to "fade", which is the one used to make music fade in/out.
 triggers.MaxHelpingHand/PersistentMusicFadeTrigger.attributes.description.direction=The direction the music fades in.
 
 # Pop Strawberry Seeds Trigger
