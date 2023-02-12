@@ -16,6 +16,18 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
     [CustomEntity("MaxHelpingHand/StylegroundFadeController")]
     [Tracked]
     public class StylegroundFadeController : Entity {
+        public static void Load() {
+            On.Celeste.Backdrop.IsVisible += modBackdropIsVisible;
+            On.Celeste.BackdropRenderer.Update += onBackdropRendererUpdate;
+            IL.Celeste.BackdropRenderer.Render += modBackdropRendererRender;
+        }
+
+        public static void Unload() {
+            On.Celeste.Backdrop.IsVisible -= modBackdropIsVisible;
+            On.Celeste.BackdropRenderer.Update -= onBackdropRendererUpdate;
+            IL.Celeste.BackdropRenderer.Render -= modBackdropRendererRender;
+        }
+
         private static Dictionary<string, float> fades = new Dictionary<string, float>();
         private static Dictionary<string, float> fadeInTimes = new Dictionary<string, float>();
         private static Dictionary<string, float> fadeOutTimes = new Dictionary<string, float>();
@@ -71,10 +83,6 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
         private void initializeFlag() {
             // enable the hooks on backdrop rendering.
             if (controllers.Count == 0) {
-                On.Celeste.Backdrop.IsVisible += modBackdropIsVisible;
-                On.Celeste.BackdropRenderer.Update += onBackdropRendererUpdate;
-                IL.Celeste.BackdropRenderer.Render += modBackdropRendererRender;
-
                 tempRenderTarget = VirtualContent.CreateRenderTarget("max-helping-hand-styleground-fade-controller", 320, 280);
             }
 
@@ -106,16 +114,14 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
 
             // if there is no flag settings left, disable the hooks on backdrop rendering.
             if (controllers.Count == 0) {
-                On.Celeste.Backdrop.IsVisible -= modBackdropIsVisible;
-                On.Celeste.BackdropRenderer.Update -= onBackdropRendererUpdate;
-                IL.Celeste.BackdropRenderer.Render -= modBackdropRendererRender;
-
                 tempRenderTarget?.Dispose();
                 tempRenderTarget = null;
             }
         }
 
         private static bool modBackdropIsVisible(On.Celeste.Backdrop.orig_IsVisible orig, Backdrop self, Level level) {
+            if (controllers.Count == 0) return orig(self, level);
+
             // force the backdrops that did not fade out yet to be visible, so that the player can see them fade out.
             if (self.OnlyIfFlag != null && fades.ContainsKey("f:" + self.OnlyIfFlag) && fades["f:" + self.OnlyIfFlag] > 0) {
                 return true;
@@ -129,6 +135,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
 
         private static void onBackdropRendererUpdate(On.Celeste.BackdropRenderer.orig_Update orig, BackdropRenderer self, Scene scene) {
             orig(self, scene);
+            if (controllers.Count == 0) return;
 
             if (scene is Level level) {
                 // there are 2 backdrop renderers in that scene (bg and fg), so we are going to be double updating on each frame.
@@ -170,6 +177,8 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
                 cursor.Emit(OpCodes.Ldarg_0);
                 cursor.Emit(OpCodes.Ldloc, backdropLocal);
                 cursor.EmitDelegate<Action<BackdropRenderer, Backdrop>>((self, backdrop) => {
+                    if (controllers.Count == 0) return;
+
                     bool hasFlag = backdrop.OnlyIfFlag != null && fades.ContainsKey("f:" + backdrop.OnlyIfFlag) && fades["f:" + backdrop.OnlyIfFlag] < 1;
                     bool hasNotFlag = backdrop.OnlyIfNotFlag != null && fades.ContainsKey("n:" + backdrop.OnlyIfNotFlag) && fades["n:" + backdrop.OnlyIfNotFlag] < 1;
 
@@ -196,6 +205,8 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
                 cursor.Emit(OpCodes.Ldloc, backdropLocal);
                 cursor.Emit(OpCodes.Ldloc, blendStateLocal);
                 cursor.EmitDelegate<Action<BackdropRenderer, Backdrop, BlendState>>((self, backdrop, blendState) => {
+                    if (controllers.Count == 0) return;
+
                     string key = null;
                     if (backdrop.OnlyIfFlag != null && fades.ContainsKey("f:" + backdrop.OnlyIfFlag) && fades["f:" + backdrop.OnlyIfFlag] < 1) {
                         key = "f:" + backdrop.OnlyIfFlag;
@@ -213,7 +224,6 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
                         Draw.SpriteBatch.Draw(tempRenderTarget, Vector2.Zero, Color.White * fades[key]);
                     }
                 });
-
             }
         }
     }

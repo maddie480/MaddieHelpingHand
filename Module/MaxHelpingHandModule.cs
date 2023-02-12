@@ -90,6 +90,7 @@ namespace Celeste.Mod.MaxHelpingHand.Module {
             ParallaxFadeSpeedController.Load();
             ParallaxFadeOutController.Load();
             RainbowSpinnerColorAreaController.Load();
+            StylegroundFadeController.Load();
 
             Everest.Events.Level.OnLoadBackdrop += onLoadBackdrop;
             On.Celeste.Mod.Everest.Register += onModRegister;
@@ -161,6 +162,7 @@ namespace Celeste.Mod.MaxHelpingHand.Module {
             ParallaxFadeSpeedController.Unload();
             ParallaxFadeOutController.Unload();
             RainbowSpinnerColorAreaController.Unload();
+            StylegroundFadeController.Unload();
 
             Everest.Events.Level.OnLoadBackdrop -= onLoadBackdrop;
             On.Celeste.Mod.Everest.Register -= onModRegister;
