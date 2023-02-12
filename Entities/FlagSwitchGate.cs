@@ -85,6 +85,8 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
 
             allowReturn = data.Bool("allowReturn", false);
 
+            SurfaceSoundIndex = data.Int("surfaceIndex", SurfaceSoundIndex);
+
             P_RecoloredFire = new ParticleType(TouchSwitch.P_Fire) {
                 Color = finishColor
             };

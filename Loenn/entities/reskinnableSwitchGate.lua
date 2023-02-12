@@ -45,6 +45,10 @@ switchGate.fieldInformation = {
             "objects/MaxHelpingHand/flagSwitchGate/wide/icon",
             "objects/MaxHelpingHand/flagSwitchGate/winged/icon"
         }
+    },
+    surfaceIndex = {
+        options = enums.tileset_sound_ids,
+        fieldType = "integer"
     }
 }
 switchGate.placements = {}
@@ -60,7 +64,8 @@ for i, texture in ipairs(textures) do
             icon = "objects/switchgate/icon",
             inactiveColor = "5fcde4",
             activeColor = "ffffff",
-            finishColor = "f141df"
+            finishColor = "f141df",
+            surfaceIndex = 8
         }
     }
 end

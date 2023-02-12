@@ -190,6 +190,7 @@ entities.MaxHelpingHand/FlagSwitchGate.attributes.description.allowReturn=Whethe
 entities.MaxHelpingHand/FlagSwitchGate.attributes.description.moveSound=The sound played by the gate when it starts moving.
 entities.MaxHelpingHand/FlagSwitchGate.attributes.description.finishedSound=The sound played by the gate when it is done moving.
 entities.MaxHelpingHand/FlagSwitchGate.attributes.description.smoke=Whether the switch gate should emit smoke when reaching its final position.
+entities.MaxHelpingHand/FlagSwitchGate.attributes.description.surfaceIndex=Footstep sound when walking on the switch gate.
 
 # Flag Touch Switch
 entities.MaxHelpingHand/FlagTouchSwitch.placements.name.touch_switch=Flag Touch Switch
@@ -1169,3 +1170,4 @@ entities.MaxHelpingHand/ReskinnableSwitchGate.attributes.description.icon=The na
 entities.MaxHelpingHand/ReskinnableSwitchGate.attributes.description.inactiveColor=The icon color when the door is not triggered yet.
 entities.MaxHelpingHand/ReskinnableSwitchGate.attributes.description.activeColor=The icon color when the door is triggered, but not done moving yet.
 entities.MaxHelpingHand/ReskinnableSwitchGate.attributes.description.finishColor=The icon color when the gate is done moving.
+entities.MaxHelpingHand/ReskinnableSwitchGate.attributes.description.surfaceIndex=Footstep sound when walking on the switch gate.

@@ -4,8 +4,9 @@ using ..Ahorn, Maple
 
 @pardef ReskinnableSwitchGate(x1::Integer, y1::Integer, x2::Integer=x1+16, y2::Integer=y1, width::Integer=Maple.defaultBlockWidth, height::Integer=Maple.defaultBlockHeight,
     persistent::Bool=false, sprite::String="block", icon::String="objects/switchgate/icon", inactiveColor::String="5fcde4", activeColor::String="ffffff",
-    finishColor::String="f141df") = Entity("MaxHelpingHand/ReskinnableSwitchGate", x=x1, y=y1, nodes=Tuple{Int, Int}[(x2, y2)], width=width, height=height,
-    persistent=persistent, sprite=sprite, icon=icon, inactiveColor=inactiveColor, activeColor=activeColor, finishColor=finishColor)
+    finishColor::String="f141df", surfaceIndex::Int16=convert(Int16, 8)) =
+    Entity("MaxHelpingHand/ReskinnableSwitchGate", x=x1, y=y1, nodes=Tuple{Int, Int}[(x2, y2)], width=width, height=height, persistent=persistent, sprite=sprite, icon=icon,
+    inactiveColor=inactiveColor, activeColor=activeColor, finishColor=finishColor, surfaceIndex=surfaceIndex)
 
 
 function gateFinalizer(entity)
@@ -67,7 +68,8 @@ Ahorn.editingOptions(entity::ReskinnableSwitchGate) = Dict{String, Any}(
         "objects/MaxHelpingHand/flagSwitchGate/square/icon",
         "objects/MaxHelpingHand/flagSwitchGate/wide/icon",
         "objects/MaxHelpingHand/flagSwitchGate/winged/icon"
-    ]
+    ],
+    "surfaceIndex" => Maple.tileset_sound_ids
 )
 
 Ahorn.nodeLimits(entity::ReskinnableSwitchGate) = 1, 1

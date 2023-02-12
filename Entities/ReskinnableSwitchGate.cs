@@ -40,6 +40,8 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
         public ReskinnableSwitchGate(EntityData data, Vector2 offset) : base(data, offset) {
             DynData<SwitchGate> thisData = new DynData<SwitchGate>(this);
 
+            SurfaceSoundIndex = data.Int("surfaceIndex", SurfaceSoundIndex);
+
             // replace the switch gate colors, that are conveniently stored as local variables.
             thisData["inactiveColor"] = Calc.HexToColor(data.Attr("inactiveColor"));
             thisData["activeColor"] = Calc.HexToColor(data.Attr("activeColor"));

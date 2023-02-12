@@ -1,6 +1,7 @@
 local drawableNinePatch = require("structs.drawable_nine_patch")
 local drawableSprite = require("structs.drawable_sprite")
 local utils = require("utils")
+local enums = require("consts.celeste_enums")
 
 local switchGate = {}
 
@@ -37,7 +38,8 @@ for i, texture in ipairs(textures) do
             allowReturn = false,
             moveSound = "event:/game/general/touchswitch_gate_open",
             finishedSound = "event:/game/general/touchswitch_gate_finish",
-            smoke = true
+            smoke = true,
+            surfaceIndex = 8
         }
     }
 end
@@ -59,6 +61,10 @@ switchGate.fieldInformation = {
     },
     icon = {
         options = bundledIcons
+    },
+    surfaceIndex = {
+        options = enums.tileset_sound_ids,
+        fieldType = "integer"
     }
 }
 
