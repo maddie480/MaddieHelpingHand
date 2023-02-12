@@ -1,5 +1,5 @@
 - Name: MaxHelpingHand
-  Version: 1.23.0
+  Version: 1.24.0
   DLL: bin/Release/net452/MaxHelpingHand.dll
   Dependencies:
     - Name: Everest

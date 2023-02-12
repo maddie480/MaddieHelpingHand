@@ -14,8 +14,32 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
         private static readonly FieldInfo spinnerColor = typeof(CrystalStaticSpinner).GetField("color", BindingFlags.NonPublic | BindingFlags.Instance);
         private static readonly MethodInfo spinnerUpdateHue = typeof(CrystalStaticSpinner).GetMethod("UpdateHue", BindingFlags.NonPublic | BindingFlags.Instance);
 
-        private static bool rainbowSpinnerHueHooked = false;
+        private static bool rainbowSpinnerHueHookEnabled = false;
         private static Hook jungleHelperHook;
+
+        public static void Load() {
+            using (new DetourContext { After = { "*" } }) { // ensure we override rainbow spinner color controllers
+                On.Celeste.CrystalStaticSpinner.GetHue += getRainbowSpinnerHue;
+            }
+        }
+
+        public static void LoadMods() {
+            using (new DetourContext { After = { "*" } }) { // ensure we override rainbow spinner color controllers
+                if (jungleHelperHook == null && Everest.Loader.DependencyLoaded(new EverestModuleMetadata { Name = "JungleHelper", Version = new Version(1, 0, 0) })) {
+                    // we want to hook Color Celeste.Mod.JungleHelper.Components.RainbowDecalComponent.getHue(Vector2) in Jungle Helper.
+                    jungleHelperHook = new Hook(Everest.Modules.First(mod => mod.GetType().ToString() == "Celeste.Mod.JungleHelper.JungleHelperModule")
+                        .GetType().Assembly.GetType("Celeste.Mod.JungleHelper.Components.RainbowDecalComponent").GetMethod("getHue", BindingFlags.NonPublic | BindingFlags.Instance),
+                        typeof(RainbowSpinnerColorAreaController).GetMethod("getRainbowDecalComponentHue", BindingFlags.NonPublic | BindingFlags.Static));
+                }
+            }
+        }
+
+        public static void Unload() {
+            On.Celeste.CrystalStaticSpinner.GetHue -= getRainbowSpinnerHue;
+
+            jungleHelperHook?.Dispose();
+            jungleHelperHook = null;
+        }
 
         // the parameters for this spinner controller.
         // first of the tuple: if flag is disabled or undefined, second: if flag is enabled.
@@ -69,13 +93,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             flagLatestState = !string.IsNullOrEmpty(flag) && SceneAs<Level>().Session.GetFlag(flag);
 
             // enable the hook on rainbow spinner hue.
-            if (!rainbowSpinnerHueHooked) {
-                using (new DetourContext { After = { "*" } }) { // ensure we override rainbow spinner color controllers
-                    On.Celeste.CrystalStaticSpinner.GetHue += getRainbowSpinnerHue;
-                    hookJungleHelper();
-                    rainbowSpinnerHueHooked = true;
-                }
-            }
+            rainbowSpinnerHueHookEnabled = true;
         }
 
         public override void Update() {
@@ -99,24 +117,12 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             }
         }
 
-        private void hookJungleHelper() {
-            if (Everest.Loader.DependencyLoaded(new EverestModuleMetadata { Name = "JungleHelper", Version = new Version(1, 0, 0) })) {
-                // we want to hook Color Celeste.Mod.JungleHelper.Components.RainbowDecalComponent.getHue(Vector2) in Jungle Helper.
-                jungleHelperHook = new Hook(Everest.Modules.First(mod => mod.GetType().ToString() == "Celeste.Mod.JungleHelper.JungleHelperModule")
-                    .GetType().Assembly.GetType("Celeste.Mod.JungleHelper.Components.RainbowDecalComponent").GetMethod("getHue", BindingFlags.NonPublic | BindingFlags.Instance),
-                    typeof(RainbowSpinnerColorAreaController).GetMethod("getRainbowDecalComponentHue", BindingFlags.NonPublic | BindingFlags.Static));
-            }
-        }
-
         public override void Removed(Scene scene) {
             base.Removed(scene);
 
             // if this controller was the last in the scene, disable the hook on rainbow spinner hue.
-            if (rainbowSpinnerHueHooked && scene.Tracker.CountEntities<RainbowSpinnerColorAreaController>() <= 1) {
-                On.Celeste.CrystalStaticSpinner.GetHue -= getRainbowSpinnerHue;
-                jungleHelperHook?.Dispose();
-                jungleHelperHook = null;
-                rainbowSpinnerHueHooked = false;
+            if (scene.Tracker.CountEntities<RainbowSpinnerColorAreaController>() <= 1) {
+                rainbowSpinnerHueHookEnabled = false;
             }
         }
 
@@ -124,12 +130,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             base.SceneEnd(scene);
 
             // leaving level; disable the hook on rainbow spinner hue.
-            if (rainbowSpinnerHueHooked) {
-                On.Celeste.CrystalStaticSpinner.GetHue -= getRainbowSpinnerHue;
-                jungleHelperHook?.Dispose();
-                jungleHelperHook = null;
-                rainbowSpinnerHueHooked = false;
-            };
+            rainbowSpinnerHueHookEnabled = false;
         }
 
         private T selectFromFlag<T>(Tuple<T, T> setting) {
@@ -140,6 +141,8 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
         }
 
         private static Color getRainbowSpinnerHue(On.Celeste.CrystalStaticSpinner.orig_GetHue orig, CrystalStaticSpinner self, Vector2 position) {
+            if (!rainbowSpinnerHueHookEnabled) return orig(self, position);
+
             RainbowSpinnerColorAreaController controller = self.CollideFirst<RainbowSpinnerColorAreaController>(position);
             if (controller != null) {
                 // apply the color from the controller we are in.
@@ -153,6 +156,8 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
         }
 
         private static Color getRainbowDecalComponentHue(Func<Component, Vector2, Color> orig, Component self, Vector2 position) {
+            if (!rainbowSpinnerHueHookEnabled) return orig(self, position);
+
             foreach (RainbowSpinnerColorAreaController controller in self.Scene.Tracker.GetEntities<RainbowSpinnerColorAreaController>()) {
                 if (controller.Collider.Collide(position)) {
                     return RainbowSpinnerColorController.getModHue(controller.selectFromFlag(controller.colors),

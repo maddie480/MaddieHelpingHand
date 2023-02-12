@@ -41,17 +41,28 @@ namespace Celeste.Mod.MaxHelpingHand.Triggers {
         public static void Load() {
             On.Celeste.Level.LoadLevel += onLoadLevel;
             Everest.Events.Level.OnExit += onLevelExit;
+
+            On.Celeste.DustStyles.Get_Scene += onGetDustStyle;
+            On.Celeste.DustEdges.BeforeRender += onDustEdgesBeforeRender;
+
+            eyeballHook = new ILHook(typeof(DustGraphic).GetNestedType("Eyeballs", BindingFlags.NonPublic).GetMethod("Render"), modDustEyesRender);
         }
 
         public static void Unload() {
             On.Celeste.Level.LoadLevel -= onLoadLevel;
             Everest.Events.Level.OnExit -= onLevelExit;
+
+            On.Celeste.DustStyles.Get_Scene -= onGetDustStyle;
+            On.Celeste.DustEdges.BeforeRender -= onDustEdgesBeforeRender;
+
+            eyeballHook?.Dispose();
+            eyeballHook = null;
         }
 
         private static void onLoadLevel(On.Celeste.Level.orig_LoadLevel orig, Level self, Player.IntroTypes playerIntro, bool isFromLoader) {
             orig(self, playerIntro, isFromLoader);
 
-            if (MaxHelpingHandModule.Instance.Session.GradientDustImagePath != null && !hooked) {
+            if (MaxHelpingHandModule.Instance.Session.GradientDustImagePath != null && !hookEnabled) {
                 applyGradient(MaxHelpingHandModule.Instance.Session.GradientDustImagePath, MaxHelpingHandModule.Instance.Session.GradientDustScrollSpeed);
             }
         }
@@ -60,7 +71,7 @@ namespace Celeste.Mod.MaxHelpingHand.Triggers {
             discardGradient();
         }
 
-        private static bool hooked = false;
+        private static bool hookEnabled = false;
 
         private static Color[] colors;
         private static MTexture image;
@@ -105,46 +116,28 @@ namespace Celeste.Mod.MaxHelpingHand.Triggers {
                 colors[i] = colorsFullArray[i];
             }
 
-            hook();
+            hookEnabled = true;
         }
 
         private static void discardGradient() {
             Logger.Log(LogLevel.Info, "MaxHelpingHand/GradientDustTrigger", "Discarding gradient dust");
 
-            unhook();
+            hookEnabled = false;
 
             colors = null;
             image = null;
         }
 
-        private static void hook() {
-            if (!hooked) {
-                On.Celeste.DustStyles.Get_Scene += onGetDustStyle;
-                On.Celeste.DustEdges.BeforeRender += onDustEdgesBeforeRender;
-                eyeballHook = new ILHook(typeof(DustGraphic).GetNestedType("Eyeballs", BindingFlags.NonPublic).GetMethod("Render"), modDustEyesRender);
-
-                hooked = true;
-            }
-        }
-
-        private static void unhook() {
-            if (hooked) {
-                On.Celeste.DustStyles.Get_Scene -= onGetDustStyle;
-                On.Celeste.DustEdges.BeforeRender -= onDustEdgesBeforeRender;
-                eyeballHook?.Dispose();
-                eyeballHook = null;
-
-                hooked = false;
-            }
-        }
-
         private static DustStyle onGetDustStyle(On.Celeste.DustStyles.orig_Get_Scene orig, Scene scene) {
+            if (!hookEnabled) return orig(scene);
+
             // make dust white: we're applying a color filter on top of it.
             return white;
         }
 
         private static void onDustEdgesBeforeRender(On.Celeste.DustEdges.orig_BeforeRender orig, DustEdges self) {
             orig(self);
+            if (!hookEnabled) return;
 
             // draw our image in ""substractive"" mode over the resort dust layer.
             float shift = (Engine.Scene.TimeActive * speed) % image.Width;
@@ -162,6 +155,11 @@ namespace Celeste.Mod.MaxHelpingHand.Triggers {
 
                 cursor.Remove();
                 cursor.EmitDelegate<Action<MTexture, Vector2, Color, float>>((texture, position, color, scale) => {
+                    if (!hookEnabled) {
+                        texture.DrawCentered(position, color, scale);
+                        return;
+                    }
+
                     // compute the eye color to make the color match the dust edges.
                     float shift = (Engine.Scene.TimeActive * speed) % image.Width;
                     float cameraX = (Engine.Scene as Level)?.Camera?.Left ?? 0f;

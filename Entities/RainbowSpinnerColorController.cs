@@ -15,16 +15,30 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
     [CustomEntity("MaxHelpingHand/RainbowSpinnerColorController", "MaxHelpingHand/FlagRainbowSpinnerColorController")]
     [Tracked]
     public class RainbowSpinnerColorController : Entity {
-        private static readonly FieldInfo spinnerColor = typeof(CrystalStaticSpinner).GetField("color", BindingFlags.NonPublic | BindingFlags.Instance);
-        private static readonly MethodInfo spinnerUpdateHue = typeof(CrystalStaticSpinner).GetMethod("UpdateHue", BindingFlags.NonPublic | BindingFlags.Instance);
-
         public static void Load() {
             On.Celeste.Level.LoadLevel += onLoadLevel;
+            On.Celeste.CrystalStaticSpinner.GetHue += getRainbowSpinnerHue;
+        }
+
+        public static void LoadMods() {
+            if (jungleHelperHook == null && Everest.Loader.DependencyLoaded(new EverestModuleMetadata { Name = "JungleHelper", Version = new Version(1, 0, 0) })) {
+                // we want to hook Color Celeste.Mod.JungleHelper.Components.RainbowDecalComponent.getHue(Vector2) in Jungle Helper.
+                jungleHelperHook = new Hook(Everest.Modules.First(mod => mod.GetType().ToString() == "Celeste.Mod.JungleHelper.JungleHelperModule")
+                    .GetType().Assembly.GetType("Celeste.Mod.JungleHelper.Components.RainbowDecalComponent").GetMethod("getHue", BindingFlags.NonPublic | BindingFlags.Instance),
+                    typeof(RainbowSpinnerColorController).GetMethod("getRainbowDecalComponentHue", BindingFlags.NonPublic | BindingFlags.Static));
+            }
         }
 
         public static void Unload() {
             On.Celeste.Level.LoadLevel -= onLoadLevel;
+            On.Celeste.CrystalStaticSpinner.GetHue -= getRainbowSpinnerHue;
+
+            jungleHelperHook?.Dispose();
+            jungleHelperHook = null;
         }
+
+        private static readonly FieldInfo spinnerColor = typeof(CrystalStaticSpinner).GetField("color", BindingFlags.NonPublic | BindingFlags.Instance);
+        private static readonly MethodInfo spinnerUpdateHue = typeof(CrystalStaticSpinner).GetMethod("UpdateHue", BindingFlags.NonPublic | BindingFlags.Instance);
 
         private static void onLoadLevel(On.Celeste.Level.orig_LoadLevel orig, Level self, Player.IntroTypes playerIntro, bool isFromLoader) {
             orig(self, playerIntro, isFromLoader);
@@ -62,7 +76,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
         }
 
 
-        private static bool rainbowSpinnerHueHooked = false;
+        private static bool rainbowSpinnerHueHookEnabled = false;
         private static Hook jungleHelperHook;
 
         // the spinner controller on the current screen.
@@ -167,20 +181,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             nextSpinnerController = this;
 
             // enable the hook on rainbow spinner hue.
-            if (!rainbowSpinnerHueHooked) {
-                On.Celeste.CrystalStaticSpinner.GetHue += getRainbowSpinnerHue;
-                hookJungleHelper();
-                rainbowSpinnerHueHooked = true;
-            }
-        }
-
-        private void hookJungleHelper() {
-            if (Everest.Loader.DependencyLoaded(new EverestModuleMetadata { Name = "JungleHelper", Version = new Version(1, 0, 0) })) {
-                // we want to hook Color Celeste.Mod.JungleHelper.Components.RainbowDecalComponent.getHue(Vector2) in Jungle Helper.
-                jungleHelperHook = new Hook(Everest.Modules.First(mod => mod.GetType().ToString() == "Celeste.Mod.JungleHelper.JungleHelperModule")
-                    .GetType().Assembly.GetType("Celeste.Mod.JungleHelper.Components.RainbowDecalComponent").GetMethod("getHue", BindingFlags.NonPublic | BindingFlags.Instance),
-                    typeof(RainbowSpinnerColorController).GetMethod("getRainbowDecalComponentHue", BindingFlags.NonPublic | BindingFlags.Static));
-            }
+            rainbowSpinnerHueHookEnabled = true;
         }
 
         public override void Removed(Scene scene) {
@@ -193,27 +194,20 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             // the transition (if any) is over.
             transitionProgress = -1f;
 
-            // if there is none, clean up the hook on the spinner hue.
-            if (spinnerControllerOnScreen == null && rainbowSpinnerHueHooked) {
-                On.Celeste.CrystalStaticSpinner.GetHue -= getRainbowSpinnerHue;
-                jungleHelperHook?.Dispose();
-                jungleHelperHook = null;
-                rainbowSpinnerHueHooked = false;
+            // if there is none, disable the hook on the spinner hue.
+            if (spinnerControllerOnScreen == null) {
+                rainbowSpinnerHueHookEnabled = false;
             }
         }
 
         public override void SceneEnd(Scene scene) {
             base.SceneEnd(scene);
 
-            // leaving level: forget about all controllers and clean up the hook if present.
+            // leaving level: forget about all controllers and disable the hook if present.
             spinnerControllerOnScreen = null;
             nextSpinnerController = null;
-            if (rainbowSpinnerHueHooked) {
-                On.Celeste.CrystalStaticSpinner.GetHue -= getRainbowSpinnerHue;
-                jungleHelperHook?.Dispose();
-                jungleHelperHook = null;
-                rainbowSpinnerHueHooked = false;
-            };
+
+            rainbowSpinnerHueHookEnabled = false;
         }
 
         public override void Update() {
@@ -252,10 +246,14 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
         }
 
         private static Color getRainbowSpinnerHue(On.Celeste.CrystalStaticSpinner.orig_GetHue orig, CrystalStaticSpinner self, Vector2 position) {
+            if (!rainbowSpinnerHueHookEnabled) return orig(self, position);
+
             return getEntityHue(() => orig(self, position), self, position);
         }
 
         private static Color getRainbowDecalComponentHue(Func<Component, Vector2, Color> orig, Component self, Vector2 position) {
+            if (!rainbowSpinnerHueHookEnabled) return orig(self, position);
+
             return getEntityHue(() => orig(self, position), self.Entity, position);
         }
 

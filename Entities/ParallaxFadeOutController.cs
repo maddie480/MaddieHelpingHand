@@ -13,8 +13,15 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
     [CustomEntity("MaxHelpingHand/ParallaxFadeOutController")]
     [Tracked]
     public class ParallaxFadeOutController : Entity {
+        public static void Load() {
+            IL.Celeste.BackdropRenderer.Render += onBackdropRender;
+        }
 
-        private static bool backdropRendererHooked = false;
+        public static void Unload() {
+            IL.Celeste.BackdropRenderer.Render -= onBackdropRender;
+        }
+
+        private static bool backdropRendererHookEnabled = false;
 
         public ParallaxFadeOutController(EntityData data, Vector2 offset) : base(data.Position + offset) { }
 
@@ -22,19 +29,15 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             base.Awake(scene);
 
             // enable the hook on backdrop rendering.
-            if (!backdropRendererHooked) {
-                backdropRendererHooked = true;
-                IL.Celeste.BackdropRenderer.Render += onBackdropRender;
-            }
+            backdropRendererHookEnabled = true;
         }
 
         public override void Removed(Scene scene) {
             base.Removed(scene);
 
             // disable the hook on backdrop rendering.
-            if (backdropRendererHooked && scene.Tracker.CountEntities<ParallaxFadeOutController>() <= 1) {
-                backdropRendererHooked = false;
-                IL.Celeste.BackdropRenderer.Render -= onBackdropRender;
+            if (scene.Tracker.CountEntities<ParallaxFadeOutController>() <= 1) {
+                backdropRendererHookEnabled = false;
             }
         }
 
@@ -42,10 +45,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             base.SceneEnd(scene);
 
             // disable the hook on backdrop rendering.
-            if (backdropRendererHooked) {
-                backdropRendererHooked = false;
-                IL.Celeste.BackdropRenderer.Render -= onBackdropRender;
-            }
+            backdropRendererHookEnabled = false;
         }
 
         private static void onBackdropRender(ILContext il) {
@@ -56,6 +56,8 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
                 cursor.Emit(OpCodes.Dup);
                 cursor.Index++;
                 cursor.EmitDelegate<Func<Backdrop, bool, bool>>((backdrop, orig) => {
+                    if (!backdropRendererHookEnabled) return orig;
+
                     // force the game into rendering parallax backdrop that have fadeIn > 0 even if not visible.
                     return orig || (Engine.Scene.TimeActive > 1f && backdrop is Parallax parallax && parallax.DoFadeIn && new DynData<Parallax>(parallax).Get<float>("fadeIn") > 0f);
                 });

@@ -87,6 +87,9 @@ namespace Celeste.Mod.MaxHelpingHand.Module {
             MoreCustomNPC.Load();
             ReskinnableTouchSwitch.Load();
             ReskinnableSwitchGate.Load();
+            ParallaxFadeSpeedController.Load();
+            ParallaxFadeOutController.Load();
+            RainbowSpinnerColorAreaController.Load();
 
             Everest.Events.Level.OnLoadBackdrop += onLoadBackdrop;
             On.Celeste.Mod.Everest.Register += onModRegister;
@@ -155,6 +158,9 @@ namespace Celeste.Mod.MaxHelpingHand.Module {
             MoreCustomNPC.Unload();
             ReskinnableTouchSwitch.Unload();
             ReskinnableSwitchGate.Unload();
+            ParallaxFadeSpeedController.Unload();
+            ParallaxFadeOutController.Unload();
+            RainbowSpinnerColorAreaController.Unload();
 
             Everest.Events.Level.OnLoadBackdrop -= onLoadBackdrop;
             On.Celeste.Mod.Everest.Register -= onModRegister;
@@ -192,6 +198,8 @@ namespace Celeste.Mod.MaxHelpingHand.Module {
             ReskinnableStarRotateSpinner.LoadMods();
             ReskinnableStarTrackSpinner.LoadMods();
             SaveFileStrawberryGate.HookMods();
+            RainbowSpinnerColorController.LoadMods();
+            RainbowSpinnerColorAreaController.LoadMods();
 
             if (!hookedSineParallax && Everest.Loader.DependencyLoaded(new EverestModuleMetadata() { Name = "FlaglinesAndSuch", Version = new Version(1, 4, 17) })) {
                 hookSineParallax();

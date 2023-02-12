@@ -15,10 +15,28 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
     public class SeekerBarrierColorController : Entity {
         public static void Load() {
             On.Celeste.Level.LoadLevel += onLoadLevel;
+
+            IL.Celeste.SeekerBarrierRenderer.OnRenderBloom += hookBarrierColor;
+            IL.Celeste.SeekerBarrierRenderer.Render += hookBarrierColor;
+            IL.Celeste.SeekerBarrier.Render += hookParticleColors;
+            On.Celeste.SeekerBarrier.Update += hookSeekerBarrierParticlesAndWave;
+
+            On.Celeste.SeekerBarrierRenderer.OnRenderBloom += onSeekerBarrierRendererRenderBloom;
+            IL.Celeste.BloomRenderer.Apply += modBloomRendererApply;
+            On.Celeste.SeekerBarrierRenderer.Render += onSeekerBarrierRendererRender;
         }
 
         public static void Unload() {
             On.Celeste.Level.LoadLevel -= onLoadLevel;
+
+            IL.Celeste.SeekerBarrierRenderer.OnRenderBloom -= hookBarrierColor;
+            IL.Celeste.SeekerBarrierRenderer.Render -= hookBarrierColor;
+            IL.Celeste.SeekerBarrier.Render -= hookParticleColors;
+            On.Celeste.SeekerBarrier.Update -= hookSeekerBarrierParticlesAndWave;
+
+            On.Celeste.SeekerBarrierRenderer.OnRenderBloom -= onSeekerBarrierRendererRenderBloom;
+            IL.Celeste.BloomRenderer.Apply -= modBloomRendererApply;
+            On.Celeste.SeekerBarrierRenderer.Render -= onSeekerBarrierRendererRender;
         }
 
         private static void onLoadLevel(On.Celeste.Level.orig_LoadLevel orig, Level self, Player.IntroTypes playerIntro, bool isFromLoader) {
@@ -48,7 +66,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
         }
 
 
-        private static bool seekerBarrierRendererHooked = false;
+        private static bool seekerBarrierRendererHookEnabled = false;
 
         // the seeker controller on the current screen.
         private static SeekerBarrierColorController controllerOnScreen;
@@ -123,10 +141,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             nextController = this;
 
             // enable the hooks on barrier rendering.
-            if (!seekerBarrierRendererHooked) {
-                hookSeekerBarrierRenderer();
-                seekerBarrierRendererHooked = true;
-            }
+            seekerBarrierRendererHookEnabled = true;
         }
 
         public override void Awake(Scene scene) {
@@ -153,10 +168,9 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             // the transition (if any) is over.
             transitionProgress = -1f;
 
-            // if there is none, clean up the hooks.
-            if (controllerOnScreen == null && seekerBarrierRendererHooked) {
-                unhookSeekerBarrierRenderer();
-                seekerBarrierRendererHooked = false;
+            // if there is none, disable the hooks.
+            if (controllerOnScreen == null) {
+                seekerBarrierRendererHookEnabled = false;
             }
 
             levelRenderTarget?.Dispose();
@@ -166,13 +180,11 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
         public override void SceneEnd(Scene scene) {
             base.SceneEnd(scene);
 
-            // leaving level: forget about all controllers and clean up the hooks if present.
+            // leaving level: forget about all controllers and disable the hooks if present.
             controllerOnScreen = null;
             nextController = null;
-            if (seekerBarrierRendererHooked) {
-                unhookSeekerBarrierRenderer();
-                seekerBarrierRendererHooked = false;
-            };
+
+            seekerBarrierRendererHookEnabled = false;
 
             levelRenderTarget?.Dispose();
             levelRenderTarget = null;
@@ -189,29 +201,12 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             }
         }
 
-        private void hookSeekerBarrierRenderer() {
-            IL.Celeste.SeekerBarrierRenderer.OnRenderBloom += hookBarrierColor;
-            IL.Celeste.SeekerBarrierRenderer.Render += hookBarrierColor;
-            IL.Celeste.SeekerBarrier.Render += hookParticleColors;
-            On.Celeste.SeekerBarrier.Update += hookSeekerBarrierParticlesAndWave;
-
-            On.Celeste.SeekerBarrierRenderer.OnRenderBloom += onSeekerBarrierRendererRenderBloom;
-            IL.Celeste.BloomRenderer.Apply += modBloomRendererApply;
-            On.Celeste.SeekerBarrierRenderer.Render += onSeekerBarrierRendererRender;
-        }
-
-        private static void unhookSeekerBarrierRenderer() {
-            IL.Celeste.SeekerBarrierRenderer.OnRenderBloom -= hookBarrierColor;
-            IL.Celeste.SeekerBarrierRenderer.Render -= hookBarrierColor;
-            IL.Celeste.SeekerBarrier.Render -= hookParticleColors;
-            On.Celeste.SeekerBarrier.Update -= hookSeekerBarrierParticlesAndWave;
-
-            On.Celeste.SeekerBarrierRenderer.OnRenderBloom -= onSeekerBarrierRendererRenderBloom;
-            IL.Celeste.BloomRenderer.Apply -= modBloomRendererApply;
-            On.Celeste.SeekerBarrierRenderer.Render -= onSeekerBarrierRendererRender;
-        }
-
         private static void hookSeekerBarrierParticlesAndWave(On.Celeste.SeekerBarrier.orig_Update orig, SeekerBarrier self) {
+            if (!seekerBarrierRendererHookEnabled) {
+                orig(self);
+                return;
+            }
+
             float particleDirection = controllerOnScreen?.particleDirection ?? 0f;
             bool wavy = controllerOnScreen?.wavy ?? true;
 
@@ -264,22 +259,20 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             ILCursor cursor = new ILCursor(il);
 
             // replace colors (vanilla is white)...
-            while (cursor.TryGotoNext(MoveType.AfterLabel, instr => instr.MatchCall<Color>("get_White"))) {
+            while (cursor.TryGotoNext(MoveType.After, instr => instr.MatchCall<Color>("get_White"))) {
                 Logger.Log("MaxHelpingHand/SeekerBarrierColorController", $"Injecting seeker barrier color at {cursor.Index} in IL for {il.Method.Name}");
                 cursor.Emit(OpCodes.Ldarg_0);
-                cursor.Next.OpCode = OpCodes.Call;
-                cursor.Next.Operand = typeof(SeekerBarrierColorController).GetMethod("GetCurrentBarrierColor");
+                cursor.EmitDelegate<Func<Color, SeekerBarrierRenderer, Color>>(GetCurrentBarrierColor);
             }
 
             // reset the cursor...
             cursor.Index = 0;
 
             // ... and replace opacity (vanilla is 0.15).
-            if (cursor.TryGotoNext(MoveType.AfterLabel, instr => instr.MatchLdcR4(0.15f))) {
+            if (cursor.TryGotoNext(MoveType.After, instr => instr.MatchLdcR4(0.15f))) {
                 Logger.Log("MaxHelpingHand/SeekerBarrierColorController", $"Injecting seeker barrier transparency at {cursor.Index} in IL for {il.Method.Name}");
                 cursor.Emit(OpCodes.Ldarg_0);
-                cursor.Next.OpCode = OpCodes.Call;
-                cursor.Next.Operand = typeof(SeekerBarrierColorController).GetMethod("GetCurrentBarrierTransparency");
+                cursor.EmitDelegate<Func<float, SeekerBarrierRenderer, float>>(GetCurrentBarrierTransparency);
             }
         }
 
@@ -287,49 +280,55 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             ILCursor cursor = new ILCursor(il);
 
             // replace colors (vanilla is white)...
-            if (cursor.TryGotoNext(MoveType.AfterLabel, instr => instr.MatchCall<Color>("get_White"))) {
+            if (cursor.TryGotoNext(MoveType.After, instr => instr.MatchCall<Color>("get_White"))) {
                 Logger.Log("MaxHelpingHand/SeekerBarrierColorController", $"Injecting seeker barrier particle color at {cursor.Index} in IL for {il.Method.Name}");
                 cursor.Emit(OpCodes.Ldarg_0);
-                cursor.Next.OpCode = OpCodes.Call;
-                cursor.Next.Operand = typeof(SeekerBarrierColorController).GetMethod("GetCurrentParticleColor");
+                cursor.EmitDelegate<Func<Color, SeekerBarrier, Color>>(GetCurrentParticleColor);
             }
 
             // reset the cursor...
             cursor.Index = 0;
 
             // ... and replace opacity (vanilla is 0.5).
-            if (cursor.TryGotoNext(MoveType.AfterLabel, instr => instr.MatchLdcR4(0.5f))) {
+            if (cursor.TryGotoNext(MoveType.After, instr => instr.MatchLdcR4(0.5f))) {
                 Logger.Log("MaxHelpingHand/SeekerBarrierColorController", $"Injecting seeker barrier particle transparency at {cursor.Index} in IL for {il.Method.Name}");
                 cursor.Emit(OpCodes.Ldarg_0);
-                cursor.Next.OpCode = OpCodes.Call;
-                cursor.Next.Operand = typeof(SeekerBarrierColorController).GetMethod("GetCurrentParticleTransparency");
+                cursor.EmitDelegate<Func<float, SeekerBarrier, float>>(GetCurrentParticleTransparency);
             }
         }
 
         // those are called from the IL hooks:
 
-        public static Color GetCurrentBarrierColor(SeekerBarrierRenderer renderer) {
+        public static Color GetCurrentBarrierColor(Color orig, SeekerBarrierRenderer renderer) {
+            if (!seekerBarrierRendererHookEnabled) return orig;
+
             if (renderer is CustomSeekerBarrier.Renderer customRenderer) {
                 return customRenderer.color;
             }
             return getAndLerp(controller => controller.color, Color.White, Color.Lerp);
         }
 
-        public static Color GetCurrentParticleColor(SeekerBarrier barrier) {
+        public static Color GetCurrentParticleColor(Color orig, SeekerBarrier barrier) {
+            if (!seekerBarrierRendererHookEnabled) return orig;
+
             if (barrier is CustomSeekerBarrier customBarrier) {
                 return customBarrier.particleColor;
             }
             return getAndLerp(controller => controller.particleColor, Color.White, Color.Lerp);
         }
 
-        public static float GetCurrentBarrierTransparency(SeekerBarrierRenderer renderer) {
+        public static float GetCurrentBarrierTransparency(float orig, SeekerBarrierRenderer renderer) {
+            if (!seekerBarrierRendererHookEnabled) return orig;
+
             if (renderer is CustomSeekerBarrier.Renderer customRenderer) {
                 return customRenderer.transparency;
             }
             return getAndLerp(controller => controller.transparency, 0.15f, MathHelper.Lerp);
         }
 
-        public static float GetCurrentParticleTransparency(SeekerBarrier barrier) {
+        public static float GetCurrentParticleTransparency(float orig, SeekerBarrier barrier) {
+            if (!seekerBarrierRendererHookEnabled) return orig;
+
             if (barrier is CustomSeekerBarrier customBarrier) {
                 return customBarrier.particleTransparency;
             }
@@ -382,6 +381,11 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
         private static bool allowedToRenderBloom = false;
 
         private static void onSeekerBarrierRendererRenderBloom(On.Celeste.SeekerBarrierRenderer.orig_OnRenderBloom orig, SeekerBarrierRenderer self) {
+            if (!seekerBarrierRendererHookEnabled) {
+                orig(self);
+                return;
+            }
+
             // only run RenderBloom if no depth setting is activated, or if we are allowed to do so.
             if ((controllerOnScreen?.renderBloom ?? true) && (!(controllerOnScreen?.depth.HasValue ?? false) || allowedToRenderBloom)) {
                 orig(self);
@@ -393,6 +397,8 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             if (cursor.TryGotoNext(MoveType.After, instr => instr.MatchCallvirt<Tracker>("GetEntities"))) {
                 Logger.Log("MaxHelpingHand/SeekerBarrierColorController", $"Disabling seeker barrier rendering in BloomRenderer.Apply at {cursor.Index} in IL");
                 cursor.EmitDelegate<Func<List<Entity>, List<Entity>>>(orig => {
+                    if (!seekerBarrierRendererHookEnabled) return orig;
+
                     if ((controllerOnScreen?.depth.HasValue ?? false) || !(controllerOnScreen?.renderBloom ?? true)) {
                         // pretend there is no seeker barrier.
                         return new List<Entity>();
@@ -404,6 +410,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
 
         private static void onSeekerBarrierRendererRender(On.Celeste.SeekerBarrierRenderer.orig_Render orig, SeekerBarrierRenderer self) {
             orig(self);
+            if (!seekerBarrierRendererHookEnabled) return;
 
             if ((controllerOnScreen?.renderBloom ?? true) && (controllerOnScreen?.depth.HasValue ?? false) && controllerOnScreen.Scene is Level level) {
                 // stop rendering gameplay: we're going to render BLOOM now. Yeaaaaah

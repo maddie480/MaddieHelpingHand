@@ -8,8 +8,16 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
     [CustomEntity("MaxHelpingHand/ParallaxFadeSpeedController")]
     [Tracked]
     public class ParallaxFadeSpeedController : Entity {
+        public static void Load() {
+            IL.Celeste.Parallax.Update += modBackdropUpdate;
+        }
 
-        private static bool backdropHooked = false;
+        public static void Unload() {
+            IL.Celeste.Parallax.Update -= modBackdropUpdate;
+        }
+
+
+        private static bool backdropHookEnabled = false;
 
         private readonly float fadeTime;
 
@@ -21,19 +29,15 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             base.Awake(scene);
 
             // enable the hook on backdrop updating.
-            if (!backdropHooked) {
-                backdropHooked = true;
-                IL.Celeste.Parallax.Update += modBackdropUpdate;
-            }
+            backdropHookEnabled = true;
         }
 
         public override void Removed(Scene scene) {
             base.Removed(scene);
 
             // disable the hook on backdrop updating.
-            if (backdropHooked && scene.Tracker.CountEntities<ParallaxFadeSpeedController>() <= 1) {
-                backdropHooked = false;
-                IL.Celeste.Parallax.Update -= modBackdropUpdate;
+            if (scene.Tracker.CountEntities<ParallaxFadeSpeedController>() <= 1) {
+                backdropHookEnabled = false;
             }
         }
 
@@ -41,10 +45,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             base.SceneEnd(scene);
 
             // disable the hook on backdrop updating.
-            if (backdropHooked) {
-                backdropHooked = false;
-                IL.Celeste.Parallax.Update -= modBackdropUpdate;
-            }
+            backdropHookEnabled = false;
         }
 
         private static void modBackdropUpdate(ILContext il) {
@@ -56,6 +57,8 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
                 Logger.Log("MaxHelpingHand/ParallaxFadeSpeedController", $"Injecting hook to change parallax fade speed at {cursor.Index} in IL for Backdrop.Update");
 
                 cursor.EmitDelegate<Func<float, float>>(orig => {
+                    if (!backdropHookEnabled) return orig;
+
                     ParallaxFadeSpeedController controller = Engine.Scene.Tracker.GetEntity<ParallaxFadeSpeedController>();
                     if (controller != null) {
                         return orig / controller.fadeTime;
