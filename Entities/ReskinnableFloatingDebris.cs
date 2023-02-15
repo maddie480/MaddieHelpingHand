@@ -37,6 +37,13 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
                 new DynData<FloatingDebris>(debris)["rotateSpeed"] = float.Parse(entityData.Attr("rotateSpeed"));
             }
 
+            // Scroll X and Scroll Y options
+            float scrollX = entityData.Float("scrollX");
+            float scrollY = entityData.Float("scrollY");
+            if (scrollX != 0 || scrollY != 0) {
+                debris.Add(new DebrisParallaxThingy(debris.Position, new Vector2(scrollX, scrollY)));
+            }
+
             floatingDebrisSkin = null;
             floatingDebrisWidth = null;
             floatingDebrisHeight = null;
@@ -78,6 +85,24 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
                     int index = cursor.Index;
                     cursor.EmitDelegate<Func<int, int>>(orig => floatingDebrisWidth ?? orig);
                     cursor.Index = index - 1;
+                }
+            }
+        }
+
+        private class DebrisParallaxThingy : Component {
+            private readonly Vector2 position, scroll;
+
+            public DebrisParallaxThingy(Vector2 position, Vector2 scroll) : base(active: true, visible: false) {
+                this.position = position;
+                this.scroll = scroll;
+            }
+
+            public override void Update() {
+                base.Update();
+
+                Camera levelCamera = (Entity?.Scene as Level)?.Camera;
+                if (levelCamera != null) {
+                    Entity.Position = position + (levelCamera.Position - (Entity.Scene as Level).Session.LevelData.Position) * scroll;
                 }
             }
         }

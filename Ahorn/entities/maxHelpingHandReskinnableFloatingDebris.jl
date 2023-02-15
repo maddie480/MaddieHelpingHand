@@ -3,7 +3,7 @@
 using ..Ahorn, Maple
 
 @mapdef Entity "MaxHelpingHand/ReskinnableFloatingDebris" ReskinnableFloatingDebris(x::Integer, y::Integer, texture::String="scenery/debris", depth::Int=-5,
-    interactWithPlayer::Bool=true, debrisWidth::Int=8, debrisHeight::Int=8, rotateSpeed::String="")
+    interactWithPlayer::Bool=true, debrisWidth::Int=8, debrisHeight::Int=8, rotateSpeed::String="", scrollX::Number=0.0, scrollY::Number=0.0)
 
 const placements = Ahorn.PlacementDict(
     "Floating Debris (Reskinnable) (max480's Helping Hand)" => Ahorn.EntityPlacement(

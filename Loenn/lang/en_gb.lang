@@ -574,6 +574,8 @@ entities.MaxHelpingHand/ReskinnableFloatingDebris.attributes.description.interac
 entities.MaxHelpingHand/ReskinnableFloatingDebris.attributes.description.debrisWidth=The width of the debris, in pixels.\nShould match the width of each variant of debris in the texture.
 entities.MaxHelpingHand/ReskinnableFloatingDebris.attributes.description.debrisHeight=The height of the debris, in pixels.\nShould match the height of the texture.
 entities.MaxHelpingHand/ReskinnableFloatingDebris.attributes.description.rotateSpeed=The rotation speed of the debris (in radians/s). Use negative values for counterclockwise rotation.\nLeave empty to get the vanilla behavior: a random integer value from -2 to 2.
+entities.MaxHelpingHand/ReskinnableFloatingDebris.attributes.description.scrollX=The amount of pixels the debris move horizontally when the camera moves right by 1 pixel.\nOnly works with "Interact With Player" disabled.\nThe X position of the debris will be: X + (scroll X * amount of pixels the camera scrolled from the left of the room).
+entities.MaxHelpingHand/ReskinnableFloatingDebris.attributes.description.scrollY=The amount of pixels the debris move vertically when the camera moves down by 1 pixel.\nOnly works with "Interact With Player" disabled.\nThe Y position of the debris will be: Y + (scroll Y * amount of pixels the camera scrolled from the top of the room).
 
 # Reskinnable Star Rotate Spinner
 entities.MaxHelpingHand/ReskinnableStarRotateSpinner.placements.name.clockwise=Rotating Spinner (Starfish, Clockwise, Reskinnable)
