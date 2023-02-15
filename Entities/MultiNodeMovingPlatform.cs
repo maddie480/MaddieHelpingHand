@@ -25,6 +25,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
         private bool moveLater;
         private bool emitSound;
         private bool giveHorizontalBoost;
+        private bool drawTracks;
 
         private MTexture[] textures;
         private float[] nodePercentages;
@@ -77,6 +78,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             moveLater = data.Bool("moveLater", false);
             emitSound = data.Bool("emitSound", defaultValue: true);
             giveHorizontalBoost = data.Bool("giveHorizontalBoost", defaultValue: false);
+            drawTracks = data.Bool("drawTracks", defaultValue: true);
 
             entityProperties = data.Values;
             entityPosition = data.Position;
@@ -204,7 +206,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             }
 
             // draw lines between all nodes
-            if (Visible || forcedTrackOffset != null) {
+            if (drawTracks && (Visible || forcedTrackOffset != null)) {
                 Vector2 lineOffset = forcedTrackOffset ?? new Vector2(Width, Height + 4f) / 2f;
                 scene.Add(new MovingPlatformLine(nodes[0] + lineOffset, nodes[1] + lineOffset));
                 if (nodes.Length > 2) {

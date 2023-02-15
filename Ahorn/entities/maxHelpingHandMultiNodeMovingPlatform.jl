@@ -2,8 +2,12 @@
 
 using ..Ahorn, Maple
 
-@pardef MultiNodeMovingPlatform(x::Integer, y::Integer, width::Integer=Maple.defaultBlockWidth, mode::String="Loop", texture::String="default", moveTime::Number=2.0, pauseTime::Number=0.0, easing::Bool=true, amount::Int=1, offset::Number=0.0, flag::String="", moveLater::Bool=true, emitSound::Bool=true, giveHorizontalBoost::Bool=false) =
-    Entity("MaxHelpingHand/MultiNodeMovingPlatform", x=x, y=y, nodes=Tuple{Int, Int}[], width=width, mode=mode, texture=texture, moveTime=moveTime, pauseTime=pauseTime, easing=easing, amount=amount, offset=offset, flag=flag, moveLater=moveLater, emitSound=emitSound, giveHorizontalBoost=giveHorizontalBoost)
+@pardef MultiNodeMovingPlatform(x::Integer, y::Integer, width::Integer=Maple.defaultBlockWidth, mode::String="Loop", texture::String="default",
+    moveTime::Number=2.0, pauseTime::Number=0.0, easing::Bool=true, amount::Int=1, offset::Number=0.0, flag::String="", moveLater::Bool=true,
+    emitSound::Bool=true, giveHorizontalBoost::Bool=false, drawTracks::Bool=true) =
+    Entity("MaxHelpingHand/MultiNodeMovingPlatform", x=x, y=y, nodes=Tuple{Int, Int}[], width=width, mode=mode, texture=texture,
+    moveTime=moveTime, pauseTime=pauseTime, easing=easing, amount=amount, offset=offset, flag=flag, moveLater=moveLater,
+    emitSound=emitSound, giveHorizontalBoost=giveHorizontalBoost, drawTracks=drawTracks)
 
 const placements = Ahorn.PlacementDict()
 
@@ -111,11 +115,15 @@ function Ahorn.renderAbs(ctx::Ahorn.Cairo.CairoContext, entity::MultiNodeMovingP
     nodes = get(entity.data, "nodes", ())
     for node in nodes
         nodeX, nodeY = Int.(node)
-        renderConnection(ctx, previousNodeX, previousNodeY, nodeX, nodeY, width)
+
+        if get(entity, "drawTracks", true)
+            renderConnection(ctx, previousNodeX, previousNodeY, nodeX, nodeY, width)
+        end
+
         previousNodeX, previousNodeY = nodeX, nodeY
     end
 
-    if mode == "Loop" || mode == "LoopNoPause"
+    if (mode == "Loop" || mode == "LoopNoPause") && get(entity, "drawTracks", true)
         renderConnection(ctx, previousNodeX, previousNodeY, firstNodeX, firstNodeY, width)
     end
 

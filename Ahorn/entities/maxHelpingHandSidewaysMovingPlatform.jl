@@ -2,8 +2,10 @@
 
 using ..Ahorn, Maple
 
-@pardef SidewaysMovingPlatform(x::Integer, y::Integer, height::Integer=Maple.defaultBlockHeight, left::Bool=true, mode::String="Loop", texture::String="default", moveTime::Number=2.0, pauseTime::Number=0.0, easing::Bool=true, amount::Int=1, offset::Number=0.0, flag::String="", emitSound::Bool=true) =
-    Entity("MaxHelpingHand/SidewaysMovingPlatform", x=x, y=y, nodes=Tuple{Int, Int}[], height=height, left=left, mode=mode, texture=texture, moveTime=moveTime, pauseTime=pauseTime, easing=easing, amount=amount, offset=offset, flag=flag, emitSound=emitSound)
+@pardef SidewaysMovingPlatform(x::Integer, y::Integer, height::Integer=Maple.defaultBlockHeight, left::Bool=true, mode::String="Loop", texture::String="default",
+    moveTime::Number=2.0, pauseTime::Number=0.0, easing::Bool=true, amount::Int=1, offset::Number=0.0, flag::String="", emitSound::Bool=true, drawTracks::Bool=true) =
+    Entity("MaxHelpingHand/SidewaysMovingPlatform", x=x, y=y, nodes=Tuple{Int, Int}[], height=height, left=left, mode=mode, texture=texture,
+    moveTime=moveTime, pauseTime=pauseTime, easing=easing, amount=amount, offset=offset, flag=flag, emitSound=emitSound, drawTracks=drawTracks)
 
 const placements = Ahorn.PlacementDict()
 
@@ -119,11 +121,15 @@ function Ahorn.renderAbs(ctx::Ahorn.Cairo.CairoContext, entity::SidewaysMovingPl
     nodes = get(entity.data, "nodes", ())
     for node in nodes
         nodeX, nodeY = Int.(node)
-        renderConnection(ctx, previousNodeX, previousNodeY, nodeX, nodeY, height)
+
+        if get(entity, "drawTracks", true)
+            renderConnection(ctx, previousNodeX, previousNodeY, nodeX, nodeY, height)
+        end
+
         previousNodeX, previousNodeY = nodeX, nodeY
     end
 
-    if mode == "Loop" || mode == "LoopNoPause"
+    if (mode == "Loop" || mode == "LoopNoPause") && get(entity, "drawTracks", true)
         renderConnection(ctx, previousNodeX, previousNodeY, firstNodeX, firstNodeY, height)
     end
 

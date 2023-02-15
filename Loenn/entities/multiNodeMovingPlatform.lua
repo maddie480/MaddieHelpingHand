@@ -28,7 +28,8 @@ for i, texture in ipairs(textures) do
             flag = "",
             moveLater = true,
             emitSound = true,
-            giveHorizontalBoost = false
+            giveHorizontalBoost = false,
+            drawTracks = true
         }
     }
 end
@@ -52,13 +53,18 @@ function movingPlatform.sprite(room, entity)
     local x, y = entity.x or 0, entity.y or 0
     local nodes = entity.nodes or {{x = 0, y = 0}}
 
+    local drawTracks = entity.drawTracks or entity.drawTracks == nil
+
     local previousX, previousY = x, y
     for i, node in ipairs(nodes) do
-        resortPlatformHelper.addConnectorSprites(sprites, entity, previousX, previousY, node.x, node.y)
+        if drawTracks then
+            resortPlatformHelper.addConnectorSprites(sprites, entity, previousX, previousY, node.x, node.y)
+        end
+
         previousX, previousY = node.x, node.y
     end
 
-    if entity.mode == "Loop" or entity.mode == "LoopNoPause" then
+    if (entity.mode == "Loop" or entity.mode == "LoopNoPause") and drawTracks then
         resortPlatformHelper.addConnectorSprites(sprites, entity, previousX, previousY, x, y)
     end
 

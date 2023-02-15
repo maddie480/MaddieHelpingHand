@@ -381,6 +381,7 @@ entities.MaxHelpingHand/MultiNodeMovingPlatform.attributes.description.flag=If s
 entities.MaxHelpingHand/MultiNodeMovingPlatform.attributes.description.moveLater=If checked, objects like spikes will attach to the platform before it is moved to the offset.
 entities.MaxHelpingHand/MultiNodeMovingPlatform.attributes.description.emitSound=Whether the platform should emit sound when moving.
 entities.MaxHelpingHand/MultiNodeMovingPlatform.attributes.description.giveHorizontalBoost=Whether the platform should give the player a horizontal boost when moving purely horizontally, unlike vanilla moving platforms.
+entities.MaxHelpingHand/MultiNodeMovingPlatform.attributes.description.drawTracks=Whether the tracks of the platform (the path it follows) should be visible.
 
 # Multi-Room Strawberry
 entities.MaxHelpingHand/MultiRoomStrawberry.placements.name.normal=Multi-Room Strawberry
@@ -711,6 +712,7 @@ entities.MaxHelpingHand/SidewaysMovingPlatform.attributes.description.offset=An 
 entities.MaxHelpingHand/SidewaysMovingPlatform.attributes.description.left=Whether the solid side of the platform should be the left side.
 entities.MaxHelpingHand/SidewaysMovingPlatform.attributes.description.flag=If specified, the platform will only move when the specified flag is active.
 entities.MaxHelpingHand/SidewaysMovingPlatform.attributes.description.emitSound=Whether the platform should emit sound when moving.
+entities.MaxHelpingHand/SidewaysMovingPlatform.attributes.description.drawTracks=Whether the tracks of the platform (the path it follows) should be visible.
 
 # Static Puffer
 entities.MaxHelpingHand/StaticPuffer.placements.name.left=Static Puffer (Left)
@@ -740,6 +742,7 @@ entities.MaxHelpingHand/UpsideDownMovingPlatform.attributes.description.flag=If 
 entities.MaxHelpingHand/UpsideDownMovingPlatform.attributes.description.moveLater=If checked, objects like spikes will attach to the platform before it is moved to the offset.
 entities.MaxHelpingHand/UpsideDownMovingPlatform.attributes.description.emitSound=Whether the platform should emit sound when moving.
 entities.MaxHelpingHand/UpsideDownMovingPlatform.attributes.description.pushPlayer=Whether the platform should push the player down, like vanilla jumpthrus push the player up.
+entities.MaxHelpingHand/UpsideDownMovingPlatform.attributes.description.drawTracks=Whether the tracks of the platform (the path it follows) should be visible.
 
 # Activate Timed Touch Switches Timer Trigger
 triggers.MaxHelpingHand/ActivateTimedTouchSwitchesTimerTrigger.placements.name.trigger=Activate Timed Touch Switches Timer
