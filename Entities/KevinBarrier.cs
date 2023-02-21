@@ -1,6 +1,7 @@
 ﻿using Celeste.Mod.Entities;
 using Microsoft.Xna.Framework;
 using Monocle;
+using MonoMod.Cil;
 using MonoMod.RuntimeDetour;
 using MonoMod.Utils;
 using System;
@@ -12,7 +13,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
     [CustomEntity("MaxHelpingHand/KevinBarrier")]
     [Tracked]
     public class KevinBarrier : Solid {
-        private static List<Hook> allSetHooks = new List<Hook>();
+        private static List<IDetour> allSetHooks = new List<IDetour>();
 
         private static bool frostHelperHooked = false;
         private static bool cherryHelperHooked = false;
@@ -78,6 +79,8 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
 
             allSetHooks.Add(new Hook(type.GetMethod("MoveHCheck", BindingFlags.NonPublic | BindingFlags.Instance), onMoveHCheck));
             allSetHooks.Add(new Hook(type.GetMethod("MoveVCheck", BindingFlags.NonPublic | BindingFlags.Instance), onMoveVCheck));
+            allSetHooks.Add(new ILHook(type.GetMethod("MoveHCheck", BindingFlags.NonPublic | BindingFlags.Instance), modKevinMoveCheck));
+            allSetHooks.Add(new ILHook(type.GetMethod("MoveVCheck", BindingFlags.NonPublic | BindingFlags.Instance), modKevinMoveCheck));
         }
 
         public static void Unload() {
@@ -135,19 +138,28 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             }
 
             bool isHit = orig(self, amount);
-            if (isHit) {
-                self.MoveVCollideSolidsAndBounds(self.Scene as Level, amount, thruDashBlocks: true, (a, b, collidedPlatform) => {
-                    if (collidedPlatform is KevinBarrier barrier) {
-                        barrier.hitByKevin();
-                    }
-                }, checkBottom: false);
-            }
 
             kevinBarriersAreCollidable = false;
             foreach (KevinBarrier barrier in kevinBarriers) {
                 barrier.Collidable = false;
             }
             return isHit;
+        }
+
+        private static void modKevinMoveCheck(ILContext il) {
+            ILCursor cursor = new ILCursor(il);
+            if (cursor.TryGotoNext(instr => instr.MatchCall<Platform>("MoveVCollideSolidsAndBounds") || instr.MatchCall<Platform>("MoveHCollideSolidsAndBounds"))
+                && cursor.TryGotoPrev(MoveType.After, instr => instr.MatchLdnull())) {
+
+                Logger.Log("MaxHelpingHand/KevinBarrier", $"Modding Kevin collide check to add barrier hit at {cursor.Index} in IL for {il.Method.FullName}");
+
+                // replace onCollide (which is of type Action<Vector2, Vector2, Platform>) to notify Kevin barriers that are being hit.
+                cursor.EmitDelegate<Func<Action<Vector2, Vector2, Platform>, Action<Vector2, Vector2, Platform>>>(orig => (a, b, collidedPlatform) => {
+                    if (collidedPlatform is KevinBarrier barrier) {
+                        barrier.hitByKevin();
+                    }
+                });
+            }
         }
 
         private static bool onActorMoveHExact(On.Celeste.Actor.orig_MoveHExact orig, Actor self, int moveH, Collision onCollide, Solid pusher) {
