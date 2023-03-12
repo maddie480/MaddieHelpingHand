@@ -61,7 +61,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
         private bool flagInverted;
         private float lightBlockingOpacity;
 
-        private HashSet<CustomizableCrumblePlatform> groupedCrumblePlatforms = new HashSet<CustomizableCrumblePlatform>();
+        private HashSet<CustomizableCrumblePlatform> linkedCrumblePlatforms = new HashSet<CustomizableCrumblePlatform>();
 
         public CustomizableCrumblePlatform(EntityData data, Vector2 offset) : base(data, offset) {
             OverrideTexture = data.Attr("texture", null);
@@ -152,21 +152,12 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
         public override void Awake(Scene scene) {
             base.Awake(scene);
 
-            // add ourselves to our group.
-            groupedCrumblePlatforms.Add(this);
-
             if (grouped) {
                 // get surrounding grouped crumble blocks: above, below, on left and on right.
-                addRange(groupedCrumblePlatforms, CollideAll<CustomizableCrumblePlatform>(Position + Vector2.UnitX).OfType<CustomizableCrumblePlatform>().Where(p => p.grouped));
-                addRange(groupedCrumblePlatforms, CollideAll<CustomizableCrumblePlatform>(Position - Vector2.UnitX).OfType<CustomizableCrumblePlatform>().Where(p => p.grouped));
-                addRange(groupedCrumblePlatforms, CollideAll<CustomizableCrumblePlatform>(Position + Vector2.UnitY).OfType<CustomizableCrumblePlatform>().Where(p => p.grouped));
-                addRange(groupedCrumblePlatforms, CollideAll<CustomizableCrumblePlatform>(Position - Vector2.UnitY).OfType<CustomizableCrumblePlatform>().Where(p => p.grouped));
-
-                // share the set of platforms in the group with the group.
-                foreach (CustomizableCrumblePlatform platform in new HashSet<CustomizableCrumblePlatform>(groupedCrumblePlatforms)) {
-                    addRange(groupedCrumblePlatforms, platform.groupedCrumblePlatforms);
-                    platform.groupedCrumblePlatforms = groupedCrumblePlatforms;
-                }
+                addRange(linkedCrumblePlatforms, CollideAll<CustomizableCrumblePlatform>(Position + Vector2.UnitX).OfType<CustomizableCrumblePlatform>().Where(p => p.grouped));
+                addRange(linkedCrumblePlatforms, CollideAll<CustomizableCrumblePlatform>(Position - Vector2.UnitX).OfType<CustomizableCrumblePlatform>().Where(p => p.grouped));
+                addRange(linkedCrumblePlatforms, CollideAll<CustomizableCrumblePlatform>(Position + Vector2.UnitY).OfType<CustomizableCrumblePlatform>().Where(p => p.grouped));
+                addRange(linkedCrumblePlatforms, CollideAll<CustomizableCrumblePlatform>(Position - Vector2.UnitY).OfType<CustomizableCrumblePlatform>().Where(p => p.grouped));
             }
         }
 
@@ -314,7 +305,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
         }
 
         private CustomizableCrumblePlatform getOnePlatformWithPlayerOnTop() {
-            foreach (CustomizableCrumblePlatform platform in groupedCrumblePlatforms) {
+            foreach (CustomizableCrumblePlatform platform in new EnumeratorEnumerator<CustomizableCrumblePlatform> { Enumerator = walkThroughCrumblePlatformTree() }) {
                 if (platform.GetPlayerOnTop() != null) {
                     return platform;
                 }
@@ -323,7 +314,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
         }
 
         private CustomizableCrumblePlatform getOnePlatformWithPlayerClimbing() {
-            foreach (CustomizableCrumblePlatform platform in groupedCrumblePlatforms) {
+            foreach (CustomizableCrumblePlatform platform in new EnumeratorEnumerator<CustomizableCrumblePlatform> { Enumerator = walkThroughCrumblePlatformTree() }) {
                 if (platform.GetPlayerClimbing() != null) {
                     return platform;
                 }
@@ -332,12 +323,43 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
         }
 
         private bool isGroupCollidingWithSomething() {
-            foreach (CustomizableCrumblePlatform platform in groupedCrumblePlatforms) {
+            foreach (CustomizableCrumblePlatform platform in new EnumeratorEnumerator<CustomizableCrumblePlatform> { Enumerator = walkThroughCrumblePlatformTree() }) {
                 if (platform.CollideCheck<Actor>() || platform.CollideCheck<Solid>()) {
                     return true;
                 }
             }
             return false;
+        }
+
+        private IEnumerator<CustomizableCrumblePlatform> walkThroughCrumblePlatformTree() {
+            HashSet<CustomizableCrumblePlatform> alreadyHandled = new HashSet<CustomizableCrumblePlatform>();
+            Queue<CustomizableCrumblePlatform> toHandle = new Queue<CustomizableCrumblePlatform>();
+            toHandle.Enqueue(this);
+
+            while (toHandle.Count > 0) {
+                CustomizableCrumblePlatform processing = toHandle.Dequeue();
+                yield return processing;
+                alreadyHandled.Add(processing);
+
+                foreach (CustomizableCrumblePlatform platform in processing.linkedCrumblePlatforms) {
+                    if (platform.Scene != null && !alreadyHandled.Contains(platform)) {
+                        toHandle.Enqueue(platform);
+                    }
+                }
+            }
+        }
+
+        // apparently you can enumerate an enumerable but not an enumerator, so here is the enumerator enumerator
+        // that turns an enumerator into an enumerable that just returns the enumerator because C# is very yes indeed
+        private class EnumeratorEnumerator<T> : IEnumerable<T> {
+            public IEnumerator<T> Enumerator;
+
+            public IEnumerator<T> GetEnumerator() {
+                return Enumerator;
+            }
+            IEnumerator IEnumerable.GetEnumerator() {
+                return Enumerator;
+            }
         }
     }
 }
