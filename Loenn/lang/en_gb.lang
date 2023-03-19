@@ -1028,6 +1028,13 @@ entities.MaxHelpingHand/FlagDecal.attributes.description.appearAnimationPath=The
 entities.MaxHelpingHand/FlagDecal.attributes.description.disappearAnimationPath=The path to a disappearing animation for the decal, starting from Graphics/Atlases/Gameplay/decals in the graphics dump or in your mod's folder.\nIf none is specified, the decal will disappear immediately.
 entities.MaxHelpingHand/FlagDecal.attributes.description.depth=The depth of the decal, relative to other decals. You can input a number if you want a custom depth.
 
+# Flag Decal from XML
+entities.MaxHelpingHand/FlagDecalXML.placements.name.flag_decal=Flag Decal (from XML)
+entities.MaxHelpingHand/FlagDecalXML.attributes.description.flag=The flag this decal should react to.
+entities.MaxHelpingHand/FlagDecalXML.attributes.description.inverted=If enabled, the decal will appear when the flag is inactive, rather than when it is active.
+entities.MaxHelpingHand/FlagDecalXML.attributes.description.sprite=The sprite to use, from Sprites.xml. The sprites should have the following animations:\n- enabled: played when the flag is enabled\n- disabled: played when the flag is disabled, the decal will be hidden if not specified\n- appear: played when the flag gets enabled (disabled -> enabled transition), can be omitted to switch directly to the "enabled" animation\n- disappear: played when the flag gets disabled (enabled -> disabled transition), can be omitted to switch directly to the "disabled" animation
+entities.MaxHelpingHand/FlagDecalXML.attributes.description.depth=The depth of the decal, relative to other decals. You can input a number if you want a custom depth.
+
 # Expand Trigger Controller
 entities.MaxHelpingHand/ExpandTriggerController.placements.name.controller=Expand Trigger Controller
 

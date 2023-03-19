@@ -943,6 +943,12 @@ placements.entities.MaxHelpingHand/FlagDecal.tooltips.appearAnimationPath=The pa
 placements.entities.MaxHelpingHand/FlagDecal.tooltips.disappearAnimationPath=The path to a disappearing animation for the decal, starting from Graphics/Atlases/Gameplay/decals in the graphics dump or in your mod's folder.\nIf none is specified, the decal will disappear immediately.
 placements.entities.MaxHelpingHand/FlagDecal.tooltips.depth=The depth of the decal, relative to other decals. You can input a number if you want a custom depth.
 
+# Flag Decal from XML
+placements.entities.MaxHelpingHand/FlagDecalXML.tooltips.flag=The flag this decal should react to.
+placements.entities.MaxHelpingHand/FlagDecalXML.tooltips.inverted=If enabled, the decal will appear when the flag is inactive, rather than when it is active.
+placements.entities.MaxHelpingHand/FlagDecalXML.tooltips.sprite=The sprite to use, from Sprites.xml. The sprites should have the following animations:\n- enabled: played when the flag is enabled\n- disabled: played when the flag is disabled, the decal will be hidden if not specified\n- appear: played when the flag gets enabled (disabled -> enabled transition), can be omitted to switch directly to the "enabled" animation\n- disappear: played when the flag gets disabled (enabled -> disabled transition), can be omitted to switch directly to the "disabled" animation
+placements.entities.MaxHelpingHand/FlagDecalXML.tooltips.depth=The depth of the decal, relative to other decals. You can input a number if you want a custom depth.
+
 # Save File Strawberry Gate
 placements.entities.MaxHelpingHand/SaveFileStrawberryGate.tooltips.requires=Determines the number of strawberries required to open the gate.
 placements.entities.MaxHelpingHand/SaveFileStrawberryGate.tooltips.startHidden=Whether the door should start hidden and come crashing down when the player approaches.\nWill destroy dash blocks as it crashes down.
