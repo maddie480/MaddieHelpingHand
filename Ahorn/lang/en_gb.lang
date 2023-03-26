@@ -878,6 +878,19 @@ placements.triggers.MaxHelpingHand/CustomCh3Memo.tooltips.flagOnCompletion=If sp
 placements.triggers.MaxHelpingHand/CustomCh3Memo.tooltips.dialogBeforeOnlyOnce=If enabled, the dialog before the memo will only display when interacting with the memo for the first time in the session.
 placements.triggers.MaxHelpingHand/CustomCh3Memo.tooltips.dialogAfterOnlyOnce=If enabled, the dialog after the memo will only display when interacting with the memo for the first time in the session.
 
+# Custom Ch3 Memo On Flag Controller
+placements.entities.MaxHelpingHand/CustomCh3MemoOnFlagController.tooltips.paperSpriteFolderName=The folder to use for the paper sprites. Leave empty to use the vanilla paper sprites.\nTo make your own, copy Graphics/Atlases/Memo from the graphics dump to your mod, in Graphics/Atlases/MaxHelpingHandCustomMemos/MyUniqueFolderName, and type "MyUniqueFolderName" here.
+placements.entities.MaxHelpingHand/CustomCh3MemoOnFlagController.tooltips.dialogId=The ID of the dialog to use for the text the memo will display.
+placements.entities.MaxHelpingHand/CustomCh3MemoOnFlagController.tooltips.dialogBeforeId=The ID of the dialog to display before seeing the memo.\nLeave empty if you do not want any dialogue before the memo.
+placements.entities.MaxHelpingHand/CustomCh3MemoOnFlagController.tooltips.dialogAfterId=The ID of the dialog to display after seeing the memo.\nLeave empty if you do not want any dialogue after the memo.
+placements.entities.MaxHelpingHand/CustomCh3MemoOnFlagController.tooltips.flagOnCompletion=If specified, the given session flag will be activated once the memo cutscene is over.
+placements.entities.MaxHelpingHand/CustomCh3MemoOnFlagController.tooltips.dialogBeforeOnlyOnce=If enabled, the dialog before the memo will only display when interacting with the memo for the first time in the session.
+placements.entities.MaxHelpingHand/CustomCh3MemoOnFlagController.tooltips.dialogAfterOnlyOnce=If enabled, the dialog after the memo will only display when interacting with the memo for the first time in the session.
+placements.entities.MaxHelpingHand/CustomCh3MemoOnFlagController.tooltips.flag=The flag that will make the memo show up.
+placements.entities.MaxHelpingHand/CustomCh3MemoOnFlagController.tooltips.flagInverted=If checked, the memo will show up when the flag is disabled rather than enabled.
+placements.entities.MaxHelpingHand/CustomCh3MemoOnFlagController.tooltips.flagReusable=If checked, the flag will be immediately turned off when activated, so the memo can be shown again by reactivating the flag.\nIf unchecked, the memo will only show up once (until you die or change rooms), and will not change the value of the flag.\nHas no effect if "Only Once" is checked.
+placements.entities.MaxHelpingHand/CustomCh3MemoOnFlagController.tooltips.onlyOnce=Whether the memo should be only shown once in the entire session.
+
 # Parallax Fade Speed Controller
 placements.entities.MaxHelpingHand/ParallaxFadeSpeedController.tooltips.fadeTime=The time it will take for the parallax stylegrounds to fully fade in or out, in seconds. Vanilla value is 1 second.
 
