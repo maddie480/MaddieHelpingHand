@@ -401,6 +401,8 @@ placements.effects.MaxHelpingHand/CustomStars.tooltips.starAlpha=The opacity of 
 placements.effects.MaxHelpingHand/CustomStars.tooltips.bgAlpha=The opacity of the black background of the effect (1 is opaque, 0 is fully transparent).
 placements.effects.MaxHelpingHand/CustomStars.tooltips.fadex=Advanced horizontal fading zones.\nFormat is "FromPosition-ToPosition,FromAlpha-ToAlpha". Example "n500-500,1-0".\nNegative numbers in position are denoted with "n" rather than minus. Position numbers are in pixels and use map coordinates.\nMultiple zones can be set up by using ":" as separator.
 placements.effects.MaxHelpingHand/CustomStars.tooltips.fadey=Advanced vertical fading zones.\nFormat is "FromPosition-ToPosition,FromAlpha-ToAlpha". Example "n500-500,1-0".\nNegative numbers in position are denoted with "n" rather than minus. Position numbers are in pixels and use map coordinates.\nMultiple zones can be set up by using ":" as separator.
+placements.effects.MaxHelpingHand/CustomStars.tooltips.scrollX=Determines the parallax scrolling of the stars along the X axis.\nFill both Scroll X and Scroll Y to override the vanilla behavior (Scroll X = 0).
+placements.effects.MaxHelpingHand/CustomStars.tooltips.scrollY=Determines the parallax scrolling of the stars along the Y axis.\nFill both Scroll X and Scroll Y to override the vanilla behavior (Scroll Y = 0 when not dreaming, 1 when dreaming / the stars are falling).
 
 # Custom Starfield
 placements.effects.MaxHelpingHand/CustomStarfield.names.fadex=Fade X

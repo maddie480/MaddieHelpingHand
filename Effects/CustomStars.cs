@@ -27,13 +27,15 @@ namespace Celeste.Mod.MaxHelpingHand.Effects {
 
         private float falling = 0f;
         private Vector2 center;
+        private Vector2? scroll;
 
-        public CustomStars(int? starCount, Color? tint, string spriteDirectory, float wrapHeight, float? starAlpha, float bgAlpha) {
+        public CustomStars(int? starCount, Color? tint, string spriteDirectory, float wrapHeight, float? starAlpha, float bgAlpha, Vector2? scroll) {
             this.starCount = starCount;
             this.tint = tint;
             this.wrapHeight = wrapHeight;
             this.starAlpha = starAlpha;
             this.bgAlpha = bgAlpha;
+            this.scroll = scroll;
 
             // look up all the stars in the folder, and group frames belonging to the same stars.
             textures = new List<List<MTexture>>();
@@ -98,14 +100,26 @@ namespace Celeste.Mod.MaxHelpingHand.Effects {
                 starFrame %= starTextures.Count;
                 Vector2 position = stars[i].Position;
                 MTexture frameToRender = starTextures[starFrame];
+
+                Vector2 effectiveScroll = scroll ?? (level.Session.Dreaming ? Vector2.UnitY : Vector2.Zero);
+
+                // parallax X
+                position.X -= level.Camera.X * effectiveScroll.X;
+                position.X %= 320;
+                if (position.X < 0f) {
+                    position.X += 320;
+                }
+
+                // parallax Y
+                position.Y -= level.Camera.Y * effectiveScroll.Y;
+                if (level.Session.Dreaming) position.Y += falling * stars[i].Rate;
+                position.Y %= wrapHeight;
+                if (position.Y < 0f) {
+                    position.Y += wrapHeight;
+                }
+                position.Y -= (wrapHeight - 180f) / 2;
+
                 if (level.Session.Dreaming) {
-                    position.Y -= level.Camera.Y;
-                    position.Y += falling * stars[i].Rate;
-                    position.Y %= wrapHeight;
-                    if (position.Y < 0f) {
-                        position.Y += wrapHeight;
-                    }
-                    position.Y -= (wrapHeight - 180f) / 2;
                     for (int j = 0; j < colors.Length; j++) {
                         frameToRender.Draw(position - Vector2.UnitY * j, center, colors[j] * fadeAlpha);
                     }

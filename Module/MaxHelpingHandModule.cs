@@ -244,8 +244,15 @@ namespace Celeste.Mod.MaxHelpingHand.Module {
                 if (!string.IsNullOrEmpty(alphaString)) {
                     alpha = float.Parse(alphaString);
                 }
+
+                // parse scroll values if both scrollX and scrollY are filled out
+                Vector2? scroll = null;
+                if (!string.IsNullOrEmpty(child.Attr("scrollX")) && !string.IsNullOrEmpty(child.Attr("scrollY"))) {
+                    scroll = new Vector2(float.Parse(child.Attr("scrollX")), float.Parse(child.Attr("scrollY")));
+                }
+
                 return new CustomStars(starCount, string.IsNullOrEmpty(tint) ? (Color?) null : Calc.HexToColor(tint), child.Attr("spriteDirectory", "bgs/02/stars"),
-                    child.AttrFloat("wrapHeight", 180f), alpha, child.AttrFloat("bgAlpha", 1f));
+                    child.AttrFloat("wrapHeight", 180f), alpha, child.AttrFloat("bgAlpha", 1f), scroll);
             }
             if (child.Name.Equals("MaxHelpingHand/CustomStarfield", StringComparison.OrdinalIgnoreCase)) {
                 string[] paths = child.Attr("paths", "starfield").Split(',');

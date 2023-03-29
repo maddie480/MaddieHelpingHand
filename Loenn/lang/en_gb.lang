@@ -1135,6 +1135,8 @@ style.effects.MaxHelpingHand/CustomStars.description.starAlpha=The opacity of th
 style.effects.MaxHelpingHand/CustomStars.description.bgAlpha=The opacity of the black background of the effect (1 is opaque, 0 is fully transparent).
 style.effects.MaxHelpingHand/CustomStars.description.fadex=Advanced horizontal fading zones.\nFormat is "FromPosition-ToPosition,FromAlpha-ToAlpha". Example "n500-500,1-0".\nNegative numbers in position are denoted with "n" rather than minus. Position numbers are in pixels and use map coordinates.\nMultiple zones can be set up by using ":" as separator.
 style.effects.MaxHelpingHand/CustomStars.description.fadey=Advanced vertical fading zones.\nFormat is "FromPosition-ToPosition,FromAlpha-ToAlpha". Example "n500-500,1-0".\nNegative numbers in position are denoted with "n" rather than minus. Position numbers are in pixels and use map coordinates.\nMultiple zones can be set up by using ":" as separator.
+style.effects.MaxHelpingHand/CustomStars.description.scrollX=Determines the parallax scrolling of the stars along the X axis.\nFill both Scroll X and Scroll Y to override the vanilla behavior (Scroll X = 0).
+style.effects.MaxHelpingHand/CustomStars.description.scrollY=Determines the parallax scrolling of the stars along the Y axis.\nFill both Scroll X and Scroll Y to override the vanilla behavior (Scroll Y = 0 when not dreaming, 1 when dreaming / the stars are falling).
 
 # Heat Wave not affecting color grade
 style.effects.MaxHelpingHand/HeatWaveNoColorGrade.name=Heatwave (not affecting Color Grade)

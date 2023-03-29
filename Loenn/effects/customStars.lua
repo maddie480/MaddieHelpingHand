@@ -21,7 +21,9 @@ effect.defaultData = {
     starAlpha = "",
     bgAlpha = 1.0,
     fadex = "",
-    fadey = ""
+    fadey = "",
+    scrollX = "",
+    scrollY = ""
 }
 
 return effect
