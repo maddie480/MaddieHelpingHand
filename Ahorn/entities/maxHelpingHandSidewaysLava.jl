@@ -2,9 +2,11 @@
 
 using ..Ahorn, Maple
 
-@mapdef Entity "MaxHelpingHand/SidewaysLava" SidewaysLava(x::Integer, y::Integer, intro::Bool=false, lavaMode::String="LeftToRight", speedMultiplier::Number=1.0)
-
-const lavaModes = String["LeftToRight", "RightToLeft", "Sandwich"]
+@mapdef Entity "MaxHelpingHand/SidewaysLava" SidewaysLava(x::Integer, y::Integer,
+    intro::Bool=false, lavaMode::String="LeftToRight", speedMultiplier::Number=1.0,
+    hotSurfaceColor::String="ff8933", hotEdgeColor::String="f25e29", hotCenterColor::String="d01c01",
+    coldSurfaceColor::String="33ffe7", coldEdgeColor::String="4ca2eb", coldCenterColor::String="0151d0",
+    sound::String="event:/game/09_core/rising_threat", forceCoreMode::String="None")
 
 const placements = Ahorn.PlacementDict(
     "Sideways Lava (max480's Helping Hand)" => Ahorn.EntityPlacement(
@@ -13,7 +15,8 @@ const placements = Ahorn.PlacementDict(
 )
 
 Ahorn.editingOptions(entity::SidewaysLava) = Dict{String, Any}(
-    "lavaMode" => lavaModes
+    "lavaMode" => String["LeftToRight", "RightToLeft", "Sandwich"],
+    "forceCoreMode" => String["None", "Cold", "Hot"]
 )
 
 function Ahorn.selection(entity::SidewaysLava)

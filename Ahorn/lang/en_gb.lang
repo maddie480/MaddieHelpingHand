@@ -636,6 +636,14 @@ placements.entities.MaxHelpingHand/ReskinnableFloatingDebris.tooltips.scrollY=Th
 placements.entities.MaxHelpingHand/SidewaysLava.tooltips.intro=Determines whether the lava moves into the screen or starts already present on the screen. Not suitable for sandwich lava.
 placements.entities.MaxHelpingHand/SidewaysLava.tooltips.lavaMode=Determines which side(s) of the screen the lava comes from.
 placements.entities.MaxHelpingHand/SidewaysLava.tooltips.speedMultiplier=Modifies the lava speed. 1 is vanilla lava speed, 2 is twice as fast.
+placements.entities.MaxHelpingHand/SidewaysLava.tooltips.hotEdgeColor=The color at the edge of the lava when in Hot mode.
+placements.entities.MaxHelpingHand/SidewaysLava.tooltips.hotSurfaceColor=The color at the surface of the lava when in Hot mode.
+placements.entities.MaxHelpingHand/SidewaysLava.tooltips.hotCenterColor=The color at the center of the lava when in Hot mode.
+placements.entities.MaxHelpingHand/SidewaysLava.tooltips.coldEdgeColor=The color at the edge of the lava when in Cold mode.
+placements.entities.MaxHelpingHand/SidewaysLava.tooltips.coldSurfaceColor=The color at the surface of the lava when in Cold mode.
+placements.entities.MaxHelpingHand/SidewaysLava.tooltips.coldCenterColor=The color at the center of the lava when in Cold mode.
+placements.entities.MaxHelpingHand/SidewaysLava.tooltips.sound=The sound the lava emits.\nIts "room_state" audio param is set to 1 when the lava is in Cold mode, and to 0 when it is in Hot mode.
+placements.entities.MaxHelpingHand/SidewaysLava.tooltips.forceCoreMode=If set to "Hot" or "Cold", the lava will ignore the current core mode and will always stay in Hot or Cold mode.
 
 # Sideways Moving Platform
 placements.entities.MaxHelpingHand/SidewaysMovingPlatform.tooltips.moveTime=The time the platform takes to move between two successive positions. Default is 2 seconds.

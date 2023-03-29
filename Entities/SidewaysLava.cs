@@ -32,6 +32,9 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
         private bool intro;
         private LavaMode lavaMode;
         private float speedMultiplier;
+        private Color[] hotColors, coldColors;
+        private string sound;
+        private Session.CoreModes forcedCoreMode;
 
         // state keeping
         private bool iceMode;
@@ -50,18 +53,6 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
 
         private SoundSource loopSfx;
 
-        public static Color[] Hot = new Color[3] {
-            Calc.HexToColor("ff8933"),
-            Calc.HexToColor("f25e29"),
-            Calc.HexToColor("d01c01")
-        };
-
-        public static Color[] Cold = new Color[3] {
-            Calc.HexToColor("33ffe7"),
-            Calc.HexToColor("4ca2eb"),
-            Calc.HexToColor("0151d0")
-        };
-
         public SidewaysLava(bool intro, string lavaMode, float speedMultiplier) : this(new EntityData() {
             Values = new Dictionary<string, object>() {
                 { "intro", intro }, { "lavaMode", lavaMode }, { "speedMultiplier", speedMultiplier }
@@ -72,6 +63,18 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             intro = data.Bool("intro", false);
             lavaMode = data.Enum("lavaMode", LavaMode.LeftToRight);
             speedMultiplier = data.Float("speedMultiplier", 1f);
+            sound = data.Attr("sound", defaultValue: "event:/game/09_core/rising_threat");
+            forcedCoreMode = data.Enum("forceCoreMode", defaultValue: Session.CoreModes.None);
+
+            hotColors = new Color[3];
+            hotColors[0] = Calc.HexToColor(data.Attr("hotSurfaceColor", "ff8933"));
+            hotColors[1] = Calc.HexToColor(data.Attr("hotEdgeColor", "f25e29"));
+            hotColors[2] = Calc.HexToColor(data.Attr("hotCenterColor", "d01c01"));
+
+            coldColors = new Color[3];
+            coldColors[0] = Calc.HexToColor(data.Attr("coldSurfaceColor", "33ffe7"));
+            coldColors[1] = Calc.HexToColor(data.Attr("coldEdgeColor", "4ca2eb"));
+            coldColors[2] = Calc.HexToColor(data.Attr("coldCenterColor", "0151d0"));
 
             Depth = -1000000;
 
@@ -143,11 +146,20 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             }
         }
 
+        private static Color[] parseColors(string input) {
+            string[] colorsAsStrings = input.Split(',');
+            Color[] colors = new Color[colorsAsStrings.Length];
+            for (int i = 0; i < colors.Length; i++) {
+                colors[i] = Calc.HexToColor(colorsAsStrings[i]);
+            }
+            return colors;
+        }
+
         public override void Added(Scene scene) {
             base.Added(scene);
 
-            iceMode = (SceneAs<Level>().CoreMode == Session.CoreModes.Cold);
-            loopSfx.Play("event:/game/09_core/rising_threat", "room_state", iceMode ? 1 : 0);
+            iceMode = (getActiveCoreMode(SceneAs<Level>().CoreMode) == Session.CoreModes.Cold);
+            loopSfx.Play(sound, "room_state", iceMode ? 1 : 0);
 
             if (lavaMode == LavaMode.LeftToRight) {
                 // make the lava off-screen by 16px.
@@ -221,8 +233,15 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
         }
 
         private void OnChangeMode(Session.CoreModes mode) {
-            iceMode = (mode == Session.CoreModes.Cold);
+            iceMode = (getActiveCoreMode(mode) == Session.CoreModes.Cold);
             loopSfx.Param("room_state", iceMode ? 1 : 0);
+        }
+
+        private Session.CoreModes getActiveCoreMode(Session.CoreModes actualCoreMode) {
+            if (forcedCoreMode == Session.CoreModes.None) {
+                return actualCoreMode;
+            }
+            return forcedCoreMode;
         }
 
         private void OnPlayer(Player player) {
@@ -351,18 +370,18 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             lerp = Calc.Approach(lerp, iceMode ? 1 : 0, Engine.DeltaTime * 4f);
 
             if (leftRect != null) {
-                leftRect.SurfaceColor = Color.Lerp(Hot[0], Cold[0], lerp);
-                leftRect.EdgeColor = Color.Lerp(Hot[1], Cold[1], lerp);
-                leftRect.CenterColor = Color.Lerp(Hot[2], Cold[2], lerp);
+                leftRect.SurfaceColor = Color.Lerp(hotColors[0], coldColors[0], lerp);
+                leftRect.EdgeColor = Color.Lerp(hotColors[1], coldColors[1], lerp);
+                leftRect.CenterColor = Color.Lerp(hotColors[2], coldColors[2], lerp);
                 leftRect.Spikey = lerp * 5f;
                 leftRect.UpdateMultiplier = (1f - lerp) * 2f;
                 leftRect.Fade = (iceMode ? 128 : 32);
             }
 
             if (rightRect != null) {
-                rightRect.SurfaceColor = Color.Lerp(Hot[0], Cold[0], lerp);
-                rightRect.EdgeColor = Color.Lerp(Hot[1], Cold[1], lerp);
-                rightRect.CenterColor = Color.Lerp(Hot[2], Cold[2], lerp);
+                rightRect.SurfaceColor = Color.Lerp(hotColors[0], coldColors[0], lerp);
+                rightRect.EdgeColor = Color.Lerp(hotColors[1], coldColors[1], lerp);
+                rightRect.CenterColor = Color.Lerp(hotColors[2], coldColors[2], lerp);
                 rightRect.Spikey = lerp * 5f;
                 rightRect.UpdateMultiplier = (1f - lerp) * 2f;
                 rightRect.Fade = (iceMode ? 128 : 32);

@@ -700,6 +700,14 @@ entities.MaxHelpingHand/SidewaysLava.placements.name.lava=Sideways Lava
 entities.MaxHelpingHand/SidewaysLava.attributes.description.intro=Determines whether the lava moves into the screen or starts already present on the screen. Not suitable for sandwich lava.
 entities.MaxHelpingHand/SidewaysLava.attributes.description.lavaMode=Determines which side(s) of the screen the lava comes from.
 entities.MaxHelpingHand/SidewaysLava.attributes.description.speedMultiplier=Modifies the lava speed. 1 is vanilla lava speed, 2 is twice as fast.
+entities.MaxHelpingHand/SidewaysLava.attributes.description.hotEdgeColor=The color at the edge of the lava when in Hot mode.
+entities.MaxHelpingHand/SidewaysLava.attributes.description.hotSurfaceColor=The color at the surface of the lava when in Hot mode.
+entities.MaxHelpingHand/SidewaysLava.attributes.description.hotCenterColor=The color at the center of the lava when in Hot mode.
+entities.MaxHelpingHand/SidewaysLava.attributes.description.coldEdgeColor=The color at the edge of the lava when in Cold mode.
+entities.MaxHelpingHand/SidewaysLava.attributes.description.coldSurfaceColor=The color at the surface of the lava when in Cold mode.
+entities.MaxHelpingHand/SidewaysLava.attributes.description.coldCenterColor=The color at the center of the lava when in Cold mode.
+entities.MaxHelpingHand/SidewaysLava.attributes.description.sound=The sound the lava emits.\nIts "room_state" audio param is set to 1 when the lava is in Cold mode, and to 0 when it is in Hot mode.
+entities.MaxHelpingHand/SidewaysLava.attributes.description.forceCoreMode=If set to "Hot" or "Cold", the lava will ignore the current core mode and will always stay in Hot or Cold mode.
 
 # Sideways Moving Platform
 entities.MaxHelpingHand/SidewaysMovingPlatform.placements.name.default=Sideways Moving Platform (Default)
