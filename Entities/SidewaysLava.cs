@@ -94,15 +94,18 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             Add(new CoreModeListener(OnChangeMode));
             Add(loopSfx = new SoundSource());
 
+            // lava can travel at up to 40 px/s * speedMultiplier, and we want it to extend enough so that you don't see it scrolling past the screen.
+            float lavaWidth = 320f + speedMultiplier * 80f;
+
             if (lavaMode != LavaMode.RightToLeft) {
                 // add the left lava rect, just off-screen (it is 340px wide)
-                Add(leftRect = new SidewaysLavaRect(340f, 200f, 4, SidewaysLavaRect.OnlyModes.OnlyLeft));
-                leftRect.Position = new Vector2(-340f, 0f);
+                Add(leftRect = new SidewaysLavaRect(lavaWidth, 200f, 4, SidewaysLavaRect.OnlyModes.OnlyLeft));
+                leftRect.Position = new Vector2(-lavaWidth, 0f);
                 leftRect.SmallWaveAmplitude = 2f;
             }
             if (lavaMode != LavaMode.LeftToRight) {
                 // add the right lava rect, just off-screen (the screen is 320px wide)
-                Add(rightRect = new SidewaysLavaRect(340f, 200f, 4, SidewaysLavaRect.OnlyModes.OnlyRight));
+                Add(rightRect = new SidewaysLavaRect(lavaWidth, 200f, 4, SidewaysLavaRect.OnlyModes.OnlyRight));
                 rightRect.Position = new Vector2(lavaMode == LavaMode.Sandwich ? 280f : 320f, 0f);
                 rightRect.SmallWaveAmplitude = 2f;
             }
@@ -390,7 +393,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             if (lavaMode == LavaMode.Sandwich) {
                 // move lava rects towards their intended positions: -340 (0 - its width) for the left rect, 280 for the right rect.
                 // if leaving, move them away quickly instead.
-                leftRect.Position.X = Calc.Approach(leftRect.Position.X, -340 + (sandwichLeaving ? -512 : 0), (sandwichLeaving ? 512 : 64) * Engine.DeltaTime);
+                leftRect.Position.X = Calc.Approach(leftRect.Position.X, -leftRect.Width + (sandwichLeaving ? -512 : 0), (sandwichLeaving ? 512 : 64) * Engine.DeltaTime);
                 rightRect.Position.X = Calc.Approach(rightRect.Position.X, 280 + (sandwichLeaving ? 512 : 0), (sandwichLeaving ? 512 : 64) * Engine.DeltaTime);
             }
         }
