@@ -4,7 +4,8 @@ using ..Ahorn, Maple
 
 @mapdef Entity "MaxHelpingHand/CustomCh3MemoOnFlagController" CustomCh3MemoOnFlagController(x::Integer, y::Integer, paperSpriteFolderName::String="", dialogId::String="CH3_MEMO",
     dialogBeforeId::String="CH3_MEMO_OPENING", dialogAfterId::String="", flagOnCompletion::String="", dialogBeforeOnlyOnce::Bool=false, dialogAfterOnlyOnce::Bool=false,
-    flag::String="flag", flagInverted::Bool=false, flagReusable::Bool=false, onlyOnce::Bool=false, nodes::Array{Tuple{Integer, Integer}, 1}=Tuple{Integer, Integer}[])
+    flag::String="flag", flagInverted::Bool=false, flagReusable::Bool=false, onlyOnce::Bool=false, textOffsetY::Number=210.0,
+    nodes::Array{Tuple{Integer, Integer}, 1}=Tuple{Integer, Integer}[])
 
 const placements = Ahorn.PlacementDict(
     "Custom Chapter 3 Memo On Flag Controller\n(max480's Helping Hand)" => Ahorn.EntityPlacement(

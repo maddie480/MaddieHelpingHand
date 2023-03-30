@@ -961,6 +961,7 @@ triggers.MaxHelpingHand/CustomCh3Memo.attributes.description.dialogBeforeId=The 
 triggers.MaxHelpingHand/CustomCh3Memo.attributes.description.dialogAfterId=The ID of the dialog to display after seeing the memo.\nLeave empty if you do not want any dialogue after the memo.
 triggers.MaxHelpingHand/CustomCh3Memo.attributes.description.dialogBeforeOnlyOnce=If enabled, the dialog before the memo will only display when interacting with the memo for the first time in the session.
 triggers.MaxHelpingHand/CustomCh3Memo.attributes.description.dialogAfterOnlyOnce=If enabled, the dialog after the memo will only display when interacting with the memo for the first time in the session.
+triggers.MaxHelpingHand/CustomCh3Memo.attributes.description.textOffsetY=Defines the vertical position of the text on the memo. Higher values move the text down.
 
 # Custom Ch3 Memo On Flag Controller
 entities.MaxHelpingHand/CustomCh3MemoOnFlagController.placements.name.memo=Custom Chapter 3 Memo On Flag Controller
@@ -975,6 +976,7 @@ entities.MaxHelpingHand/CustomCh3MemoOnFlagController.attributes.description.fla
 entities.MaxHelpingHand/CustomCh3MemoOnFlagController.attributes.description.flagInverted=If checked, the memo will show up when the flag is disabled rather than enabled.
 entities.MaxHelpingHand/CustomCh3MemoOnFlagController.attributes.description.flagReusable=If checked, the flag will be immediately turned off when activated, so the memo can be shown again by reactivating the flag.\nIf unchecked, the memo will only show up once (until you die or change rooms), and will not change the value of the flag.\nHas no effect if "Only Once" is checked.
 entities.MaxHelpingHand/CustomCh3MemoOnFlagController.attributes.description.onlyOnce=Whether the memo should be only shown once in the entire session.
+entities.MaxHelpingHand/CustomCh3MemoOnFlagController.attributes.description.textOffsetY=Defines the vertical position of the text on the memo. Higher values move the text down.
 
 # Instant Lava Blocker
 triggers.MaxHelpingHand/InstantLavaBlockerTrigger.placements.name.lava_blocker=Instant Lava Blocker

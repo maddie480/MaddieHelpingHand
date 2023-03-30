@@ -16,7 +16,8 @@ memo.placements = {
         flag = "flag",
         flagInverted = false,
         flagReusable = false,
-        onlyOnce = false
+        onlyOnce = false,
+        textOffsetY = 210.0
     }
 }
 

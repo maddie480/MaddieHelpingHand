@@ -21,10 +21,13 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             private float scale = 1f;
             private float rotation;
             private float timer;
+            private float textOffsetY;
 
             private bool easingOut;
 
-            public MemoPage(string folderName, string dialogId) {
+            public MemoPage(string folderName, string dialogId, float textOffsetY) {
+                this.textOffsetY = textOffsetY;
+
                 Tag = Tags.HUD;
 
                 if (string.IsNullOrEmpty(folderName)) {
@@ -121,7 +124,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
                 Draw.SpriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend);
                 paper.Draw(Vector2.Zero, Vector2.Zero, Color.White, 1.5f);
                 title.Draw(Vector2.Zero, Vector2.Zero, Color.White, 1.5f);
-                text.Draw(new Vector2(paper.Width * 1.5f / 2f, 210f), new Vector2(0.5f, 0f), Vector2.One * 0.75f * textDownscale, 1f);
+                text.Draw(new Vector2(paper.Width * 1.5f / 2f, textOffsetY), new Vector2(0.5f, 0f), Vector2.One * 0.75f * textDownscale, 1f);
                 Draw.SpriteBatch.End();
             }
 
@@ -171,10 +174,11 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
         private readonly string flagOnCompletion;
         private readonly bool dialogBeforeOnlyOnce;
         private readonly bool dialogAfterOnlyOnce;
+        private readonly float textOffsetY;
         private readonly EntityID id;
 
         public CustomCh3MemoCutscene(Player player, string folderName, string dialogId, string dialogBeforeId, string dialogAfterId, string flagOnCompletion,
-            bool dialogBeforeOnlyOnce, bool dialogAfterOnlyOnce, EntityID id) {
+            bool dialogBeforeOnlyOnce, bool dialogAfterOnlyOnce, float textOffsetY, EntityID id) {
 
             this.player = player;
             this.folderName = folderName;
@@ -184,6 +188,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             this.flagOnCompletion = flagOnCompletion;
             this.dialogBeforeOnlyOnce = dialogBeforeOnlyOnce;
             this.dialogAfterOnlyOnce = dialogAfterOnlyOnce;
+            this.textOffsetY = textOffsetY;
             this.id = id;
         }
 
@@ -205,7 +210,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             }
 
             // show the memo
-            memo = new MemoPage(folderName, dialogId);
+            memo = new MemoPage(folderName, dialogId, textOffsetY);
             Scene.Add(memo);
 
             yield return memo.EaseIn();

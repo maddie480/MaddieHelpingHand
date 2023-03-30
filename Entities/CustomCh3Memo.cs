@@ -13,6 +13,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
         private readonly string flagOnCompletion;
         private readonly bool dialogBeforeOnlyOnce;
         private readonly bool dialogAfterOnlyOnce;
+        private readonly float textOffsetY;
         private readonly EntityID id;
 
         // controller options
@@ -32,6 +33,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             flagOnCompletion = data.Attr("flagOnCompletion");
             dialogBeforeOnlyOnce = data.Bool("dialogBeforeOnlyOnce");
             dialogAfterOnlyOnce = data.Bool("dialogAfterOnlyOnce");
+            textOffsetY = data.Float("textOffsetY", defaultValue: 210f);
             id = gid;
 
             // controller options
@@ -79,7 +81,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
         }
 
         public void OnTalk(Player player) {
-            Scene.Add(new CustomCh3MemoCutscene(player, paperSpriteFolderName, dialogId, dialogBeforeId, dialogAfterId, flagOnCompletion, dialogBeforeOnlyOnce, dialogAfterOnlyOnce, id));
+            Scene.Add(new CustomCh3MemoCutscene(player, paperSpriteFolderName, dialogId, dialogBeforeId, dialogAfterId, flagOnCompletion, dialogBeforeOnlyOnce, dialogAfterOnlyOnce, textOffsetY, id));
         }
     }
 }

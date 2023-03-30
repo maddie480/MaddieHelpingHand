@@ -887,6 +887,7 @@ placements.triggers.MaxHelpingHand/CustomCh3Memo.tooltips.dialogAfterId=The ID o
 placements.triggers.MaxHelpingHand/CustomCh3Memo.tooltips.flagOnCompletion=If specified, the given session flag will be activated once the memo cutscene is over.
 placements.triggers.MaxHelpingHand/CustomCh3Memo.tooltips.dialogBeforeOnlyOnce=If enabled, the dialog before the memo will only display when interacting with the memo for the first time in the session.
 placements.triggers.MaxHelpingHand/CustomCh3Memo.tooltips.dialogAfterOnlyOnce=If enabled, the dialog after the memo will only display when interacting with the memo for the first time in the session.
+placements.triggers.MaxHelpingHand/CustomCh3Memo.tooltips.textOffsetY=Defines the vertical position of the text on the memo. Higher values move the text down.
 
 # Custom Ch3 Memo On Flag Controller
 placements.entities.MaxHelpingHand/CustomCh3MemoOnFlagController.tooltips.paperSpriteFolderName=The folder to use for the paper sprites. Leave empty to use the vanilla paper sprites.\nTo make your own, copy Graphics/Atlases/Memo from the graphics dump to your mod, in Graphics/Atlases/MaxHelpingHandCustomMemos/MyUniqueFolderName, and type "MyUniqueFolderName" here.
@@ -900,6 +901,7 @@ placements.entities.MaxHelpingHand/CustomCh3MemoOnFlagController.tooltips.flag=T
 placements.entities.MaxHelpingHand/CustomCh3MemoOnFlagController.tooltips.flagInverted=If checked, the memo will show up when the flag is disabled rather than enabled.
 placements.entities.MaxHelpingHand/CustomCh3MemoOnFlagController.tooltips.flagReusable=If checked, the flag will be immediately turned off when activated, so the memo can be shown again by reactivating the flag.\nIf unchecked, the memo will only show up once (until you die or change rooms), and will not change the value of the flag.\nHas no effect if "Only Once" is checked.
 placements.entities.MaxHelpingHand/CustomCh3MemoOnFlagController.tooltips.onlyOnce=Whether the memo should be only shown once in the entire session.
+placements.entities.MaxHelpingHand/CustomCh3MemoOnFlagController.tooltips.textOffsetY=Defines the vertical position of the text on the memo. Higher values move the text down.
 
 # Parallax Fade Speed Controller
 placements.entities.MaxHelpingHand/ParallaxFadeSpeedController.tooltips.fadeTime=The time it will take for the parallax stylegrounds to fully fade in or out, in seconds. Vanilla value is 1 second.

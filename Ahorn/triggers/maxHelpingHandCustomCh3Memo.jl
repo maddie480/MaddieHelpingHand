@@ -4,7 +4,8 @@ using ..Ahorn, Maple
 
 @mapdef Trigger "MaxHelpingHand/CustomCh3Memo" CustomCh3Memo(x::Integer, y::Integer, width::Integer=Maple.defaultTriggerWidth, height::Integer=Maple.defaultTriggerHeight,
     paperSpriteFolderName::String="", dialogId::String="CH3_MEMO", dialogBeforeId::String="CH3_MEMO_OPENING", dialogAfterId::String="", flagOnCompletion::String="",
-    dialogBeforeOnlyOnce::Bool=false, dialogAfterOnlyOnce::Bool=false, nodes::Array{Tuple{Integer, Integer}, 1}=Tuple{Integer, Integer}[])
+    dialogBeforeOnlyOnce::Bool=false, dialogAfterOnlyOnce::Bool=false, textOffsetY::Number=210.0,
+    nodes::Array{Tuple{Integer, Integer}, 1}=Tuple{Integer, Integer}[])
 
 const placements = Ahorn.PlacementDict(
     "Custom Chapter 3 Memo (max480's Helping Hand)" => Ahorn.EntityPlacement(

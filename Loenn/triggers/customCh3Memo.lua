@@ -12,7 +12,8 @@ trigger.placements = {
         dialogAfterId = "",
         flagOnCompletion = "",
         dialogBeforeOnlyOnce = false,
-        dialogAfterOnlyOnce = false
+        dialogAfterOnlyOnce = false,
+        textOffsetY = 210.0
     }
 }
 
