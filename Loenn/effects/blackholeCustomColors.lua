@@ -21,7 +21,9 @@ effect.defaultData = {
     additionalWindX = 0.0,
     additionalWindY = 0.0,
     invertedRendering = false,
-    texture = ""
+    texture = "",
+    particleTexture = "",
+    particleTextureCount = 1
 }
 
 effect.fieldOrder = {
@@ -29,6 +31,12 @@ effect.fieldOrder = {
     "colorsMild", "colorsWild", "fadex", "fadey",
     "bgColorInner", "bgColorOuterMild", "bgColorOuterWild", "tag",
     "bgAlphaInner", "bgAlphaOuter", "fgAlpha", "alpha"
+}
+
+effect.fieldInformation = {
+    particleTextureCount = {
+        fieldType = "integer"
+    }
 }
 
 return effect

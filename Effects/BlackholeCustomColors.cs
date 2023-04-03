@@ -5,10 +5,12 @@ using Monocle;
 using MonoMod.Cil;
 using MonoMod.Utils;
 using System;
+using System.Collections.Generic;
 
 namespace Celeste.Mod.MaxHelpingHand.Effects {
     public class BlackholeCustomColors : BlackholeBG {
         private static Color[] colorsMild;
+        private static List<MTexture> replacementAtlasSubtextures;
 
         public static void Load() {
             IL.Celeste.BlackholeBG.ctor += onBlackholeConstructor;
@@ -41,6 +43,21 @@ namespace Celeste.Mod.MaxHelpingHand.Effects {
                     }
                 });
             }
+
+            if (cursor.TryGotoNext(MoveType.After,
+                instr => instr.MatchLdstr("bgs/10/blackhole/particle"),
+                instr => instr.MatchCallvirt<Atlas>("GetAtlasSubtextures"))) {
+
+                Logger.Log("MaxHelpingHand/BlackholeCustomColors", $"Replacing particle textures at {cursor.Index} in IL code for BlackholeBG constructor");
+                cursor.EmitDelegate<Func<List<MTexture>, List<MTexture>>>(orig => {
+                    if (replacementAtlasSubtextures != null) {
+                        List<MTexture> result = replacementAtlasSubtextures;
+                        replacementAtlasSubtextures = null;
+                        return result;
+                    }
+                    return orig;
+                });
+            }
         }
 
         public static BlackholeBG CreateBlackholeWithCustomColors(BinaryPacker.Element effectData) {
@@ -64,7 +81,8 @@ namespace Celeste.Mod.MaxHelpingHand.Effects {
                 && effectData.AttrFloat("fgAlpha", 1f) == 1f
                 && string.IsNullOrEmpty(effectData.Attr("fadex"))
                 && string.IsNullOrEmpty(effectData.Attr("fadey"))
-                && !effectData.AttrBool("invertedRendering")) {
+                && !effectData.AttrBool("invertedRendering")
+                && string.IsNullOrEmpty(effectData.Attr("particleTexture"))) {
 
                 // there is no gradient on any color, wind should affect the blackhole, and there is no fade: we can just instanciate a vanilla blackhole and mess with its properties.
 
@@ -96,6 +114,12 @@ namespace Celeste.Mod.MaxHelpingHand.Effects {
 
                 float fgAlpha = effectData.AttrFloat("fgAlpha", 1f);
 
+                MTexture particleTexture = null;
+                if (!string.IsNullOrEmpty(effectData.Attr("particleTexture"))) {
+                    particleTexture = GFX.Game[effectData.Attr("particleTexture")];
+                    replacementAtlasSubtextures = cutIntoSubtextures(particleTexture, effectData.AttrInt("particleTextureCount"));
+                }
+
                 // set up colorsMild for the hook above. we can't use DynData to pass this over, since the object does not exist yet!
                 colorsMild = new ColorCycle(effectData.Attr("colorsMild", "6e3199,851f91,3026b0"), 0.8f * fgAlpha).GetColors();
 
@@ -109,7 +133,8 @@ namespace Celeste.Mod.MaxHelpingHand.Effects {
                     bgAlphaInner, bgAlphaOuter, fgAlpha,
                     effectData.AttrBool("affectedByWind", true),
                     new Vector2(effectData.AttrFloat("additionalWindX", 0f), effectData.AttrFloat("additionalWindY", 0f)),
-                    effectData.AttrBool("invertedRendering"));
+                    effectData.AttrBool("invertedRendering"),
+                    particleTexture);
 
                 // ... now we've got to set the initial values of everything else.
                 blackhole.blackholeData["colorsWild"] = blackhole.cycleColorsWild.GetColors();
@@ -125,6 +150,23 @@ namespace Celeste.Mod.MaxHelpingHand.Effects {
 
                 return blackhole;
             }
+        }
+
+        /// <summary>
+        /// Cuts a texture evenly into the given amount of subtextures.
+        /// </summary>
+        private static List<MTexture> cutIntoSubtextures(MTexture texture, int subtextureCount) {
+            List<MTexture> result = new List<MTexture>();
+
+            int sectionWidth = texture.Width / subtextureCount;
+            int currentX = 0;
+
+            for (int i = 0; i < subtextureCount; i++) {
+                result.Add(new MTexture(texture, new Rectangle(currentX, 0, sectionWidth, texture.Height)));
+                currentX += sectionWidth;
+            }
+
+            return result;
         }
 
         private static Color[] parseColors(string input) {
@@ -212,8 +254,10 @@ namespace Celeste.Mod.MaxHelpingHand.Effects {
         private readonly float fgAlpha;
         private readonly bool invertedRendering;
 
+        private readonly MTexture particleTexture;
+
         public BlackholeCustomColors(string colorsMild, string colorsWild, string bgColorInner, string bgColorOuterMild, string bgColorOuterWild,
-            float bgAlphaInner, float bgAlphaOuter, float fgAlpha, bool affectedByWind, Vector2 additionalWind, bool invertedRendering) : base() {
+            float bgAlphaInner, float bgAlphaOuter, float fgAlpha, bool affectedByWind, Vector2 additionalWind, bool invertedRendering, MTexture particleTexture) : base() {
 
             blackholeData = new DynData<BlackholeBG>(this);
 
@@ -226,6 +270,8 @@ namespace Celeste.Mod.MaxHelpingHand.Effects {
 
             this.affectedByWind = affectedByWind;
             this.additionalWind = additionalWind;
+
+            this.particleTexture = particleTexture;
 
             this.fgAlpha = fgAlpha;
             this.invertedRendering = invertedRendering;
@@ -296,6 +342,10 @@ namespace Celeste.Mod.MaxHelpingHand.Effects {
                 1, (orig, self) => self.invertedRendering ? 19 - orig : orig);
             replacerHook<Color>(cursor, cursor => cursor.TryGotoNext(instr => instr.MatchLdfld<BlackholeBG>("bgColorInner"), instr => instr.MatchCallvirt<GraphicsDevice>("Clear")),
                 1, (orig, self) => self.invertedRendering ? Color.Transparent : orig);
+
+            // replace the particle texture if any was provided
+            replacerHook<Texture2D>(cursor, cursor => cursor.TryGotoNext(MoveType.After, instr => instr.MatchCallvirt<VirtualTexture>("get_Texture_Safe")),
+                0, (orig, self) => self.particleTexture != null ? self.particleTexture.Texture.Texture : orig);
         }
 
         /**

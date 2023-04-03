@@ -317,6 +317,8 @@ placements.effects.MaxHelpingHand/BlackholeCustomColors.tooltips.additionalWindX
 placements.effects.MaxHelpingHand/BlackholeCustomColors.tooltips.additionalWindY=The value given here will be added to the vertical wind to compute the position of the blackhole.\nIf "Affected By Wind" is unchecked, this value will replace the wind strength entirely instead of adding to it.
 placements.effects.MaxHelpingHand/BlackholeCustomColors.tooltips.invertedRendering=Whether the black hole should be rendered from the edges to the center, rather than the other way around.\nThis can be useful with custom textures, or if the black hole should be transparent on the edges.
 placements.effects.MaxHelpingHand/BlackholeCustomColors.tooltips.texture=The texture to use for the spinning black hole background, in the Graphics/Atlases/Gameplay folder of your mod.\nThe vanilla texture is located in Graphics/Atlases/Gameplay/objects/temple/portal/portal.png in the graphics dump.\nLeave empty to use the default texture.
+placements.effects.MaxHelpingHand/BlackholeCustomColors.tooltips.particleTexture=The texture of the particles that go towards the center of the blackhole, in the Graphics/Atlases/Gameplay folder of your mod.\nYou can have multiple particle types, by putting all of them next to each other horizontally in your texture with equal widths, then adjusting the "Particle Texture Count" setting.
+placements.effects.MaxHelpingHand/BlackholeCustomColors.tooltips.particleTextureCount=The amount of particle types that are in the particle texture.\nThey should be aligned horizontally and all have the same width.
 
 # Color Grade Fade Trigger
 placements.triggers.MaxHelpingHand/ColorGradeFadeTrigger.tooltips.colorGradeA=The color grade to fade from.
