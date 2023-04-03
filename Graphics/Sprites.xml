@@ -29,4 +29,9 @@
     <Loop id="following" path="Flag" frames="1-8" delay="0.07"/>
     <Anim id="collect" path="Flag" frames="9-19" delay="0.07"/>
   </MaxHelpingHand_FlagPickup_Flag>
+  <MaxHelpingHand_beeFireball path="objects/MaxHelpingHand/beeFireball/" start="idle">
+    <Justify x="0.53" y="0.45"/>
+    <Loop id="idle" path="beefireball" delay="0.08"/>
+    <Anim id="rotate" path="beeturnaround" delay="0.08" goto="idle"/>
+  </MaxHelpingHand_beeFireball>
 </Sprites>

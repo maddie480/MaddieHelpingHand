@@ -176,6 +176,7 @@ namespace Celeste.Mod.MaxHelpingHand.Module {
             base.LoadContent(firstLoad);
 
             MultiRoomStrawberryCounter.Initialize();
+            BeeFireball.LoadContent();
             HookMods();
         }
 
