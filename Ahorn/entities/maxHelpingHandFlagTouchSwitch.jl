@@ -11,7 +11,7 @@ using ..Ahorn, Maple
 const bundledIcons = String["vanilla", "tall", "triangle", "circle", "diamond", "double", "heart", "square", "wide", "winged"]
 
 const placements = Ahorn.PlacementDict(
-    "Flag Touch Switch (max480's Helping Hand)" => Ahorn.EntityPlacement(
+    "Flag Touch Switch (Maddie's Helping Hand)" => Ahorn.EntityPlacement(
         FlagTouchSwitch
     )
 )

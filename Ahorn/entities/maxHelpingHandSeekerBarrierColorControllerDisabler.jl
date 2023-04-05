@@ -5,7 +5,7 @@ using ..Ahorn, Maple
 @mapdef Entity "MaxHelpingHand/SeekerBarrierColorControllerDisabler" SeekerBarrierColorControllerDisabler(x::Integer, y::Integer)
 
 const placements = Ahorn.PlacementDict(
-    "Seeker Barrier Color Controller (Disable)\n(max480's Helping Hand)" => Ahorn.EntityPlacement(
+    "Seeker Barrier Color Controller (Disable)\n(Maddie's Helping Hand)" => Ahorn.EntityPlacement(
         SeekerBarrierColorControllerDisabler
     )
 )

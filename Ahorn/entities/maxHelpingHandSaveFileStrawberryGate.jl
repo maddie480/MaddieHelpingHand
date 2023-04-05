@@ -18,7 +18,7 @@ using ..Ahorn, Maple
 )
 
 const placements = Ahorn.PlacementDict(
-    "Strawberry Gate (from Save File) (max480's Helping Hand + Lunatic Helper)" => Ahorn.EntityPlacement(
+    "Strawberry Gate (from Save File) (Maddie's Helping Hand + Lunatic Helper)" => Ahorn.EntityPlacement(
         StrawberryGate,
         "rectangle"
     )

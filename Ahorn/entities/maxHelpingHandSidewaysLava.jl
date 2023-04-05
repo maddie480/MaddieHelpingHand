@@ -9,7 +9,7 @@ using ..Ahorn, Maple
     sound::String="event:/game/09_core/rising_threat", forceCoreMode::String="None")
 
 const placements = Ahorn.PlacementDict(
-    "Sideways Lava (max480's Helping Hand)" => Ahorn.EntityPlacement(
+    "Sideways Lava (Maddie's Helping Hand)" => Ahorn.EntityPlacement(
         SidewaysLava
     )
 )

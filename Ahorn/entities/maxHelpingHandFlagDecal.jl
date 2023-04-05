@@ -8,10 +8,10 @@ using ..Ahorn, Maple
 @mapdef Entity "MaxHelpingHand/FlagDecalXML" FlagDecalXML(x::Integer, y::Integer, sprite::String="", depth::Int=8999)
 
 const placements = Ahorn.PlacementDict(
-    "Flag Decal (max480's Helping Hand)" => Ahorn.EntityPlacement(
+    "Flag Decal (Maddie's Helping Hand)" => Ahorn.EntityPlacement(
         FlagDecal
     ),
-    "Flag Decal (from XML) (max480's Helping Hand)" => Ahorn.EntityPlacement(
+    "Flag Decal (from XML) (Maddie's Helping Hand)" => Ahorn.EntityPlacement(
         FlagDecalXML
     )
 )

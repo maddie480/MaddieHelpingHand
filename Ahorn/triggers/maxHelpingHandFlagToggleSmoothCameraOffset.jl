@@ -7,7 +7,7 @@ using ..Ahorn, Maple
     flag::String="flag_toggle_smooth_camera_offset", inverted::Bool=false)
 
 const placements = Ahorn.PlacementDict(
-    "Smooth Camera Offset (Flag-Toggled) (max480's Helping Hand)" => Ahorn.EntityPlacement(
+    "Smooth Camera Offset (Flag-Toggled) (Maddie's Helping Hand)" => Ahorn.EntityPlacement(
         FlagToggleSmoothCameraOffsetTrigger,
         "rectangle",
     ),

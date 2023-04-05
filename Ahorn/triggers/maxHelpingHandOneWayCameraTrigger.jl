@@ -6,7 +6,7 @@ using ..Ahorn, Maple
     left::Bool=true, right::Bool=true, up::Bool=true, down::Bool=true, flag::String="", blockPlayer::Bool=false)
 
 const placements = Ahorn.PlacementDict(
-    "One-Way Camera Trigger (max480's Helping Hand)" => Ahorn.EntityPlacement(
+    "One-Way Camera Trigger (Maddie's Helping Hand)" => Ahorn.EntityPlacement(
         OneWayCameraTrigger,
         "rectangle"
     )

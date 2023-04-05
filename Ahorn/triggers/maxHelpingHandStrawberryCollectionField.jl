@@ -6,7 +6,7 @@ using ..Ahorn, Maple
     delayBetweenBerries::Bool=true, includeGoldens::Bool=false)
 
 const placements = Ahorn.PlacementDict(
-    "Strawberry Collection Field (max480's Helping Hand)" => Ahorn.EntityPlacement(
+    "Strawberry Collection Field (Maddie's Helping Hand)" => Ahorn.EntityPlacement(
         StrawberryCollectionField,
         "rectangle"
     )

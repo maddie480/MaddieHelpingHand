@@ -5,7 +5,7 @@ using ..Ahorn, Maple
 @mapdef Entity "MaxHelpingHand/ParallaxFadeOutController" ParallaxFadeOutController(x::Integer, y::Integer)
 
 const placements = Ahorn.PlacementDict(
-    "Parallax Fade Out Controller (max480's Helping Hand)" => Ahorn.EntityPlacement(
+    "Parallax Fade Out Controller (Maddie's Helping Hand)" => Ahorn.EntityPlacement(
         ParallaxFadeOutController
     )
 )

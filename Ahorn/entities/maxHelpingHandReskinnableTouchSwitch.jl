@@ -6,7 +6,7 @@ using ..Ahorn, Maple
     borderTexture::String="objects/touchswitch/container", inactiveColor::String="5fcde4", activeColor::String="ffffff", finishColor::String="f141df")
 
 const placements = Ahorn.PlacementDict(
-    "Touch Switch (Reskinnable) (max480's Helping Hand)" => Ahorn.EntityPlacement(
+    "Touch Switch (Reskinnable) (Maddie's Helping Hand)" => Ahorn.EntityPlacement(
         ReskinnableTouchSwitch
     )
 )

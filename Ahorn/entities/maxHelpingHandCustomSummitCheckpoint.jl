@@ -6,7 +6,7 @@ using ..Ahorn, Maple
     spriteDirectory::String="MaxHelpingHand/summitcheckpoints", confettiColors::String="fe2074,205efe,cefe20", groupFlag::String="")
 
 const placements = Ahorn.PlacementDict(
-    "Custom Summit Checkpoint (max480's Helping Hand)" => Ahorn.EntityPlacement(
+    "Custom Summit Checkpoint (Maddie's Helping Hand)" => Ahorn.EntityPlacement(
         CustomSummitCheckpoint
     )
 )

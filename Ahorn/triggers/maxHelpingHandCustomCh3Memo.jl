@@ -8,7 +8,7 @@ using ..Ahorn, Maple
     nodes::Array{Tuple{Integer, Integer}, 1}=Tuple{Integer, Integer}[])
 
 const placements = Ahorn.PlacementDict(
-    "Custom Chapter 3 Memo (max480's Helping Hand)" => Ahorn.EntityPlacement(
+    "Custom Chapter 3 Memo (Maddie's Helping Hand)" => Ahorn.EntityPlacement(
         CustomCh3Memo,
         "rectangle"
     )

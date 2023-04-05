@@ -6,14 +6,14 @@ using ..Ahorn, Maple
     dreaming::Bool=false, dialog::String="MEMORIAL", sprite::String="scenery/memorial/memorial", spacing::Integer=16)
 
 const placements = Ahorn.PlacementDict(
-    "Custom Memorial (Dreaming) (max480's Helping Hand)" => Ahorn.EntityPlacement(
+    "Custom Memorial (Dreaming) (Maddie's Helping Hand)" => Ahorn.EntityPlacement(
         CustomMemorialWithDreamingAttribute,
         "point",
         Dict{String, Any}(
             "dreaming" => true
         )
     ),
-    "Custom Memorial (Not Dreaming) (max480's Helping Hand)" => Ahorn.EntityPlacement(
+    "Custom Memorial (Not Dreaming) (Maddie's Helping Hand)" => Ahorn.EntityPlacement(
         CustomMemorialWithDreamingAttribute
     )
 )

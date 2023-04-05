@@ -5,7 +5,7 @@ using ..Ahorn, Maple
 @mapdef Entity "MaxHelpingHand/FlagBadelineChaser" FlagBadelineChaser(x::Integer, y::Integer, canChangeMusic::Bool=true, flag::String="flag_name", index::Integer=0)
 
 const placements = Ahorn.PlacementDict(
-    "Flag Badeline Chaser (max480's Helping Hand)" => Ahorn.EntityPlacement(
+    "Flag Badeline Chaser (Maddie's Helping Hand)" => Ahorn.EntityPlacement(
         FlagBadelineChaser
     )
 )

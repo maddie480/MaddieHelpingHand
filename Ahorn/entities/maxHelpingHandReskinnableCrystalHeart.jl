@@ -6,7 +6,7 @@ using ..Ahorn, Maple
     keepGoingDialog::String="CH9_KEEP_GOING", sprite::String="", ghostSprite::String="", particleColor::String="", flagOnCollect::String="", flagInverted::Bool=false, disableGhostSprite::Bool=false)
 
 const placements = Ahorn.PlacementDict(
-    "Crystal Heart (Reskinnable) (max480's Helping Hand)" => Ahorn.EntityPlacement(
+    "Crystal Heart (Reskinnable) (Maddie's Helping Hand)" => Ahorn.EntityPlacement(
         ReskinnableCrystalHeart
     ),
 )

@@ -6,7 +6,7 @@ using ..Ahorn, Maple
     button::String="Grab", flag::String="flag_name", inverted::Bool=false, toggleMode::Bool=false, activationDelay::Number=0.0)
 
 const placements = Ahorn.PlacementDict(
-    "Set Flag On Button Press Controller (max480's Helping Hand)" => Ahorn.EntityPlacement(
+    "Set Flag On Button Press Controller (Maddie's Helping Hand)" => Ahorn.EntityPlacement(
         SetFlagOnButtonPressController
     )
 )

@@ -5,7 +5,7 @@ using ..Ahorn, Maple
 @mapdef Entity "MaxHelpingHand/HintsFlagController" HintsFlagController(x::Integer, y::Integer, outputFlag::String="hints", not::Bool=false)
 
 const placements = Ahorn.PlacementDict(
-    "Hints Flag Controller (max480's Helping Hand)" => Ahorn.EntityPlacement(
+    "Hints Flag Controller (Maddie's Helping Hand)" => Ahorn.EntityPlacement(
         HintsFlagController
     )
 )

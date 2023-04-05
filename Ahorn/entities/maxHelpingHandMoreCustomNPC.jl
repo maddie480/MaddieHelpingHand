@@ -14,10 +14,10 @@ const npcUnion = Union{MoreCustomNPC, CustomNPCSprite}
 
 const placements = Ahorn.PlacementDict(
     # Base placements
-    "More Custom NPC\n(Everest + max480's Helping Hand)" => Ahorn.EntityPlacement(
+    "More Custom NPC\n(Everest + Maddie's Helping Hand)" => Ahorn.EntityPlacement(
         MoreCustomNPC
     ),
-    "Custom NPC (from XML)\n(Everest + max480's Helping Hand)" => Ahorn.EntityPlacement(
+    "Custom NPC (from XML)\n(Everest + Maddie's Helping Hand)" => Ahorn.EntityPlacement(
         CustomNPCSprite
     ),
 
@@ -41,7 +41,7 @@ const placements = Ahorn.PlacementDict(
     ),
 
     # Presets for Theo, Oshiro and Badeline Boss that do require More Custom NPC
-    "More Custom NPC (Theo)\n(Everest + max480's Helping Hand)" => Ahorn.EntityPlacement(
+    "More Custom NPC (Theo)\n(Everest + Maddie's Helping Hand)" => Ahorn.EntityPlacement(
         MoreCustomNPC,
         "point",
         Dict{String,Any}(
@@ -51,7 +51,7 @@ const placements = Ahorn.PlacementDict(
             "indicatorOffsetY" => -5
         )
     ),
-    "More Custom NPC (Oshiro)\n(Everest + max480's Helping Hand)" => Ahorn.EntityPlacement(
+    "More Custom NPC (Oshiro)\n(Everest + Maddie's Helping Hand)" => Ahorn.EntityPlacement(
         MoreCustomNPC,
         "point",
         Dict{String,Any}(
@@ -61,7 +61,7 @@ const placements = Ahorn.PlacementDict(
             "indicatorOffsetY" => -10
         )
     ),
-    "More Custom NPC (Badeline Boss)\n(Everest + max480's Helping Hand)" => Ahorn.EntityPlacement(
+    "More Custom NPC (Badeline Boss)\n(Everest + Maddie's Helping Hand)" => Ahorn.EntityPlacement(
         MoreCustomNPC,
         "point",
         Dict{String,Any}(

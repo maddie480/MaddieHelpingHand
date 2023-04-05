@@ -7,7 +7,7 @@ using ..Ahorn, Maple
 const colors = String["Blue", "Red", "Purple", "Rainbow"]
 
 const placements = Ahorn.PlacementDict(
-    "Spinner Breaking Ball ($(color)) (max480's Helping Hand)" => Ahorn.EntityPlacement(
+    "Spinner Breaking Ball ($(color)) (Maddie's Helping Hand)" => Ahorn.EntityPlacement(
         SpinnerBreakingBall,
         "point",
         Dict{String,Any}(

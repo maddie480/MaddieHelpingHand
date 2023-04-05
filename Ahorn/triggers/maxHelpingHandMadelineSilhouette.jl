@@ -6,7 +6,7 @@ using ..Ahorn, Maple
     width::Integer=Maple.defaultTriggerWidth, height::Integer=Maple.defaultTriggerHeight, enable::Bool=true)
 
 const placements = Ahorn.PlacementDict(
-    "Madeline Silhouette (max480's Helping Hand)" => Ahorn.EntityPlacement(
+    "Madeline Silhouette (Maddie's Helping Hand)" => Ahorn.EntityPlacement(
         MadelineSilhouetteTrigger,
         "rectangle"
     )

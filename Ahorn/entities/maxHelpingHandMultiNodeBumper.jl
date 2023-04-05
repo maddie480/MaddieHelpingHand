@@ -6,7 +6,7 @@ using ..Ahorn, Maple
     Entity("MaxHelpingHand/MultiNodeBumper", x=x, y=y, nodes=Tuple{Int, Int}[], width=width, mode=mode, moveTime=moveTime, pauseTime=pauseTime, easing=easing, notCoreMode=notCoreMode, amount=amount, offset=offset, wobble=wobble, flag=flag)
 
 const placements = Ahorn.PlacementDict(
-    "Bumper (Multi-Node) (max480's Helping Hand)" => Ahorn.EntityPlacement(
+    "Bumper (Multi-Node) (Maddie's Helping Hand)" => Ahorn.EntityPlacement(
         MultiNodeBumper,
         "point",
         Dict{String, Any}(),

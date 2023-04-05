@@ -8,7 +8,7 @@ using ..Ahorn, Maple
     direction::String="NoEffect", persistent::Bool=false)
 
 const placements = Ahorn.PlacementDict(
-    "Rainbow Spinner Color Fade (max480's Helping Hand)" => Ahorn.EntityPlacement(
+    "Rainbow Spinner Color Fade (Maddie's Helping Hand)" => Ahorn.EntityPlacement(
         RainbowSpinnerColorFadeTrigger,
         "rectangle"
     )

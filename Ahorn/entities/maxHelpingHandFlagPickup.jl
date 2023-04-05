@@ -7,7 +7,7 @@ using ..Ahorn, Maple
     collectSound::String="event:/game/general/seed_touch", allowRespawn::Bool=false)
 
 const placements = Ahorn.PlacementDict(
-    "Flag Pickup (max480's Helping Hand)" => Ahorn.EntityPlacement(
+    "Flag Pickup (Maddie's Helping Hand)" => Ahorn.EntityPlacement(
         FlagPickup
     )
 )

@@ -6,7 +6,7 @@ using ..Ahorn, Maple
     catchupSpeed::Number=1.0, revertOnLeave::Bool=true)
 
 const placements = Ahorn.PlacementDict(
-    "Camera Catchup Speed (max480's Helping Hand)" => Ahorn.EntityPlacement(
+    "Camera Catchup Speed (Maddie's Helping Hand)" => Ahorn.EntityPlacement(
         CameraCatchupSpeedTrigger,
         "rectangle"
     )

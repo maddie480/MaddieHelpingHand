@@ -7,7 +7,7 @@ using ..Ahorn, Maple
     flag::String="flag_toggle_camera_target", inverted::Bool=false)
 
 const placements = Ahorn.PlacementDict(
-    "Camera Target (Flag-Toggled) (max480's Helping Hand)" => Ahorn.EntityPlacement(
+    "Camera Target (Flag-Toggled) (Maddie's Helping Hand)" => Ahorn.EntityPlacement(
         FlagToggleCameraTargetTrigger,
         "rectangle",
         Dict{String, Any}(),

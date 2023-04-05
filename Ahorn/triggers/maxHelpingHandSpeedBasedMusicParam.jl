@@ -6,7 +6,7 @@ using ..Ahorn, Maple
     paramName::String="fade", minSpeed::Number=0.0, maxSpeed::Number=90.0, minParamValue::Number=0.0, maxParamValue::Number=1.0, activate::Bool=true)
 
 const placements = Ahorn.PlacementDict(
-    "Speed-Based Music Param (max480's Helping Hand)" => Ahorn.EntityPlacement(
+    "Speed-Based Music Param (Maddie's Helping Hand)" => Ahorn.EntityPlacement(
         SpeedBasedMusicParamTrigger,
         "rectangle"
     )

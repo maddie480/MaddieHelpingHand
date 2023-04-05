@@ -6,7 +6,7 @@ using ..Ahorn, Maple
     direction::String="leftToRight", fadeA::Number=0.0, fadeB::Number=1.0, parameter::String="")
 
 const placements = Ahorn.PlacementDict(
-    "Persistent Music Fade (max480's Helping Hand)" => Ahorn.EntityPlacement(
+    "Persistent Music Fade (Maddie's Helping Hand)" => Ahorn.EntityPlacement(
         PersistentMusicFadeTrigger,
         "rectangle"
     )

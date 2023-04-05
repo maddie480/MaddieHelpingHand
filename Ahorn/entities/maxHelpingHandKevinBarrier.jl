@@ -6,7 +6,7 @@ using ..Ahorn, Maple
     color::String="62222b", particleColor::String="ffffff", flashOnHit::Bool=true, invisible::Bool=false)
 
 const placements = Ahorn.PlacementDict(
-    "Kevin Barrier (max480's Helping Hand)" => Ahorn.EntityPlacement(
+    "Kevin Barrier (Maddie's Helping Hand)" => Ahorn.EntityPlacement(
         KevinBarrier,
         "rectangle"
     )

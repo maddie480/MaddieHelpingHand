@@ -5,10 +5,10 @@ using ..Ahorn, Maple
 @mapdef Entity "MaxHelpingHand/RespawningJellyfish" RespawningJellyfish(x::Integer, y::Integer, bubble::Bool=false, tutorial::Bool=false, respawnTime::Number=2.0, spriteDirectory::String="objects/MaxHelpingHand/glider")
 
 const placements = Ahorn.PlacementDict(
-    "Respawning Jellyfish (max480's Helping Hand)" => Ahorn.EntityPlacement(
+    "Respawning Jellyfish (Maddie's Helping Hand)" => Ahorn.EntityPlacement(
         RespawningJellyfish
     ),
-    "Respawning Jellyfish (Floating) (max480's Helping Hand)" => Ahorn.EntityPlacement(
+    "Respawning Jellyfish (Floating) (Maddie's Helping Hand)" => Ahorn.EntityPlacement(
         RespawningJellyfish,
         "point",
         Dict{String, Any}(

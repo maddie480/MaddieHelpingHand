@@ -8,7 +8,7 @@ using ..Ahorn, Maple
 const directions = String["AlwaysUp", "AlwaysDown", "CoreModeBased"]
 
 const placements = Ahorn.PlacementDict(
-    "Custom Sandwich Lava Settings (max480's Helping Hand)" => Ahorn.EntityPlacement(
+    "Custom Sandwich Lava Settings (Maddie's Helping Hand)" => Ahorn.EntityPlacement(
         CustomSandwichLavaSettingsTrigger,
         "rectangle",
     ),

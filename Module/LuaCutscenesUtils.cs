@@ -9,7 +9,7 @@ namespace Celeste.Mod.MaxHelpingHand.Module {
     public static class LuaCutscenesUtils {
         // Say a dialog string, like the "say" function from Lua Cutscenes, but with a different font.
         // What is expected here is the "face" attribute in the *.fnt file: <info face="Noto Sans CJK JP Medium" ...>
-        // example: coroutine.yield(luaCutscenesUtils.SayWithDifferentFont("max480_testmap_comicsans", "max480_dialog"))
+        // example: coroutine.yield(luaCutscenesUtils.SayWithDifferentFont("maddie480_testmap_comicsans", "maddie480_dialog"))
         public static IEnumerator SayWithDifferentFont(string font, string dialogId) {
             return ExtendedDialogCutsceneTrigger.ReplaceFancyTextFontFor(Textbox.Say(dialogId), font);
         }
@@ -18,7 +18,7 @@ namespace Celeste.Mod.MaxHelpingHand.Module {
         // What is expected here is the "face" attribute in the *.fnt file: <info face="Noto Sans CJK JP Medium" ...>
         // Get the choice of the user with GetChoice() afterwards.
         // example:
-        // coroutine.yield(luaCutscenesUtils.ChoiceWithDifferentFont("max480_testmap_comicsans", "max480_choice1", "max480_choice2", "max480_choice3"))
+        // coroutine.yield(luaCutscenesUtils.ChoiceWithDifferentFont("maddie480_testmap_comicsans", "maddie480_choice1", "maddie480_choice2", "maddie480_choice3"))
         // local choiceIndex = luaCutscenesUtils.GetChoice()
         public static IEnumerator ChoiceWithDifferentFont(string font, params string[] options) {
             return ExtendedDialogCutsceneTrigger.ReplaceFancyTextFontFor(ChoicePrompt.Prompt(options), font);

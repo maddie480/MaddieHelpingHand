@@ -6,7 +6,7 @@ using ..Ahorn, Maple
     endLevel::Bool=false, onlyOnce::Bool=true, dialogId::String="", deathCount::Int=-1, font::String="")
 
 const placements = Ahorn.PlacementDict(
-    "Dialog Cutscene (Extended) (max480's Helping Hand)" => Ahorn.EntityPlacement(
+    "Dialog Cutscene (Extended) (Maddie's Helping Hand)" => Ahorn.EntityPlacement(
         ExtendedDialogCutsceneTrigger,
         "rectangle"
     )

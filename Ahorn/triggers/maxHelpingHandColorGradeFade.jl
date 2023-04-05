@@ -6,7 +6,7 @@ using ..Ahorn, Maple
     colorGradeA::String="none", colorGradeB::String="none", direction::String="LeftToRight", evenDuringReflectionFall::Bool=false)
 
 const placements = Ahorn.PlacementDict(
-    "Color Grade Fade (max480's Helping Hand)" => Ahorn.EntityPlacement(
+    "Color Grade Fade (Maddie's Helping Hand)" => Ahorn.EntityPlacement(
         ColorGradeFadeTrigger,
         "rectangle",
     ),

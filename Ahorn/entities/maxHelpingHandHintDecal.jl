@@ -5,10 +5,10 @@ using ..Ahorn, Maple
 @mapdef Entity "MaxHelpingHand/HintDecal" HintDecal(x::Integer, y::Integer, texture::String="1-forsakencity/sign_you_can_go_up", scaleX::Number=1.0, scaleY::Number=1.0, foreground::Bool=false)
 
 const placements = Ahorn.PlacementDict(
-    "Hint Decal (max480's Helping Hand)" => Ahorn.EntityPlacement(
+    "Hint Decal (Maddie's Helping Hand)" => Ahorn.EntityPlacement(
         HintDecal
     ),
-    "Custom Bird Tutorial (Show Hints) (max480's Helping Hand)" => Ahorn.EntityPlacement(
+    "Custom Bird Tutorial (Show Hints) (Maddie's Helping Hand)" => Ahorn.EntityPlacement(
         Maple.EverestCustomBird,
         "rectangle",
         Dict{String,Any}(

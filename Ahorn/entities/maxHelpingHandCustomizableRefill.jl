@@ -6,11 +6,11 @@ using ..Ahorn, Maple
     shatterParticleColor1::String="", shatterParticleColor2::String="", glowParticleColor1::String="", glowParticleColor2::String="", wave::Bool=true)
 
 const placements = Ahorn.PlacementDict(
-    "Refill (Customizable) (max480's Helping Hand)" => Ahorn.EntityPlacement(
+    "Refill (Customizable) (Maddie's Helping Hand)" => Ahorn.EntityPlacement(
         CustomizableRefill
     ),
 
-    "Refill (Two Dashes, Customizable) (max480's Helping Hand)" => Ahorn.EntityPlacement(
+    "Refill (Two Dashes, Customizable) (Maddie's Helping Hand)" => Ahorn.EntityPlacement(
         CustomizableRefill,
         "point",
         Dict{String, Any}(

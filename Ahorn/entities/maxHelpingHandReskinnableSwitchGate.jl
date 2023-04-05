@@ -21,7 +21,7 @@ end
 const textures = ["block", "mirror", "temple", "stars"]
 
 const placements = Ahorn.PlacementDict(
-    "Switch Gate (Stone, Reskinnable) (max480's Helping Hand)" => Ahorn.EntityPlacement(
+    "Switch Gate (Stone, Reskinnable) (Maddie's Helping Hand)" => Ahorn.EntityPlacement(
         ReskinnableSwitchGate,
         "rectangle",
         Dict{String, Any}(
@@ -29,7 +29,7 @@ const placements = Ahorn.PlacementDict(
         ),
         gateFinalizer
     ),
-    "Switch Gate (Mirror, Reskinnable) (max480's Helping Hand)" => Ahorn.EntityPlacement(
+    "Switch Gate (Mirror, Reskinnable) (Maddie's Helping Hand)" => Ahorn.EntityPlacement(
         ReskinnableSwitchGate,
         "rectangle",
         Dict{String, Any}(
@@ -37,7 +37,7 @@ const placements = Ahorn.PlacementDict(
         ),
         gateFinalizer
     ),
-    "Switch Gate (Temple, Reskinnable) (max480's Helping Hand)" => Ahorn.EntityPlacement(
+    "Switch Gate (Temple, Reskinnable) (Maddie's Helping Hand)" => Ahorn.EntityPlacement(
         ReskinnableSwitchGate,
         "rectangle",
         Dict{String, Any}(
@@ -45,7 +45,7 @@ const placements = Ahorn.PlacementDict(
         ),
         gateFinalizer
     ),
-    "Switch Gate (Moon, Reskinnable) (max480's Helping Hand)" => Ahorn.EntityPlacement(
+    "Switch Gate (Moon, Reskinnable) (Maddie's Helping Hand)" => Ahorn.EntityPlacement(
         ReskinnableSwitchGate,
         "rectangle",
         Dict{String, Any}(

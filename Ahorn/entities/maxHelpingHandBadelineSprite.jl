@@ -5,7 +5,7 @@ using ..Ahorn, Maple
 @mapdef Entity "MaxHelpingHand/BadelineSprite" BadelineSprite(x::Integer, y::Integer, left::Bool=false, floating::Bool=false)
 
 const placements = Ahorn.PlacementDict(
-    "Badeline Sprite (max480's Helping Hand)" => Ahorn.EntityPlacement(
+    "Badeline Sprite (Maddie's Helping Hand)" => Ahorn.EntityPlacement(
         BadelineSprite
     )
 )

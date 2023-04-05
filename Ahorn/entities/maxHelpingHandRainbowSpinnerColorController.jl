@@ -9,10 +9,10 @@ using ..Ahorn, Maple
     colorsWithFlag::String="89E5AE,88E0E0,87A9DD,9887DB,D088E2", gradientSizeWithFlag::Number=280.0, loopColorsWithFlag::Bool=false, centerXWithFlag::Number=0.0, centerYWithFlag::Number=0.0, gradientSpeedWithFlag::Number=50.0)
 
 const placements = Ahorn.PlacementDict(
-    "Rainbow Spinner Color Controller (max480's Helping Hand)" => Ahorn.EntityPlacement(
+    "Rainbow Spinner Color Controller (Maddie's Helping Hand)" => Ahorn.EntityPlacement(
         RainbowSpinnerColorController
     ),
-    "Flag Rainbow Spinner Color Controller (max480's Helping Hand)" => Ahorn.EntityPlacement(
+    "Flag Rainbow Spinner Color Controller (Maddie's Helping Hand)" => Ahorn.EntityPlacement(
         FlagRainbowSpinnerColorController
     ),
 )

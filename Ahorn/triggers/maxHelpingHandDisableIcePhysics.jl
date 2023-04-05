@@ -6,7 +6,7 @@ using ..Ahorn, Maple
     width::Integer=Maple.defaultTriggerWidth, height::Integer=Maple.defaultTriggerHeight, disableIcePhysics::Bool=true)
 
 const placements = Ahorn.PlacementDict(
-    "Disable Ice Physics (max480's Helping Hand)" => Ahorn.EntityPlacement(
+    "Disable Ice Physics (Maddie's Helping Hand)" => Ahorn.EntityPlacement(
         DisableIcePhysicsTrigger,
         "rectangle"
     )

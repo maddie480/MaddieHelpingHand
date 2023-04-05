@@ -7,7 +7,7 @@ using ..Ahorn, Maple
     inactiveColor::String="5FCDE4", movingColor::String="FF8080", activeColor::String="FFFFFF", finishColor::String="F141DF")
 
 const placements = Ahorn.PlacementDict(
-    "Flag Touch Switch (Moving)\n(max480's Helping Hand + Outback Helper)" => Ahorn.EntityPlacement(
+    "Flag Touch Switch (Moving)\n(Maddie's Helping Hand + Outback Helper)" => Ahorn.EntityPlacement(
         MovingFlagTouchSwitch
     )
 )

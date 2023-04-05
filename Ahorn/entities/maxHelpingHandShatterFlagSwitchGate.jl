@@ -13,7 +13,7 @@ const textures = String["block", "mirror", "temple", "stars"]
 const bundledIcons = String["vanilla", "tall", "triangle", "circle", "diamond", "double", "heart", "square", "wide", "winged"]
 
 const placements = Ahorn.PlacementDict(
-    "Shatter Flag Switch Gate ($(uppercasefirst(texture)))\n(max480's Helping Hand + Vortex Helper)" => Ahorn.EntityPlacement(
+    "Shatter Flag Switch Gate ($(uppercasefirst(texture)))\n(Maddie's Helping Hand + Vortex Helper)" => Ahorn.EntityPlacement(
         ShatterFlagSwitchGate,
         "rectangle",
         Dict{String, Any}(

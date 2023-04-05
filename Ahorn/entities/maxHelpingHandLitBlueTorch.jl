@@ -5,7 +5,7 @@ using ..Ahorn, Maple
 @mapdef Entity "MaxHelpingHand/LitBlueTorch" LitBlueTorch(x::Integer, y::Integer)
 
 const placements = Ahorn.PlacementDict(
-    "Torch (Lit, Blue) (max480's Helping Hand)" => Ahorn.EntityPlacement(
+    "Torch (Lit, Blue) (Maddie's Helping Hand)" => Ahorn.EntityPlacement(
         LitBlueTorch
     )
 )

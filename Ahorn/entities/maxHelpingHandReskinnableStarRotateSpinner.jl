@@ -12,7 +12,7 @@ function rotatingSpinnerFinalizer(entity::ReskinnableStarRotateSpinner)
 end
 
 const placements = Ahorn.PlacementDict(
-    "Star (Rotating, Reskinnable) (max480's Helping Hand)" => Ahorn.EntityPlacement(
+    "Star (Rotating, Reskinnable) (Maddie's Helping Hand)" => Ahorn.EntityPlacement(
         ReskinnableStarRotateSpinner,
         "point",
         Dict{String, Any}(

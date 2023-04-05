@@ -10,7 +10,7 @@ function fireballFinalizer(entity::BeeFireball)
 end
 
 const placements = Ahorn.PlacementDict(
-    "Bee Fireball (max480's Helping Hand)" => Ahorn.EntityPlacement(
+    "Bee Fireball (Maddie's Helping Hand)" => Ahorn.EntityPlacement(
         BeeFireball,
         "point",
         Dict{String, Any}(

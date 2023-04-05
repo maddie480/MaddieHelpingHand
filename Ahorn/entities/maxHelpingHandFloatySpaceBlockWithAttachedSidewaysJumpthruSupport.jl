@@ -6,7 +6,7 @@ using ..Ahorn, Maple
     width::Integer=Maple.defaultBlockWidth, height::Integer=Maple.defaultBlockHeight, tiletype::String="3", disableSpawnOffset::Bool=false)
 
 const placements = Ahorn.PlacementDict(
-    "Floaty Space Block (supporting Sideways Jump Throughs)\n(max480's Helping Hand)" => Ahorn.EntityPlacement(
+    "Floaty Space Block (supporting Sideways Jump Throughs)\n(Maddie's Helping Hand)" => Ahorn.EntityPlacement(
         FloatySpaceBlockWithAttachedSidewaysJumpthruSupport,
         "rectangle",
         Dict{String, Any}(),

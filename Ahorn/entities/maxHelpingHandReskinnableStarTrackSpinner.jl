@@ -6,7 +6,7 @@ using ..Ahorn, Maple
     Entity("MaxHelpingHand/ReskinnableStarTrackSpinner", x=x1, y=y1, nodes=Tuple{Int, Int}[(x2, y2)], speed=speed, startCenter=startCenter, spriteFolder=spriteFolder, particleColors=particleColors, immuneToGuneline=immuneToGuneline)
 
 const placements = Ahorn.PlacementDict(
-    "Star (Track, $(uppercasefirst(speed)), Reskinnable) (max480's Helping Hand)" => Ahorn.EntityPlacement(
+    "Star (Track, $(uppercasefirst(speed)), Reskinnable) (Maddie's Helping Hand)" => Ahorn.EntityPlacement(
         ReskinnableStarTrackSpinner,
         "line",
         Dict{String, Any}(

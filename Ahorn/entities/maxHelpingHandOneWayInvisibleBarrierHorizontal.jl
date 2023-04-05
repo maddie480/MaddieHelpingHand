@@ -7,14 +7,14 @@ using ..Ahorn, Maple
 
 
 const placements = Ahorn.PlacementDict(
-    "One-Way Invisible Barrier (Left, max480's Helping Hand)" => Ahorn.EntityPlacement(
+    "One-Way Invisible Barrier (Left, Maddie's Helping Hand)" => Ahorn.EntityPlacement(
         OneWayInvisibleBarrierHorizontal,
         "rectangle",
         Dict{String, Any}(
             "left" => true
         )
     ),
-    "One-Way Invisible Barrier (Right, max480's Helping Hand)" => Ahorn.EntityPlacement(
+    "One-Way Invisible Barrier (Right, Maddie's Helping Hand)" => Ahorn.EntityPlacement(
         OneWayInvisibleBarrierHorizontal,
         "rectangle",
         Dict{String, Any}(

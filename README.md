@@ -1,8 +1,8 @@
-# max480's Helping Hand
+# Maddie's Helping Hand
 
 This helper provides a few entities and triggers that were requested, and that could be useful for other people as well.
 
-Download it [here!](https://max480.ovh/celeste/dl?id=MaxHelpingHand&twoclick=1)
+Download it [here!](https://maddie480.ovh/celeste/dl?id=MaxHelpingHand&twoclick=1)
 
 Check the Mod Resources wiki for a list of features:
 - [New entities](https://github.com/EverestAPI/ModResources/wiki/Helping-Hand-Entities)

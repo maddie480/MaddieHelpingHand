@@ -8,16 +8,16 @@ using ..Ahorn, Maple
 @mapdef Entity "MaxHelpingHand/NoDashRefillSpringDown" NoDashRefillSpringDown(x::Integer, y::Integer, spriteDirectory::String="objects/MaxHelpingHand/noDashRefillSpring", ignoreLighting::Bool=false, refillStamina::Bool=true)
 
 const placements = Ahorn.PlacementDict(
-    "No Dash Refill Spring (Up) (max480's Helping Hand)" => Ahorn.EntityPlacement(
+    "No Dash Refill Spring (Up) (Maddie's Helping Hand)" => Ahorn.EntityPlacement(
         NoDashRefillSpring
     ),
-    "No Dash Refill Spring (Left) (max480's Helping Hand)" => Ahorn.EntityPlacement(
+    "No Dash Refill Spring (Left) (Maddie's Helping Hand)" => Ahorn.EntityPlacement(
         NoDashRefillSpringRight
     ),
-    "No Dash Refill Spring (Right) (max480's Helping Hand)" => Ahorn.EntityPlacement(
+    "No Dash Refill Spring (Right) (Maddie's Helping Hand)" => Ahorn.EntityPlacement(
         NoDashRefillSpringLeft
     ),
-    "No Dash Refill Spring (Down) (max480's Helping Hand)" => Ahorn.EntityPlacement(
+    "No Dash Refill Spring (Down) (Maddie's Helping Hand)" => Ahorn.EntityPlacement(
         NoDashRefillSpringDown
     ),
 )

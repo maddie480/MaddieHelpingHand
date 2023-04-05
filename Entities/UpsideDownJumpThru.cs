@@ -206,7 +206,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             }
         }
 
-        // those 2 methods are extracted for easier hooking by Gravity Helper. (see https://github.com/max4805/MaxHelpingHand/pull/1)
+        // those 2 methods are extracted for easier hooking by Gravity Helper. (see https://github.com/maddie480/MaddieHelpingHand/pull/1)
 
         private static bool playerMovingUp(Player player) => player.Speed.Y < 0;
 

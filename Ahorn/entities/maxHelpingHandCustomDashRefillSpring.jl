@@ -12,16 +12,16 @@ using ..Ahorn, Maple
     ignoreLighting::Bool=false, refillStamina::Bool=true, dashCount::Int=2, dashCountCap::Int=2, mode::String="Set")
 
 const placements = Ahorn.PlacementDict(
-    "Custom Dash Refill Spring (Up) (max480's Helping Hand)" => Ahorn.EntityPlacement(
+    "Custom Dash Refill Spring (Up) (Maddie's Helping Hand)" => Ahorn.EntityPlacement(
         CustomDashRefillSpring
     ),
-    "Custom Dash Refill Spring (Left) (max480's Helping Hand)" => Ahorn.EntityPlacement(
+    "Custom Dash Refill Spring (Left) (Maddie's Helping Hand)" => Ahorn.EntityPlacement(
         CustomDashRefillSpringRight
     ),
-    "Custom Dash Refill Spring (Right) (max480's Helping Hand)" => Ahorn.EntityPlacement(
+    "Custom Dash Refill Spring (Right) (Maddie's Helping Hand)" => Ahorn.EntityPlacement(
         CustomDashRefillSpringLeft
     ),
-    "Custom Dash Refill Spring (Down) (max480's Helping Hand)" => Ahorn.EntityPlacement(
+    "Custom Dash Refill Spring (Down) (Maddie's Helping Hand)" => Ahorn.EntityPlacement(
         CustomDashRefillSpringDown
     ),
 )

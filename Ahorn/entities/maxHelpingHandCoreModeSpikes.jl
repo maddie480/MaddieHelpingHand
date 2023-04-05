@@ -26,7 +26,7 @@ const spikesUnion = Union{CoreModeSpikesUp, CoreModeSpikesDown, CoreModeSpikesLe
 
 const placements = Ahorn.PlacementDict()
 for (dir, entity) in entities
-    key = "Core Mode Spikes ($(uppercasefirst(dir))) (max480's Helping Hand)"
+    key = "Core Mode Spikes ($(uppercasefirst(dir))) (Maddie's Helping Hand)"
     placements[key] = Ahorn.EntityPlacement(
         entity,
         "rectangle"

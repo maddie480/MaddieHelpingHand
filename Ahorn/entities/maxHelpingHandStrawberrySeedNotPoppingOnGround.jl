@@ -6,7 +6,7 @@ using ..Ahorn, Maple
     checkpointID::Integer=-1, order::Integer=-1, nodes::Array{Tuple{Integer, Integer}, 1}=Tuple{Integer, Integer}[], pulseEffectOnSeeds::Bool=true)
 
 const placements = Ahorn.PlacementDict(
-    "Strawberry (with Seeds Not Popping On Ground)\n(max480's Helping Hand)" => Ahorn.EntityPlacement(
+    "Strawberry (with Seeds Not Popping On Ground)\n(Maddie's Helping Hand)" => Ahorn.EntityPlacement(
         NonPoppingStrawberry
     )
 )

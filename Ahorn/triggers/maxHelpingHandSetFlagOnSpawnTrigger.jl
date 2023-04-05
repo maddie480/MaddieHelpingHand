@@ -6,7 +6,7 @@ using ..Ahorn, Maple
     flags::String="flag_name", enable::Bool=false, ifFlag::String="")
 
 const placements = Ahorn.PlacementDict(
-    "Set Flag On Spawn (max480's Helping Hand)" => Ahorn.EntityPlacement(
+    "Set Flag On Spawn (Maddie's Helping Hand)" => Ahorn.EntityPlacement(
         SetFlagOnSpawnTrigger,
         "rectangle"
     )

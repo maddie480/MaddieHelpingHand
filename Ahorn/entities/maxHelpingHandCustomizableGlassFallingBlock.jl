@@ -6,7 +6,7 @@ using ..Ahorn, Maple
     behindFgTiles::Bool=false, climbFall::Bool=true)
 
 const placements = Ahorn.PlacementDict(
-    "Customizable Glass Falling Block (max480's Helping Hand)" => Ahorn.EntityPlacement(
+    "Customizable Glass Falling Block (Maddie's Helping Hand)" => Ahorn.EntityPlacement(
         CustomizableGlassFallingBlock,
         "rectangle"
     )

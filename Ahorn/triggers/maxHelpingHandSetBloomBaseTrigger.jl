@@ -6,7 +6,7 @@ using ..Ahorn, Maple
     value::Number=0.0)
 
 const placements = Ahorn.PlacementDict(
-    "Set Bloom Base Trigger (max480's Helping Hand)" => Ahorn.EntityPlacement(
+    "Set Bloom Base Trigger (Maddie's Helping Hand)" => Ahorn.EntityPlacement(
         SetBloomBaseTrigger,
         "rectangle"
     )

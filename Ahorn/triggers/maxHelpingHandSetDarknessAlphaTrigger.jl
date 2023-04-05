@@ -6,7 +6,7 @@ using ..Ahorn, Maple
     value::Number=0.0)
 
 const placements = Ahorn.PlacementDict(
-    "Set Darkness Alpha Trigger (max480's Helping Hand)" => Ahorn.EntityPlacement(
+    "Set Darkness Alpha Trigger (Maddie's Helping Hand)" => Ahorn.EntityPlacement(
         SetDarknessAlphaTrigger,
         "rectangle"
     )

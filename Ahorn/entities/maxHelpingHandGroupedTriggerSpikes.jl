@@ -41,7 +41,7 @@ groupedTriggerSpikesUnion = Union{GroupedTriggerSpikesUp, GroupedTriggerSpikesDo
 
 for variant in spikeTypes
     for (dir, entity) in groupedTriggerSpikes
-        key = "Grouped Trigger Spikes ($(groupedTriggerSpikesArrows[dir]), $(uppercasefirst(variant))) (max480's Helping Hand)"
+        key = "Grouped Trigger Spikes ($(groupedTriggerSpikesArrows[dir]), $(uppercasefirst(variant))) (Maddie's Helping Hand)"
         placements[key] = Ahorn.EntityPlacement(
             entity,
             "rectangle",

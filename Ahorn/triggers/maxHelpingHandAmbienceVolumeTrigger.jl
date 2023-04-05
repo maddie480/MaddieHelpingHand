@@ -6,7 +6,7 @@ using ..Ahorn, Maple
     from::Number=0.0, to::Number=0.0, direction::String="NoEffect")
 
 const placements = Ahorn.PlacementDict(
-    "Ambience Volume (max480's Helping Hand)" => Ahorn.EntityPlacement(
+    "Ambience Volume (Maddie's Helping Hand)" => Ahorn.EntityPlacement(
         AmbienceVolumeTrigger,
         "rectangle"
     )

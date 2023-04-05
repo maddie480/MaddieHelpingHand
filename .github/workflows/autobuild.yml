@@ -37,7 +37,7 @@ jobs:
     - name: Publish release
       if: github.ref == 'refs/heads/master' || github.ref == 'refs/heads/gh-actions'
       env:
-        ZIPNAME: MaxHelpingHand
+        ZIPNAME: MaddieHelpingHand
         GITHUB_SHA: ${{ github.sha }}
         DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
       run: |

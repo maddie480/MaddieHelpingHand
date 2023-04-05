@@ -5,7 +5,7 @@ using ..Ahorn, Maple
 @mapdef Entity "MaxHelpingHand/CustomizableGlassBlock" CustomizableGlassBlock(x::Integer, y::Integer, width::Integer=Maple.defaultBlockWidth, height::Integer=Maple.defaultBlockHeight, behindFgTiles::Bool=false)
 
 const placements = Ahorn.PlacementDict(
-    "Customizable Glass Block (max480's Helping Hand)" => Ahorn.EntityPlacement(
+    "Customizable Glass Block (Maddie's Helping Hand)" => Ahorn.EntityPlacement(
         CustomizableGlassBlock,
         "rectangle"
     )

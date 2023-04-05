@@ -7,7 +7,7 @@ using ..Ahorn, Maple
     flag::String="", inside::Bool=false, inverted::Bool=false)
 
 const placements = Ahorn.PlacementDict(
-    "Camera Offset Border (max480's Helping Hand)" => Ahorn.EntityPlacement(
+    "Camera Offset Border (Maddie's Helping Hand)" => Ahorn.EntityPlacement(
         CameraOffsetBorder,
         "rectangle"
     )

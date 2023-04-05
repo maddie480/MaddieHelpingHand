@@ -6,7 +6,7 @@ using ..Ahorn, Maple
     borderTexture::String="scenery/tvSlices", renderBloom::Bool=true)
 
 const placements = Ahorn.PlacementDict(
-    "Reskinnable Playback Billboard (max480's Helping Hand)" => Ahorn.EntityPlacement(
+    "Reskinnable Playback Billboard (Maddie's Helping Hand)" => Ahorn.EntityPlacement(
         ReskinnableBillboard,
         "rectangle"
     ),

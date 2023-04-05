@@ -9,7 +9,7 @@ const bundledSprites = String["strawberry/seed", "MaxHelpingHand/miniberry/minib
 const bundledGhostSprites = String["ghostberry/seed", "MaxHelpingHand/miniberry/ghostminiberry"]
 
 const placements = Ahorn.PlacementDict(
-    "Multi-Room Strawberry Seed (max480's Helping Hand)" => Ahorn.EntityPlacement(
+    "Multi-Room Strawberry Seed (Maddie's Helping Hand)" => Ahorn.EntityPlacement(
         MultiRoomStrawberrySeed
     )
 )

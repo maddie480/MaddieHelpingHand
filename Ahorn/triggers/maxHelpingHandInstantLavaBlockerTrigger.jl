@@ -6,7 +6,7 @@ using ..Ahorn, Maple
     canReenter::Bool=false)
 
 const placements = Ahorn.PlacementDict(
-    "Instant Lava Blocker (Everest + max480's Helping Hand)" => Ahorn.EntityPlacement(
+    "Instant Lava Blocker (Everest + Maddie's Helping Hand)" => Ahorn.EntityPlacement(
         InstantLavaBlockerTrigger,
         "rectangle"
     )

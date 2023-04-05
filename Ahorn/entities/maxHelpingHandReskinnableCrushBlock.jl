@@ -7,18 +7,18 @@ using ..Ahorn, Maple
     activateParticleColor1::String="5fcde4", activateParticleColor2::String="ffffff", soundDirectory::String="event:/game/06_reflection")
 
 const placements = Ahorn.PlacementDict(
-    "Kevin (Both, Reskinnable) (max480's Helping Hand)" => Ahorn.EntityPlacement(
+    "Kevin (Both, Reskinnable) (Maddie's Helping Hand)" => Ahorn.EntityPlacement(
         ReskinnableCrushBlock,
         "rectangle"
     ),
-    "Kevin (Vertical, Reskinnable) (max480's Helping Hand)" => Ahorn.EntityPlacement(
+    "Kevin (Vertical, Reskinnable) (Maddie's Helping Hand)" => Ahorn.EntityPlacement(
         ReskinnableCrushBlock,
         "rectangle",
         Dict{String, Any}(
             "axes" => "vertical"
         )
     ),
-    "Kevin (Horizontal, Reskinnable) (max480's Helping Hand)" => Ahorn.EntityPlacement(
+    "Kevin (Horizontal, Reskinnable) (Maddie's Helping Hand)" => Ahorn.EntityPlacement(
         ReskinnableCrushBlock,
         "rectangle",
         Dict{String, Any}(

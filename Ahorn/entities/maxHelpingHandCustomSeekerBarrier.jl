@@ -7,7 +7,7 @@ using ..Ahorn, Maple
     killSeekers::Bool=true, killJellyfish::Bool=true)
 
 const placements = Ahorn.PlacementDict(
-    "Seeker Barrier (Custom) (max480's Helping Hand)" => Ahorn.EntityPlacement(
+    "Seeker Barrier (Custom) (Maddie's Helping Hand)" => Ahorn.EntityPlacement(
         CustomSeekerBarrier,
         "rectangle"
     ),

@@ -147,14 +147,14 @@ Ahorn.rotated(entity::RegularJumpThru, steps::Int) = SidewaysJumpThru(entity.x, 
     left::Bool=true, texture::String="wood", animationDelay::Number=0.0, letSeekersThrough::Bool=false, surfaceIndex::Int=-1, pushPlayer::Bool=false)
 
 const placements = Ahorn.PlacementDict(
-    "Upside Down Jump Through (max480's Helping Hand)" => Ahorn.EntityPlacement(
+    "Upside Down Jump Through (Maddie's Helping Hand)" => Ahorn.EntityPlacement(
         UpsideDownJumpThru,
         "rectangle",
         Dict{String, Any}(
             "texture" => "wood"
         )
     ),
-    "Sideways Jump Through (Left) (max480's Helping Hand)" => Ahorn.EntityPlacement(
+    "Sideways Jump Through (Left) (Maddie's Helping Hand)" => Ahorn.EntityPlacement(
         SidewaysJumpThru,
         "rectangle",
         Dict{String, Any}(
@@ -162,7 +162,7 @@ const placements = Ahorn.PlacementDict(
             "left" => true
         )
     ),
-    "Sideways Jump Through (Right) (max480's Helping Hand)" => Ahorn.EntityPlacement(
+    "Sideways Jump Through (Right) (Maddie's Helping Hand)" => Ahorn.EntityPlacement(
         SidewaysJumpThru,
         "rectangle",
         Dict{String, Any}(
@@ -170,7 +170,7 @@ const placements = Ahorn.PlacementDict(
             "left" => false
         )
     ),
-    "Sideways Jump Through (Attached, Left)\n(max480's Helping Hand)" => Ahorn.EntityPlacement(
+    "Sideways Jump Through (Attached, Left)\n(Maddie's Helping Hand)" => Ahorn.EntityPlacement(
         AttachedSidewaysJumpThru,
         "rectangle",
         Dict{String, Any}(
@@ -178,7 +178,7 @@ const placements = Ahorn.PlacementDict(
             "left" => true
         )
     ),
-    "Sideways Jump Through (Attached, Right)\n(max480's Helping Hand)" => Ahorn.EntityPlacement(
+    "Sideways Jump Through (Attached, Right)\n(Maddie's Helping Hand)" => Ahorn.EntityPlacement(
         AttachedSidewaysJumpThru,
         "rectangle",
         Dict{String, Any}(

@@ -8,7 +8,7 @@ using ..Ahorn, Maple
     attachStaticMovers::Bool=false, flag::String="", setFlagOnPlayerContact::Bool=false, flagInverted::Bool=false, flagMode::String="None", lightBlockingOpacity::Number=0.2)
 
 const placements = Ahorn.PlacementDict(
-    "Crumble Blocks ($(uppercasefirst(texture)), Customizable)\n(max480's Helping Hand)" => Ahorn.EntityPlacement(
+    "Crumble Blocks ($(uppercasefirst(texture)), Customizable)\n(Maddie's Helping Hand)" => Ahorn.EntityPlacement(
         CustomizableCrumblePlatform,
         "rectangle",
         Dict{String, Any}(

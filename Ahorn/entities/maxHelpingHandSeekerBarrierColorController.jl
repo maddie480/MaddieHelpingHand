@@ -6,7 +6,7 @@ using ..Ahorn, Maple
     transparency::Number=0.15, particleTransparency::Number=0.5, persistent::Bool=false, particleDirection::Number=0.0, depth::String="", wavy::Bool=true, renderBloom::Bool=true)
 
 const placements = Ahorn.PlacementDict(
-    "Seeker Barrier Color Controller (max480's Helping Hand)" => Ahorn.EntityPlacement(
+    "Seeker Barrier Color Controller (Maddie's Helping Hand)" => Ahorn.EntityPlacement(
         SeekerBarrierColorController
     )
 )

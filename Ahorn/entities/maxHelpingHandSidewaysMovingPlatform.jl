@@ -12,7 +12,7 @@ const placements = Ahorn.PlacementDict()
 const modes = ["Loop", "LoopNoPause", "BackAndForth", "BackAndForthNoPause", "TeleportBack"]
 
 for texture in Maple.wood_platform_textures
-    placements["Sideways Moving Platform ($(uppercasefirst(texture))) (max480's Helping Hand)"] = Ahorn.EntityPlacement(
+    placements["Sideways Moving Platform ($(uppercasefirst(texture))) (Maddie's Helping Hand)"] = Ahorn.EntityPlacement(
         SidewaysMovingPlatform,
         "rectangle",
         Dict{String, Any}(

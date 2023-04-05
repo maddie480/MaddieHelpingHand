@@ -5,7 +5,7 @@ using ..Ahorn, Maple
 @mapdef Entity "MaxHelpingHand/ExpandTriggerController" ExpandTriggerController(x::Integer, y::Integer)
 
 const placements = Ahorn.PlacementDict(
-    "Expand Trigger Controller (max480's Helping Hand)" => Ahorn.EntityPlacement(
+    "Expand Trigger Controller (Maddie's Helping Hand)" => Ahorn.EntityPlacement(
         ExpandTriggerController
     )
 )

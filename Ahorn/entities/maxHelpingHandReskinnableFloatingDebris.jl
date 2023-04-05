@@ -6,7 +6,7 @@ using ..Ahorn, Maple
     interactWithPlayer::Bool=true, debrisWidth::Int=8, debrisHeight::Int=8, rotateSpeed::String="", scrollX::Number=0.0, scrollY::Number=0.0)
 
 const placements = Ahorn.PlacementDict(
-    "Floating Debris (Reskinnable) (max480's Helping Hand)" => Ahorn.EntityPlacement(
+    "Floating Debris (Reskinnable) (Maddie's Helping Hand)" => Ahorn.EntityPlacement(
         ReskinnableFloatingDebris
     )
 )

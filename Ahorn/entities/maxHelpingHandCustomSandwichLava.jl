@@ -10,7 +10,7 @@ using ..Ahorn, Maple
 const directions = String["AlwaysUp", "AlwaysDown", "CoreModeBased"]
 
 const placements = Ahorn.PlacementDict(
-    "Sandwich Lava (Customizable) (max480's Helping Hand)" => Ahorn.EntityPlacement(
+    "Sandwich Lava (Customizable) (Maddie's Helping Hand)" => Ahorn.EntityPlacement(
         CustomSandwichLava
     )
 )

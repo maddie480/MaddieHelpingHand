@@ -6,7 +6,7 @@ using ..Ahorn, Maple
     name::String="multi_room_strawberry", winged::Bool=false, moon::Bool=false, checkpointID::Integer=-1, order::Integer=-1)
 
 const placements = Ahorn.PlacementDict(
-    "Multi-Room Strawberry (max480's Helping Hand)" => Ahorn.EntityPlacement(
+    "Multi-Room Strawberry (Maddie's Helping Hand)" => Ahorn.EntityPlacement(
         MultiRoomStrawberry
     )
 )

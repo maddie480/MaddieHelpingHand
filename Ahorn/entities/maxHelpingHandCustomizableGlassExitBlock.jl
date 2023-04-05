@@ -6,7 +6,7 @@ using ..Ahorn, Maple
     behindFgTiles::Bool=false, playerMustEnterFirst::Bool=false)
 
 const placements = Ahorn.PlacementDict(
-    "Customizable Glass Exit Block (max480's Helping Hand)" => Ahorn.EntityPlacement(
+    "Customizable Glass Exit Block (Maddie's Helping Hand)" => Ahorn.EntityPlacement(
         CustomizableGlassExitBlock,
         "rectangle"
     )

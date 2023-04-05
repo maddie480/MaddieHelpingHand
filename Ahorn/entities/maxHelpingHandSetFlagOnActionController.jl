@@ -5,7 +5,7 @@ using ..Ahorn, Maple
 @mapdef Entity "MaxHelpingHand/SetFlagOnActionController" SetFlagOnActionController(x::Integer, y::Integer, action::String="Climb", flag::String="flag_name", inverted::Bool=false)
 
 const placements = Ahorn.PlacementDict(
-    "Set Flag On Action Controller (max480's Helping Hand)" => Ahorn.EntityPlacement(
+    "Set Flag On Action Controller (Maddie's Helping Hand)" => Ahorn.EntityPlacement(
         SetFlagOnActionController
     )
 )

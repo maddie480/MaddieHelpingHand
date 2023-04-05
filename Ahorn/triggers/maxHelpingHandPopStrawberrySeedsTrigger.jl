@@ -6,7 +6,7 @@ using ..Ahorn, Maple
     popMultiRoomStrawberrySeeds::Bool=false)
 
 const placements = Ahorn.PlacementDict(
-    "Pop Strawberry Seeds (max480's Helping Hand)" => Ahorn.EntityPlacement(
+    "Pop Strawberry Seeds (Maddie's Helping Hand)" => Ahorn.EntityPlacement(
         PopStrawberrySeedsTrigger,
         "rectangle"
     )

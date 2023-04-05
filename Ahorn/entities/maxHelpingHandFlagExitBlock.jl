@@ -6,7 +6,7 @@ using ..Ahorn, Maple
     tileType::String="3", flag::String="flag_exit_block", inverted::Bool=false, playSound::Bool=true, instant::Bool=false)
 
 const placements = Ahorn.PlacementDict(
-    "Flag Exit Block (max480's Helping Hand)" => Ahorn.EntityPlacement(
+    "Flag Exit Block (Maddie's Helping Hand)" => Ahorn.EntityPlacement(
         FlagExitBlock,
         "rectangle",
         Dict{String, Any}(),

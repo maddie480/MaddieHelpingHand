@@ -19,7 +19,7 @@ function swapFinalizer(entity)
 end
 
 const placements = Ahorn.PlacementDict(
-    "Reskinnable Swap Block (max480's Helping Hand)" => Ahorn.EntityPlacement(
+    "Reskinnable Swap Block (Maddie's Helping Hand)" => Ahorn.EntityPlacement(
         ReskinnableSwapBlock,
         "rectangle",
         Dict{String, Any}(),

@@ -9,7 +9,7 @@ using ..Ahorn, Maple
     particleColor1::String="FF8563", particleColor2::String="FFF4A8", ghostParticleColor1::String="6385FF", ghostParticleColor2::String="72F0FF")
 
 const placements = Ahorn.PlacementDict(
-    "Secret Berry (max480's Helping Hand)" => Ahorn.EntityPlacement(
+    "Secret Berry (Maddie's Helping Hand)" => Ahorn.EntityPlacement(
         SecretBerry,
         "point"
     )

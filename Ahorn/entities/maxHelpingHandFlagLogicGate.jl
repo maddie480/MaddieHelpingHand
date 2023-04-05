@@ -5,7 +5,7 @@ using ..Ahorn, Maple
 @mapdef Entity "MaxHelpingHand/FlagLogicGate" FlagLogicGate(x::Integer, y::Integer, inputFlags::String="flag1,!flag2,flag3", outputFlag::String="flag4", func::String="AND", not::Bool=false)
 
 const placements = Ahorn.PlacementDict(
-    "Flag Logic Gate (max480's Helping Hand)" => Ahorn.EntityPlacement(
+    "Flag Logic Gate (Maddie's Helping Hand)" => Ahorn.EntityPlacement(
         FlagLogicGate
     )
 )

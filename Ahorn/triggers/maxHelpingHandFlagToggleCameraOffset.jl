@@ -8,7 +8,7 @@ using ..Ahorn, Maple
 using ..Ahorn, Maple
 
 const placements = Ahorn.PlacementDict(
-    "Camera Offset (Flag-Toggled) (max480's Helping Hand)" => Ahorn.EntityPlacement(
+    "Camera Offset (Flag-Toggled) (Maddie's Helping Hand)" => Ahorn.EntityPlacement(
         FlagToggleCameraOffsetTrigger,
         "rectangle"
     )

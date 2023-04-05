@@ -5,7 +5,7 @@ using ..Ahorn, Maple
 @mapdef Entity "MaxHelpingHand/Comment" Comment(x::Integer, y::Integer, width::Integer=16, height::Integer=16, comment::String="", displayOnMap::Bool=true)
 
 const placements = Ahorn.PlacementDict(
-    "Comment (max480's Helping Hand)" => Ahorn.EntityPlacement(
+    "Comment (Maddie's Helping Hand)" => Ahorn.EntityPlacement(
         Comment
     )
 )

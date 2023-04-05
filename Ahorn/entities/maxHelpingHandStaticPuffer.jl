@@ -5,14 +5,14 @@ using ..Ahorn, Maple
 @mapdef Entity "MaxHelpingHand/StaticPuffer" StaticPuffer(x::Integer, y::Integer, right::Bool=false, downboostTolerance::Int=-1)
 
 const placements = Ahorn.PlacementDict(
-    "Static Puffer (Right) (max480's Helping Hand)" => Ahorn.EntityPlacement(
+    "Static Puffer (Right) (Maddie's Helping Hand)" => Ahorn.EntityPlacement(
         StaticPuffer,
         "point",
         Dict{String, Any}(
             "right" => true
         )
     ),
-    "Static Puffer (Left) (max480's Helping Hand)" => Ahorn.EntityPlacement(
+    "Static Puffer (Left) (Maddie's Helping Hand)" => Ahorn.EntityPlacement(
         StaticPuffer,
         "point",
         Dict{String, Any}(

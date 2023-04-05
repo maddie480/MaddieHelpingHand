@@ -5,7 +5,7 @@ using ..Ahorn, Maple
 @mapdef Entity "MaxHelpingHand/HorizontalRoomWrapController" HorizontalRoomWrapController(x::Integer, y::Integer)
 
 const placements = Ahorn.PlacementDict(
-    "Horizontal Room Wrap Controller (max480's Helping Hand)" => Ahorn.EntityPlacement(
+    "Horizontal Room Wrap Controller (Maddie's Helping Hand)" => Ahorn.EntityPlacement(
         HorizontalRoomWrapController
     )
 )

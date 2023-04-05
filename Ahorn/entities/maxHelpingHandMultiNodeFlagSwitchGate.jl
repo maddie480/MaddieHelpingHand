@@ -21,7 +21,7 @@ const iconTypes = String["vanilla", "tall", "triangle", "circle", "diamond", "do
 const easeTypes = String["Linear", "SineIn", "SineOut", "SineInOut", "QuadIn", "QuadOut", "QuadInOut", "CubeIn", "CubeOut", "CubeInOut", "QuintIn", "QuintOut", "QuintInOut", "BackIn", "BackOut", "BackInOut", "ExpoIn", "ExpoOut", "ExpoInOut", "BigBackIn", "BigBackOut", "BigBackInOut", "ElasticIn", "ElasticOut", "ElasticInOut", "BounceIn", "BounceOut", "BounceInOut"]
 
 const placements = Ahorn.PlacementDict(
-    "Flag Switch Gate ($(uppercasefirst(texture)), Multi-Node) (max480's Helping Hand)" => Ahorn.EntityPlacement(
+    "Flag Switch Gate ($(uppercasefirst(texture)), Multi-Node) (Maddie's Helping Hand)" => Ahorn.EntityPlacement(
         MultiNodeFlagSwitchGate,
         "rectangle",
         Dict{String, Any}(

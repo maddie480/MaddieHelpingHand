@@ -5,7 +5,7 @@ using ..Ahorn, Maple
 @mapdef Entity "MaxHelpingHand/TempleEyeTrackingMadeline" TempleEyeTrackingMadeline(x::Integer, y::Integer, spriteDirectory::String="scenery/temple/eye")
 
 const placements = Ahorn.PlacementDict(
-    "Temple Eye (Small, Follow Madeline) (max480's Helping Hand)" => Ahorn.EntityPlacement(
+    "Temple Eye (Small, Follow Madeline) (Maddie's Helping Hand)" => Ahorn.EntityPlacement(
         TempleEyeTrackingMadeline
     )
 )

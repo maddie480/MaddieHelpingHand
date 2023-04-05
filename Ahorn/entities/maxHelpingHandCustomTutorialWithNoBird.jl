@@ -8,7 +8,7 @@ using ..Ahorn, Maple
 using ..Ahorn, Maple
 
 const placements = Ahorn.PlacementDict(
-    "Custom Tutorial with No Bird (max480's Helping Hand)" => Ahorn.EntityPlacement(
+    "Custom Tutorial with No Bird (Maddie's Helping Hand)" => Ahorn.EntityPlacement(
         CustomTutorialWithNoBird
     )
 )
