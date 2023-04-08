@@ -6,6 +6,7 @@ using Monocle;
 using MonoMod.Cil;
 using MonoMod.RuntimeDetour;
 using System;
+using MonoMod.Utils;
 
 namespace Celeste.Mod.MaxHelpingHand.Triggers {
     [CustomEntity("MaxHelpingHand/MadelineSilhouetteTrigger")]
@@ -13,6 +14,7 @@ namespace Celeste.Mod.MaxHelpingHand.Triggers {
         private static Color silhouetteOutOfStaminaZeroDashBlinkColor = Calc.HexToColor("348DC1");
 
         public static void Load() {
+            On.Celeste.Player.Render += PlayerRenderHook;
             On.Celeste.PlayerSprite.ctor += onPlayerSpriteConstructor;
             On.Celeste.Player.ResetSprite += onPlayerResetSprite;
 
@@ -25,12 +27,13 @@ namespace Celeste.Mod.MaxHelpingHand.Triggers {
             On.Celeste.PlayerSprite.ctor -= onPlayerSpriteConstructor;
             IL.Celeste.Player.Render -= patchPlayerRender;
             On.Celeste.Player.ResetSprite -= onPlayerResetSprite;
+            On.Celeste.Player.Render -= PlayerRenderHook;
         }
 
         private static void onPlayerSpriteConstructor(On.Celeste.PlayerSprite.orig_ctor orig, PlayerSprite self, PlayerSpriteMode mode) {
-            if (MaxHelpingHandModule.Instance.Session.MadelineIsSilhouette && (mode == PlayerSpriteMode.Madeline || mode == PlayerSpriteMode.MadelineAsBadeline || mode == PlayerSpriteMode.MadelineNoBackpack)) {
-                mode = PlayerSpriteMode.Playback;
-            }
+            //DynData<PlayerSprite> selfData = new DynData<PlayerSprite>(self);
+            //if (!selfData.Get<bool?>("MadelineIsSilhouette") == null) { }
+
             orig(self, mode);
         }
 
@@ -113,7 +116,27 @@ namespace Celeste.Mod.MaxHelpingHand.Triggers {
             if (oldValue != enable) {
                 // switch modes right now. this uses the same way as turning the "Other Self" variant on.
                 refreshPlayerSpriteMode(player, enable);
+                new DynData<PlayerSprite>(player.Sprite)["MadelineIsSilhouette"] = true;
             }
+        }
+
+
+        private static void PlayerRenderHook(On.Celeste.Player.orig_Render orig, Player self) {
+            DynData<Player> selfData = new DynData<Player>(self);
+            if (MaxHelpingHandModule.Instance.Session == null || self == null) { orig(self); return; }
+
+
+            if (self.StateMachine.State == Player.StIntroRespawn && MaxHelpingHandModule.Instance.Session.MadelineIsSilhouette && 
+                (selfData.Get<bool?>("MadelineIsSilhouette") == null)) {
+
+                Logger.Log(LogLevel.Warn, "MaxHelpingHand/MadelineSilhouetteTrigger", $"MadelineIsSilhouette");
+                selfData["MadelineIsSilhouette"] = true;
+                refreshPlayerSpriteMode(self, true);
+
+                // let other mod can identify Silhouette from this code, that without Add this mod as Dependencies. by the content of "onPlayerSpriteConstructor" method
+                new DynData<PlayerSprite>(self.Sprite)["MadelineIsSilhouette"] = true;
+            }
+            orig(self);
         }
     }
 }
