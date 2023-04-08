@@ -148,7 +148,9 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
 
             // set up collision
             Collider = new Hitbox(16f, 16f, -8f, -8f);
-            Add(new PlayerCollider(onPlayer, null, new Hitbox(30f, 30f, -15f, -15f)));
+            if (data.Bool("playerCanActivate", defaultValue: true)) {
+                Add(new PlayerCollider(onPlayer, null, new Hitbox(30f, 30f, -15f, -15f)));
+            }
             Add(new HoldableCollider(onHoldable, new Hitbox(20f, 20f, -10f, -10f)));
             Add(new SeekerCollider(onSeeker, new Hitbox(24f, 24f, -12f, -12f)));
 

@@ -19,6 +19,7 @@ placements.entities.MaxHelpingHand/FlagTouchSwitch.tooltips.finishColor=The swit
 placements.entities.MaxHelpingHand/FlagTouchSwitch.tooltips.smoke=Whether the touch switch emits smoke when the group is complete.
 placements.entities.MaxHelpingHand/FlagTouchSwitch.tooltips.inverted=Whether the touch switch should turn off the flag instead of turning it on. The option should match on all touch switches of the group.
 placements.entities.MaxHelpingHand/FlagTouchSwitch.tooltips.allowDisable=Whether the touch switch can be disabled once the group is complete, if the flag change is reverted. Does not work with non-persistent flag switch gates.
+placements.entities.MaxHelpingHand/FlagTouchSwitch.tooltips.playerCanActivate=Whether the player can activate the touch switch. If not, only throwables can activate it.
 placements.entities.MaxHelpingHand/FlagTouchSwitch.tooltips.hitSound=The sound played when the switch is hit by the player.
 placements.entities.MaxHelpingHand/FlagTouchSwitch.tooltips.completeSoundFromSwitch=The sound emitted by the latest switch collected when the group is complete.
 placements.entities.MaxHelpingHand/FlagTouchSwitch.tooltips.completeSoundFromScene=A global sound emitted when the group is complete. As opposed to "Complete Sound (Switch)", this sound isn't emitted by a particular switch.
