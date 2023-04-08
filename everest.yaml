@@ -1,5 +1,9 @@
+# The name of the mod here comes from my old nickname, max480.
+# As of writing (Apr 8, 2023), 852 mods published on GameBanana depend on MaxHelpingHand. That's about 46% of the mods in there.
+# So, there's no way it's becoming MaddieHelpingHand without... like, breaking Celeste modding.
+# F. ~ Maddie
 - Name: MaxHelpingHand
-  Version: 1.24.6
+  Version: 1.24.7
   DLL: bin/Release/net452/MaxHelpingHand.dll
   Dependencies:
     - Name: Everest
