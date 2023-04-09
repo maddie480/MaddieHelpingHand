@@ -17,12 +17,30 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
     public static class SaveFileStrawberryGate {
         private enum CountFrom { Side, Chapter, Campaign, SaveFile };
 
+        private static MethodInfo openAmount;
+        private static FieldInfo heartAlpha;
+
         private static ILHook hookStrawberryGateRoutine = null;
         private static ILHook hookStrawberryGateAdded = null;
+        private static Hook hookStrawberryGateRender = null;
+
+        private static MTexture[] numbers;
 
         public static void HookMods() {
             if (hookStrawberryGateRoutine == null && Everest.Loader.DependencyLoaded(new EverestModuleMetadata { Name = "LunaticHelper", Version = new Version(1, 1, 1) })) {
                 hookLunaticHelper();
+            }
+        }
+        public static void Initialize() {
+            // extract numbers from the PICO-8 font that ships with the game.
+            MTexture source = GFX.Game["pico8/font"];
+            numbers = new MTexture[10];
+            int index = 0;
+            for (int i = 104; index < 4; i += 4) {
+                numbers[index++] = source.GetSubtexture(i, 0, 3, 5);
+            }
+            for (int i = 0; index < 10; i += 4) {
+                numbers[index++] = source.GetSubtexture(i, 6, 3, 5);
             }
         }
 
@@ -32,6 +50,12 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
 
             MethodInfo strawberryGateAdded = typeof(StrawberryGate).GetMethod("Added");
             hookStrawberryGateAdded = new ILHook(strawberryGateAdded, modStrawberryGateAdded);
+
+            MethodInfo strawberryGateRender = typeof(StrawberryGate).GetMethod("Render");
+            hookStrawberryGateRender = new Hook(strawberryGateRender, typeof(SaveFileStrawberryGate).GetMethod("modStrawberryGateRender", BindingFlags.NonPublic | BindingFlags.Static));
+
+            openAmount = typeof(StrawberryGate).GetMethod("get_openAmount", BindingFlags.NonPublic | BindingFlags.Instance);
+            heartAlpha = typeof(StrawberryGate).GetField("heartAlpha", BindingFlags.NonPublic | BindingFlags.Instance);
         }
 
         public static void Unload() {
@@ -40,6 +64,12 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
 
             hookStrawberryGateAdded?.Dispose();
             hookStrawberryGateAdded = null;
+
+            hookStrawberryGateRender?.Dispose();
+            hookStrawberryGateRender = null;
+
+            openAmount = null;
+            heartAlpha = null;
         }
 
         private class ErrorSpawner : Entity {
@@ -55,74 +85,13 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             public readonly CountFrom CountFrom;
             public readonly bool Persistent;
             public readonly int EntityID;
+            public readonly bool ShowCounter;
 
-            public BerryCountModdingThingy(CountFrom countFrom, bool persistent, int entityID) : base(false, false) {
+            public BerryCountModdingThingy(CountFrom countFrom, bool persistent, int entityID, bool showCounter) : base(false, false) {
                 CountFrom = countFrom;
                 Persistent = persistent;
                 EntityID = entityID;
-            }
-        }
-
-        private class StrawberryCounter : Component {
-            // just an entity that updates during transitions and calls back StrawberryCounter.TransitionUpdate to do so.
-            private class TransitionUpdateEntity : Entity {
-                private StrawberryCounter container;
-
-                public TransitionUpdateEntity(StrawberryCounter container) : base() {
-                    this.container = container;
-                    AddTag(Tags.TransitionUpdate);
-                }
-
-                public override void Update() {
-                    base.Update();
-                    container.TransitionUpdate();
-                }
-            }
-
-            private StrawberriesCounter strawberriesCounter;
-            private StrawberryGate strawberryGate;
-            private Solid strawberryGateSolid;
-            private Entity hudEntity;
-
-            public StrawberryCounter(StrawberryGate strawberryGate, float width) : base(active: true, visible: false) {
-                this.strawberryGate = strawberryGate;
-                strawberriesCounter = new StrawberriesCounter(true, 0, strawberryGate.Requires, true) { CanWiggle = false };
-
-                // the StrawberriesCounter is already a component, but we need to attach it to a HUD entity for it to be rendered as HUD.
-                hudEntity = new TransitionUpdateEntity(this) { strawberriesCounter };
-                hudEntity.AddTag(Tags.HUD);
-            }
-
-            public override void EntityAdded(Scene scene) {
-                base.EntityAdded(scene);
-                scene.Add(hudEntity);
-            }
-
-            public override void EntityAwake() {
-                base.EntityAwake();
-                strawberryGateSolid = new DynData<StrawberryGate>(strawberryGate).Get<Solid>("TopSolid");
-                strawberriesCounter.Amount = (int) strawberryGate.Counter;
-            }
-
-            public override void EntityRemoved(Scene scene) {
-                base.EntityRemoved(scene);
-                scene.Remove(hudEntity);
-            }
-
-            public override void Update() {
-                base.Update();
-
-                if (strawberriesCounter.Amount != (int) strawberryGate.Counter) {
-                    if (strawberriesCounter.Amount < (int) strawberryGate.Counter) {
-                        strawberriesCounter.Wiggle();
-                    }
-                    strawberriesCounter.Amount = (int) strawberryGate.Counter;
-                }
-            }
-
-            // Update that is called even during transitions
-            protected void TransitionUpdate() {
-                strawberriesCounter.Position = (strawberryGateSolid.BottomCenter - (Scene as Level).Camera.Position - new Vector2(0, 15f)) * 6f;
+                ShowCounter = showCounter;
             }
         }
 
@@ -135,12 +104,11 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
 
         private static Entity createStrawberryGate(EntityData data, Vector2 offset) {
             StrawberryGate gate = new StrawberryGate(data, offset) {
-                new BerryCountModdingThingy(data.Enum<CountFrom>("countFrom"), data.Bool("persistent"), data.ID)
+                new BerryCountModdingThingy(data.Enum<CountFrom>("countFrom"), data.Bool("persistent"), data.ID, data.Bool("showCounter"))
             };
 
             if (data.Bool("showCounter")) {
                 new DynData<StrawberryGate>(gate)["icon"] = GFX.Game.GetAtlasSubtextures("objects/MaxHelpingHand/strawberry_gate_no_icon");
-                gate.Add(new StrawberryCounter(gate, data.Width));
             }
 
             return gate;
@@ -229,6 +197,43 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
                         && MaxHelpingHandModule.Instance.SaveData.OpenedSaveFileStrawberryGates.TryGetValue((self.Scene as Level).Session.Area.GetSID(), out HashSet<int> openedIDs)
                         && openedIDs.Contains(thing.EntityID));
                 });
+            }
+        }
+
+        private static void modStrawberryGateRender(Action<Entity> orig, Entity self) {
+            orig(self);
+
+            BerryCountModdingThingy thing = self.Get<BerryCountModdingThingy>();
+            if (thing != null && thing.ShowCounter) {
+                StrawberryGate gate = (StrawberryGate) self;
+
+                Color color = (gate.Opened ? (Color.White * 0.25f) : Color.White) * (float) heartAlpha.GetValue(self);
+
+                // draw the strawberry
+                GFX.Game["objects/lunatichelper/strawberrygate/icon00"].DrawCentered(new Vector2(
+                    gate.X + gate.Size * 0.5f,
+                    gate.Y - (float) openAmount.Invoke(self, new object[0]) - 10
+                ), color);
+
+                // draw the counts
+                int separatorWidth = gate.Requires.ToString().Length * 4 - 1;
+                Vector2 anchor = new Vector2(
+                    gate.X + gate.Size * 0.5f,
+                    gate.Y + (float) openAmount.Invoke(self, new object[0]) + 5
+                );
+                drawNumber((int) gate.Counter, anchor, color);
+                Draw.Line(anchor + new Vector2(-separatorWidth / 2 - 1, 5), anchor + new Vector2(separatorWidth / 2 + 2, 5), color);
+                drawNumber(gate.Requires, anchor + new Vector2(0, 8), color);
+            }
+        }
+
+        private static void drawNumber(int numberI, Vector2 anchor, Color color) {
+            string number = numberI.ToString();
+            int totalWidth = number.Length * 4 - 1;
+
+            for (int i = 0; i < number.Length; i++) {
+                Vector2 position = anchor + new Vector2(-totalWidth / 2 + i * 4, 0);
+                numbers[number.ToCharArray()[i] - '0'].Draw(position, new Vector2(0f, 0.5f), color);
             }
         }
     }
