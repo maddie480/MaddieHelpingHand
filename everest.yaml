@@ -3,7 +3,7 @@
 # So, there's no way it's becoming MaddieHelpingHand without... like, breaking Celeste modding.
 # F. ~ Maddie
 - Name: MaxHelpingHand
-  Version: 1.24.7
+  Version: 1.24.8
   DLL: bin/Release/net452/MaxHelpingHand.dll
   Dependencies:
     - Name: Everest
