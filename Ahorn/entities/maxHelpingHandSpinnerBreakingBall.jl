@@ -11,13 +11,21 @@ const placements = Ahorn.PlacementDict(
         SpinnerBreakingBall,
         "point",
         Dict{String,Any}(
-            "color" => color
+            "color" => color,
+            "spritePath" => "MaxHelpingHand/SpinnerBreakBall" * uppercase(color[1]) * color[2:end]
         )
     ) for color in colors
 )
 
 Ahorn.editingOptions(entity::SpinnerBreakingBall) = Dict{String, Any}(
-    "color" => colors
+    "color" => colors,
+    "spritePath" => String[
+        "MaxHelpingHand/spinner_breaking_ball_placeholder",
+        "MaxHelpingHand/SpinnerBreakBallBlue",
+        "MaxHelpingHand/SpinnerBreakBallRed",
+        "MaxHelpingHand/SpinnerBreakBallPurple",
+        "MaxHelpingHand/SpinnerBreakBallRainbow"
+    ]
 )
 
 function Ahorn.selection(entity::SpinnerBreakingBall)

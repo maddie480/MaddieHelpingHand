@@ -4,10 +4,13 @@ using Monocle;
 using MonoMod.Utils;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 
 namespace Celeste.Mod.MaxHelpingHand.Entities {
     [CustomEntity("MaxHelpingHand/SpinnerBreakingBall")]
     public class SpinnerBreakingBall : TheoCrystal {
+        private static MethodInfo crystalSpinnerGetHue = typeof(CrystalStaticSpinner).GetMethod("GetHue", BindingFlags.NonPublic | BindingFlags.Instance);
+
         public static void Load() {
             On.Celeste.TheoCrystal.Die += onTheoCrystalDie;
         }
@@ -18,6 +21,9 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
 
         private readonly CrystalColor color;
         private readonly EntityID entityID;
+
+        private CrystalStaticSpinner rainbowSpinner;
+        private Sprite sprite;
 
         private bool floating;
 
@@ -35,13 +41,13 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
 
             // replace the sprite
             Remove(Get<Sprite>());
-            Sprite replacementSprite = new Sprite(GFX.Game, data.Attr("spritePath"));
-            replacementSprite.Add("sprite", "");
-            replacementSprite.Play("sprite");
-            replacementSprite.CenterOrigin();
-            replacementSprite.Position.Y = -10;
-            Add(replacementSprite);
-            new DynData<TheoCrystal>(this)["sprite"] = replacementSprite;
+            sprite = new Sprite(GFX.Game, data.Attr("spritePath"));
+            sprite.Add("sprite", "");
+            sprite.Play("sprite");
+            sprite.CenterOrigin();
+            sprite.Position.Y = -10;
+            Add(sprite);
+            new DynData<TheoCrystal>(this)["sprite"] = sprite;
 
             Add(new TransitionListener() {
                 OnOutBegin = onTransitionOut
@@ -61,6 +67,18 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
                 // oops, the player is carrying a copy of ourselves from another room! commit remove self.
                 RemoveSelf();
             }
+
+            if (color == CrystalColor.Rainbow) {
+                // the GetHue method of crystal spinners require a spinner that is part of the scene.
+                scene.Add(rainbowSpinner = new CrystalStaticSpinner(new Vector2(float.MinValue, float.MinValue), false, CrystalColor.Red));
+                rainbowSpinner.AddTag(Tags.Persistent);
+                rainbowSpinner.Visible = false;
+            }
+        }
+
+        public override void Removed(Scene scene) {
+            base.Removed(scene);
+            rainbowSpinner?.RemoveSelf();
         }
 
         public override void Update() {
@@ -86,6 +104,11 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
                         RemoveSelf();
                     }
                 }
+            }
+
+            if (rainbowSpinner != null) {
+                // sync the ball's color with the color of the spinners around it
+                sprite.Color = (Color) crystalSpinnerGetHue.Invoke(rainbowSpinner, new object[] { Position });
             }
         }
 

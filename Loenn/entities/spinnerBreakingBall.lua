@@ -9,7 +9,7 @@ breakingBall.placements = {
         name = "blue",
         data = {
             color = "Blue",
-            spritePath = "MaxHelpingHand/spinner_breaking_ball_placeholder",
+            spritePath = "MaxHelpingHand/SpinnerBreakBallBlue",
             startFloating = false
         }
     },
@@ -17,7 +17,7 @@ breakingBall.placements = {
         name = "red",
         data = {
             color = "Red",
-            spritePath = "MaxHelpingHand/spinner_breaking_ball_placeholder",
+            spritePath = "MaxHelpingHand/SpinnerBreakBallRed",
             startFloating = false
         }
     },
@@ -25,7 +25,7 @@ breakingBall.placements = {
         name = "purple",
         data = {
             color = "Purple",
-            spritePath = "MaxHelpingHand/spinner_breaking_ball_placeholder",
+            spritePath = "MaxHelpingHand/SpinnerBreakBallPurple",
             startFloating = false
         }
     },
@@ -33,7 +33,7 @@ breakingBall.placements = {
         name = "rainbow",
         data = {
             color = "Rainbow",
-            spritePath = "MaxHelpingHand/spinner_breaking_ball_placeholder",
+            spritePath = "MaxHelpingHand/SpinnerBreakBallRainbow",
             startFloating = false
         }
     }
@@ -43,6 +43,15 @@ breakingBall.fieldInformation = {
     color = {
         options = { "Blue", "Red", "Purple", "Rainbow" },
         editable = false
+    },
+    spritePath = {
+        options = {
+            "MaxHelpingHand/spinner_breaking_ball_placeholder",
+            "MaxHelpingHand/SpinnerBreakBallBlue",
+            "MaxHelpingHand/SpinnerBreakBallRed",
+            "MaxHelpingHand/SpinnerBreakBallPurple",
+            "MaxHelpingHand/SpinnerBreakBallRainbow"
+        }
     }
 }
 
