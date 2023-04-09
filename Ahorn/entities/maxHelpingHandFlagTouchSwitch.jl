@@ -8,7 +8,7 @@ using ..Ahorn, Maple
     inverted::Bool=false, allowDisable::Bool=false, playerCanActivate::Bool=true, hitSound::String="event:/game/general/touchswitch_any",
     completeSoundFromSwitch::String="event:/game/general/touchswitch_last_cutoff", completeSoundFromScene::String="event:/game/general/touchswitch_last_oneshot")
 
-const bundledIcons = String["vanilla", "tall", "triangle", "circle", "diamond", "double", "heart", "square", "wide", "winged"]
+const bundledIcons = String["vanilla", "tall", "triangle", "circle", "diamond", "double", "heart", "square", "wide", "winged", "cross", "drop", "hourglass", "split", "star", "triple"]
 
 const placements = Ahorn.PlacementDict(
     "Flag Touch Switch (Maddie's Helping Hand)" => Ahorn.EntityPlacement(

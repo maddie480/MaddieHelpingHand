@@ -15,7 +15,7 @@ local textures = {
     "block", "mirror", "temple", "stars"
 }
 local bundledIcons = {
-    "vanilla", "tall", "triangle", "circle", "diamond", "double", "heart", "square", "wide", "winged"
+    "vanilla", "tall", "triangle", "circle", "diamond", "double", "heart", "square", "wide", "winged", "cross", "drop", "hourglass", "split", "star", "triple"
 }
 local easeTypes = {
     "Linear", "SineIn", "SineOut", "SineInOut", "QuadIn", "QuadOut", "QuadInOut", "CubeIn", "CubeOut", "CubeInOut", "QuintIn", "QuintOut", "QuintInOut", "BackIn", "BackOut", "BackInOut", "ExpoIn", "ExpoOut", "ExpoInOut", "BigBackIn", "BigBackOut", "BigBackInOut", "ElasticIn", "ElasticOut", "ElasticInOut", "BounceIn", "BounceOut", "BounceInOut"

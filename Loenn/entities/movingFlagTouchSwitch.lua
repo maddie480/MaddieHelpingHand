@@ -40,7 +40,7 @@ touchSwitch.fieldInformation = {
         fieldType = "color"
     },
     icon = {
-        options = { "vanilla", "tall", "triangle", "circle", "diamond", "double", "heart", "square", "wide", "winged" }
+        options = { "vanilla", "tall", "triangle", "circle", "diamond", "double", "heart", "square", "wide", "winged", "cross", "drop", "hourglass", "split", "star", "triple" }
     }
 }
 

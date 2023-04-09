@@ -13,7 +13,7 @@ local textures = {
     "block", "mirror", "temple", "stars"
 }
 local bundledIcons = {
-    "vanilla", "tall", "triangle", "circle", "diamond", "double", "heart", "square", "wide", "winged"
+    "vanilla", "tall", "triangle", "circle", "diamond", "double", "heart", "square", "wide", "winged", "cross", "drop", "hourglass", "split", "star", "triple"
 }
 
 for i, texture in ipairs(textures) do
