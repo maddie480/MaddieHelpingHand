@@ -23,6 +23,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
         private static ILHook hookStrawberryGateRoutine = null;
         private static ILHook hookStrawberryGateAdded = null;
         private static Hook hookStrawberryGateRender = null;
+        private static ILHook fixStrawberryGateRender = null;
 
         private static MTexture[] numbers;
 
@@ -53,6 +54,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
 
             MethodInfo strawberryGateRender = typeof(StrawberryGate).GetMethod("Render");
             hookStrawberryGateRender = new Hook(strawberryGateRender, typeof(SaveFileStrawberryGate).GetMethod("modStrawberryGateRender", BindingFlags.NonPublic | BindingFlags.Static));
+            fixStrawberryGateRender = new ILHook(strawberryGateRender, fixForStrawberryGateRender);
 
             openAmount = typeof(StrawberryGate).GetMethod("get_openAmount", BindingFlags.NonPublic | BindingFlags.Instance);
             heartAlpha = typeof(StrawberryGate).GetField("heartAlpha", BindingFlags.NonPublic | BindingFlags.Instance);
@@ -67,6 +69,9 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
 
             hookStrawberryGateRender?.Dispose();
             hookStrawberryGateRender = null;
+
+            fixStrawberryGateRender?.Dispose();
+            fixStrawberryGateRender = null;
 
             openAmount = null;
             heartAlpha = null;
@@ -224,6 +229,14 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
                 drawNumber((int) gate.Counter, anchor, color);
                 Draw.Line(anchor + new Vector2(-separatorWidth / 2 - 1, 5), anchor + new Vector2(separatorWidth / 2 + 2, 5), color);
                 drawNumber(gate.Requires, anchor + new Vector2(0, 8), color);
+            }
+        }
+
+        private static void fixForStrawberryGateRender(ILContext il) {
+            ILCursor cursor = new ILCursor(il);
+            if (cursor.TryGotoNext(instr => instr.MatchCallvirt<MTexture>("DrawCentered")) && cursor.TryGotoPrev(MoveType.After, instr => instr.MatchCall<Vector2>("op_Addition"))) {
+                Logger.Log("MaxHelpingHand/SaveFileStrawberryGate", $"Fixing strawberry gate offset at {cursor.Index} in IL for StrawberryGate.Render");
+                cursor.EmitDelegate<Func<Vector2, Vector2>>(orig => new Vector2((float) Math.Round(orig.X), (float) Math.Round(orig.Y)));
             }
         }
 
