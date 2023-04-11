@@ -29,11 +29,9 @@ namespace Celeste.Mod.MaxHelpingHand.Triggers {
             On.Celeste.Player.ResetSprite -= onPlayerResetSprite;
             On.Celeste.Player.Render -= PlayerRenderHook;
         }
-
+        
         private static void onPlayerSpriteConstructor(On.Celeste.PlayerSprite.orig_ctor orig, PlayerSprite self, PlayerSpriteMode mode) {
-            //DynData<PlayerSprite> selfData = new DynData<PlayerSprite>(self);
-            //if (!selfData.Get<bool?>("MadelineIsSilhouette") == null) { }
-
+            new DynData<PlayerSprite>(self)["MadelineIsSilhouette"] = MaxHelpingHandModule.Instance.Session.MadelineIsSilhouette;
             orig(self, mode);
         }
 
@@ -116,25 +114,20 @@ namespace Celeste.Mod.MaxHelpingHand.Triggers {
             if (oldValue != enable) {
                 // switch modes right now. this uses the same way as turning the "Other Self" variant on.
                 refreshPlayerSpriteMode(player, enable);
-                new DynData<PlayerSprite>(player.Sprite)["MadelineIsSilhouette"] = true;
             }
         }
 
 
         private static void PlayerRenderHook(On.Celeste.Player.orig_Render orig, Player self) {
-            DynData<Player> selfData = new DynData<Player>(self);
-            if (MaxHelpingHandModule.Instance.Session == null || self == null) { orig(self); return; }
+            if (self == null) { orig(self); return; }
 
+            DynData<PlayerSprite> spriteData = new DynData<PlayerSprite>(self.Sprite);
+            if (spriteData["MadelineIsSilhouette"] != null && spriteData.Get<bool?>("MadelineIsSilhouette") == true) {
+                spriteData["MadelineIsSilhouette"] = null;
 
-            if (self.StateMachine.State == Player.StIntroRespawn && MaxHelpingHandModule.Instance.Session.MadelineIsSilhouette && 
-                (selfData.Get<bool?>("MadelineIsSilhouette") == null)) {
-
-                Logger.Log(LogLevel.Warn, "MaxHelpingHand/MadelineSilhouetteTrigger", $"MadelineIsSilhouette");
-                selfData["MadelineIsSilhouette"] = true;
-                refreshPlayerSpriteMode(self, true);
-
-                // let other mod can identify Silhouette from this code, that without Add this mod as Dependencies. by the content of "onPlayerSpriteConstructor" method
-                new DynData<PlayerSprite>(self.Sprite)["MadelineIsSilhouette"] = true;
+                if (self.StateMachine.State == Player.StIntroRespawn || self.Sprite.Mode == PlayerSpriteMode.Madeline || self.Sprite.Mode == PlayerSpriteMode.MadelineNoBackpack || self.Sprite.Mode == PlayerSpriteMode.MadelineAsBadeline) {
+                    refreshPlayerSpriteMode(self, true);
+                }
             }
             orig(self);
         }
