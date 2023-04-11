@@ -730,11 +730,6 @@ placements.entities.MaxHelpingHand/CustomSeekerBarrier.tooltips.wavy=Whether the
 placements.entities.MaxHelpingHand/CustomSeekerBarrier.tooltips.killSeekers=Whether this seeker barrier should kill seekers on contact.
 placements.entities.MaxHelpingHand/CustomSeekerBarrier.tooltips.killJellyfish=Whether this seeker barrier should kill jellyfish on contact.
 
-# Ambience Volume Trigger
-placements.triggers.MaxHelpingHand/AmbienceVolumeTrigger.tooltips.from=Determines the volume of the ambience (between 0 and 1) at closer distances.
-placements.triggers.MaxHelpingHand/AmbienceVolumeTrigger.tooltips.to=Determines the volume of the ambience (between 0 and 1) at farther distances.
-placements.triggers.MaxHelpingHand/AmbienceVolumeTrigger.tooltips.direction=Determines which direction the ambience comes from.
-
 # Custom Memorial (with Dreaming attribute)
 placements.entities.MaxHelpingHand/CustomMemorialWithDreamingAttribute.tooltips.dreaming=Changes the memorial's text to the dream state from Old Site.
 placements.entities.MaxHelpingHand/CustomMemorialWithDreamingAttribute.tooltips.dialog=What dialog ID to pull the memorial's text from.

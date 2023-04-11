@@ -54,7 +54,6 @@ namespace Celeste.Mod.MaxHelpingHand.Module {
             ReskinnableFloatingDebris.Load();
             GuiStrawberryReskin.Load();
             SeekerBarrierColorController.Load();
-            AmbienceVolumeTrigger.Load();
             CustomTutorialWithNoBird.Load();
             NonPoppingStrawberrySeed.Load();
             CustomizableCrumblePlatform.Load();
@@ -121,7 +120,6 @@ namespace Celeste.Mod.MaxHelpingHand.Module {
             ReskinnableFloatingDebris.Unload();
             GuiStrawberryReskin.Unload();
             SeekerBarrierColorController.Unload();
-            AmbienceVolumeTrigger.Unload();
             CustomTutorialWithNoBird.Unload();
             NonPoppingStrawberrySeed.Unload();
             CustomizableCrumblePlatform.Unload();

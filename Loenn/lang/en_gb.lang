@@ -762,12 +762,6 @@ triggers.MaxHelpingHand/ActivateTimedTouchSwitchesTimerTrigger.placements.name.t
 triggers.MaxHelpingHand/AllBlackholesStrengthTrigger.placements.name.trigger=Black Hole Strength (All Black Holes)
 triggers.MaxHelpingHand/AllBlackholesStrengthTrigger.attributes.description.strength=Sets the next visual apparence of the black hole effects.
 
-# Ambience Volume Trigger
-triggers.MaxHelpingHand/AmbienceVolumeTrigger.placements.name.trigger=Ambience Volume
-triggers.MaxHelpingHand/AmbienceVolumeTrigger.attributes.description.from=Determines the volume of the ambience (between 0 and 1) at closer distances.
-triggers.MaxHelpingHand/AmbienceVolumeTrigger.attributes.description.to=Determines the volume of the ambience (between 0 and 1) at farther distances.
-triggers.MaxHelpingHand/AmbienceVolumeTrigger.attributes.description.direction=Determines which direction the ambience comes from.
-
 # Camera Catchup Speed Trigger
 triggers.MaxHelpingHand/CameraCatchupSpeedTrigger.placements.name.trigger=Camera Catchup Speed
 triggers.MaxHelpingHand/CameraCatchupSpeedTrigger.attributes.description.catchupSpeed=Raise this value to have the camera scroll quicker to its target. Vanilla values are 8 during the temple fall cutscene, and 1 everywhere else.
