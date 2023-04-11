@@ -7,7 +7,7 @@
   DLL: bin/Release/net452/MaxHelpingHand.dll
   Dependencies:
     - Name: Everest
-      Version: 1.2879.0
+      Version: 1.3847.0
   OptionalDependencies:
     - Name: OutbackHelper
       Version: 1.6.1
