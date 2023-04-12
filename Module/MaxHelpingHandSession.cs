@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using System.Collections.Generic;
+using YamlDotNet.Serialization;
 
 namespace Celeste.Mod.MaxHelpingHand.Module {
     public class MaxHelpingHandSession : EverestModuleSession {
@@ -75,5 +76,9 @@ namespace Celeste.Mod.MaxHelpingHand.Module {
         public bool MadelineHasPonytail { get; set; } = false;
 
         public float? BloomStregth = null;
+
+        // Backwards compatibility for Spirialis Helper
+        [YamlIgnore]
+        public float AmbienceVolume => SaveData.Instance?.CurrentSession_Safe?.Audio.AmbienceVolume ?? 1f;
     }
 }
