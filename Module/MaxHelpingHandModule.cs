@@ -5,6 +5,7 @@ using Monocle;
 using Microsoft.Xna.Framework;
 using System;
 using System.Reflection;
+using FlushelineCollab.Entities;
 
 namespace Celeste.Mod.MaxHelpingHand.Module {
     public class MaxHelpingHandModule : EverestModule {
@@ -90,6 +91,7 @@ namespace Celeste.Mod.MaxHelpingHand.Module {
             ParallaxFadeOutController.Load();
             RainbowSpinnerColorAreaController.Load();
             StylegroundFadeController.Load();
+            DisableControlsController.Load();
 
             Everest.Events.Level.OnLoadBackdrop += onLoadBackdrop;
             On.Celeste.Mod.Everest.Register += onModRegister;
@@ -161,6 +163,7 @@ namespace Celeste.Mod.MaxHelpingHand.Module {
             ParallaxFadeOutController.Unload();
             RainbowSpinnerColorAreaController.Unload();
             StylegroundFadeController.Unload();
+            DisableControlsController.Unload();
 
             Everest.Events.Level.OnLoadBackdrop -= onLoadBackdrop;
             On.Celeste.Mod.Everest.Register -= onModRegister;

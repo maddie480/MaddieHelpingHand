@@ -1223,3 +1223,13 @@ entities.MaxHelpingHand/BeeFireball.placements.name.fireball= Bee Fireball
 entities.MaxHelpingHand/BeeFireball.attributes.description.amount=Determines the amount of fireballs on a track.
 entities.MaxHelpingHand/BeeFireball.attributes.description.offset=Determines how far into the path the fireball starts.
 entities.MaxHelpingHand/BeeFireball.attributes.description.speed=Determines how fast a fireball reaches the end of the track.
+
+# Disable Controls Controller
+entities.MaxHelpingHand/DisableControlsController.placements.name.controller= Disable Controls Controller
+entities.MaxHelpingHand/DisableControlsController.attributes.description.up=Whether the player should be prevented from inputting Up.
+entities.MaxHelpingHand/DisableControlsController.attributes.description.down=Whether the player should be prevented from inputting Down.
+entities.MaxHelpingHand/DisableControlsController.attributes.description.left=Whether the player should be prevented from inputting Left.
+entities.MaxHelpingHand/DisableControlsController.attributes.description.right=Whether the player should be prevented from inputting Right.
+entities.MaxHelpingHand/DisableControlsController.attributes.description.jump=Whether the player should be prevented from inputting Jump.
+entities.MaxHelpingHand/DisableControlsController.attributes.description.dash=Whether the player should be prevented from inputting Dash (or Crouch Dash).
+entities.MaxHelpingHand/DisableControlsController.attributes.description.grab=Whether the player should be prevented from inputting Grab.

@@ -1028,3 +1028,12 @@ placements.entities.MaxHelpingHand/ReskinnableSwitchGate.tooltips.surfaceIndex=F
 placements.entities.MaxHelpingHand/BeeFireball.tooltips.amount=Determines the amount of fireballs on a track.
 placements.entities.MaxHelpingHand/BeeFireball.tooltips.offset=Determines how far into the path the fireball starts.
 placements.entities.MaxHelpingHand/BeeFireball.tooltips.speed=Determines how fast a fireball reaches the end of the track.
+
+# Disable Controls Controller
+placements.entities.MaxHelpingHand/DisableControlsController.tooltips.up=Whether the player should be prevented from inputting Up.
+placements.entities.MaxHelpingHand/DisableControlsController.tooltips.down=Whether the player should be prevented from inputting Down.
+placements.entities.MaxHelpingHand/DisableControlsController.tooltips.left=Whether the player should be prevented from inputting Left.
+placements.entities.MaxHelpingHand/DisableControlsController.tooltips.right=Whether the player should be prevented from inputting Right.
+placements.entities.MaxHelpingHand/DisableControlsController.tooltips.jump=Whether the player should be prevented from inputting Jump.
+placements.entities.MaxHelpingHand/DisableControlsController.tooltips.dash=Whether the player should be prevented from inputting Dash (or Crouch Dash).
+placements.entities.MaxHelpingHand/DisableControlsController.tooltips.grab=Whether the player should be prevented from inputting Grab.

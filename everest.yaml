@@ -1,8 +1,4 @@
-# The name of the mod here comes from my old nickname, max480.
-# As of writing (Apr 8, 2023), 852 mods published on GameBanana depend on MaxHelpingHand. That's about 46% of the mods in there.
-# So, there's no way it's becoming MaddieHelpingHand without... like, breaking Celeste modding.
-# F. ~ Maddie
-- Name: MaxHelpingHand
+- Name: MaxHelpingHand # The mod used to be known as "max480's Helping Hand", and wasn't renamed for compatibility reasons
   Version: 1.24.10
   DLL: bin/Release/net452/MaxHelpingHand.dll
   Dependencies:
@@ -11,7 +7,3 @@
   OptionalDependencies:
     - Name: OutbackHelper
       Version: 1.6.1
-    # MaxHelpingHand 1.16.9+ makes JungleHelper < 1.0.4 potentially CRASH the game,
-    # so the player should ABSOLUTELY update
-    - Name: JungleHelper
-      Version: 1.0.4
