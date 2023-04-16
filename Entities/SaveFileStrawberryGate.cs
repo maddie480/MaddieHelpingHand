@@ -236,7 +236,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             ILCursor cursor = new ILCursor(il);
             if (cursor.TryGotoNext(instr => instr.MatchCallvirt<MTexture>("DrawCentered")) && cursor.TryGotoPrev(MoveType.After, instr => instr.MatchCall<Vector2>("op_Addition"))) {
                 Logger.Log("MaxHelpingHand/SaveFileStrawberryGate", $"Fixing strawberry gate offset at {cursor.Index} in IL for StrawberryGate.Render");
-                cursor.EmitDelegate<Func<Vector2, Vector2>>(orig => new Vector2((float) Math.Round(orig.X), (float) Math.Round(orig.Y)));
+                cursor.EmitDelegate<Func<Vector2, Vector2>>(orig => new Vector2((float) Math.Round(orig.X), (float) Math.Floor(orig.Y)));
             }
         }
 
