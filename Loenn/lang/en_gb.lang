@@ -1233,3 +1233,11 @@ entities.MaxHelpingHand/DisableControlsController.attributes.description.right=W
 entities.MaxHelpingHand/DisableControlsController.attributes.description.jump=Whether the player should be prevented from inputting Jump.
 entities.MaxHelpingHand/DisableControlsController.attributes.description.dash=Whether the player should be prevented from inputting Dash (or Crouch Dash).
 entities.MaxHelpingHand/DisableControlsController.attributes.description.grab=Whether the player should be prevented from inputting Grab.
+
+# Fancy Text Tutorial
+entities.MaxHelpingHand/FancyTextTutorial.placements.name.bird=Fancy Text Tutorial
+entities.MaxHelpingHand/FancyTextTutorial.attributes.description.birdId=The unique id of the tutorial when used in combination with Custom Tutorial Bird triggers. Useful for extra control over multiple birds in one room.
+entities.MaxHelpingHand/FancyTextTutorial.attributes.description.dialogId=The dialog ID the text should be read from.
+entities.MaxHelpingHand/FancyTextTutorial.attributes.description.textScale=The size of the text that will be displayed. 1 is the normal size, 0.5 is half of that size.
+entities.MaxHelpingHand/FancyTextTutorial.attributes.description.direction=The direction the bubble points to. "None" shows the message in a rectangle rather than in a bubble.
+entities.MaxHelpingHand/FancyTextTutorial.attributes.description.onlyOnce=Whether the tutorial should reappear after displaying the speech bubble and disappearing.

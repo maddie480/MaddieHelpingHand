@@ -1037,3 +1037,10 @@ placements.entities.MaxHelpingHand/DisableControlsController.tooltips.right=Whet
 placements.entities.MaxHelpingHand/DisableControlsController.tooltips.jump=Whether the player should be prevented from inputting Jump.
 placements.entities.MaxHelpingHand/DisableControlsController.tooltips.dash=Whether the player should be prevented from inputting Dash (or Crouch Dash).
 placements.entities.MaxHelpingHand/DisableControlsController.tooltips.grab=Whether the player should be prevented from inputting Grab.
+
+# Fancy Text Tutorial
+placements.entities.MaxHelpingHand/FancyTextTutorial.tooltips.birdId=The unique id of the tutorial when used in combination with Custom Tutorial Bird triggers. Useful for extra control over multiple birds in one room.
+placements.entities.MaxHelpingHand/FancyTextTutorial.tooltips.dialogId=The dialog ID the text should be read from.
+placements.entities.MaxHelpingHand/FancyTextTutorial.tooltips.textScale=The size of the text that will be displayed. 1 is the normal size, 0.5 is half of that size.
+placements.entities.MaxHelpingHand/FancyTextTutorial.tooltips.direction=The direction the bubble points to. "None" shows the message in a rectangle rather than in a bubble.
+placements.entities.MaxHelpingHand/FancyTextTutorial.tooltips.onlyOnce=Whether the tutorial should reappear after displaying the speech bubble and disappearing.

@@ -92,6 +92,7 @@ namespace Celeste.Mod.MaxHelpingHand.Module {
             RainbowSpinnerColorAreaController.Load();
             StylegroundFadeController.Load();
             DisableControlsController.Load();
+            FancyTextTutorial.Load();
 
             Everest.Events.Level.OnLoadBackdrop += onLoadBackdrop;
             On.Celeste.Mod.Everest.Register += onModRegister;
@@ -164,6 +165,7 @@ namespace Celeste.Mod.MaxHelpingHand.Module {
             RainbowSpinnerColorAreaController.Unload();
             StylegroundFadeController.Unload();
             DisableControlsController.Unload();
+            FancyTextTutorial.Unload();
 
             Everest.Events.Level.OnLoadBackdrop -= onLoadBackdrop;
             On.Celeste.Mod.Everest.Register -= onModRegister;
