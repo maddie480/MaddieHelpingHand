@@ -7,6 +7,8 @@ using MonoMod.Cil;
 using MonoMod.Utils;
 using System;
 using System.Collections;
+using System.Collections.Generic;
+using System.Reflection;
 
 namespace Celeste.Mod.MaxHelpingHand.Triggers {
     // Near copy-paste of Everest's Dialog Cutscene Trigger, that has the following extra features:
@@ -14,6 +16,12 @@ namespace Celeste.Mod.MaxHelpingHand.Triggers {
     // - allows to set a custom font for the dialogue
     [CustomEntity("MaxHelpingHand/AutoSkipDialogCutsceneTrigger", "MaxHelpingHand/ExtendedDialogCutsceneTrigger")]
     public class ExtendedDialogCutsceneTrigger : Trigger {
+        private static readonly Dictionary<string, List<string>> fontPaths;
+        static ExtendedDialogCutsceneTrigger() {
+            // Fonts.paths is private static and never instantiated besides in the static constructor, so we only need to get the reference to it once.
+            fontPaths = (Dictionary<string, List<string>>) typeof(Fonts).GetField("paths", BindingFlags.NonPublic | BindingFlags.Static).GetValue(null);
+        }
+
         private readonly string dialogEntry;
         private readonly EntityID id;
         private readonly bool onlyOnce;
@@ -108,6 +116,12 @@ namespace Celeste.Mod.MaxHelpingHand.Triggers {
 
                 if (Fonts.Get(font) == null) {
                     // this is a font we need to load for the cutscene specifically!
+                    if (!fontPaths.ContainsKey(font)) {
+                        // the font isn't in the list... so we need to list fonts again first.
+                        Logger.Log(LogLevel.Warn, "MaxHelpingHand/ExtendedDialogCutsceneTrigger", $"We need to list fonts again, {font} does not exist!");
+                        Fonts.Prepare();
+                    }
+
                     Fonts.Load(font);
                     Engine.Scene.Add(new FontHolderEntity(font));
                 }
