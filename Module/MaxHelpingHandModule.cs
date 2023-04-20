@@ -5,7 +5,6 @@ using Monocle;
 using Microsoft.Xna.Framework;
 using System;
 using System.Reflection;
-using FlushelineCollab.Entities;
 
 namespace Celeste.Mod.MaxHelpingHand.Module {
     public class MaxHelpingHandModule : EverestModule {

@@ -7,7 +7,7 @@ using MonoMod.Utils;
 using System;
 using System.Reflection;
 
-namespace FlushelineCollab.Entities {
+namespace Celeste.Mod.MaxHelpingHand.Entities {
     // cursed controller that disable arbitrary player controls, used in a less customizable way in Flusheline Collab.
     [CustomEntity("MaxHelpingHand/DisableControlsController")]
     [Tracked]
@@ -67,7 +67,7 @@ namespace FlushelineCollab.Entities {
         }
 
         private static void breakTheControls(On.Celeste.Player.orig_Update orig, Player self) {
-            DisableControlsController c = Engine.Scene.Tracker.GetEntity<DisableControlsController>();
+            DisableControlsController c = getDisableControlsControllerInRoomSafely();
             if (c == null) {
                 // we don't want to disable controls here!
                 orig(self);
@@ -115,7 +115,7 @@ namespace FlushelineCollab.Entities {
         }
 
         private static bool hookOnButton(Func<VirtualButton, bool> orig, VirtualButton self) {
-            DisableControlsController c = Engine.Scene.Tracker.GetEntity<DisableControlsController>();
+            DisableControlsController c = getDisableControlsControllerInRoomSafely();
             if (c == null) {
                 // we don't want to disable controls here!
                 return orig(self);
@@ -132,7 +132,7 @@ namespace FlushelineCollab.Entities {
         }
 
         private static bool modGrabResult(Func<bool> orig) {
-            DisableControlsController c = Engine.Scene.Tracker.GetEntity<DisableControlsController>();
+            DisableControlsController c = getDisableControlsControllerInRoomSafely();
             if (c == null || !c.grab) {
                 // we don't want to disable grab
                 return orig();
@@ -142,13 +142,20 @@ namespace FlushelineCollab.Entities {
         }
 
         private static bool modDashResult(Func<bool> orig) {
-            DisableControlsController c = Engine.Scene.Tracker.GetEntity<DisableControlsController>();
+            DisableControlsController c = getDisableControlsControllerInRoomSafely();
             if (c == null || !c.dash) {
                 // we don't want to disable dash
                 return orig();
             }
 
             return false;
+        }
+
+        private static DisableControlsController getDisableControlsControllerInRoomSafely() {
+            // return null if the DisableControlsController type isn't tracked yet. This can happen when the mod is being loaded during runtime
+            if (!Engine.Scene.Tracker.Entities.ContainsKey(typeof(DisableControlsController))) return null;
+
+            return Engine.Scene.Tracker.GetEntity<DisableControlsController>();
         }
     }
 }
