@@ -14,12 +14,12 @@ namespace Celeste.Mod.MaxHelpingHand.Triggers {
         private static Color silhouetteOutOfStaminaZeroDashBlinkColor = Calc.HexToColor("348DC1");
 
         public static void Load() {
-            On.Celeste.Player.Render += PlayerRenderHook;
-            On.Celeste.PlayerSprite.ctor += onPlayerSpriteConstructor;
-            On.Celeste.Player.ResetSprite += onPlayerResetSprite;
-
             using (new DetourContext() { Before = { "*" } }) { // we won't break Spring Collab 2020, but it will break us if it goes first.
                 IL.Celeste.Player.Render += patchPlayerRender;
+            }
+            using (new DetourContext() { After = { "*" } }) { // prevent Madeline cannot as Silhouette if other mods goes first.
+                On.Celeste.PlayerSprite.ctor += onPlayerSpriteConstructor;
+                On.Celeste.Player.ResetSprite += onPlayerResetSprite;
             }
         }
 
@@ -27,11 +27,12 @@ namespace Celeste.Mod.MaxHelpingHand.Triggers {
             On.Celeste.PlayerSprite.ctor -= onPlayerSpriteConstructor;
             IL.Celeste.Player.Render -= patchPlayerRender;
             On.Celeste.Player.ResetSprite -= onPlayerResetSprite;
-            On.Celeste.Player.Render -= PlayerRenderHook;
         }
         
         private static void onPlayerSpriteConstructor(On.Celeste.PlayerSprite.orig_ctor orig, PlayerSprite self, PlayerSpriteMode mode) {
-            new DynData<PlayerSprite>(self)["MadelineIsSilhouette"] = MaxHelpingHandModule.Instance.Session.MadelineIsSilhouette;
+            if (MaxHelpingHandModule.Instance.Session.MadelineIsSilhouette && (mode == PlayerSpriteMode.Madeline || mode == PlayerSpriteMode.MadelineAsBadeline || mode == PlayerSpriteMode.MadelineNoBackpack)) {
+                mode = PlayerSpriteMode.Playback;
+            }
             orig(self, mode);
         }
 
@@ -90,11 +91,10 @@ namespace Celeste.Mod.MaxHelpingHand.Triggers {
         }
 
         private static void onPlayerResetSprite(On.Celeste.Player.orig_ResetSprite orig, Player self, PlayerSpriteMode mode) {
-            // filter all calls to ResetSprite when MadelineIsSilhouette is enabled, only the ones with Playback will go through.
-            // this prevents Madeline from turning back into normal when the Other Self variant is toggled.
-            if (!MaxHelpingHandModule.Instance.Session.MadelineIsSilhouette || mode == PlayerSpriteMode.Playback) {
-                orig(self, mode);
+            if (MaxHelpingHandModule.Instance.Session.MadelineIsSilhouette && (mode == PlayerSpriteMode.Madeline || mode == PlayerSpriteMode.MadelineAsBadeline || mode == PlayerSpriteMode.MadelineNoBackpack)) {
+                mode = PlayerSpriteMode.Playback;
             }
+            orig(self, mode);
         }
 
 
@@ -115,21 +115,6 @@ namespace Celeste.Mod.MaxHelpingHand.Triggers {
                 // switch modes right now. this uses the same way as turning the "Other Self" variant on.
                 refreshPlayerSpriteMode(player, enable);
             }
-        }
-
-
-        private static void PlayerRenderHook(On.Celeste.Player.orig_Render orig, Player self) {
-            if (self == null) { orig(self); return; }
-
-            DynData<PlayerSprite> spriteData = new DynData<PlayerSprite>(self.Sprite);
-            if (spriteData["MadelineIsSilhouette"] != null && spriteData.Get<bool?>("MadelineIsSilhouette") == true) {
-                spriteData["MadelineIsSilhouette"] = null;
-
-                if (self.StateMachine.State == Player.StIntroRespawn || self.Sprite.Mode == PlayerSpriteMode.Madeline || self.Sprite.Mode == PlayerSpriteMode.MadelineNoBackpack || self.Sprite.Mode == PlayerSpriteMode.MadelineAsBadeline) {
-                    refreshPlayerSpriteMode(self, true);
-                }
-            }
-            orig(self);
         }
     }
 }
