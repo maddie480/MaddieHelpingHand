@@ -98,7 +98,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
                 // we want to check all spinners explicitly instead of just going CollideCheck<CrystalStaticSpinner>(),
                 // to include those turned off because the player is too far.
                 foreach (CrystalStaticSpinner candidate in spinnerNeighbors.Keys) {
-                    if (candidate.CollideCheck(this)) {
+                    if (candidate.Scene != null && candidate.CollideCheck(this)) {
                         // BOOM! recursively shatter spinners.
                         shatterSpinner(candidate);
                         RemoveSelf();
@@ -142,6 +142,9 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
         }
 
         private void shatterSpinner(CrystalStaticSpinner spinner) {
+            // don't break already broken spinners!
+            if (spinner.Scene == null) return;
+
             spinner.Destroy();
             shatteredSpinners.Add(spinner);
 
