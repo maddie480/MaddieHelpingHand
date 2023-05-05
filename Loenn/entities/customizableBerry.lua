@@ -1,9 +1,9 @@
 local strawberry = {}
 
-strawberry.name = "MaxHelpingHand/SecretBerry"
+strawberry.name = "MaxHelpingHand/CustomizableBerry"
 strawberry.depth = -100
 
-strawberry.texture = "collectables/moonBerry/normal00"
+strawberry.texture = "collectables/strawberry/normal00"
 
 strawberry.placements = {
     name = "berry",
@@ -16,8 +16,8 @@ strawberry.placements = {
         strawberryBlueTouchSound = "event:/game/general/strawberry_blue_touch",
         strawberryTouchSound = "event:/game/general/strawberry_touch",
         strawberryGetSound = "event:/game/general/strawberry_get",
-        countTowardsTotal = false,
         pulseEnabled = true,
+        countTowardsTotal = true,
         particleColor1 = "FF8563",
         particleColor2 = "FFF4A8",
         ghostParticleColor1 = "6385FF",
@@ -26,6 +26,7 @@ strawberry.placements = {
 }
 
 strawberry.fieldOrder = {"x", "y", "strawberrySprite", "ghostberrySprite", "strawberryPulseSound", "strawberryTouchSound", "strawberryBlueTouchSound", "strawberryGetSound", "particleColor1", "particleColor2", "ghostParticleColor1", "ghostParticleColor2"}
+strawberry.ignoredFields = {"_id", "_name", "countTowardsTotal"}
 
 strawberry.fieldInformation = {
     particleColor1 = {

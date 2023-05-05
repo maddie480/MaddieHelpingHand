@@ -6,7 +6,7 @@ using ..Ahorn, Maple
     checkpointID::Integer=-1, order::Integer=-1, strawberrySprite::String="strawberry", ghostberrySprite::String="ghostberry",
     strawberryPulseSound::String="event:/game/general/strawberry_pulse", strawberryBlueTouchSound::String="event:/game/general/strawberry_blue_touch",
     strawberryTouchSound::String="event:/game/general/strawberry_touch", strawberryGetSound::String="event:/game/general/strawberry_get", countTowardsTotal::Bool=false,
-    particleColor1::String="FF8563", particleColor2::String="FFF4A8", ghostParticleColor1::String="6385FF", ghostParticleColor2::String="72F0FF")
+    pulseEnabled::Bool=true, particleColor1::String="FF8563", particleColor2::String="FFF4A8", ghostParticleColor1::String="6385FF", ghostParticleColor2::String="72F0FF")
 
 const placements = Ahorn.PlacementDict(
     "Secret Berry (Maddie's Helping Hand)" => Ahorn.EntityPlacement(

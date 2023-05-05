@@ -28,6 +28,8 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             On.Celeste.Strawberry.Update += onStrawberryUpdate;
 
             On.Celeste.MapData.Load += onMapDataLoad;
+
+            IL.Celeste.Strawberry.OnAnimate += toggleStrawberryPulse;
         }
 
         public static void Unload() {
@@ -42,6 +44,8 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             On.Celeste.Strawberry.Update -= onStrawberryUpdate;
 
             On.Celeste.MapData.Load -= onMapDataLoad;
+
+            IL.Celeste.Strawberry.OnAnimate -= toggleStrawberryPulse;
         }
 
         private static void replaceStrawberryStrings(ILContext il) {
@@ -120,6 +124,23 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             }
         }
 
+        private static void toggleStrawberryPulse(ILContext il) {
+            ILCursor cursor = new ILCursor(il);
+
+            if (cursor.TryGotoNext(MoveType.After, instr => instr.MatchCallvirt<Sprite>("get_CurrentAnimationFrame"), instr => instr.MatchLdloc(0))) {
+                Logger.Log("MaxHelpingHand/SecretBerry", $"Disabling pulse animation on demand at {cursor.Index} in IL for Strawberry.OnAnimate");
+
+                cursor.Emit(OpCodes.Ldarg_0);
+                cursor.EmitDelegate<Func<int, Strawberry, int>>((orig, self) => {
+                    if (self is SecretBerry berry && !berry.pulseEnabled) {
+                        // make the branch triggering the pulse always false
+                        return -1;
+                    }
+                    return orig;
+                });
+            }
+        }
+
 
         private readonly string strawberrySprite;
         private readonly string ghostberrySprite;
@@ -127,6 +148,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
         private readonly string strawberryBlueTouchSound;
         private readonly string strawberryTouchSound;
         private readonly string strawberryGetSound;
+        private readonly bool pulseEnabled;
         private readonly ParticleType strawberryParticleType;
         private readonly ParticleType strawberryGhostParticleType;
 
@@ -137,6 +159,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             strawberryBlueTouchSound = data.Attr("strawberryBlueTouchSound");
             strawberryTouchSound = data.Attr("strawberryTouchSound");
             strawberryGetSound = data.Attr("strawberryGetSound");
+            pulseEnabled = data.Bool("pulseEnabled", defaultValue: true);
 
             strawberryParticleType = new ParticleType(P_Glow) {
                 Color = Calc.HexToColor(data.Attr("particleColor1")),

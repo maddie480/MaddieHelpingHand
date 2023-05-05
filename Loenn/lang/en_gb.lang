@@ -634,6 +634,7 @@ entities.MaxHelpingHand/SecretBerry.attributes.description.strawberryBlueTouchSo
 entities.MaxHelpingHand/SecretBerry.attributes.description.strawberryTouchSound=The sound the strawberry makes when touched by the player, if it was not already collected.
 entities.MaxHelpingHand/SecretBerry.attributes.description.strawberryGetSound=The sound the strawberry makes when collected.\nIf already collected, the "color" audio param of this sound will be set to 1. If not, it will be set to 0.
 entities.MaxHelpingHand/SecretBerry.attributes.description.countTowardsTotal=Whether this berry should be counted in the total number of berries the map contains.
+entities.MaxHelpingHand/SecretBerry.attributes.description.pulseEnabled=Whether the strawberry should periodically pulse (with a sound and a ripple effect).
 entities.MaxHelpingHand/SecretBerry.attributes.description.particleColor1=One of the colors to use for the particles the strawberry emits when not already collected.
 entities.MaxHelpingHand/SecretBerry.attributes.description.particleColor2=One of the colors to use for the particles the strawberry emits when not already collected.
 entities.MaxHelpingHand/SecretBerry.attributes.description.ghostParticleColor1=One of the colors to use for the particles the strawberry emits when already collected.
@@ -648,6 +649,32 @@ entities.MaxHelpingHand/SecretBerry.attributes.name.particleColor1=Uncollected P
 entities.MaxHelpingHand/SecretBerry.attributes.name.particleColor2=Uncollected Particle Color 2
 entities.MaxHelpingHand/SecretBerry.attributes.name.ghostParticleColor1=Collected Particle Color 1
 entities.MaxHelpingHand/SecretBerry.attributes.name.ghostParticleColor2=Collected Particle Color 2
+
+# Customizable Berry
+entities.MaxHelpingHand/CustomizableBerry.placements.name.berry=Customizable Berry
+entities.MaxHelpingHand/CustomizableBerry.attributes.description.checkpointID=Manually determine what checkpoint section strawberries are visually grouped up in, showing up on the start menu during gameplay and level select. Overrides Everest's automatic berry IDs. (Default= -1)
+entities.MaxHelpingHand/CustomizableBerry.attributes.description.order=Manually determine what order strawberries are visually placed in on the start menu during gameplay and level select. Overrides Everest's automatic berry IDs. (Default= -1)
+entities.MaxHelpingHand/CustomizableBerry.attributes.description.strawberrySprite=The strawberry sprite name. To define your own, copy the "strawberry" sprite from Content/Graphics/Sprites.xml into your mod's Sprites.xml, rename it, and put the new name here.
+entities.MaxHelpingHand/CustomizableBerry.attributes.description.ghostberrySprite=The ghost (collected) strawberry sprite name. To define your own, copy the "ghostberry" sprite from Content/Graphics/Sprites.xml into your mod's Sprites.xml, rename it, and put the new name here.
+entities.MaxHelpingHand/CustomizableBerry.attributes.description.strawberryPulseSound=The pulse sound the strawberry makes while idle.
+entities.MaxHelpingHand/CustomizableBerry.attributes.description.strawberryBlueTouchSound=The sound the strawberry makes when touched by the player, if it was already collected.
+entities.MaxHelpingHand/CustomizableBerry.attributes.description.strawberryTouchSound=The sound the strawberry makes when touched by the player, if it was not already collected.
+entities.MaxHelpingHand/CustomizableBerry.attributes.description.strawberryGetSound=The sound the strawberry makes when collected.\nIf already collected, the "color" audio param of this sound will be set to 1. If not, it will be set to 0.
+entities.MaxHelpingHand/CustomizableBerry.attributes.description.pulseEnabled=Whether the strawberry should periodically pulse (with a sound and a ripple effect).
+entities.MaxHelpingHand/CustomizableBerry.attributes.description.particleColor1=One of the colors to use for the particles the strawberry emits when not already collected.
+entities.MaxHelpingHand/CustomizableBerry.attributes.description.particleColor2=One of the colors to use for the particles the strawberry emits when not already collected.
+entities.MaxHelpingHand/CustomizableBerry.attributes.description.ghostParticleColor1=One of the colors to use for the particles the strawberry emits when already collected.
+entities.MaxHelpingHand/CustomizableBerry.attributes.description.ghostParticleColor2=One of the colors to use for the particles the strawberry emits when already collected.
+entities.MaxHelpingHand/CustomizableBerry.attributes.name.strawberryPulseSound=Pulse Sound
+entities.MaxHelpingHand/CustomizableBerry.attributes.name.strawberryBlueTouchSound=Collected Touch Sound
+entities.MaxHelpingHand/CustomizableBerry.attributes.name.strawberryTouchSound=Uncollected Touch Sound
+entities.MaxHelpingHand/CustomizableBerry.attributes.name.strawberryGetSound=Collect Sound
+entities.MaxHelpingHand/CustomizableBerry.attributes.name.strawberrySprite=Sprite
+entities.MaxHelpingHand/CustomizableBerry.attributes.name.ghostberrySprite=Ghost Sprite
+entities.MaxHelpingHand/CustomizableBerry.attributes.name.particleColor1=Uncollected Particle Color 1
+entities.MaxHelpingHand/CustomizableBerry.attributes.name.particleColor2=Uncollected Particle Color 2
+entities.MaxHelpingHand/CustomizableBerry.attributes.name.ghostParticleColor1=Collected Particle Color 1
+entities.MaxHelpingHand/CustomizableBerry.attributes.name.ghostParticleColor2=Collected Particle Color 2
 
 # Seeker Barrier Color Controller
 entities.MaxHelpingHand/SeekerBarrierColorController.placements.name.controller=Seeker Barrier Color Controller
