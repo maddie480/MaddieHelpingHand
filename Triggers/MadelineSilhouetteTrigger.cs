@@ -6,6 +6,7 @@ using Monocle;
 using MonoMod.Cil;
 using MonoMod.RuntimeDetour;
 using System;
+using MonoMod.Utils;
 
 namespace Celeste.Mod.MaxHelpingHand.Triggers {
     [CustomEntity("MaxHelpingHand/MadelineSilhouetteTrigger")]
@@ -13,11 +14,13 @@ namespace Celeste.Mod.MaxHelpingHand.Triggers {
         private static Color silhouetteOutOfStaminaZeroDashBlinkColor = Calc.HexToColor("348DC1");
 
         public static void Load() {
-            On.Celeste.PlayerSprite.ctor += onPlayerSpriteConstructor;
-            On.Celeste.Player.ResetSprite += onPlayerResetSprite;
-
             using (new DetourContext() { Before = { "*" } }) { // we won't break Spring Collab 2020, but it will break us if it goes first.
                 IL.Celeste.Player.Render += patchPlayerRender;
+            }
+
+            using (new DetourContext() { After = { "*" } }) { // prevent Madeline being unable to turn into a Silhouette if other mods goes first.
+                On.Celeste.PlayerSprite.ctor += onPlayerSpriteConstructor;
+                On.Celeste.Player.ResetSprite += onPlayerResetSprite;
             }
         }
 
@@ -89,11 +92,10 @@ namespace Celeste.Mod.MaxHelpingHand.Triggers {
         }
 
         private static void onPlayerResetSprite(On.Celeste.Player.orig_ResetSprite orig, Player self, PlayerSpriteMode mode) {
-            // filter all calls to ResetSprite when MadelineIsSilhouette is enabled, only the ones with Playback will go through.
-            // this prevents Madeline from turning back into normal when the Other Self variant is toggled.
-            if (!MaxHelpingHandModule.Instance.Session.MadelineIsSilhouette || mode == PlayerSpriteMode.Playback) {
-                orig(self, mode);
+            if (MaxHelpingHandModule.Instance.Session.MadelineIsSilhouette && (mode == PlayerSpriteMode.Madeline || mode == PlayerSpriteMode.MadelineAsBadeline || mode == PlayerSpriteMode.MadelineNoBackpack)) {
+                mode = PlayerSpriteMode.Playback;
             }
+            orig(self, mode);
         }
 
 
