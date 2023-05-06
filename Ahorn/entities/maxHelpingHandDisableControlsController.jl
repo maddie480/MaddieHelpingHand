@@ -3,7 +3,7 @@
 using ..Ahorn, Maple
 
 @mapdef Entity "MaxHelpingHand/DisableControlsController" DisableControlsController(x::Integer, y::Integer,
-    up::Bool=false, down::Bool=false, left::Bool=false, right::Bool=false, jump::Bool=false, grab::Bool=false, dash::Bool=false)
+    up::Bool=false, down::Bool=false, left::Bool=false, right::Bool=false, jump::Bool=false, grab::Bool=false, dash::Bool=false, onlyIfFlag::String="")
 
 const placements = Ahorn.PlacementDict(
     "Disable Controls Controller (Maddie's Helping Hand)" => Ahorn.EntityPlacement(

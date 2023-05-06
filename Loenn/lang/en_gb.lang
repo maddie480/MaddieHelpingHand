@@ -1260,6 +1260,7 @@ entities.MaxHelpingHand/DisableControlsController.attributes.description.right=W
 entities.MaxHelpingHand/DisableControlsController.attributes.description.jump=Whether the player should be prevented from inputting Jump.
 entities.MaxHelpingHand/DisableControlsController.attributes.description.dash=Whether the player should be prevented from inputting Dash (or Crouch Dash).
 entities.MaxHelpingHand/DisableControlsController.attributes.description.grab=Whether the player should be prevented from inputting Grab.
+entities.MaxHelpingHand/DisableControlsController.attributes.description.onlyIfFlag=If this field is set, the controls will only be disabled while the given session flag is active.
 
 # Fancy Text Tutorial
 entities.MaxHelpingHand/FancyTextTutorial.placements.name.bird=Fancy Text Tutorial

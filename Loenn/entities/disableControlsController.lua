@@ -12,7 +12,8 @@ controller.placements = {
         right = false,
         jump = false,
         dash = false,
-        grab = false
+        grab = false,
+        onlyIfFlag = ""
     }
 }
 

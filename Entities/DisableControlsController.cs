@@ -53,6 +53,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
         }
 
         private readonly bool up, down, left, right, jump, grab, dash;
+        private readonly string onlyIfFlag;
 
         public DisableControlsController(EntityData data, Vector2 offset)
             : base(data.Position + offset) {
@@ -64,6 +65,8 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             jump = data.Bool("jump");
             grab = data.Bool("grab");
             dash = data.Bool("dash");
+
+            onlyIfFlag = data.Attr("onlyIfFlag");
         }
 
         private static void breakTheControls(On.Celeste.Player.orig_Update orig, Player self) {
@@ -155,7 +158,11 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             // return null if the DisableControlsController type isn't tracked yet. This can happen when the mod is being loaded during runtime
             if (!Engine.Scene.Tracker.Entities.ContainsKey(typeof(DisableControlsController))) return null;
 
-            return Engine.Scene.Tracker.GetEntity<DisableControlsController>();
+            DisableControlsController controller = Engine.Scene.Tracker.GetEntity<DisableControlsController>();
+            if (controller != null && (string.IsNullOrEmpty(controller.onlyIfFlag) || (Engine.Scene as Level).Session.GetFlag(controller.onlyIfFlag))) {
+                return controller;
+            }
+            return null;
         }
     }
 }
