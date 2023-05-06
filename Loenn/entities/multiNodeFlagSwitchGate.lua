@@ -41,6 +41,7 @@ for i, texture in ipairs(textures) do
             progressionMode = false,
             persistent = true,
             pauseTimes = "",
+            pauseTimeBeforeFirstMove = 0.0,
             doNotSkipNodes = false,
             smoke = true
         }

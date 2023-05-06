@@ -55,6 +55,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
         private readonly Color activeColor;
         private readonly Color finishColor;
         private readonly float[] pauseTimes;
+        private readonly float pauseTimeBeforeFirstMove;
         private readonly bool doNotSkipNodes;
         private readonly bool smoke;
 
@@ -97,6 +98,8 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             for (int i = 0; i < pauseTimesStrings.Length; i++) {
                 pauseTimes[i] = float.Parse(pauseTimesStrings[i]);
             }
+
+            pauseTimeBeforeFirstMove = data.Float("pauseTimeBeforeFirstMove");
             doNotSkipNodes = data.Bool("doNotSkipNodes", false);
 
             startPos = Position;
@@ -202,7 +205,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
                     currentNodeIndex = targetNodeIndex;
                 }
 
-                Add(new Coroutine(sequence(currentNodeIndex > 0 ? nodes[currentNodeIndex - 1] : startPos)));
+                Add(new Coroutine(sequence(currentNodeIndex > 0 ? nodes[currentNodeIndex - 1] : startPos, pauseTimeBeforeFirstMove)));
                 resetAllFlags();
             }
 
@@ -268,7 +271,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             }
         }
 
-        private IEnumerator sequence(Vector2 node) {
+        private IEnumerator sequence(Vector2 node, float pauseTimeBeforeMove) {
             while (moving) {
                 // cancel the current move, and wait for the move to be effectively cancelled
                 cancelMoving = true;
@@ -282,7 +285,12 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             icon.Scale = Vector2.One;
 
             if (node != start) {
-                yield return 0.1f;
+                yield return 0.1f + pauseTimeBeforeMove;
+
+                if (cancelMoving) {
+                    moving = false;
+                    yield break;
+                }
 
                 openSfx.Play("event:/game/general/touchswitch_gate_open");
 
@@ -453,7 +461,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
 
                 // then move to the next node.
                 currentNodeIndex += Math.Sign(targetNodeIndex - currentNodeIndex);
-                Add(new Coroutine(sequence(currentNodeIndex > 0 ? nodes[currentNodeIndex - 1] : startPos)));
+                Add(new Coroutine(sequence(currentNodeIndex > 0 ? nodes[currentNodeIndex - 1] : startPos, 0f)));
             }
 
             moving = false;
