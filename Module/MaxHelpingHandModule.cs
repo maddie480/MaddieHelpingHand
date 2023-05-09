@@ -5,6 +5,7 @@ using Monocle;
 using Microsoft.Xna.Framework;
 using System;
 using System.Reflection;
+using MonoMod.ModInterop;
 
 namespace Celeste.Mod.MaxHelpingHand.Module {
     public class MaxHelpingHandModule : EverestModule {
@@ -95,6 +96,8 @@ namespace Celeste.Mod.MaxHelpingHand.Module {
 
             Everest.Events.Level.OnLoadBackdrop += onLoadBackdrop;
             On.Celeste.Mod.Everest.Register += onModRegister;
+
+            typeof(LuaCutscenesUtils).ModInterop();
         }
 
         public override void Unload() {
