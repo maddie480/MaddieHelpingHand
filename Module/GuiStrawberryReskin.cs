@@ -37,12 +37,20 @@ namespace Celeste.Mod.MaxHelpingHand.Module {
                         return orig;
                     }
 
-                    string levelSetName = (Engine.Scene as Overworld)?.GetUI<OuiChapterPanel>()?.Area.GetLevelSet();
-                    if (levelSetName == null) {
-                        levelSetName = (Engine.Scene as Level)?.Session?.Area.GetLevelSet();
+                    // try figuring out the current area, and if we can't, bail out!
+                    AreaKey? area = (Engine.Scene as Overworld)?.GetUI<OuiChapterPanel>()?.Area;
+                    if (area == null) {
+                        area = (Engine.Scene as Level)?.Session?.Area;
                     }
-                    if (levelSetName != null && GFX.Gui.Has($"MaxHelpingHand/{levelSetName}/{name}")) {
-                        return $"MaxHelpingHand/{levelSetName}/{name}";
+                    if (area == null) {
+                        return orig;
+                    }
+
+                    if (GFX.Gui.Has($"MaxHelpingHand/{area.Value.SID}_{name}")) {
+                        return $"MaxHelpingHand/{area.Value.SID}_{name}";
+                    }
+                    if (GFX.Gui.Has($"MaxHelpingHand/{area.Value.LevelSet}/{name}")) {
+                        return $"MaxHelpingHand/{area.Value.LevelSet}/{name}";
                     }
                     return orig;
                 });
