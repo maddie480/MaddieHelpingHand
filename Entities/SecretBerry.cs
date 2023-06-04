@@ -133,7 +133,12 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
                 cursor.Emit(OpCodes.Ldarg_0);
                 cursor.EmitDelegate<Func<int, Strawberry, int>>((orig, self) => {
                     if (self is SecretBerry berry && !berry.pulseEnabled) {
-                        // make the branch triggering the pulse always false
+                        // trigger the sound ourselves
+                        if (self.Get<Sprite>().CurrentAnimationFrame == orig) {
+                            Audio.Play(berry.strawberryPulseSound, berry.Position);
+                        }
+
+                        // make the branch triggering the pulse light + displacement effect always false
                         return -1;
                     }
                     return orig;

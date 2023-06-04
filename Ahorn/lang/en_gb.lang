@@ -802,7 +802,7 @@ placements.entities.MaxHelpingHand/SecretBerry.tooltips.strawberryBlueTouchSound
 placements.entities.MaxHelpingHand/SecretBerry.tooltips.strawberryTouchSound=The sound the strawberry makes when touched by the player, if it was not already collected.
 placements.entities.MaxHelpingHand/SecretBerry.tooltips.strawberryGetSound=The sound the strawberry makes when collected.\nIf already collected, the "color" audio param of this sound will be set to 1. If not, it will be set to 0.
 placements.entities.MaxHelpingHand/SecretBerry.tooltips.countTowardsTotal=Whether this berry should be counted in the total number of berries the map contains.
-placements.entities.MaxHelpingHand/SecretBerry.tooltips.pulseEnabled=Whether the strawberry should periodically pulse (with a sound and a ripple effect).
+placements.entities.MaxHelpingHand/SecretBerry.tooltips.pulseEnabled=Whether the strawberry should periodically pulse (with a light and ripple effect).\nTo disable the sound, set the "Strawberry Pulse Sound" to "event:/none".
 placements.entities.MaxHelpingHand/SecretBerry.tooltips.particleColor1=One of the colors to use for the particles the strawberry emits when not already collected.
 placements.entities.MaxHelpingHand/SecretBerry.tooltips.particleColor2=One of the colors to use for the particles the strawberry emits when not already collected.
 placements.entities.MaxHelpingHand/SecretBerry.tooltips.ghostParticleColor1=One of the colors to use for the particles the strawberry emits when already collected.
@@ -827,7 +827,7 @@ placements.entities.MaxHelpingHand/CustomizableBerry.tooltips.strawberryPulseSou
 placements.entities.MaxHelpingHand/CustomizableBerry.tooltips.strawberryBlueTouchSound=The sound the strawberry makes when touched by the player, if it was already collected.
 placements.entities.MaxHelpingHand/CustomizableBerry.tooltips.strawberryTouchSound=The sound the strawberry makes when touched by the player, if it was not already collected.
 placements.entities.MaxHelpingHand/CustomizableBerry.tooltips.strawberryGetSound=The sound the strawberry makes when collected.\nIf already collected, the "color" audio param of this sound will be set to 1. If not, it will be set to 0.
-placements.entities.MaxHelpingHand/CustomizableBerry.tooltips.pulseEnabled=Whether the strawberry should periodically pulse (with a sound and a ripple effect).
+placements.entities.MaxHelpingHand/CustomizableBerry.tooltips.pulseEnabled=Whether the strawberry should periodically pulse (with a light and ripple effect).\nTo disable the sound, set the "Strawberry Pulse Sound" to "event:/none".
 placements.entities.MaxHelpingHand/CustomizableBerry.tooltips.particleColor1=One of the colors to use for the particles the strawberry emits when not already collected.
 placements.entities.MaxHelpingHand/CustomizableBerry.tooltips.particleColor2=One of the colors to use for the particles the strawberry emits when not already collected.
 placements.entities.MaxHelpingHand/CustomizableBerry.tooltips.ghostParticleColor1=One of the colors to use for the particles the strawberry emits when already collected.
