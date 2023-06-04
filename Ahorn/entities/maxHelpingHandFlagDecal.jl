@@ -3,9 +3,11 @@
 using ..Ahorn, Maple
 
 @mapdef Entity "MaxHelpingHand/FlagDecal" FlagDecal(x::Integer, y::Integer, fps::Number=12.0, flag::String="decal_flag", inverted::Bool=false,
-    decalPath::String="1-forsakencity/flag", appearAnimationPath::String="", disappearAnimationPath::String="", depth::Int=8999)
+    decalPath::String="1-forsakencity/flag", appearAnimationPath::String="", disappearAnimationPath::String="", depth::Int=8999,
+    scaleX::Number=1.0, scaleY::Number=1.0, rotation::Number=0.0)
 
-@mapdef Entity "MaxHelpingHand/FlagDecalXML" FlagDecalXML(x::Integer, y::Integer, sprite::String="", depth::Int=8999)
+@mapdef Entity "MaxHelpingHand/FlagDecalXML" FlagDecalXML(x::Integer, y::Integer, sprite::String="", depth::Int=8999,
+    scaleX::Number=1.0, scaleY::Number=1.0, rotation::Number=0.0)
 
 const placements = Ahorn.PlacementDict(
     "Flag Decal (Maddie's Helping Hand)" => Ahorn.EntityPlacement(

@@ -1,6 +1,7 @@
 ﻿using Celeste.Mod.Entities;
 using Microsoft.Xna.Framework;
 using Monocle;
+using System;
 
 namespace Celeste.Mod.MaxHelpingHand.Entities {
     [CustomEntity("MaxHelpingHand/FlagDecal", "MaxHelpingHand/FlagDecalXML")]
@@ -45,6 +46,9 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
                     hide();
                 }
             };
+
+            sprite.Scale = new Vector2(data.Float("scaleX", 1f), data.Float("scaleY", 1f));
+            sprite.Rotation = (float) (data.Float("rotation", 0f) * Math.PI / 180f);
 
             Add(sprite);
         }

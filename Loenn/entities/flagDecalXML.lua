@@ -15,7 +15,10 @@ flagDecal.placements = {
         flag = "decal_flag",
         inverted = false,
         sprite = "",
-        depth = 8999
+        depth = 8999,
+        scaleX = 1.0,
+        scaleY = 1.0,
+        rotation = 0.0
     }
 }
 
@@ -32,5 +35,12 @@ flagDecal.fieldInformation = {
 }
 
 flagDecal.texture = "ahorn/MaxHelpingHand/flag_decal_xml"
+
+function flagDecal.scale(room, entity)
+    return { entity.scaleX or 1, entity.scaleY or 1 }
+end
+function flagDecal.rotation(room, entity)
+    return entity.rotation * math.pi / 180
+end
 
 return flagDecal
