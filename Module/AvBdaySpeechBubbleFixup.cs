@@ -9,7 +9,7 @@ namespace Celeste.Mod.MaxHelpingHand.Module {
         private static bool activated = false;
 
         public static void LoadMods() {
-            if (Everest.Loader.DependencyLoaded(new EverestModuleMetadata() { Name = "AvBdayHelper2021", Version = new Version(1, 0, 2) })) {
+            if (!activated && Everest.Loader.DependencyLoaded(new EverestModuleMetadata() { Name = "AvBdayHelper2021", Version = new Version(1, 0, 2) })) {
                 IL.Celeste.TalkComponent.TalkComponentUI.Render += onTalkComponentUIRender;
                 activated = true;
             }
