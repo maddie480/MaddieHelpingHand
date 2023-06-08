@@ -30,7 +30,7 @@ function flagLogicGate.texture(room, entity)
         end
     end
 
-    return "ahorn/MaxHelpingHand/flag_logic_gate_" .. text
+    return "ahorn/MaxHelpingHand/flag_logic_gate_" .. string.lower(text)
 end
 
 return flagLogicGate
