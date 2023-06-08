@@ -7,7 +7,7 @@
       Version: 1.3847.0
   OptionalDependencies:
     - Name: FlaglinesAndSuch
-      Version: 1.6.4
+      Version: 1.6.8
     - Name: LuaCutscenes
       Version: 0.2.8
     - Name: LunaticHelper

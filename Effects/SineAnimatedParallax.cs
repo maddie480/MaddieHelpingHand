@@ -34,7 +34,8 @@ namespace Celeste.Mod.MaxHelpingHand.Effects {
 
         private static void onParseBackdrop(ILContext il) {
             ILCursor cursor = new ILCursor(il);
-            if (cursor.TryGotoNext(_isSineParallaxStylegroundGettingConstructed)) {
+            bool first = true;
+            while (cursor.TryGotoNext(_isSineParallaxStylegroundGettingConstructed)) {
                 Logger.Log("MaxHelpingHand/SineAnimatedParallax", $"Handling animated parallaxes at {cursor.Index} in IL for FlaglinesAndSuch's ParseBackdrop");
 
                 // this results in the following nonsensical code:
@@ -43,9 +44,19 @@ namespace Celeste.Mod.MaxHelpingHand.Effects {
                 cursor.Emit(OpCodes.Ldarg_2);
                 cursor.EmitDelegate<Func<BinaryPacker.Element, bool>>(_isAnimatedParallax);
                 cursor.Emit(OpCodes.Brfalse, cursor.Next);
-                cursor.Emit(OpCodes.Newobj, typeof(SineAnimatedParallax).GetConstructor(new Type[] { typeof(string), typeof(float), typeof(float), typeof(float), typeof(float),
-                    typeof(float), typeof(float), typeof(bool), typeof(bool), typeof(float), typeof(float), typeof(float), typeof(bool) }));
+
+                if (first) {
+                    cursor.Emit(OpCodes.Newobj, typeof(SineAnimatedParallax).GetConstructor(new Type[] { typeof(string), typeof(float), typeof(float), typeof(float), typeof(float),
+                        typeof(float), typeof(float), typeof(bool), typeof(bool), typeof(float), typeof(float), typeof(float), typeof(bool), typeof(float), typeof(string), typeof(string),
+                        typeof(bool), typeof(bool), typeof(bool), typeof(bool) }));
+                } else {
+                    cursor.Emit(OpCodes.Newobj, typeof(SineAnimatedParallax).GetConstructor(new Type[] { typeof(string), typeof(float), typeof(float), typeof(float), typeof(float),
+                        typeof(float), typeof(float), typeof(bool), typeof(bool), typeof(float), typeof(float), typeof(float), typeof(bool) }));
+                }
                 cursor.Emit(OpCodes.Br, cursor.Next.Next);
+                cursor.Index++;
+
+                first = false;
             }
         }
 
@@ -59,15 +70,27 @@ namespace Celeste.Mod.MaxHelpingHand.Effects {
         }
 
 
-        private readonly List<MTexture> frames;
-        private readonly float fps;
+        private List<MTexture> frames;
+        private float fps;
 
         private int currentFrame;
         private float currentFrameTimer;
 
-        public SineAnimatedParallax(string textureString, float posx, float posy, float speedx, float speedy, float scrollx, float scrolly, bool loopx, bool loopy, float A, float f, float x, bool vert)
+        public SineAnimatedParallax(string textureString, float posx, float posy, float speedx, float speedy, float scrollx, float scrolly, bool loopx, bool loopy,
+            float A, float f, float x, bool vert)
             : base(textureString, posx, posy, speedx, speedy, scrollx, scrolly, loopx, loopy, A, f, x, vert) {
 
+            initializeAnimatedParallax();
+        }
+
+        public SineAnimatedParallax(string textureString, float posx, float posy, float speedx, float speedy, float scrollx, float scrolly, bool loopx, bool loopy,
+            float A, float f, float x, bool vert, float alpha, string blendmode, string color, bool instin, bool instout, bool flipx, bool flipy)
+            : base(textureString, posx, posy, speedx, speedy, scrollx, scrolly, loopx, loopy, A, f, x, vert, alpha, blendmode, color, instin, instout, flipx, flipy) {
+
+            initializeAnimatedParallax();
+        }
+
+        private void initializeAnimatedParallax() {
             // remove the frame number, much like decals do.
             string texturePath = Regex.Replace(Texture.AtlasPath, "\\d+$", string.Empty);
 
