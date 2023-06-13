@@ -5,36 +5,41 @@ local breakerBox = {}
 
 breakerBox.name = "MaxHelpingHand/FlagBreakerBox"
 breakerBox.depth = -10550
-breakerBox.fieldInformation = {
-  health = {
-    fieldType = "integer"
-  },
-  music_progress = {
-    fieldType = "integer"
-  },
-  surfaceIndex = {
-    fieldType = "integer"
-  },
-  smashColor = {
-    fieldType = "color"
-  },
-  sparkColor = {
-    fieldType = "color"
-  }
-}
 breakerBox.placements = {
   name = "breaker_box",
   data = {
     flag = "",
     health = 2,
+    floaty = true,
+    bouncy = true,
     sprite = "breakerBox",
     flipX = false,
     music = "",
     music_progress = -1,
     music_session = false,
     surfaceIndex = 9,
-    smashColor = "FFFC75",
-    sparkColor = "FFFC75"
+    color = "fffc75",
+    color2 = "6bffff",
+    refill = true
+  }
+}
+breakerBox.fieldInformation = {
+  health = {
+    fieldType = "integer",
+    minimumValue = 1
+  },
+  music_progress = {
+    fieldType = "integer",
+    minimumValue = -1
+  },
+  surfaceIndex = {
+    fieldType = "integer"
+  },
+  color = {
+    fieldType = "color"
+  },
+  color2 = {
+    fieldType = "color"
   }
 }
 

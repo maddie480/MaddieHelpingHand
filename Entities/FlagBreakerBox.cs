@@ -11,14 +11,16 @@ namespace Celeste.Mod.MaxHelpingHand.Entities
     /// Attributes:
     /// - flag: the session flag this breaker box sets.
     /// - health: the number of dashes needed to break the box.
-    /// - sprite: the texture for the breaker box.
+    /// - floaty: whether the box moves by itself.
+    /// - bouncy: whether the box moves when dashed into.
+    /// - sprite: the sprite for the breaker box.
     /// - flipX: whether the sprite should be vertically mirrored.
     /// - music: change the currently playing music to this when box is broken. leave empty to not change song.
-    /// - musicProgress: the new music progress once box is broken. -1 keeps the same progress.
-    /// - musicStoreInSession: whether the music should be stored in the session when box is broken.
-    /// - surfaceIndex: sound index of the surface of the box.
-    /// - smashColor: colour of the smash particle
-    /// - sparkColor: colour of the spark particle
+    /// - music_progress: the new music progress once box is broken. -1 keeps the same progress.
+    /// - music_session: whether the music should be stored in the session when box is broken.
+    /// - surfaceIndex: determines which sound the box will make when the player climbs on it.
+    /// - color, color2: particle colors.
+    /// - refill: whether the box should refill the player's dash when broken.
     /// </summary>
     [CustomEntity("MaxHelpingHand/FlagBreakerBox")]
     [Tracked]
@@ -37,6 +39,8 @@ namespace Celeste.Mod.MaxHelpingHand.Entities
         private bool musicStoreInSession;
 
         private Vector2 start;
+        private bool floaty;
+        private bool bouncy;
         private SineWave sine;
         private float sink;
         private Vector2 bounceDir;
@@ -46,6 +50,9 @@ namespace Celeste.Mod.MaxHelpingHand.Entities
 
         private bool makeSparks;
         private bool smashParticles;
+        private bool opened;
+
+        private bool refillOnBreak;
 
         private SoundSource firstHitSfx;
 
@@ -54,7 +61,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities
         public FlagBreakerBox(EntityData data, Vector2 offset)
             : base(data.Position + offset, 32f, 32f, safe: true)
         {
-    		Depth = -10550;
+            Depth = -10550;
             start = Position;
 
             flag = data.Attr("flag");
@@ -63,8 +70,8 @@ namespace Celeste.Mod.MaxHelpingHand.Entities
             musicProgress = data.Int("music_progress", -1);
             musicStoreInSession = data.Bool("music_session");
             SurfaceSoundIndex = data.Int("surfaceIndex", 9);
-            Color smashColor = Calc.HexToColor(data.Attr("smashColor", "FFFC75"));
-            Color sparkColor = Calc.HexToColor(data.Attr("sparkColor", "FFFC75"));
+            Color color = Calc.HexToColor(data.Attr("color", "fffc75"));
+            Color color2 = Calc.HexToColor(data.Attr("color2", "6bffff"));
 
             sprite = GFX.SpriteBank.Create(data.Attr("sprite", "breakerBox"));
             sprite.OnLastFrame = (System.Action<string>)Delegate.Combine(sprite.OnLastFrame, (string anim) =>
@@ -82,6 +89,9 @@ namespace Celeste.Mod.MaxHelpingHand.Entities
             sprite.FlipX = data.Bool("flipX", false);
             Add(sprite);
 
+            floaty = data.Bool("floaty", true);
+            bouncy = data.Bool("bouncy", true);
+
             Add(sine = new SineWave(0.5f));
 
             bounce = Wiggler.Create(1f, 0.5f);
@@ -92,13 +102,16 @@ namespace Celeste.Mod.MaxHelpingHand.Entities
 
             P_RecolouredSmash = new ParticleType(LightningBreakerBox.P_Smash)
             {
-                Color = smashColor
+                Color = color,
+                Color2 = color2
             };
             P_RecolouredSparks = new ParticleType(LightningBreakerBox.P_Sparks)
             {
-                Color = sparkColor
+                Color = color,
+                Color2 = color2
             };
 
+            refillOnBreak = data.Bool("refill", true);
             OnDashCollide = Dashed;
         }
 
@@ -135,8 +148,11 @@ namespace Celeste.Mod.MaxHelpingHand.Entities
                 {
                     shaker.On = false;
                     sprite.Scale = Vector2.One * 1.2f;
-                    // todo: only play open the first time?
-                    sprite.Play("open");
+                    if (!opened)
+                    {
+                        sprite.Play("open");
+                        opened = true;
+                    }
                 }
             }
             if (Collidable)
@@ -144,8 +160,14 @@ namespace Celeste.Mod.MaxHelpingHand.Entities
                 sink = Calc.Approach(sink, HasPlayerRider() ? 1 : 0, 2f * Engine.DeltaTime);
                 sine.Rate = MathHelper.Lerp(1f, 0.5f, sink);
                 Vector2 pos = start;
-                pos.Y += sink * 6f + sine.Value * MathHelper.Lerp(4f, 2f, sink);
-                pos += bounce.Value * bounceDir * 12f;
+                if (floaty)
+                {
+                    pos.Y += sink * 6f + sine.Value * MathHelper.Lerp(4f, 2f, sink);
+                }
+                if (bouncy)
+                {
+                    pos += bounce.Value * bounceDir * 12f;
+                }
                 MoveToX(pos.X);
                 MoveToY(pos.Y);
                 if (smashParticles)
@@ -217,7 +239,10 @@ namespace Celeste.Mod.MaxHelpingHand.Entities
                 }
                 Audio.Play("event:/new_content/game/10_farewell/fusebox_hit_2", Position);
                 Celeste.Freeze(0.2f);
-                player.RefillDash();
+                if (refillOnBreak)
+                {
+                    player.RefillDash();
+                }
                 Break();
                 Input.Rumble(RumbleStrength.Strong, RumbleLength.Long);
                 SmashParticles(dir.Perpendicular());
