@@ -74,7 +74,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities
             Color color2 = Calc.HexToColor(data.Attr("color2", "6bffff"));
 
             sprite = GFX.SpriteBank.Create(data.Attr("sprite", "breakerBox"));
-            sprite.OnLastFrame = (System.Action<string>)Delegate.Combine(sprite.OnLastFrame, (string anim) =>
+            sprite.OnLastFrame = (System.Action<string>)Delegate.Combine((System.Action<string>)sprite.OnLastFrame, delegate (string anim)
             {
                 if (anim == "break")
                 {
