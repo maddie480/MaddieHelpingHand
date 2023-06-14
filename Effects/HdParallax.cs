@@ -30,14 +30,19 @@ namespace Celeste.Mod.MaxHelpingHand.Effects {
             if (cursor.TryGotoNext(instr => instr.MatchLdnull(), instr => instr.MatchCallvirt<GraphicsDevice>("SetRenderTarget"))
                 && cursor.TryGotoNext(instr => instr.MatchCallvirt<SpriteBatch>("Begin"))) {
 
-                Logger.Log("MaxHelpingHand/HdParallax", $"Inserting HD parallax rendering at {cursor.Index} in IL for Level.Render");
-                cursor.EmitDelegate<Action>(renderHdParallaxes);
+                Logger.Log("MaxHelpingHand/HdParallax", $"Inserting HD BG parallax rendering at {cursor.Index} in IL for Level.Render");
+                cursor.EmitDelegate<Action>(() => renderHdParallaxes(fg: false));
+
+                if (cursor.TryGotoNext(MoveType.After, instr => instr.MatchCallvirt<SpriteBatch>("End"))) {
+                    Logger.Log("MaxHelpingHand/HdParallax", $"Inserting HD FG parallax rendering at {cursor.Index} in IL for Level.Render");
+                    cursor.EmitDelegate<Action>(() => renderHdParallaxes(fg: true));
+                }
             }
         }
 
-        private static void renderHdParallaxes() {
+        private static void renderHdParallaxes(bool fg) {
             if (Engine.Scene is Level level) {
-                foreach (Backdrop backdrop in level.Background.Backdrops) {
+                foreach (Backdrop backdrop in (fg ? level.Foreground.Backdrops : level.Background.Backdrops)) {
                     if (backdrop is HdParallax hdParallax) {
                         level.BackgroundColor = Color.Transparent;
                         hdParallax.renderForReal(level);
