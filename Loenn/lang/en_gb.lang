@@ -156,13 +156,13 @@ entities.MaxHelpingHand/AttachedSidewaysJumpThru.attributes.description.surfaceI
 entities.MaxHelpingHand/AttachedSidewaysJumpThru.attributes.description.pushPlayer=Whether the jumpthru should push the player to its solid side for more leniency, like vanilla jumpthrus do.
 
 # Flag Breaker Box
-entities.MaxHelpingHand/FlagBreakerBox.placements.name.exit_block=Flag Breaker Box
+entities.MaxHelpingHand/FlagBreakerBox.placements.name.breaker_box=Flag Breaker Box
 entities.MaxHelpingHand/FlagBreakerBox.attributes.description.flag=The session flag this breaker box sets.
 entities.MaxHelpingHand/FlagBreakerBox.attributes.description.health=The number of dashes needed to break the box.
 entities.MaxHelpingHand/FlagBreakerBox.attributes.description.floaty=Whether the box moves by itself.
 entities.MaxHelpingHand/FlagBreakerBox.attributes.description.bouncy=Whether the box moves when dashed into.
-entities.MaxHelpingHand/FlagBreakerBox.attributes.description.sprite=The sprite for the breaker box.
-entities.MaxHelpingHand/FlagBreakerBox.attributes.description.flipX=Whether the sprite should be vertically mirrored.
+entities.MaxHelpingHand/FlagBreakerBox.attributes.description.sprite=The sprite for the breaker box, taken from your map's Sprites.xml.
+entities.MaxHelpingHand/FlagBreakerBox.attributes.description.flipX=Whether the sprite should be horizontally flipped.
 entities.MaxHelpingHand/FlagBreakerBox.attributes.description.music=Change the currently playing music to this when box is broken.\nLeave empty to not change song.
 entities.MaxHelpingHand/FlagBreakerBox.attributes.description.music_progress=The new music progress once box is broken.\n-1 keeps the same progress.
 entities.MaxHelpingHand/FlagBreakerBox.attributes.description.music_session=Whether the music should be stored in session when box is broken.

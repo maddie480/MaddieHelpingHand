@@ -1078,3 +1078,20 @@ placements.entities.MaxHelpingHand/FancyTextTutorial.tooltips.dialogId=The dialo
 placements.entities.MaxHelpingHand/FancyTextTutorial.tooltips.textScale=The size of the text that will be displayed. 1 is the normal size, 0.5 is half of that size.
 placements.entities.MaxHelpingHand/FancyTextTutorial.tooltips.direction=The direction the bubble points to. "None" shows the message in a rectangle rather than in a bubble.
 placements.entities.MaxHelpingHand/FancyTextTutorial.tooltips.onlyOnce=Whether the tutorial should reappear after displaying the speech bubble and disappearing.
+
+# Flag Breaker Box
+placements.entities.MaxHelpingHand/FlagBreakerBox.tooltips.flag=The session flag this breaker box sets.
+placements.entities.MaxHelpingHand/FlagBreakerBox.tooltips.health=The number of dashes needed to break the box.
+placements.entities.MaxHelpingHand/FlagBreakerBox.tooltips.floaty=Whether the box moves by itself.
+placements.entities.MaxHelpingHand/FlagBreakerBox.tooltips.bouncy=Whether the box moves when dashed into.
+placements.entities.MaxHelpingHand/FlagBreakerBox.tooltips.sprite=The sprite for the breaker box, taken from your map's Sprites.xml.
+placements.entities.MaxHelpingHand/FlagBreakerBox.tooltips.flipX=Whether the sprite should be horizontally flipped.
+placements.entities.MaxHelpingHand/FlagBreakerBox.tooltips.music=Change the currently playing music to this when box is broken.\nLeave empty to not change song.
+placements.entities.MaxHelpingHand/FlagBreakerBox.tooltips.music_progress=The new music progress once box is broken.\n-1 keeps the same progress.
+placements.entities.MaxHelpingHand/FlagBreakerBox.tooltips.music_session=Whether the music should be stored in session when box is broken.
+placements.entities.MaxHelpingHand/FlagBreakerBox.tooltips.surfaceIndex=Determines which sound the box will make when the player climbs on it.
+placements.entities.MaxHelpingHand/FlagBreakerBox.names.color=Particle Color 1
+placements.entities.MaxHelpingHand/FlagBreakerBox.tooltips.color=First particle color.
+placements.entities.MaxHelpingHand/FlagBreakerBox.names.color2=Particle Color 2
+placements.entities.MaxHelpingHand/FlagBreakerBox.tooltips.color2=Second particle color.
+placements.entities.MaxHelpingHand/FlagBreakerBox.tooltips.refill=Whether the box should refill the player's dash when broken.
