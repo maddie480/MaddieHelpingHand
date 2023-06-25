@@ -28,6 +28,7 @@ jumpthru.placements = {
         texture = "wood",
         animationDelay = 0.0,
         pushPlayer = false,
+        squishPlayer = false,
         attached = false
     }
 }

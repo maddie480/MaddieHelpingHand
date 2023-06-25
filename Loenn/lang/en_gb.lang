@@ -133,6 +133,7 @@ entities.MaxHelpingHand/UpsideDownJumpThru.placements.name.jumpthru=Upside Down 
 entities.MaxHelpingHand/UpsideDownJumpThru.attributes.description.texture=Changes the appearance of the platform. Should be in the same format as vanilla for static jumpthrus, and a 8x8 image for animated ones.
 entities.MaxHelpingHand/UpsideDownJumpThru.attributes.description.animationDelay=The delay in seconds between 2 frames of animation. Leave to 0 for no animation.
 entities.MaxHelpingHand/UpsideDownJumpThru.attributes.description.pushPlayer=Whether the jumpthru should push the player down, like vanilla jumpthrus push the player up.
+entities.MaxHelpingHand/UpsideDownJumpThru.attributes.description.squishPlayer=Whether the jumpthru should kill the player if it is falling and the player is under it.\nVanilla jumpthrus don't do this, and allow the player to clip through them instead.
 entities.MaxHelpingHand/UpsideDownJumpThru.attributes.description.attached=Whether the jumpthru should attach to solids and move with them.
 
 # Sideways Jump Thru

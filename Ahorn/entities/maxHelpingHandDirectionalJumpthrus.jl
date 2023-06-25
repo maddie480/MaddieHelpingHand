@@ -5,7 +5,7 @@ using ..Ahorn, Maple
 # ==== Upside-down jumpthrus
 
 @mapdef Entity "MaxHelpingHand/UpsideDownJumpThru" UpsideDownJumpThru(x::Integer, y::Integer, width::Integer=Maple.defaultBlockWidth, texture::String="wood",
-    animationDelay::Number=0.0, pushPlayer::Bool=false, attached::Bool=false)
+    animationDelay::Number=0.0, pushPlayer::Bool=false, squishPlayer::Bool=false, attached::Bool=false)
 
 const textures = ["wood", "dream", "temple", "templeB", "cliffside", "reflection", "core", "moon"]
 

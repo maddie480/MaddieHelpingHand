@@ -398,6 +398,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
         protected string overrideTexture;
         private float animationDelay;
         private bool pushPlayer;
+        private bool squishPlayer;
         private bool attached;
 
         private Vector2 shakeOffset;
@@ -410,6 +411,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             overrideTexture = data.Attr("texture", "default");
             animationDelay = data.Float("animationDelay", 0f);
             pushPlayer = data.Bool("pushPlayer", false);
+            squishPlayer = data.Bool("squishPlayer", defaultValue: true);
             attached = data.Bool("attached", defaultValue: false);
 
             if (attached) {
@@ -471,16 +473,18 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
         }
 
         public override void MoveVExact(int move) {
-            // if we are going to hit the player while moving down... this means we are pushing them down. So... we need to push them down :theoreticalwoke:
-            // we give up pushing them down if that would be through a wall, though. This makes jumpthru clip possible, but vanilla jumpthrus don't do better.
-            Player p;
-            while (move > 0 && !CollideCheck<Player>() && (p = CollideFirst<Player>(Position + Vector2.UnitY * move)) != null) {
-                if (p.MoveVExact(1)) {
-                    if (attached) {
-                        // attached upside-down jumpthrus should squish the player.
-                        p.Die(Vector2.Zero);
+            if (squishPlayer) {
+                // if we are going to hit the player while moving down... this means we are pushing them down. So... we need to push them down :theoreticalwoke:
+                // we give up pushing them down if that would be through a wall, though. This makes jumpthru clip possible, but vanilla jumpthrus don't do better.
+                Player p;
+                while (move > 0 && !CollideCheck<Player>() && (p = CollideFirst<Player>(Position + Vector2.UnitY * move)) != null) {
+                    if (p.MoveVExact(1)) {
+                        if (attached) {
+                            // attached upside-down jumpthrus should squish the player.
+                            p.Die(Vector2.Zero);
+                        }
+                        break;
                     }
-                    break;
                 }
             }
 
