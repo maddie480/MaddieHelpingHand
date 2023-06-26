@@ -4,6 +4,7 @@ using Mono.Cecil;
 using Mono.Cecil.Cil;
 using Monocle;
 using MonoMod.Cil;
+using MonoMod.ModInterop;
 using MonoMod.RuntimeDetour;
 using MonoMod.Utils;
 using System;
@@ -26,9 +27,18 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
 
         private static readonly Hitbox normalHitbox = new Hitbox(8f, 11f, -4f, -11f);
 
+        [ModImportName("GravityHelper")]
+        private class GravityHelper {
+#pragma warning disable CS0649 // it is actually initialized by ModInterop
+            public static Func<bool> IsPlayerInverted;
+#pragma warning restore CS0649
+        }
+
         public static void Load() {
             On.Celeste.LevelLoader.ctor += onLevelLoad;
             On.Celeste.OverworldLoader.ctor += onOverworldLoad;
+
+            typeof(GravityHelper).ModInterop();
         }
 
         public static void Unload() {
@@ -411,8 +421,8 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             overrideTexture = data.Attr("texture", "default");
             animationDelay = data.Float("animationDelay", 0f);
             pushPlayer = data.Bool("pushPlayer", false);
-            squishPlayer = data.Bool("squishPlayer", defaultValue: true);
             attached = data.Bool("attached", defaultValue: false);
+            squishPlayer = data.Bool("squishPlayer", defaultValue: attached);
 
             if (attached) {
                 Add(new StaticMover {
@@ -473,14 +483,16 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
         }
 
         public override void MoveVExact(int move) {
-            if (squishPlayer) {
+            bool playerInverted = GravityHelper.IsPlayerInverted?.Invoke() ?? false;
+
+            if (!playerInverted) {
                 // if we are going to hit the player while moving down... this means we are pushing them down. So... we need to push them down :theoreticalwoke:
                 // we give up pushing them down if that would be through a wall, though. This makes jumpthru clip possible, but vanilla jumpthrus don't do better.
                 Player p;
                 while (move > 0 && !CollideCheck<Player>() && (p = CollideFirst<Player>(Position + Vector2.UnitY * move)) != null) {
                     if (p.MoveVExact(1)) {
-                        if (attached) {
-                            // attached upside-down jumpthrus should squish the player.
+                        if (squishPlayer) {
+                            // player will die instead of clipping through the jumpthru
                             p.Die(Vector2.Zero);
                         }
                         break;
