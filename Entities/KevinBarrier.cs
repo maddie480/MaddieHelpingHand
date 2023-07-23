@@ -88,7 +88,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             On.Celeste.Actor.MoveHExact -= onActorMoveHExact;
             On.Celeste.Actor.MoveVExact -= onActorMoveVExact;
 
-            foreach (Hook h in allSetHooks) {
+            foreach (IDetour h in allSetHooks) {
                 h.Dispose();
             }
             allSetHooks.Clear();
