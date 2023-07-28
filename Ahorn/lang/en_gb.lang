@@ -1096,3 +1096,18 @@ placements.entities.MaxHelpingHand/FlagBreakerBox.tooltips.color=First particle 
 placements.entities.MaxHelpingHand/FlagBreakerBox.names.color2=Particle Color 2
 placements.entities.MaxHelpingHand/FlagBreakerBox.tooltips.color2=Second particle color.
 placements.entities.MaxHelpingHand/FlagBreakerBox.tooltips.refill=Whether the box should refill the player's dash when broken.
+
+# Bloom Base Fade Trigger
+placements.triggers.MaxHelpingHand/BloomBaseFadeTrigger.tooltips.fadeA=Determines the bloom base at the start of the fade.
+placements.triggers.MaxHelpingHand/BloomBaseFadeTrigger.tooltips.fadeB=Determines the bloom base at the end of the fade.
+placements.triggers.MaxHelpingHand/BloomBaseFadeTrigger.tooltips.positionMode=The direction Madeline must follow for the bloom base value to fade from A to B.
+
+# Bloom Strength Fade Trigger
+placements.triggers.MaxHelpingHand/BloomStrengthFadeTrigger.tooltips.fadeA=Determines the bloom strength at the start of the fade.
+placements.triggers.MaxHelpingHand/BloomStrengthFadeTrigger.tooltips.fadeB=Determines the bloom strength at the end of the fade.
+placements.triggers.MaxHelpingHand/BloomStrengthFadeTrigger.tooltips.positionMode=The direction Madeline must follow for the bloom strength value to fade from A to B.
+
+# Darkness Alpha Fade Trigger
+placements.triggers.MaxHelpingHand/DarknessAlphaFadeTrigger.tooltips.fadeA=Determines the darkness alpha at the start of the fade.
+placements.triggers.MaxHelpingHand/DarknessAlphaFadeTrigger.tooltips.fadeB=Determines the darkness alpha at the end of the fade.
+placements.triggers.MaxHelpingHand/DarknessAlphaFadeTrigger.tooltips.positionMode=The direction Madeline must follow for the darkness alpha value to fade from A to B.

@@ -1295,3 +1295,21 @@ entities.MaxHelpingHand/FancyTextTutorial.attributes.description.dialogId=The di
 entities.MaxHelpingHand/FancyTextTutorial.attributes.description.textScale=The size of the text that will be displayed. 1 is the normal size, 0.5 is half of that size.
 entities.MaxHelpingHand/FancyTextTutorial.attributes.description.direction=The direction the bubble points to. "None" shows the message in a rectangle rather than in a bubble.
 entities.MaxHelpingHand/FancyTextTutorial.attributes.description.onlyOnce=Whether the tutorial should reappear after displaying the speech bubble and disappearing.
+
+# Bloom Base Fade Trigger
+triggers.MaxHelpingHand/BloomBaseFadeTrigger.placements.name.trigger=Bloom Base Fade
+triggers.MaxHelpingHand/BloomBaseFadeTrigger.attributes.description.fadeA=Determines the bloom base at the start of the fade.
+triggers.MaxHelpingHand/BloomBaseFadeTrigger.attributes.description.fadeB=Determines the bloom base at the end of the fade.
+triggers.MaxHelpingHand/BloomBaseFadeTrigger.attributes.description.positionMode=The direction Madeline must follow for the bloom base value to fade from A to B.
+
+# Bloom Strength Fade Trigger
+triggers.MaxHelpingHand/BloomStrengthFadeTrigger.placements.name.trigger=Bloom Strength Fade
+triggers.MaxHelpingHand/BloomStrengthFadeTrigger.attributes.description.fadeA=Determines the bloom strength at the start of the fade.
+triggers.MaxHelpingHand/BloomStrengthFadeTrigger.attributes.description.fadeB=Determines the bloom strength at the end of the fade.
+triggers.MaxHelpingHand/BloomStrengthFadeTrigger.attributes.description.positionMode=The direction Madeline must follow for the bloom strength value to fade from A to B.
+
+# Darkness Alpha Fade Trigger
+triggers.MaxHelpingHand/DarknessAlphaFadeTrigger.placements.name.trigger=Darkness Alpha Fade
+triggers.MaxHelpingHand/DarknessAlphaFadeTrigger.attributes.description.fadeA=Determines the darkness alpha at the start of the fade.
+triggers.MaxHelpingHand/DarknessAlphaFadeTrigger.attributes.description.fadeB=Determines the darkness alpha at the end of the fade.
+triggers.MaxHelpingHand/DarknessAlphaFadeTrigger.attributes.description.positionMode=The direction Madeline must follow for the darkness alpha value to fade from A to B.
