@@ -195,18 +195,23 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             int originalDashCount = player.Dashes;
             float originalStamina = player.Stamina;
 
+            bool bounced = false;
+
             if (Orientation == Orientations.Floor) {
                 if (player.Speed.Y >= 0f) {
                     bounceAnimate.Invoke(this, noParams);
                     player.SuperBounce(Top);
+                    bounced = true;
                 }
             } else if (Orientation == Orientations.WallLeft) {
                 if (player.SideBounce(1, Right, CenterY)) {
                     bounceAnimate.Invoke(this, noParams);
+                    bounced = true;
                 }
             } else if (Orientation == Orientations.WallRight) {
                 if (player.SideBounce(-1, Left, CenterY)) {
                     bounceAnimate.Invoke(this, noParams);
+                    bounced = true;
                 }
             } else if (Orientation == Orientations.Ceiling) {
                 if (player.Speed.Y <= 0f && inactiveTimer <= 0f) {
@@ -215,20 +220,23 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
                     player.Speed.Y *= -1f;
                     new DynData<Player>(player)["varJumpSpeed"] = player.Speed.Y;
                     inactiveTimer = 0.1f;
+                    bounced = true;
                 }
             } else {
                 throw new Exception("Orientation not supported!");
             }
 
-            // Restore original dash count.
-            player.Dashes = originalDashCount;
+            if (bounced) {
+                // Restore original dash count.
+                player.Dashes = originalDashCount;
 
-            if (!refillStamina) {
-                // Also restore original stamina count.
-                player.Stamina = originalStamina;
+                if (!refillStamina) {
+                    // Also restore original stamina count.
+                    player.Stamina = originalStamina;
+                }
+
+                RefillDashes(player);
             }
-
-            RefillDashes(player);
         }
 
         protected virtual void RefillDashes(Player player) {
