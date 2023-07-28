@@ -4,7 +4,7 @@ using ..Ahorn, Maple
 
 @mapdef Entity "MaxHelpingHand/MovingFlagTouchSwitch" MovingFlagTouchSwitch(x::Integer, y::Integer,
     flag::String="moving_flag_touch_switch", icon::String="vanilla", persistent::Bool=false, movingDelay::Number=0.8,
-    inactiveColor::String="5FCDE4", movingColor::String="FF8080", activeColor::String="FFFFFF", finishColor::String="F141DF")
+    inactiveColor::String="5FCDE4", movingColor::String="FF8080", activeColor::String="FFFFFF", finishColor::String="F141DF", hideIfFlag::String="")
 
 const placements = Ahorn.PlacementDict(
     "Flag Touch Switch (Moving)\n(Maddie's Helping Hand + Outback Helper)" => Ahorn.EntityPlacement(

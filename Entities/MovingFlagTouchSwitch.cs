@@ -1,5 +1,4 @@
 ﻿using Celeste.Mod.Entities;
-using Celeste.Mod.MaxHelpingHand.Module;
 using Microsoft.Xna.Framework;
 using Mono.Cecil.Cil;
 using Monocle;
@@ -83,6 +82,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
                 switchData["persistent"] = entityData.Bool("persistent", false);
                 switchData["movingColor"] = Calc.HexToColor(entityData.Attr("movingColor", "FF8080"));
                 switchData["movingDelay"] = entityData.Float("movingDelay", 0.8f);
+                switchData["hideIfFlag"] = entityData.Attr("hideIfFlag");
 
                 // these attributes actually exist in TouchSwitch and as such, they work!
                 switchData["inactiveColor"] = Calc.HexToColor(entityData.Attr("inactiveColor", "5FCDE4"));
@@ -107,6 +107,12 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
 
                 // collect the list of flag touch switches in the room as soon as the entity is awake, like regular flag touch switches.
                 movingTouchSwitch.Add(new TouchSwitchListAttacher(entityData.Attr("flag")));
+
+                // also make sure we listen to any change in the hideIfFlag's value to disable the moving touch switch.
+                string hideIfFlag = entityData.Attr("hideIfFlag");
+                if (!string.IsNullOrEmpty(hideIfFlag)) {
+                    movingTouchSwitch.Add(new HiddenListener(hideIfFlag));
+                }
 
                 return movingTouchSwitch;
             }
@@ -140,6 +146,23 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
 
             public override void Update() {
                 RemoveSelf();
+            }
+        }
+
+        private class HiddenListener : Component {
+            private readonly string hideIfFlag;
+
+            public HiddenListener(string hideIfFlag) : base(active: true, visible: false) {
+                this.hideIfFlag = hideIfFlag;
+            }
+
+            public override void Update() {
+                if (Entity != null && (Entity.Scene as Level).Session.GetFlag(hideIfFlag)) {
+                    // disable the entity entirely, and spawn another entity to continue monitoring the flag
+                    Entity.Visible = Entity.Active = Entity.Collidable = false;
+                    Scene.Add(new FlagTouchSwitch.ResurrectOnFlagDisableController { Entity = Entity, Flag = hideIfFlag });
+                    return;
+                }
             }
         }
 
@@ -218,6 +241,15 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             }
 
             orig(self);
+        }
+
+        internal static bool IsHidden(TouchSwitch touchSwitch) {
+            DynData<TouchSwitch> selfData = new DynData<TouchSwitch>(touchSwitch);
+            if (selfData.Data.ContainsKey("hideIfFlag")) {
+                string hideIfFlag = selfData.Get<string>("hideIfFlag");
+                return !string.IsNullOrEmpty(hideIfFlag) && (touchSwitch.Scene as Level).Session.GetFlag(hideIfFlag);
+            }
+            return false;
         }
     }
 }

@@ -19,7 +19,8 @@ touchSwitch.placements = {
             inactiveColor = "5FCDE4",
             movingColor = "FF8080",
             activeColor = "FFFFFF",
-            finishColor = "F141DF"
+            finishColor = "F141DF",
+            hideIfFlag = ""
         }
     }
 }

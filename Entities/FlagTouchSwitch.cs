@@ -113,6 +113,8 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
         private string completeSoundFromSwitch;
         private string completeSoundFromScene;
 
+        private string hideIfFlag;
+
         private Level level => (Level) Scene;
 
         public FlagTouchSwitch(EntityData data, Vector2 offset)
@@ -131,6 +133,8 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             hitSound = data.Attr("hitSound", "event:/game/general/touchswitch_any");
             completeSoundFromSwitch = data.Attr("completeSoundFromSwitch", "event:/game/general/touchswitch_last_cutoff");
             completeSoundFromScene = data.Attr("completeSoundFromScene", "event:/game/general/touchswitch_last_oneshot");
+
+            hideIfFlag = data.Attr("hideIfFlag");
 
             inverted = data.Bool("inverted", false);
             allowDisable = data.Bool("allowDisable", false);
@@ -260,9 +264,10 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
 
             if (MaxHelpingHandMapDataProcessor.FlagTouchSwitches[level.Session.Area.ID][(int) level.Session.Area.Mode][new KeyValuePair<string, bool>(flag, inverted)]
                 .All(touchSwitchID => touchSwitchID.Level == level.Session.Level || level.Session.GetFlag(flag + "_switch" + touchSwitchID.ID))
-                && allTouchSwitchesInRoom.All(touchSwitch => touchSwitch.Activated) && allMovingFlagTouchSwitchesInRoom.All(touchSwitch => touchSwitch.Switch.Activated)) {
+                    && allTouchSwitchesInRoom.All(touchSwitch => touchSwitch.Activated || touchSwitch.isHidden())
+                    && allMovingFlagTouchSwitchesInRoom.All(touchSwitch => touchSwitch.Switch.Activated || MovingFlagTouchSwitch.IsHidden(touchSwitch))) {
 
-                // all switches in the room are enabled, and all session flags for switches outside the room are enabled.
+                // all switches in the room are enabled or hidden, and all session flags for switches outside the room are enabled.
                 // so, the group is complete.
 
                 foreach (FlagTouchSwitch touchSwitch in allTouchSwitchesInRoom) {
@@ -332,6 +337,13 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
         }
 
         public override void Update() {
+            if (isHidden()) {
+                // disable the entity entirely, and spawn another entity to continue monitoring the flag
+                Visible = Active = Collidable = false;
+                Scene.Add(new ResurrectOnFlagDisableController { Entity = this, Flag = hideIfFlag });
+                return;
+            }
+
             timer += Engine.DeltaTime * 8f;
             ease = Calc.Approach(ease, (Finished || Activated) ? 1f : 0f, Engine.DeltaTime * 2f);
 
@@ -388,6 +400,23 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
                 // do the effect right now.
                 effect();
             }
+        }
+
+        // a tiny entity that will monitor the flag to resurrect the touch switch if it is enabled again.
+        internal class ResurrectOnFlagDisableController : Entity {
+            public Entity Entity { get; set; }
+            public string Flag { get; set; }
+
+            public override void Update() {
+                if (!(Scene as Level).Session.GetFlag(Flag)) {
+                    Entity.Visible = Entity.Active = Entity.Collidable = true;
+                    RemoveSelf();
+                }
+            }
+        }
+
+        private bool isHidden() {
+            return !string.IsNullOrEmpty(hideIfFlag) && (Scene as Level).Session.GetFlag(hideIfFlag);
         }
     }
 }

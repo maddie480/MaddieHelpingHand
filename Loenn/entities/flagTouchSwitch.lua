@@ -22,7 +22,8 @@ touchSwitch.placements = {
             playerCanActivate = true,
             hitSound = "event:/game/general/touchswitch_any",
             completeSoundFromSwitch = "event:/game/general/touchswitch_last_cutoff",
-            completeSoundFromScene = "event:/game/general/touchswitch_last_oneshot"
+            completeSoundFromScene = "event:/game/general/touchswitch_last_oneshot",
+            hideIfFlag = ""
         }
     }
 }
