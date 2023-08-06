@@ -1,24 +1,35 @@
 ﻿using Monocle;
 using MonoMod.Cil;
+using MonoMod.RuntimeDetour;
 using System;
 using System.Collections;
+using System.Reflection;
 
 namespace Celeste.Mod.MaxHelpingHand.Module {
     public static class GuiStrawberryReskin {
         private static bool isFileSelect;
 
+        private static ILHook hookChapterPanelDrawCheckpoint = null;
+
         public static void Load() {
             IL.Celeste.StrawberriesCounter.Render += modStrawberrySkin;
-            IL.Celeste.OuiChapterPanel.DrawCheckpoint += modStrawberrySkin;
             On.Celeste.OuiFileSelect.Enter += onFileSelectEnter;
             On.Celeste.OuiFileSelect.Leave += onFileSelectLeave;
+
+            MethodInfo chapterPanelDrawCheckpoint = typeof(OuiChapterPanel).GetMethod("orig_DrawCheckpoint", BindingFlags.NonPublic | BindingFlags.Instance);
+            if (chapterPanelDrawCheckpoint == null) {
+                chapterPanelDrawCheckpoint = typeof(OuiChapterPanel).GetMethod("DrawCheckpoint", BindingFlags.NonPublic | BindingFlags.Instance);
+            }
+            hookChapterPanelDrawCheckpoint = new ILHook(chapterPanelDrawCheckpoint, modStrawberrySkin);
         }
 
         public static void Unload() {
             IL.Celeste.StrawberriesCounter.Render -= modStrawberrySkin;
-            IL.Celeste.OuiChapterPanel.DrawCheckpoint -= modStrawberrySkin;
             On.Celeste.OuiFileSelect.Enter -= onFileSelectEnter;
             On.Celeste.OuiFileSelect.Leave -= onFileSelectLeave;
+
+            hookChapterPanelDrawCheckpoint?.Dispose();
+            hookChapterPanelDrawCheckpoint = null;
         }
 
         private static void modStrawberrySkin(ILContext il) {
