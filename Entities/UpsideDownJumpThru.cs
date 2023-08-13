@@ -71,7 +71,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             }
             hooksActive = true;
 
-            Logger.Log(LogLevel.Info, "MaxHelpingHand/UpsideDownJumpThru", "=== Activating upside-down jumpthru hooks");
+            Logger.Log(LogLevel.Debug, "MaxHelpingHand/UpsideDownJumpThru", "=== Activating upside-down jumpthru hooks");
 
             // fix general actor/platform behavior to make them comply with jumpthrus.
             IL.Celeste.Actor.MoveVExact += addUpsideDownJumpthrusInMoveVExact;
@@ -107,7 +107,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             }
             hooksActive = false;
 
-            Logger.Log(LogLevel.Info, "MaxHelpingHand/UpsideDownJumpThru", "=== Deactivating upside-down jumpthru hooks");
+            Logger.Log(LogLevel.Debug, "MaxHelpingHand/UpsideDownJumpThru", "=== Deactivating upside-down jumpthru hooks");
 
             IL.Celeste.Actor.MoveVExact -= addUpsideDownJumpthrusInMoveVExact;
             IL.Celeste.Platform.MoveVExactCollideSolids -= addUpsideDownJumpthrusInCollideSolids;

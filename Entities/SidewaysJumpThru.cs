@@ -66,7 +66,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             }
             hooksActive = true;
 
-            Logger.Log(LogLevel.Info, "MaxHelpingHand/SidewaysJumpThru", "=== Activating sideways jumpthru hooks");
+            Logger.Log(LogLevel.Debug, "MaxHelpingHand/SidewaysJumpThru", "=== Activating sideways jumpthru hooks");
 
             // implement the basic collision between actors/platforms and sideways jumpthrus.
             IL.Celeste.Actor.MoveHExact += addSidewaysJumpthrusInHorizontalMoveMethods;
@@ -104,7 +104,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             }
             hooksActive = false;
 
-            Logger.Log(LogLevel.Info, "MaxHelpingHand/SidewaysJumpThru", "=== Deactivating sideways jumpthru hooks");
+            Logger.Log(LogLevel.Debug, "MaxHelpingHand/SidewaysJumpThru", "=== Deactivating sideways jumpthru hooks");
 
             IL.Celeste.Actor.MoveHExact -= addSidewaysJumpthrusInHorizontalMoveMethods;
             IL.Celeste.Platform.MoveHExactCollideSolids -= addSidewaysJumpthrusInHorizontalMoveMethods;

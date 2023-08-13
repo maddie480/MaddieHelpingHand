@@ -47,7 +47,7 @@ namespace Celeste.Mod.MaxHelpingHand.Module {
                         stopwatch.Stop();
 
                         currentWipeAnimation = wipeName;
-                        Logger.Log(LogLevel.Info, "MaxHelpingHand/CustomWipe", $"Loaded custom screen wipe MaxHelpingHandWipes/{wipeName} in {stopwatch.ElapsedMilliseconds} ms");
+                        Logger.Log(LogLevel.Debug, "MaxHelpingHand/CustomWipe", $"Loaded custom screen wipe MaxHelpingHandWipes/{wipeName} in {stopwatch.ElapsedMilliseconds} ms");
                     }
 
                     // build the custom wipe.
