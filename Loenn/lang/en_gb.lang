@@ -1317,3 +1317,17 @@ triggers.MaxHelpingHand/DarknessAlphaFadeTrigger.placements.name.trigger=Darknes
 triggers.MaxHelpingHand/DarknessAlphaFadeTrigger.attributes.description.fadeA=Determines the darkness alpha at the start of the fade.
 triggers.MaxHelpingHand/DarknessAlphaFadeTrigger.attributes.description.fadeB=Determines the darkness alpha at the end of the fade.
 triggers.MaxHelpingHand/DarknessAlphaFadeTrigger.attributes.description.positionMode=The direction Madeline must follow for the darkness alpha value to fade from A to B.
+
+# Frozen Jelly
+entities.MaxHelpingHand/FrozenJelly.placements.name.normal=Frozen Jelly
+entities.MaxHelpingHand/FrozenJelly.attributes.description.spriteDirectory=The directory that contains the sprites to use, in Graphics/Atlases/Gameplay.\nYou can check the vanilla sprite folder in the graphics dump, in Graphics/Atlases/Gameplay/objects/glider as a reference for the file names.
+entities.MaxHelpingHand/FrozenJelly.attributes.description.tutorial=Whether the entity should show the usage tutorial.
+entities.MaxHelpingHand/FrozenJelly.attributes.description.glow=Whether the entity should glow in the dark.
+
+# Reverse Jelly
+entities.MaxHelpingHand/ReverseJelly.placements.name.normal=Reverse Jelly
+entities.MaxHelpingHand/ReverseJelly.placements.name.floating=Reverse Jelly (Floating)
+entities.MaxHelpingHand/ReverseJelly.attributes.description.spriteDirectory=The directory that contains the sprites to use, in Graphics/Atlases/Gameplay.\nYou can check the vanilla sprite folder in the graphics dump, in Graphics/Atlases/Gameplay/objects/glider as a reference for the file names.
+entities.MaxHelpingHand/ReverseJelly.attributes.description.bubble=Whether the entity should hover in the air before being grabbed.
+entities.MaxHelpingHand/ReverseJelly.attributes.description.tutorial=Whether the entity should show the usage tutorial.
+entities.MaxHelpingHand/ReverseJelly.attributes.description.glow=Whether the entity should glow in the dark.

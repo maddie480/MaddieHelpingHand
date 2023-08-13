@@ -94,6 +94,8 @@ namespace Celeste.Mod.MaxHelpingHand.Module {
             DisableControlsController.Load();
             FancyTextTutorial.Load();
             CustomChapterNumber.Load();
+            FrozenJelly.Load();
+            ReverseJelly.Load();
 
             Everest.Events.Level.OnLoadBackdrop += onLoadBackdrop;
             On.Celeste.Mod.Everest.Register += onModRegister;
@@ -170,6 +172,8 @@ namespace Celeste.Mod.MaxHelpingHand.Module {
             DisableControlsController.Unload();
             FancyTextTutorial.Unload();
             CustomChapterNumber.Unload();
+            FrozenJelly.Unload();
+            ReverseJelly.Unload();
 
             Everest.Events.Level.OnLoadBackdrop -= onLoadBackdrop;
             On.Celeste.Mod.Everest.Register -= onModRegister;
