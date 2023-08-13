@@ -385,6 +385,7 @@ placements.entities.MaxHelpingHand/CustomSandwichLava.tooltips.hotCenterColor=Th
 placements.entities.MaxHelpingHand/CustomSandwichLava.tooltips.coldEdgeColor=The color at the edge of the lava when in Cold mode.
 placements.entities.MaxHelpingHand/CustomSandwichLava.tooltips.coldSurfaceColor=The color at the surface of the lava when in Cold mode.
 placements.entities.MaxHelpingHand/CustomSandwichLava.tooltips.coldCenterColor=The color at the center of the lava when in Cold mode.
+placements.entities.MaxHelpingHand/CustomSandwichLava.tooltips.flag=If this setting is filled out, the lava will only move if the given flag is active.
 
 # Custom Sandwich Lava Settings Trigger
 placements.triggers.MaxHelpingHand/CustomSandwichLavaSettingsTrigger.tooltips.onlyOnce=If enabled, the settings will change only on the first time the player enters the trigger.
@@ -653,6 +654,7 @@ placements.entities.MaxHelpingHand/SidewaysLava.tooltips.coldSurfaceColor=The co
 placements.entities.MaxHelpingHand/SidewaysLava.tooltips.coldCenterColor=The color at the center of the lava when in Cold mode.
 placements.entities.MaxHelpingHand/SidewaysLava.tooltips.sound=The sound the lava emits.\nIts "room_state" audio param is set to 1 when the lava is in Cold mode, and to 0 when it is in Hot mode.
 placements.entities.MaxHelpingHand/SidewaysLava.tooltips.forceCoreMode=If set to "Hot" or "Cold", the lava will ignore the current core mode and will always stay in Hot or Cold mode.
+placements.entities.MaxHelpingHand/SidewaysLava.tooltips.flag=If this setting is filled out, the lava will only move if the given flag is active.
 
 # Sideways Moving Platform
 placements.entities.MaxHelpingHand/SidewaysMovingPlatform.tooltips.moveTime=The time the platform takes to move between two successive positions. Default is 2 seconds.

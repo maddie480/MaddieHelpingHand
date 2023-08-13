@@ -13,7 +13,8 @@ lavaSandwich.placements = {
         hotCenterColor = "d01c01",
         coldSurfaceColor = "33ffe7",
         coldEdgeColor = "4ca2eb",
-        coldCenterColor = "0151d0"
+        coldCenterColor = "0151d0",
+        flag = ""
     }
 }
 

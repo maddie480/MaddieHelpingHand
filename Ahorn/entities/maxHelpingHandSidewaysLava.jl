@@ -6,7 +6,7 @@ using ..Ahorn, Maple
     intro::Bool=false, lavaMode::String="LeftToRight", speedMultiplier::Number=1.0,
     hotSurfaceColor::String="ff8933", hotEdgeColor::String="f25e29", hotCenterColor::String="d01c01",
     coldSurfaceColor::String="33ffe7", coldEdgeColor::String="4ca2eb", coldCenterColor::String="0151d0",
-    sound::String="event:/game/09_core/rising_threat", forceCoreMode::String="None")
+    sound::String="event:/game/09_core/rising_threat", forceCoreMode::String="None", flag::String="")
 
 const placements = Ahorn.PlacementDict(
     "Sideways Lava (Maddie's Helping Hand)" => Ahorn.EntityPlacement(

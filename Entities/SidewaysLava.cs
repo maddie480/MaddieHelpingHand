@@ -35,6 +35,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
         private Color[] hotColors, coldColors;
         private string sound;
         private Session.CoreModes forcedCoreMode;
+        private string flag;
 
         // state keeping
         private bool iceMode;
@@ -65,6 +66,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             speedMultiplier = data.Float("speedMultiplier", 1f);
             sound = data.Attr("sound", defaultValue: "event:/game/09_core/rising_threat");
             forcedCoreMode = data.Enum("forceCoreMode", defaultValue: Session.CoreModes.None);
+            flag = data.Attr("flag");
 
             hotColors = new Color[3];
             hotColors[0] = Calc.HexToColor(data.Attr("hotSurfaceColor", "ff8933"));
@@ -298,6 +300,10 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
                     // player is in a lava blocker trigger and it is enabled; block the lava.
                     waiting = true;
                 }
+            }
+
+            if (!string.IsNullOrEmpty(flag) && !SceneAs<Level>().Session.GetFlag(flag)) {
+                waiting = true;
             }
 
             if (waiting) {

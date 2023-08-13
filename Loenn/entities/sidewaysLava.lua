@@ -17,7 +17,8 @@ lava.placements = {
         coldEdgeColor = "4ca2eb",
         coldCenterColor = "0151d0",
         sound = "event:/game/09_core/rising_threat",
-        forceCoreMode = "None"
+        forceCoreMode = "None",
+        flag = ""
     }
 }
 

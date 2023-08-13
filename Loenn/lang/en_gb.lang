@@ -98,6 +98,7 @@ entities.MaxHelpingHand/CustomSandwichLava.attributes.description.hotCenterColor
 entities.MaxHelpingHand/CustomSandwichLava.attributes.description.coldEdgeColor=The color at the edge of the lava when in Cold mode.
 entities.MaxHelpingHand/CustomSandwichLava.attributes.description.coldSurfaceColor=The color at the surface of the lava when in Cold mode.
 entities.MaxHelpingHand/CustomSandwichLava.attributes.description.coldCenterColor=The color at the center of the lava when in Cold mode.
+entities.MaxHelpingHand/CustomSandwichLava.attributes.description.flag=If this setting is filled out, the lava will only move if the given flag is active.
 
 # Custom Seeker Barrier
 entities.MaxHelpingHand/CustomSeekerBarrier.placements.name.seeker_barrier=Seeker Barrier (Custom)
@@ -758,6 +759,7 @@ entities.MaxHelpingHand/SidewaysLava.attributes.description.coldSurfaceColor=The
 entities.MaxHelpingHand/SidewaysLava.attributes.description.coldCenterColor=The color at the center of the lava when in Cold mode.
 entities.MaxHelpingHand/SidewaysLava.attributes.description.sound=The sound the lava emits.\nIts "room_state" audio param is set to 1 when the lava is in Cold mode, and to 0 when it is in Hot mode.
 entities.MaxHelpingHand/SidewaysLava.attributes.description.forceCoreMode=If set to "Hot" or "Cold", the lava will ignore the current core mode and will always stay in Hot or Cold mode.
+entities.MaxHelpingHand/SidewaysLava.attributes.description.flag=If this setting is filled out, the lava will only move if the given flag is active.
 
 # Sideways Moving Platform
 entities.MaxHelpingHand/SidewaysMovingPlatform.placements.name.default=Sideways Moving Platform (Default)

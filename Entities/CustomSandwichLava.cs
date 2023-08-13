@@ -30,6 +30,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
         private float startX;
         public DirectionMode Direction;
         public float Speed;
+        private string flag;
         // the extra pixels each side has to be shifted towards each other compared to vanilla
         // to comply with the "sandwichGap" setting.
         private float sandwichDisplacement;
@@ -62,6 +63,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             startX = data.Position.X + offset.X;
             Direction = data.Enum("direction", DirectionMode.CoreModeBased);
             Speed = data.Float("speed", 20f);
+            flag = data.Attr("flag");
 
             hot[0] = Calc.HexToColor(data.Attr("hotSurfaceColor", "ff8933"));
             hot[1] = Calc.HexToColor(data.Attr("hotEdgeColor", "f25e29"));
@@ -255,6 +257,10 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
                     // player is in a lava blocker trigger and it is enabled; block the lava.
                     Waiting = true;
                 }
+            }
+
+            if (!string.IsNullOrEmpty(flag) && !SceneAs<Level>().Session.GetFlag(flag)) {
+                Waiting = true;
             }
 
             if (Waiting) {

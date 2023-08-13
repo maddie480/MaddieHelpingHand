@@ -5,7 +5,7 @@ using ..Ahorn, Maple
 @mapdef Entity "MaxHelpingHand/CustomSandwichLava" CustomSandwichLava(x::Integer, y::Integer,
     direction::String="CoreModeBased", speed::Number=20.0, sandwichGap::Number=160.0,
     hotSurfaceColor::String="ff8933", hotEdgeColor::String="f25e29", hotCenterColor::String="d01c01",
-    coldSurfaceColor::String="33ffe7", coldEdgeColor::String="4ca2eb", coldCenterColor::String="0151d0")
+    coldSurfaceColor::String="33ffe7", coldEdgeColor::String="4ca2eb", coldCenterColor::String="0151d0", flag::String="")
 
 const directions = String["AlwaysUp", "AlwaysDown", "CoreModeBased"]
 
