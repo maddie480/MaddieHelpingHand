@@ -96,6 +96,7 @@ namespace Celeste.Mod.MaxHelpingHand.Module {
             CustomChapterNumber.Load();
             FrozenJelly.Load();
             ReverseJelly.Load();
+            ReversibleRetentionBooster.Load();
 
             Everest.Events.Level.OnLoadBackdrop += onLoadBackdrop;
             On.Celeste.Mod.Everest.Register += onModRegister;
@@ -174,6 +175,7 @@ namespace Celeste.Mod.MaxHelpingHand.Module {
             CustomChapterNumber.Unload();
             FrozenJelly.Unload();
             ReverseJelly.Unload();
+            ReversibleRetentionBooster.Unload();
 
             Everest.Events.Level.OnLoadBackdrop -= onLoadBackdrop;
             On.Celeste.Mod.Everest.Register -= onModRegister;
@@ -189,6 +191,7 @@ namespace Celeste.Mod.MaxHelpingHand.Module {
             MultiRoomStrawberryCounter.Initialize();
             BeeFireball.LoadContent();
             SaveFileStrawberryGate.Initialize();
+            ReversibleRetentionBooster.LoadContent();
             HookMods();
         }
 

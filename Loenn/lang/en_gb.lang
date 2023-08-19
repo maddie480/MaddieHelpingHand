@@ -1331,3 +1331,6 @@ entities.MaxHelpingHand/ReverseJelly.attributes.description.spriteDirectory=The 
 entities.MaxHelpingHand/ReverseJelly.attributes.description.bubble=Whether the entity should hover in the air before being grabbed.
 entities.MaxHelpingHand/ReverseJelly.attributes.description.tutorial=Whether the entity should show the usage tutorial.
 entities.MaxHelpingHand/ReverseJelly.attributes.description.glow=Whether the entity should glow in the dark.
+
+# Reversible Retention Booster
+entities.MaxHelpingHand/ReversibleRetentionBooster.placements.name.booster=Reversible Retention Booster
