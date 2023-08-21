@@ -80,25 +80,25 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             using (new DetourContext { After = { "*" } }) {
                 // fix player specific behavior allowing them to go through upside-down jumpthrus.
                 On.Celeste.Player.OnCollideV += onPlayerOnCollideV;
+
+                // block player if they try to climb past an upside-down jumpthru.
+                IL.Celeste.Player.ClimbUpdate += patchPlayerClimbUpdate;
+
+                // ignore upside-down jumpthrus in select places.
+                playerOrigUpdateHook = new ILHook(typeof(Player).GetMethod("orig_Update"), filterOutJumpThrusFromCollideChecks);
+                IL.Celeste.Platform.MoveVExactCollideSolids += filterOutJumpThrusFromCollideChecks;
+                IL.Celeste.Player.DashUpdate += filterOutJumpThrusFromCollideChecks;
+                IL.Celeste.Player.RedDashUpdate += filterOutJumpThrusFromCollideChecks;
+                IL.Celeste.Actor.MoveVExact += filterOutJumpThrusFromCollideChecks;
+
+                // listen for the player unducking, to knock the player down before they would go through upside down jumpthrus.
+                On.Celeste.Player.Update += onPlayerUpdate;
+
+                // upside-down jumpthrus never have a player rider.
+                On.Celeste.JumpThru.HasPlayerRider += onJumpthruHasPlayerRider;
+
+                canUnDuckHook = new Hook(typeof(Player).GetMethod("get_CanUnDuck"), typeof(UpsideDownJumpThru).GetMethod("modCanUnDuck", BindingFlags.NonPublic | BindingFlags.Static));
             }
-
-            // block player if they try to climb past an upside-down jumpthru.
-            IL.Celeste.Player.ClimbUpdate += patchPlayerClimbUpdate;
-
-            // ignore upside-down jumpthrus in select places.
-            playerOrigUpdateHook = new ILHook(typeof(Player).GetMethod("orig_Update"), filterOutJumpThrusFromCollideChecks);
-            IL.Celeste.Platform.MoveVExactCollideSolids += filterOutJumpThrusFromCollideChecks;
-            IL.Celeste.Player.DashUpdate += filterOutJumpThrusFromCollideChecks;
-            IL.Celeste.Player.RedDashUpdate += filterOutJumpThrusFromCollideChecks;
-            IL.Celeste.Actor.MoveVExact += filterOutJumpThrusFromCollideChecks;
-
-            // listen for the player unducking, to knock the player down before they would go through upside down jumpthrus.
-            On.Celeste.Player.Update += onPlayerUpdate;
-
-            // upside-down jumpthrus never have a player rider.
-            On.Celeste.JumpThru.HasPlayerRider += onJumpthruHasPlayerRider;
-
-            canUnDuckHook = new Hook(typeof(Player).GetMethod("get_CanUnDuck"), typeof(UpsideDownJumpThru).GetMethod("modCanUnDuck", BindingFlags.NonPublic | BindingFlags.Static));
         }
 
         public static void deactivateHooks() {
