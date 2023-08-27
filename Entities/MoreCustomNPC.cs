@@ -64,7 +64,6 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
 
         private readonly string onlyIfFlag;
         private readonly string setFlag;
-        private bool shouldSetFlag = true;
 
         private readonly bool autoSkipEnabled;
 
@@ -117,6 +116,19 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
 
                 talkerZone = new Rectangle((int) (left - Position.X), (int) (top - Position.Y), (int) (right - left), (int) (bottom - top));
             }
+
+            if (!string.IsNullOrEmpty(setFlag)) {
+                OnEnd += () => {
+                    Session session = SceneAs<Level>().Session;
+                    List<Component> toRemove = new DynData<ComponentList>(Components).Get<List<Component>>("toRemove");
+
+                    // for dialogue that plays only once: the talker (speech bubble) is removed when it is over.
+                    // for dialogue that loops: the session counter is reset to 0 once all dialog IDs have been played.
+                    if (toRemove.Contains(Talker) || session.GetCounter(id.ToString() + "DialogCounter") == 0) {
+                        session.SetFlag(setFlag);
+                    }
+                };
+            }
         }
 
         public override void Added(Scene scene) {
@@ -129,9 +141,6 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
 
             if (!hasDialogue && Talker != null) {
                 Remove(Talker);
-                shouldSetFlag = false;
-            } else if (Talker == null) {
-                shouldSetFlag = false;
             }
         }
 
@@ -147,10 +156,6 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
 
             if (!string.IsNullOrEmpty(onlyIfFlag) && Talker?.Entity != null) {
                 Talker.Enabled = SceneAs<Level>().Session.GetFlag(onlyIfFlag);
-            }
-            if (shouldSetFlag && !string.IsNullOrEmpty(setFlag) && Talker?.Entity == null) {
-                SceneAs<Level>().Session.SetFlag(setFlag);
-                shouldSetFlag = false;
             }
         }
 
