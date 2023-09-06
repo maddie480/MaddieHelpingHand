@@ -124,7 +124,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
 
                     // for dialogue that plays only once: the talker (speech bubble) is removed when it is over.
                     // for dialogue that loops: the session counter is reset to 0 once all dialog IDs have been played.
-                    if (toRemove.Contains(Talker) || session.GetCounter(id.ToString() + "DialogCounter") == 0) {
+                    if (toRemove.Contains(Talker) || Talker.Entity == null || session.GetCounter(id.ToString() + "DialogCounter") == 0) {
                         session.SetFlag(setFlag);
                     }
                 };
