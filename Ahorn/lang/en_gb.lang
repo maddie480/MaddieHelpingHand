@@ -641,6 +641,7 @@ placements.entities.MaxHelpingHand/ReskinnableFloatingDebris.tooltips.debrisHeig
 placements.entities.MaxHelpingHand/ReskinnableFloatingDebris.tooltips.rotateSpeed=The rotation speed of the debris (in radians/s). Use negative values for counterclockwise rotation.\nLeave empty to get the vanilla behavior: a random integer value from -2 to 2.
 placements.entities.MaxHelpingHand/ReskinnableFloatingDebris.tooltips.scrollX=The amount of pixels the debris move horizontally when the camera moves right by 1 pixel.\nOnly works with "Interact With Player" disabled.\nThe X position of the debris will be: X + (scroll X * amount of pixels the camera scrolled from the left of the room).
 placements.entities.MaxHelpingHand/ReskinnableFloatingDebris.tooltips.scrollY=The amount of pixels the debris move vertically when the camera moves down by 1 pixel.\nOnly works with "Interact With Player" disabled.\nThe Y position of the debris will be: Y + (scroll Y * amount of pixels the camera scrolled from the top of the room).
+placements.entities.MaxHelpingHand/ReskinnableFloatingDebris.tooltips.floating=Whether the debris continually float up and down, like vanilla debris.
 
 # Sideways Lava
 placements.entities.MaxHelpingHand/SidewaysLava.tooltips.intro=Determines whether the lava moves into the screen or starts already present on the screen. Not suitable for sandwich lava.

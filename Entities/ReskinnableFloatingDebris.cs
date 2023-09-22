@@ -46,6 +46,13 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
                 debris.Add(new TransitionListener() { OnIn = _ => positionUpdater.Update(), OnOut = _ => positionUpdater.Update() });
             }
 
+            // Floating option
+            if (!entityData.Bool("floating", defaultValue: true)) {
+                SineWave sine = debris.Get<SineWave>();
+                debris.Remove(sine);
+                sine.Reset();
+            }
+
             floatingDebrisSkin = null;
             floatingDebrisWidth = null;
             floatingDebrisHeight = null;

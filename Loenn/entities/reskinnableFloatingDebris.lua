@@ -15,7 +15,8 @@ floatingDebris.placements = {
         interactWithPlayer = true,
         rotateSpeed = "",
         scrollX = 0,
-        scrollY = 0
+        scrollY = 0,
+        floating = true
     }
 }
 
