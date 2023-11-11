@@ -21,7 +21,8 @@ strawberry.placements = {
         particleColor1 = "FF8563",
         particleColor2 = "FFF4A8",
         ghostParticleColor1 = "6385FF",
-        ghostParticleColor2 = "72F0FF"
+        ghostParticleColor2 = "72F0FF",
+        visibleIfFlag = ""
     }
 }
 

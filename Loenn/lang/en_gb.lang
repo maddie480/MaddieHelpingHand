@@ -690,6 +690,7 @@ entities.MaxHelpingHand/CustomizableBerry.attributes.description.particleColor1=
 entities.MaxHelpingHand/CustomizableBerry.attributes.description.particleColor2=One of the colors to use for the particles the strawberry emits when not already collected.
 entities.MaxHelpingHand/CustomizableBerry.attributes.description.ghostParticleColor1=One of the colors to use for the particles the strawberry emits when already collected.
 entities.MaxHelpingHand/CustomizableBerry.attributes.description.ghostParticleColor2=One of the colors to use for the particles the strawberry emits when already collected.
+entities.MaxHelpingHand/CustomizableBerry.attributes.description.visibleIfFlag=If filled out, the strawberry will only be visible (and collectable) when the given flag is set.\nThis will stop having an effect when the berry is grabbed by the player.
 entities.MaxHelpingHand/CustomizableBerry.attributes.name.strawberryPulseSound=Pulse Sound
 entities.MaxHelpingHand/CustomizableBerry.attributes.name.strawberryBlueTouchSound=Collected Touch Sound
 entities.MaxHelpingHand/CustomizableBerry.attributes.name.strawberryTouchSound=Uncollected Touch Sound

@@ -3,7 +3,7 @@
 using ..Ahorn, Maple
 
 @mapdef Entity "MaxHelpingHand/CustomizableBerry" CustomizableBerry(x::Integer, y::Integer,
-    checkpointID::Integer=-1, order::Integer=-1, strawberrySprite::String="strawberry", ghostberrySprite::String="ghostberry",
+    checkpointID::Integer=-1, order::Integer=-1, visibleIfFlag::String="", strawberrySprite::String="strawberry", ghostberrySprite::String="ghostberry",
     strawberryPulseSound::String="event:/game/general/strawberry_pulse", strawberryBlueTouchSound::String="event:/game/general/strawberry_blue_touch",
     strawberryTouchSound::String="event:/game/general/strawberry_touch", strawberryGetSound::String="event:/game/general/strawberry_get", countTowardsTotal::Bool=true,
     pulseEnabled::Bool=true, particleColor1::String="FF8563", particleColor2::String="FFF4A8", ghostParticleColor1::String="6385FF", ghostParticleColor2::String="72F0FF")
