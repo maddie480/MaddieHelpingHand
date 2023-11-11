@@ -6,6 +6,7 @@ using Microsoft.Xna.Framework;
 using System;
 using System.Reflection;
 using MonoMod.ModInterop;
+using MonoMod.RuntimeDetour;
 
 namespace Celeste.Mod.MaxHelpingHand.Module {
     public class MaxHelpingHandModule : EverestModule {
@@ -23,6 +24,8 @@ namespace Celeste.Mod.MaxHelpingHand.Module {
 
         public override Type SessionType => typeof(MaxHelpingHandSession);
         public MaxHelpingHandSession Session => (MaxHelpingHandSession) _Session;
+
+        private static Hook modRegister = null;
 
         public MaxHelpingHandModule() {
             Instance = this;
@@ -99,7 +102,10 @@ namespace Celeste.Mod.MaxHelpingHand.Module {
             ReversibleRetentionBooster.Load();
 
             Everest.Events.Level.OnLoadBackdrop += onLoadBackdrop;
-            On.Celeste.Mod.Everest.Register += onModRegister;
+
+            modRegister = new Hook(
+                typeof(Everest).GetMethod("Register"),
+                typeof(MaxHelpingHandModule).GetMethod("onModRegister", BindingFlags.NonPublic | BindingFlags.Instance), this);
 
             typeof(LuaCutscenesUtils).ModInterop();
         }
@@ -178,7 +184,9 @@ namespace Celeste.Mod.MaxHelpingHand.Module {
             ReversibleRetentionBooster.Unload();
 
             Everest.Events.Level.OnLoadBackdrop -= onLoadBackdrop;
-            On.Celeste.Mod.Everest.Register -= onModRegister;
+
+            modRegister?.Dispose();
+            modRegister = null;
 
             if (hookedSineParallax) {
                 unhookSineParallax();
@@ -195,7 +203,7 @@ namespace Celeste.Mod.MaxHelpingHand.Module {
             HookMods();
         }
 
-        private void onModRegister(On.Celeste.Mod.Everest.orig_Register orig, EverestModule module) {
+        private void onModRegister(Action<EverestModule> orig, EverestModule module) {
             orig(module);
 
             if ((bool) contentLoaded.GetValue(null)) {

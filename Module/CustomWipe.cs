@@ -1,9 +1,13 @@
-﻿using Microsoft.Xna.Framework;
+﻿using Celeste.Mod.MaxHelpingHand.Entities;
+using Celeste.Mod.Meta;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Monocle;
+using MonoMod.RuntimeDetour;
 using System;
 using System.Diagnostics;
 using System.IO;
+using System.Reflection;
 
 namespace Celeste.Mod.MaxHelpingHand.Module {
     public class CustomWipe : ScreenWipe {
@@ -12,15 +16,20 @@ namespace Celeste.Mod.MaxHelpingHand.Module {
         private static VertexPositionColor[][] currentWipeIn;
         private static VertexPositionColor[][] currentWipeOut;
 
+        private static Hook mapMetaApplyTo = null;
+
         public static void Load() {
-            On.Celeste.Mod.Meta.MapMeta.ApplyTo += onParseScreenWipe;
+            mapMetaApplyTo = new Hook(
+                typeof(MapMeta).GetMethod("ApplyTo"),
+                typeof(CustomWipe).GetMethod("onParseScreenWipe", BindingFlags.NonPublic | BindingFlags.Static));
         }
 
         public static void Unload() {
-            On.Celeste.Mod.Meta.MapMeta.ApplyTo -= onParseScreenWipe;
+            mapMetaApplyTo.Dispose();
+            mapMetaApplyTo = null;
         }
 
-        private static void onParseScreenWipe(On.Celeste.Mod.Meta.MapMeta.orig_ApplyTo orig, Meta.MapMeta self, AreaData area) {
+        private static void onParseScreenWipe(Action<MapMeta, AreaData> orig, MapMeta self, AreaData area) {
             orig(self, area);
 
             if (!string.IsNullOrEmpty(self.Wipe) && self.Wipe.StartsWith("MaxHelpingHand/CustomWipe:")) {
@@ -55,8 +64,8 @@ namespace Celeste.Mod.MaxHelpingHand.Module {
                 };
 
                 // let's make sure the wipe is in map metadata because this can get weird.
-                if (area.GetMeta() != null) {
-                    area.GetMeta().Wipe = self.Wipe;
+                if (area.Meta != null) {
+                    area.Meta.Wipe = self.Wipe;
                 }
             }
         }

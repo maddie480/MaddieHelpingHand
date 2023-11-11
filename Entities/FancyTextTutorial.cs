@@ -1,22 +1,30 @@
 ﻿using Celeste.Mod.Entities;
 using Microsoft.Xna.Framework;
 using Monocle;
+using MonoMod.RuntimeDetour;
+using System;
 using System.Linq;
+using System.Reflection;
 
 namespace Celeste.Mod.MaxHelpingHand.Entities {
     // A tutorial made of fancy text. Because that's how formatted text is called in Celeste.
     [CustomEntity("MaxHelpingHand/FancyTextTutorial")]
     [Tracked]
     public class FancyTextTutorial : Entity {
+        private static Hook customBirdTutorialTriggerOnEnter = null;
+
         public static void Load() {
-            On.Celeste.Mod.Entities.CustomBirdTutorialTrigger.OnEnter += onEnterCustomBirdTutorialTrigger;
+            customBirdTutorialTriggerOnEnter = new Hook(
+                typeof(CustomBirdTutorialTrigger).GetMethod("OnEnter"),
+                typeof(FancyTextTutorial).GetMethod("onEnterCustomBirdTutorialTrigger", BindingFlags.NonPublic | BindingFlags.Static));
         }
 
         public static void Unload() {
-            On.Celeste.Mod.Entities.CustomBirdTutorialTrigger.OnEnter -= onEnterCustomBirdTutorialTrigger;
+            customBirdTutorialTriggerOnEnter?.Dispose();
+            customBirdTutorialTriggerOnEnter = null;
         }
 
-        private static void onEnterCustomBirdTutorialTrigger(On.Celeste.Mod.Entities.CustomBirdTutorialTrigger.orig_OnEnter orig, CustomBirdTutorialTrigger self, Player player) {
+        private static void onEnterCustomBirdTutorialTrigger(Action<CustomBirdTutorialTrigger, Player> orig, CustomBirdTutorialTrigger self, Player player) {
             orig(self, player);
 
             // do the same for fancy text tutorial!

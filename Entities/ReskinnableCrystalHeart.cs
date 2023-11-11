@@ -58,7 +58,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
 
             // despawn if already collected in session and if heart does not end level
             // (like vanilla hearts, but this condition is checked in Level.LoadLevel() so we do not get that behavior just by extending HeartGem)
-            MapMetaModeProperties meta = SceneAs<Level>().Session.MapData.GetMeta();
+            MapMetaModeProperties meta = SceneAs<Level>().Session.MapData.Meta;
             bool heartIsEnd = (meta != null && meta.HeartIsEnd.GetValueOrDefault());
             if (SceneAs<Level>().Session.HeartGem && !heartIsEnd) {
                 RemoveSelf();
