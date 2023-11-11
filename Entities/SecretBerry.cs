@@ -156,6 +156,8 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
         private readonly bool pulseEnabled;
         private readonly ParticleType strawberryParticleType;
         private readonly ParticleType strawberryGhostParticleType;
+        private readonly string visibleIfFlag;
+        private StrawberryToggler toggler;
 
         public SecretBerry(EntityData data, Vector2 offset, EntityID gid) : base(data, offset, gid) {
             strawberrySprite = data.Attr("strawberrySprite");
@@ -165,6 +167,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             strawberryTouchSound = data.Attr("strawberryTouchSound");
             strawberryGetSound = data.Attr("strawberryGetSound");
             pulseEnabled = data.Bool("pulseEnabled", defaultValue: true);
+            visibleIfFlag = data.Attr("visibleIfFlag");
 
             strawberryParticleType = new ParticleType(P_Glow) {
                 Color = Calc.HexToColor(data.Attr("particleColor1")),
@@ -174,6 +177,42 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
                 Color = Calc.HexToColor(data.Attr("ghostParticleColor1")),
                 Color2 = Calc.HexToColor(data.Attr("ghostParticleColor2")),
             };
+        }
+
+        public override void Added(Scene scene) {
+            base.Added(scene);
+
+            if (!string.IsNullOrEmpty(visibleIfFlag)) {
+                scene.Add(toggler = new StrawberryToggler(this, visibleIfFlag));
+            }
+        }
+
+        // this is in a separate entity, because it can freeze the berry entirely...
+        // without freezing the process that unfreezes it when the flag is set.
+        private class StrawberryToggler : Entity {
+            private readonly SecretBerry berry;
+            private readonly string flag;
+
+            public StrawberryToggler(SecretBerry berry, string flag) {
+                this.berry = berry;
+                this.flag = flag;
+            }
+
+            public override void Update() {
+                bool isVisible = SceneAs<Level>().Session.GetFlag(flag);
+                berry.Active = berry.Visible = berry.Collidable = isVisible;
+                berry.Get<BloomPoint>().Visible = isVisible;
+            }
+        }
+
+        public override void Update() {
+            base.Update();
+
+            if (toggler != null && Follower.Leader != null) {
+                // once the berry has been grabbed, it should not be hidden anymore.
+                toggler.RemoveSelf();
+                toggler = null;
+            }
         }
     }
 }
