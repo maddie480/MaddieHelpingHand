@@ -951,6 +951,7 @@ placements.entities.MaxHelpingHand/MadelineSprite.tooltips.dashCount=The dash co
 placements.entities.MaxHelpingHand/SpinnerBreakingBall.tooltips.color=The color of the spinners this ball is able to break.
 placements.entities.MaxHelpingHand/SpinnerBreakingBall.tooltips.spritePath=The sprite this ball should use, from your mod's Graphics/Atlases/Gameplay folder.\nContributions for proper default sprites are welcome.
 placements.entities.MaxHelpingHand/SpinnerBreakingBall.tooltips.startFloating=Whether the ball should float in mid-air until the player picks it up.
+placements.entities.MaxHelpingHand/SpinnerBreakingBall.tooltips.rainbowTinting=Whether the ball should be tinted to match the rainbow spinners around it.\nOnly has an effect if "Color" is set to "Rainbow".
 
 # Styleground Fade Controller
 placements.entities.MaxHelpingHand/StylegroundFadeController.names.flag=Flags

@@ -26,6 +26,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
         private Sprite sprite;
 
         private bool floating;
+        private bool rainbowTinting;
 
         private Dictionary<CrystalStaticSpinner, HashSet<CrystalStaticSpinner>> spinnerNeighbors;
         private HashSet<CrystalStaticSpinner> shatteredSpinners = new HashSet<CrystalStaticSpinner>();
@@ -38,6 +39,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             this.entityID = entityID;
 
             floating = data.Bool("startFloating");
+            rainbowTinting = data.Bool("rainbowTinting", defaultValue: true);
 
             // replace the sprite
             Remove(Get<Sprite>());
@@ -68,7 +70,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
                 RemoveSelf();
             }
 
-            if (color == CrystalColor.Rainbow) {
+            if (color == CrystalColor.Rainbow && rainbowTinting) {
                 // the GetHue method of crystal spinners require a spinner that is part of the scene.
                 scene.Add(rainbowSpinner = new CrystalStaticSpinner(new Vector2(float.MinValue, float.MinValue), false, CrystalColor.Red));
                 rainbowSpinner.AddTag(Tags.Persistent);

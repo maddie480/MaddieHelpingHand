@@ -2,7 +2,8 @@ module MaxHelpingHandSpinnerBreakingBall
 
 using ..Ahorn, Maple
 
-@mapdef Entity "MaxHelpingHand/SpinnerBreakingBall" SpinnerBreakingBall(x::Integer, y::Integer, color::String="Blue", spritePath::String="MaxHelpingHand/spinner_breaking_ball_placeholder", startFloating::Bool=false)
+@mapdef Entity "MaxHelpingHand/SpinnerBreakingBall" SpinnerBreakingBall(x::Integer, y::Integer, color::String="Blue",
+    spritePath::String="MaxHelpingHand/spinner_breaking_ball_placeholder", startFloating::Bool=false, rainbowTinting::Bool=true)
 
 const colors = String["Blue", "Red", "Purple", "Rainbow"]
 
@@ -12,7 +13,8 @@ const placements = Ahorn.PlacementDict(
         "point",
         Dict{String,Any}(
             "color" => color,
-            "spritePath" => "MaxHelpingHand/SpinnerBreakBall" * uppercase(color[1]) * color[2:end]
+            "spritePath" => "MaxHelpingHand/SpinnerBreakBall" * uppercase(color[1]) * color[2:end],
+            "rainbowTinting" => (color == "Rainbow")
         )
     ) for color in colors
 )

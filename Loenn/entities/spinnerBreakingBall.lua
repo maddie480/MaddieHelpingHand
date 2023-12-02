@@ -10,7 +10,8 @@ breakingBall.placements = {
         data = {
             color = "Blue",
             spritePath = "MaxHelpingHand/SpinnerBreakBallBlue",
-            startFloating = false
+            startFloating = false,
+            rainbowTinting = false
         }
     },
     {
@@ -18,7 +19,8 @@ breakingBall.placements = {
         data = {
             color = "Red",
             spritePath = "MaxHelpingHand/SpinnerBreakBallRed",
-            startFloating = false
+            startFloating = false,
+            rainbowTinting = false
         }
     },
     {
@@ -26,7 +28,8 @@ breakingBall.placements = {
         data = {
             color = "Purple",
             spritePath = "MaxHelpingHand/SpinnerBreakBallPurple",
-            startFloating = false
+            startFloating = false,
+            rainbowTinting = false
         }
     },
     {
@@ -34,7 +37,8 @@ breakingBall.placements = {
         data = {
             color = "Rainbow",
             spritePath = "MaxHelpingHand/SpinnerBreakBallRainbow",
-            startFloating = false
+            startFloating = false,
+            rainbowTinting = true
         }
     }
 }
