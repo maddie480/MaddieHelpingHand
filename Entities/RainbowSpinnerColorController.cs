@@ -175,7 +175,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
         public override void Awake(Scene scene) {
             base.Awake(scene);
 
-            flagLatestState = !string.IsNullOrEmpty(flag) && SceneAs<Level>().Session.GetFlag(flag);
+            flagLatestState = isFlagActive();
 
             // this is the controller for the next screen.
             nextSpinnerController = this;
@@ -224,7 +224,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             // all spinners have the cycle randomly offset, so they don't get the new colors at the same time,
             // making for a weird visual effect.
             // so we want to update the hue of **all** spinners forcibly when the flag is toggled.
-            bool flagState = !string.IsNullOrEmpty(flag) && SceneAs<Level>().Session.GetFlag(flag);
+            bool flagState = isFlagActive();
             if (flagState != flagLatestState) {
                 flagLatestState = flagState;
 
@@ -239,7 +239,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
         }
 
         private T selectFromFlag<T>(Tuple<T, T> setting) {
-            if (string.IsNullOrEmpty(flag) || !SceneAs<Level>().Session.GetFlag(flag)) {
+            if (!isFlagActive()) {
                 return setting.Item1;
             }
             return setting.Item2;
@@ -331,6 +331,10 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             int colorIndex = (int) globalProgress;
             float progressInIndex = globalProgress - colorIndex;
             return Color.Lerp(colors[colorIndex], colors[colorIndex + 1], progressInIndex);
+        }
+
+        private bool isFlagActive() {
+            return !string.IsNullOrEmpty(flag) && Scene is Level level && level.Session.GetFlag(flag);
         }
     }
 }
