@@ -182,8 +182,8 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
         public override void Added(Scene scene) {
             base.Added(scene);
 
-            if (!string.IsNullOrEmpty(visibleIfFlag)) {
-                scene.Add(toggler = new StrawberryToggler(this, visibleIfFlag));
+            if (!string.IsNullOrEmpty(visibleIfFlag) && scene is Level level) {
+                scene.Add(toggler = new StrawberryToggler(this, visibleIfFlag, level));
             }
         }
 
@@ -192,14 +192,20 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
         private class StrawberryToggler : Entity {
             private readonly SecretBerry berry;
             private readonly string flag;
+            private readonly Level level;
 
-            public StrawberryToggler(SecretBerry berry, string flag) {
+            public StrawberryToggler(SecretBerry berry, string flag, Level level) {
                 this.berry = berry;
                 this.flag = flag;
+                this.level = level;
+
+                // update right away, to make sure the berry disappears if it needs to
+                // without waiting for the first update (which is very noticeable during transitions).
+                Update();
             }
 
             public override void Update() {
-                bool isVisible = SceneAs<Level>().Session.GetFlag(flag);
+                bool isVisible = level.Session.GetFlag(flag);
                 berry.Active = berry.Visible = berry.Collidable = isVisible;
                 berry.Get<BloomPoint>().Visible = isVisible;
             }
