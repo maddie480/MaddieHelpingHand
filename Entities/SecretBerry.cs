@@ -154,6 +154,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
         private readonly string strawberryTouchSound;
         private readonly string strawberryGetSound;
         private readonly bool pulseEnabled;
+        private readonly bool spotlightEnabled;
         private readonly ParticleType strawberryParticleType;
         private readonly ParticleType strawberryGhostParticleType;
         private readonly string visibleIfFlag;
@@ -167,6 +168,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             strawberryTouchSound = data.Attr("strawberryTouchSound");
             strawberryGetSound = data.Attr("strawberryGetSound");
             pulseEnabled = data.Bool("pulseEnabled", defaultValue: true);
+            spotlightEnabled = data.Bool("spotlightEnabled", defaultValue: true);
             visibleIfFlag = data.Attr("visibleIfFlag");
 
             strawberryParticleType = new ParticleType(P_Glow) {
@@ -184,6 +186,10 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
 
             if (!string.IsNullOrEmpty(visibleIfFlag) && scene is Level level) {
                 scene.Add(toggler = new StrawberryToggler(this, visibleIfFlag, level));
+            }
+
+            if (!spotlightEnabled) {
+                Remove(Get<VertexLight>());
             }
         }
 

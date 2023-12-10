@@ -17,6 +17,7 @@ strawberry.placements = {
         strawberryTouchSound = "event:/game/general/strawberry_touch",
         strawberryGetSound = "event:/game/general/strawberry_get",
         pulseEnabled = true,
+        spotlightEnabled = true,
         countTowardsTotal = true,
         particleColor1 = "FF8563",
         particleColor2 = "FFF4A8",
