@@ -64,6 +64,9 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
 
         private readonly string onlyIfFlag;
         private readonly string setFlag;
+        private readonly bool onlyIfFlagInverted;
+        private readonly bool setFlagInverted;
+
 
         private readonly bool autoSkipEnabled;
 
@@ -75,6 +78,8 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
 
             onlyIfFlag = data.Attr("onlyIfFlag");
             setFlag = data.Attr("setFlag");
+            onlyIfFlagInverted = data.Bool("onlyIfFlagInverted");
+            setFlagInverted = data.Bool("setFlagInverted");
 
             autoSkipEnabled = data.Bool("autoSkipEnabled");
 
@@ -125,7 +130,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
                     // for dialogue that plays only once: the talker (speech bubble) is removed when it is over.
                     // for dialogue that loops: the session counter is reset to 0 once all dialog IDs have been played.
                     if (toRemove.Contains(Talker) || Talker.Entity == null || session.GetCounter(id.ToString() + "DialogCounter") == 0) {
-                        session.SetFlag(setFlag);
+                        session.SetFlag(setFlag, !setFlagInverted);
                     }
                 };
             }
@@ -155,7 +160,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             base.Update();
 
             if (!string.IsNullOrEmpty(onlyIfFlag) && Talker?.Entity != null) {
-                Talker.Enabled = SceneAs<Level>().Session.GetFlag(onlyIfFlag);
+                Talker.Enabled = (SceneAs<Level>().Session.GetFlag(onlyIfFlag) != onlyIfFlagInverted);
             }
         }
 

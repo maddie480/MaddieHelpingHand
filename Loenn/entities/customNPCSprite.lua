@@ -38,6 +38,8 @@ everestNpc.placements = {
         spriteName = "bird",
         onlyIfFlag = "",
         setFlag = "",
+        onlyIfFlagInverted = false,
+        setFlagInverted = false,
         autoSkipEnabled = false
     }
 }
