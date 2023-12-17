@@ -6,7 +6,7 @@ local switchGate = {}
 switchGate.name = "MaxHelpingHand/ShatterFlagSwitchGate"
 switchGate.depth = 0
 switchGate.minimumSize = {16, 16}
-switchGate.associatedMods = { "VortexHelper" }
+switchGate.associatedMods = { "MaxHelpingHand", "VortexHelper" }
 switchGate.placements = {}
 
 local textures = {

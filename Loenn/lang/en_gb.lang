@@ -644,6 +644,19 @@ entities.MaxHelpingHand/RespawningJellyfish.attributes.description.tutorial=Whet
 entities.MaxHelpingHand/RespawningJellyfish.attributes.description.respawnTime=The jellyfish will respawn at its starting location after this amount of time (in seconds) after being destroyed.
 entities.MaxHelpingHand/RespawningJellyfish.attributes.description.spriteDirectory=The directory containing all the sprites for the respawning jellyfish.\nTo make your own, copy Graphics/Atlases/Gameplay/objects/MaxHelpingHand/glider from the mod zip to Mods/yourmod/Graphics/Atlases/Gameplay/MyMap/myglider and type MyMap/myglider in this field.
 
+# Respawning Bounce Jellyfish
+entities.MaxHelpingHand/RespawningBounceJellyfish.placements.name.normal=Respawning Bounce Jellyfish
+entities.MaxHelpingHand/RespawningBounceJellyfish.placements.name.single=Respawning Bounce Jellyfish (One Dash)
+entities.MaxHelpingHand/RespawningBounceJellyfish.placements.name.double=Respawning Bounce Jellyfish (Two Dashes)
+entities.MaxHelpingHand/RespawningBounceJellyfish.placements.description.normal=A Jellyfish compatible with Bounce Mode.
+entities.MaxHelpingHand/RespawningBounceJellyfish.placements.description.single=Bounce Mode exclusive jellyfish that can dash.
+entities.MaxHelpingHand/RespawningBounceJellyfish.placements.description.double=Bounce Mode exclusive jellyfish that can dash twice.
+entities.MaxHelpingHand/RespawningBounceJellyfish.attributes.description.platform=Whether the jelly starts floating.
+entities.MaxHelpingHand/RespawningBounceJellyfish.attributes.description.soulBound=Whether the jelly kills the player on death and can't be left behind.
+entities.MaxHelpingHand/RespawningBounceJellyfish.attributes.description.baseDashCount=How many dashes the jelly will start with and refill to.
+entities.MaxHelpingHand/RespawningBounceJellyfish.attributes.description.respawnTime=The jellyfish will respawn at its starting location after this amount of time (in seconds) after being destroyed.
+entities.MaxHelpingHand/RespawningBounceJellyfish.attributes.description.spriteDirectory=The directory containing all the sprites for the respawning jellyfish.\nTo make your own, copy Graphics/Atlases/Gameplay/objects/MaxHelpingHand/glider from the mod zip to Mods/yourmod/Graphics/Atlases/Gameplay/MyMap/myglider and type MyMap/myglider in this field.
+
 # Rotating Bumper
 entities.MaxHelpingHand/RotatingBumper.placements.name.bumper=Bumper (Rotating)
 entities.MaxHelpingHand/RotatingBumper.attributes.description.speed=The rotating speed in degrees per second. Use a negative number for counterclockwise rotation.

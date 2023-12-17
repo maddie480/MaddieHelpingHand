@@ -1,7 +1,7 @@
 local trigger = {}
 
 trigger.name = "MaxHelpingHand/ActivateTimedTouchSwitchesTimerTrigger"
-trigger.associatedMods = { "OutbackHelper" }
+trigger.associatedMods = { "MaxHelpingHand", "OutbackHelper" }
 trigger.placements = {
     name = "trigger"
 }

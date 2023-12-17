@@ -7,6 +7,10 @@
     <LangVersion>preview</LangVersion>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="BounceHelper">
+      <HintPath>lib-stripped\BounceHelper.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="Celeste">
       <HintPath>lib-stripped\Celeste.exe</HintPath>
       <Private>False</Private>

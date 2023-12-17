@@ -7,7 +7,7 @@ touchSwitch.name = "MaxHelpingHand/MovingFlagTouchSwitch"
 touchSwitch.depth = 2000
 touchSwitch.nodeLimits = {0, -1}
 touchSwitch.nodeLineRenderType = "line"
-touchSwitch.associatedMods = { "OutbackHelper" }
+touchSwitch.associatedMods = { "MaxHelpingHand", "OutbackHelper" }
 touchSwitch.placements = {
     {
         name = "touch_switch",

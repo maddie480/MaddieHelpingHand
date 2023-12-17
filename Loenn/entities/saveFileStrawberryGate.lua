@@ -9,7 +9,7 @@ heartDoor.name = "MaxHelpingHand/SaveFileStrawberryGate"
 heartDoor.depth = 0
 heartDoor.nodeLimits = {0, 1}
 heartDoor.minimumSize = {40, 8}
-heartDoor.associatedMods = { "LunaticHelper" }
+heartDoor.associatedMods = { "MaxHelpingHand", "LunaticHelper" }
 
 heartDoor.fieldInformation = {
     requires = {

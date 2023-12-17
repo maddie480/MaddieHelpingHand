@@ -11,6 +11,7 @@ using MonoMod.RuntimeDetour;
 namespace Celeste.Mod.MaxHelpingHand.Module {
     public class MaxHelpingHandModule : EverestModule {
         private bool hookedSineParallax = false;
+        private bool bounceHelperLoaded = false;
 
         private static FieldInfo contentLoaded = typeof(Everest).GetField("_ContentLoaded", BindingFlags.NonPublic | BindingFlags.Static);
 
@@ -84,7 +85,7 @@ namespace Celeste.Mod.MaxHelpingHand.Module {
             ReskinnableCrystalHeart.Load();
             SetFlagOnButtonPressController.Load();
             FlagPickup.Load();
-            RespawningJellyfish.Load();
+            RespawningJellyfishGeneric<RespawningJellyfish, Glider>.Load();
             SetFlagOnSpawnTrigger.Load();
             CustomSeekerBarrier.Load();
             MoreCustomNPC.Load();
@@ -163,7 +164,7 @@ namespace Celeste.Mod.MaxHelpingHand.Module {
             SetFlagOnButtonPressController.Unload();
             FlagPickup.Unload();
             AvBdaySpeechBubbleFixup.Unload();
-            RespawningJellyfish.Unload();
+            RespawningJellyfishGeneric<RespawningJellyfish, Glider>.Unload();
             ReskinnableStarRotateSpinner.Unload();
             ReskinnableStarTrackSpinner.Unload();
             SetFlagOnSpawnTrigger.Unload();
@@ -190,6 +191,10 @@ namespace Celeste.Mod.MaxHelpingHand.Module {
 
             if (hookedSineParallax) {
                 unhookSineParallax();
+            }
+
+            if (bounceHelperLoaded) {
+                unloadBounceHelper();
             }
         }
 
@@ -231,6 +236,10 @@ namespace Celeste.Mod.MaxHelpingHand.Module {
             if (!hookedSineParallax && Everest.Loader.DependencyLoaded(new EverestModuleMetadata() { Name = "FlaglinesAndSuch", Version = new Version(1, 4, 17) })) {
                 hookSineParallax();
             }
+
+            if (!bounceHelperLoaded && Everest.Loader.DependencyLoaded(new EverestModuleMetadata { Name = "BounceHelper", Version = new Version(1, 8, 0) })) {
+                loadBounceHelper();
+            }
         }
 
         private void hookSineParallax() {
@@ -241,6 +250,16 @@ namespace Celeste.Mod.MaxHelpingHand.Module {
         private void unhookSineParallax() {
             SineAnimatedParallax.Unload();
             hookedSineParallax = false;
+        }
+
+        private void loadBounceHelper() {
+            RespawningBounceJellyfish.LoadBounceHelper();
+            bounceHelperLoaded = true;
+        }
+
+        private void unloadBounceHelper() {
+            RespawningBounceJellyfish.UnloadBounceHelper();
+            bounceHelperLoaded = false;
         }
 
         private Backdrop onLoadBackdrop(MapData map, BinaryPacker.Element child, BinaryPacker.Element above) {
