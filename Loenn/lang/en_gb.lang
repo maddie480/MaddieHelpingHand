@@ -655,7 +655,7 @@ entities.MaxHelpingHand/RespawningBounceJellyfish.attributes.description.platfor
 entities.MaxHelpingHand/RespawningBounceJellyfish.attributes.description.soulBound=Whether the jelly kills the player on death and can't be left behind.
 entities.MaxHelpingHand/RespawningBounceJellyfish.attributes.description.baseDashCount=How many dashes the jelly will start with and refill to.
 entities.MaxHelpingHand/RespawningBounceJellyfish.attributes.description.respawnTime=The jellyfish will respawn at its starting location after this amount of time (in seconds) after being destroyed.
-entities.MaxHelpingHand/RespawningBounceJellyfish.attributes.description.spriteDirectory=The directory containing all the sprites for the respawning jellyfish.\nTo make your own, copy Graphics/Atlases/Gameplay/objects/MaxHelpingHand/glider from the mod zip to Mods/yourmod/Graphics/Atlases/Gameplay/MyMap/myglider and type MyMap/myglider in this field.
+entities.MaxHelpingHand/RespawningBounceJellyfish.attributes.description.spriteDirectory=The directory containing all the sprites for the respawning jellyfish.\nTo make your own, copy Graphics/Atlases/Gameplay/objects/MaxHelpingHand/respawningJellyfish from the mod zip to Mods/yourmod/Graphics/Atlases/Gameplay/MyMap/myglider and type MyMap/myglider in this field.
 
 # Rotating Bumper
 entities.MaxHelpingHand/RotatingBumper.placements.name.bumper=Bumper (Rotating)

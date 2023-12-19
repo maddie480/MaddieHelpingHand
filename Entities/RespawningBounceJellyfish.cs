@@ -37,7 +37,20 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
         private RespawningJellyfishGeneric<RespawningBounceJellyfish, BounceJellyfish> manager;
 
         public RespawningBounceJellyfish(EntityData data, Vector2 offset) : base(data, offset) {
-            manager = new RespawningJellyfishGeneric<RespawningBounceJellyfish, BounceJellyfish>(this, data, () => Speed, speed => Speed = speed);
+            manager = new RespawningJellyfishGeneric<RespawningBounceJellyfish, BounceJellyfish>(this, data, sprite => {
+                foreach (string variant in new string[] { "blue", "red", "pink", "flash" }) {
+                    string suffix = variant.Substring(0, 1).ToUpperInvariant();
+
+                    sprite.AddLoop("idle" + suffix, variant + "/idle", 0.1f);
+                    sprite.AddLoop("held" + suffix, variant + "/held", 0.1f);
+                    sprite.Add("fall" + suffix, variant + "/fall", 0.06f, "fallLoop" + suffix);
+                    sprite.AddLoop("fallLoop" + suffix, variant + "/fallLoop", 0.06f);
+                    sprite.Add("death" + suffix, variant + "/death", 0.06f);
+                    sprite.Add("respawn" + suffix, variant + "/respawn", 0.03f, "idle" + suffix);
+                }
+
+                sprite.Play("idleB");
+            }, () => Speed, speed => Speed = speed);
         }
 
         public override void Update() {

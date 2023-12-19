@@ -25,7 +25,7 @@ respawningBounceJellyfish.placements = {
             soulBound = false,
             baseDashCount = 0,
             respawnTime = 2.0,
-            spriteDirectory = "objects/MaxHelpingHand/glider"
+            spriteDirectory = "objects/MaxHelpingHand/bounceJellyfish"
         }
     },
     {
@@ -35,7 +35,7 @@ respawningBounceJellyfish.placements = {
             soulBound = false,
             baseDashCount = 1,
             respawnTime = 2.0,
-            spriteDirectory = "objects/MaxHelpingHand/glider"
+            spriteDirectory = "objects/MaxHelpingHand/bounceJellyfish"
         }
     },
     {
@@ -45,14 +45,14 @@ respawningBounceJellyfish.placements = {
             soulBound = false,
             baseDashCount = 2,
             respawnTime = 2.0,
-            spriteDirectory = "objects/MaxHelpingHand/glider"
+            spriteDirectory = "objects/MaxHelpingHand/bounceJellyfish"
         }
     }
 }
 
 function respawningBounceJellyfish.sprite(room, entity)
     local bubble = entity.platform
-    local texture = entity.spriteDirectory .. "/idle0"
+    local texture = entity.spriteDirectory .. "/blue/idle0"
 
     if entity.bubble then
         local x, y = entity.x or 0, entity.y or 0
@@ -71,7 +71,7 @@ function respawningBounceJellyfish.sprite(room, entity)
 end
 
 function respawningBounceJellyfish.rectangle(room, entity)
-    local texture = entity.spriteDirectory .. "/idle0"
+    local texture = entity.spriteDirectory .. "/blue/idle0"
     local sprite = drawableSprite.fromTexture(texture, entity)
 
     return sprite:getRectangle()

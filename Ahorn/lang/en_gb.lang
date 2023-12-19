@@ -157,7 +157,7 @@ placements.entities.MaxHelpingHand/RespawningBounceJellyfish.tooltips.platform=W
 placements.entities.MaxHelpingHand/RespawningBounceJellyfish.tooltips.soulBound=Whether the jelly kills the player on death and can't be left behind.
 placements.entities.MaxHelpingHand/RespawningBounceJellyfish.tooltips.baseDashCount=How many dashes the jelly will start with and refill to.
 placements.entities.MaxHelpingHand/RespawningBounceJellyfish.tooltips.respawnTime=The jellyfish will respawn at its starting location after this amount of time (in seconds) after being destroyed.
-placements.entities.MaxHelpingHand/RespawningBounceJellyfish.tooltips.spriteDirectory=The directory containing all the sprites for the respawning jellyfish.\nTo make your own, copy Graphics/Atlases/Gameplay/objects/MaxHelpingHand/glider from the mod zip to Mods/yourmod/Graphics/Atlases/Gameplay/MyMap/myglider and type MyMap/myglider in this field.
+placements.entities.MaxHelpingHand/RespawningBounceJellyfish.tooltips.spriteDirectory=The directory containing all the sprites for the respawning jellyfish.\nTo make your own, copy Graphics/Atlases/Gameplay/objects/MaxHelpingHand/respawningJellyfish from the mod zip to Mods/yourmod/Graphics/Atlases/Gameplay/MyMap/myglider and type MyMap/myglider in this field.
 
 # Grouped Trigger Spikes
 placements.entities.MaxHelpingHand/GroupedTriggerSpikesUp.tooltips.type=Changes the visual appearance of the spikes.
