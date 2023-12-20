@@ -9,14 +9,13 @@ using System.Collections;
 using System.Reflection;
 
 namespace Celeste.Mod.MaxHelpingHand.Entities {
-    internal static class RespawningJellyfishCache {
-        internal static MethodInfo trySquishWiggle = typeof(Actor).GetMethod("TrySquishWiggle", BindingFlags.NonPublic | BindingFlags.Instance);
-    }
     public class RespawningJellyfishGeneric<RespawningType, BaseType> where RespawningType : Actor, BaseType where BaseType : Actor {
         private static ILHook hookGliderUpdate = null;
         private static MethodInfo jellyfishSpritePlay = typeof(BaseType).GetMethod("spritePlay", BindingFlags.NonPublic | BindingFlags.Instance)
             ?? typeof(RespawningType).GetMethod("spritePlay", BindingFlags.NonPublic | BindingFlags.Instance);
         private static MethodInfo jellyDashRefill = typeof(BaseType).GetMethod("refillDash", BindingFlags.Public | BindingFlags.Instance);
+        private static MethodInfo trySquishWiggle = typeof(Actor).GetMethod("TrySquishWiggle", BindingFlags.NonPublic | BindingFlags.Instance,
+            null, new Type[] { typeof(CollisionData) }, null);
 
         public static void Load() {
             hookGliderUpdate = new ILHook(typeof(BaseType).GetMethod("Update"), modGliderUpdate);
@@ -120,7 +119,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
 
         public void OnSquish(Action<CollisionData> baseOnSquish, CollisionData data) {
             if (shouldRespawn) {
-                if (!((bool) RespawningJellyfishCache.trySquishWiggle.Invoke(self, new object[] { data }))) {
+                if (!((bool) trySquishWiggle.Invoke(self, new object[] { data }))) {
                     // the jellyfish was squished.
                     removeAndRespawn();
                 }
