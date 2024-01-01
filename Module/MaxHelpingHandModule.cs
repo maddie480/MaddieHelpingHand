@@ -12,6 +12,7 @@ namespace Celeste.Mod.MaxHelpingHand.Module {
     public class MaxHelpingHandModule : EverestModule {
         private bool hookedSineParallax = false;
         private bool bounceHelperLoaded = false;
+        private bool frostBreakingBallLoaded = false;
 
         private static FieldInfo contentLoaded = typeof(Everest).GetField("_ContentLoaded", BindingFlags.NonPublic | BindingFlags.Static);
 
@@ -81,7 +82,7 @@ namespace Celeste.Mod.MaxHelpingHand.Module {
             InstantLavaBlockerTrigger.Load();
             MadelineSprite.Load();
             StaticMoverWithLiftSpeed.Load();
-            SpinnerBreakingBall.Load();
+            SpinnerBreakingBallVanilla.Load();
             ReskinnableCrystalHeart.Load();
             SetFlagOnButtonPressController.Load();
             FlagPickup.Load();
@@ -159,7 +160,7 @@ namespace Celeste.Mod.MaxHelpingHand.Module {
             InstantLavaBlockerTrigger.Unload();
             MadelineSprite.Unload();
             StaticMoverWithLiftSpeed.Unload();
-            SpinnerBreakingBall.Unload();
+            SpinnerBreakingBallVanilla.Unload();
             ReskinnableCrystalHeart.Unload();
             SetFlagOnButtonPressController.Unload();
             FlagPickup.Unload();
@@ -195,6 +196,10 @@ namespace Celeste.Mod.MaxHelpingHand.Module {
 
             if (bounceHelperLoaded) {
                 unloadBounceHelper();
+            }
+
+            if (frostBreakingBallLoaded) {
+                unloadFrostBreakingBall();
             }
         }
 
@@ -240,6 +245,10 @@ namespace Celeste.Mod.MaxHelpingHand.Module {
             if (!bounceHelperLoaded && Everest.Loader.DependencyLoaded(new EverestModuleMetadata { Name = "BounceHelper", Version = new Version(1, 8, 0) })) {
                 loadBounceHelper();
             }
+
+            if (!frostBreakingBallLoaded && Everest.Loader.DependencyLoaded(new EverestModuleMetadata { Name = "FrostHelper", Version = new Version(1, 47, 1) })) {
+                loadFrostBreakingBall();
+            }
         }
 
         private void hookSineParallax() {
@@ -260,6 +269,16 @@ namespace Celeste.Mod.MaxHelpingHand.Module {
         private void unloadBounceHelper() {
             RespawningBounceJellyfish.UnloadBounceHelper();
             bounceHelperLoaded = false;
+        }
+
+        private void loadFrostBreakingBall() {
+            SpinnerBreakingBallFrost.Load();
+            frostBreakingBallLoaded = true;
+        }
+
+        private void unloadFrostBreakingBall() {
+            SpinnerBreakingBallFrost.Unload();
+            frostBreakingBallLoaded = false;
         }
 
         private Backdrop onLoadBackdrop(MapData map, BinaryPacker.Element child, BinaryPacker.Element above) {

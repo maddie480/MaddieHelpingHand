@@ -1,16 +1,15 @@
-﻿using Celeste.Mod.Entities;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Monocle;
 using MonoMod.Utils;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
 
 namespace Celeste.Mod.MaxHelpingHand.Entities {
-    [CustomEntity("MaxHelpingHand/SpinnerBreakingBall")]
-    public class SpinnerBreakingBall : TheoCrystal {
-        private static MethodInfo crystalSpinnerGetHue = typeof(CrystalStaticSpinner).GetMethod("GetHue", BindingFlags.NonPublic | BindingFlags.Instance);
-
+    /**
+     * Common behavior across all spinner breaking balls: grouping spinners, and well... breaking them.
+     */
+    public abstract class SpinnerBreakingBallGeneric<SpinnerType, ColorType> : TheoCrystal where SpinnerType : Entity {
         public static void Load() {
             On.Celeste.TheoCrystal.Die += onTheoCrystalDie;
         }
@@ -19,27 +18,24 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             On.Celeste.TheoCrystal.Die -= onTheoCrystalDie;
         }
 
-        private readonly CrystalColor color;
+        protected readonly ColorType color;
         private readonly EntityID entityID;
 
-        private CrystalStaticSpinner rainbowSpinner;
-        private Sprite sprite;
+        protected Sprite sprite;
 
         private bool floating;
-        private bool rainbowTinting;
 
-        private Dictionary<CrystalStaticSpinner, HashSet<CrystalStaticSpinner>> spinnerNeighbors;
-        private HashSet<CrystalStaticSpinner> shatteredSpinners = new HashSet<CrystalStaticSpinner>();
+        private Dictionary<SpinnerType, HashSet<SpinnerType>> spinnerNeighbors;
+        private HashSet<SpinnerType> shatteredSpinners = new HashSet<SpinnerType>();
 
-        public SpinnerBreakingBall(EntityData data, Vector2 offset, EntityID entityID) : base(data.Position + offset) {
+        public SpinnerBreakingBallGeneric(EntityData data, Vector2 offset, EntityID entityID, ColorType color) : base(data.Position + offset) {
             // fix Theo's "crash when leaving behind and going up" bug
             Tag = 0;
 
-            color = data.Enum("color", CrystalColor.Blue);
+            this.color = color;
             this.entityID = entityID;
 
             floating = data.Bool("startFloating");
-            rainbowTinting = data.Bool("rainbowTinting", defaultValue: true);
 
             // replace the sprite
             Remove(Get<Sprite>());
@@ -65,22 +61,10 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             base.Awake(scene);
 
             Player player = scene.Tracker.GetEntity<Player>();
-            if (player?.Holding?.Entity is SpinnerBreakingBall ball && ball.entityID.Level == entityID.Level && ball.entityID.ID == entityID.ID) {
+            if (player?.Holding?.Entity is SpinnerBreakingBallGeneric<SpinnerType, ColorType> ball && ball.entityID.Level == entityID.Level && ball.entityID.ID == entityID.ID) {
                 // oops, the player is carrying a copy of ourselves from another room! commit remove self.
                 RemoveSelf();
             }
-
-            if (color == CrystalColor.Rainbow && rainbowTinting) {
-                // the GetHue method of crystal spinners require a spinner that is part of the scene.
-                scene.Add(rainbowSpinner = new CrystalStaticSpinner(new Vector2(float.MinValue, float.MinValue), false, CrystalColor.Red));
-                rainbowSpinner.AddTag(Tags.Persistent);
-                rainbowSpinner.Visible = false;
-            }
-        }
-
-        public override void Removed(Scene scene) {
-            base.Removed(scene);
-            rainbowSpinner?.RemoveSelf();
         }
 
         public override void Update() {
@@ -97,9 +81,9 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
                 // connections weren't computed yet, do that right now!
                 computeSpinnerConnections();
             } else {
-                // we want to check all spinners explicitly instead of just going CollideCheck<CrystalStaticSpinner>(),
+                // we want to check all spinners explicitly instead of just going CollideCheck<SpinnerType>(),
                 // to include those turned off because the player is too far.
-                foreach (CrystalStaticSpinner candidate in spinnerNeighbors.Keys) {
+                foreach (SpinnerType candidate in spinnerNeighbors.Keys) {
                     if (candidate.Scene != null && candidate.CollideCheck(this)) {
                         // BOOM! recursively shatter spinners.
                         shatterSpinner(candidate);
@@ -107,33 +91,28 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
                     }
                 }
             }
-
-            if (rainbowSpinner != null) {
-                // sync the ball's color with the color of the spinners around it
-                sprite.Color = (Color) crystalSpinnerGetHue.Invoke(rainbowSpinner, new object[] { Position });
-            }
         }
 
         private void computeSpinnerConnections() {
-            spinnerNeighbors = new Dictionary<CrystalStaticSpinner, HashSet<CrystalStaticSpinner>>();
+            spinnerNeighbors = new Dictionary<SpinnerType, HashSet<SpinnerType>>();
 
             // take all spinners on screen, filter those with a matching color
-            List<CrystalStaticSpinner> allSpinnersInScreen = Scene.Tracker.GetEntities<CrystalStaticSpinner>()
-                .OfType<CrystalStaticSpinner>().Where(spinner => new DynData<CrystalStaticSpinner>(spinner).Get<CrystalColor>("color") == color).ToList();
+            List<SpinnerType> allSpinnersInScreen = Scene.Tracker.GetEntities<SpinnerType>()
+                .OfType<SpinnerType>().Where(spinner => getColor(spinner).Equals(color)).ToList();
 
-            foreach (CrystalStaticSpinner spinner1 in allSpinnersInScreen) {
+            foreach (SpinnerType spinner1 in allSpinnersInScreen) {
                 if (!spinnerNeighbors.ContainsKey(spinner1)) {
-                    spinnerNeighbors[spinner1] = new HashSet<CrystalStaticSpinner>();
+                    spinnerNeighbors[spinner1] = new HashSet<SpinnerType>();
                 }
 
-                foreach (CrystalStaticSpinner spinner2 in allSpinnersInScreen) {
+                foreach (SpinnerType spinner2 in allSpinnersInScreen) {
                     // to connect spinners, we are using the same criteria as "spinner juice" generation in the game.
-                    if (new DynData<CrystalStaticSpinner>(spinner2).Get<int>("ID") > new DynData<CrystalStaticSpinner>(spinner1).Get<int>("ID")
-                        && spinner2.AttachToSolid == spinner1.AttachToSolid && (spinner2.Position - spinner1.Position).LengthSquared() < 576f) {
+                    if (new DynData<SpinnerType>(spinner2).Get<int>("ID") > new DynData<SpinnerType>(spinner1).Get<int>("ID")
+                        && getAttachToSolid(spinner2) == getAttachToSolid(spinner1) && (spinner2.Position - spinner1.Position).LengthSquared() < 576f) {
 
                         // register 2 as a neighbor of 1, and 1 as a neighbor of 2.
                         if (!spinnerNeighbors.ContainsKey(spinner2)) {
-                            spinnerNeighbors[spinner2] = new HashSet<CrystalStaticSpinner>();
+                            spinnerNeighbors[spinner2] = new HashSet<SpinnerType>();
                         }
 
                         spinnerNeighbors[spinner1].Add(spinner2);
@@ -143,15 +122,15 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             }
         }
 
-        private void shatterSpinner(CrystalStaticSpinner spinner) {
+        private void shatterSpinner(SpinnerType spinner) {
             // don't break already broken spinners!
             if (spinner.Scene == null) return;
 
-            spinner.Destroy();
+            destroySpinner(spinner);
             shatteredSpinners.Add(spinner);
 
             if (spinnerNeighbors.ContainsKey(spinner)) {
-                foreach (CrystalStaticSpinner neighbor in spinnerNeighbors[spinner]) {
+                foreach (SpinnerType neighbor in spinnerNeighbors[spinner]) {
                     if (!shatteredSpinners.Contains(neighbor)) {
                         shatterSpinner(neighbor);
                     }
@@ -160,11 +139,15 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
         }
 
         private static void onTheoCrystalDie(On.Celeste.TheoCrystal.orig_Die orig, TheoCrystal self) {
-            if (self is SpinnerBreakingBall) {
+            if (self is SpinnerBreakingBallGeneric<SpinnerType, ColorType>) {
                 self.RemoveSelf();
             } else {
                 orig(self);
             }
         }
+
+        protected abstract ColorType getColor(SpinnerType spinner);
+        protected abstract bool getAttachToSolid(SpinnerType spinner);
+        protected abstract void destroySpinner(SpinnerType spinner);
     }
 }

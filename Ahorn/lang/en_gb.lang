@@ -966,6 +966,11 @@ placements.entities.MaxHelpingHand/SpinnerBreakingBall.tooltips.spritePath=The s
 placements.entities.MaxHelpingHand/SpinnerBreakingBall.tooltips.startFloating=Whether the ball should float in mid-air until the player picks it up.
 placements.entities.MaxHelpingHand/SpinnerBreakingBall.tooltips.rainbowTinting=Whether the ball should be tinted to match the rainbow spinners around it.\nOnly has an effect if "Color" is set to "Rainbow".
 
+# Spinner Breaking Ball (Frost Helper)
+placements.entities.MaxHelpingHand/SpinnerBreakingBallFrostHelper.tooltips.color=The color of the spinners this ball is able to break. Should match the "Tint" field of the targeted spinners.
+placements.entities.MaxHelpingHand/SpinnerBreakingBallFrostHelper.tooltips.spritePath=The sprite this ball should use, from your mod's Graphics/Atlases/Gameplay folder.\nContributions for proper default sprites are welcome.
+placements.entities.MaxHelpingHand/SpinnerBreakingBallFrostHelper.tooltips.startFloating=Whether the ball should float in mid-air until the player picks it up.
+
 # Styleground Fade Controller
 placements.entities.MaxHelpingHand/StylegroundFadeController.names.flag=Flags
 placements.entities.MaxHelpingHand/StylegroundFadeController.tooltips.flag=This controller will affect the stylegrounds that have one of these flags in their "Flag" field.\nThe stylegrounds should be toggled by one flag only, not with room names for example.\nIf you specify multiple flags separated by commas, it will work the same as placing multiple controllers with one flag each.

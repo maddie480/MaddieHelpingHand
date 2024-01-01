@@ -1066,6 +1066,12 @@ entities.MaxHelpingHand/SpinnerBreakingBall.attributes.description.spritePath=Th
 entities.MaxHelpingHand/SpinnerBreakingBall.attributes.description.startFloating=Whether the ball should float in mid-air until the player picks it up.
 entities.MaxHelpingHand/SpinnerBreakingBall.attributes.description.rainbowTinting=Whether the ball should be tinted to match the rainbow spinners around it.\nOnly has an effect if "Color" is set to "Rainbow".
 
+# Spinner Breaking Ball (Frost Helper)
+entities.MaxHelpingHand/SpinnerBreakingBallFrostHelper.placements.name.default=Spinner Breaking Ball (Custom)
+entities.MaxHelpingHand/SpinnerBreakingBallFrostHelper.attributes.description.color=The color of the spinners this ball is able to break. Should match the "Tint" field of the targeted spinners.
+entities.MaxHelpingHand/SpinnerBreakingBallFrostHelper.attributes.description.spritePath=The sprite this ball should use, from your mod's Graphics/Atlases/Gameplay folder.\nContributions for proper default sprites are welcome.
+entities.MaxHelpingHand/SpinnerBreakingBallFrostHelper.attributes.description.startFloating=Whether the ball should float in mid-air until the player picks it up.
+
 # Styleground Fade Controller
 entities.MaxHelpingHand/StylegroundFadeController.placements.name.controller=Styleground Fade Controller
 entities.MaxHelpingHand/StylegroundFadeController.attributes.name.flag=Flags
