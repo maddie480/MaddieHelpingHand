@@ -752,6 +752,18 @@ triggers.MaxHelpingHand/SetFlagOnSpawnTrigger.attributes.description.flags=The s
 triggers.MaxHelpingHand/SetFlagOnSpawnTrigger.attributes.description.enable=If checked, the flag will be enabled when the player respawns inside the trigger. If unchecked, the flag will be disabled instead.
 triggers.MaxHelpingHand/SetFlagOnSpawnTrigger.attributes.description.ifFlag=The flag will only be set if this other flag is active. Leave empty if you don't need your flag to depend on another flag.
 
+# Set Flag On Heart Collected Controller
+entities.MaxHelpingHand/SetFlagOnHeartCollectedController.placements.name.controller=Set Flag On Heart Collected Controller
+entities.MaxHelpingHand/SetFlagOnHeartCollectedController.attributes.description.flag=The session flag to activate if the player has collected the crystal heart of the current map.
+
+# Set Flag On Completion Controller
+entities.MaxHelpingHand/SetFlagOnCompletionController.placements.name.controller=Set Flag On Completion Controller
+entities.MaxHelpingHand/SetFlagOnCompletionController.attributes.description.flag=The session flag to activate if the player has completed the current map.
+
+# Set Flag On Heart Collected Controller
+entities.MaxHelpingHand/SetFlagOnFullClearController.placements.name.controller=Set Flag On Full Clear Controller
+entities.MaxHelpingHand/SetFlagOnFullClearController.attributes.description.flag=The session flag to activate if the player has full cleared the current map.
+
 # Shatter Flag Switch Gate
 entities.MaxHelpingHand/ShatterFlagSwitchGate.placements.name.block=Shatter Flag Switch Gate (Block)
 entities.MaxHelpingHand/ShatterFlagSwitchGate.placements.name.mirror=Shatter Flag Switch Gate (Mirror)
