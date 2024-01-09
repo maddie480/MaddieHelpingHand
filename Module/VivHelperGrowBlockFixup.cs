@@ -5,26 +5,18 @@ using System;
 using System.Reflection;
 
 namespace Celeste.Mod.MaxHelpingHand.Module {
-    // This contains a hook that fixes Grow Blocks being invisible after the Everest update that added tile rendering culling.
-    // Grow Blocks are present (and nearly identical) in Celsius and Viv's Helper.
-    public static class CelsiusGrowBlockFixup {
-        private static Hook celsiusHook;
+    // This contains a hook that fixes Grow Blocks (from Viv's Helper) being invisible after the Everest update that added tile rendering culling.
+    public static class VivHelperGrowBlockFixup {
         private static Hook vivHelperHook;
 
         public static void LoadMods() {
-            MethodInfo hookTarget = typeof(CelsiusGrowBlockFixup).GetMethod("fixupGrowBlockTileGrid", BindingFlags.NonPublic | BindingFlags.Static);
-
-            MethodInfo celsiusGrowBlockAwake = FakeAssembly.GetFakeEntryAssembly().GetType("Celeste.Mod.CelsiusHelper.GrowBlock")?.GetMethod("Awake");
-            if (celsiusGrowBlockAwake != null) celsiusHook = new Hook(celsiusGrowBlockAwake, hookTarget);
+            MethodInfo hookTarget = typeof(VivHelperGrowBlockFixup).GetMethod("fixupGrowBlockTileGrid", BindingFlags.NonPublic | BindingFlags.Static);
 
             MethodInfo vivHelperGrowBlockAwake = FakeAssembly.GetFakeEntryAssembly().GetType("VivHelper.Entities.GrowBlock")?.GetMethod("Awake");
             if (vivHelperGrowBlockAwake != null) vivHelperHook = new Hook(vivHelperGrowBlockAwake, hookTarget);
         }
 
         public static void Unload() {
-            celsiusHook?.Dispose();
-            celsiusHook = null;
-
             vivHelperHook?.Dispose();
             vivHelperHook = null;
         }

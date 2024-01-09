@@ -236,7 +236,7 @@ namespace Celeste.Mod.MaxHelpingHand.Module {
             SaveFileStrawberryGate.HookMods();
             RainbowSpinnerColorController.LoadMods();
             RainbowSpinnerColorAreaController.LoadMods();
-            CelsiusGrowBlockFixup.LoadMods();
+            VivHelperGrowBlockFixup.LoadMods();
 
             if (!hookedSineParallax && Everest.Loader.DependencyLoaded(new EverestModuleMetadata() { Name = "FlaglinesAndSuch", Version = new Version(1, 4, 17) })) {
                 hookSineParallax();
