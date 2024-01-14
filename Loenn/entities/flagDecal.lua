@@ -28,6 +28,7 @@ flagDecal.fieldInformation = {
     depth = {
         fieldType = "integer",
         options = {
+            ["In front of Tile Entities"] = -13001,
             ["In front of FG"] = -10501,
             ["Behind FG"] = -10499,
             ["In front of BG"] = 8999,
