@@ -1,6 +1,6 @@
 # The mod used to be known as "max480's Helping Hand", and wasn't renamed for compatibility reasons
 - Name: MaxHelpingHand
-  Version: 1.29.2
+  Version: 1.29.3
   DLL: bin/Release/net452/MaxHelpingHand.dll
   Dependencies:
     - Name: Everest
@@ -17,4 +17,4 @@
     - Name: BounceHelper
       Version: 1.8.0
     - Name: FrostHelper
-      Version: 1.47.1
+      Version: 1.46.0

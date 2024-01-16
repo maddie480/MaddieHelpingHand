@@ -246,7 +246,7 @@ namespace Celeste.Mod.MaxHelpingHand.Module {
                 loadBounceHelper();
             }
 
-            if (!frostBreakingBallLoaded && Everest.Loader.DependencyLoaded(new EverestModuleMetadata { Name = "FrostHelper", Version = new Version(1, 47, 1) })) {
+            if (!frostBreakingBallLoaded && Everest.Loader.DependencyLoaded(new EverestModuleMetadata { Name = "FrostHelper", Version = new Version(1, 46, 0) })) {
                 loadFrostBreakingBall();
             }
         }
