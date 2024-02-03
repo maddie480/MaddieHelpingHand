@@ -91,7 +91,7 @@ local function addTrailSprites(sprites, entity, trailTexture)
     x, y = math.min(x, nodeX), math.min(y, nodeY)
 
     local pathDirection = x == nodeX and "V" or "H"
-    local pathTexture = string.format("objects/swapblock/path%s", pathDirection)
+    local pathTexture = string.format("%s/path%s", entity.spriteDirectory, pathDirection)
     local pathNinePatch = drawableNinePatch.fromTexture(pathTexture, pathNinePatchOptions, x, y, drawWidth, drawHeight)
     local pathSprites = pathNinePatch:getDrawableSprite()
 
