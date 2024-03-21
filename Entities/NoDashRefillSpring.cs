@@ -202,40 +202,42 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
 
             if (Orientation == Orientations.Floor) {
                 if (realY >= 0f) {
-                    bounceAnimate.Invoke(this, noParams);
-                    if (inverted) {
+                    if (inverted && inactiveTimer <= 0f) {
                         InvertedSuperBounce(player, Top - player.Height);
-                    } else {
+                        inactiveTimer = 0.1f;
+                        bounced = true;
+                    } else if (!inverted) {
                         player.SuperBounce(Top);
+                        bounced = true;
                     }
-                    bounced = true;
                 }
             } else if (Orientation == Orientations.WallLeft) {
                 if (player.SideBounce(1, Right, CenterY)) {
-                    bounceAnimate.Invoke(this, noParams);
                     bounced = true;
                 }
             } else if (Orientation == Orientations.WallRight) {
                 if (player.SideBounce(-1, Left, CenterY)) {
-                    bounceAnimate.Invoke(this, noParams);
                     bounced = true;
                 }
             } else if (Orientation == Orientations.Ceiling) {
-                if (realY <= 0f && inactiveTimer <= 0f) {
-                    bounceAnimate.Invoke(this, noParams);
-                    if (inverted) {
-                        player.SuperBounce(Bottom);
-                    } else {
+                if (realY <= 0f) {
+                    if (!inverted && inactiveTimer <= 0f) {
                         InvertedSuperBounce(player, Bottom + player.Height);
+                        inactiveTimer = 0.1f;
+                        bounced = true;
+                    } else if (inverted) {
+                        player.SuperBounce(Bottom);
+                        bounced = true;
                     }
-                    inactiveTimer = 0.1f;
-                    bounced = true;
                 }
             } else {
                 throw new Exception("Orientation not supported!");
             }
 
             if (bounced) {
+                // animate spring
+                bounceAnimate.Invoke(this, noParams);
+
                 // Restore original dash count.
                 player.Dashes = originalDashCount;
 
