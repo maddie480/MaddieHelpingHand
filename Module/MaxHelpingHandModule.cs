@@ -110,6 +110,7 @@ namespace Celeste.Mod.MaxHelpingHand.Module {
                 typeof(MaxHelpingHandModule).GetMethod("onModRegister", BindingFlags.NonPublic | BindingFlags.Instance), this);
 
             typeof(LuaCutscenesUtils).ModInterop();
+            typeof(GravityHelperImports.Interop).ModInterop();
         }
 
         public override void Unload() {

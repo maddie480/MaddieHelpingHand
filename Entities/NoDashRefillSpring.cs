@@ -6,6 +6,7 @@ using MonoMod.Utils;
 using System;
 using System.Collections.Generic;
 using System.Reflection;
+using Celeste.Mod.MaxHelpingHand.Module;
 
 namespace Celeste.Mod.MaxHelpingHand.Entities {
     /**
@@ -196,11 +197,17 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             float originalStamina = player.Stamina;
 
             bool bounced = false;
+            bool inverted = GravityHelperImports.IsPlayerInverted();
+            float realY = inverted ? -player.Speed.Y : player.Speed.Y;
 
             if (Orientation == Orientations.Floor) {
-                if (player.Speed.Y >= 0f) {
+                if (realY >= 0f) {
                     bounceAnimate.Invoke(this, noParams);
-                    player.SuperBounce(Top);
+                    if (inverted) {
+                        InvertedSuperBounce(player, Top - player.Height);
+                    } else {
+                        player.SuperBounce(Top);
+                    }
                     bounced = true;
                 }
             } else if (Orientation == Orientations.WallLeft) {
@@ -214,11 +221,13 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
                     bounced = true;
                 }
             } else if (Orientation == Orientations.Ceiling) {
-                if (player.Speed.Y <= 0f && inactiveTimer <= 0f) {
+                if (realY <= 0f && inactiveTimer <= 0f) {
                     bounceAnimate.Invoke(this, noParams);
-                    player.SuperBounce(Bottom + player.Height);
-                    player.Speed.Y *= -1f;
-                    new DynData<Player>(player)["varJumpSpeed"] = player.Speed.Y;
+                    if (inverted) {
+                        player.SuperBounce(Bottom);
+                    } else {
+                        InvertedSuperBounce(player, Bottom + player.Height);
+                    }
                     inactiveTimer = 0.1f;
                     bounced = true;
                 }
@@ -237,6 +246,12 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
 
                 RefillDashes(player);
             }
+        }
+
+        private void InvertedSuperBounce(Player player, float fromY) {
+            player.SuperBounce(fromY);
+            player.Speed.Y *= -1f;
+            new DynData<Player>(player)["varJumpSpeed"] = player.Speed.Y;
         }
 
         protected virtual void RefillDashes(Player player) {
