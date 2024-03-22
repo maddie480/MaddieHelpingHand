@@ -146,8 +146,12 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
 
                     int moveDirection = Math.Sign(moveH);
                     bool movingLeftToRight = moveH > 0;
-                    if (checkCollisionWithSidewaysJumpthruWhileMoving(self, moveDirection, movingLeftToRight)) {
-                        return new FakeCollidingSolid();
+                    if (getCollisionWithSidewaysJumpthruWhileMoving(self, moveDirection, movingLeftToRight) is SidewaysJumpThru jumpThru) {
+                        FakeCollidingSolid fakeSolid = new FakeCollidingSolid();
+                        if (self is Player player && player.DashAttacking && jumpThru is AttachedSidewaysJumpThru attachedSidewaysJumpThru) {
+                            fakeSolid.OnDashCollide = attachedSidewaysJumpThru.OnDashCollide;
+                        }
+                        return fakeSolid; // so Celeste will call that callback and not discard return value.
                     }
 
                     return null;
@@ -168,6 +172,22 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             }
 
             return false;
+        }
+
+        private static SidewaysJumpThru getCollisionWithSidewaysJumpthruWhileMoving(Entity self, int moveDirection, bool movingLeftToRight) {
+            // check if colliding with a sideways jumpthru
+            SidewaysJumpThru jumpThru = self.CollideFirstOutside<SidewaysJumpThru>(self.Position + Vector2.UnitX * moveDirection);
+            if (jumpThru != null && jumpThru.AllowLeftToRight != movingLeftToRight && (!(self is Seeker) || !jumpThru.letSeekersThrough)) {
+                // there is a sideways jump-thru and we are moving in the opposite direction => collision
+                //if (self is Player player && player.DashAttacking && jumpThru is AttachedSidewaysJumpThru attachedSidewaysJumpThru) {
+                    // attached sideways jumpthrus potentially have a callback to call when the player is dashing into them.
+                    // but return value is discarded.
+                    // attachedSidewaysJumpThru.OnDashCollide?.Invoke(player, Vector2.UnitX * moveDirection);
+                //}
+                return jumpThru;
+            }
+
+            return null;
         }
 
         private static bool onPlayerClimbHopBlockedCheck(On.Celeste.Player.orig_ClimbHopBlockedCheck orig, Player self) {
