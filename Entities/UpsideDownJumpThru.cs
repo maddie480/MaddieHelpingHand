@@ -11,6 +11,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using Celeste.Mod.MaxHelpingHand.Module;
 
 namespace Celeste.Mod.MaxHelpingHand.Entities {
     [CustomEntity("MaxHelpingHand/UpsideDownJumpThru")]
@@ -27,18 +28,9 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
 
         private static readonly Hitbox normalHitbox = new Hitbox(8f, 11f, -4f, -11f);
 
-        [ModImportName("GravityHelper")]
-        private class GravityHelper {
-#pragma warning disable CS0649 // it is actually initialized by ModInterop
-            public static Func<bool> IsPlayerInverted;
-#pragma warning restore CS0649
-        }
-
         public static void Load() {
             On.Celeste.LevelLoader.ctor += onLevelLoad;
             On.Celeste.OverworldLoader.ctor += onOverworldLoad;
-
-            typeof(GravityHelper).ModInterop();
         }
 
         public static void Unload() {
@@ -483,7 +475,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
         }
 
         public override void MoveVExact(int move) {
-            bool playerInverted = GravityHelper.IsPlayerInverted?.Invoke() ?? false;
+            bool playerInverted = GravityHelperImports.IsPlayerInverted();
 
             if (!playerInverted) {
                 // if we are going to hit the player while moving down... this means we are pushing them down. So... we need to push them down :theoreticalwoke:

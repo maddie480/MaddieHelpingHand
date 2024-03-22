@@ -6,6 +6,7 @@ using MonoMod.Utils;
 using System;
 using System.Collections.Generic;
 using System.Reflection;
+using Celeste.Mod.MaxHelpingHand.Module;
 
 namespace Celeste.Mod.MaxHelpingHand.Entities {
     /**
@@ -196,37 +197,47 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             float originalStamina = player.Stamina;
 
             bool bounced = false;
+            bool inverted = GravityHelperImports.IsPlayerInverted();
+            float realY = inverted ? -player.Speed.Y : player.Speed.Y;
 
             if (Orientation == Orientations.Floor) {
-                if (player.Speed.Y >= 0f) {
-                    bounceAnimate.Invoke(this, noParams);
-                    player.SuperBounce(Top);
-                    bounced = true;
+                if (realY >= 0f) {
+                    if (inverted && inactiveTimer <= 0f) {
+                        InvertedSuperBounce(player, Top - player.Height);
+                        inactiveTimer = 0.1f;
+                        bounced = true;
+                    } else if (!inverted) {
+                        player.SuperBounce(Top);
+                        bounced = true;
+                    }
                 }
             } else if (Orientation == Orientations.WallLeft) {
                 if (player.SideBounce(1, Right, CenterY)) {
-                    bounceAnimate.Invoke(this, noParams);
                     bounced = true;
                 }
             } else if (Orientation == Orientations.WallRight) {
                 if (player.SideBounce(-1, Left, CenterY)) {
-                    bounceAnimate.Invoke(this, noParams);
                     bounced = true;
                 }
             } else if (Orientation == Orientations.Ceiling) {
-                if (player.Speed.Y <= 0f && inactiveTimer <= 0f) {
-                    bounceAnimate.Invoke(this, noParams);
-                    player.SuperBounce(Bottom + player.Height);
-                    player.Speed.Y *= -1f;
-                    new DynData<Player>(player)["varJumpSpeed"] = player.Speed.Y;
-                    inactiveTimer = 0.1f;
-                    bounced = true;
+                if (realY <= 0f) {
+                    if (!inverted && inactiveTimer <= 0f) {
+                        InvertedSuperBounce(player, Bottom + player.Height);
+                        inactiveTimer = 0.1f;
+                        bounced = true;
+                    } else if (inverted) {
+                        player.SuperBounce(Bottom);
+                        bounced = true;
+                    }
                 }
             } else {
                 throw new Exception("Orientation not supported!");
             }
 
             if (bounced) {
+                // animate spring
+                bounceAnimate.Invoke(this, noParams);
+
                 // Restore original dash count.
                 player.Dashes = originalDashCount;
 
@@ -237,6 +248,12 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
 
                 RefillDashes(player);
             }
+        }
+
+        private void InvertedSuperBounce(Player player, float fromY) {
+            player.SuperBounce(fromY);
+            player.Speed.Y *= -1f;
+            new DynData<Player>(player)["varJumpSpeed"] = player.Speed.Y;
         }
 
         protected virtual void RefillDashes(Player player) {
