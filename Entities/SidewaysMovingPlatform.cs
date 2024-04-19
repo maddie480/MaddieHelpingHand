@@ -107,7 +107,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
                 // the platform is pushing the player horizontally, so we should have the solid push the player.
                 playerHasToMove = true;
             }
-            if (GetPlayerClimbing(platform, left) != null) {
+            if (platform.Collidable && GetPlayerClimbing(platform, left) != null) {
                 // player is climbing the platform, so the solid should carry the player with the platform
                 playerHasToMove = true;
             }
