@@ -33,6 +33,8 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
         private string lastSfx;
         private SoundSource sfx;
 
+        internal int sinkingDir = 1;
+
         // status tracking
         private float pauseTimer;
         private int prevNodeIndex = 0;
@@ -330,10 +332,10 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             // manage the "sinking" effect when the player is on the platform
             if (HasPlayerRider()) {
                 sinkTimer = 0.2f;
-                addY = Calc.Approach(addY, 3f, 50f * Engine.DeltaTime);
+                addY = Calc.Approach(addY, 3f * sinkingDir, 50f * Engine.DeltaTime);
             } else if (sinkTimer > 0f) {
                 sinkTimer -= Engine.DeltaTime;
-                addY = Calc.Approach(addY, 3f, 50f * Engine.DeltaTime);
+                addY = Calc.Approach(addY, 3f * sinkingDir, 50f * Engine.DeltaTime);
             } else {
                 addY = Calc.Approach(addY, 0f, 20f * Engine.DeltaTime);
             }

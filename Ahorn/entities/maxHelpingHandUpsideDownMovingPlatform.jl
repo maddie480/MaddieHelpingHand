@@ -9,6 +9,13 @@ using ..Ahorn, Maple
     moveTime=moveTime, pauseTime=pauseTime, easing=easing, amount=amount, offset=offset, flag=flag, moveLater=moveLater,
     emitSound=emitSound, pushPlayer=pushPlayer, drawTracks=drawTracks)
 
+@pardef UpsideDownMovingPlatformGravityHelper(x::Integer, y::Integer, width::Integer=Maple.defaultBlockWidth, mode::String="Loop", texture::String="default",
+    moveTime::Number=2.0, pauseTime::Number=0.0, easing::Bool=true, amount::Int=1, offset::Number=0.0, flag::String="", moveLater::Bool=true,
+    emitSound::Bool=true, pushPlayer::Bool=false, drawTracks::Bool=true) =
+    Entity("MaxHelpingHand/UpsideDownMovingPlatformGravityHelper", x=x, y=y, nodes=Tuple{Int, Int}[], width=width, mode=mode, texture=texture,
+    moveTime=moveTime, pauseTime=pauseTime, easing=easing, amount=amount, offset=offset, flag=flag, moveLater=moveLater,
+    emitSound=emitSound, drawTracks=drawTracks)
+
 const placements = Ahorn.PlacementDict()
 
 const modes = ["Loop", "LoopNoPause", "BackAndForth", "BackAndForthNoPause", "TeleportBack"]
@@ -27,20 +34,35 @@ for texture in Maple.wood_platform_textures
             entity.data["nodes"] = [(x, y)]
         end
     )
+    placements["Upside-Down Moving Platform ($(uppercasefirst(texture)))\n(Maddie's Helping Hand + Gravity Helper)"] = Ahorn.EntityPlacement(
+        UpsideDownMovingPlatformGravityHelper,
+        "rectangle",
+        Dict{String, Any}(
+            "texture" => texture
+        ),
+        function(entity)
+            x, y = Int(entity.data["x"]), Int(entity.data["y"])
+            width = Int(get(entity.data, "width", 8))
+            entity.data["x"], entity.data["y"] = x + width, y
+            entity.data["nodes"] = [(x, y)]
+        end
+    )
 end
 
-Ahorn.editingOptions(entity::UpsideDownMovingPlatform) = Dict{String, Any}(
+platformUnion = Union{UpsideDownMovingPlatform, UpsideDownMovingPlatformGravityHelper}
+
+Ahorn.editingOptions(entity::platformUnion) = Dict{String, Any}(
     "texture" => Maple.wood_platform_textures,
     "mode" => modes
 )
 
-Ahorn.nodeLimits(entity::UpsideDownMovingPlatform) = 1, -1
+Ahorn.nodeLimits(entity::platformUnion) = 1, -1
 
-Ahorn.resizable(entity::UpsideDownMovingPlatform) = true, false
+Ahorn.resizable(entity::platformUnion) = true, false
 
-Ahorn.minimumSize(entity::UpsideDownMovingPlatform) = 8, 0
+Ahorn.minimumSize(entity::platformUnion) = 8, 0
 
-function Ahorn.selection(entity::UpsideDownMovingPlatform)
+function Ahorn.selection(entity::platformUnion)
     width = Int(get(entity.data, "width", 8))
 
     nodes = get(entity.data, "nodes", ())
@@ -112,7 +134,7 @@ function renderPlatform(ctx::Ahorn.Cairo.CairoContext, texture::String, x::Numbe
     Ahorn.Cairo.restore(ctx)
 end
 
-function Ahorn.renderAbs(ctx::Ahorn.Cairo.CairoContext, entity::UpsideDownMovingPlatform, room::Maple.Room)
+function Ahorn.renderAbs(ctx::Ahorn.Cairo.CairoContext, entity::platformUnion, room::Maple.Room)
     width = Int(get(entity.data, "width", 8))
     mode = get(entity.data, "mode", "Loop")
 
@@ -139,7 +161,7 @@ function Ahorn.renderAbs(ctx::Ahorn.Cairo.CairoContext, entity::UpsideDownMoving
     renderPlatform(ctx, texture, firstNodeX, firstNodeY, width)
 end
 
-function Ahorn.renderSelectedAbs(ctx::Ahorn.Cairo.CairoContext, entity::UpsideDownMovingPlatform, room::Maple.Room)
+function Ahorn.renderSelectedAbs(ctx::Ahorn.Cairo.CairoContext, entity::platformUnion, room::Maple.Room)
     width = Int(get(entity.data, "width", 8))
     mode = get(entity.data, "mode", "Loop")
 

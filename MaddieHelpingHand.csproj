@@ -35,6 +35,10 @@
       <HintPath>lib-stripped\LunaticHelper.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="GravityHelper">
+      <HintPath>lib-stripped\GravityHelper.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="MMHOOK_Celeste">
       <HintPath>lib-stripped\MMHOOK_Celeste.dll</HintPath>
       <Private>False</Private>
