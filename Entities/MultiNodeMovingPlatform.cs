@@ -24,7 +24,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
         private string flag;
         private bool moveLater;
         private bool emitSound;
-        private bool giveHorizontalBoost;
+        internal readonly bool giveHorizontalBoost;
         private bool drawTracks;
 
         private MTexture[] textures;

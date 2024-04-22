@@ -185,6 +185,7 @@ namespace Celeste.Mod.MaxHelpingHand.Module {
             FrozenJelly.Unload();
             ReverseJelly.Unload();
             ReversibleRetentionBooster.Unload();
+            UpsideDownMovingPlatformGravityHelper.Unload();
 
             Everest.Events.Level.OnLoadBackdrop -= onLoadBackdrop;
 
@@ -238,6 +239,7 @@ namespace Celeste.Mod.MaxHelpingHand.Module {
             RainbowSpinnerColorController.LoadMods();
             RainbowSpinnerColorAreaController.LoadMods();
             VivHelperGrowBlockFixup.LoadMods();
+            UpsideDownMovingPlatformGravityHelper.LoadMods();
 
             if (!hookedSineParallax && Everest.Loader.DependencyLoaded(new EverestModuleMetadata() { Name = "FlaglinesAndSuch", Version = new Version(1, 4, 17) })) {
                 hookSineParallax();

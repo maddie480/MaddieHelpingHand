@@ -854,6 +854,7 @@ entities.MaxHelpingHand/UpsideDownMovingPlatformGravityHelper.attributes.descrip
 entities.MaxHelpingHand/UpsideDownMovingPlatformGravityHelper.attributes.description.moveLater=If checked, objects like spikes will attach to the platform before it is moved to the offset.
 entities.MaxHelpingHand/UpsideDownMovingPlatformGravityHelper.attributes.description.emitSound=Whether the platform should emit sound when moving.
 entities.MaxHelpingHand/UpsideDownMovingPlatformGravityHelper.attributes.description.drawTracks=Whether the tracks of the platform (the path it follows) should be visible.
+entities.MaxHelpingHand/UpsideDownMovingPlatformGravityHelper.attributes.description.giveHorizontalBoost=Whether the platform should give the player a horizontal boost when moving purely horizontally, unlike vanilla moving platforms.
 
 # Activate Timed Touch Switches Timer Trigger
 triggers.MaxHelpingHand/ActivateTimedTouchSwitchesTimerTrigger.placements.name.trigger=Activate Timed Touch Switches Timer

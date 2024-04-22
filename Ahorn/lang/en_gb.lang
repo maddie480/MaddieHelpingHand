@@ -534,6 +534,7 @@ placements.entities.MaxHelpingHand/UpsideDownMovingPlatformGravityHelper.tooltip
 placements.entities.MaxHelpingHand/UpsideDownMovingPlatformGravityHelper.tooltips.moveLater=If checked, objects like spikes will attach to the platform before it is moved to the offset.
 placements.entities.MaxHelpingHand/UpsideDownMovingPlatformGravityHelper.tooltips.emitSound=Whether the platform should emit sound when moving.
 placements.entities.MaxHelpingHand/UpsideDownMovingPlatformGravityHelper.tooltips.drawTracks=Whether the tracks of the platform (the path it follows) should be visible.
+placements.entities.MaxHelpingHand/UpsideDownMovingPlatformGravityHelper.tooltips.giveHorizontalBoost=Whether the platform should give the player a horizontal boost when moving purely horizontally, unlike vanilla moving platforms.
 
 # Multi-Node Bumper
 placements.entities.MaxHelpingHand/MultiNodeBumper.tooltips.moveTime=The time the bumper takes to move between two successive positions. Default is 2 seconds.

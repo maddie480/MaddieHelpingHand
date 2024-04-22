@@ -10,6 +10,24 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
     // and just takes care of the rendering afterwards. :sparkles:
     [CustomEntity("MaxHelpingHand/UpsideDownMovingPlatformGravityHelper")]
     public class UpsideDownMovingPlatformGravityHelper : Entity {
+        private static bool gravityHelperHooked = false;
+
+        public static void LoadMods() {
+            if (!gravityHelperHooked && Everest.Loader.DependencyLoaded(new EverestModuleMetadata { Name = "GravityHelper", Version = new Version(1, 2, 8) })) {
+                // it's not really a Gravity Helper hook, but it checks for Gravity Helper stuff,
+                // and therefore will go boom if Gravity Helper is not loaded.
+                On.Celeste.JumpThru.MoveHExact += jumpThruMoveHExact;
+                gravityHelperHooked = true;
+            }
+        }
+
+        public static void Unload() {
+            if (gravityHelperHooked) {
+                On.Celeste.JumpThru.MoveHExact -= jumpThruMoveHExact;
+                gravityHelperHooked = false;
+            }
+        }
+
         // settings
         private readonly EntityData thisEntityData;
         private readonly Vector2 thisOffset;
@@ -102,6 +120,43 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             }
             textures[0].Draw(Position + new Vector2(width - 8f, 0f), origin, Color.White, 1f, (float) Math.PI);
             textures[2].Draw(Position + new Vector2(width / 2f - 4f, 0f), origin, Color.White, 1f, (float) Math.PI);
+        }
+
+        private static void jumpThruMoveHExact(On.Celeste.JumpThru.orig_MoveHExact orig, JumpThru self, int move) {
+            if (!(self is GravityJumpThru jumpThru)
+                || !(jumpThru.Get<StaticMover>()?.Platform is MultiNodeMovingPlatform platform)
+                || !platform.giveHorizontalBoost) {
+
+                // do not change the vanilla behavior
+                orig(self, move);
+                return;
+            }
+
+            // A slightly edited version of vanilla's MoveHExact, edited to give lift boost like MoveVExact does.
+            // (pulled from Vortex Helper's Attached Jump Thrus)
+            // This uses the invisible moving platform's lift speed, since the attached jumpthrus get moved by pixel
+            // and give lift boosts by multiples of 60 only.
+
+            if (self.Collidable) {
+                foreach (Actor entity in self.Scene.Tracker.GetEntities<Actor>()) {
+                    if (entity.IsRiding(self)) {
+                        self.Collidable = false;
+
+                        if (entity.TreatNaive) {
+                            entity.NaiveMove(Vector2.UnitX * move);
+                        } else {
+                            entity.MoveHExact(move);
+                        }
+
+                        entity.LiftSpeed = platform.LiftSpeed;
+                        self.Collidable = true;
+                        Console.WriteLine(entity.LiftSpeed);
+                    }
+                }
+            }
+
+            self.X += move;
+            self.MoveStaticMovers(Vector2.UnitX * move);
         }
     }
 }

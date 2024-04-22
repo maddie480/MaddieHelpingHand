@@ -30,7 +30,8 @@ for i, texture in ipairs(textures) do
             flag = "",
             moveLater = true,
             emitSound = true,
-            drawTracks = true
+            drawTracks = true,
+            giveHorizontalBoost = false
         }
     }
 end
