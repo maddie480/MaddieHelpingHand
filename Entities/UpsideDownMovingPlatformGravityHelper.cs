@@ -40,7 +40,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
         private MultiNodeMovingPlatform animatingPlatform;
         private bool spawnedByOtherPlatform = false;
 
-        private GravityJumpThru gravityJumpthru;
+        private JumpThru gravityJumpthru;
 
         public UpsideDownMovingPlatformGravityHelper(EntityData data, Vector2 offset) : base(data.Position + offset) {
             gravityJumpthru = new GravityJumpThru(new EntityData() {
@@ -97,7 +97,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             animatePlatforms(this, animatingPlatform, gravityJumpthru);
         }
 
-        private static void animatePlatforms(UpsideDownMovingPlatformGravityHelper self, MultiNodeMovingPlatform animatingPlatform, GravityJumpThru gravityJumpthru) {
+        private static void animatePlatforms(UpsideDownMovingPlatformGravityHelper self, MultiNodeMovingPlatform animatingPlatform, JumpThru gravityJumpthru) {
             StaticMover staticMover = self.Get<StaticMover>();
             StaticMover gravityMover = gravityJumpthru.Get<StaticMover>();
 
