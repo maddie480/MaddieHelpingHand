@@ -150,7 +150,6 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
 
                         entity.LiftSpeed = platform.LiftSpeed;
                         self.Collidable = true;
-                        Console.WriteLine(entity.LiftSpeed);
                     }
                 }
             }
