@@ -156,7 +156,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
 
         private static DisableControlsController getDisableControlsControllerInRoomSafely() {
             // return null if the DisableControlsController type isn't tracked yet. This can happen when the mod is being loaded during runtime
-            if (!Engine.Scene.Tracker.Entities.ContainsKey(typeof(DisableControlsController))) return null;
+            if (Engine.Scene == null || !Engine.Scene.Tracker.Entities.ContainsKey(typeof(DisableControlsController))) return null;
 
             DisableControlsController controller = Engine.Scene.Tracker.GetEntity<DisableControlsController>();
             if (controller != null && (string.IsNullOrEmpty(controller.onlyIfFlag) || (Engine.Scene as Level).Session.GetFlag(controller.onlyIfFlag))) {
