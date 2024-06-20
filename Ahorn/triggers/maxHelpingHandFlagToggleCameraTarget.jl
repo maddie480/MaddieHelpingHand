@@ -3,7 +3,7 @@
 using ..Ahorn, Maple
 
 @mapdef Trigger "MaxHelpingHand/FlagToggleCameraTargetTrigger" FlagToggleCameraTargetTrigger(x::Integer, y::Integer, width::Integer=Maple.defaultTriggerWidth, height::Integer=Maple.defaultTriggerHeight,
-    lerpStrength::Number=0.0, positionMode::String="NoEffect", xOnly::Bool=false, yOnly::Bool=false, deleteFlag::String="", nodes::Array{Tuple{Integer, Integer}, 1}=Tuple{Integer, Integer}[],
+    lerpStrength::Number=1.0, positionMode::String="NoEffect", xOnly::Bool=false, yOnly::Bool=false, deleteFlag::String="", nodes::Array{Tuple{Integer, Integer}, 1}=Tuple{Integer, Integer}[],
     flag::String="flag_toggle_camera_target", inverted::Bool=false)
 
 const placements = Ahorn.PlacementDict(
