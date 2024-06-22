@@ -11,6 +11,7 @@ touchSwitch.placements = {
         data = {
             flag = "flag_touch_switch",
             icon = "vanilla",
+            animationLength = 6,
             borderTexture = "",
             persistent = false,
             inactiveColor = "5FCDE4",
@@ -28,7 +29,7 @@ touchSwitch.placements = {
     }
 }
 
-touchSwitch.fieldOrder = {"x", "y", "inactiveColor", "activeColor", "finishColor", "hitSound", "completeSoundFromSwitch", "completeSoundFromScene"}
+touchSwitch.fieldOrder = {"x", "y", "inactiveColor", "activeColor", "finishColor", "hitSound", "completeSoundFromSwitch", "completeSoundFromScene", "animationLength"}
 
 touchSwitch.fieldInformation = {
     inactiveColor = {
