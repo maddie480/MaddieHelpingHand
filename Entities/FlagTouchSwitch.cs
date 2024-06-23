@@ -91,6 +91,8 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
         private MTexture border = GFX.Game["objects/touchswitch/container"];
 
         private Sprite icon;
+
+        private int[] frames;
         private bool persistent;
 
         private Color inactiveColor;
@@ -160,10 +162,17 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
 
             // set up the icon
             string iconAttribute = data.Attr("icon", "vanilla");
+
+            // Try to get the number of frames in the icon animation. If it works, then make an int[] for that range, and if not, stick to the default 6 frames.
+            int frameVal;
+            if (int.TryParse(data.Attr("animationLength", "6"), out frameVal))
+                frames = Enumerable.Range(0, frameVal).ToArray();
+            else
+                frames = [0, 1, 2, 3, 4, 5];
             icon = new Sprite(GFX.Game, iconAttribute == "vanilla" ? "objects/touchswitch/icon" : $"objects/MaxHelpingHand/flagTouchSwitch/{iconAttribute}/icon");
             Add(icon);
             icon.Add("idle", "", 0f, default(int));
-            icon.Add("spin", "", 0.1f, new Chooser<string>("spin", 1f), 0, 1, 2, 3, 4, 5);
+            icon.Add("spin", "", 0.1f, new Chooser<string>("spin", 1f), frames);
             icon.Play("spin");
             icon.Color = inactiveColor;
             icon.CenterOrigin();
