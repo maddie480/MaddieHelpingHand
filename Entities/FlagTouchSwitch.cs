@@ -164,11 +164,10 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             string iconAttribute = data.Attr("icon", "vanilla");
 
             // Try to get the number of frames in the icon animation. If it works, then make an int[] for that range, and if not, stick to the default 6 frames.
-            int frameVal;
-            if (int.TryParse(data.Attr("animationLength", "6"), out frameVal))
+            if (int.TryParse(data.Attr("animationLength", "6"), out int frameVal))
                 frames = Enumerable.Range(0, frameVal).ToArray();
             else
-                frames = [0, 1, 2, 3, 4, 5];
+                frames = new int[] { 0, 1, 2, 3, 4, 5 };
             icon = new Sprite(GFX.Game, iconAttribute == "vanilla" ? "objects/touchswitch/icon" : $"objects/MaxHelpingHand/flagTouchSwitch/{iconAttribute}/icon");
             Add(icon);
             icon.Add("idle", "", 0f, default(int));
