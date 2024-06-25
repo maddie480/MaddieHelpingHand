@@ -1071,6 +1071,7 @@ placements.triggers.MaxHelpingHand/PopStrawberrySeedsTrigger.tooltips.popMultiRo
 # Comment
 placements.entities.MaxHelpingHand/Comment.tooltips.comment=The comment.
 placements.entities.MaxHelpingHand/Comment.tooltips.displayOnMap=Whether the comment should be displayed on the map directly (in-editor only).
+placements.entities.MaxHelpingHand/Comment.tooltips.textColor=The color of the text of the comment.
 
 # Extended Dialog Cutscene Trigger
 placements.triggers.MaxHelpingHand/ExtendedDialogCutsceneTrigger.tooltips.onlyOnce=Whether the dialogue should only trigger once.

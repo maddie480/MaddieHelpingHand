@@ -14,9 +14,21 @@ comment.placements = {
         width = 16,
         height = 16,
         comment = "",
+        textColor = "FFFFFF",
         displayOnMap = true
     }
 }
+
+comment.fieldInformation = {
+    textColor = {
+        fieldType = "color"
+    }
+}
+
+local function getTextColor(entity)
+    local success, r, g, b = utils.parseHexColor(entity.textColor or "FFFFFF")
+    return success and {r, g, b} or {1, 1, 1}
+end
 
 function comment.sprite(room, entity)
     if entity.displayOnMap and entity.comment ~= "" then
@@ -24,7 +36,7 @@ function comment.sprite(room, entity)
         local font = love.graphics.getFont()
         return drawableFunction.fromFunction(function()
             drawing.callKeepOriginalColor(function()
-                love.graphics.setColor({255 / 255, 255 / 255, 255 / 255})
+                love.graphics.setColor(getTextColor(entity))
                 drawing.printCenteredText(entity.comment, entity.x, entity.y, entity.width, entity.height, font, 1)
             end)
         end)

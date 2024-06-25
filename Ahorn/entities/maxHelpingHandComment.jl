@@ -2,7 +2,8 @@
 
 using ..Ahorn, Maple
 
-@mapdef Entity "MaxHelpingHand/Comment" Comment(x::Integer, y::Integer, width::Integer=16, height::Integer=16, comment::String="", displayOnMap::Bool=true)
+@mapdef Entity "MaxHelpingHand/Comment" Comment(x::Integer, y::Integer, width::Integer=16, height::Integer=16, comment::String="",
+    displayOnMap::Bool=true, textColor::String="FFFFFF")
 
 const placements = Ahorn.PlacementDict(
     "Comment (Maddie's Helping Hand)" => Ahorn.EntityPlacement(
@@ -12,7 +13,8 @@ const placements = Ahorn.PlacementDict(
 
 function Ahorn.render(ctx::Ahorn.Cairo.CairoContext, entity::Comment, room::Maple.Room)
     if entity.displayOnMap && entity.comment != ""
-        Ahorn.drawCenteredText(ctx, entity.comment, 0, 0, entity.width, entity.height; tint=(1.0, 1.0, 1.0, 1.0))
+        color = Ahorn.argb32ToRGBATuple(parse(Int, get(entity, "textColor", "FFFFFF"), base=16)) ./ 255
+        Ahorn.drawCenteredText(ctx, entity.comment, 0, 0, entity.width, entity.height; tint=(color[1], color[2], color[3], 1.0))
     else
         Ahorn.drawImage(ctx, "ahorn/MaxHelpingHand/comment", -12, -12)
     end

@@ -1296,6 +1296,7 @@ entities.MaxHelpingHand/SaveFileStrawberryGate.attributes.description.showCounte
 entities.MaxHelpingHand/Comment.placements.name.comment=Comment
 entities.MaxHelpingHand/Comment.attributes.description.comment=The comment.
 entities.MaxHelpingHand/Comment.attributes.description.displayOnMap=Whether the comment should be displayed on the map directly (in-editor only).
+entities.MaxHelpingHand/Comment.attributes.description.textColor=The color of the text of the comment.
 
 # Extended Dialog Cutscene Trigger
 triggers.MaxHelpingHand/ExtendedDialogCutsceneTrigger.placements.name.trigger=Dialog Cutscene (Extended)
