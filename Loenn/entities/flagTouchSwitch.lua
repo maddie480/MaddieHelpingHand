@@ -43,6 +43,9 @@ touchSwitch.fieldInformation = {
     },
     icon = {
         options = { "vanilla", "tall", "triangle", "circle", "diamond", "double", "heart", "square", "wide", "winged", "cross", "drop", "hourglass", "split", "star", "triple" }
+    },
+    animationLength = {
+        fieldType = "integer"
     }
 }
 

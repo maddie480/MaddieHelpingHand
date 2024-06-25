@@ -26,6 +26,7 @@ placements.entities.MaxHelpingHand/FlagTouchSwitch.tooltips.completeSoundFromSce
 placements.entities.MaxHelpingHand/FlagTouchSwitch.names.completeSoundFromSwitch=Complete Sound (Switch)
 placements.entities.MaxHelpingHand/FlagTouchSwitch.names.completeSoundFromScene=Complete Sound (Global)
 placements.entities.MaxHelpingHand/FlagTouchSwitch.tooltips.hideIfFlag=If a session flag is specified here, turning it on will make the touch switch disappear, and will make other touch switches in the room ignore it for the group's completion.
+placements.entities.MaxHelpingHand/FlagTouchSwitch.tooltips.animationLength=The length of the provided spinning animation, in frames.
 
 # Moving Flag Touch Switch
 placements.entities.MaxHelpingHand/MovingFlagTouchSwitch.tooltips.flag=The session flag this touch switch sets. Give the same to multiple touch switches and switch gates to group them.
