@@ -86,15 +86,15 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
 
             base.Update();
 
-            List<SpinnerType> listOfSpinners;
+            IEnumerable<SpinnerType> listOfSpinners;
             if (spinnerNeighbors == null) {
                 if (computeSpinnerNeighbors == null) {
                     computeSpinnerNeighborsToken = new CancellationTokenSource();
                     computeSpinnerNeighbors = computeSpinnerConnections(computeSpinnerNeighborsToken.Token);
                 }
-                listOfSpinners = Scene.Tracker.GetEntities<SpinnerType>().OfType<SpinnerType>().Where(spinner => getColor(spinner).Equals(color)).ToList();
+                listOfSpinners = Scene.Tracker.GetEntities<SpinnerType>().OfType<SpinnerType>().Where(spinner => getColor(spinner).Equals(color));
             } else {
-                listOfSpinners = spinnerNeighbors.Keys.ToList();
+                listOfSpinners = spinnerNeighbors.Keys;
             }
 
             // we want to check all spinners explicitly instead of just going CollideCheck<SpinnerType>(),
