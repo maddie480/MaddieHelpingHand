@@ -29,7 +29,16 @@ touchSwitch.placements = {
     }
 }
 
-touchSwitch.fieldOrder = {"x", "y", "inactiveColor", "activeColor", "finishColor", "hitSound", "completeSoundFromSwitch", "completeSoundFromScene", "animationLength"}
+function touchSwitch.fieldOrder(entity)
+    local fieldOrder = {"x", "y", "inactiveColor", "activeColor", "finishColor", "hitSound", "completeSoundFromSwitch", "completeSoundFromScene"}
+
+    -- only include animationLength to fieldOrder if the field exists, otherwise it will appear as nil in the entity properties window
+    if entity.animationLength ~= nil then
+        table.insert(fieldOrder, "animationLength")
+    end
+
+    return fieldOrder
+end
 
 touchSwitch.fieldInformation = {
     inactiveColor = {
