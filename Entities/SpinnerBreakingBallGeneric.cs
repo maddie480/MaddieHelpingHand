@@ -4,6 +4,8 @@ using MonoMod.Utils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Celeste.Mod.MaxHelpingHand.Entities {
     /**
@@ -24,6 +26,10 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
         protected Sprite sprite;
 
         private bool floating;
+
+        private Task computeSpinnerNeighbors;
+        private CancellationTokenSource computeSpinnerNeighborsToken;
+        private static Dictionary<Entity, int> IDCache;
 
         private Dictionary<SpinnerType, HashSet<SpinnerType>> spinnerNeighbors;
         private HashSet<SpinnerType> shatteredSpinners = new HashSet<SpinnerType>();
@@ -65,6 +71,9 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
                 // oops, the player is carrying a copy of ourselves from another room! commit remove self.
                 RemoveSelf();
             }
+
+            // reset cache
+            IDCache = new();
         }
 
         public override void Update() {
@@ -77,49 +86,85 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
 
             base.Update();
 
+            IEnumerable<SpinnerType> listOfSpinners;
             if (spinnerNeighbors == null) {
-                // connections weren't computed yet, do that right now!
-                computeSpinnerConnections();
+                if (computeSpinnerNeighbors == null) {
+                    computeSpinnerNeighborsToken = new CancellationTokenSource();
+                    computeSpinnerNeighbors = computeSpinnerConnections(computeSpinnerNeighborsToken.Token);
+                }
+                listOfSpinners = Scene.Tracker.GetEntities<SpinnerType>().OfType<SpinnerType>().Where(spinner => getColor(spinner).Equals(color));
             } else {
-                // we want to check all spinners explicitly instead of just going CollideCheck<SpinnerType>(),
-                // to include those turned off because the player is too far.
-                foreach (SpinnerType candidate in spinnerNeighbors.Keys) {
-                    if (candidate.Scene != null && candidate.CollideCheck(this)) {
-                        // BOOM! recursively shatter spinners.
-                        shatterSpinner(candidate);
-                        RemoveSelf();
-                    }
+                listOfSpinners = spinnerNeighbors.Keys;
+            }
+
+            // we want to check all spinners explicitly instead of just going CollideCheck<SpinnerType>(),
+            // to include those turned off because the player is too far.
+            foreach (SpinnerType candidate in listOfSpinners) {
+                if (candidate.Scene != null && candidate.CollideCheck(this)) {
+                    if (!computeSpinnerNeighbors.IsCompleted) computeSpinnerNeighbors.Wait();
+                    if (computeSpinnerNeighbors.IsFaulted) Logger.Log("MaxHelpingHand/SpinnerBreakingBall", $"Failed to compute Spinner Neighbors: {computeSpinnerNeighbors.Exception}");
+                    if (spinnerNeighbors == null) return;
+                    // BOOM! recursively shatter spinners.
+                    shatterSpinner(candidate);
+                    RemoveSelf();
                 }
             }
         }
 
-        private void computeSpinnerConnections() {
-            spinnerNeighbors = new Dictionary<SpinnerType, HashSet<SpinnerType>>();
+        public override void Removed(Scene scene) {
+            base.Removed(scene);
+            computeSpinnerNeighborsToken.Cancel();
+        }
+        private Task computeSpinnerConnections(CancellationToken cancelToken) {
+            return Task.Run(() => {
+                Dictionary<SpinnerType, HashSet<SpinnerType>> neighbors = new();
 
-            // take all spinners on screen, filter those with a matching color
-            List<SpinnerType> allSpinnersInScreen = Scene.Tracker.GetEntities<SpinnerType>()
-                .OfType<SpinnerType>().Where(spinner => getColor(spinner).Equals(color)).ToList();
+                // take all spinners on screen, filter those with a matching color
+                List<SpinnerType> allSpinnersInScreen = Scene.Tracker.GetEntities<SpinnerType>()
+                    .OfType<SpinnerType>().Where(spinner => getColor(spinner).Equals(color)).ToList();
 
-            foreach (SpinnerType spinner1 in allSpinnersInScreen) {
-                if (!spinnerNeighbors.ContainsKey(spinner1)) {
-                    spinnerNeighbors[spinner1] = new HashSet<SpinnerType>();
-                }
+                foreach (SpinnerType spinner1 in allSpinnersInScreen) {
+                    if (!neighbors.ContainsKey(spinner1)) {
+                        neighbors[spinner1] = new HashSet<SpinnerType>();
+                    }
 
-                foreach (SpinnerType spinner2 in allSpinnersInScreen) {
-                    // to connect spinners, we are using the same criteria as "spinner juice" generation in the game.
-                    if (new DynData<SpinnerType>(spinner2).Get<int>("ID") > new DynData<SpinnerType>(spinner1).Get<int>("ID")
-                        && getAttachToSolid(spinner2) == getAttachToSolid(spinner1) && (spinner2.Position - spinner1.Position).LengthSquared() < 576f) {
+                    foreach (SpinnerType spinner2 in allSpinnersInScreen) {
+                        int spinner1ID;
+                        int spinner2ID;
 
-                        // register 2 as a neighbor of 1, and 1 as a neighbor of 2.
-                        if (!spinnerNeighbors.ContainsKey(spinner2)) {
-                            spinnerNeighbors[spinner2] = new HashSet<SpinnerType>();
+                        // If DynData is created on same object multiple times it will crash
+                        // Since we are working async this is possible.
+                        // This cache is to make sure every object is only used once
+                        // unsure if the lock is actually needed
+                        lock (IDCache) {
+                            if (!IDCache.ContainsKey(spinner1)) {
+                                IDCache[spinner1] = new DynData<SpinnerType>(spinner1).Get<int>("ID");
+                            }
+                            if (!IDCache.ContainsKey(spinner2)) {
+                                IDCache[spinner2] = new DynData<SpinnerType>(spinner2).Get<int>("ID");
+                            }
+
+                            spinner1ID = IDCache[spinner1];
+                            spinner2ID = IDCache[spinner2];
                         }
 
-                        spinnerNeighbors[spinner1].Add(spinner2);
-                        spinnerNeighbors[spinner2].Add(spinner1);
+                        // to connect spinners, we are using the same criteria as "spinner juice" generation in the game.
+                        if (spinner2ID > spinner1ID
+                            && getAttachToSolid(spinner2) == getAttachToSolid(spinner1) && (spinner2.Position - spinner1.Position).LengthSquared() < 576f) {
+
+                            // register 2 as a neighbor of 1, and 1 as a neighbor of 2.
+                            if (!neighbors.ContainsKey(spinner2)) {
+                                neighbors[spinner2] = new HashSet<SpinnerType>();
+                            }
+
+                            neighbors[spinner1].Add(spinner2);
+                            neighbors[spinner2].Add(spinner1);
+                        }
                     }
                 }
-            }
+
+                spinnerNeighbors = neighbors;
+            }, cancelToken);
         }
 
         private void shatterSpinner(SpinnerType spinner) {
