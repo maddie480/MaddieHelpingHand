@@ -33,6 +33,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
         private CancellationTokenSource computeSpinnerNeighborsToken;
 
         private Dictionary<SpinnerType, HashSet<SpinnerType>> spinnerNeighbors;
+        private List<SpinnerType> listOfSpinners;
         private HashSet<SpinnerType> shatteredSpinners = new HashSet<SpinnerType>();
 
         public SpinnerBreakingBallGeneric(EntityData data, Vector2 offset, EntityID entityID, ColorType color) : base(data.Position + offset) {
@@ -62,6 +63,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
         private void onTransitionOut() {
             // wipe the spinner connections so that they are computed again after the transition (in the new room).
             spinnerNeighbors = null;
+            listOfSpinners = null;
         }
 
         public override void Awake(Scene scene) {
@@ -84,15 +86,15 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
 
             base.Update();
 
-            IEnumerable<SpinnerType> listOfSpinners;
-            if (spinnerNeighbors == null) {
-                if (computeSpinnerNeighbors == null) {
-                    computeSpinnerNeighborsToken = new CancellationTokenSource();
-                    computeSpinnerNeighbors = computeSpinnerConnections(computeSpinnerNeighborsToken.Token);
-                }
-                listOfSpinners = Scene.Tracker.GetEntities<SpinnerType>().OfType<SpinnerType>().Where(spinner => getColor(spinner).Equals(color));
-            } else {
-                listOfSpinners = spinnerNeighbors.Keys;
+            if (spinnerNeighbors == null && computeSpinnerNeighbors == null) {
+                computeSpinnerNeighborsToken = new CancellationTokenSource();
+                computeSpinnerNeighbors = computeSpinnerConnections(computeSpinnerNeighborsToken.Token);
+            }
+            if (listOfSpinners == null) {
+                listOfSpinners = Scene.Tracker.GetEntities<SpinnerType>()
+                    .OfType<SpinnerType>()
+                    .Where(spinner => getColor(spinner).Equals(color))
+                    .ToList();
             }
 
             // we want to check all spinners explicitly instead of just going CollideCheck<SpinnerType>(),
