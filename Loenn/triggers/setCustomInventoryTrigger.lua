@@ -1,6 +1,10 @@
+local mods = require("mods")
+local generateTriggerName = mods.requireFromPlugin("libraries.triggerRenamer")
+
 local trigger = {}
 
 trigger.name = "MaxHelpingHand/SetCustomInventoryTrigger"
+trigger.triggerText = generateTriggerName
 trigger.placements = {
     {
         name = "normal",

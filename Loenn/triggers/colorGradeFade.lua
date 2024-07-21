@@ -1,3 +1,6 @@
+local mods = require("mods")
+local generateTriggerName = mods.requireFromPlugin("libraries.triggerRenamer")
+
 local trigger = {}
 
 local colorGrades = {
@@ -5,6 +8,7 @@ local colorGrades = {
 }
 
 trigger.name = "MaxHelpingHand/ColorGradeFadeTrigger"
+trigger.triggerText = generateTriggerName
 trigger.placements = {
     name = "trigger",
     data = {

@@ -1,6 +1,10 @@
+local mods = require("mods")
+local generateTriggerName = mods.requireFromPlugin("libraries.triggerRenamer")
+
 local trigger = {}
 
 trigger.name = "MaxHelpingHand/CustomCh3Memo"
+trigger.triggerText = generateTriggerName
 trigger.nodeLimits = {0, 1}
 
 trigger.placements = {
