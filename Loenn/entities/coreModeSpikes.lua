@@ -1,9 +1,9 @@
 local spikeHelper = require("helpers.spikes")
 
-local spikeUp = spikeHelper.createEntityHandler("MaxHelpingHand/CoreModeSpikesUp", "up")
-local spikeDown = spikeHelper.createEntityHandler("MaxHelpingHand/CoreModeSpikesDown", "down")
-local spikeLeft = spikeHelper.createEntityHandler("MaxHelpingHand/CoreModeSpikesLeft", "left")
-local spikeRight = spikeHelper.createEntityHandler("MaxHelpingHand/CoreModeSpikesRight", "right")
+local spikeUp = spikeHelper.createEntityHandler("MaxHelpingHand/CoreModeSpikesUp", "up", {})
+local spikeDown = spikeHelper.createEntityHandler("MaxHelpingHand/CoreModeSpikesDown", "down", {})
+local spikeLeft = spikeHelper.createEntityHandler("MaxHelpingHand/CoreModeSpikesLeft", "left", {})
+local spikeRight = spikeHelper.createEntityHandler("MaxHelpingHand/CoreModeSpikesRight", "right", {})
 
 spikeUp.direction = "up"
 spikeDown.direction = "down"

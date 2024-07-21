@@ -8,25 +8,40 @@ local spikeVariants = {
     "dust"
 }
 
-local spikeUp = spikeHelper.createEntityHandler("MaxHelpingHand/GroupedTriggerSpikesUp", "up", false, true, spikeVariants)
-local spikeDown = spikeHelper.createEntityHandler("MaxHelpingHand/GroupedTriggerSpikesDown", "down", false, true, spikeVariants)
-local spikeLeft = spikeHelper.createEntityHandler("MaxHelpingHand/GroupedTriggerSpikesLeft", "left", false, true, spikeVariants)
-local spikeRight = spikeHelper.createEntityHandler("MaxHelpingHand/GroupedTriggerSpikesRight", "right", false, true, spikeVariants)
+local spikeOptions = {
+    triggerSpike = false,
+    originalTriggerSpike = true,
+    variants = spikeVariants
+}
+
+local spikeUp = spikeHelper.createEntityHandler("MaxHelpingHand/GroupedTriggerSpikesUp", "up", spikeOptions)
+local spikeDown = spikeHelper.createEntityHandler("MaxHelpingHand/GroupedTriggerSpikesDown", "down", spikeOptions)
+local spikeLeft = spikeHelper.createEntityHandler("MaxHelpingHand/GroupedTriggerSpikesLeft", "left", spikeOptions)
+local spikeRight = spikeHelper.createEntityHandler("MaxHelpingHand/GroupedTriggerSpikesRight", "right", spikeOptions)
 
 local allSpikes = { spikeUp, spikeDown, spikeLeft, spikeRight }
 
+local regularSpikeOptions = {
+    triggerSpike = false,
+    originalTriggerSpike = true
+}
+
 local regularSpikes = {
-    spikeHelper.createEntityHandler("MaxHelpingHand/GroupedTriggerSpikesUp", "up", false, true),
-    spikeHelper.createEntityHandler("MaxHelpingHand/GroupedTriggerSpikesDown", "down", false, true),
-    spikeHelper.createEntityHandler("MaxHelpingHand/GroupedTriggerSpikesLeft", "left", false, true),
-    spikeHelper.createEntityHandler("MaxHelpingHand/GroupedTriggerSpikesRight", "right", false, true)
+    spikeHelper.createEntityHandler("MaxHelpingHand/GroupedTriggerSpikesUp", "up", regularSpikeOptions),
+    spikeHelper.createEntityHandler("MaxHelpingHand/GroupedTriggerSpikesDown", "down", regularSpikeOptions),
+    spikeHelper.createEntityHandler("MaxHelpingHand/GroupedTriggerSpikesLeft", "left", regularSpikeOptions),
+    spikeHelper.createEntityHandler("MaxHelpingHand/GroupedTriggerSpikesRight", "right", regularSpikeOptions)
+}
+
+local dustSpikeOptions = {
+    triggerSpike = true
 }
 
 local dustSpikes = {
-    spikeHelper.createEntityHandler("MaxHelpingHand/GroupedTriggerSpikesUp", "up", true),
-    spikeHelper.createEntityHandler("MaxHelpingHand/GroupedTriggerSpikesDown", "down", true),
-    spikeHelper.createEntityHandler("MaxHelpingHand/GroupedTriggerSpikesLeft", "left", true),
-    spikeHelper.createEntityHandler("MaxHelpingHand/GroupedTriggerSpikesRight", "right", true)
+    spikeHelper.createEntityHandler("MaxHelpingHand/GroupedTriggerSpikesUp", "up", dustSpikeOptions),
+    spikeHelper.createEntityHandler("MaxHelpingHand/GroupedTriggerSpikesDown", "down", dustSpikeOptions),
+    spikeHelper.createEntityHandler("MaxHelpingHand/GroupedTriggerSpikesLeft", "left", dustSpikeOptions),
+    spikeHelper.createEntityHandler("MaxHelpingHand/GroupedTriggerSpikesRight", "right", dustSpikeOptions)
 }
 
 -- pick between the dust handler and the regular handler depending on the entity type
