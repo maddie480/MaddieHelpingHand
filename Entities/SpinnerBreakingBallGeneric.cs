@@ -3,7 +3,6 @@ using Monocle;
 using MonoMod.Utils;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -12,8 +11,6 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
      * Common behavior across all spinner breaking balls: grouping spinners, and well... breaking them.
      */
     public abstract class SpinnerBreakingBallGeneric<SpinnerType, ColorType> : TheoCrystal where SpinnerType : Entity {
-        private static readonly FieldInfo spinnerIDField = typeof(SpinnerType).GetField("ID", BindingFlags.NonPublic | BindingFlags.Instance);
-
         public static void Load() {
             On.Celeste.TheoCrystal.Die += onTheoCrystalDie;
         }
@@ -102,7 +99,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             foreach (SpinnerType candidate in listOfSpinners) {
                 if (candidate.Scene != null && candidate.CollideCheck(this)) {
                     if (!computeSpinnerNeighbors.IsCompleted) computeSpinnerNeighbors.Wait();
-                    if (computeSpinnerNeighbors.IsFaulted) Logger.Log("MaxHelpingHand/SpinnerBreakingBall", $"Failed to compute Spinner Neighbors: {computeSpinnerNeighbors.Exception}");
+                    if (computeSpinnerNeighbors.IsFaulted) Logger.Log(LogLevel.Warn, "MaxHelpingHand/SpinnerBreakingBall", $"Failed to compute Spinner Neighbors: {computeSpinnerNeighbors.Exception}");
                     if (spinnerNeighbors == null) return;
                     // BOOM! recursively shatter spinners.
                     shatterSpinner(candidate);
@@ -136,10 +133,10 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
 
                     foreach (SpinnerType spinner2 in allSpinnersInScreen) {
                         if (!idCache.ContainsKey(spinner1)) {
-                            idCache[spinner1] = (int) spinnerIDField.GetValue(spinner1);
+                            idCache[spinner1] = getID(spinner1);
                         }
                         if (!idCache.ContainsKey(spinner2)) {
-                            idCache[spinner2] = (int) spinnerIDField.GetValue(spinner2);
+                            idCache[spinner2] = getID(spinner2);
                         }
 
                         // to connect spinners, we are using the same criteria as "spinner juice" generation in the game.
@@ -185,6 +182,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             }
         }
 
+        protected abstract int getID(SpinnerType spinner);
         protected abstract ColorType getColor(SpinnerType spinner);
         protected abstract bool getAttachToSolid(SpinnerType spinner);
         protected abstract void destroySpinner(SpinnerType spinner);

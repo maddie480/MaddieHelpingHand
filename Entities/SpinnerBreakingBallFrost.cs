@@ -28,6 +28,10 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             : base(data, offset, entityID, data.HexColor("color", Color.White)) {
         }
 
+        protected override int getID(CustomSpinner spinner) {
+            return spinner.ID;
+        }
+
         protected override Color getColor(CustomSpinner spinner) {
             return spinner.Tint;
         }
