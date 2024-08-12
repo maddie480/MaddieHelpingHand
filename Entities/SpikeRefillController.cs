@@ -45,7 +45,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
                 $"Hooking CollideCheck<Spikes> in {il.Method.FullName} @ {InstructionToString(cursor.Next)}");
 
             cursor.Emit(OpCodes.Ldarg_0);
-            cursor.EmitDelegate(OverrideRefillPreventionInSpikes);
+            cursor.EmitDelegate<Func<bool, Player, bool>>(OverrideRefillPreventionInSpikes);
         }
 
         private static bool OverrideRefillPreventionInSpikes(bool collidedWithSpikes, Player self) {
