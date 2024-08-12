@@ -6,6 +6,6 @@ miniHeartDoorUnfixController.placements = {
     name = 'normal'
 }
 
-miniHeartDoorUnfixController.texture = "ahorn/miniheartdoorunfix"
+miniHeartDoorUnfixController.texture = "ahorn/MaxHelpingHand/miniheartdoorunfix"
 
 return miniHeartDoorUnfixController

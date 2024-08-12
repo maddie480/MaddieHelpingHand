@@ -16,6 +16,6 @@ function Ahorn.selection(entity::MiniHeartDoorUnfixController)
     return Ahorn.Rectangle(x - 12, y - 12, 24, 24)
 end
 
-Ahorn.render(ctx::Ahorn.Cairo.CairoContext, entity::MiniHeartDoorUnfixController, room::Maple.Room) = Ahorn.drawImage(ctx, "ahorn/miniheartdoorunfix", -12, -12)
+Ahorn.render(ctx::Ahorn.Cairo.CairoContext, entity::MiniHeartDoorUnfixController, room::Maple.Room) = Ahorn.drawImage(ctx, "ahorn/MaxHelpingHand/miniheartdoorunfix", -12, -12)
 
 end
