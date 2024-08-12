@@ -1173,3 +1173,7 @@ placements.entities.MaxHelpingHand/ReverseJelly.tooltips.spriteDirectory=The dir
 placements.entities.MaxHelpingHand/ReverseJelly.tooltips.bubble=Whether the entity should hover in the air before being grabbed.
 placements.entities.MaxHelpingHand/ReverseJelly.tooltips.tutorial=Whether the entity should show the usage tutorial.
 placements.entities.MaxHelpingHand/ReverseJelly.tooltips.glow=Whether the entity should glow in the dark.
+
+# Spike Refill Controller
+placements.entities.MaxHelpingHand/SpikeRefillController.tooltips.flag=The flag this controller should check to determine whether it's active.
+placements.entities.MaxHelpingHand/SpikeRefillController.tooltips.flagInverted=If checked, the controller will be active if the flag is disabled.
