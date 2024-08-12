@@ -1398,3 +1398,6 @@ entities.MaxHelpingHand/ReversibleRetentionBooster.placements.name.booster=Rever
 entities.MaxHelpingHand/SpikeRefillController.placements.name.normal=Spike Refill Controller
 entities.MaxHelpingHand/SpikeRefillController.attributes.description.flag=The flag this controller should check to determine whether it's active.
 entities.MaxHelpingHand/SpikeRefillController.attributes.description.flagInverted=If checked, the controller will be active if the flag is disabled.
+
+# Mini Heart Door Unfix Controller
+entities.MaxHelpingHand/MiniHeartDoorUnfixController.placements.name.normal=Mini Heart Door Unfix Controller
