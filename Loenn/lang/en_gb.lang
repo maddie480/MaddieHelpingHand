@@ -1393,3 +1393,8 @@ entities.MaxHelpingHand/ReverseJelly.attributes.description.glow=Whether the ent
 
 # Reversible Retention Booster
 entities.MaxHelpingHand/ReversibleRetentionBooster.placements.name.booster=Reversible Retention Booster
+
+# Spike Refill Controller
+entities.MaxHelpingHand/SpikeRefillController.placements.name.normal=Spike Refill Controller
+entities.MaxHelpingHand/SpikeRefillController.attributes.description.flag=The flag this controller should check to determine whether it's active.
+entities.MaxHelpingHand/SpikeRefillController.attributes.description.flagInverted=If checked, the controller will be active if the flag is disabled.
