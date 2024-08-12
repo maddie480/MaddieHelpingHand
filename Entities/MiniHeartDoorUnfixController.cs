@@ -5,6 +5,8 @@ using Mono.Cecil.Cil;
 using Monocle;
 using MonoMod.Cil;
 using MonoMod.RuntimeDetour;
+using System;
+using System.Reflection;
 
 namespace Celeste.Mod.MaxHelpingHand.Entities {
     // This controller reverts this fix, and was made to fix a map from Etpio in FLCC: https://github.com/EverestAPI/CelesteCollabUtils2/pull/60
