@@ -8,6 +8,7 @@ local colorGrades = {
 }
 
 trigger.name = "MaxHelpingHand/ColorGradeFadeTrigger"
+trigger.category = "visual"
 trigger.triggerText = generateTriggerName
 trigger.placements = {
     name = "trigger",

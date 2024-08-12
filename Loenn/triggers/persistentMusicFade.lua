@@ -5,6 +5,7 @@ local generateTriggerName = mods.requireFromPlugin("libraries.triggerRenamer")
 local trigger = {}
 
 trigger.name = "MaxHelpingHand/PersistentMusicFadeTrigger"
+trigger.category = "audio"
 trigger.triggerText = generateTriggerName
 trigger.placements = {
     name = "trigger",

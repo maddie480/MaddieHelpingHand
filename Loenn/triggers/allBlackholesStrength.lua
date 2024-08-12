@@ -5,6 +5,7 @@ local generateTriggerName = mods.requireFromPlugin("libraries.triggerRenamer")
 local trigger = {}
 
 trigger.name = "MaxHelpingHand/AllBlackholesStrengthTrigger"
+trigger.category = "visual"
 trigger.triggerText = generateTriggerName
 trigger.placements = {
     name = "trigger",

@@ -5,6 +5,7 @@ local generateTriggerName = mods.requireFromPlugin("libraries.triggerRenamer")
 local trigger = {}
 
 trigger.name = "MaxHelpingHand/FlagToggleCameraTargetTrigger"
+trigger.category = "camera"
 trigger.triggerText = generateTriggerName
 trigger.nodeLimits = {1, 1}
 trigger.placements = {

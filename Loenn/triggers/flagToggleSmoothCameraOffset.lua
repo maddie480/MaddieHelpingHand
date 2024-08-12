@@ -5,6 +5,7 @@ local generateTriggerName = mods.requireFromPlugin("libraries.triggerRenamer")
 local trigger = {}
 
 trigger.name = "MaxHelpingHand/FlagToggleSmoothCameraOffsetTrigger"
+trigger.category = "camera"
 trigger.triggerText = generateTriggerName
 trigger.placements = {
     name = "trigger",

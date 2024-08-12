@@ -5,6 +5,7 @@ local generateTriggerName = mods.requireFromPlugin("libraries.triggerRenamer")
 local musicFade = {}
 
 musicFade.name = "MaxHelpingHand/FlagToggleMusicFadeTrigger"
+musicFade.category = "audio"
 musicFade.triggerText = generateTriggerName
 musicFade.fieldInformation = {
     direction = {
