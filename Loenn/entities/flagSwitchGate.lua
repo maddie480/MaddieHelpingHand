@@ -39,12 +39,13 @@ for i, texture in ipairs(textures) do
             moveSound = "event:/game/general/touchswitch_gate_open",
             finishedSound = "event:/game/general/touchswitch_gate_finish",
             smoke = true,
-            surfaceIndex = 8
+            surfaceIndex = 8,
+            particles = true
         }
     }
 end
 
-switchGate.fieldOrder = {"x", "y", "width", "height", "flag", "inactiveColor", "activeColor", "finishColor", "hitSound", "moveSound", "finishedSound", "shakeTime", "moveTime"}
+switchGate.fieldOrder = {"x", "y", "width", "height", "flag", "inactiveColor", "activeColor", "finishColor", "hitSound", "moveSound", "finishedSound", "shakeTime", "moveTime", "icon", "sprite", "surfaceIndex", "allowReturn", "moveEased", "persistent", "particles", "smoke"}
 
 switchGate.fieldInformation = {
     inactiveColor = {
