@@ -43,7 +43,9 @@ for i, texture in ipairs(textures) do
             pauseTimes = "",
             pauseTimeBeforeFirstMove = 0.0,
             doNotSkipNodes = false,
-            smoke = true
+            smoke = true,
+            moveSound = "event:/game/general/touchswitch_gate_open",
+            finishedSound = "event:/game/general/touchswitch_gate_finish"
         }
     }
 end

@@ -58,6 +58,8 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
         private readonly float pauseTimeBeforeFirstMove;
         private readonly bool doNotSkipNodes;
         private readonly bool smoke;
+        private readonly string moveSound;
+        private readonly string finishedSound;
 
         private Sprite icon;
         private MTexture texture;
@@ -86,10 +88,12 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             inactiveColor = data.HexColor("inactiveColor", Calc.HexToColor("5fcde4"));
             activeColor = data.HexColor("activeColor", Color.White);
             finishColor = data.HexColor("finishColor", Calc.HexToColor("f141df"));
-            var spriteName = data.Attr("sprite", "block");
-            var iconName = data.Attr("icon", "vanilla");
+            string iconName = data.Attr("icon", "vanilla");
 
             smoke = data.Bool("smoke", true);
+
+            moveSound = data.Attr("moveSound", defaultValue: "event:/game/general/touchswitch_gate_open");
+            finishedSound = data.Attr("finishedSound", defaultValue: "event:/game/general/touchswitch_gate_finish");
 
             string[] pauseTimesStrings = data.Attr("pauseTimes").Split(',');
             if (pauseTimesStrings[0] == "")
@@ -120,7 +124,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             texture = GFX.Game["objects/switchgate/" + blockSpriteName];
 
             // initialize other components
-            Add(wiggler = Wiggler.Create(0.5f, 4f, delegate (float f) {
+            Add(wiggler = Wiggler.Create(0.5f, 4f, delegate(float f) {
                 icon.Scale = Vector2.One * (1f + f);
             }));
             Add(openSfx = new SoundSource());
@@ -292,7 +296,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
                     yield break;
                 }
 
-                openSfx.Play("event:/game/general/touchswitch_gate_open");
+                openSfx.Play(moveSound);
 
                 // shake
                 if (shakeTime > 0f) {
@@ -319,7 +323,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
                 int particleAt = 0;
                 Tween tween = Tween.Create(Tween.TweenMode.Oneshot, easer, moveTime, start: true);
                 bool waiting = true;
-                tween.OnUpdate = delegate (Tween t) {
+                tween.OnUpdate = delegate(Tween t) {
                     MoveTo(Vector2.Lerp(start, node, t.Eased));
                     if (Scene.OnInterval(0.1f)) {
                         particleAt++;
@@ -403,7 +407,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
                 }
                 Collidable = wasCollidable;
 
-                Audio.Play("event:/game/general/touchswitch_gate_finish", Position);
+                Audio.Play(finishedSound, Position);
 
                 // shake after arriving at destination
                 StartShaking(0.2f);

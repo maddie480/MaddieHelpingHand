@@ -5,7 +5,7 @@ using ..Ahorn, Maple
 @mapdef Entity "MaxHelpingHand/MultiNodeFlagSwitchGate" MultiNodeFlagSwitchGate(x::Integer, y::Integer, width::Integer=16, height::Integer=16,
     inactiveColor::String="5FCDE4", activeColor::String="FFFFFF", finishColor::String="F141DF", flags::String="switch1,switch2", shakeTime::Number=0.5, moveTime::Number=2.0, easing::String="CubeOut",
     sprite::String="block", icon::String="vanilla", resetFlags::Bool=true, canReturn::Bool=true, progressionMode::Bool=false, persistent::Bool=true, pauseTimes::String="",
-    pauseTimeBeforeFirstMove::Number=0.0, doNotSkipNodes::Bool=false, smoke::Bool=true)
+    pauseTimeBeforeFirstMove::Number=0.0, doNotSkipNodes::Bool=false, smoke::Bool=true, moveSound::String="event:/game/general/touchswitch_gate_open", finishedSound::String="event:/game/general/touchswitch_gate_finish")
 
 function gateFinalizer(entity)
     x, y = Ahorn.position(entity)

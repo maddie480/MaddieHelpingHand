@@ -86,6 +86,8 @@ placements.entities.MaxHelpingHand/MultiNodeFlagSwitchGate.tooltips.pauseTimes=O
 placements.entities.MaxHelpingHand/MultiNodeFlagSwitchGate.tooltips.pauseTimeBeforeFirstMove=Defines the duration (in seconds) the switch gate should wait for before starting moving when triggered.
 placements.entities.MaxHelpingHand/MultiNodeFlagSwitchGate.tooltips.doNotSkipNodes=If checked, the gate will stop at each node instead of going straight to its target node.
 placements.entities.MaxHelpingHand/MultiNodeFlagSwitchGate.tooltips.smoke=Whether the switch gate should emit smoke when reaching its target node.
+placements.entities.MaxHelpingHand/MultiNodeFlagSwitchGate.tooltips.moveSound=The sound played by the gate when it starts moving.
+placements.entities.MaxHelpingHand/MultiNodeFlagSwitchGate.tooltips.finishedSound=The sound played by the gate when it is done moving.
 
 # Customizable Crumble Platform
 placements.entities.MaxHelpingHand/CustomizableCrumblePlatform.tooltips.texture=What texture to use for the crumble block.
