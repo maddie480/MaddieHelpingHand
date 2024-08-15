@@ -55,7 +55,7 @@ placements.entities.MaxHelpingHand/FlagSwitchGate.tooltips.moveSound=The sound p
 placements.entities.MaxHelpingHand/FlagSwitchGate.tooltips.finishedSound=The sound played by the gate when it is done moving.
 placements.entities.MaxHelpingHand/FlagSwitchGate.tooltips.smoke=Whether the switch gate should emit smoke when reaching its final position.
 placements.entities.MaxHelpingHand/FlagSwitchGate.tooltips.surfaceIndex=Footstep sound when walking on the switch gate.
-placements.entities.MaxHelpingHand/FlagSwitchGate.tooltips.smoke=Whether the switch gate should emit particles while it is moving.
+placements.entities.MaxHelpingHand/FlagSwitchGate.tooltips.particles=Whether the switch gate should emit particles while it is moving.
 
 # Shatter Flag Switch Gate
 placements.entities.MaxHelpingHand/ShatterFlagSwitchGate.tooltips.flag=The session flag this switch gate reacts to. Give the same to multiple touch switches and switch gates to group them.
