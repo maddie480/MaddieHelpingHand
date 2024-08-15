@@ -211,6 +211,7 @@ entities.MaxHelpingHand/FlagSwitchGate.attributes.description.moveSound=The soun
 entities.MaxHelpingHand/FlagSwitchGate.attributes.description.finishedSound=The sound played by the gate when it is done moving.
 entities.MaxHelpingHand/FlagSwitchGate.attributes.description.smoke=Whether the switch gate should emit smoke when reaching its final position.
 entities.MaxHelpingHand/FlagSwitchGate.attributes.description.surfaceIndex=Footstep sound when walking on the switch gate.
+entities.MaxHelpingHand/FlagSwitchGate.attributes.description.particles=Whether the switch gate should emit particles while it is moving.
 
 # Flag Touch Switch
 entities.MaxHelpingHand/FlagTouchSwitch.placements.name.touch_switch=Flag Touch Switch

@@ -52,6 +52,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
         private readonly string finishedSound;
 
         private readonly bool smoke;
+        private readonly bool particles;
 
         private readonly bool allowReturn;
 
@@ -82,6 +83,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             finishedSound = data.Attr("finishedSound", "event:/game/general/touchswitch_gate_finish");
 
             smoke = data.Bool("smoke", true);
+            particles = data.Bool("particles", true);
 
             allowReturn = data.Bool("allowReturn", false);
 
@@ -266,14 +268,21 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             Tween tween = Tween.Create(Tween.TweenMode.Oneshot, moveEased ? Ease.CubeOut : null, moveTime + (moveEased ? 0.2f : 0f), start: true);
             tween.OnUpdate = tweenArg => {
                 MoveTo(Vector2.Lerp(start, node, tweenArg.Eased));
-                if (Scene.OnInterval(0.1f)) {
-                    particleAt++;
-                    particleAt %= 2;
-                    for (int tileX = 0; tileX < Width / 8f; tileX++) {
-                        for (int tileY = 0; tileY < Height / 8f; tileY++) {
-                            if ((tileX + tileY) % 2 == particleAt) {
-                                SceneAs<Level>().ParticlesBG.Emit(SwitchGate.P_Behind,
-                                    Position + new Vector2(tileX * 8, tileY * 8) + Calc.Random.Range(Vector2.One * 2f, Vector2.One * 6f));
+                if (particles)
+                {
+                    if (Scene.OnInterval(0.1f))
+                    {
+                        particleAt++;
+                        particleAt %= 2;
+                        for (int tileX = 0; tileX < Width / 8f; tileX++)
+                        {
+                            for (int tileY = 0; tileY < Height / 8f; tileY++)
+                            {
+                                if ((tileX + tileY) % 2 == particleAt)
+                                {
+                                    SceneAs<Level>().ParticlesBG.Emit(SwitchGate.P_Behind,
+                                        Position + new Vector2(tileX * 8, tileY * 8) + Calc.Random.Range(Vector2.One * 2f, Vector2.One * 6f));
+                                }
                             }
                         }
                     }
