@@ -46,7 +46,9 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
 
         private readonly float shakeTime;
         private readonly float moveTime;
+        private readonly float moveSpeed;
         private readonly bool moveEased;
+        private readonly bool speedMode;
 
         private readonly string moveSound;
         private readonly string finishedSound;
@@ -77,7 +79,9 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
 
             shakeTime = data.Float("shakeTime", 0.5f);
             moveTime = data.Float("moveTime", 1.8f);
+            moveSpeed = data.Float("moveSpeed", 60.0f);
             moveEased = data.Bool("moveEased", true);
+            speedMode = data.Bool("speedMode", false);
 
             moveSound = data.Attr("moveSound", "event:/game/general/touchswitch_gate_open");
             finishedSound = data.Attr("finishedSound", "event:/game/general/touchswitch_gate_finish");
@@ -263,9 +267,19 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             yield return 0.1f;
             if (shouldCancelMove(goingBack)) yield break;
 
-            // move the switch gate, emitting particles along the way
+            // move the switch gate, emitting particles along the way if particles is true
             int particleAt = 0;
-            Tween tween = Tween.Create(Tween.TweenMode.Oneshot, moveEased ? Ease.CubeOut : null, moveTime + (moveEased ? 0.2f : 0f), start: true);
+
+            Tween tween;
+            if (speedMode)
+            {
+                tween = Tween.Create(Tween.TweenMode.Oneshot, null, (float)Math.Round(((Vector2.Distance(start, node)) / moveSpeed), 3), start: true);
+            }
+            else
+            {
+                tween = Tween.Create(Tween.TweenMode.Oneshot, moveEased ? Ease.CubeOut : null, moveTime + (moveEased ? 0.2f : 0f), start: true);
+            }
+
             tween.OnUpdate = tweenArg => {
                 MoveTo(Vector2.Lerp(start, node, tweenArg.Eased));
                 if (particles) {
@@ -285,7 +299,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             };
             Add(tween);
 
-            float moveTimeLeft = moveTime;
+            float moveTimeLeft = speedMode ? (float)Math.Round(((Vector2.Distance(start, node)) / moveSpeed), 3) : moveTime;
             while (moveTimeLeft > 0f) {
                 yield return null;
                 moveTimeLeft -= Engine.DeltaTime;

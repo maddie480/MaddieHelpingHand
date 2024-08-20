@@ -56,6 +56,8 @@ placements.entities.MaxHelpingHand/FlagSwitchGate.tooltips.finishedSound=The sou
 placements.entities.MaxHelpingHand/FlagSwitchGate.tooltips.smoke=Whether the switch gate should emit smoke when reaching its final position.
 placements.entities.MaxHelpingHand/FlagSwitchGate.tooltips.surfaceIndex=Footstep sound when walking on the switch gate.
 placements.entities.MaxHelpingHand/FlagSwitchGate.tooltips.particles=Whether the switch gate should emit particles while it is moving.
+placements.entities.MaxHelpingHand/FlagSwitchGate.tooltips.speedMode=Allows defining move speed, instead of move time.\nFor this change to apply, you must reopen the edit window.
+placements.entities.MaxHelpingHand/FlagSwitchGate.tooltips.MoveSpeed=The speed (in pixels per second) the block travels at, if Speed Mode is checked.
 
 # Shatter Flag Switch Gate
 placements.entities.MaxHelpingHand/ShatterFlagSwitchGate.tooltips.flag=The session flag this switch gate reacts to. Give the same to multiple touch switches and switch gates to group them.

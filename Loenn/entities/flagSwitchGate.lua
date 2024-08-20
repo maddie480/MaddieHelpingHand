@@ -40,12 +40,14 @@ for i, texture in ipairs(textures) do
             finishedSound = "event:/game/general/touchswitch_gate_finish",
             smoke = true,
             surfaceIndex = 8,
-            particles = true
+            particles = true,
+            speedMode = false,
+            moveSpeed = 60
         }
     }
 end
 
-switchGate.fieldOrder = {"x", "y", "width", "height", "flag", "inactiveColor", "activeColor", "finishColor", "hitSound", "moveSound", "finishedSound", "shakeTime", "moveTime", "icon", "sprite", "surfaceIndex", "allowReturn", "moveEased", "persistent", "particles", "smoke"}
+switchGate.fieldOrder = {"x", "y", "width", "height", "flag", "inactiveColor", "activeColor", "finishColor", "hitSound", "moveSound", "finishedSound", "shakeTime", "moveTime", "moveSpeed", "icon", "sprite", "surfaceIndex", "allowReturn", "moveEased", "persistent", "particles", "smoke", "speedMode"}
 
 switchGate.fieldInformation = {
     inactiveColor = {
@@ -97,6 +99,22 @@ function switchGate.sprite(room, entity)
     table.insert(sprites, middleSprite)
 
     return sprites
+end
+
+function switchGate.ignoredFields(entity)
+    local ignored = {
+        "_id",
+        "_name"
+    }
+
+    if entity.speedMode then
+        table.insert(ignored, "moveTime")
+        table.insert(ignored, "moveEased")
+    else
+        table.insert(ignored, "moveSpeed")
+    end
+
+    return ignored
 end
 
 function switchGate.selection(room, entity)
