@@ -874,6 +874,13 @@ triggers.MaxHelpingHand/CameraCatchupSpeedTrigger.placements.name.trigger=Camera
 triggers.MaxHelpingHand/CameraCatchupSpeedTrigger.attributes.description.catchupSpeed=Raise this value to have the camera scroll quicker to its target. Vanilla values are 8 during the temple fall cutscene, and 1 everywhere else.
 triggers.MaxHelpingHand/CameraCatchupSpeedTrigger.attributes.description.revertOnLeave=Whether the camera catchup speed should go back to normal after leaving the trigger.
 
+# Flag Toggle Camera Catchup Speed Trigger
+triggers.MaxHelpingHand/FlagToggleCameraCatchupSpeedTrigger.placements.name.trigger=Camera Catchup Speed (Flag-Toggled)
+triggers.MaxHelpingHand/FlagToggleCameraCatchupSpeedTrigger.attributes.description.catchupSpeed=Raise this value to have the camera scroll quicker to its target. Vanilla values are 8 during the temple fall cutscene, and 1 everywhere else.
+triggers.MaxHelpingHand/FlagToggleCameraCatchupSpeedTrigger.attributes.description.revertOnLeave=Whether the camera catchup speed should go back to normal after leaving the trigger.
+triggers.MaxHelpingHand/FlagToggleCameraCatchupSpeedTrigger.attributes.description.flag=The flag this trigger should react to.
+triggers.MaxHelpingHand/FlagToggleCameraCatchupSpeedTrigger.attributes.description.inverted=If checked, the trigger will be disabled when the flag is active.\nIf unchecked, the trigger will be enabled when the flag is active.
+
 # Camera Offset Border
 triggers.MaxHelpingHand/CameraOffsetBorder.placements.name.trigger=Camera Offset Border
 triggers.MaxHelpingHand/CameraOffsetBorder.attributes.description.topLeft=Whether this border should have an effect when the player is on the top-left of it.

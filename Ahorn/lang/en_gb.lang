@@ -8,6 +8,12 @@ placements.entities.MaxHelpingHand/TempleEyeTrackingMadeline.tooltips.spriteDire
 placements.triggers.MaxHelpingHand/CameraCatchupSpeedTrigger.tooltips.catchupSpeed=Raise this value to have the camera scroll quicker to its target. Vanilla values are 8 during the temple fall cutscene, and 1 everywhere else.
 placements.triggers.MaxHelpingHand/CameraCatchupSpeedTrigger.tooltips.revertOnLeave=Whether the camera catchup speed should go back to normal after leaving the trigger.
 
+# Flag Toggle Camera Catchup Speed Trigger
+placements.triggers.MaxHelpingHand/FlagToggleCameraCatchupSpeedTrigger.tooltips.catchupSpeed=Raise this value to have the camera scroll quicker to its target. Vanilla values are 8 during the temple fall cutscene, and 1 everywhere else.
+placements.triggers.MaxHelpingHand/FlagToggleCameraCatchupSpeedTrigger.tooltips.revertOnLeave=Whether the camera catchup speed should go back to normal after leaving the trigger.
+placements.triggers.MaxHelpingHand/FlagToggleCameraCatchupSpeedTrigger.tooltips.flag=The flag this trigger should react to.
+placements.triggers.MaxHelpingHand/FlagToggleCameraCatchupSpeedTrigger.tooltips.inverted=If checked, the trigger will be disabled when the flag is active.\nIf unchecked, the trigger will be enabled when the flag is active.
+
 # Flag Touch Switch
 placements.entities.MaxHelpingHand/FlagTouchSwitch.tooltips.flag=The session flag this touch switch sets. Give the same to multiple touch switches and switch gates to group them.
 placements.entities.MaxHelpingHand/FlagTouchSwitch.tooltips.icon=The name of the icon for the touch switch (relative to objects/MaxHelpingHand/flagTouchSwitch), or "vanilla" for the default one.
