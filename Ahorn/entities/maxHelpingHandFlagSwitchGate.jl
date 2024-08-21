@@ -7,8 +7,8 @@ using ..Ahorn, Maple
     shakeTime::Number=0.5, moveTime::Number=1.8, moveSpeed::Number=60.0, moveEased::Bool=true, allowReturn::Bool=false, moveSound::String="event:/game/general/touchswitch_gate_open", finishedSound::String="event:/game/general/touchswitch_gate_finish",
     smoke::Bool=true, surfaceIndex::Int16=convert(Int16, 8), particles::Bool=true, speedMode::Bool=false) =
     Entity("MaxHelpingHand/FlagSwitchGate", x=x1, y=y1, nodes=Tuple{Int, Int}[(x2, y2)], width=width, height=height, sprite=sprite, persistent=persistent, flag=flag, icon=icon,
-    inactiveColor=inactiveColor, activeColor=activeColor, finishColor=finishColor, shakeTime=shakeTime, moveTime=moveTime, moveEased=moveEased, allowReturn=allowReturn, moveSound=moveSound, finishedSound=finishedSound,
-    smoke=smoke, surfaceIndex=surfaceIndex, particles=particles)
+    inactiveColor=inactiveColor, activeColor=activeColor, finishColor=finishColor, shakeTime=shakeTime, moveTime=moveTime, moveSpeed=moveSpeed, moveEased=moveEased, allowReturn=allowReturn, moveSound=moveSound, finishedSound=finishedSound,
+    smoke=smoke, surfaceIndex=surfaceIndex, particles=particles, speedMode=speedMode)
 
 function gateFinalizer(entity)
     x, y = Ahorn.position(entity)
@@ -34,6 +34,14 @@ const placements = Ahorn.PlacementDict(
 )
 
 Ahorn.editingOrder(entity::FlagSwitchGate) = String["x", "y", "width", "height", "flag", "inactiveColor", "activeColor", "finishColor", "hitSound", "moveSound", "finishedSound", "shakeTime", "moveTime", "moveSpeed", "icon", "sprite", "surfaceIndex", "allowReturn", "moveEased", "persistent", "particles", "smoke", "speedMode"]
+
+function Ahorn.editingIgnored(entity::FlagSwitchGate, multiple::Bool=false)
+    if get(entity.data, "speedMode", false)
+        return String["moveTime", "moveEased"]
+    else
+        return String["moveSpeed"]
+    end
+end
 
 Ahorn.editingOptions(entity::FlagSwitchGate) = Dict{String, Any}(
     "sprite" => textures,

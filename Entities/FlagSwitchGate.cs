@@ -271,12 +271,9 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             int particleAt = 0;
 
             Tween tween;
-            if (speedMode)
-            {
-                tween = Tween.Create(Tween.TweenMode.Oneshot, null, (float)Math.Round(((Vector2.Distance(start, node)) / moveSpeed), 3), start: true);
-            }
-            else
-            {
+            if (speedMode) {
+                tween = Tween.Create(Tween.TweenMode.Oneshot, null, (float) Math.Round(((Vector2.Distance(start, node)) / moveSpeed), 3), start: true);
+            } else {
                 tween = Tween.Create(Tween.TweenMode.Oneshot, moveEased ? Ease.CubeOut : null, moveTime + (moveEased ? 0.2f : 0f), start: true);
             }
 
@@ -299,7 +296,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             };
             Add(tween);
 
-            float moveTimeLeft = speedMode ? (float)Math.Round(((Vector2.Distance(start, node)) / moveSpeed), 3) : moveTime;
+            float moveTimeLeft = speedMode ? (float) Math.Round(((Vector2.Distance(start, node)) / moveSpeed), 3) : moveTime;
             while (moveTimeLeft > 0f) {
                 yield return null;
                 moveTimeLeft -= Engine.DeltaTime;
