@@ -83,7 +83,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
         private void initializeFlag() {
             // enable the hooks on backdrop rendering.
             if (controllers.Count == 0) {
-                tempRenderTarget = VirtualContent.CreateRenderTarget("max-helping-hand-styleground-fade-controller", 320, 280);
+                tempRenderTarget = VirtualContent.CreateRenderTarget("max-helping-hand-styleground-fade-controller", 320, 180);
             }
 
             foreach (string key in keys) {
