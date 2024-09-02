@@ -44,6 +44,7 @@ swapBlock.placements = {
         width = 16,
         height = 16,
         spriteDirectory = "objects/swapblock",
+        transparentBackground = false,
         particleColor1 = "fbf236",
         particleColor2 = "6abe30",
         moveSound = "event:/game/05_mirror_temple/swapblock_move",
@@ -91,7 +92,7 @@ local function addTrailSprites(sprites, entity, trailTexture)
     x, y = math.min(x, nodeX), math.min(y, nodeY)
 
     local pathDirection = x == nodeX and "V" or "H"
-    local pathTexture = string.format("%s/path%s", entity.spriteDirectory, pathDirection)
+    local pathTexture = string.format("%s/path%s", entity.transparentBackground and "MaxHelpingHand/swapblocktransparentbg" or entity.spriteDirectory, pathDirection)
     local pathNinePatch = drawableNinePatch.fromTexture(pathTexture, pathNinePatchOptions, x, y, drawWidth, drawHeight)
     local pathSprites = pathNinePatch:getDrawableSprite()
 

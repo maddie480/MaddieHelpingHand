@@ -633,6 +633,7 @@ entities.MaxHelpingHand/ReskinnableStarTrackSpinner.attributes.description.immun
 # Reskinnable Swap Block
 entities.MaxHelpingHand/ReskinnableSwapBlock.placements.name.swapblock=Swap Block (Reskinnable)
 entities.MaxHelpingHand/ReskinnableSwapBlock.attributes.description.spriteDirectory=The directory containing all the swap block sprites.\nTo make your own, copy Graphics/Atlases/Gameplay/objects/swapblock (or objects/swapblock/moon) to Mods/yourmod/Graphics/Atlases/Gameplay/MyMap/myswapblock and type MyMap/myswapblock in this field.
+entities.MaxHelpingHand/ReskinnableSwapBlock.attributes.description.transparentBackground=If checked, the background textures (pathH and pathV) will be replaced with transparent textures.
 entities.MaxHelpingHand/ReskinnableSwapBlock.attributes.description.particleColor1=One of the 2 colors of the particles the swap block emits when it moves.
 entities.MaxHelpingHand/ReskinnableSwapBlock.attributes.description.particleColor2=One of the 2 colors of the particles the swap block emits when it moves.
 entities.MaxHelpingHand/ReskinnableSwapBlock.attributes.name.particleColor1=Particle Color 1

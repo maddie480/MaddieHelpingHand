@@ -3,7 +3,7 @@
 using ..Ahorn, Maple
 
 @pardef ReskinnableSwapBlock(x1::Integer, y1::Integer, x2::Integer=x1+16, y2::Integer=y1, width::Integer=Maple.defaultBlockWidth, height::Integer=Maple.defaultBlockHeight,
-    spriteDirectory::String="objects/swapblock", particleColor1::String="fbf236", particleColor2::String="6abe30",
+    spriteDirectory::String="objects/swapblock", transparentBackground::Bool=false, particleColor1::String="fbf236", particleColor2::String="6abe30",
     moveSound::String="event:/game/05_mirror_temple/swapblock_move", returnSound::String="event:/game/05_mirror_temple/swapblock_return",
     moveEndSound::String="event:/game/05_mirror_temple/swapblock_move_end", returnEndSound::String="event:/game/05_mirror_temple/swapblock_return_end") =
     Entity("MaxHelpingHand/ReskinnableSwapBlock", x=x1, y=y1, nodes=Tuple{Int, Int}[(x2, y2)], width=width, height=height, spriteDirectory=spriteDirectory, particleColor1=particleColor1, particleColor2=particleColor2,

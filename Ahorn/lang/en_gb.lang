@@ -352,6 +352,7 @@ placements.triggers.MaxHelpingHand/ColorGradeFadeTrigger.tooltips.evenDuringRefl
 
 # Reskinnable Swap Block
 placements.entities.MaxHelpingHand/ReskinnableSwapBlock.tooltips.spriteDirectory=The directory containing all the swap block sprites.\nTo make your own, copy Graphics/Atlases/Gameplay/objects/swapblock (or objects/swapblock/moon) to Mods/yourmod/Graphics/Atlases/Gameplay/MyMap/myswapblock and type MyMap/myswapblock in this field.
+placements.entities.MaxHelpingHand/ReskinnableSwapBlock.tooltips.transparentBackground=If checked, the background textures (pathH and pathV) will be replaced with transparent textures.
 placements.entities.MaxHelpingHand/ReskinnableSwapBlock.tooltips.particleColor1=One of the 2 colors of the particles the swap block emits when it moves.
 placements.entities.MaxHelpingHand/ReskinnableSwapBlock.tooltips.particleColor2=One of the 2 colors of the particles the swap block emits when it moves.
 placements.entities.MaxHelpingHand/ReskinnableSwapBlock.names.particleColor1=Particle Color 1

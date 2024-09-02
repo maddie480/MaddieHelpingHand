@@ -42,6 +42,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             // we are using a hook rather than the constructor, because we want to run our code before the base constructor.
             if (self is ReskinnableSwapBlock swapBlock) {
                 swapBlock.spriteDirectory = data.Attr("spriteDirectory", "objects/swapblock");
+                swapBlock.transparentBackground = data.Bool("transparentBackground");
             }
 
             orig(self, data, offset);
@@ -68,7 +69,11 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
                 }
                 cursor.EmitDelegate<Func<string, SwapBlock, string>>((orig, self) => {
                     if (self is ReskinnableSwapBlock swapBlock) {
-                        return orig.Replace("objects/swapblock", swapBlock.spriteDirectory);
+                        if (swapBlock.transparentBackground && orig == "objects/swapblock/path") {
+                            return orig.Replace("objects/swapblock", "MaxHelpingHand/swapblocktransparentbg");
+                        } else {
+                            return orig.Replace("objects/swapblock", swapBlock.spriteDirectory);
+                        }
                     }
                     return orig;
                 });
@@ -110,6 +115,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
         private string moveEndSound;
         private string returnSound;
         private string returnEndSound;
+        private bool transparentBackground;
 
         public ReskinnableSwapBlock(EntityData data, Vector2 offset) : base(data, offset) {
             DynData<SwapBlock> self = new DynData<SwapBlock>(this);
