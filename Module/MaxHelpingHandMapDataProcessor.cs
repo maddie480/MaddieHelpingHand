@@ -1,6 +1,4 @@
-﻿#define megaspam
-
-using System;
+﻿using System;
 using System.Collections.Generic;
 
 namespace Celeste.Mod.MaxHelpingHand.Module {
@@ -18,9 +16,7 @@ namespace Celeste.Mod.MaxHelpingHand.Module {
         private Dictionary<string, BinaryPacker.Element> multiRoomStrawberriesByName = new Dictionary<string, BinaryPacker.Element>();
 
         public override Dictionary<string, Action<BinaryPacker.Element>> Init() {
-#if megaspam
-            Logger.Log(LogLevel.Info, "MaxHelpingHand/MapDataProcessor", $"Initializing map data processor for {AreaKey.ID} / {AreaKey.Mode}!");
-#endif
+            Logger.Log(LogLevel.Verbose, "MaxHelpingHand/MapDataProcessor", $"Initializing map data processor for {AreaKey.ID} / {AreaKey.Mode}!");
 
             Action<BinaryPacker.Element> flagSwitchGateHandler = flagSwitchGate => {
                 string flag = flagSwitchGate.Attr("flag");
@@ -38,9 +34,7 @@ namespace Celeste.Mod.MaxHelpingHand.Module {
                 // add this flag switch gate to the dictionary.
                 entityIDs.Add(new EntityID(levelName, flagSwitchGate.AttrInt("id")), flagSwitchGate.AttrBool("persistent"));
 
-#if megaspam
-                Logger.Log(LogLevel.Info, "MaxHelpingHand/MapDataProcessor", $"area {AreaKey.ID} / mode {AreaKey.Mode} / room {levelName} has flag switch gate {flagSwitchGate.AttrInt("id")} with flag {flag} and persistent {flagSwitchGate.AttrBool("persistent")}");
-#endif
+                Logger.Log(LogLevel.Verbose, "MaxHelpingHand/MapDataProcessor", $"area {AreaKey.ID} / mode {AreaKey.Mode} / room {levelName} has flag switch gate {flagSwitchGate.AttrInt("id")} with flag {flag} and persistent {flagSwitchGate.AttrBool("persistent")}");
             };
 
             Action<BinaryPacker.Element> flagTouchSwitchHandler = flagTouchSwitch => {
@@ -61,9 +55,7 @@ namespace Celeste.Mod.MaxHelpingHand.Module {
                 // add this flag touch switch to the dictionary.
                 entityIDs.Add(new EntityID(levelName, flagTouchSwitch.AttrInt("id")));
 
-#if megaspam
-                Logger.Log(LogLevel.Info, "MaxHelpingHand/MapDataProcessor", $"area {AreaKey.ID} / mode {AreaKey.Mode} / room {levelName} has flag touch switch {flagTouchSwitch.AttrInt("id")} with flag {key}");
-#endif
+                Logger.Log(LogLevel.Verbose, "MaxHelpingHand/MapDataProcessor", $"area {AreaKey.ID} / mode {AreaKey.Mode} / room {levelName} has flag touch switch {flagTouchSwitch.AttrInt("id")} with flag {key}");
             };
 
             return new Dictionary<string, Action<BinaryPacker.Element>> {
@@ -110,9 +102,7 @@ namespace Celeste.Mod.MaxHelpingHand.Module {
                             multiRoomStrawberrySeedsByName[berryName] = new List<BinaryPacker.Element>() { strawberrySeed };
                         }
 
-#if megaspam
-                        Logger.Log(LogLevel.Info, "MaxHelpingHand/MapDataProcessor", $"area {AreaKey.ID} / mode {AreaKey.Mode} / room {levelName} has multi-room seed attached to strawberry {berryName} that was assigned index {strawberrySeed.AttrInt("index")}");
-#endif
+                        Logger.Log(LogLevel.Verbose, "MaxHelpingHand/MapDataProcessor", $"area {AreaKey.ID} / mode {AreaKey.Mode} / room {levelName} has multi-room seed attached to strawberry {berryName} that was assigned index {strawberrySeed.AttrInt("index")}");
                     }
                 },
                 {
@@ -122,9 +112,7 @@ namespace Celeste.Mod.MaxHelpingHand.Module {
                         multiRoomStrawberryIDsByName[berryName] = new EntityID(levelName, strawberry.AttrInt("id"));
                         multiRoomStrawberriesByName[berryName] = strawberry;
 
-#if megaspam
-                        Logger.Log(LogLevel.Info, "MaxHelpingHand/MapDataProcessor", $"area {AreaKey.ID} / mode {AreaKey.Mode} / room {levelName} has multi-room strawberry {berryName} with entity ID {strawberry.AttrInt("id")}");
-#endif
+                        Logger.Log(LogLevel.Verbose, "MaxHelpingHand/MapDataProcessor", $"area {AreaKey.ID} / mode {AreaKey.Mode} / room {levelName} has multi-room strawberry {berryName} with entity ID {strawberry.AttrInt("id")}");
                     }
                 },
                 {
@@ -133,9 +121,7 @@ namespace Celeste.Mod.MaxHelpingHand.Module {
                             MapData.DetectedStrawberries++; // this is useful for file select slot berry count and print_counts.
                             DetectedSecretBerries++; // this will be picked up by a hook in SecretBerry.
 
-#if megaspam
-                            Logger.Log(LogLevel.Info, "MaxHelpingHand/MapDataProcessor", $"area {AreaKey.ID} / mode {AreaKey.Mode} / room {levelName} has a secret berry that counts towards the total");
-#endif
+                            Logger.Log(LogLevel.Verbose, "MaxHelpingHand/MapDataProcessor", $"area {AreaKey.ID} / mode {AreaKey.Mode} / room {levelName} has a secret berry that counts towards the total");
                         }
                     }
                 },
@@ -145,9 +131,7 @@ namespace Celeste.Mod.MaxHelpingHand.Module {
                         gate.Name = "MaxHelpingHand/FlagSwitchGate";
                         gate.SetAttr("isShatter", true);
 
-#if megaspam
-                        Logger.Log(LogLevel.Info, "MaxHelpingHand/MapDataProcessor", $"area {AreaKey.ID} / mode {AreaKey.Mode} / room {levelName} has a shatter flag switch gate that was turned into a regular flag switch gate");
-#endif
+                        Logger.Log(LogLevel.Verbose, "MaxHelpingHand/MapDataProcessor", $"area {AreaKey.ID} / mode {AreaKey.Mode} / room {levelName} has a shatter flag switch gate that was turned into a regular flag switch gate");
 
                         flagSwitchGateHandler(gate);
                     }
@@ -157,9 +141,7 @@ namespace Celeste.Mod.MaxHelpingHand.Module {
                         // multi-node bumpers should never emit sound.
                         bumper.SetAttr("emitSound", false);
 
-#if megaspam
-                        Logger.Log(LogLevel.Info, "MaxHelpingHand/MapDataProcessor", $"area {AreaKey.ID} / mode {AreaKey.Mode} / room {levelName} has a multi-node bumper that was made silent");
-#endif
+                        Logger.Log(LogLevel.Verbose, "MaxHelpingHand/MapDataProcessor", $"area {AreaKey.ID} / mode {AreaKey.Mode} / room {levelName} has a multi-node bumper that was made silent");
                     }
                 },
                 {
@@ -169,9 +151,7 @@ namespace Celeste.Mod.MaxHelpingHand.Module {
                             // so, convert it now!
                             eye.Name = "MaxHelpingHand/TempleEyeTrackingMadeline";
 
-#if megaspam
-                            Logger.Log(LogLevel.Info, "MaxHelpingHand/MapDataProcessor", $"area {AreaKey.ID} / mode {AreaKey.Mode} / room {levelName} has a legacy temple eye from TempleMod, it was turned into a TempleEyeTrackingMadeline");
-#endif
+                            Logger.Log(LogLevel.Verbose, "MaxHelpingHand/MapDataProcessor", $"area {AreaKey.ID} / mode {AreaKey.Mode} / room {levelName} has a legacy temple eye from TempleMod, it was turned into a TempleEyeTrackingMadeline");
                         }
                     }
                 }
@@ -179,9 +159,7 @@ namespace Celeste.Mod.MaxHelpingHand.Module {
         }
 
         public override void Reset() {
-#if megaspam
-            Logger.Log(LogLevel.Info, "MaxHelpingHand/MapDataProcessor", $"Resetting map data processor for {AreaKey.ID} / {AreaKey.Mode}!");
-#endif
+            Logger.Log(LogLevel.Verbose, "MaxHelpingHand/MapDataProcessor", $"Resetting map data processor for {AreaKey.ID} / {AreaKey.Mode}!");
 
             while (FlagTouchSwitches.Count <= AreaKey.ID) {
                 // fill out the empty space before the current map with empty dictionaries.
@@ -210,9 +188,7 @@ namespace Celeste.Mod.MaxHelpingHand.Module {
         }
 
         public override void End() {
-#if megaspam
-            Logger.Log(LogLevel.Info, "MaxHelpingHand/MapDataProcessor", $"Finishing map data processor for {AreaKey.ID} / {AreaKey.Mode}!");
-#endif
+            Logger.Log(LogLevel.Verbose, "MaxHelpingHand/MapDataProcessor", $"Finishing map data processor for {AreaKey.ID} / {AreaKey.Mode}!");
 
             foreach (string strawberryName in multiRoomStrawberrySeedsByName.Keys) {
                 if (!multiRoomStrawberryIDsByName.ContainsKey(strawberryName)) {
