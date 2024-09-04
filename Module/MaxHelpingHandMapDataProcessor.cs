@@ -4,9 +4,9 @@ using System.Collections.Generic;
 namespace Celeste.Mod.MaxHelpingHand.Module {
     public class MaxHelpingHandMapDataProcessor : EverestMapDataProcessor {
 
-        // the structure here is: FlagTouchSwitches[AreaID][ModeID][flagName, inverted] = list of entity ids for flag touch switches / flag switch gates in this group on this map.
-        public static List<List<Dictionary<KeyValuePair<string, bool>, List<EntityID>>>> FlagTouchSwitches = new List<List<Dictionary<KeyValuePair<string, bool>, List<EntityID>>>>();
-        public static List<List<Dictionary<string, Dictionary<EntityID, bool>>>> FlagSwitchGates = new List<List<Dictionary<string, Dictionary<EntityID, bool>>>>();
+        // the structure here is: FlagTouchSwitches[AreaSID][ModeID][flagName, inverted] = list of entity ids for flag touch switches / flag switch gates in this group on this map.
+        public static Dictionary<string, List<Dictionary<KeyValuePair<string, bool>, List<EntityID>>>> FlagTouchSwitches = new Dictionary<string, List<Dictionary<KeyValuePair<string, bool>, List<EntityID>>>>();
+        public static Dictionary<string, List<Dictionary<string, Dictionary<EntityID, bool>>>> FlagSwitchGates = new Dictionary<string, List<Dictionary<string, Dictionary<EntityID, bool>>>>();
         public static int DetectedSecretBerries = 0;
         private string levelName;
 
@@ -16,11 +16,11 @@ namespace Celeste.Mod.MaxHelpingHand.Module {
         private Dictionary<string, BinaryPacker.Element> multiRoomStrawberriesByName = new Dictionary<string, BinaryPacker.Element>();
 
         public override Dictionary<string, Action<BinaryPacker.Element>> Init() {
-            Logger.Log(LogLevel.Verbose, "MaxHelpingHand/MapDataProcessor", $"Initializing map data processor for {AreaKey.ID} / {AreaKey.Mode}!");
+            Logger.Log(LogLevel.Verbose, "MaxHelpingHand/MapDataProcessor", $"Initializing map data processor for {AreaKey.SID} / {AreaKey.Mode}!");
 
             Action<BinaryPacker.Element> flagSwitchGateHandler = flagSwitchGate => {
                 string flag = flagSwitchGate.Attr("flag");
-                Dictionary<string, Dictionary<EntityID, bool>> allSwitchGatesInMap = FlagSwitchGates[AreaKey.ID][(int) AreaKey.Mode];
+                Dictionary<string, Dictionary<EntityID, bool>> allSwitchGatesInMap = FlagSwitchGates[AreaKey.SID][(int) AreaKey.Mode];
 
                 // if no dictionary entry exists for this flag, create one. otherwise, get it.
                 Dictionary<EntityID, bool> entityIDs;
@@ -34,14 +34,14 @@ namespace Celeste.Mod.MaxHelpingHand.Module {
                 // add this flag switch gate to the dictionary.
                 entityIDs.Add(new EntityID(levelName, flagSwitchGate.AttrInt("id")), flagSwitchGate.AttrBool("persistent"));
 
-                Logger.Log(LogLevel.Verbose, "MaxHelpingHand/MapDataProcessor", $"area {AreaKey.ID} / mode {AreaKey.Mode} / room {levelName} has flag switch gate {flagSwitchGate.AttrInt("id")} with flag {flag} and persistent {flagSwitchGate.AttrBool("persistent")}");
+                Logger.Log(LogLevel.Verbose, "MaxHelpingHand/MapDataProcessor", $"area {AreaKey.SID} / mode {AreaKey.Mode} / room {levelName} has flag switch gate {flagSwitchGate.AttrInt("id")} with flag {flag} and persistent {flagSwitchGate.AttrBool("persistent")}");
             };
 
             Action<BinaryPacker.Element> flagTouchSwitchHandler = flagTouchSwitch => {
                 string flag = flagTouchSwitch.Attr("flag");
                 bool inverted = flagTouchSwitch.AttrBool("inverted", false);
                 KeyValuePair<string, bool> key = new KeyValuePair<string, bool>(flag, inverted);
-                Dictionary<KeyValuePair<string, bool>, List<EntityID>> allTouchSwitchesInMap = FlagTouchSwitches[AreaKey.ID][(int) AreaKey.Mode];
+                Dictionary<KeyValuePair<string, bool>, List<EntityID>> allTouchSwitchesInMap = FlagTouchSwitches[AreaKey.SID][(int) AreaKey.Mode];
 
                 // if no dictionary entry exists for this flag, create one. otherwise, get it.
                 List<EntityID> entityIDs;
@@ -55,7 +55,7 @@ namespace Celeste.Mod.MaxHelpingHand.Module {
                 // add this flag touch switch to the dictionary.
                 entityIDs.Add(new EntityID(levelName, flagTouchSwitch.AttrInt("id")));
 
-                Logger.Log(LogLevel.Verbose, "MaxHelpingHand/MapDataProcessor", $"area {AreaKey.ID} / mode {AreaKey.Mode} / room {levelName} has flag touch switch {flagTouchSwitch.AttrInt("id")} with flag {key}");
+                Logger.Log(LogLevel.Verbose, "MaxHelpingHand/MapDataProcessor", $"area {AreaKey.SID} / mode {AreaKey.Mode} / room {levelName} has flag touch switch {flagTouchSwitch.AttrInt("id")} with flag {key}");
             };
 
             return new Dictionary<string, Action<BinaryPacker.Element>> {
@@ -102,7 +102,7 @@ namespace Celeste.Mod.MaxHelpingHand.Module {
                             multiRoomStrawberrySeedsByName[berryName] = new List<BinaryPacker.Element>() { strawberrySeed };
                         }
 
-                        Logger.Log(LogLevel.Verbose, "MaxHelpingHand/MapDataProcessor", $"area {AreaKey.ID} / mode {AreaKey.Mode} / room {levelName} has multi-room seed attached to strawberry {berryName} that was assigned index {strawberrySeed.AttrInt("index")}");
+                        Logger.Log(LogLevel.Verbose, "MaxHelpingHand/MapDataProcessor", $"area {AreaKey.SID} / mode {AreaKey.Mode} / room {levelName} has multi-room seed attached to strawberry {berryName} that was assigned index {strawberrySeed.AttrInt("index")}");
                     }
                 },
                 {
@@ -112,7 +112,7 @@ namespace Celeste.Mod.MaxHelpingHand.Module {
                         multiRoomStrawberryIDsByName[berryName] = new EntityID(levelName, strawberry.AttrInt("id"));
                         multiRoomStrawberriesByName[berryName] = strawberry;
 
-                        Logger.Log(LogLevel.Verbose, "MaxHelpingHand/MapDataProcessor", $"area {AreaKey.ID} / mode {AreaKey.Mode} / room {levelName} has multi-room strawberry {berryName} with entity ID {strawberry.AttrInt("id")}");
+                        Logger.Log(LogLevel.Verbose, "MaxHelpingHand/MapDataProcessor", $"area {AreaKey.SID} / mode {AreaKey.Mode} / room {levelName} has multi-room strawberry {berryName} with entity ID {strawberry.AttrInt("id")}");
                     }
                 },
                 {
@@ -121,7 +121,7 @@ namespace Celeste.Mod.MaxHelpingHand.Module {
                             MapData.DetectedStrawberries++; // this is useful for file select slot berry count and print_counts.
                             DetectedSecretBerries++; // this will be picked up by a hook in SecretBerry.
 
-                            Logger.Log(LogLevel.Verbose, "MaxHelpingHand/MapDataProcessor", $"area {AreaKey.ID} / mode {AreaKey.Mode} / room {levelName} has a secret berry that counts towards the total");
+                            Logger.Log(LogLevel.Verbose, "MaxHelpingHand/MapDataProcessor", $"area {AreaKey.SID} / mode {AreaKey.Mode} / room {levelName} has a secret berry that counts towards the total");
                         }
                     }
                 },
@@ -131,7 +131,7 @@ namespace Celeste.Mod.MaxHelpingHand.Module {
                         gate.Name = "MaxHelpingHand/FlagSwitchGate";
                         gate.SetAttr("isShatter", true);
 
-                        Logger.Log(LogLevel.Verbose, "MaxHelpingHand/MapDataProcessor", $"area {AreaKey.ID} / mode {AreaKey.Mode} / room {levelName} has a shatter flag switch gate that was turned into a regular flag switch gate");
+                        Logger.Log(LogLevel.Verbose, "MaxHelpingHand/MapDataProcessor", $"area {AreaKey.SID} / mode {AreaKey.Mode} / room {levelName} has a shatter flag switch gate that was turned into a regular flag switch gate");
 
                         flagSwitchGateHandler(gate);
                     }
@@ -141,7 +141,7 @@ namespace Celeste.Mod.MaxHelpingHand.Module {
                         // multi-node bumpers should never emit sound.
                         bumper.SetAttr("emitSound", false);
 
-                        Logger.Log(LogLevel.Verbose, "MaxHelpingHand/MapDataProcessor", $"area {AreaKey.ID} / mode {AreaKey.Mode} / room {levelName} has a multi-node bumper that was made silent");
+                        Logger.Log(LogLevel.Verbose, "MaxHelpingHand/MapDataProcessor", $"area {AreaKey.SID} / mode {AreaKey.Mode} / room {levelName} has a multi-node bumper that was made silent");
                     }
                 },
                 {
@@ -151,7 +151,7 @@ namespace Celeste.Mod.MaxHelpingHand.Module {
                             // so, convert it now!
                             eye.Name = "MaxHelpingHand/TempleEyeTrackingMadeline";
 
-                            Logger.Log(LogLevel.Verbose, "MaxHelpingHand/MapDataProcessor", $"area {AreaKey.ID} / mode {AreaKey.Mode} / room {levelName} has a legacy temple eye from TempleMod, it was turned into a TempleEyeTrackingMadeline");
+                            Logger.Log(LogLevel.Verbose, "MaxHelpingHand/MapDataProcessor", $"area {AreaKey.SID} / mode {AreaKey.Mode} / room {levelName} has a legacy temple eye from TempleMod, it was turned into a TempleEyeTrackingMadeline");
                         }
                     }
                 }
@@ -159,36 +159,36 @@ namespace Celeste.Mod.MaxHelpingHand.Module {
         }
 
         public override void Reset() {
-            Logger.Log(LogLevel.Verbose, "MaxHelpingHand/MapDataProcessor", $"Resetting map data processor for {AreaKey.ID} / {AreaKey.Mode}!");
+            Logger.Log(LogLevel.Verbose, "MaxHelpingHand/MapDataProcessor", $"Resetting map data processor for {AreaKey.SID} / {AreaKey.Mode}!");
 
-            while (FlagTouchSwitches.Count <= AreaKey.ID) {
-                // fill out the empty space before the current map with empty dictionaries.
-                FlagTouchSwitches.Add(new List<Dictionary<KeyValuePair<string, bool>, List<EntityID>>>());
+            if (!FlagTouchSwitches.ContainsKey(AreaKey.SID)) {
+                // create an entry for the current map SID.
+                FlagTouchSwitches[AreaKey.SID] = new List<Dictionary<KeyValuePair<string, bool>, List<EntityID>>>();
             }
-            while (FlagTouchSwitches[AreaKey.ID].Count <= (int) AreaKey.Mode) {
+            while (FlagTouchSwitches[AreaKey.SID].Count <= (int) AreaKey.Mode) {
                 // fill out the empty space before the current map MODE with empty dictionaries.
-                FlagTouchSwitches[AreaKey.ID].Add(new Dictionary<KeyValuePair<string, bool>, List<EntityID>>());
+                FlagTouchSwitches[AreaKey.SID].Add(new Dictionary<KeyValuePair<string, bool>, List<EntityID>>());
             }
 
             // reset the dictionary for the current map and mode.
-            FlagTouchSwitches[AreaKey.ID][(int) AreaKey.Mode] = new Dictionary<KeyValuePair<string, bool>, List<EntityID>>();
+            FlagTouchSwitches[AreaKey.SID][(int) AreaKey.Mode] = new Dictionary<KeyValuePair<string, bool>, List<EntityID>>();
 
 
-            while (FlagSwitchGates.Count <= AreaKey.ID) {
-                // fill out the empty space before the current map with empty dictionaries.
-                FlagSwitchGates.Add(new List<Dictionary<string, Dictionary<EntityID, bool>>>());
+            if (!FlagSwitchGates.ContainsKey(AreaKey.SID)) {
+                // create an entry for the current map SID.
+                FlagSwitchGates[AreaKey.SID] = new List<Dictionary<string, Dictionary<EntityID, bool>>>();
             }
-            while (FlagSwitchGates[AreaKey.ID].Count <= (int) AreaKey.Mode) {
+            while (FlagSwitchGates[AreaKey.SID].Count <= (int) AreaKey.Mode) {
                 // fill out the empty space before the current map MODE with empty dictionaries.
-                FlagSwitchGates[AreaKey.ID].Add(new Dictionary<string, Dictionary<EntityID, bool>>());
+                FlagSwitchGates[AreaKey.SID].Add(new Dictionary<string, Dictionary<EntityID, bool>>());
             }
 
             // reset the dictionary for the current map and mode.
-            FlagSwitchGates[AreaKey.ID][(int) AreaKey.Mode] = new Dictionary<string, Dictionary<EntityID, bool>>();
+            FlagSwitchGates[AreaKey.SID][(int) AreaKey.Mode] = new Dictionary<string, Dictionary<EntityID, bool>>();
         }
 
         public override void End() {
-            Logger.Log(LogLevel.Verbose, "MaxHelpingHand/MapDataProcessor", $"Finishing map data processor for {AreaKey.ID} / {AreaKey.Mode}!");
+            Logger.Log(LogLevel.Verbose, "MaxHelpingHand/MapDataProcessor", $"Finishing map data processor for {AreaKey.SID} / {AreaKey.Mode}!");
 
             foreach (string strawberryName in multiRoomStrawberrySeedsByName.Keys) {
                 if (!multiRoomStrawberryIDsByName.ContainsKey(strawberryName)) {
