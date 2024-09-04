@@ -270,7 +270,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
                 level.Session.SetFlag(flag + "_switch" + id, true);
             }
 
-            if (MaxHelpingHandMapDataProcessor.FlagTouchSwitches[level.Session.Area.ID][(int) level.Session.Area.Mode][new KeyValuePair<string, bool>(flag, inverted)]
+            if (MaxHelpingHandMapDataProcessor.FlagTouchSwitches[level.Session.Area.SID][(int) level.Session.Area.Mode][new KeyValuePair<string, bool>(flag, inverted)]
                 .All(touchSwitchID => touchSwitchID.Level == level.Session.Level || level.Session.GetFlag(flag + "_switch" + touchSwitchID.ID))
                     && allTouchSwitchesInRoom.All(touchSwitch => touchSwitch.Activated || touchSwitch.isHidden())
                     && allMovingFlagTouchSwitchesInRoom.All(touchSwitch => touchSwitch.Switch.Activated || MovingFlagTouchSwitch.IsHidden(touchSwitch))) {
@@ -313,8 +313,8 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
 
                 // set flags for switch gates.
                 bool allGatesTriggered = true;
-                if (MaxHelpingHandMapDataProcessor.FlagSwitchGates[level.Session.Area.ID][(int) level.Session.Area.Mode].ContainsKey(flag)) {
-                    Dictionary<EntityID, bool> allGates = MaxHelpingHandMapDataProcessor.FlagSwitchGates[level.Session.Area.ID][(int) level.Session.Area.Mode][flag];
+                if (MaxHelpingHandMapDataProcessor.FlagSwitchGates[level.Session.Area.SID][(int) level.Session.Area.Mode].ContainsKey(flag)) {
+                    Dictionary<EntityID, bool> allGates = MaxHelpingHandMapDataProcessor.FlagSwitchGates[level.Session.Area.SID][(int) level.Session.Area.Mode][flag];
                     foreach (KeyValuePair<EntityID, bool> gate in allGates) {
                         if (gate.Value) {
                             // the gate is persistent; set the flag
