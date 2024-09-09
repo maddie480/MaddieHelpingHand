@@ -1,7 +1,6 @@
 ﻿using Celeste.Mod.Entities;
 using Microsoft.Xna.Framework;
 using Monocle;
-using MonoMod.Utils;
 using System.Reflection;
 
 namespace Celeste.Mod.MaxHelpingHand.Entities {
@@ -12,6 +11,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
     public class SpinnerBreakingBallVanilla : SpinnerBreakingBallGeneric<CrystalStaticSpinner, CrystalColor> {
         private static MethodInfo crystalSpinnerGetHue = typeof(CrystalStaticSpinner).GetMethod("GetHue", BindingFlags.NonPublic | BindingFlags.Instance);
         private static FieldInfo spinnerIDField = typeof(CrystalStaticSpinner).GetField("ID", BindingFlags.NonPublic | BindingFlags.Instance);
+        private static FieldInfo spinnerColorField = typeof(CrystalStaticSpinner).GetField("color", BindingFlags.NonPublic | BindingFlags.Instance);
 
         private CrystalStaticSpinner rainbowSpinner;
         private bool rainbowTinting;
@@ -52,7 +52,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
         }
 
         protected override CrystalColor getColor(CrystalStaticSpinner spinner) {
-            return new DynData<CrystalStaticSpinner>(spinner).Get<CrystalColor>("color");
+            return (CrystalColor) spinnerColorField.GetValue(spinner);
         }
 
         protected override bool getAttachToSolid(CrystalStaticSpinner spinner) {
