@@ -61,6 +61,12 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             // wipe the spinner connections so that they are computed again after the transition (in the new room).
             spinnerNeighbors = null;
             listOfSpinners = null;
+            shatteredSpinners.Clear();
+
+            // stop the running computation of spinner connections (if any)
+            computeSpinnerNeighborsToken?.Cancel();
+            computeSpinnerNeighbors = null;
+            computeSpinnerNeighborsToken = null;
         }
 
         public override void Awake(Scene scene) {
@@ -110,11 +116,11 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
 
         public override void Removed(Scene scene) {
             base.Removed(scene);
-            computeSpinnerNeighborsToken.Cancel();
+            computeSpinnerNeighborsToken?.Cancel();
         }
         public override void SceneEnd(Scene scene) {
             base.SceneEnd(scene);
-            computeSpinnerNeighborsToken.Cancel();
+            computeSpinnerNeighborsToken?.Cancel();
         }
 
         private Task computeSpinnerConnections(CancellationToken cancelToken) {
