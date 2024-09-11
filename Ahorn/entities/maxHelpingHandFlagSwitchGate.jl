@@ -5,10 +5,10 @@ using ..Ahorn, Maple
 @pardef FlagSwitchGate(x1::Integer, y1::Integer, x2::Integer=x1+16, y2::Integer=y1, width::Integer=Maple.defaultBlockWidth, height::Integer=Maple.defaultBlockHeight,
     sprite::String="block", persistent::Bool=false, flag::String="flag_touch_switch", icon::String="vanilla", inactiveColor::String="5FCDE4", activeColor::String="FFFFFF", finishColor::String="F141DF",
     shakeTime::Number=0.5, moveTime::Number=1.8, moveSpeed::Number=60.0, moveEased::Bool=true, allowReturn::Bool=false, moveSound::String="event:/game/general/touchswitch_gate_open", finishedSound::String="event:/game/general/touchswitch_gate_finish",
-    smoke::Bool=true, surfaceIndex::Int16=convert(Int16, 8), particles::Bool=true, speedMode::Bool=false) =
+    smoke::Bool=true, surfaceIndex::Int16=convert(Int16, 8), particles::Bool=true, speedMode::Bool=false, moveImmediately::Bool=false) =
     Entity("MaxHelpingHand/FlagSwitchGate", x=x1, y=y1, nodes=Tuple{Int, Int}[(x2, y2)], width=width, height=height, sprite=sprite, persistent=persistent, flag=flag, icon=icon,
     inactiveColor=inactiveColor, activeColor=activeColor, finishColor=finishColor, shakeTime=shakeTime, moveTime=moveTime, moveSpeed=moveSpeed, moveEased=moveEased, allowReturn=allowReturn, moveSound=moveSound, finishedSound=finishedSound,
-    smoke=smoke, surfaceIndex=surfaceIndex, particles=particles, speedMode=speedMode)
+    smoke=smoke, surfaceIndex=surfaceIndex, particles=particles, speedMode=speedMode, moveImmediately=moveImmediately)
 
 function gateFinalizer(entity)
     x, y = Ahorn.position(entity)

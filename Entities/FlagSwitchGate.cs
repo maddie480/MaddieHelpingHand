@@ -49,6 +49,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
         private readonly float moveSpeed;
         private readonly bool moveEased;
         private readonly bool speedMode;
+        private readonly bool moveImmediately;
 
         private readonly string moveSound;
         private readonly string finishedSound;
@@ -82,6 +83,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             moveSpeed = data.Float("moveSpeed", 60.0f);
             moveEased = data.Bool("moveEased", true);
             speedMode = data.Bool("speedMode", false);
+            moveImmediately = data.Bool("moveImmediately", false);
 
             moveSound = data.Attr("moveSound", "event:/game/general/touchswitch_gate_open");
             finishedSound = data.Attr("finishedSound", "event:/game/general/touchswitch_gate_finish");
@@ -247,12 +249,12 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
                 }
             }
 
-            yield return 0.1f;
+            if (!moveImmediately) yield return 0.1f;
             if (shouldCancelMove(goingBack)) yield break;
 
             // animate the icon
             openSfx.Play(moveSound);
-            if (shakeTime > 0f) {
+            if (shakeTime > 0f && !moveImmediately) {
                 StartShaking(shakeTime);
                 while (icon.Rate < 1f) {
                     icon.Color = Color.Lerp(fromColor, activeColor, icon.Rate);
@@ -264,7 +266,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
                 icon.Rate = 1f;
             }
 
-            yield return 0.1f;
+            if (!moveImmediately) yield return 0.1f;
             if (shouldCancelMove(goingBack)) yield break;
 
             // move the switch gate, emitting particles along the way if particles is true

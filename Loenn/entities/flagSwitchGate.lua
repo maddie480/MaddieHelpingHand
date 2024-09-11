@@ -42,7 +42,8 @@ for i, texture in ipairs(textures) do
             surfaceIndex = 8,
             particles = true,
             speedMode = false,
-            moveSpeed = 60
+            moveSpeed = 60,
+            moveImmediately = false
         }
     }
 end

@@ -214,6 +214,7 @@ entities.MaxHelpingHand/FlagSwitchGate.attributes.description.surfaceIndex=Foots
 entities.MaxHelpingHand/FlagSwitchGate.attributes.description.particles=Whether the switch gate should emit particles while it is moving.
 entities.MaxHelpingHand/FlagSwitchGate.attributes.description.speedMode=Allows defining move speed, instead of move time.\nFor this change to apply, you must reopen the edit window.
 entities.MaxHelpingHand/FlagSwitchGate.attributes.description.moveSpeed=The speed (in pixels per second) the block travels at.
+entities.MaxHelpingHand/FlagSwitchGate.attributes.description.moveImmediately=Whether the block should move right when it is activated, ignoring the "Move Time" / "Move Speed" fields.
 
 # Flag Touch Switch
 entities.MaxHelpingHand/FlagTouchSwitch.placements.name.touch_switch=Flag Touch Switch
