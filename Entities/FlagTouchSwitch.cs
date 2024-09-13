@@ -20,7 +20,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
     /// - inactiveColor / activeColor / finishColor: custom colors for the touch switch.
     /// </summary>
     [CustomEntity("MaxHelpingHand/FlagTouchSwitch")]
-    [Tracked]
+    [Tracked(inherited: true)]
     public class FlagTouchSwitch : Entity {
         private static FieldInfo seekerPushRadius = typeof(Seeker).GetField("pushRadius", BindingFlags.NonPublic | BindingFlags.Instance);
         private static FieldInfo seekerPhysicsHitbox = typeof(Seeker).GetField("physicsHitbox", BindingFlags.NonPublic | BindingFlags.Instance);
@@ -90,7 +90,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
 
         private MTexture border = GFX.Game["objects/touchswitch/container"];
 
-        private Sprite icon;
+        protected Sprite icon;
 
         private int[] frames;
         private bool persistent;
@@ -118,6 +118,8 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
         private string hideIfFlag;
 
         private Level level => (Level) Scene;
+
+        protected virtual Vector2 IconPosition => Vector2.Zero;
 
         public FlagTouchSwitch(EntityData data, Vector2 offset)
             : base(data.Position + offset) {
@@ -152,13 +154,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
                 Color = finishColor
             };
 
-            // set up collision
-            Collider = new Hitbox(16f, 16f, -8f, -8f);
-            if (data.Bool("playerCanActivate", defaultValue: true)) {
-                Add(new PlayerCollider(onPlayer, null, new Hitbox(30f, 30f, -15f, -15f)));
-            }
-            Add(new HoldableCollider(onHoldable, new Hitbox(20f, 20f, -10f, -10f)));
-            Add(new SeekerCollider(onSeeker, new Hitbox(24f, 24f, -12f, -12f)));
+            setUpCollision(data);
 
             // set up the icon
             string iconAttribute = data.Attr("icon", "vanilla");
@@ -175,16 +171,27 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             icon.Play("spin");
             icon.Color = inactiveColor;
             icon.CenterOrigin();
+            icon.Position = IconPosition;
 
             Add(bloom = new BloomPoint(0f, 16f));
             bloom.Alpha = 0f;
+            bloom.Position = IconPosition;
 
             Add(wiggler = Wiggler.Create(0.5f, 4f, v => {
                 pulse = Vector2.One * (1f + v * 0.25f);
             }));
 
-            Add(new VertexLight(Color.White, 0.8f, 16, 32));
-            Add(touchSfx = new SoundSource());
+            Add(new VertexLight(Color.White, 0.8f, 16, 32) { Position = IconPosition });
+            Add(touchSfx = new SoundSource { Position = IconPosition });
+        }
+
+        protected virtual void setUpCollision(EntityData data) {
+            Collider = new Hitbox(16f, 16f, -8f, -8f);
+            if (data.Bool("playerCanActivate", defaultValue: true)) {
+                Add(new PlayerCollider(onPlayer, null, new Hitbox(30f, 30f, -15f, -15f)));
+            }
+            Add(new HoldableCollider(onHoldable, new Hitbox(20f, 20f, -10f, -10f)));
+            Add(new SeekerCollider(onSeeker, new Hitbox(24f, 24f, -12f, -12f)));
         }
 
         public override void Added(Scene scene) {
@@ -224,15 +231,15 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
                     new DynData<TouchSwitch>(touchSwitch).Get<string>("flag") == flag).ToList();
         }
 
-        private void onPlayer(Player player) {
+        protected void onPlayer(Player player) {
             TurnOn();
         }
 
-        private void onHoldable(Holdable h) {
+        protected void onHoldable(Holdable h) {
             TurnOn();
         }
 
-        private void onSeeker(Seeker seeker) {
+        protected void onSeeker(Seeker seeker) {
             if (SceneAs<Level>().InsideCamera(Position, 10f)) {
                 TurnOn();
             }
@@ -249,21 +256,28 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
                     wiggler.Start();
                     for (int i = 0; i < 32; i++) {
                         float num = Calc.Random.NextFloat((float) Math.PI * 2f);
-                        level.Particles.Emit(TouchSwitch.P_FireWhite, Position + Calc.AngleToVector(num, 6f), num);
+                        level.Particles.Emit(TouchSwitch.P_FireWhite, Position + IconPosition + Calc.AngleToVector(num, 6f), num);
                     }
                 });
                 icon.Rate = 4f;
 
                 HandleCollectedFlagTouchSwitch(flag, inverted, persistent, level, id, allTouchSwitchesInRoom, allMovingFlagTouchSwitchesInRoom, () => doEffect(() => {
                     SoundEmitter.Play(completeSoundFromScene);
-                    Add(new SoundSource(completeSoundFromSwitch));
+                    Add(new SoundSource(completeSoundFromSwitch) { Position = IconPosition });
                 }));
             }
         }
 
         // returns true if the entire group was completed.
-        internal static bool HandleCollectedFlagTouchSwitch(string flag, bool inverted, bool persistent, Level level, int id,
-            List<FlagTouchSwitch> allTouchSwitchesInRoom, List<TouchSwitch> allMovingFlagTouchSwitchesInRoom, Action onFinished) {
+        internal static bool HandleCollectedFlagTouchSwitch(
+            string flag,
+            bool inverted,
+            bool persistent,
+            Level level,
+            int id,
+            List<FlagTouchSwitch> allTouchSwitchesInRoom,
+            List<TouchSwitch> allMovingFlagTouchSwitchesInRoom,
+            Action onFinished) {
 
             if (persistent) {
                 // this switch is persistent. save its activation in the session.
@@ -271,9 +285,9 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             }
 
             if (MaxHelpingHandMapDataProcessor.FlagTouchSwitches[level.Session.Area.SID][(int) level.Session.Area.Mode][new KeyValuePair<string, bool>(flag, inverted)]
-                .All(touchSwitchID => touchSwitchID.Level == level.Session.Level || level.Session.GetFlag(flag + "_switch" + touchSwitchID.ID))
-                    && allTouchSwitchesInRoom.All(touchSwitch => touchSwitch.Activated || touchSwitch.isHidden())
-                    && allMovingFlagTouchSwitchesInRoom.All(touchSwitch => touchSwitch.Switch.Activated || MovingFlagTouchSwitch.IsHidden(touchSwitch))) {
+                    .All(touchSwitchID => touchSwitchID.Level == level.Session.Level || level.Session.GetFlag(flag + "_switch" + touchSwitchID.ID))
+                && allTouchSwitchesInRoom.All(touchSwitch => touchSwitch.Activated || touchSwitch.isHidden())
+                && allMovingFlagTouchSwitchesInRoom.All(touchSwitch => touchSwitch.Switch.Activated || MovingFlagTouchSwitch.IsHidden(touchSwitch))) {
 
                 // all switches in the room are enabled or hidden, and all session flags for switches outside the room are enabled.
                 // so, the group is complete.
@@ -366,10 +380,10 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
                         icon.Rate = 0.1f;
                         wiggler.Start();
                         icon.Play("idle");
-                        level.Displacement.AddBurst(Position, 0.6f, 4f, 28f, 0.2f);
+                        level.Displacement.AddBurst(Position + IconPosition, 0.6f, 4f, 28f, 0.2f);
                     }
                 } else if (Scene.OnInterval(0.03f) && smoke) {
-                    Vector2 position = Position + new Vector2(0f, 1f) + Calc.AngleToVector(Calc.Random.NextAngle(), 5f);
+                    Vector2 position = Position + IconPosition + new Vector2(0f, 1f) + Calc.AngleToVector(Calc.Random.NextAngle(), 5f);
                     level.ParticlesBG.Emit(P_RecoloredFire, position);
                 }
 
@@ -395,9 +409,13 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
         }
 
         public override void Render() {
+            renderBorder();
+            base.Render();
+        }
+
+        protected virtual void renderBorder() {
             border.DrawCentered(Position + new Vector2(0f, -1f), Color.Black);
             border.DrawCentered(Position, icon.Color, pulse);
-            base.Render();
         }
 
         private void doEffect(Action effect) {

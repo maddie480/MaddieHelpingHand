@@ -75,7 +75,32 @@ namespace Celeste.Mod.MaxHelpingHand.Module {
                     "entity:MaxHelpingHand/MovingFlagTouchSwitch", flagTouchSwitchHandler
                 },
                 {
+                    "entity:MaxHelpingHand/FlagTouchSwitchWall", flagTouchSwitchHandler
+                },
+                {
+                    "entity:ChroniaHelper/FlagTouchSwitch", flagTouchSwitch => {
+                        // Take over Chronia Helper flag touch switches, after UnderDragon reached out to merge those back into Helping Hand
+                        if (flagTouchSwitch.Attr("switch") == "touchSwitch") {
+                            Logger.Log(LogLevel.Verbose, "MaxHelpingHand/MapDataProcessor", $"area {AreaKey.SID} / mode {AreaKey.Mode} / room {levelName} has a ChroniaHelper/FlagTouchSwitch, turning it into a MaxHelpingHand/FlagTouchSwitch");
+                            flagTouchSwitch.Name = "MaxHelpingHand/FlagTouchSwitch";
+                            flagTouchSwitch.SetAttr("x", flagTouchSwitch.AttrInt("x") + flagTouchSwitch.AttrInt("width") / 2);
+                            flagTouchSwitch.SetAttr("y", flagTouchSwitch.AttrInt("y") + flagTouchSwitch.AttrInt("height") / 2);
+                        } else {
+                            Logger.Log(LogLevel.Verbose, "MaxHelpingHand/MapDataProcessor", $"area {AreaKey.SID} / mode {AreaKey.Mode} / room {levelName} has a ChroniaHelper/FlagTouchSwitch, turning it into a MaxHelpingHand/FlagTouchSwitchWall");
+                            flagTouchSwitch.Name = "MaxHelpingHand/FlagTouchSwitchWall";
+                        }
+                        flagTouchSwitchHandler(flagTouchSwitch);
+                    }
+                },
+                {
                     "entity:MaxHelpingHand/FlagSwitchGate", flagSwitchGateHandler
+                },
+                {
+                    "entity:ChroniaHelper/FlagSwitchGate", flagSwitchGate => {
+                        Logger.Log(LogLevel.Verbose, "MaxHelpingHand/MapDataProcessor", $"area {AreaKey.SID} / mode {AreaKey.Mode} / room {levelName} has a ChroniaHelper/FlagSwitchGate, turning it into a MaxHelpingHand/FlagSwitchGate");
+                        flagSwitchGate.Name = "MaxHelpingHand/FlagSwitchGate";
+                        flagSwitchGateHandler(flagSwitchGate);
+                    }
                 },
                 {
                     "entity:CommunalHelper/MaxHelpingHand/DreamFlagSwitchGate", flagSwitchGateHandler

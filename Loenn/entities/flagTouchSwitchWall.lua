@@ -1,17 +1,20 @@
 local drawableSprite = require("structs.drawable_sprite")
+local drawableRectangle = require("structs.drawable_rectangle")
 
 local touchSwitch = {}
 
-touchSwitch.name = "MaxHelpingHand/FlagTouchSwitch"
+touchSwitch.name = "MaxHelpingHand/FlagTouchSwitchWall"
 touchSwitch.depth = 2000
+touchSwitch.minimumSize = {8, 8}
 touchSwitch.placements = {
     {
         name = "touch_switch",
         data = {
+            width = 16,
+            height = 16,
             flag = "flag_touch_switch",
             icon = "vanilla",
             animationLength = 6,
-            borderTexture = "",
             persistent = false,
             inactiveColor = "5FCDE4",
             activeColor = "FFFFFF",
@@ -29,7 +32,7 @@ touchSwitch.placements = {
 }
 
 function touchSwitch.fieldOrder(entity)
-    local fieldOrder = {"x", "y", "inactiveColor", "activeColor", "finishColor", "hitSound", "completeSoundFromSwitch", "completeSoundFromScene"}
+    local fieldOrder = {"x", "y", "width", "height", "inactiveColor", "activeColor", "finishColor", "hitSound", "completeSoundFromSwitch", "completeSoundFromScene"}
 
     -- only include animationLength to fieldOrder if the field exists, otherwise it will appear as nil in the entity properties window
     if entity.animationLength ~= nil then
@@ -57,11 +60,8 @@ touchSwitch.fieldInformation = {
     }
 }
 
-local containerTexture = "objects/touchswitch/container"
-
 function touchSwitch.sprite(room, entity)
-    local borderTexture = entity.borderTexture ~= "" and entity.borderTexture or containerTexture
-    local containerSprite = drawableSprite.fromTexture(borderTexture, entity)
+    local containerSprite = drawableRectangle.fromRectangle('bordered', entity.x, entity.y, entity.width, entity.height, {0.0, 0.0, 0.0, 0.3}, {1.0, 1.0, 1.0, 0.5})
 
     local iconResource = "objects/touchswitch/icon00"
     if entity.icon ~= "vanilla" then
@@ -69,6 +69,7 @@ function touchSwitch.sprite(room, entity)
     end
 
     local iconSprite = drawableSprite.fromTexture(iconResource, entity)
+    iconSprite:setPosition(entity.x + entity.width / 2, entity.y + entity.height / 2)
 
     return {containerSprite, iconSprite}
 end

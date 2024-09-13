@@ -237,6 +237,26 @@ entities.MaxHelpingHand/FlagTouchSwitch.attributes.name.completeSoundFromScene=C
 entities.MaxHelpingHand/FlagTouchSwitch.attributes.description.hideIfFlag=If a session flag is specified here, turning it on will make the touch switch disappear, and will make other touch switches in the room ignore it for the group's completion.
 entities.MaxHelpingHand/FlagTouchSwitch.attributes.description.animationLength=The length of the provided spinning animation, in frames.
 
+# Flag Touch Switch Wall
+entities.MaxHelpingHand/FlagTouchSwitchWall.placements.name.touch_switch=Flag Touch Switch Wall
+entities.MaxHelpingHand/FlagTouchSwitchWall.attributes.description.flag=The session flag this touch switch sets. Give the same to multiple touch switches and switch gates to group them.
+entities.MaxHelpingHand/FlagTouchSwitchWall.attributes.description.icon=The name of the icon for the touch switch (relative to objects/MaxHelpingHand/flagTouchSwitch), or "vanilla" for the default one.
+entities.MaxHelpingHand/FlagTouchSwitchWall.attributes.description.persistent=If enabled, the touch switch will stay active when the player dies or changes rooms.\nThis touch switch will also set a flag when it is enabled: [flagName]_switch[entityID]
+entities.MaxHelpingHand/FlagTouchSwitchWall.attributes.description.inactiveColor=The switch color when not triggered yet.
+entities.MaxHelpingHand/FlagTouchSwitchWall.attributes.description.activeColor=The switch color when triggered, but the group is not complete yet.
+entities.MaxHelpingHand/FlagTouchSwitchWall.attributes.description.finishColor=The switch color when the group is complete.
+entities.MaxHelpingHand/FlagTouchSwitchWall.attributes.description.smoke=Whether the touch switch emits smoke when the group is complete.
+entities.MaxHelpingHand/FlagTouchSwitchWall.attributes.description.inverted=Whether the touch switch should turn off the flag instead of turning it on. The option should match on all touch switches of the group.
+entities.MaxHelpingHand/FlagTouchSwitchWall.attributes.description.allowDisable=Whether the touch switch can be disabled once the group is complete, if the flag change is reverted. Does not work with non-persistent flag switch gates.
+entities.MaxHelpingHand/FlagTouchSwitchWall.attributes.description.playerCanActivate=Whether the player can activate the touch switch. If not, only throwables can activate it.
+entities.MaxHelpingHand/FlagTouchSwitchWall.attributes.description.hitSound=The sound played when the switch is hit by the player.
+entities.MaxHelpingHand/FlagTouchSwitchWall.attributes.description.completeSoundFromSwitch=The sound emitted by the latest switch collected when the group is complete.
+entities.MaxHelpingHand/FlagTouchSwitchWall.attributes.description.completeSoundFromScene=A global sound emitted when the group is complete. As opposed to "Complete Sound (Switch)", this sound isn't emitted by a particular switch.
+entities.MaxHelpingHand/FlagTouchSwitchWall.attributes.name.completeSoundFromSwitch=Complete Sound (Switch)
+entities.MaxHelpingHand/FlagTouchSwitchWall.attributes.name.completeSoundFromScene=Complete Sound (Global)
+entities.MaxHelpingHand/FlagTouchSwitchWall.attributes.description.hideIfFlag=If a session flag is specified here, turning it on will make the touch switch disappear, and will make other touch switches in the room ignore it for the group's completion.
+entities.MaxHelpingHand/FlagTouchSwitchWall.attributes.description.animationLength=The length of the provided spinning animation, in frames.
+
 # Floaty Space Block with Attached Sideways Jumpthru support
 entities.MaxHelpingHand/FloatySpaceBlockWithAttachedSidewaysJumpthruSupport.placements.name.floaty_space_block=Floaty Space Block (supporting Sideways Jump Throughs)
 entities.MaxHelpingHand/FloatySpaceBlockWithAttachedSidewaysJumpthruSupport.attributes.description.tiletype=Determines the visual appearance of the wall.
