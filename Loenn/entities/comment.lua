@@ -1,6 +1,5 @@
 local drawableSprite = require("structs.drawable_sprite")
-local drawableFunction = require("structs.drawable_function")
-local drawing = require("utils.drawing")
+local drawableText = require("structs.drawable_text")
 local utils = require("utils")
 
 local comment = {}
@@ -33,13 +32,7 @@ end
 function comment.sprite(room, entity)
     if entity.displayOnMap and entity.comment ~= "" then
         -- write the comment on the map
-        local font = love.graphics.getFont()
-        return drawableFunction.fromFunction(function()
-            drawing.callKeepOriginalColor(function()
-                love.graphics.setColor(getTextColor(entity))
-                drawing.printCenteredText(entity.comment, entity.x, entity.y, entity.width, entity.height, font, 1)
-            end)
-        end)
+        return drawableText.fromText(entity.comment, entity.x, entity.y, entity.width, entity.height, nil, 1, getTextColor(entity))
     else
         -- render a comment bubble sprite instead
         return drawableSprite.fromTexture("ahorn/MaxHelpingHand/comment", entity)
