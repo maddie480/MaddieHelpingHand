@@ -138,20 +138,27 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
                 // initialize stars and rays from scratch like vanilla does.
                 List<MTexture> starTextures = GFX.Game.GetAtlasSubtextures("particles/stars/");
                 for (int i = 0; i < stars.Length; i++) {
-                    stars[i].Position.X = Calc.Random.Next(320);
-                    stars[i].Position.Y = Calc.Random.Next(180);
+                    stars[i].Position.X = Calc.Random.Next(GameplayBuffers.Gameplay.Width);
+                    stars[i].Position.Y = Calc.Random.Next(GameplayBuffers.Gameplay.Height);
                     stars[i].Texture = Calc.Random.Choose(starTextures);
                     stars[i].Color = Calc.Random.Choose(starColors);
                     stars[i].Scroll = Vector2.One * Calc.Random.NextFloat(0.05f);
                 }
 
                 for (int j = 0; j < rays.Length; j++) {
-                    rays[j].Position.X = Calc.Random.Next(320);
-                    rays[j].Position.Y = Calc.Random.Next(180);
+                    rays[j].Position.X = Calc.Random.Next(GameplayBuffers.Gameplay.Width);
+                    rays[j].Position.Y = Calc.Random.Next(GameplayBuffers.Gameplay.Height);
                     rays[j].Width = Calc.Random.Range(4f, 16f);
                     rays[j].Length = Calc.Random.Choose(48, 96, 128);
                     rays[j].Color = Color.White * Calc.Random.Range(0.2f, 0.4f);
                 }
+            }
+        }
+
+        private void ensureBufferIsCorrect() {
+            if (starsTarget == null || starsTarget.Width != GameplayBuffers.Gameplay.Width || starsTarget.Height != GameplayBuffers.Gameplay.Height) {
+                starsTarget?.Dispose();
+                starsTarget = VirtualContent.CreateRenderTarget("customizable-glass-block-surfaces", GameplayBuffers.Gameplay.Width, GameplayBuffers.Gameplay.Height);
             }
         }
 
@@ -163,13 +170,11 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             }
 
             Camera camera = (Scene as Level).Camera;
-            int screenWidth = 320;
-            int screenHeight = 180;
+            int screenWidth = GameplayBuffers.Gameplay.Width;
+            int screenHeight = GameplayBuffers.Gameplay.Height;
 
             // draw stars
-            if (starsTarget == null) {
-                starsTarget = VirtualContent.CreateRenderTarget("customizable-glass-block-surfaces", screenWidth, screenHeight);
-            }
+            ensureBufferIsCorrect();
 
             Engine.Graphics.GraphicsDevice.SetRenderTarget(starsTarget);
             Engine.Graphics.GraphicsDevice.Clear(Color.Transparent);

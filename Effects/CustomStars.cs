@@ -62,7 +62,7 @@ namespace Celeste.Mod.MaxHelpingHand.Effects {
             stars = new Star[starCount ?? 100];
             for (int i = 0; i < stars.Length; i++) {
                 stars[i] = new Star {
-                    Position = new Vector2(Calc.Random.NextFloat(320f), Calc.Random.NextFloat(wrapHeight)),
+                    Position = new Vector2(Calc.Random.NextFloat(GameplayBuffers.Gameplay.Width), Calc.Random.NextFloat(wrapHeight)),
                     Timer = Calc.Random.NextFloat((float) Math.PI * 2f),
                     Rate = 2f + Calc.Random.NextFloat(2f),
                     TextureSet = Calc.Random.Next(textures.Count)
@@ -90,7 +90,7 @@ namespace Celeste.Mod.MaxHelpingHand.Effects {
         public override void Render(Scene scene) {
             float fadeAlpha = GetFadeAlpha(scene);
 
-            Draw.Rect(0f, 0f, 320f, 180f, Color.Black * bgAlpha);
+            Draw.Rect(0f, 0f, GameplayBuffers.Gameplay.Width, GameplayBuffers.Gameplay.Height, Color.Black * bgAlpha);
             Level level = scene as Level;
             Color color = (tint * (starAlpha ?? 1f)) ?? (level.Session.Dreaming ? Color.Teal * (starAlpha ?? 0.7f) : Color.White);
             int count = starCount ?? (level.Session.Dreaming ? 100 : 50);
@@ -105,9 +105,9 @@ namespace Celeste.Mod.MaxHelpingHand.Effects {
 
                 // parallax X
                 position.X -= level.Camera.X * effectiveScroll.X;
-                position.X %= 320;
+                position.X %= GameplayBuffers.Gameplay.Width;
                 if (position.X < 0f) {
-                    position.X += 320;
+                    position.X += GameplayBuffers.Gameplay.Width;
                 }
 
                 // parallax Y
@@ -117,7 +117,7 @@ namespace Celeste.Mod.MaxHelpingHand.Effects {
                 if (position.Y < 0f) {
                     position.Y += wrapHeight;
                 }
-                position.Y -= (wrapHeight - 180f) / 2;
+                position.Y -= (wrapHeight - GameplayBuffers.Gameplay.Height) / 2;
 
                 if (level.Session.Dreaming) {
                     for (int j = 0; j < colors.Length; j++) {

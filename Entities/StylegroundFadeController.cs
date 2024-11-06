@@ -80,10 +80,17 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             deregisterFlag();
         }
 
+        private static void ensureBufferIsCorrect() {
+            if (tempRenderTarget == null || tempRenderTarget.Width != GameplayBuffers.Gameplay.Width || tempRenderTarget.Height != GameplayBuffers.Gameplay.Height) {
+                tempRenderTarget?.Dispose();
+                tempRenderTarget = VirtualContent.CreateRenderTarget("max-helping-hand-styleground-fade-controller", GameplayBuffers.Gameplay.Width, GameplayBuffers.Gameplay.Height);
+            }
+        }
+
         private void initializeFlag() {
             // enable the hooks on backdrop rendering.
             if (controllers.Count == 0) {
-                tempRenderTarget = VirtualContent.CreateRenderTarget("max-helping-hand-styleground-fade-controller", 320, 180);
+                ensureBufferIsCorrect();
             }
 
             foreach (string key in keys) {
@@ -185,6 +192,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
                     if (hasFlag || hasNotFlag) {
                         self.EndSpritebatch();
 
+                        ensureBufferIsCorrect();
                         Engine.Graphics.GraphicsDevice.SetRenderTarget(tempRenderTarget);
                         Engine.Graphics.GraphicsDevice.Clear(Color.Transparent);
 

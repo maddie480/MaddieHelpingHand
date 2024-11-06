@@ -82,13 +82,13 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
 
             if (lavaMode == LavaMode.LeftToRight) {
                 // one hitbox on the left.
-                Collider = new Hitbox(340f, 200f, -340f);
+                Collider = new Hitbox(GameplayBuffers.Gameplay.Width + 20f, GameplayBuffers.Gameplay.Height + 20f, -GameplayBuffers.Gameplay.Height - 20f);
             } else if (lavaMode == LavaMode.RightToLeft) {
                 // one hitbox on the right.
-                Collider = new Hitbox(340f, 200f, 320f);
+                Collider = new Hitbox(GameplayBuffers.Gameplay.Width + 20f, GameplayBuffers.Gameplay.Height + 20f, GameplayBuffers.Gameplay.Width);
             } else {
                 // hitboxes on both sides, 280px apart.
-                Collider = new ColliderList(new Hitbox(340f, 200f, -340f), new Hitbox(340f, 200f, 280f));
+                Collider = new ColliderList(new Hitbox(GameplayBuffers.Gameplay.Width + 20f, GameplayBuffers.Gameplay.Height + 20f, -GameplayBuffers.Gameplay.Width - 20f), new Hitbox(GameplayBuffers.Gameplay.Width + 20f, GameplayBuffers.Gameplay.Height + 20f, GameplayBuffers.Gameplay.Width - 40f));
             }
 
             Visible = false;
@@ -97,7 +97,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             Add(loopSfx = new SoundSource());
 
             // lava can travel at up to 40 px/s * speedMultiplier, and we want it to extend enough so that you don't see it scrolling past the screen.
-            float lavaWidth = 320f + speedMultiplier * 80f;
+            float lavaWidth = GameplayBuffers.Gameplay.Width + speedMultiplier * 80f;
 
             if (lavaMode != LavaMode.RightToLeft) {
                 // add the left lava rect, just off-screen (it is 340px wide)
@@ -108,7 +108,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             if (lavaMode != LavaMode.LeftToRight) {
                 // add the right lava rect, just off-screen (the screen is 320px wide)
                 Add(rightRect = new SidewaysLavaRect(lavaWidth, 200f, 4, SidewaysLavaRect.OnlyModes.OnlyRight));
-                rightRect.Position = new Vector2(lavaMode == LavaMode.Sandwich ? 280f : 320f, 0f);
+                rightRect.Position = new Vector2(lavaMode == LavaMode.Sandwich ? GameplayBuffers.Gameplay.Width - 40f : GameplayBuffers.Gameplay.Width, 0f);
                 rightRect.SmallWaveAmplitude = 2f;
             }
 
@@ -173,10 +173,10 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
                 loopSfx.Position = new Vector2(0f, Height / 2f);
 
             } else if (lavaMode == LavaMode.RightToLeft) {
-                // same, except the lava is offset by 320px. That gives Right - 320 + 16 = Right - 304.
-                X = SceneAs<Level>().Bounds.Right - 304;
+                // same, except the lava is offset by 320px. That gives Right - 320 + 16.
+                X = SceneAs<Level>().Bounds.Right - GameplayBuffers.Gameplay.Width + 16;
                 // sound comes from the right side.
-                loopSfx.Position = new Vector2(320f, Height / 2f);
+                loopSfx.Position = new Vector2(GameplayBuffers.Gameplay.Width, Height / 2f);
 
             } else {
                 // the position should be set on the first Update call, in case the level starts with a room with lava in it
@@ -319,8 +319,8 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
                             // stop 32px to the left of the player.
                             target = player.X - 32f;
                         } else {
-                            // stop 32px to the right of the player. since lava is offset by 320px, that gives 320 - 32 = 288px.
-                            target = player.X - 288f;
+                            // stop 32px to the right of the player. since lava is offset by 320px, that gives 320 - 32.
+                            target = player.X - GameplayBuffers.Gameplay.Width + 32;
                         }
 
                         if (!intro && player != null && player.JustRespawned && !player.CollideCheck<InstantLavaBlockerTrigger>()) {

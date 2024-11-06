@@ -37,9 +37,9 @@ namespace Celeste.Mod.MaxHelpingHand.Effects {
 
                         if (player != null) {
                             if (allSideSelf.side == Side.Left) {
-                                return (player.X - camera.X) - 160f;
+                                return (player.X - camera.X) - (GameplayBuffers.Gameplay.Width / 2f);
                             } else if (allSideSelf.side == Side.Top) {
-                                return player.Y - camera.Y - 180f;
+                                return player.Y - camera.Y - GameplayBuffers.Gameplay.Height;
                             }
                         }
                     }

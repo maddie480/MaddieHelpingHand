@@ -86,11 +86,19 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
         private bool wavy;
         private bool renderBloom;
         private bool persistent;
+        private int entityID;
 
         private VirtualRenderTarget levelRenderTarget;
 
         internal static bool HasControllerOnNextScreen() {
             return nextController != null;
+        }
+
+        private void ensureBufferIsCorrect() {
+            if (levelRenderTarget == null || levelRenderTarget.Width != GameplayBuffers.Gameplay.Width || levelRenderTarget.Height != GameplayBuffers.Gameplay.Height) {
+                levelRenderTarget?.Dispose();
+                levelRenderTarget = VirtualContent.CreateRenderTarget("helping-hand-seeker-barrier-color-controller-" + entityID, GameplayBuffers.Gameplay.Width, GameplayBuffers.Gameplay.Height);
+            }
         }
 
         public SeekerBarrierColorController(EntityData data, Vector2 offset) : base(data.Position + offset) {
@@ -102,12 +110,13 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             wavy = data.Bool("wavy", defaultValue: true);
             renderBloom = data.Bool("renderBloom", defaultValue: true);
             persistent = data.Bool("persistent");
+            entityID = data.ID;
 
             if (int.TryParse(data.Attr("depth"), out int depthInt)) {
                 depth = depthInt;
 
                 // we are going to need this for bloom rendering.
-                levelRenderTarget = VirtualContent.CreateRenderTarget("helping-hand-seeker-barrier-color-controller-" + data.ID, 320, 180);
+                ensureBufferIsCorrect();
             }
 
             Add(new TransitionListener {
@@ -417,6 +426,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
                 GameplayRenderer.End();
 
                 // first, build the scene with background + gameplay that was rendered so far.
+                self.ensureBufferIsCorrect();
                 Engine.Instance.GraphicsDevice.SetRenderTarget(controllerOnScreen.levelRenderTarget);
                 Engine.Instance.GraphicsDevice.Clear(Color.Transparent);
                 level.Background.Render(level);
