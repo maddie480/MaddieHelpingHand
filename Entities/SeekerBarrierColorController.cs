@@ -426,7 +426,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
                 GameplayRenderer.End();
 
                 // first, build the scene with background + gameplay that was rendered so far.
-                self.ensureBufferIsCorrect();
+                controllerOnScreen.ensureBufferIsCorrect();
                 Engine.Instance.GraphicsDevice.SetRenderTarget(controllerOnScreen.levelRenderTarget);
                 Engine.Instance.GraphicsDevice.Clear(Color.Transparent);
                 level.Background.Render(level);
