@@ -1,4 +1,5 @@
 ﻿using Celeste.Mod.Entities;
+using Celeste.Mod.MaxHelpingHand.Module;
 using Microsoft.Xna.Framework;
 using Monocle;
 using MonoMod.Cil;
@@ -88,7 +89,7 @@ namespace Celeste.Mod.MaxHelpingHand.Triggers {
 
             Vector2 target = orig(self);
 
-            Rectangle viewpoint = new Rectangle((int) target.X, (int) target.Y, (GameplayBuffers.Gameplay?.Width ?? 320), (GameplayBuffers.Gameplay?.Height ?? 180));
+            Rectangle viewpoint = new Rectangle((int) target.X, (int) target.Y, MaxHelpingHandModule.GameplayWidth, MaxHelpingHandModule.GameplayHeight);
             foreach (CameraOffsetBorder border in self.Scene.Tracker.GetEntities<CameraOffsetBorder>()) {
                 while (border.Collidable && border.CollideRect(viewpoint)) {
                     // the border is enabled and on-screen, unacceptable!
