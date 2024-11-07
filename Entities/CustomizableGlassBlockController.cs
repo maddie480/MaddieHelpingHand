@@ -138,16 +138,16 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
                 // initialize stars and rays from scratch like vanilla does.
                 List<MTexture> starTextures = GFX.Game.GetAtlasSubtextures("particles/stars/");
                 for (int i = 0; i < stars.Length; i++) {
-                    stars[i].Position.X = Calc.Random.Next(GameplayBuffers.Gameplay.Width);
-                    stars[i].Position.Y = Calc.Random.Next(GameplayBuffers.Gameplay.Height);
+                    stars[i].Position.X = Calc.Random.Next(MaxHelpingHandModule.GameplayWidth);
+                    stars[i].Position.Y = Calc.Random.Next(MaxHelpingHandModule.GameplayHeight);
                     stars[i].Texture = Calc.Random.Choose(starTextures);
                     stars[i].Color = Calc.Random.Choose(starColors);
                     stars[i].Scroll = Vector2.One * Calc.Random.NextFloat(0.05f);
                 }
 
                 for (int j = 0; j < rays.Length; j++) {
-                    rays[j].Position.X = Calc.Random.Next(GameplayBuffers.Gameplay.Width);
-                    rays[j].Position.Y = Calc.Random.Next(GameplayBuffers.Gameplay.Height);
+                    rays[j].Position.X = Calc.Random.Next(MaxHelpingHandModule.GameplayWidth);
+                    rays[j].Position.Y = Calc.Random.Next(MaxHelpingHandModule.GameplayHeight);
                     rays[j].Width = Calc.Random.Range(4f, 16f);
                     rays[j].Length = Calc.Random.Choose(48, 96, 128);
                     rays[j].Color = Color.White * Calc.Random.Range(0.2f, 0.4f);
@@ -156,9 +156,9 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
         }
 
         private void ensureBufferIsCorrect() {
-            if (starsTarget == null || starsTarget.Width != GameplayBuffers.Gameplay.Width || starsTarget.Height != GameplayBuffers.Gameplay.Height) {
+            if (starsTarget == null || starsTarget.Width != MaxHelpingHandModule.GameplayWidth || starsTarget.Height != MaxHelpingHandModule.GameplayHeight) {
                 starsTarget?.Dispose();
-                starsTarget = VirtualContent.CreateRenderTarget("customizable-glass-block-surfaces", GameplayBuffers.Gameplay.Width, GameplayBuffers.Gameplay.Height);
+                starsTarget = VirtualContent.CreateRenderTarget("customizable-glass-block-surfaces", MaxHelpingHandModule.GameplayWidth, MaxHelpingHandModule.GameplayHeight);
             }
         }
 
@@ -170,8 +170,8 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             }
 
             Camera camera = (Scene as Level).Camera;
-            int screenWidth = GameplayBuffers.Gameplay.Width;
-            int screenHeight = GameplayBuffers.Gameplay.Height;
+            int screenWidth = MaxHelpingHandModule.GameplayWidth;
+            int screenHeight = MaxHelpingHandModule.GameplayHeight;
 
             // draw stars
             ensureBufferIsCorrect();

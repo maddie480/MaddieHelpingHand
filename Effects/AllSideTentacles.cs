@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using Celeste.Mod.MaxHelpingHand.Module;
+using Microsoft.Xna.Framework;
 using Mono.Cecil.Cil;
 using Monocle;
 using MonoMod.Cil;
@@ -37,9 +38,9 @@ namespace Celeste.Mod.MaxHelpingHand.Effects {
 
                         if (player != null) {
                             if (allSideSelf.side == Side.Left) {
-                                return (player.X - camera.X) - (GameplayBuffers.Gameplay.Width / 2f);
+                                return (player.X - camera.X) - (MaxHelpingHandModule.GameplayWidth / 2f);
                             } else if (allSideSelf.side == Side.Top) {
-                                return player.Y - camera.Y - GameplayBuffers.Gameplay.Height;
+                                return player.Y - camera.Y - MaxHelpingHandModule.GameplayHeight;
                             }
                         }
                     }

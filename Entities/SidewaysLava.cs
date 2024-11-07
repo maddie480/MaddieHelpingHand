@@ -1,4 +1,5 @@
 ﻿using Celeste.Mod.Entities;
+using Celeste.Mod.MaxHelpingHand.Module;
 using Celeste.Mod.MaxHelpingHand.Triggers;
 using Microsoft.Xna.Framework;
 using Monocle;
@@ -82,13 +83,13 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
 
             if (lavaMode == LavaMode.LeftToRight) {
                 // one hitbox on the left.
-                Collider = new Hitbox(GameplayBuffers.Gameplay.Width + 20f, GameplayBuffers.Gameplay.Height + 20f, -GameplayBuffers.Gameplay.Height - 20f);
+                Collider = new Hitbox(MaxHelpingHandModule.GameplayWidth + 20f, MaxHelpingHandModule.GameplayHeight + 20f, -MaxHelpingHandModule.GameplayHeight - 20f);
             } else if (lavaMode == LavaMode.RightToLeft) {
                 // one hitbox on the right.
-                Collider = new Hitbox(GameplayBuffers.Gameplay.Width + 20f, GameplayBuffers.Gameplay.Height + 20f, GameplayBuffers.Gameplay.Width);
+                Collider = new Hitbox(MaxHelpingHandModule.GameplayWidth + 20f, MaxHelpingHandModule.GameplayHeight + 20f, MaxHelpingHandModule.GameplayWidth);
             } else {
                 // hitboxes on both sides, 280px apart.
-                Collider = new ColliderList(new Hitbox(GameplayBuffers.Gameplay.Width + 20f, GameplayBuffers.Gameplay.Height + 20f, -GameplayBuffers.Gameplay.Width - 20f), new Hitbox(GameplayBuffers.Gameplay.Width + 20f, GameplayBuffers.Gameplay.Height + 20f, GameplayBuffers.Gameplay.Width - 40f));
+                Collider = new ColliderList(new Hitbox(MaxHelpingHandModule.GameplayWidth + 20f, MaxHelpingHandModule.GameplayHeight + 20f, -MaxHelpingHandModule.GameplayWidth - 20f), new Hitbox(MaxHelpingHandModule.GameplayWidth + 20f, MaxHelpingHandModule.GameplayHeight + 20f, MaxHelpingHandModule.GameplayWidth - 40f));
             }
 
             Visible = false;
@@ -97,7 +98,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             Add(loopSfx = new SoundSource());
 
             // lava can travel at up to 40 px/s * speedMultiplier, and we want it to extend enough so that you don't see it scrolling past the screen.
-            float lavaWidth = GameplayBuffers.Gameplay.Width + speedMultiplier * 80f;
+            float lavaWidth = MaxHelpingHandModule.GameplayWidth + speedMultiplier * 80f;
 
             if (lavaMode != LavaMode.RightToLeft) {
                 // add the left lava rect, just off-screen (it is 340px wide)
@@ -108,7 +109,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             if (lavaMode != LavaMode.LeftToRight) {
                 // add the right lava rect, just off-screen (the screen is 320px wide)
                 Add(rightRect = new SidewaysLavaRect(lavaWidth, 200f, 4, SidewaysLavaRect.OnlyModes.OnlyRight));
-                rightRect.Position = new Vector2(lavaMode == LavaMode.Sandwich ? GameplayBuffers.Gameplay.Width - 40f : GameplayBuffers.Gameplay.Width, 0f);
+                rightRect.Position = new Vector2(lavaMode == LavaMode.Sandwich ? MaxHelpingHandModule.GameplayWidth - 40f : MaxHelpingHandModule.GameplayWidth, 0f);
                 rightRect.SmallWaveAmplitude = 2f;
             }
 
@@ -174,9 +175,9 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
 
             } else if (lavaMode == LavaMode.RightToLeft) {
                 // same, except the lava is offset by 320px. That gives Right - 320 + 16.
-                X = SceneAs<Level>().Bounds.Right - GameplayBuffers.Gameplay.Width + 16;
+                X = SceneAs<Level>().Bounds.Right - MaxHelpingHandModule.GameplayWidth + 16;
                 // sound comes from the right side.
-                loopSfx.Position = new Vector2(GameplayBuffers.Gameplay.Width, Height / 2f);
+                loopSfx.Position = new Vector2(MaxHelpingHandModule.GameplayWidth, Height / 2f);
 
             } else {
                 // the position should be set on the first Update call, in case the level starts with a room with lava in it
@@ -320,7 +321,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
                             target = player.X - 32f;
                         } else {
                             // stop 32px to the right of the player. since lava is offset by 320px, that gives 320 - 32.
-                            target = player.X - GameplayBuffers.Gameplay.Width + 32;
+                            target = player.X - MaxHelpingHandModule.GameplayWidth + 32;
                         }
 
                         if (!intro && player != null && player.JustRespawned && !player.CollideCheck<InstantLavaBlockerTrigger>()) {

@@ -1,5 +1,6 @@
 ﻿using Celeste;
 using Celeste.Mod.Entities;
+using Celeste.Mod.MaxHelpingHand.Module;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Monocle;
@@ -161,7 +162,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private bool InView() {
             Camera camera = (Scene as Level).Camera;
-            return Position.X + Width > camera.X - 16f && Position.Y + Height > camera.Y - 16f && Position.X < camera.X + GameplayBuffers.Gameplay.Width && Position.Y < camera.Y + GameplayBuffers.Gameplay.Height;
+            return Position.X + Width > camera.X - 16f && Position.Y + Height > camera.Y - 16f && Position.X < camera.X + MaxHelpingHandModule.GameplayWidth && Position.Y < camera.Y + MaxHelpingHandModule.GameplayHeight;
         }
 
         public override void Render() {

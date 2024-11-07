@@ -1,4 +1,5 @@
 ﻿using Celeste.Mod.Entities;
+using Celeste.Mod.MaxHelpingHand.Module;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Mono.Cecil.Cil;
@@ -81,9 +82,9 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
         }
 
         private static void ensureBufferIsCorrect() {
-            if (tempRenderTarget == null || tempRenderTarget.Width != GameplayBuffers.Gameplay.Width || tempRenderTarget.Height != GameplayBuffers.Gameplay.Height) {
+            if (tempRenderTarget == null || tempRenderTarget.Width != MaxHelpingHandModule.GameplayWidth || tempRenderTarget.Height != MaxHelpingHandModule.GameplayHeight) {
                 tempRenderTarget?.Dispose();
-                tempRenderTarget = VirtualContent.CreateRenderTarget("max-helping-hand-styleground-fade-controller", GameplayBuffers.Gameplay.Width, GameplayBuffers.Gameplay.Height);
+                tempRenderTarget = VirtualContent.CreateRenderTarget("max-helping-hand-styleground-fade-controller", MaxHelpingHandModule.GameplayWidth, MaxHelpingHandModule.GameplayHeight);
             }
         }
 

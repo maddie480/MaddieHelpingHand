@@ -1,4 +1,5 @@
 ﻿using Celeste.Mod.Entities;
+using Celeste.Mod.MaxHelpingHand.Module;
 using Microsoft.Xna.Framework;
 using Monocle;
 using MonoMod.RuntimeDetour;
@@ -90,7 +91,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             Camera camera = SceneAs<Level>().Camera;
             Vector2 drawPosition = Position - camera.Position.Floor();
             if (SaveData.Instance != null && SaveData.Instance.Assists.MirrorMode) {
-                drawPosition.X = GameplayBuffers.Gameplay.Width - drawPosition.X;
+                drawPosition.X = MaxHelpingHandModule.GameplayWidth - drawPosition.X;
             }
             drawPosition *= 6f;
 
