@@ -1,4 +1,5 @@
 ﻿using Celeste.Mod.Entities;
+using Celeste.Mod.MaxHelpingHand.Module;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Monocle;
@@ -6,7 +7,6 @@ using MonoMod.Utils;
 using System;
 using System.Collections.Generic;
 using System.Reflection;
-using Celeste.Mod.MaxHelpingHand.Module;
 
 namespace Celeste.Mod.MaxHelpingHand.Entities {
     /**

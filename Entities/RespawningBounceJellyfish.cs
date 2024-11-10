@@ -1,9 +1,9 @@
 ﻿using Celeste.Mod.BounceHelper;
 using Microsoft.Xna.Framework;
-using System.Collections;
 using Monocle;
-using System.Collections.Generic;
 using System;
+using System.Collections;
+using System.Collections.Generic;
 
 namespace Celeste.Mod.MaxHelpingHand.Entities {
     public class RespawningBounceJellyfish : BounceJellyfish {

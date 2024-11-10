@@ -1,5 +1,4 @@
-﻿using Celeste.Mod.MaxHelpingHand.Entities;
-using Celeste.Mod.Meta;
+﻿using Celeste.Mod.Meta;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Monocle;

@@ -1,5 +1,5 @@
-using System;
 using MonoMod.ModInterop;
+using System;
 
 namespace Celeste.Mod.MaxHelpingHand.Module {
     public static class GravityHelperImports {

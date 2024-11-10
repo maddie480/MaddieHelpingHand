@@ -1,7 +1,7 @@
 ﻿using Celeste.Mod.Entities;
 using Celeste.Mod.MaxHelpingHand.Entities;
-using Microsoft.Xna.Framework;
 using Celeste.Mod.MaxHelpingHand.Module;
+using Microsoft.Xna.Framework;
 
 namespace Celeste.Mod.MaxHelpingHand.Triggers {
     [CustomEntity("MaxHelpingHand/PopStrawberrySeedsTrigger")]

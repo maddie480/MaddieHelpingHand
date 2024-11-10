@@ -1,11 +1,11 @@
 ﻿using Celeste.Mod.Entities;
-using Monocle;
 using Microsoft.Xna.Framework;
-using MonoMod.Cil;
-using System;
 using Mono.Cecil.Cil;
-using System.Reflection;
+using Monocle;
+using MonoMod.Cil;
 using MonoMod.Utils;
+using System;
+using System.Reflection;
 
 namespace Celeste.Mod.MaxHelpingHand.Entities {
     [CustomEntity("MaxHelpingHand/StaticPuffer")]

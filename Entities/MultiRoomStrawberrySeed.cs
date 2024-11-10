@@ -1,15 +1,12 @@
 ﻿using Celeste.Mod.Entities;
 using Celeste.Mod.MaxHelpingHand.Module;
 using Microsoft.Xna.Framework;
-using Mono.Cecil.Cil;
 using Monocle;
 using MonoMod.Cil;
 using MonoMod.Utils;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Collections;
-using Celeste.Mod;
+using System.Collections.Generic;
 
 namespace Celeste.Mod.MaxHelpingHand.Entities {
     [CustomEntity("MaxHelpingHand/MultiRoomStrawberrySeed")]

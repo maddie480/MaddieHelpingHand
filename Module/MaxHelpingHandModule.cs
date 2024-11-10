@@ -1,12 +1,12 @@
 ﻿using Celeste.Mod.MaxHelpingHand.Effects;
 using Celeste.Mod.MaxHelpingHand.Entities;
 using Celeste.Mod.MaxHelpingHand.Triggers;
-using Monocle;
 using Microsoft.Xna.Framework;
-using System;
-using System.Reflection;
+using Monocle;
 using MonoMod.ModInterop;
 using MonoMod.RuntimeDetour;
+using System;
+using System.Reflection;
 
 namespace Celeste.Mod.MaxHelpingHand.Module {
     public class MaxHelpingHandModule : EverestModule {

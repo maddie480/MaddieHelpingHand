@@ -1,6 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
 using MonoMod.Utils;
-using System;
 
 namespace Celeste.Mod.MaxHelpingHand.Entities {
     public class GroupedDustTriggerSpikes : TriggerSpikes {

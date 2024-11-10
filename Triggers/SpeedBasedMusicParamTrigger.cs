@@ -1,7 +1,7 @@
 ﻿using Celeste.Mod.Entities;
 using Celeste.Mod.MaxHelpingHand.Module;
-using Monocle;
 using Microsoft.Xna.Framework;
+using Monocle;
 using System.Collections.Generic;
 
 namespace Celeste.Mod.MaxHelpingHand.Triggers {

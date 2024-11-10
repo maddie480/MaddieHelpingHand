@@ -1,4 +1,5 @@
 ﻿using Celeste.Mod.Entities;
+using Celeste.Mod.MaxHelpingHand.Module;
 using LunaticHelper;
 using Microsoft.Xna.Framework;
 using Mono.Cecil;
@@ -8,9 +9,8 @@ using MonoMod.Cil;
 using MonoMod.RuntimeDetour;
 using MonoMod.Utils;
 using System;
-using System.Reflection;
-using Celeste.Mod.MaxHelpingHand.Module;
 using System.Collections.Generic;
+using System.Reflection;
 
 namespace Celeste.Mod.MaxHelpingHand.Entities {
     [CustomEntity("MaxHelpingHand/SaveFileStrawberryGate")]
