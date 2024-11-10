@@ -86,8 +86,8 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
 
             if (self is SecretBerry berry) {
                 // reskin the strawberry points.
-                StrawberryPoints points = scene.Entities.ToAdd.OfType<StrawberryPoints>().First();
-                GFX.SpriteBank.CreateOn(points.Get<Sprite>(), berry.strawberrySprite);
+                StrawberryPoints points = scene.Entities.ToAdd.OfType<StrawberryPoints>().FirstOrDefault();
+                if (points != null) GFX.SpriteBank.CreateOn(points.Get<Sprite>(), berry.strawberrySprite);
             }
         }
 
