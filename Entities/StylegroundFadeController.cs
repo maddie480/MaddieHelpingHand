@@ -36,9 +36,6 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
 
         private static VirtualRenderTarget tempRenderTarget = null;
 
-        // TODO: remove reflection when looping styleground improvements have reached stable
-        private static MethodInfo startSpritebatchLooping = typeof(BackdropRenderer).GetMethod("StartSpritebatchLooping");
-
         private string[] keys;
         private float fadeInTime;
         private float fadeOutTime;
@@ -198,8 +195,8 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
                         Engine.Graphics.GraphicsDevice.Clear(Color.Transparent);
 
                         if (backdrop.UseSpritebatch) {
-                            if (startSpritebatchLooping != null && backdrop is Parallax) {
-                                startSpritebatchLooping.Invoke(self, new object[] { BlendState.AlphaBlend });
+                            if (backdrop is Parallax) {
+                                self.StartSpritebatchLooping(BlendState.AlphaBlend);
                             } else {
                                 self.StartSpritebatch(BlendState.AlphaBlend);
                             }
