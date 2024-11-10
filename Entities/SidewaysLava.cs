@@ -83,7 +83,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
 
             if (lavaMode == LavaMode.LeftToRight) {
                 // one hitbox on the left.
-                Collider = new Hitbox(MaxHelpingHandModule.GameplayWidth + 20f, MaxHelpingHandModule.GameplayHeight + 20f, -MaxHelpingHandModule.GameplayHeight - 20f);
+                Collider = new Hitbox(MaxHelpingHandModule.GameplayWidth + 20f, MaxHelpingHandModule.GameplayHeight + 20f, -MaxHelpingHandModule.GameplayWidth - 20f);
             } else if (lavaMode == LavaMode.RightToLeft) {
                 // one hitbox on the right.
                 Collider = new Hitbox(MaxHelpingHandModule.GameplayWidth + 20f, MaxHelpingHandModule.GameplayHeight + 20f, MaxHelpingHandModule.GameplayWidth);
