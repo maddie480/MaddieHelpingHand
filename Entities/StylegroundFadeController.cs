@@ -78,9 +78,9 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
         }
 
         private static void ensureBufferIsCorrect() {
-            if (tempRenderTarget == null || tempRenderTarget.Width != MaxHelpingHandModule.GameplayWidth || tempRenderTarget.Height != MaxHelpingHandModule.GameplayHeight) {
+            if (tempRenderTarget == null || tempRenderTarget.Width != MaxHelpingHandModule.BufferWidth || tempRenderTarget.Height != MaxHelpingHandModule.BufferHeight) {
                 tempRenderTarget?.Dispose();
-                tempRenderTarget = VirtualContent.CreateRenderTarget("max-helping-hand-styleground-fade-controller", MaxHelpingHandModule.GameplayWidth, MaxHelpingHandModule.GameplayHeight);
+                tempRenderTarget = VirtualContent.CreateRenderTarget("max-helping-hand-styleground-fade-controller", MaxHelpingHandModule.BufferWidth, MaxHelpingHandModule.BufferHeight);
             }
         }
 

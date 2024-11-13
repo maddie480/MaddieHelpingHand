@@ -52,16 +52,16 @@ namespace Celeste.Mod.MaxHelpingHand.Triggers {
             if (blockPlayer) {
                 Level level = SceneAs<Level>();
                 if (!left) {
-                    Scene.Add(leftBound = new InvisibleBarrier(level.Camera.Position - Vector2.UnitX * 9, 8, MaxHelpingHandModule.GameplayHeight));
+                    Scene.Add(leftBound = new InvisibleBarrier(level.Camera.Position - Vector2.UnitX * 9, 8, MaxHelpingHandModule.CameraHeight));
                 }
                 if (!right) {
-                    Scene.Add(rightBound = new InvisibleBarrier(level.Camera.Position + Vector2.UnitX * MaxHelpingHandModule.GameplayWidth, 8, MaxHelpingHandModule.GameplayHeight));
+                    Scene.Add(rightBound = new InvisibleBarrier(level.Camera.Position + Vector2.UnitX * MaxHelpingHandModule.CameraWidth, 8, MaxHelpingHandModule.CameraHeight));
                 }
                 if (!up) {
-                    Scene.Add(upperBound = new InvisibleBarrier(level.Camera.Position - Vector2.UnitY * 9, MaxHelpingHandModule.GameplayWidth, 8));
+                    Scene.Add(upperBound = new InvisibleBarrier(level.Camera.Position - Vector2.UnitY * 9, MaxHelpingHandModule.CameraWidth, 8));
                 }
                 if (!down) {
-                    Scene.Add(lowerBound = new Killbox(new EntityData { Width = MaxHelpingHandModule.GameplayWidth }, level.Camera.Position + Vector2.UnitY * (MaxHelpingHandModule.GameplayHeight + 6)));
+                    Scene.Add(lowerBound = new Killbox(new EntityData { Width = MaxHelpingHandModule.CameraWidth }, level.Camera.Position + Vector2.UnitY * (MaxHelpingHandModule.CameraHeight + 6)));
                 }
             }
         }
@@ -89,13 +89,13 @@ namespace Celeste.Mod.MaxHelpingHand.Triggers {
                 leftBound.Position = level.Camera.Position - Vector2.UnitX * 9;
             }
             if (rightBound != null) {
-                rightBound.Position = level.Camera.Position + Vector2.UnitX * MaxHelpingHandModule.GameplayWidth;
+                rightBound.Position = level.Camera.Position + Vector2.UnitX * MaxHelpingHandModule.CameraWidth;
             }
             if (upperBound != null) {
                 upperBound.Position = level.Camera.Position - Vector2.UnitY * 9;
             }
             if (lowerBound != null) {
-                lowerBound.Position = level.Camera.Position + Vector2.UnitY * (MaxHelpingHandModule.GameplayHeight + 6f);
+                lowerBound.Position = level.Camera.Position + Vector2.UnitY * (MaxHelpingHandModule.CameraHeight + 6f);
             }
         }
 

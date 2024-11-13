@@ -95,9 +95,9 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
         }
 
         private void ensureBufferIsCorrect() {
-            if (levelRenderTarget == null || levelRenderTarget.Width != MaxHelpingHandModule.GameplayWidth || levelRenderTarget.Height != MaxHelpingHandModule.GameplayHeight) {
+            if (levelRenderTarget == null || levelRenderTarget.Width != MaxHelpingHandModule.BufferWidth || levelRenderTarget.Height != MaxHelpingHandModule.BufferHeight) {
                 levelRenderTarget?.Dispose();
-                levelRenderTarget = VirtualContent.CreateRenderTarget("helping-hand-seeker-barrier-color-controller-" + entityID, MaxHelpingHandModule.GameplayWidth, MaxHelpingHandModule.GameplayHeight);
+                levelRenderTarget = VirtualContent.CreateRenderTarget("helping-hand-seeker-barrier-color-controller-" + entityID, MaxHelpingHandModule.BufferWidth, MaxHelpingHandModule.BufferHeight);
             }
         }
 

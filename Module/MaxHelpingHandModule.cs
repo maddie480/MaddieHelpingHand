@@ -1,4 +1,5 @@
-﻿using Celeste.Mod.MaxHelpingHand.Effects;
+﻿using Celeste.Mod.ExCameraDynamics.Code.Module;
+using Celeste.Mod.MaxHelpingHand.Effects;
 using Celeste.Mod.MaxHelpingHand.Entities;
 using Celeste.Mod.MaxHelpingHand.Triggers;
 using Microsoft.Xna.Framework;
@@ -6,6 +7,7 @@ using Monocle;
 using MonoMod.ModInterop;
 using MonoMod.RuntimeDetour;
 using System;
+using System.Linq;
 using System.Reflection;
 
 namespace Celeste.Mod.MaxHelpingHand.Module {
@@ -27,9 +29,42 @@ namespace Celeste.Mod.MaxHelpingHand.Module {
         public override Type SessionType => typeof(MaxHelpingHandSession);
         public MaxHelpingHandSession Session => (MaxHelpingHandSession) _Session;
 
+        private static bool extendedCameraDynamicsEnabled = false;
+        private bool extendedCameraDynamicsHookEnabled = false;
+
+        private static bool zoomOutHelperPrototypeEnabled = false;
+        private bool zoomOutHelperPrototypeHookEnabled = false;
+        private MethodInfo zoomOutHelperPrototypeCheckMethod;
+
         // size of the screen, taking zooming out into account (Extended Camera Dynamics mod)
-        public static int GameplayWidth => GameplayBuffers.Gameplay?.Width ?? 320;
-        public static int GameplayHeight => GameplayBuffers.Gameplay?.Height ?? 180;
+
+        public static int CameraWidth {
+            get {
+                if (!extendedCameraDynamicsEnabled && !zoomOutHelperPrototypeEnabled) return 320;
+                return (Engine.Scene as Level)?.Camera.Viewport.Width ?? 320;
+            }
+        }
+
+        public static int CameraHeight {
+            get {
+                if (!extendedCameraDynamicsEnabled && !zoomOutHelperPrototypeEnabled) return 180;
+                return (Engine.Scene as Level)?.Camera.Viewport.Height ?? 180;
+            }
+        }
+
+        public static int BufferWidth {
+            get {
+                if (!extendedCameraDynamicsEnabled && !zoomOutHelperPrototypeEnabled) return 320;
+                return GameplayBuffers.Gameplay?.Width ?? 320;
+            }
+        }
+
+        public static int BufferHeight {
+            get {
+                if (!extendedCameraDynamicsEnabled && !zoomOutHelperPrototypeEnabled) return 180;
+                return GameplayBuffers.Gameplay?.Height ?? 180;
+            }
+        }
 
         private static Hook modRegister = null;
 
@@ -210,6 +245,17 @@ namespace Celeste.Mod.MaxHelpingHand.Module {
             if (frostBreakingBallLoaded) {
                 unloadFrostBreakingBall();
             }
+
+            if (extendedCameraDynamicsHookEnabled) {
+                On.Celeste.LevelLoader.StartLevel -= checkExtendedCameraDynamics;
+                extendedCameraDynamicsHookEnabled = false;
+            }
+
+            if (zoomOutHelperPrototypeHookEnabled) {
+                On.Celeste.LevelLoader.StartLevel -= checkZoomOutHelperPrototype;
+                zoomOutHelperPrototypeCheckMethod = null;
+                zoomOutHelperPrototypeHookEnabled = false;
+            }
         }
 
         public override void LoadContent(bool firstLoad) {
@@ -230,6 +276,20 @@ namespace Celeste.Mod.MaxHelpingHand.Module {
                 // make sure whe applied all mod hooks we want to apply.
                 HookMods();
             }
+        }
+
+        private void checkExtendedCameraDynamics(On.Celeste.LevelLoader.orig_StartLevel orig, LevelLoader self) {
+            checkForExtendedCameraDynamics(self);
+            orig(self);
+        }
+
+        private void checkForExtendedCameraDynamics(LevelLoader self) {
+            extendedCameraDynamicsEnabled = ExCameraAreaMetadata.TryGetCameraMetadata(self.Level.Session)?.EnableExtendedCamera ?? false;
+        }
+
+        private void checkZoomOutHelperPrototype(On.Celeste.LevelLoader.orig_StartLevel orig, LevelLoader self) {
+            zoomOutHelperPrototypeEnabled = (bool) zoomOutHelperPrototypeCheckMethod.Invoke(null, new object[] { self.Level.Session, null, null });
+            orig(self);
         }
 
         private void HookMods() {
@@ -259,6 +319,18 @@ namespace Celeste.Mod.MaxHelpingHand.Module {
 
             if (!frostBreakingBallLoaded && Everest.Loader.DependencyLoaded(new EverestModuleMetadata { Name = "FrostHelper", Version = new Version(1, 46, 0) })) {
                 loadFrostBreakingBall();
+            }
+
+            if (!extendedCameraDynamicsHookEnabled && Everest.Loader.DependencyLoaded(new EverestModuleMetadata { Name = "ExtendedCameraDynamics", Version = new Version(1, 0, 3) })) {
+                On.Celeste.LevelLoader.StartLevel += checkExtendedCameraDynamics;
+                extendedCameraDynamicsHookEnabled = true;
+            }
+
+            if (!zoomOutHelperPrototypeEnabled && Everest.Loader.DependencyLoaded(new EverestModuleMetadata { Name = "ZoomOutHelperPrototype", Version = new Version(0, 1, 1) })) {
+                On.Celeste.LevelLoader.StartLevel += checkZoomOutHelperPrototype;
+                zoomOutHelperPrototypeCheckMethod = Everest.Modules.First(mod => mod.GetType().ToString() == "Celeste.Mod.FunctionalZoomOut.FunctionalZoomOutModule")
+                    .GetType().GetMethod("SessionHasZoomOut", BindingFlags.NonPublic | BindingFlags.Static);
+                zoomOutHelperPrototypeEnabled = true;
             }
         }
 

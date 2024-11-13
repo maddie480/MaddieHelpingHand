@@ -91,7 +91,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             Camera camera = SceneAs<Level>().Camera;
             Vector2 drawPosition = Position - camera.Position.Floor();
             if (SaveData.Instance != null && SaveData.Instance.Assists.MirrorMode) {
-                drawPosition.X = MaxHelpingHandModule.GameplayWidth - drawPosition.X;
+                drawPosition.X = MaxHelpingHandModule.CameraWidth - drawPosition.X;
             }
             drawPosition *= 6f;
 

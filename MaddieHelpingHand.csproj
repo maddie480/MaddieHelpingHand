@@ -15,6 +15,10 @@
       <HintPath>lib-stripped\Celeste.exe</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="ExCameraDynamics">
+      <HintPath>lib-stripped\ExCameraDynamics.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
     <Reference Include="FlaglinesAndSuch">
       <HintPath>lib-stripped\FlaglinesAndSuch.dll</HintPath>
       <Private>false</Private>

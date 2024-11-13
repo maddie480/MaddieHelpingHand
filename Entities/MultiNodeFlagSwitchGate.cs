@@ -161,7 +161,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private bool InView() {
             Camera camera = (Scene as Level).Camera;
-            return Position.X + Width > camera.X - 16f && Position.Y + Height > camera.Y - 16f && Position.X < camera.X + MaxHelpingHandModule.GameplayWidth && Position.Y < camera.Y + MaxHelpingHandModule.GameplayHeight;
+            return Position.X + Width > camera.X - 16f && Position.Y + Height > camera.Y - 16f && Position.X < camera.X + MaxHelpingHandModule.CameraWidth && Position.Y < camera.Y + MaxHelpingHandModule.CameraHeight;
         }
 
         public override void Render() {
