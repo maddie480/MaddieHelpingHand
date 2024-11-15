@@ -57,7 +57,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             manager.Update(base.Update);
         }
 
-        protected override void OnSquish(CollisionData data) {
+        public override void OnSquish(CollisionData data) {
             manager.OnSquish(base.OnSquish, data);
         }
 
