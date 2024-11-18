@@ -326,11 +326,11 @@ namespace Celeste.Mod.MaxHelpingHand.Module {
                 extendedCameraDynamicsHookEnabled = true;
             }
 
-            if (!zoomOutHelperPrototypeEnabled && Everest.Loader.DependencyLoaded(new EverestModuleMetadata { Name = "ZoomOutHelperPrototype", Version = new Version(0, 1, 1) })) {
+            if (!zoomOutHelperPrototypeHookEnabled && Everest.Loader.DependencyLoaded(new EverestModuleMetadata { Name = "ZoomOutHelperPrototype", Version = new Version(0, 1, 1) })) {
                 On.Celeste.LevelLoader.StartLevel += checkZoomOutHelperPrototype;
                 zoomOutHelperPrototypeCheckMethod = Everest.Modules.First(mod => mod.GetType().ToString() == "Celeste.Mod.FunctionalZoomOut.FunctionalZoomOutModule")
                     .GetType().GetMethod("SessionHasZoomOut", BindingFlags.NonPublic | BindingFlags.Static);
-                zoomOutHelperPrototypeEnabled = true;
+                zoomOutHelperPrototypeHookEnabled = true;
             }
         }
 
