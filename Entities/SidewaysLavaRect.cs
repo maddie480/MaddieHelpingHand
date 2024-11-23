@@ -16,6 +16,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             public Vector2 Position;
             public float Speed;
             public float Alpha;
+            public bool Expired; // needs to be reshuffled on respawn
         }
 
         private struct SurfaceBubble {
@@ -73,9 +74,21 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             OnlyMode = onlyMode;
 
             Resize(width, height, step);
+
+            surfaceBubbleAnimations = new List<List<MTexture>>();
+            surfaceBubbleAnimations.Add(GFX.Game.GetAtlasSubtextures(OnlyMode == OnlyModes.OnlyLeft ?
+                "danger/MaxHelpingHand/sidewayslava/bubble_right_a" : "danger/MaxHelpingHand/sidewayslava/bubble_left_a"));
+        }
+
+        private void shuffleBubble(int i) {
+            bubbles[i].Position = new Vector2(1f + Calc.Random.NextFloat(Width - 2f), Calc.Random.NextFloat(Height));
+            bubbles[i].Speed = Calc.Random.Range(4, 12);
+            bubbles[i].Alpha = Calc.Random.Range(0.4f, 0.8f);
         }
 
         public void Resize(float width, float height, int step) {
+            float oldWidth = Width;
+
             Width = width;
             Height = height;
             SurfaceStep = step;
@@ -84,21 +97,33 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             int surroundingSize = (int) (width / SurfaceStep * 2f + height / SurfaceStep * 2f + 4f);
             verts = new VertexPositionColor[surroundingSize * 3 * 6 + 6];
 
-            // spread bubbles in the LavaRect.
+            Bubble[] oldBubbles = bubbles ?? new Bubble[0];
             bubbles = new Bubble[(int) (width * height * 0.005f)];
-            surfaceBubbles = new SurfaceBubble[(int) Math.Max(4f, bubbles.Length * 0.25f)];
-            for (int i = 0; i < bubbles.Length; i++) {
-                bubbles[i].Position = new Vector2(1f + Calc.Random.NextFloat(Width - 2f), Calc.Random.NextFloat(Height));
-                bubbles[i].Speed = Calc.Random.Range(4, 12);
-                bubbles[i].Alpha = Calc.Random.Range(0.4f, 0.8f);
+
+            // copy old bubbles over, but mark them as expired.
+            for (int i = 0; i < oldBubbles.Length && i < bubbles.Length; i++) {
+                bubbles[i] = oldBubbles[i];
+                bubbles[i].Expired = true;
+                if (OnlyMode == OnlyModes.OnlyLeft) {
+                    // rescaling looks less weird if we keep the same distance from the right side
+                    bubbles[i].Position.X += Width - oldWidth;
+                }
             }
-            // initialize empty structures for surface bubbles.
-            for (int j = 0; j < surfaceBubbles.Length; j++) {
+            // spread new bubbles in the LavaRect.
+            for (int i = oldBubbles.Length; i < bubbles.Length; i++) {
+                shuffleBubble(i);
+            }
+
+            // copy old surface bubbles over, and initialize new ones.
+            SurfaceBubble[] oldSurfaceBubbles = surfaceBubbles ?? new SurfaceBubble[0];
+            surfaceBubbles = new SurfaceBubble[(int) Math.Max(4f, bubbles.Length * 0.25f)];
+            for (int i = 0; i < oldSurfaceBubbles.Length && i < surfaceBubbles.Length; i++) {
+                surfaceBubbles[i] = oldSurfaceBubbles[i];
+            }
+            for (int j = oldSurfaceBubbles.Length; j < surfaceBubbles.Length; j++) {
                 surfaceBubbles[j].Y = -1f;
             }
-            surfaceBubbleAnimations = new List<List<MTexture>>();
-            surfaceBubbleAnimations.Add(GFX.Game.GetAtlasSubtextures(OnlyMode == OnlyModes.OnlyLeft ?
-                "danger/MaxHelpingHand/sidewayslava/bubble_right_a" : "danger/MaxHelpingHand/sidewayslava/bubble_left_a"));
+            surfaceBubbleIndex %= surfaceBubbles.Length;
         }
 
         public override void Update() {
@@ -128,6 +153,12 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
                 }
 
                 if (limitReached) {
+                    if (bubbles[i].Expired) {
+                        // lava was resized since the bubble spawn: we need to reshuffle it!
+                        shuffleBubble(i);
+                        bubbles[i].Expired = false;
+                    }
+
                     if (Calc.Random.Chance(0.75f)) {
                         // we want the bubble to explode at the surface.
                         surfaceBubbles[surfaceBubbleIndex].Y = bubbles[i].Position.Y;

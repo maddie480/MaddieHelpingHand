@@ -53,6 +53,9 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
         private SidewaysLavaRect leftRect;
         private SidewaysLavaRect rightRect;
 
+        private int lastCameraWidth;
+        private int lastCameraHeight;
+
         private SoundSource loopSfx;
 
         public SidewaysLava(bool intro, string lavaMode, float speedMultiplier) : this(new EntityData() {
@@ -81,16 +84,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
 
             Depth = -1000000;
 
-            if (lavaMode == LavaMode.LeftToRight) {
-                // one hitbox on the left.
-                Collider = new Hitbox(MaxHelpingHandModule.CameraWidth + 20f, MaxHelpingHandModule.CameraHeight + 20f, -MaxHelpingHandModule.CameraWidth - 20f);
-            } else if (lavaMode == LavaMode.RightToLeft) {
-                // one hitbox on the right.
-                Collider = new Hitbox(MaxHelpingHandModule.CameraWidth + 20f, MaxHelpingHandModule.CameraHeight + 20f, MaxHelpingHandModule.CameraWidth);
-            } else {
-                // hitboxes on both sides, 280px apart.
-                Collider = new ColliderList(new Hitbox(MaxHelpingHandModule.CameraWidth + 20f, MaxHelpingHandModule.CameraHeight + 20f, -MaxHelpingHandModule.CameraWidth - 20f), new Hitbox(MaxHelpingHandModule.CameraWidth + 20f, MaxHelpingHandModule.CameraHeight + 20f, MaxHelpingHandModule.CameraWidth - 40f));
-            }
+            setupCollider();
 
             Visible = false;
             Add(new PlayerCollider(OnPlayer));
@@ -102,13 +96,13 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
 
             if (lavaMode != LavaMode.RightToLeft) {
                 // add the left lava rect, just off-screen (it is 340px wide)
-                Add(leftRect = new SidewaysLavaRect(lavaWidth, 200f, 4, SidewaysLavaRect.OnlyModes.OnlyLeft));
+                Add(leftRect = new SidewaysLavaRect(lavaWidth, MaxHelpingHandModule.CameraHeight + 20f, 4, SidewaysLavaRect.OnlyModes.OnlyLeft));
                 leftRect.Position = new Vector2(-lavaWidth, 0f);
                 leftRect.SmallWaveAmplitude = 2f;
             }
             if (lavaMode != LavaMode.LeftToRight) {
                 // add the right lava rect, just off-screen (the screen is 320px wide)
-                Add(rightRect = new SidewaysLavaRect(lavaWidth, 200f, 4, SidewaysLavaRect.OnlyModes.OnlyRight));
+                Add(rightRect = new SidewaysLavaRect(lavaWidth, MaxHelpingHandModule.CameraHeight + 20f, 4, SidewaysLavaRect.OnlyModes.OnlyRight));
                 rightRect.Position = new Vector2(lavaMode == LavaMode.Sandwich ? MaxHelpingHandModule.CameraWidth - 40f : MaxHelpingHandModule.CameraWidth, 0f);
                 rightRect.SmallWaveAmplitude = 2f;
             }
@@ -150,6 +144,52 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
                     }
                 });
             }
+
+            lastCameraWidth = MaxHelpingHandModule.CameraWidth;
+            lastCameraHeight = MaxHelpingHandModule.CameraHeight;
+        }
+
+        private void setupCollider() {
+            if (lavaMode == LavaMode.LeftToRight) {
+                // one hitbox on the left.
+                Collider = new Hitbox(MaxHelpingHandModule.CameraWidth + 20f, MaxHelpingHandModule.CameraHeight + 20f, -MaxHelpingHandModule.CameraWidth - 20f);
+            } else if (lavaMode == LavaMode.RightToLeft) {
+                // one hitbox on the right.
+                Collider = new Hitbox(MaxHelpingHandModule.CameraWidth + 20f, MaxHelpingHandModule.CameraHeight + 20f, MaxHelpingHandModule.CameraWidth);
+            } else {
+                // hitboxes on both sides, 280px apart.
+                Collider = new ColliderList(new Hitbox(MaxHelpingHandModule.CameraWidth + 20f, MaxHelpingHandModule.CameraHeight + 20f, -MaxHelpingHandModule.CameraWidth - 20f), new Hitbox(MaxHelpingHandModule.CameraWidth + 20f, MaxHelpingHandModule.CameraHeight + 20f, MaxHelpingHandModule.CameraWidth - 40f));
+            }
+        }
+
+        private void checkCameraDimensionChange() {
+            if (MaxHelpingHandModule.CameraWidth == lastCameraWidth && MaxHelpingHandModule.CameraHeight == lastCameraHeight) {
+                return;
+            }
+
+            // resize colliders
+            setupCollider();
+
+            // resize lava graphics
+            float lavaWidth = MaxHelpingHandModule.CameraWidth + speedMultiplier * 80f;
+            if (lavaMode != LavaMode.RightToLeft) {
+                leftRect.Resize(lavaWidth, MaxHelpingHandModule.CameraHeight + 20f, leftRect.SurfaceStep);
+                leftRect.Position = new Vector2(-lavaWidth, 0f);
+            }
+            if (lavaMode != LavaMode.LeftToRight) {
+                rightRect.Resize(lavaWidth, MaxHelpingHandModule.CameraHeight + 20f, rightRect.SurfaceStep);
+                rightRect.Position = new Vector2(lavaMode == LavaMode.Sandwich ? MaxHelpingHandModule.CameraWidth - 40f : MaxHelpingHandModule.CameraWidth, 0f);
+            }
+
+            if (lavaMode == LavaMode.RightToLeft || (lavaMode == LavaMode.Sandwich && iceMode)) {
+                // if the hitbox just got nudged 5px to the right, nudge the entity 5px to the left to compensate
+                X -= MaxHelpingHandModule.CameraWidth - lastCameraWidth;
+            }
+            // LeftToRight doesn't need this, since the player sees the right side, which is at 0.
+            // Sandwich goes right to left when iceMode = true, so it gets the same treatment as RightToLeft in that case.
+
+            lastCameraWidth = MaxHelpingHandModule.CameraWidth;
+            lastCameraHeight = MaxHelpingHandModule.CameraHeight;
         }
 
         private static Color[] parseColors(string input) {
@@ -268,7 +308,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
                     player.Speed.X = -200f * direction;
 
                     player.RefillDash();
-                    Tween.Set(this, Tween.TweenMode.Oneshot, 0.4f, Ease.CubeOut, delegate (Tween t) {
+                    Tween.Set(this, Tween.TweenMode.Oneshot, 0.4f, Ease.CubeOut, delegate(Tween t) {
                         X = MathHelper.Lerp(from, to, t.Eased);
                     });
                     delay = 0.5f;
@@ -281,6 +321,8 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
         }
 
         public override void Update() {
+            checkCameraDimensionChange();
+
             if (sandwichHasToSetPosition) {
                 sandwichHasToSetPosition = false;
 
@@ -401,7 +443,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
                 // move lava rects towards their intended positions: -340 (0 - its width) for the left rect, 280 for the right rect.
                 // if leaving, move them away quickly instead.
                 leftRect.Position.X = Calc.Approach(leftRect.Position.X, -leftRect.Width + (sandwichLeaving ? -512 : 0), (sandwichLeaving ? 512 : 64) * Engine.DeltaTime);
-                rightRect.Position.X = Calc.Approach(rightRect.Position.X, 280 + (sandwichLeaving ? 512 : 0), (sandwichLeaving ? 512 : 64) * Engine.DeltaTime);
+                rightRect.Position.X = Calc.Approach(rightRect.Position.X, MaxHelpingHandModule.CameraWidth - 40f + (sandwichLeaving ? 512 : 0), (sandwichLeaving ? 512 : 64) * Engine.DeltaTime);
             }
         }
     }
