@@ -16,13 +16,16 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
     [RegisterStrawberry(tracked: false, blocksCollection: true)]
     public class SecretBerry : Strawberry {
         private static ILHook strawberryCollectRoutineHook;
+        private static ILHook strawberryCollectRoutineHook2;
 
         public static void Load() {
             IL.Celeste.Strawberry.OnAnimate += replaceStrawberryStrings;
             IL.Celeste.Strawberry.OnPlayer += replaceStrawberryStrings;
             IL.Celeste.Strawberry.Added += replaceStrawberryStrings;
 
-            strawberryCollectRoutineHook = new ILHook(typeof(Strawberry).GetMethod("CollectRoutine", BindingFlags.NonPublic | BindingFlags.Instance).GetStateMachineTarget(), replaceStrawberryStrings);
+            MethodInfo collectRoutine = typeof(Strawberry).GetMethod("CollectRoutine", BindingFlags.NonPublic | BindingFlags.Instance).GetStateMachineTarget();
+            strawberryCollectRoutineHook = new ILHook(collectRoutine, replaceStrawberryStrings);
+            strawberryCollectRoutineHook2 = new ILHook(collectRoutine, injectMoonBerrySound);
 
             On.Celeste.Strawberry.CollectRoutine += onStrawberryCollect;
             On.Celeste.Strawberry.Update += onStrawberryUpdate;
@@ -35,8 +38,11 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
         public static void Unload() {
             IL.Celeste.Strawberry.OnAnimate -= replaceStrawberryStrings;
             IL.Celeste.Strawberry.OnPlayer -= replaceStrawberryStrings;
+
             strawberryCollectRoutineHook?.Dispose();
             strawberryCollectRoutineHook = null;
+            strawberryCollectRoutineHook2?.Dispose();
+            strawberryCollectRoutineHook2 = null;
 
             IL.Celeste.Strawberry.Added -= replaceStrawberryStrings;
 
@@ -76,6 +82,26 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
                     });
                 }
                 cursor.Index = 0;
+            }
+        }
+
+        private static void injectMoonBerrySound(ILContext il) {
+            ILCursor cursor = new ILCursor(il);
+
+            if (cursor.TryGotoNext(MoveType.After, instr => instr.MatchCallvirt<Strawberry>("get_Moon"))) {
+                Logger.Log("MaxHelpingHand/SecretBerry", $"Injecting moon berry sound at {cursor.Index} in IL for Strawberry.CollectRoutine");
+
+                // get "this" strawberry in order to check if this is a Secret Berry
+                cursor.Emit(OpCodes.Ldarg_0);
+                cursor.Emit(OpCodes.Ldfld, typeof(Strawberry).GetMethod("CollectRoutine", BindingFlags.NonPublic | BindingFlags.Instance)
+                    .GetStateMachineTarget().DeclaringType.GetField("<>4__this"));
+
+                cursor.EmitDelegate<Func<bool, Strawberry, bool>>((orig, self) => {
+                    if (self is SecretBerry berry && berry.moonBerrySound) {
+                        return true; // this will set the "colour" music param to 3, which obviously means "make a moon berry sound"
+                    }
+                    return orig;
+                });
             }
         }
 
@@ -155,6 +181,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
         private readonly string strawberryGetSound;
         private readonly bool pulseEnabled;
         private readonly bool spotlightEnabled;
+        private readonly bool moonBerrySound;
         private readonly ParticleType strawberryParticleType;
         private readonly ParticleType strawberryGhostParticleType;
         private readonly string visibleIfFlag;
@@ -169,6 +196,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             strawberryGetSound = data.Attr("strawberryGetSound");
             pulseEnabled = data.Bool("pulseEnabled", defaultValue: true);
             spotlightEnabled = data.Bool("spotlightEnabled", defaultValue: true);
+            moonBerrySound = data.Bool("moonBerrySound", defaultValue: false);
             visibleIfFlag = data.Attr("visibleIfFlag");
 
             strawberryParticleType = new ParticleType(P_Glow) {

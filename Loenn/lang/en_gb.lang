@@ -706,6 +706,7 @@ entities.MaxHelpingHand/SecretBerry.attributes.description.strawberryGetSound=Th
 entities.MaxHelpingHand/SecretBerry.attributes.description.countTowardsTotal=Whether this berry should be counted in the total number of berries the map contains.
 entities.MaxHelpingHand/SecretBerry.attributes.description.pulseEnabled=Whether the strawberry should periodically pulse (with a light and ripple effect).\nTo disable the sound, set the "Strawberry Pulse Sound" to "event:/none".
 entities.MaxHelpingHand/SecretBerry.attributes.description.spotlightEnabled=Whether the strawberry should emit light.
+entities.MaxHelpingHand/SecretBerry.attributes.description.moonBerrySound=To make the strawberry play the moon berry sound on collection, leave the default value for "Collect Sound" and enable this option.
 entities.MaxHelpingHand/SecretBerry.attributes.description.particleColor1=One of the colors to use for the particles the strawberry emits when not already collected.
 entities.MaxHelpingHand/SecretBerry.attributes.description.particleColor2=One of the colors to use for the particles the strawberry emits when not already collected.
 entities.MaxHelpingHand/SecretBerry.attributes.description.ghostParticleColor1=One of the colors to use for the particles the strawberry emits when already collected.
@@ -734,6 +735,7 @@ entities.MaxHelpingHand/CustomizableBerry.attributes.description.strawberryTouch
 entities.MaxHelpingHand/CustomizableBerry.attributes.description.strawberryGetSound=The sound the strawberry makes when collected.\nIf already collected, the "color" audio param of this sound will be set to 1. If not, it will be set to 0.
 entities.MaxHelpingHand/CustomizableBerry.attributes.description.pulseEnabled=Whether the strawberry should periodically pulse (with a light and ripple effect).\nTo disable the sound, set the "Strawberry Pulse Sound" to "event:/none".
 entities.MaxHelpingHand/CustomizableBerry.attributes.description.spotlightEnabled=Whether the strawberry should emit light.
+entities.MaxHelpingHand/CustomizableBerry.attributes.description.moonBerrySound=To make the strawberry play the moon berry sound on collection, leave the default value for "Collect Sound" and enable this option.
 entities.MaxHelpingHand/CustomizableBerry.attributes.description.particleColor1=One of the colors to use for the particles the strawberry emits when not already collected.
 entities.MaxHelpingHand/CustomizableBerry.attributes.description.particleColor2=One of the colors to use for the particles the strawberry emits when not already collected.
 entities.MaxHelpingHand/CustomizableBerry.attributes.description.ghostParticleColor1=One of the colors to use for the particles the strawberry emits when already collected.

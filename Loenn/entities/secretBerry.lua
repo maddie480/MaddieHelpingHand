@@ -19,6 +19,7 @@ strawberry.placements = {
         countTowardsTotal = false,
         pulseEnabled = true,
         spotlightEnabled = true,
+        moonBerrySound = false,
         particleColor1 = "FF8563",
         particleColor2 = "FFF4A8",
         ghostParticleColor1 = "6385FF",
