@@ -650,6 +650,7 @@ entities.MaxHelpingHand/ReskinnableStarTrackSpinner.attributes.description.start
 entities.MaxHelpingHand/ReskinnableStarTrackSpinner.attributes.description.spriteFolder=The folder containing the star sprites. You can make your own by taking example on the Graphics/Atlases/Gameplay/danger/MaxHelpingHand/starSpinner folder that ships with the mod.
 entities.MaxHelpingHand/ReskinnableStarTrackSpinner.attributes.description.particleColors=The colors for the particles following the stars, in the format color1|color2,color1|color2... There should be the same amount of color pairs as there are different sprites for the star spinners.
 entities.MaxHelpingHand/ReskinnableStarTrackSpinner.attributes.description.immuneToGuneline=Whether the spinner should be immune to gunshots (with the Guneline mod).
+entities.MaxHelpingHand/ReskinnableStarTrackSpinner.attributes.description.sound=The sound the spinner makes when moving.
 
 # Reskinnable Swap Block
 entities.MaxHelpingHand/ReskinnableSwapBlock.placements.name.swapblock=Swap Block (Reskinnable)

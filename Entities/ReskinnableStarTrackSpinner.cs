@@ -16,6 +16,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
         private int colorID;
         private bool trail;
         private bool immuneToGuneline;
+        private string sound;
 
         private static ILHook modGunelineCollisionCheck = null;
 
@@ -35,6 +36,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
 
         public ReskinnableStarTrackSpinner(EntityData data, Vector2 offset) : base(data, offset) {
             immuneToGuneline = data.Bool("immuneToGuneline");
+            sound = data.Attr("sound", defaultValue: "event:/game/05_mirror_temple/bladespinner_spin");
 
             string[] particleColorsAsStrings = data.Attr("particleColors", "EA64B7|3EE852,67DFEA|E85351,EA582C|33BDE8").Split(',');
             trailParticles = new ParticleType[particleColorsAsStrings.Length];
@@ -72,7 +74,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             colorID %= trailParticles.Length;
             sprite.Play("spin" + colorID);
             if (hasStarted) {
-                Audio.Play("event:/game/05_mirror_temple/bladespinner_spin", Position);
+                Audio.Play(sound, Position);
             }
             hasStarted = true;
             trail = true;

@@ -31,7 +31,8 @@ for speedName, speedValue in pairs(speeds) do
             startCenter = false,
             spriteFolder = "danger/MaxHelpingHand/starSpinner",
             particleColors = "EA64B7|3EE852,67DFEA|E85351,EA582C|33BDE8",
-            immuneToGuneline = false
+            immuneToGuneline = false,
+            sound = "event:/game/05_mirror_temple/bladespinner_spin"
         }
     })
 end
