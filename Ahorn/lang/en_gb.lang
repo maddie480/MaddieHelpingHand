@@ -502,9 +502,11 @@ placements.entities.MaxHelpingHand/KevinBarrier.tooltips.flashOnHit=Determines w
 placements.entities.MaxHelpingHand/KevinBarrier.tooltips.invisible=If checked, the Kevin barrier will be invisible (doesn't apply to the flashing).
 
 # Snow with Custom Colors
-placements.effects.MaxHelpingHand/SnowCustomColors.tooltips.colors=Comma-separated list of all colors the particles can take from.
+placements.effects.MaxHelpingHand/SnowCustomColors.tooltips.colors=Comma-separated list of all colors the particles can take from.\nVanilla uses 333333,19337F for background snow, FFFFFF,6495ED for foreground snow.
 placements.effects.MaxHelpingHand/SnowCustomColors.tooltips.speedMin=The minimum speed a snowflake can have. Vanilla uses 40 for background snow, 120 for foreground snow.
 placements.effects.MaxHelpingHand/SnowCustomColors.tooltips.speedMax=The maximum speed a snowflake can have. Vanilla uses 100 for background snow, 300 for foreground snow.
+placements.effects.MaxHelpingHand/SnowCustomColors.tooltips.alpha=The alpha of the snow particles.
+placements.effects.MaxHelpingHand/SnowCustomColors.tooltips.particleCount=The number of snow particles to render. Vanilla uses 60.
 
 # Customizable Glass Block
 placements.entities.MaxHelpingHand/CustomizableGlassBlock.tooltips.behindFgTiles=Whether the glass block outline should appear behind foreground tiles.
