@@ -417,13 +417,14 @@ namespace Celeste.Mod.MaxHelpingHand.Module {
                 return new CustomStarfield(paths, colors, alphas, child.AttrBool("shuffle", true), child.AttrFloat("speed", 1f));
             }
             if (child.Name.Equals("MaxHelpingHand/SnowCustomColors", StringComparison.OrdinalIgnoreCase)) {
+                float alpha = child.AttrFloat("alpha", 1f);
                 string[] colorsAsStrings = child.Attr("colors").Split(',');
                 Color[] colors = new Color[colorsAsStrings.Length];
                 for (int i = 0; i < colors.Length; i++) {
-                    colors[i] = Calc.HexToColor(colorsAsStrings[i]);
+                    colors[i] = Calc.HexToColor(colorsAsStrings[i]) * alpha;
                 }
 
-                return new SnowCustomColors(colors, child.AttrFloat("speedMin", 40f), child.AttrFloat("speedMax", 100f));
+                return new SnowCustomColors(colors, child.AttrFloat("speedMin", 40f), child.AttrFloat("speedMax", 100f), child.AttrInt("particleCount", 60));
             }
             if (child.Name.Equals("MaxHelpingHand/NorthernLightsCustomColors", StringComparison.OrdinalIgnoreCase)) {
                 string[] colorsAsStrings = child.Attr("colors").Split(',');

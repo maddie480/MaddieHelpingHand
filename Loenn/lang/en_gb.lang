@@ -1308,9 +1308,11 @@ style.effects.MaxHelpingHand/NorthernLightsCustomColors.description.strandCount=
 
 # Snow with Custom Colors
 style.effects.MaxHelpingHand/SnowCustomColors.name=Snow (Custom)
-style.effects.MaxHelpingHand/SnowCustomColors.description.colors=Comma-separated list of all colors the particles can take from.
+style.effects.MaxHelpingHand/SnowCustomColors.description.colors=Comma-separated list of all colors the particles can take from.\nVanilla uses 333333,19337F for background snow, FFFFFF,6495ED for foreground snow.
 style.effects.MaxHelpingHand/SnowCustomColors.description.speedMin=The minimum speed a snowflake can have. Vanilla uses 40 for background snow, 120 for foreground snow.
 style.effects.MaxHelpingHand/SnowCustomColors.description.speedMax=The maximum speed a snowflake can have. Vanilla uses 100 for background snow, 300 for foreground snow.
+style.effects.MaxHelpingHand/SnowCustomColors.description.alpha=The alpha of the snow particles.
+style.effects.MaxHelpingHand/SnowCustomColors.description.particleCount=The number of snow particles to render. Vanilla uses 60.
 
 # Custom Bird Tutorial: extra "Show Hints" placement
 entities.everest/customBirdTutorial.placements.name.maxhelpinghand_showhints=Custom Bird Tutorial (Show Hints)
