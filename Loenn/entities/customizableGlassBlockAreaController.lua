@@ -17,6 +17,15 @@ glassBlockAreaController.placements = {
 glassBlockAreaController.fieldInformation = {
     bgColor = {
         fieldType = "color"
+    },
+    starColors = {
+        fieldType = "list",
+        minimumElements = 1,
+        elementDefault = "ffffff",
+        elementOptions = {
+            fieldType = "color",
+            allowXNAColors = false
+        }
     }
 }
 

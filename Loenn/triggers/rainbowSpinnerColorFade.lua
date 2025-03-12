@@ -31,6 +31,24 @@ trigger.fieldInformation = {
     direction = {
         options = enums.trigger_position_modes,
         editable = false
+    },
+    colorsA = {
+        fieldType = "list",
+        minimumElements = 1,
+        elementDefault = "ffffff",
+        elementOptions = {
+            fieldType = "color",
+            allowXNAColors = false
+        }
+    },
+    colorsB = {
+        fieldType = "list",
+        minimumElements = 1,
+        elementDefault = "ffffff",
+        elementOptions = {
+            fieldType = "color",
+            allowXNAColors = false
+        }
     }
 }
 

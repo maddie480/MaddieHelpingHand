@@ -26,4 +26,25 @@ areaController.placements = {
 
 areaController.fieldOrder = {"x", "y", "width", "height", "centerX", "centerXWithFlag", "centerY", "centerYWithFlag", "colors", "colorsWithFlag", "gradientSize", "gradientSizeWithFlag", "gradientSpeed", "gradientSpeedWithFlag"}
 
+areaController.fieldInformation = {
+    colors = {
+        fieldType = "list",
+        minimumElements = 1,
+        elementDefault = "ffffff",
+        elementOptions = {
+            fieldType = "color",
+            allowXNAColors = false
+        }
+    },
+    colorsWithFlag = {
+        fieldType = "list",
+        minimumElements = 1,
+        elementDefault = "ffffff",
+        elementOptions = {
+            fieldType = "color",
+            allowXNAColors = false
+        }
+    }
+}
+
 return areaController

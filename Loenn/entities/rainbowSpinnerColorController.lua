@@ -15,5 +15,16 @@ colorController.placements = {
         persistent = false
     }
 }
+colorController.fieldInformation = {
+    colors = {
+        fieldType = "list",
+        minimumElements = 1,
+        elementDefault = "ffffff",
+        elementOptions = {
+            fieldType = "color",
+            allowXNAColors = false
+        }
+    }
+}
 
 return colorController

@@ -25,4 +25,25 @@ colorController.placements = {
 
 colorController.fieldOrder = {"x", "y", "centerX", "centerXWithFlag", "centerY", "centerYWithFlag", "colors", "colorsWithFlag", "gradientSize", "gradientSizeWithFlag", "gradientSpeed", "gradientSpeedWithFlag"}
 
+colorController.fieldInformation = {
+    colors = {
+        fieldType = "list",
+        minimumElements = 1,
+        elementDefault = "ffffff",
+        elementOptions = {
+            fieldType = "color",
+            allowXNAColors = false
+        }
+    },
+    colorsWithFlag = {
+        fieldType = "list",
+        minimumElements = 1,
+        elementDefault = "ffffff",
+        elementOptions = {
+            fieldType = "color",
+            allowXNAColors = false
+        }
+    }
+}
+
 return colorController
