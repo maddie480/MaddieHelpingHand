@@ -45,8 +45,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
 
             if (MaxHelpingHandModule.Instance.Session.RainbowSpinnerCurrentColors != null
                 && self.Session.LevelData != null // happens if we are loading a save in a room that got deleted
-                && !self.Session.LevelData.Entities.Any(entity => entity.Name == "MaxHelpingHand/FlagRainbowSpinnerColorController" ||
-                    entity.Name == "MaxHelpingHand/RainbowSpinnerColorController" || entity.Name == "MaxHelpingHand/RainbowSpinnerColorControllerDisabler")) {
+                && !self.Session.LevelData.Entities.Any(entity => EntityNameRegistry.RainbowSpinnerColorControllers.Contains(entity.Name))) {
 
                 // we have spinner colors in session, and are entering a room with no controller: spawn one.
                 EntityData restoredData = new EntityData();

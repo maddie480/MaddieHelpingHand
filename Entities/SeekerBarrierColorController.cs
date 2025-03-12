@@ -42,8 +42,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
         private static void onLoadLevel(On.Celeste.Level.orig_LoadLevel orig, Level self, Player.IntroTypes playerIntro, bool isFromLoader) {
             if (MaxHelpingHandModule.Instance.Session.SeekerBarrierCurrentColors != null
                 && self.Session.LevelData != null // happens if we are loading a save in a room that got deleted
-                && !self.Session.LevelData.Entities.Any(entity =>
-                    entity.Name == "MaxHelpingHand/SeekerBarrierColorController" || entity.Name == "MaxHelpingHand/SeekerBarrierColorControllerDisabler")) {
+                && !self.Session.LevelData.Entities.Any(entity => EntityNameRegistry.SeekerBarrierColorControllers.Contains(entity.Name))) {
 
                 // we have a barrier color, and are entering a room with no controller: spawn one.
                 EntityData restoredData = new EntityData();

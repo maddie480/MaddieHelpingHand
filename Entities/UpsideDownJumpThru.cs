@@ -41,7 +41,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
         private static void onLevelLoad(On.Celeste.LevelLoader.orig_ctor orig, LevelLoader self, Session session, Vector2? startPosition) {
             orig(self, session, startPosition);
 
-            if (session.MapData?.Levels?.Any(level => level.Entities?.Any(entity => entity.Name == "MaxHelpingHand/UpsideDownJumpThru" || entity.Name == "MaxHelpingHand/UpsideDownMovingPlatform") ?? false) ?? false) {
+            if (session.MapData?.Levels?.Any(level => level.Entities?.Any(entity => EntityNameRegistry.UpsideDownJumpThrus.Contains(entity.Name)) ?? false) ?? false) {
                 activateHooks();
             } else {
                 deactivateHooks();

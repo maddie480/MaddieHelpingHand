@@ -1,4 +1,5 @@
 ﻿using Celeste.Mod.Entities;
+using Celeste.Mod.MaxHelpingHand.Module;
 using Microsoft.Xna.Framework;
 using Mono.Cecil;
 using Mono.Cecil.Cil;
@@ -41,9 +42,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
         private static void onLevelLoad(On.Celeste.LevelLoader.orig_ctor orig, LevelLoader self, Session session, Vector2? startPosition) {
             orig(self, session, startPosition);
 
-            if (session.MapData?.Levels?.Any(level => level.Entities?.Any(entity =>
-                entity.Name == "MaxHelpingHand/SidewaysJumpThru" || entity.Name == "MaxHelpingHand/AttachedSidewaysJumpThru" || entity.Name == "MaxHelpingHand/OneWayInvisibleBarrierHorizontal"
-                || entity.Name == "MaxHelpingHand/SidewaysMovingPlatform") ?? false) ?? false) {
+            if (session.MapData?.Levels?.Any(level => level.Entities?.Any(entity => EntityNameRegistry.SidewaysJumpThrus.Contains(entity.Name)) ?? false) ?? false) {
 
                 activateHooks();
 

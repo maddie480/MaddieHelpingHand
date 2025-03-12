@@ -1,4 +1,5 @@
 ﻿using Celeste.Mod.Entities;
+using Celeste.Mod.MaxHelpingHand.Module;
 using Microsoft.Xna.Framework;
 using Monocle;
 using MonoMod.Cil;
@@ -100,7 +101,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
 
         private static void onLevelLoadingThread(On.Celeste.LevelLoader.orig_LoadingThread orig, LevelLoader self) {
             // spawn a Kevin barrier renderer if there are Kevin barriers in the map.
-            if (new DynData<LevelLoader>(self).Get<Session>("session").MapData?.Levels?.Any(level => level.Entities?.Any(entity => entity.Name == "MaxHelpingHand/KevinBarrier") ?? false) ?? false) {
+            if (new DynData<LevelLoader>(self).Get<Session>("session").MapData?.Levels?.Any(level => level.Entities?.Any(entity => EntityNameRegistry.KevinBarriers.Contains(entity.Name)) ?? false) ?? false) {
                 self.Level.Add(new KevinBarrierRenderer());
             }
 
