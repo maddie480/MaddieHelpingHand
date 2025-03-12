@@ -939,6 +939,7 @@ placements.entities.MaxHelpingHand/MoreCustomNPC.tooltips.setFlag=If set, the gi
 placements.entities.MaxHelpingHand/MoreCustomNPC.tooltips.onlyIfFlagInverted=If checked, the player will be able to talk to the NPC when the "Only If Flag" is disabled, rather than enabled.
 placements.entities.MaxHelpingHand/MoreCustomNPC.tooltips.setFlagInverted=If checked, the "Set Flag" will be disabled once the player has seen all the dialogue, rather than enabled.
 placements.entities.MaxHelpingHand/MoreCustomNPC.tooltips.autoSkipEnabled=Checking this allows you to enable dialogue auto-skipping by using {trigger 0}, and to disable it with {trigger 1}.\nThese triggers have to be used within the dialogue text, in English.txt.
+placements.entities.MaxHelpingHand/MoreCustomNPC.tooltips.customFont=The font to use for the dialogue. Leave empty to use the default font.
 
 # Custom NPC from XML
 placements.entities.MaxHelpingHand/CustomNPCSprite.tooltips.indicatorOffsetX=Offset for the chat icon on the X axis.
@@ -956,6 +957,7 @@ placements.entities.MaxHelpingHand/CustomNPCSprite.tooltips.setFlag=If set, the 
 placements.entities.MaxHelpingHand/CustomNPCSprite.tooltips.onlyIfFlagInverted=If checked, the player will be able to talk to the NPC when the "Only If Flag" is disabled, rather than enabled.
 placements.entities.MaxHelpingHand/CustomNPCSprite.tooltips.setFlagInverted=If checked, the "Set Flag" will be disabled once the player has seen all the dialogue, rather than enabled.
 placements.entities.MaxHelpingHand/CustomNPCSprite.tooltips.autoSkipEnabled=Checking this allows you to enable dialogue auto-skipping by using {trigger 0}, and to disable it with {trigger 1}.\nThese triggers have to be used within the dialogue text, in English.txt.
+placements.entities.MaxHelpingHand/CustomNPCSprite.tooltips.customFont=The font to use for the dialogue. Leave empty to use the default font.
 
 # Badeline Sprite
 placements.entities.MaxHelpingHand/BadelineSprite.tooltips.left=Whether Badeline is facing left.

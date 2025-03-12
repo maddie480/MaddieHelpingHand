@@ -354,6 +354,7 @@ entities.MaxHelpingHand/MoreCustomNPC.attributes.description.setFlag=If set, the
 entities.MaxHelpingHand/MoreCustomNPC.attributes.description.onlyIfFlagInverted=If checked, the player will be able to talk to the NPC when the "Only If Flag" is disabled, rather than enabled.
 entities.MaxHelpingHand/MoreCustomNPC.attributes.description.setFlagInverted=If checked, the "Set Flag" will be disabled once the player has seen all the dialogue, rather than enabled.
 entities.MaxHelpingHand/MoreCustomNPC.attributes.description.autoSkipEnabled=Checking this allows you to enable dialogue auto-skipping by using {trigger 0}, and to disable it with {trigger 1}.\nThese triggers have to be used within the dialogue text, in English.txt.
+entities.MaxHelpingHand/MoreCustomNPC.attributes.description.customFont=The font to use for the dialogue. Leave empty to use the default font.
 
 # Custom NPC from XML
 entities.MaxHelpingHand/CustomNPCSprite.placements.name.npc=Custom NPC (from XML)
@@ -372,6 +373,7 @@ entities.MaxHelpingHand/CustomNPCSprite.attributes.description.setFlag=If set, t
 entities.MaxHelpingHand/CustomNPCSprite.attributes.description.onlyIfFlagInverted=If checked, the player will be able to talk to the NPC when the "Only If Flag" is disabled, rather than enabled.
 entities.MaxHelpingHand/CustomNPCSprite.attributes.description.setFlagInverted=If checked, the "Set Flag" will be disabled once the player has seen all the dialogue, rather than enabled.
 entities.MaxHelpingHand/CustomNPCSprite.attributes.description.autoSkipEnabled=Checking this allows you to enable dialogue auto-skipping by using {trigger 0}, and to disable it with {trigger 1}.\nThese triggers have to be used within the dialogue text, in English.txt.
+entities.MaxHelpingHand/CustomNPCSprite.attributes.description.customFont=The font to use for the dialogue. Leave empty to use the default font.
 
 # Moving Flag Touch Switch
 entities.MaxHelpingHand/MovingFlagTouchSwitch.placements.name.touch_switch=Flag Touch Switch (Moving)

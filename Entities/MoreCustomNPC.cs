@@ -1,5 +1,6 @@
 ﻿using Celeste.Mod.Entities;
 using Celeste.Mod.MaxHelpingHand.Module;
+using Celeste.Mod.MaxHelpingHand.Triggers;
 using Microsoft.Xna.Framework;
 using Mono.Cecil.Cil;
 using Monocle;
@@ -32,6 +33,13 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             hookCustomNPCTalk = null;
         }
 
+        private static IEnumerator talkWithDifferentFont(IEnumerator talk, string font) {
+            // we need to make the Talk coroutine make a step, so that it "becomes" Textbox.Say.
+            // ExtendedDialogCutsceneTrigger.ReplaceFancyTextFontFor can take care of the font change afterward.
+            if (talk.MoveNext()) yield return talk.Current;
+            yield return new SwapImmediately(ExtendedDialogCutsceneTrigger.ReplaceFancyTextFontFor(talk, font));
+        }
+
         private static void modTalkCutscene(ILContext il) {
             ILCursor cursor = new ILCursor(il);
 
@@ -43,9 +51,12 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
                 // ldarg.0 (aka "this") gives the state machine object, known as CustomNPC.<Talk>d__28 in ILSpy.
                 // To get the actual CustomNPC we are in, we need to read the <>4__this field that is in that state machine object.
                 // ... IEnumerators are weird.
+                Action emitThis = () => {
+                    cursor.Emit(OpCodes.Ldarg_0);
+                    cursor.Emit(OpCodes.Ldfld, customNPCTalkCoroutineType.GetField("<>4__this"));
+                };
 
-                cursor.Emit(OpCodes.Ldarg_0);
-                cursor.Emit(OpCodes.Ldfld, customNPCTalkCoroutineType.GetField("<>4__this"));
+                emitThis();
                 cursor.EmitDelegate<Func<Func<IEnumerator>[], CustomNPC, Func<IEnumerator>[]>>((orig, self) => {
                     if (self is MoreCustomNPC customNPC && customNPC.autoSkipEnabled) {
                         // we want to register {trigger 0} and {trigger 1} to start and stop auto-skip in this dialogue.
@@ -53,6 +64,16 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
                     }
 
                     // don't mess with "vanilla" Everest. orig should be null (considering we're injecting ourselves just after an ldnull), but hey.
+                    return orig;
+                });
+
+                // intercept the Textbox.Say call right before it's yield returned if necessary!
+                cursor.Index++;
+                emitThis();
+                cursor.EmitDelegate<Func<IEnumerator, CustomNPC, IEnumerator>>((orig, self) => {
+                    if (self is MoreCustomNPC npc && !string.IsNullOrEmpty(npc.customFont)) {
+                        return ExtendedDialogCutsceneTrigger.ReplaceFancyTextFontFor(orig, npc.customFont);
+                    }
                     return orig;
                 });
             }
@@ -69,6 +90,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
 
 
         private readonly bool autoSkipEnabled;
+        private readonly string customFont;
 
         private Sprite sprite;
         private string spriteName;
@@ -82,6 +104,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             setFlagInverted = data.Bool("setFlagInverted");
 
             autoSkipEnabled = data.Bool("autoSkipEnabled");
+            customFont = data.Attr("customFont");
 
             DynData<CustomNPC> npcData = new DynData<CustomNPC>(this);
 
