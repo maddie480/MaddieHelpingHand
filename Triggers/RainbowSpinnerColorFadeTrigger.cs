@@ -71,14 +71,16 @@ namespace Celeste.Mod.MaxHelpingHand.Triggers {
                 diedInTrigger = true;
             } else {
                 // player left the trigger.
-                // discard whatever controller we currently have.
-                Scene.Remove(Scene.Tracker.GetEntity<RainbowSpinnerColorController>());
+                // choose the controller we want to keep: that's the one that is on the side the player left in.
+                RainbowSpinnerColorController chosenController =
+                    RainbowSpinnerColorController.transitionProgress > 0.5f ? controllerB : controllerA;
+                RainbowSpinnerColorController.nextSpinnerController = chosenController;
 
-                // add the controller we want to keep: that's the one that is on the side the player left in.
-                if (RainbowSpinnerColorController.transitionProgress > 0.5f) {
-                    Scene.Add(RainbowSpinnerColorController.nextSpinnerController = controllerB);
-                } else {
-                    Scene.Add(RainbowSpinnerColorController.nextSpinnerController = controllerA);
+                // if we need to, swap the controller currently in our scene with the Chosen One.
+                RainbowSpinnerColorController currentController = Scene.Tracker.GetEntity<RainbowSpinnerColorController>();
+                if (currentController != chosenController) {
+                    Scene.Remove(currentController);
+                    Scene.Add(chosenController);
                 }
 
                 // reset the transition variables to normal values.
