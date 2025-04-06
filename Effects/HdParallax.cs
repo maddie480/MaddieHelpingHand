@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using Celeste.Mod.MaxHelpingHand.Entities;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Mono.Cecil.Cil;
 using Monocle;
@@ -61,6 +62,10 @@ namespace Celeste.Mod.MaxHelpingHand.Effects {
         }
 
         static void renderForReal(Parallax parallax, Scene scene) {
+            if (!parallax.Visible && !ParallaxFadeOutController.IsParallaxVisible(parallax)) {
+                return;
+            }
+
             Matrix matrix = Engine.ScreenMatrix;
             if (SaveData.Instance.Assists.MirrorMode) {
                 matrix *= Matrix.CreateTranslation(-Engine.Viewport.Width, 0f, 0f);
