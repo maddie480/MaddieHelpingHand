@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework;
 using Monocle;
 using MonoMod;
 using MonoMod.Utils;
+using System;
 using System.Reflection;
 
 namespace Celeste.Mod.MaxHelpingHand.Entities {
@@ -62,7 +63,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
         [MonoModLinkTo("Monocle.Entity", "System.Void Added(Monocle.Scene)")]
         [MonoModForceCall]
         public void base_Added(Scene scene) {
-            base.Added(scene);
+            throw new NotImplementedException("WTF? MonoModLinkTo is supposed to have relinked calls to this method!");
         }
 
 

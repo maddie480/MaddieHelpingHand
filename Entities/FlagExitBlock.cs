@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework;
 using Monocle;
 using MonoMod;
 using MonoMod.Utils;
+using System;
 
 namespace Celeste.Mod.MaxHelpingHand.Entities {
     [CustomEntity("MaxHelpingHand/FlagExitBlock")]
@@ -28,7 +29,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
         // but with MonoMod magic we can do it anyway.
         [MonoModLinkTo("Celeste.Solid", "System.Void Update()")]
         public void base_Update() {
-            base.Update();
+            throw new NotImplementedException("WTF? MonoModLinkTo is supposed to have relinked calls to this method!");
         }
 
         public override void Awake(Scene scene) {

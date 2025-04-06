@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using Mono.Cecil.Cil;
 using Monocle;
+using MonoMod;
 using MonoMod.Cil;
 using System;
 using System.Linq;
@@ -43,23 +44,31 @@ namespace Celeste.Mod.MaxHelpingHand.Effects {
         private static void renderHdParallaxes(bool fg) {
             if (Engine.Scene is Level level) {
                 foreach (Backdrop backdrop in (fg ? level.Foreground.Backdrops : level.Background.Backdrops)) {
-                    if (backdrop is HdParallax hdParallax) {
+                    if (backdrop is HdParallax or AnimatedHdParallax) {
                         level.BackgroundColor = Color.Transparent;
-                        hdParallax.renderForReal(level);
+                        renderForReal((Parallax) backdrop, level);
                     }
                 }
             }
         }
 
-        private void renderForReal(Scene scene) {
+        // (Animated)HdParallax.Render is a no-op that cancels out regular rendering,
+        // so we need renderForReal to forcibly call the base Render method to actually render.
+        [MonoModLinkTo("Celeste.Parallax", "System.Void Render(Monocle.Scene)")]
+        [MonoModForceCall]
+        private static void base_Render(Parallax self, Scene scene) {
+            throw new NotImplementedException("WTF? MonoModLinkTo is supposed to have relinked calls to this method!");
+        }
+
+        static void renderForReal(Parallax parallax, Scene scene) {
             Matrix matrix = Engine.ScreenMatrix;
             if (SaveData.Instance.Assists.MirrorMode) {
                 matrix *= Matrix.CreateTranslation(-Engine.Viewport.Width, 0f, 0f);
                 matrix *= Matrix.CreateScale(-1f, 1f, 1f);
             }
 
-            Draw.SpriteBatch.Begin(SpriteSortMode.Deferred, BlendState, SamplerState.PointWrap, DepthStencilState.None, RasterizerState.CullNone, ColorGrade.Effect, matrix);
-            base.Render(scene);
+            Draw.SpriteBatch.Begin(SpriteSortMode.Deferred, parallax.BlendState, SamplerState.PointWrap, DepthStencilState.None, RasterizerState.CullNone, ColorGrade.Effect, matrix);
+            base_Render(parallax, scene);
             Draw.SpriteBatch.End();
         }
 
@@ -72,7 +81,7 @@ namespace Celeste.Mod.MaxHelpingHand.Effects {
 
                 cursor.Emit(OpCodes.Ldarg_0);
                 cursor.EmitDelegate<Func<float, Parallax, float>>((orig, self) => {
-                    if (self is HdParallax) {
+                    if (self is HdParallax or AnimatedHdParallax) {
                         return orig * 6; // 1920x1080 is 6 times 320x180.
                     }
                     return orig;
