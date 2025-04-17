@@ -17,21 +17,25 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
     public class RainbowSpinnerColorController : Entity {
         public static void Load() {
             On.Celeste.Level.LoadLevel += onLoadLevel;
-            On.Celeste.CrystalStaticSpinner.GetHue += getRainbowSpinnerHue;
+
+            getHueHook = new Hook(typeof(CrystalStaticSpinner).GetMethod("GetHue", BindingFlags.NonPublic | BindingFlags.Instance),
+                typeof(RainbowSpinnerColorController).GetMethod("getRainbowSpinnerHue", BindingFlags.NonPublic | BindingFlags.Static));
         }
 
         public static void LoadMods() {
             if (jungleHelperHook == null && Everest.Loader.DependencyLoaded(new EverestModuleMetadata { Name = "JungleHelper", Version = new Version(1, 0, 0) })) {
                 // we want to hook Color Celeste.Mod.JungleHelper.Components.RainbowDecalComponent.getHue(Vector2) in Jungle Helper.
                 jungleHelperHook = new Hook(Everest.Modules.First(mod => mod.GetType().ToString() == "Celeste.Mod.JungleHelper.JungleHelperModule")
-                    .GetType().Assembly.GetType("Celeste.Mod.JungleHelper.Components.RainbowDecalComponent").GetMethod("getHue", BindingFlags.NonPublic | BindingFlags.Instance),
+                        .GetType().Assembly.GetType("Celeste.Mod.JungleHelper.Components.RainbowDecalComponent").GetMethod("getHue", BindingFlags.NonPublic | BindingFlags.Instance),
                     typeof(RainbowSpinnerColorController).GetMethod("getRainbowDecalComponentHue", BindingFlags.NonPublic | BindingFlags.Static));
             }
         }
 
         public static void Unload() {
             On.Celeste.Level.LoadLevel -= onLoadLevel;
-            On.Celeste.CrystalStaticSpinner.GetHue -= getRainbowSpinnerHue;
+
+            getHueHook?.Dispose();
+            getHueHook = null;
 
             jungleHelperHook?.Dispose();
             jungleHelperHook = null;
@@ -76,6 +80,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
 
 
         private static bool rainbowSpinnerHueHookEnabled = false;
+        private static Hook getHueHook;
         private static Hook jungleHelperHook;
 
         // the spinner controller on the current screen.
@@ -244,19 +249,19 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             return setting.Item2;
         }
 
-        private static Color getRainbowSpinnerHue(On.Celeste.CrystalStaticSpinner.orig_GetHue orig, CrystalStaticSpinner self, Vector2 position) {
+        private static Color getRainbowSpinnerHue(Func<CrystalStaticSpinner, Vector2, Color> orig, CrystalStaticSpinner self, Vector2 position) {
             if (!rainbowSpinnerHueHookEnabled) return orig(self, position);
 
-            return getEntityHue(() => orig(self, position), self, position);
+            return getEntityHue(orig, self, self, position);
         }
 
         private static Color getRainbowDecalComponentHue(Func<Component, Vector2, Color> orig, Component self, Vector2 position) {
             if (!rainbowSpinnerHueHookEnabled) return orig(self, position);
 
-            return getEntityHue(() => orig(self, position), self.Entity, position);
+            return getEntityHue(orig, self.Entity, self, position);
         }
 
-        private static Color getEntityHue(Func<Color> origMethod, Entity self, Vector2 position) {
+        private static Color getEntityHue<OrigParam>(Func<OrigParam, Vector2, Color> orig, Entity self, OrigParam origParam, Vector2 position) {
             if (transitionProgress == -1f) {
                 if (spinnerControllerOnScreen == null) {
                     // no transition is ongoing.
@@ -273,7 +278,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
                         spinnerControllerOnScreen.selectFromFlag(spinnerControllerOnScreen.center),
                         spinnerControllerOnScreen.selectFromFlag(spinnerControllerOnScreen.gradientSpeed));
                 } else {
-                    return origMethod();
+                    return orig(origParam, position);
                 }
             } else {
                 // get the spinner color in the room we're coming from.
@@ -286,7 +291,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
                         spinnerControllerOnScreen.selectFromFlag(spinnerControllerOnScreen.center),
                         spinnerControllerOnScreen.selectFromFlag(spinnerControllerOnScreen.gradientSpeed));
                 } else {
-                    fromRoomColor = origMethod();
+                    fromRoomColor = orig(origParam, position);
                 }
 
                 // get the spinner color in the room we're going to.
@@ -299,7 +304,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
                         nextSpinnerController.selectFromFlag(nextSpinnerController.center),
                         nextSpinnerController.selectFromFlag(nextSpinnerController.gradientSpeed));
                 } else {
-                    toRoomColor = origMethod();
+                    toRoomColor = orig(origParam, position);
                 }
 
                 // transition smoothly between both.
