@@ -125,7 +125,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
         private void deregisterFlag() {
             foreach (string flag in flags) {
                 // first, make sure there isn't another controller that took the flag over.
-                if (controllers[flag][notFlag] == this) {
+                if (tryGetValue(controllers, flag, notFlag, out StylegroundFadeController controller) && controller == this) {
                     // deregister the current flag settings.
                     removeValue(fades, flag, notFlag);
                     removeValue(fadeInTimes, flag, notFlag);
