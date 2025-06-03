@@ -143,6 +143,7 @@ namespace Celeste.Mod.MaxHelpingHand.Module {
             ReversibleRetentionBooster.Load();
             SpikeRefillController.Load();
             SideSpecificEndscreens.Load();
+            Pico8FlagController.Load();
 
             Everest.Events.Level.OnLoadBackdrop += onLoadBackdrop;
 
@@ -231,6 +232,7 @@ namespace Celeste.Mod.MaxHelpingHand.Module {
             SpikeRefillController.Unload();
             MiniHeartDoorUnfixController.Unload();
             SideSpecificEndscreens.Unload();
+            Pico8FlagController.Unload();
 
             Everest.Events.Level.OnLoadBackdrop -= onLoadBackdrop;
 

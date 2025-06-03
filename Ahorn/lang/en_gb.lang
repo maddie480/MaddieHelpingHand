@@ -1216,3 +1216,8 @@ placements.entities.MaxHelpingHand/ReverseJelly.tooltips.glow=Whether the entity
 # Spike Refill Controller
 placements.entities.MaxHelpingHand/SpikeRefillController.tooltips.flag=The flag this controller should check to determine whether it's active.
 placements.entities.MaxHelpingHand/SpikeRefillController.tooltips.flagInverted=If checked, the controller will be active if the flag is disabled.
+
+# PICO-8 Flag Controller
+placements.entities.MaxHelpingHand/Pico8FlagController.tooltips.flagOnComplete=The flag that will be set if the player completes PICO-8 from within this room.
+placements.entities.MaxHelpingHand/Pico8FlagController.tooltips.flagOnBerryCount=The flag that will be set if the player collects the specified amount of berries in PICO-8 while in this room.\nThe player does not need to finish the PICO-8 game after collecting the berries to activate the flag.
+placements.entities.MaxHelpingHand/Pico8FlagController.tooltips.berryCount=The minimum amount of berries needed to activate the flag (inclusive).

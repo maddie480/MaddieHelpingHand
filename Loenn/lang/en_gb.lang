@@ -1442,3 +1442,10 @@ entities.MaxHelpingHand/SpikeRefillController.attributes.description.flagInverte
 
 # Mini Heart Door Unfix Controller
 entities.MaxHelpingHand/MiniHeartDoorUnfixController.placements.name.normal=Mini Heart Door Unfix Controller
+
+# PICO-8 Flag Controller
+entities.MaxHelpingHand/Pico8FlagController.placements.name.complete=Set Flag On PICO-8 Completion Controller
+entities.MaxHelpingHand/Pico8FlagController.placements.name.berry=Set Flag On PICO-8 Berry Collect Controller
+entities.MaxHelpingHand/Pico8FlagController.attributes.description.flagOnComplete=The flag that will be set if the player completes PICO-8 from within this room.
+entities.MaxHelpingHand/Pico8FlagController.attributes.description.flagOnBerryCount=The flag that will be set if the player collects the specified amount of berries in PICO-8 while in this room.\nThe player does not need to finish the PICO-8 game after collecting the berries to activate the flag.
+entities.MaxHelpingHand/Pico8FlagController.attributes.description.berryCount=The minimum amount of berries needed to activate the flag (inclusive).
