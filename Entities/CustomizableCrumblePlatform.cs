@@ -278,8 +278,10 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
                     yield return 1f;
                     RemoveSelf();
                     Scene.OnEndOfFrame += () => {
-                        Logger.Log(LogLevel.Debug, "MaxHelpingHand/CustomizableCrumblePlatform", $"A block was removed: invalidating group for {groupMembers.Count} crumble blocks!");
-                        foreach (CustomizableCrumblePlatform platform in groupMembers) platform.groupMembers = null;
+                        if (groupMembers == null) return; // seems like another member already took care of it.
+                        List<CustomizableCrumblePlatform> platforms = groupMembers;
+                        Logger.Log(LogLevel.Debug, "MaxHelpingHand/CustomizableCrumblePlatform", $"A block was removed: invalidating group for {platforms.Count} crumble blocks!");
+                        foreach (CustomizableCrumblePlatform platform in platforms) platform.groupMembers = null;
                     };
                     yield break;
                 } else {
