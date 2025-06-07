@@ -4,10 +4,10 @@ using ..Ahorn, Maple
 
 @pardef ShatterFlagSwitchGate(x::Integer, y::Integer, width::Integer=Maple.defaultBlockWidth, height::Integer=Maple.defaultBlockHeight,
     sprite::String="block", persistent::Bool=false, flag::String="flag_touch_switch", icon::String="vanilla", inactiveColor::String="5FCDE4", activeColor::String="FFFFFF", finishColor::String="F141DF",
-    shakeTime::Number=0.5, finishedSound::String="event:/game/general/touchswitch_gate_finish", debrisPath::String="") =
+    shakeTime::Number=0.5, finishedSound::String="event:/game/general/touchswitch_gate_finish", debrisPath::String="", shatterSound::Bool=true) =
     Entity("MaxHelpingHand/ShatterFlagSwitchGate", x=x, y=y, width=width, height=height,
     sprite=sprite, persistent=persistent, flag=flag, icon=icon, inactiveColor=inactiveColor, activeColor=activeColor, finishColor=finishColor,
-    shakeTime=shakeTime, finishedSound=finishedSound, debrisPath=debrisPath)
+    shakeTime=shakeTime, finishedSound=finishedSound, debrisPath=debrisPath, shatterSound=shatterSound)
 
 const textures = String["block", "mirror", "temple", "stars"]
 const bundledIcons = String["vanilla", "tall", "triangle", "circle", "diamond", "double", "heart", "square", "wide", "winged", "cross", "drop", "hourglass", "split", "star", "triple"]

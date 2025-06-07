@@ -31,7 +31,8 @@ for i, texture in ipairs(textures) do
             finishColor = "F141DF",
             shakeTime = 0.5,
             finishedSound = "event:/game/general/touchswitch_gate_finish",
-            debrisPath = ""
+            debrisPath = "",
+            shatterSound = true
         }
     }
 end

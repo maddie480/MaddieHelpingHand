@@ -96,6 +96,7 @@ placements.entities.MaxHelpingHand/ShatterFlagSwitchGate.tooltips.sprite=The tex
 placements.entities.MaxHelpingHand/ShatterFlagSwitchGate.tooltips.shakeTime=The time (in seconds) the block spends shaking before shattering. Vanilla value is 0.5 seconds.
 placements.entities.MaxHelpingHand/ShatterFlagSwitchGate.tooltips.finishedSound=The sound played by the gate when it shatters.
 placements.entities.MaxHelpingHand/ShatterFlagSwitchGate.tooltips.debrisPath=The debris the switch gate will emit when it shatters. Leave empty to use the debris matching the block texture.\nTo make your own debris, copy one of the files in Graphics/Atlases/Gameplay/debris/VortexHelper/disintegate from Vortex Helper\nto your mod, at Graphics/Atlases/Gameplay/foldername/debris.png, then type "foldername/debris" here.
+placements.entities.MaxHelpingHand/ShatterFlagSwitchGate.tooltips.shatterSound=Whether to play the crumbling sound when the switch gate shatters.
 
 # Multi-Node Flag Switch Gate
 placements.entities.MaxHelpingHand/MultiNodeFlagSwitchGate.tooltips.activeColor=The color of the block while it's moving.

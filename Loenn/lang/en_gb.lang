@@ -812,6 +812,7 @@ entities.MaxHelpingHand/ShatterFlagSwitchGate.attributes.description.sprite=The 
 entities.MaxHelpingHand/ShatterFlagSwitchGate.attributes.description.shakeTime=The time (in seconds) the block spends shaking before shattering. Vanilla value is 0.5 seconds.
 entities.MaxHelpingHand/ShatterFlagSwitchGate.attributes.description.finishedSound=The sound played by the gate when it shatters.
 entities.MaxHelpingHand/ShatterFlagSwitchGate.attributes.description.debrisPath=The debris the switch gate will emit when it shatters. Leave empty to use the debris matching the block texture.\nTo make your own debris, copy one of the files in Graphics/Atlases/Gameplay/debris/VortexHelper/disintegate from Vortex Helper\nto your mod, at Graphics/Atlases/Gameplay/foldername/debris.png, then type "foldername/debris" here.
+entities.MaxHelpingHand/ShatterFlagSwitchGate.attributes.description.shatterSound=Whether to play the crumbling sound when the switch gate shatters.
 
 # Sideways Lava
 entities.MaxHelpingHand/SidewaysLava.placements.name.lava=Sideways Lava

@@ -63,6 +63,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
         private readonly bool isShatter;
         private readonly string blockSpriteName;
         private readonly string debrisPath;
+        private readonly bool shatterSound;
 
         public FlagSwitchGate(EntityData data, Vector2 offset)
             : base(data.Position + offset, data.Width, data.Height, safe: false) {
@@ -118,6 +119,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
 
             blockSpriteName = data.Attr("sprite", "block");
             texture = GFX.Game["objects/switchgate/" + blockSpriteName];
+            shatterSound = data.Bool("shatterSound", defaultValue: true);
 
             debrisPath = data.Attr("debrisPath");
             if (string.IsNullOrEmpty(debrisPath)) {
@@ -416,7 +418,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
                 yield return null;
             }
 
-            openSfx.Play("event:/game/general/fallblock_shake");
+            if (shatterSound) openSfx.Play("event:/game/general/fallblock_shake");
             yield return 0.1f;
 
             if (shakeTime > 0f) {
@@ -436,7 +438,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
                 SceneAs<Level>().ParticlesFG.Emit(P_RecoloredFire, Position + iconOffset + Calc.AngleToVector(num, 4f), num);
             }
             openSfx.Stop();
-            Audio.Play("event:/game/general/wall_break_stone", Center);
+            if (shatterSound) Audio.Play("event:/game/general/wall_break_stone", Center);
             Audio.Play(finishedSound, Center);
             level.Shake();
 

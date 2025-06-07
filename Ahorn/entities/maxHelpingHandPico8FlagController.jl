@@ -1,4 +1,4 @@
-﻿module MaxHelpingHandSetFlagOnActionController
+﻿module MaxHelpingHandPico8FlagController
 
 using ..Ahorn, Maple
 
