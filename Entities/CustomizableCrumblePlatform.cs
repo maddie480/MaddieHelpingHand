@@ -61,7 +61,28 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
         private bool flagInverted;
         private float lightBlockingOpacity;
 
+        // the former one contains the direct neighbors, the latter contains the entire group
         private HashSet<CustomizableCrumblePlatform> linkedCrumblePlatforms = new HashSet<CustomizableCrumblePlatform>();
+        private List<CustomizableCrumblePlatform> groupMembers;
+
+        // values cached and shared with group members to avoid doing the same collide checks multiple times on the same frame
+        private class BuddyCache {
+            public class Result<T> {
+                public T result;
+                public bool computed;
+
+                public void Reset() {
+                    result = default;
+                    computed = false;
+                }
+            }
+
+            public readonly Result<CustomizableCrumblePlatform> getOnePlatformWithPlayerOnTop = new Result<CustomizableCrumblePlatform>();
+            public readonly Result<CustomizableCrumblePlatform> getOnePlatformWithPlayerClimbing = new Result<CustomizableCrumblePlatform>();
+            public readonly Result<bool> isGroupCollidingWithSomething = new Result<bool>();
+        }
+
+        private readonly BuddyCache buddyCache = new BuddyCache();
 
         public CustomizableCrumblePlatform(EntityData data, Vector2 offset) : base(data, offset) {
             OverrideTexture = data.Attr("texture", null);
@@ -161,6 +182,23 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             }
         }
 
+        public override void Update() {
+            if (groupMembers == null) {
+                groupMembers = new List<CustomizableCrumblePlatform>();
+                IEnumerator<CustomizableCrumblePlatform> crumblePlatformTreeWalker = walkThroughCrumblePlatformTree();
+                while (crumblePlatformTreeWalker.MoveNext()) groupMembers.Add(crumblePlatformTreeWalker.Current);
+                foreach (CustomizableCrumblePlatform groupMember in groupMembers) groupMember.groupMembers = groupMembers;
+                Logger.Log(LogLevel.Verbose, "MaxHelpingHand/CustomizableCrumblePlatform", $"Computed crumble platform group w/ {groupMembers.Count} members");
+            }
+
+            base.Update();
+
+            // the buddy cache will be obsolete by the next frame
+            buddyCache.getOnePlatformWithPlayerOnTop.Reset();
+            buddyCache.getOnePlatformWithPlayerClimbing.Reset();
+            buddyCache.isGroupCollidingWithSomething.Reset();
+        }
+
         private IEnumerator customSequence() {
             while (true) {
                 // wait until player is on top
@@ -239,6 +277,10 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
                     // wait for the platform to animate for a bit (1 second) then delete it.
                     yield return 1f;
                     RemoveSelf();
+                    Scene.OnEndOfFrame += () => {
+                        Logger.Log(LogLevel.Debug, "MaxHelpingHand/CustomizableCrumblePlatform", $"A block was removed: invalidating group for {groupMembers.Count} crumble blocks!");
+                        foreach (CustomizableCrumblePlatform platform in groupMembers) platform.groupMembers = null;
+                    };
                     yield break;
                 } else {
                     // wait for the custom delay instead of 2 seconds.
@@ -305,30 +347,50 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
         }
 
         private CustomizableCrumblePlatform getOnePlatformWithPlayerOnTop() {
-            foreach (CustomizableCrumblePlatform platform in new EnumeratorEnumerator<CustomizableCrumblePlatform> { Enumerator = walkThroughCrumblePlatformTree() }) {
-                if (platform.GetPlayerOnTop() != null) {
-                    return platform;
+            return getBuddyCached(cache => cache.getOnePlatformWithPlayerOnTop, () => {
+                foreach (CustomizableCrumblePlatform platform in groupMembers) {
+                    if (platform.GetPlayerOnTop() != null) {
+                        return platform;
+                    }
                 }
-            }
-            return null;
+                return null;
+            });
         }
 
         private CustomizableCrumblePlatform getOnePlatformWithPlayerClimbing() {
-            foreach (CustomizableCrumblePlatform platform in new EnumeratorEnumerator<CustomizableCrumblePlatform> { Enumerator = walkThroughCrumblePlatformTree() }) {
-                if (platform.GetPlayerClimbing() != null) {
-                    return platform;
+            return getBuddyCached(cache => cache.getOnePlatformWithPlayerClimbing, () => {
+                foreach (CustomizableCrumblePlatform platform in groupMembers) {
+                    if (platform.GetPlayerClimbing() != null) {
+                        return platform;
+                    }
                 }
-            }
-            return null;
+                return null;
+            });
         }
 
         private bool isGroupCollidingWithSomething() {
-            foreach (CustomizableCrumblePlatform platform in new EnumeratorEnumerator<CustomizableCrumblePlatform> { Enumerator = walkThroughCrumblePlatformTree() }) {
-                if (platform.CollideCheck<Actor>() || platform.CollideCheck<Solid>()) {
-                    return true;
+            return getBuddyCached(cache => cache.isGroupCollidingWithSomething, () => {
+                foreach (CustomizableCrumblePlatform platform in groupMembers) {
+                    if (platform.CollideCheck<Actor>() || platform.CollideCheck<Solid>()) {
+                        return true;
+                    }
                 }
+                return false;
+            });
+        }
+
+        private T getBuddyCached<T>(Func<BuddyCache, BuddyCache.Result<T>> buddyCacheGetter, Func<T> compute) {
+            BuddyCache.Result<T> myResult = buddyCacheGetter(buddyCache);
+            if (myResult.computed) return myResult.result;
+
+            // compute and tell our buddies about it
+            T result = compute();
+            foreach (CustomizableCrumblePlatform platform in groupMembers) {
+                BuddyCache.Result<T> buddyResult = buddyCacheGetter(platform.buddyCache);
+                buddyResult.computed = true;
+                buddyResult.result = result;
             }
-            return false;
+            return result;
         }
 
         private IEnumerator<CustomizableCrumblePlatform> walkThroughCrumblePlatformTree() {
@@ -346,19 +408,6 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
                         toHandle.Enqueue(platform);
                     }
                 }
-            }
-        }
-
-        // apparently you can enumerate an enumerable but not an enumerator, so here is the enumerator enumerator
-        // that turns an enumerator into an enumerable that just returns the enumerator because C# is very yes indeed
-        private class EnumeratorEnumerator<T> : IEnumerable<T> {
-            public IEnumerator<T> Enumerator;
-
-            public IEnumerator<T> GetEnumerator() {
-                return Enumerator;
-            }
-            IEnumerator IEnumerable.GetEnumerator() {
-                return Enumerator;
             }
         }
     }
