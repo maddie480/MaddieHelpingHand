@@ -146,6 +146,7 @@ entities.MaxHelpingHand/SidewaysJumpThru.attributes.description.left=Whether the
 entities.MaxHelpingHand/SidewaysJumpThru.attributes.description.letSeekersThrough=Whether the seekers should be able to go through the jumpthru, like vanilla ones.
 entities.MaxHelpingHand/SidewaysJumpThru.attributes.description.surfaceIndex=Determines which sound the jumpthru will make when the player climbs on it.
 entities.MaxHelpingHand/SidewaysJumpThru.attributes.description.pushPlayer=Whether the jumpthru should push the player to its solid side for more leniency, like vanilla jumpthrus do.
+entities.MaxHelpingHand/SidewaysJumpThru.attributes.description.cornerCorrect=Causes the jumpthru to immediately align the player with it if they dash vertically into it, with a maximum correction of 6 pixels.
 
 # Attached Sideways Jump Thru
 entities.MaxHelpingHand/AttachedSidewaysJumpThru.placements.name.left=Sideways Jump Through (Attached, Left)
@@ -156,6 +157,7 @@ entities.MaxHelpingHand/AttachedSidewaysJumpThru.attributes.description.left=Whe
 entities.MaxHelpingHand/AttachedSidewaysJumpThru.attributes.description.letSeekersThrough=Whether the seekers should be able to go through the jumpthru, like vanilla ones.
 entities.MaxHelpingHand/AttachedSidewaysJumpThru.attributes.description.surfaceIndex=Determines which sound the jumpthru will make when the player climbs on it.
 entities.MaxHelpingHand/AttachedSidewaysJumpThru.attributes.description.pushPlayer=Whether the jumpthru should push the player to its solid side for more leniency, like vanilla jumpthrus do.
+entities.MaxHelpingHand/AttachedSidewaysJumpThru.attributes.description.cornerCorrect=Causes the jumpthru to immediately align the player with it if they dash vertically into it, with a maximum correction of 6 pixels.
 
 # Flag Breaker Box
 entities.MaxHelpingHand/FlagBreakerBox.placements.name.breaker_box=Flag Breaker Box

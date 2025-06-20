@@ -35,7 +35,8 @@ jumpthru.placements = {
             animationDelay = 0.0,
             letSeekersThrough = false,
             surfaceIndex = -1,
-            pushPlayer = false
+            pushPlayer = false,
+			cornerCorrect = false
         },
     },
     {
@@ -47,7 +48,8 @@ jumpthru.placements = {
             animationDelay = 0.0,
             letSeekersThrough = false,
             surfaceIndex = -1,
-            pushPlayer = false
+            pushPlayer = false,
+			cornerCorrect = false
         },
     }
 }
