@@ -155,6 +155,7 @@ placements.entities.MaxHelpingHand/SidewaysJumpThru.tooltips.left=Whether the so
 placements.entities.MaxHelpingHand/SidewaysJumpThru.tooltips.letSeekersThrough=Whether the seekers should be able to go through the jumpthru, like vanilla ones.
 placements.entities.MaxHelpingHand/SidewaysJumpThru.tooltips.surfaceIndex=Determines which sound the jumpthru will make when the player climbs on it.
 placements.entities.MaxHelpingHand/SidewaysJumpThru.tooltips.pushPlayer=Whether the jumpthru should push the player to its solid side for more leniency, like vanilla jumpthrus do.
+placements.entities.MaxHelpingHand/SidewaysJumpThru.tooltips.cornerCorrect=Causes the jumpthru to immediately align the player with it if they dash vertically into it, with a maximum correction of 6 pixels.
 
 # Attached Sideways Jump Thru
 placements.entities.MaxHelpingHand/AttachedSidewaysJumpThru.tooltips.texture=Changes the appearance of the platform. Should be in the same format as vanilla for static jumpthrus, and a 8x8 image for animated ones.
@@ -163,6 +164,7 @@ placements.entities.MaxHelpingHand/AttachedSidewaysJumpThru.tooltips.left=Whethe
 placements.entities.MaxHelpingHand/AttachedSidewaysJumpThru.tooltips.letSeekersThrough=Whether the seekers should be able to go through the jumpthru, like vanilla ones.
 placements.entities.MaxHelpingHand/AttachedSidewaysJumpThru.tooltips.surfaceIndex=Determines which sound the jumpthru will make when the player climbs on it.
 placements.entities.MaxHelpingHand/AttachedSidewaysJumpThru.tooltips.pushPlayer=Whether the jumpthru should push the player to its solid side for more leniency, like vanilla jumpthrus do.
+placements.entities.MaxHelpingHand/AttachedSidewaysJumpThru.tooltips.cornerCorrect=Causes the jumpthru to immediately align the player with it if they dash vertically into it, with a maximum correction of 6 pixels.
 
 # Floaty Space Block with Attached Sideways Jumpthru support
 placements.entities.MaxHelpingHand/FloatySpaceBlockWithAttachedSidewaysJumpthruSupport.tooltips.tiletype=Determines the visual appearance of the wall.

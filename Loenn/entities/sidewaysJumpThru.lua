@@ -36,7 +36,7 @@ jumpthru.placements = {
             letSeekersThrough = false,
             surfaceIndex = -1,
             pushPlayer = false,
-			cornerCorrect = false
+            cornerCorrect = false
         },
     },
     {
@@ -49,7 +49,7 @@ jumpthru.placements = {
             letSeekersThrough = false,
             surfaceIndex = -1,
             pushPlayer = false,
-			cornerCorrect = false
+            cornerCorrect = false
         },
     }
 }

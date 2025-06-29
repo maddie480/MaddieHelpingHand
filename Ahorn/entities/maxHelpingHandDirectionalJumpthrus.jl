@@ -141,10 +141,10 @@ Ahorn.rotated(entity::RegularJumpThru, steps::Int) = SidewaysJumpThru(entity.x, 
 
 # ==== Sideways jumpthrus
 
-@mapdef Entity "MaxHelpingHand/SidewaysJumpThru" SidewaysJumpThru(x::Integer, y::Integer, height::Integer=Maple.defaultBlockHeight,
-    left::Bool=true, texture::String="wood", animationDelay::Number=0.0, letSeekersThrough::Bool=false, surfaceIndex::Int=-1, pushPlayer::Bool=false)
-@mapdef Entity "MaxHelpingHand/AttachedSidewaysJumpThru" AttachedSidewaysJumpThru(x::Integer, y::Integer, height::Integer=Maple.defaultBlockHeight,
-    left::Bool=true, texture::String="wood", animationDelay::Number=0.0, letSeekersThrough::Bool=false, surfaceIndex::Int=-1, pushPlayer::Bool=false)
+@mapdef Entity "MaxHelpingHand/SidewaysJumpThru" SidewaysJumpThru(x::Integer, y::Integer, height::Integer=Maple.defaultBlockHeight, left::Bool=true,
+    texture::String="wood", animationDelay::Number=0.0, letSeekersThrough::Bool=false, surfaceIndex::Int=-1, pushPlayer::Bool=false, cornerCorrect::Bool=false)
+@mapdef Entity "MaxHelpingHand/AttachedSidewaysJumpThru" AttachedSidewaysJumpThru(x::Integer, y::Integer, height::Integer=Maple.defaultBlockHeight, left::Bool=true,
+    texture::String="wood", animationDelay::Number=0.0, letSeekersThrough::Bool=false, surfaceIndex::Int=-1, pushPlayer::Bool=false, cornerCorrect::Bool=false)
 
 const placements = Ahorn.PlacementDict(
     "Upside Down Jump Through (Maddie's Helping Hand)" => Ahorn.EntityPlacement(

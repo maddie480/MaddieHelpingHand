@@ -363,9 +363,8 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
         private bool cornerCorrect;
 
         public SidewaysJumpThru(Vector2 position, int height, bool allowLeftToRight, string overrideTexture, float animationDelay, bool allowClimbing, bool allowWallJumping, bool letSeekersThrough, int surfaceIndex, bool pushPlayer, bool cornerCorrect)
-            : this(position, height, allowLeftToRight, overrideTexture, animationDelay, allowClimbing, allowWallJumping, letSeekersThrough, surfaceIndex) {
+            : this(position, height, allowLeftToRight, overrideTexture, animationDelay, allowClimbing, allowWallJumping, letSeekersThrough, surfaceIndex, pushPlayer) {
 
-            this.pushPlayer = pushPlayer;
             this.cornerCorrect = cornerCorrect;
         }
 
