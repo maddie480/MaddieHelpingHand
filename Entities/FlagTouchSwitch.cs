@@ -310,7 +310,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
 
                 // trigger associated dream flag switch gate(s) from Communal Helper
                 foreach (Entity dreamFlagSwitchGate in level.Entities
-                    .Where(entity => entity.GetType().ToString() == "Celeste.Mod.CommunalHelper.DreamSwitchGate")
+                    .Where(entity => entity.GetType().ToString() == "Celeste.Mod.CommunalHelper.Entities.DreamSwitchGate")
                     .Where(dreamSwitchGate => {
                         // said dream switch gate should be flag too, but that's a private field.
                         if (dreamSwitchGateIsFlagSwitchGate == null) {
