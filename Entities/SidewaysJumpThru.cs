@@ -360,6 +360,14 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
         private bool letSeekersThrough;
 
         private bool pushPlayer;
+        private bool cornerCorrect;
+
+        public SidewaysJumpThru(Vector2 position, int height, bool allowLeftToRight, string overrideTexture, float animationDelay, bool allowClimbing, bool allowWallJumping, bool letSeekersThrough, int surfaceIndex, bool pushPlayer, bool cornerCorrect)
+            : this(position, height, allowLeftToRight, overrideTexture, animationDelay, allowClimbing, allowWallJumping, letSeekersThrough, surfaceIndex) {
+
+            this.pushPlayer = pushPlayer;
+            this.cornerCorrect = cornerCorrect;
+        }
 
         public SidewaysJumpThru(Vector2 position, int height, bool allowLeftToRight, string overrideTexture, float animationDelay, bool allowClimbing, bool allowWallJumping, bool letSeekersThrough, int surfaceIndex, bool pushPlayer)
             : this(position, height, allowLeftToRight, overrideTexture, animationDelay, allowClimbing, allowWallJumping, letSeekersThrough, surfaceIndex) {
@@ -400,7 +408,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
         public SidewaysJumpThru(EntityData data, Vector2 offset)
             : this(data.Position + offset, data.Height, !data.Bool("left"), data.Attr("texture", "default"), data.Float("animationDelay", 0f),
                   data.Bool("allowClimbing", true), data.Bool("allowWallJumping", true), data.Bool("letSeekersThrough", false), data.Int("surfaceIndex", -1),
-                  data.Bool("pushPlayer", false)) { }
+                  data.Bool("pushPlayer", false), data.Bool("cornerCorrect")) { }
 
         public override void Awake(Scene scene) {
             if (animationDelay > 0f) {
@@ -457,9 +465,13 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
         public override void Update() {
             base.Update();
 
+            Player p = CollideFirst<Player>();
+
+            if (p == null)
+                return;
+
             // if we are supposed to push the player and the player is hitting us...
-            Player p;
-            if (pushPlayer && (p = CollideFirst<Player>()) != null) {
+            if (pushPlayer) {
                 DynData<Player> playerData = new DynData<Player>(p);
                 if (AllowLeftToRight) {
                     // player is moving right, not on the ground, not climbing, not blocked => push them to the right
@@ -476,6 +488,13 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
                         p.MoveH(-40f * Engine.DeltaTime);
                     }
                 }
+            }
+
+            if (cornerCorrect && (p.StateMachine.State == Player.StDash || p.StateMachine.State == Player.StRedDash) && Math.Abs(p.DashDir.X) < 0.1f) {
+                if (AllowLeftToRight && Right - p.Left <= 6f)
+                    p.MoveHExact((int) (Right - p.Left));
+                else if (!AllowLeftToRight && p.Right - Left <= 6f)
+                    p.MoveHExact((int) (Left - p.Right));
             }
         }
     }
