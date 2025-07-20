@@ -132,7 +132,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
                     if (entity is CustomSeekerBarrier seekerBarrier) {
                         return collideCondition(seekerBarrier) && !seekerBarrier.isDisabled;
                     }
-                    return false;
+                    return orig;
                 });
             }
         }
