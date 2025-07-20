@@ -313,6 +313,7 @@ namespace Celeste.Mod.MaxHelpingHand.Module {
             VivHelperGrowBlockFixup.LoadMods();
             UpsideDownMovingPlatformGravityHelper.LoadMods();
             MiniHeartDoorUnfixController.Initialize();
+            CustomSeekerBarrier.LoadMods();
 
             if (!hookedSineParallax && Everest.Loader.DependencyLoaded(new EverestModuleMetadata() { Name = "FlaglinesAndSuch", Version = new Version(1, 4, 17) })) {
                 hookSineParallax();
