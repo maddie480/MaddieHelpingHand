@@ -93,7 +93,8 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             if (SaveData.Instance != null && SaveData.Instance.Assists.MirrorMode) {
                 drawPosition.X = MaxHelpingHandModule.CameraWidth - drawPosition.X;
             }
-            drawPosition *= 6f;
+            // usually 6f, use CameraWidth for Zoomout compatibility
+            drawPosition *= 1920f / MaxHelpingHandModule.CameraWidth;
 
             float width = (fancyTextDimensions.X + 32f) * scale;
             float height = fancyTextDimensions.Y + 32f;
