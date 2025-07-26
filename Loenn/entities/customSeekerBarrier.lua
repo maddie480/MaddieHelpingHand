@@ -16,8 +16,9 @@ seekerBarrier.placements = {
         wavy = true,
         killSeekers = true,
         killJellyfish = true,
-        disableIfFlag = "CustomSeekerBarrierDisabledFlag",
-        killHoldableContainerNonSlowFall = false
+        disableIfFlag = "",
+        killHoldableContainerNonSlowFall = true,
+        killHoldableContainerSlowFall = true
     }
 }
 

@@ -7,10 +7,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using Celeste.Mod.EeveeHelper.Entities;
-using Celeste.Mod.ExCameraDynamics;
-using Celeste.Mod.MaxHelpingHand.Module;
-using FrostHelper;
 using Mono.Cecil;
 using MonoMod.RuntimeDetour;
 using MonoMod.Utils;
@@ -19,14 +15,16 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
     [CustomEntity("MaxHelpingHand/CustomSeekerBarrier")]
     [TrackedAs(typeof(SeekerBarrier))]
     public class CustomSeekerBarrier : SeekerBarrier {
+        private static ILHook eeveeHoldableContainerUpdateHook;
+
         public static void Load() {
             IL.Celeste.Seeker.Update += onSeekerUpdate;
             IL.Celeste.Glider.Update += onJellyUpdate;
-            IL.Celeste.BloomRenderer.Apply += BloomRendererOnApply;
+            IL.Celeste.BloomRenderer.Apply += onBloomRendererApply;
         }
 
         public static void LoadMods() {
-            using (new DetourContext { After = { "*" } }) { 
+            using (new DetourContext { After = { "*" } }) {
                 if (eeveeHoldableContainerUpdateHook == null && Everest.Loader.DependencyLoaded(new EverestModuleMetadata { Name = "EeveeHelper", Version = new Version(1, 12, 2) })) {
                     Type holdableContainerType = Everest.Modules.First(mod => mod.GetType().ToString() == "Celeste.Mod.EeveeHelper.EeveeHelperModule")
                         .GetType().Assembly.GetType("Celeste.Mod.EeveeHelper.Entities.HoldableContainer");
@@ -41,23 +39,21 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
         public static void Unload() {
             IL.Celeste.Seeker.Update -= onSeekerUpdate;
             IL.Celeste.Glider.Update -= onJellyUpdate;
-            IL.Celeste.BloomRenderer.Apply -= BloomRendererOnApply;
-            
+            IL.Celeste.BloomRenderer.Apply -= onBloomRendererApply;
+
             eeveeHoldableContainerUpdateHook?.Dispose();
             eeveeHoldableContainerUpdateHook = null;
         }
- 
-        private static void BloomRendererOnApply(ILContext il)
-        {
+
+        private static void onBloomRendererApply(ILContext il) {
             ILCursor cursor = new ILCursor(il);
             if (cursor.TryGotoNext(
-                    ins => ins.MatchLdloca(9),
-                    ins => ins.MatchCall(out MethodReference _),
-                    ins => ins.MatchCallvirt(out MethodReference _),
-                    ins => ins.MatchCall(out MethodReference _),
-                    ins => ins.MatchCall(out MethodReference _)
-                ))
-            {
+                ins => ins.MatchLdloca(9),
+                ins => ins.MatchCall(out MethodReference _),
+                ins => ins.MatchCallvirt(out MethodReference _),
+                ins => ins.MatchCall(out MethodReference _),
+                ins => ins.MatchCall(out MethodReference _)
+            )) {
 
                 MethodInfo getCurrentMethod = typeof(List<Entity>.Enumerator).GetProperty("Current").GetGetMethod();
 
@@ -66,16 +62,14 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
                 cursor.Emit(OpCodes.Call, getCurrentMethod);
                 cursor.Index -= 2;
                 // should render?
-                cursor.EmitDelegate<Func<Entity, int>>(entity =>
-                {
-                    if (entity is CustomSeekerBarrier barrier)
-                    {
+                cursor.EmitDelegate<Func<Entity, int>>(entity => {
+                    if (entity is CustomSeekerBarrier barrier) {
                         return barrier.isDisabled ? 0 : 1;
                     }
-                
+
                     return 1;
                 });
-                ILLabel skipRenderLabel= cursor.DefineLabel();
+                ILLabel skipRenderLabel = cursor.DefineLabel();
                 cursor.Emit(OpCodes.Brfalse, skipRenderLabel);
 
                 cursor.TryGotoNext(ins => ins.MatchBrtrue(out ILLabel _));
@@ -83,7 +77,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
                 cursor.MarkLabel(skipRenderLabel);
             }
         }
-        
+
         private static void onSeekerUpdate(ILContext il) {
             onSeekerOrJellyUpdate(il, seekerBarrier => seekerBarrier.killSeekers);
         }
@@ -91,16 +85,16 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
         private static void onJellyUpdate(ILContext il) {
             onSeekerOrJellyUpdate(il, seekerBarrier => seekerBarrier.killJellyfish);
         }
-        
+
         private static void onHoldableContainerUpdate(ILContext il) {
-            onHoldableUpdate(il, (seekerBarrier, container) =>
-            {
+            onHoldableUpdate(il, (seekerBarrier, container) => {
                 bool slowFall = new DynamicData(container).Get<bool>("slowFall");
-                return slowFall && seekerBarrier.killJellyfish  || !slowFall && seekerBarrier.killHoldableContainerNonSlowFall;
+                return (slowFall && seekerBarrier.killHoldableContainerSlowFall)
+                    || (!slowFall && seekerBarrier.killHoldableContainerNonSlowFall);
             });
         }
-        
-        private static void onHoldableUpdate(ILContext il, Func<CustomSeekerBarrier, HoldableContainer, bool> collideCondition) {
+
+        private static void onHoldableUpdate(ILContext il, Func<CustomSeekerBarrier, Entity, bool> collideCondition) {
             ILCursor cursor = new ILCursor(il);
             cursor.TryGotoNext(instr => instr.MatchStloc(9));
             if (cursor.TryGotoNext(instr => instr.MatchLdcI4(1), instr => instr.MatchStfld<Entity>("Collidable"))) {
@@ -109,10 +103,8 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
                 cursor.Emit(OpCodes.Dup);
                 cursor.Emit(OpCodes.Ldarg_0);
                 cursor.Index++;
-                cursor.EmitDelegate<Func<Entity, HoldableContainer, bool, bool>>((entity, holdableContainer, orig) =>
-                {
-                    if (entity is CustomSeekerBarrier seekerBarrier)
-                    {
+                cursor.EmitDelegate<Func<Entity, Entity, bool, bool>>((entity, holdableContainer, orig) => {
+                    if (entity is CustomSeekerBarrier seekerBarrier) {
                         return collideCondition(seekerBarrier, holdableContainer) && !seekerBarrier.isDisabled;
                     }
                     return orig;
@@ -151,11 +143,11 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
 
         private bool killSeekers;
         private bool killJellyfish;
-        
+
         private bool killHoldableContainerNonSlowFall;
+        private bool killHoldableContainerSlowFall;
         private string disableIfFlag;
         private bool isDisabled;
-        private static ILHook eeveeHoldableContainerUpdateHook;
 
         public CustomSeekerBarrier(EntityData data, Vector2 offset) : base(data, offset) {
             renderer = new Renderer() {
@@ -172,9 +164,10 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
 
             killSeekers = data.Bool("killSeekers", defaultValue: true);
             killJellyfish = data.Bool("killJellyfish", defaultValue: true);
-            
-            disableIfFlag = data.Attr("disableIfFlag", "CustomSeekerBarrierDisabledFlag");
-            killHoldableContainerNonSlowFall = data.Bool("killHoldableContainerNonSlowFall", false);
+
+            disableIfFlag = data.Attr("disableIfFlag");
+            killHoldableContainerNonSlowFall = data.Bool("killHoldableContainerNonSlowFall", defaultValue: true);
+            killHoldableContainerSlowFall = data.Bool("killHoldableContainerSlowFall", defaultValue: true);
         }
 
         public override void Added(Scene scene) {
@@ -197,18 +190,17 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             }
         }
 
-        public override void Update()
-        {
+        public override void Update() {
             base.Update();
+
+            if (string.IsNullOrEmpty(disableIfFlag)) return;
+
             Session session = SceneAs<Level>().Session;
-            if (!isDisabled && session.GetFlag(disableIfFlag))
-            {
+            if (!isDisabled && session.GetFlag(disableIfFlag)) {
                 isDisabled = true;
                 renderer.Untrack(this);
                 Visible = false;
-            }
-            else if (isDisabled && !session.GetFlag(disableIfFlag))
-            {
+            } else if (isDisabled && !session.GetFlag(disableIfFlag)) {
                 isDisabled = false;
                 renderer.Track(this);
                 Visible = true;

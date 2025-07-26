@@ -112,6 +112,12 @@ entities.MaxHelpingHand/CustomSeekerBarrier.attributes.description.particleDirec
 entities.MaxHelpingHand/CustomSeekerBarrier.attributes.description.wavy=Whether the edges of the seeker barrier should be wavy.
 entities.MaxHelpingHand/CustomSeekerBarrier.attributes.description.killSeekers=Whether this seeker barrier should kill seekers on contact.
 entities.MaxHelpingHand/CustomSeekerBarrier.attributes.description.killJellyfish=Whether this seeker barrier should kill jellyfish on contact.
+entities.MaxHelpingHand/CustomSeekerBarrier.attributes.name.killHoldableContainerNonSlowFall=Kill Containers (Non Slow Fall)
+entities.MaxHelpingHand/CustomSeekerBarrier.attributes.name.killHoldableContainerSlowFall=Kill Containers (Slow Fall)
+entities.MaxHelpingHand/CustomSeekerBarrier.attributes.description.killHoldableContainerNonSlowFall=Whether this seeker barrier should kill Holdable Containers (from Eevee Helper) with the "Slow Fall" option disabled.
+entities.MaxHelpingHand/CustomSeekerBarrier.attributes.description.killHoldableContainerSlowFall=Whether this seeker barrier should kill Holdable Containers (from Eevee Helper) with the "Slow Fall" option enabled.
+entities.MaxHelpingHand/CustomSeekerBarrier.attributes.description.killHoldableContainerSlowFall=Whether this seeker barrier should kill Holdable Containers (from Eevee Helper) with the "Slow Fall" option enabled.
+entities.MaxHelpingHand/CustomSeekerBarrier.attributes.description.disableIfFlag=If the given flag is enabled, this seeker barrier will disappear.\nLeave empty to disable the feature.
 
 # Custom Summit Checkpoints
 entities.MaxHelpingHand/CustomSummitCheckpoint.placements.name.summit_checkpoint=Custom Summit Checkpoint

@@ -15,9 +15,6 @@
       <HintPath>lib-stripped\Celeste.exe</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="EeveeHelper">
-      <HintPath>lib-stripped\EeveeHelper.dll</HintPath>
-    </Reference>
     <Reference Include="ExCameraDynamics">
       <HintPath>lib-stripped\ExCameraDynamics.dll</HintPath>
       <Private>false</Private>
