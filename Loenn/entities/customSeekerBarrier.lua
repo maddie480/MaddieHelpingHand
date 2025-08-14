@@ -15,7 +15,10 @@ seekerBarrier.placements = {
         particleDirection = 0.0,
         wavy = true,
         killSeekers = true,
-        killJellyfish = true
+        killJellyfish = true,
+        disableIfFlag = "",
+        killHoldableContainerNonSlowFall = true,
+        killHoldableContainerSlowFall = true
     }
 }
 

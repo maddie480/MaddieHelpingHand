@@ -142,8 +142,10 @@ namespace Celeste.Mod.MaxHelpingHand.Triggers {
             // draw our image in ""substractive"" mode over the resort dust layer.
             float shift = (Engine.Scene.TimeActive * speed) % image.Width;
             Draw.SpriteBatch.Begin(SpriteSortMode.Deferred, substractive, SamplerState.PointClamp, DepthStencilState.None, RasterizerState.CullNone, null, Matrix.Identity);
-            for (float offset = -shift; offset < MaxHelpingHandModule.BufferWidth; offset += image.Width) {
-                Draw.SpriteBatch.Draw(image.Texture.Texture, new Vector2(offset, 0), Color.White);
+            for (float y = 0; y < MaxHelpingHandModule.BufferHeight; y += image.Height) { // this will loop once, unless zoom out is active
+                for (float offset = -shift; offset < MaxHelpingHandModule.BufferWidth; offset += image.Width) {
+                    Draw.SpriteBatch.Draw(image.Texture.Texture, new Vector2(offset, y), Color.White);
+                }
             }
             Draw.SpriteBatch.End();
         }

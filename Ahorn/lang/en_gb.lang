@@ -805,6 +805,12 @@ placements.entities.MaxHelpingHand/CustomSeekerBarrier.tooltips.particleDirectio
 placements.entities.MaxHelpingHand/CustomSeekerBarrier.tooltips.wavy=Whether the edges of the seeker barrier should be wavy.
 placements.entities.MaxHelpingHand/CustomSeekerBarrier.tooltips.killSeekers=Whether this seeker barrier should kill seekers on contact.
 placements.entities.MaxHelpingHand/CustomSeekerBarrier.tooltips.killJellyfish=Whether this seeker barrier should kill jellyfish on contact.
+placements.entities.MaxHelpingHand/CustomSeekerBarrier.names.killHoldableContainerNonSlowFall=Kill Containers (Non Slow Fall)
+placements.entities.MaxHelpingHand/CustomSeekerBarrier.names.killHoldableContainerSlowFall=Kill Containers (Slow Fall)
+placements.entities.MaxHelpingHand/CustomSeekerBarrier.tooltips.killHoldableContainerNonSlowFall=Whether this seeker barrier should kill Holdable Containers (from Eevee Helper) with the "Slow Fall" option disabled.
+placements.entities.MaxHelpingHand/CustomSeekerBarrier.tooltips.killHoldableContainerSlowFall=Whether this seeker barrier should kill Holdable Containers (from Eevee Helper) with the "Slow Fall" option enabled.
+placements.entities.MaxHelpingHand/CustomSeekerBarrier.tooltips.killHoldableContainerSlowFall=Whether this seeker barrier should kill Holdable Containers (from Eevee Helper) with the "Slow Fall" option enabled.
+placements.entities.MaxHelpingHand/CustomSeekerBarrier.tooltips.disableIfFlag=If the given flag is enabled, this seeker barrier will disappear.\nLeave empty to disable the feature.
 
 # Custom Memorial (with Dreaming attribute)
 placements.entities.MaxHelpingHand/CustomMemorialWithDreamingAttribute.tooltips.dreaming=Changes the memorial's text to the dream state from Old Site.
