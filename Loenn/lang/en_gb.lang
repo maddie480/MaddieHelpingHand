@@ -993,6 +993,7 @@ triggers.MaxHelpingHand/MadelinePonytailTrigger.attributes.description.enable=Wh
 # Madeline Silhouette Trigger
 triggers.MaxHelpingHand/MadelineSilhouetteTrigger.placements.name.trigger=Madeline Silhouette
 triggers.MaxHelpingHand/MadelineSilhouetteTrigger.attributes.description.enable=If checked, the trigger will turn Madeline into a silhouette. If unchecked, it will turn Madeline back to normal.
+triggers.MaxHelpingHand/MadelineSilhouetteTrigger.attributes.description.revertOnLeave=If checked, Madeline will revert back to the old state when you leave the trigger.
 
 # One-Way Camera Trigger
 triggers.MaxHelpingHand/OneWayCameraTrigger.placements.name.trigger=One-Way Camera
