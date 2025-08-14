@@ -102,6 +102,7 @@ namespace Celeste.Mod.MaxHelpingHand.Triggers {
 
         public MadelineSilhouetteTrigger(EntityData data, Vector2 offset) : base(data, offset) {
             enable = data.Bool("enable", true);
+            revertOnLeave = data.Bool("onlyActiveWhileInside", false);
         }
 
         public override void OnEnter(Player player) {
