@@ -20,7 +20,8 @@ touchSwitch.placements = {
             movingColor = "FF8080",
             activeColor = "FFFFFF",
             finishColor = "F141DF",
-            hideIfFlag = ""
+            hideIfFlag = "",
+            legacyFlagMode = false
         }
     }
 }

@@ -3,7 +3,7 @@
 using ..Ahorn, Maple
 
 @mapdef Entity "MaxHelpingHand/MovingFlagTouchSwitch" MovingFlagTouchSwitch(x::Integer, y::Integer,
-    flag::String="moving_flag_touch_switch", icon::String="vanilla", persistent::Bool=false, movingDelay::Number=0.8,
+    flag::String="moving_flag_touch_switch", icon::String="vanilla", persistent::Bool=false, movingDelay::Number=0.8, legacyFlagMode::Bool=false,
     inactiveColor::String="5FCDE4", movingColor::String="FF8080", activeColor::String="FFFFFF", finishColor::String="F141DF", hideIfFlag::String="")
 
 const placements = Ahorn.PlacementDict(

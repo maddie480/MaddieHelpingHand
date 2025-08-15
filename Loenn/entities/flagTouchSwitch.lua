@@ -23,7 +23,8 @@ touchSwitch.placements = {
             hitSound = "event:/game/general/touchswitch_any",
             completeSoundFromSwitch = "event:/game/general/touchswitch_last_cutoff",
             completeSoundFromScene = "event:/game/general/touchswitch_last_oneshot",
-            hideIfFlag = ""
+            hideIfFlag = "",
+            legacyFlagMode = false
         }
     }
 }

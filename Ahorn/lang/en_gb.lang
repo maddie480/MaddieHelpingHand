@@ -33,6 +33,7 @@ placements.entities.MaxHelpingHand/FlagTouchSwitch.names.completeSoundFromSwitch
 placements.entities.MaxHelpingHand/FlagTouchSwitch.names.completeSoundFromScene=Complete Sound (Global)
 placements.entities.MaxHelpingHand/FlagTouchSwitch.tooltips.hideIfFlag=If a session flag is specified here, turning it on will make the touch switch disappear, and will make other touch switches in the room ignore it for the group's completion.
 placements.entities.MaxHelpingHand/FlagTouchSwitch.tooltips.animationLength=The length of the provided spinning animation, in frames.
+placements.entities.MaxHelpingHand/FlagTouchSwitch.tooltips.legacyFlagMode=Enables the old behavior of flag touch switches: if any touch switch or switch gate is not persistent, the flag won't actually be set.\nThis caused major confusion when trying to trigger other entities, so...
 
 # Flag Touch Switch Wall
 placements.entities.MaxHelpingHand/FlagTouchSwitchWall.tooltips.flag=The session flag this touch switch sets. Give the same to multiple touch switches and switch gates to group them.
@@ -52,6 +53,7 @@ placements.entities.MaxHelpingHand/FlagTouchSwitchWall.names.completeSoundFromSw
 placements.entities.MaxHelpingHand/FlagTouchSwitchWall.names.completeSoundFromScene=Complete Sound (Global)
 placements.entities.MaxHelpingHand/FlagTouchSwitchWall.tooltips.hideIfFlag=If a session flag is specified here, turning it on will make the touch switch disappear, and will make other touch switches in the room ignore it for the group's completion.
 placements.entities.MaxHelpingHand/FlagTouchSwitchWall.tooltips.animationLength=The length of the provided spinning animation, in frames.
+placements.entities.MaxHelpingHand/FlagTouchSwitchWall.tooltips.legacyFlagMode=Enables the old behavior of flag touch switches: if any touch switch or switch gate is not persistent, the flag won't actually be set.\nThis caused major confusion when trying to trigger other entities, so...
 
 # Moving Flag Touch Switch
 placements.entities.MaxHelpingHand/MovingFlagTouchSwitch.tooltips.flag=The session flag this touch switch sets. Give the same to multiple touch switches and switch gates to group them.
@@ -63,6 +65,7 @@ placements.entities.MaxHelpingHand/MovingFlagTouchSwitch.tooltips.movingColor=Th
 placements.entities.MaxHelpingHand/MovingFlagTouchSwitch.tooltips.activeColor=The switch color when triggered, but the group is not complete yet.
 placements.entities.MaxHelpingHand/MovingFlagTouchSwitch.tooltips.finishColor=The switch color when the group is complete.
 placements.entities.MaxHelpingHand/MovingFlagTouchSwitch.tooltips.hideIfFlag=If a session flag is specified here, turning it on will make the touch switch disappear, and will make other touch switches in the room ignore it for the group's completion.
+placements.entities.MaxHelpingHand/MovingFlagTouchSwitch.tooltips.legacyFlagMode=Enables the old behavior of flag touch switches: if any touch switch or switch gate is not persistent, the flag won't actually be set.\nThis caused major confusion when trying to trigger other entities, so...
 
 # Flag Switch Gate
 placements.entities.MaxHelpingHand/FlagSwitchGate.tooltips.flag=The session flag this switch gate reacts to. Give the same to multiple touch switches and switch gates to group them.

@@ -183,6 +183,15 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
 
             Add(new VertexLight(Color.White, 0.8f, 16, 32) { Position = IconPosition });
             Add(touchSfx = new SoundSource { Position = IconPosition });
+
+            // leverage the Set Flag On Spawn Controller technology to access the level early
+            Level level = Engine.Scene as Level ?? (Engine.Scene as LevelLoader)?.Level;
+            if (level == null) return;
+            // disable the flag if it isn't supposed to be persistent, unless if we're in Legacy Flag Mode,
+            // since the flag won't have been activated in the first place... because this seemed like a good idea at the time.
+            if (!isLegacyFlagMode(level, flag, inverted) && !isEverythingPersistent(level, flag, inverted)) {
+                level.Session.SetFlag(flag, inverted);
+            }
         }
 
         protected virtual void setUpCollision(EntityData data) {
@@ -326,24 +335,20 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
 
 
                 // set flags for switch gates.
-                bool allGatesTriggered = true;
                 if (MaxHelpingHandMapDataProcessor.FlagSwitchGates[level.Session.Area.SID][(int) level.Session.Area.Mode].ContainsKey(flag)) {
                     Dictionary<EntityID, bool> allGates = MaxHelpingHandMapDataProcessor.FlagSwitchGates[level.Session.Area.SID][(int) level.Session.Area.Mode][flag];
                     foreach (KeyValuePair<EntityID, bool> gate in allGates) {
                         if (gate.Value) {
                             // the gate is persistent; set the flag
                             level.Session.SetFlag(flag + "_gate" + gate.Key.ID);
-                        } else {
-                            // one of the gates is not persistent, so the touch switches shouldn't be forced to persist.
-                            allGatesTriggered = false;
                         }
                     }
                 }
 
-                // if all the switches OR all the gates are persistent, the flag it's setting is persistent.
-                if ((allTouchSwitchesInRoom.All(touchSwitch => touchSwitch.persistent) &&
-                    allMovingFlagTouchSwitchesInRoom.All(touchSwitch => new DynData<TouchSwitch>(touchSwitch).Get<bool>("persistent"))) || allGatesTriggered) {
-
+                // In Legacy Flag Mode, having one non-persistent switch or gate would prevent the flag from being set, because flags are persistent.
+                // Massive confusion ensued. "What do you mean, the flag touch switch doesn't set a flag???"
+                // So, now the flag is always set, and if something is not persistent, it is reset on spawn instead.
+                if (!isLegacyFlagMode(level, flag, inverted) || isEverythingPersistent(level, flag, inverted)) {
                     level.Session.SetFlag(flag, !inverted);
                 }
 
@@ -351,6 +356,32 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             }
 
             return false;
+        }
+
+        private static bool getOrAssumeTrue(Dictionary<string, List<Dictionary<KeyValuePair<string, bool>, bool>>> dictionary, string name, Level level, string flag, bool inverted) {
+            KeyValuePair<string, bool> flagId = new KeyValuePair<string, bool>(flag, inverted);
+            if (dictionary[level.Session.Area.SID][(int) level.Session.Area.Mode].TryGetValue(flagId, out bool value)) {
+                return value;
+            }
+            Logger.Log(LogLevel.Warn, "MaxHelpingHand/FlagTouchSwitch", $"Seems like there's a hole in the {name} dictionary ({level.Session.Area.SID} / {level.Session.Area.Mode} / {flagId})! Assuming true!");
+            return true;
+        }
+
+        private static bool isLegacyFlagMode(Level level, string flag, bool inverted) {
+            return getOrAssumeTrue(MaxHelpingHandMapDataProcessor.FlagLegacyModes, "FlagLegacyModes", level, flag, inverted);
+        }
+
+        private static bool isEverythingPersistent(Level level, string flag, bool inverted) {
+            // is there any non-persistent gate?
+            if (MaxHelpingHandMapDataProcessor.FlagSwitchGates[level.Session.Area.SID][(int) level.Session.Area.Mode].TryGetValue(flag, out Dictionary<EntityID, bool> allGates)) {
+                foreach (bool isGatePersistent in allGates.Values) {
+                    if (!isGatePersistent) {
+                        return false;
+                    }
+                }
+            }
+            // is there any non-persistent switch? the map data processor should have checked that for us already.
+            return getOrAssumeTrue(MaxHelpingHandMapDataProcessor.FlagPersistences, "FlagPersistences", level, flag, inverted);
         }
 
         private void finish() {

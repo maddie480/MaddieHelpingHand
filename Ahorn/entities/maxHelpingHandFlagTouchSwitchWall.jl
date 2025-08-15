@@ -5,7 +5,7 @@ using ..Ahorn, Maple
 @mapdef Entity "MaxHelpingHand/FlagTouchSwitchWall" FlagTouchSwitchWall(x::Integer, y::Integer, width::Integer=16, height::Integer=16,
     flag::String="flag_touch_switch", icon::String="vanilla", persistent::Bool=false, hideIfFlag::String="",
     inactiveColor::String="5FCDE4", activeColor::String="FFFFFF", finishColor::String="F141DF", smoke::Bool=true, animationLength::Integer=6,
-    inverted::Bool=false, allowDisable::Bool=false, playerCanActivate::Bool=true, hitSound::String="event:/game/general/touchswitch_any",
+    inverted::Bool=false, allowDisable::Bool=false, playerCanActivate::Bool=true, legacyFlagMode::Bool=false, hitSound::String="event:/game/general/touchswitch_any",
     completeSoundFromSwitch::String="event:/game/general/touchswitch_last_cutoff", completeSoundFromScene::String="event:/game/general/touchswitch_last_oneshot")
 
 const bundledIcons = String["vanilla", "tall", "triangle", "circle", "diamond", "double", "heart", "square", "wide", "winged", "cross", "drop", "hourglass", "split", "star", "triple"]

@@ -7,6 +7,8 @@ namespace Celeste.Mod.MaxHelpingHand.Module {
         // the structure here is: FlagTouchSwitches[AreaSID][ModeID][flagName, inverted] = list of entity ids for flag touch switches / flag switch gates in this group on this map.
         public static Dictionary<string, List<Dictionary<KeyValuePair<string, bool>, List<EntityID>>>> FlagTouchSwitches = new Dictionary<string, List<Dictionary<KeyValuePair<string, bool>, List<EntityID>>>>();
         public static Dictionary<string, List<Dictionary<string, Dictionary<EntityID, bool>>>> FlagSwitchGates = new Dictionary<string, List<Dictionary<string, Dictionary<EntityID, bool>>>>();
+        public static Dictionary<string, List<Dictionary<KeyValuePair<string, bool>, bool>>> FlagPersistences = new Dictionary<string, List<Dictionary<KeyValuePair<string, bool>, bool>>>();
+        public static Dictionary<string, List<Dictionary<KeyValuePair<string, bool>, bool>>> FlagLegacyModes = new Dictionary<string, List<Dictionary<KeyValuePair<string, bool>, bool>>>();
         public static int DetectedSecretBerries = 0;
         private string levelName;
 
@@ -14,6 +16,23 @@ namespace Celeste.Mod.MaxHelpingHand.Module {
         private Dictionary<string, List<BinaryPacker.Element>> multiRoomStrawberrySeedsByName = new Dictionary<string, List<BinaryPacker.Element>>();
         private Dictionary<string, EntityID> multiRoomStrawberryIDsByName = new Dictionary<string, EntityID>();
         private Dictionary<string, BinaryPacker.Element> multiRoomStrawberriesByName = new Dictionary<string, BinaryPacker.Element>();
+
+        private void anyFalseAttributeAcrossFlagMakesGlobalValueFalse(Dictionary<string, List<Dictionary<KeyValuePair<string, bool>, bool>>> dictionary,
+            BinaryPacker.Element flagTouchSwitch, string attribute) {
+
+            KeyValuePair<string, bool> flagId = new KeyValuePair<string, bool>(flagTouchSwitch.Attr("flag"), flagTouchSwitch.AttrBool("inverted"));
+            Dictionary<KeyValuePair<string, bool>, bool> allFlagsInMap = dictionary[AreaKey.SID][(int) AreaKey.Mode];
+
+            if (!allFlagsInMap.TryGetValue(flagId, out bool legacyFlagMode)) {
+                legacyFlagMode = true; // true until proven otherwise
+            }
+            if (legacyFlagMode && !flagTouchSwitch.AttrBool(attribute, defaultValue: true)) {
+                Logger.Log(LogLevel.Verbose, "MaxHelpingHand/MapDataProcessor", $"area {AreaKey.SID} / mode {AreaKey.Mode} / room {levelName} has flag touch switch {flagTouchSwitch.AttrInt("id")} with {attribute} = false, so the global flag for {flagId} turns false!");
+                legacyFlagMode = false;
+            }
+
+            allFlagsInMap[flagId] = legacyFlagMode;
+        }
 
         public override Dictionary<string, Action<BinaryPacker.Element>> Init() {
             Logger.Log(LogLevel.Verbose, "MaxHelpingHand/MapDataProcessor", $"Initializing map data processor for {AreaKey.SID} / {AreaKey.Mode}!");
@@ -56,6 +75,9 @@ namespace Celeste.Mod.MaxHelpingHand.Module {
                 entityIDs.Add(new EntityID(levelName, flagTouchSwitch.AttrInt("id")));
 
                 Logger.Log(LogLevel.Verbose, "MaxHelpingHand/MapDataProcessor", $"area {AreaKey.SID} / mode {AreaKey.Mode} / room {levelName} has flag touch switch {flagTouchSwitch.AttrInt("id")} with flag {key}");
+
+                anyFalseAttributeAcrossFlagMakesGlobalValueFalse(FlagPersistences, flagTouchSwitch, "persistent");
+                anyFalseAttributeAcrossFlagMakesGlobalValueFalse(FlagLegacyModes, flagTouchSwitch, "legacyFlagMode");
             };
 
             return new Dictionary<string, Action<BinaryPacker.Element>> {
@@ -186,30 +208,27 @@ namespace Celeste.Mod.MaxHelpingHand.Module {
         public override void Reset() {
             Logger.Log(LogLevel.Verbose, "MaxHelpingHand/MapDataProcessor", $"Resetting map data processor for {AreaKey.SID} / {AreaKey.Mode}!");
 
-            if (!FlagTouchSwitches.ContainsKey(AreaKey.SID)) {
+            resetDictionaryForCurrentArea(FlagTouchSwitches);
+            resetDictionaryForCurrentArea(FlagSwitchGates);
+            resetDictionaryForCurrentArea(FlagPersistences);
+            resetDictionaryForCurrentArea(FlagLegacyModes);
+        }
+
+        /**
+         * Makes sure dictionary[AreaKey.SID][AreaKey.Mode] exists, then (re)initializes it with a new instance of TThing.
+         */
+        private void resetDictionaryForCurrentArea<TThing>(Dictionary<string, List<TThing>> dictionary) where TThing : new() {
+            if (!dictionary.ContainsKey(AreaKey.SID)) {
                 // create an entry for the current map SID.
-                FlagTouchSwitches[AreaKey.SID] = new List<Dictionary<KeyValuePair<string, bool>, List<EntityID>>>();
+                dictionary[AreaKey.SID] = new List<TThing>();
             }
-            while (FlagTouchSwitches[AreaKey.SID].Count <= (int) AreaKey.Mode) {
+            while (dictionary[AreaKey.SID].Count <= (int) AreaKey.Mode) {
                 // fill out the empty space before the current map MODE with empty dictionaries.
-                FlagTouchSwitches[AreaKey.SID].Add(new Dictionary<KeyValuePair<string, bool>, List<EntityID>>());
+                dictionary[AreaKey.SID].Add(new TThing());
             }
 
             // reset the dictionary for the current map and mode.
-            FlagTouchSwitches[AreaKey.SID][(int) AreaKey.Mode] = new Dictionary<KeyValuePair<string, bool>, List<EntityID>>();
-
-
-            if (!FlagSwitchGates.ContainsKey(AreaKey.SID)) {
-                // create an entry for the current map SID.
-                FlagSwitchGates[AreaKey.SID] = new List<Dictionary<string, Dictionary<EntityID, bool>>>();
-            }
-            while (FlagSwitchGates[AreaKey.SID].Count <= (int) AreaKey.Mode) {
-                // fill out the empty space before the current map MODE with empty dictionaries.
-                FlagSwitchGates[AreaKey.SID].Add(new Dictionary<string, Dictionary<EntityID, bool>>());
-            }
-
-            // reset the dictionary for the current map and mode.
-            FlagSwitchGates[AreaKey.SID][(int) AreaKey.Mode] = new Dictionary<string, Dictionary<EntityID, bool>>();
+            dictionary[AreaKey.SID][(int) AreaKey.Mode] = new TThing();
         }
 
         public override void End() {
