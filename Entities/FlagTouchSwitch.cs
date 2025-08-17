@@ -189,7 +189,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             if (level == null) return;
             // disable the flag if it isn't supposed to be persistent, unless if we're in Legacy Flag Mode,
             // since the flag won't have been activated in the first place... because this seemed like a good idea at the time.
-            if (!isLegacyFlagMode(level, flag, inverted) && !isEverythingPersistent(level, flag, inverted)) {
+            if (!isLegacyFlagMode(level, flag, inverted) && !isFlagPersistent(level, flag, inverted)) {
                 level.Session.SetFlag(flag, inverted);
             }
         }
@@ -345,10 +345,11 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
                     }
                 }
 
-                // In Legacy Flag Mode, having one non-persistent switch or gate would prevent the flag from being set, because flags are persistent.
+                // In Legacy Flag Mode, you needed to have all switches OR all gates be persistent in order for the flag to be set.
+                // Because flags are persistent, so they would have made all switches and gates persist.
                 // Massive confusion ensued. "What do you mean, the flag touch switch doesn't set a flag???"
                 // So, now the flag is always set, and if something is not persistent, it is reset on spawn instead.
-                if (!isLegacyFlagMode(level, flag, inverted) || isEverythingPersistent(level, flag, inverted)) {
+                if (!isLegacyFlagMode(level, flag, inverted) || isFlagPersistent(level, flag, inverted)) {
                     level.Session.SetFlag(flag, !inverted);
                 }
 
@@ -371,17 +372,31 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             return getOrAssumeTrue(MaxHelpingHandMapDataProcessor.FlagLegacyModes, "FlagLegacyModes", level, flag, inverted);
         }
 
-        private static bool isEverythingPersistent(Level level, string flag, bool inverted) {
+        /**
+         * Returns true if all switches OR all gates are persistent.
+         *
+         * In non-legacy flag mode:
+         * - the flag will be set when the group is complete.
+         * - if isFlagPersistent = false, the flag is unset on spawn, similarly to Set Flag on Spawn Controllers.
+         * In legacy flag mode:
+         * - the flag will only be set if isFlagPersistent = true.
+         * - nothing happens on respawn.
+         */
+        private static bool isFlagPersistent(Level level, string flag, bool inverted) {
             // is there any non-persistent gate?
+            bool allGatesArePersistent = true;
             if (MaxHelpingHandMapDataProcessor.FlagSwitchGates[level.Session.Area.SID][(int) level.Session.Area.Mode].TryGetValue(flag, out Dictionary<EntityID, bool> allGates)) {
                 foreach (bool isGatePersistent in allGates.Values) {
                     if (!isGatePersistent) {
-                        return false;
+                        allGatesArePersistent = false;
                     }
                 }
             }
+
             // is there any non-persistent switch? the map data processor should have checked that for us already.
-            return getOrAssumeTrue(MaxHelpingHandMapDataProcessor.FlagPersistences, "FlagPersistences", level, flag, inverted);
+            bool allSwitchesArePersistent = getOrAssumeTrue(MaxHelpingHandMapDataProcessor.FlagPersistences, "FlagPersistences", level, flag, inverted);
+
+            return allSwitchesArePersistent || allGatesArePersistent;
         }
 
         private void finish() {
