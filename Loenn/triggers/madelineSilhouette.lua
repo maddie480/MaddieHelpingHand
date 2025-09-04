@@ -9,7 +9,8 @@ trigger.triggerText = generateTriggerName
 trigger.placements = {
     name = "trigger",
     data = {
-        enable = true
+        enable = true,
+        revertOnLeave = false
     }
 }
 

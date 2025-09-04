@@ -99,21 +99,32 @@ namespace Celeste.Mod.MaxHelpingHand.Triggers {
 
 
         private bool enable;
+        private bool revertOnLeave;
+        private bool valueOnEnter;
 
         public MadelineSilhouetteTrigger(EntityData data, Vector2 offset) : base(data, offset) {
             enable = data.Bool("enable", true);
+            revertOnLeave = data.Bool("revertOnLeave", false);
         }
 
         public override void OnEnter(Player player) {
             base.OnEnter(player);
-
-            bool oldValue = MaxHelpingHandModule.Instance.Session.MadelineIsSilhouette;
+            valueOnEnter = MaxHelpingHandModule.Instance.Session.MadelineIsSilhouette;
             MaxHelpingHandModule.Instance.Session.MadelineIsSilhouette = enable;
 
             // if the value changed...
-            if (oldValue != enable) {
+            if (valueOnEnter != enable) {
                 // switch modes right now. this uses the same way as turning the "Other Self" variant on.
                 refreshPlayerSpriteMode(player, enable);
+            }
+        }
+
+        public override void OnLeave(Player player)
+        {
+            base.OnLeave(player);
+            if (revertOnLeave && valueOnEnter != MaxHelpingHandModule.Instance.Session.MadelineIsSilhouette) {
+                MaxHelpingHandModule.Instance.Session.MadelineIsSilhouette = !enable;
+                refreshPlayerSpriteMode(player, !enable);
             }
         }
     }
