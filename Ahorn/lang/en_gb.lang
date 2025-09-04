@@ -591,6 +591,7 @@ placements.entities.MaxHelpingHand/MultiNodeBumper.tooltips.flag=If specified, t
 
 # Madeline Silhouette Trigger
 placements.triggers.MaxHelpingHand/MadelineSilhouetteTrigger.tooltips.enable=If checked, the trigger will turn Madeline into a silhouette. If unchecked, it will turn Madeline back to normal.
+placements.triggers.MaxHelpingHand/MadelineSilhouetteTrigger.tooltips.revertOnLeave=If checked, Madeline will revert back to the old state when you leave the trigger.
 
 # Rotating Bumper
 placements.entities.MaxHelpingHand/RotatingBumper.tooltips.speed=The rotating speed in degrees per second. Use a negative number for counterclockwise rotation.

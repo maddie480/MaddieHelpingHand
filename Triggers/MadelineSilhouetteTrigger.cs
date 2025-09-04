@@ -119,8 +119,7 @@ namespace Celeste.Mod.MaxHelpingHand.Triggers {
             }
         }
 
-        public override void OnLeave(Player player)
-        {
+        public override void OnLeave(Player player) {
             base.OnLeave(player);
             if (revertOnLeave && valueOnEnter != MaxHelpingHandModule.Instance.Session.MadelineIsSilhouette) {
                 MaxHelpingHandModule.Instance.Session.MadelineIsSilhouette = !enable;
