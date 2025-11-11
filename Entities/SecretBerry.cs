@@ -218,6 +218,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
 
             if (!spotlightEnabled) {
                 Remove(Get<VertexLight>());
+                Remove(Get<BloomPoint>());
             }
         }
 
