@@ -18,13 +18,13 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
         private static Hook jungleHelperHook;
 
         public static void Load() {
-            using (new DetourContext { After = { "*" } }) { // ensure we override rainbow spinner color controllers
+            using (new DetourConfigContext(new DetourConfig("MaddieHelpingHand_AfterAll").WithPriority(int.MaxValue)).Use()) { // ensure we override rainbow spinner color controllers
                 On.Celeste.CrystalStaticSpinner.GetHue += getRainbowSpinnerHue;
             }
         }
 
         public static void LoadMods() {
-            using (new DetourContext { After = { "*" } }) { // ensure we override rainbow spinner color controllers
+            using (new DetourConfigContext(new DetourConfig("MaddieHelpingHand_AfterAll").WithPriority(int.MaxValue)).Use()) { // ensure we override rainbow spinner color controllers
                 if (jungleHelperHook == null && Everest.Loader.DependencyLoaded(new EverestModuleMetadata { Name = "JungleHelper", Version = new Version(1, 0, 0) })) {
                     // we want to hook Color Celeste.Mod.JungleHelper.Components.RainbowDecalComponent.getHue(Vector2) in Jungle Helper.
                     jungleHelperHook = new Hook(Everest.Modules.First(mod => mod.GetType().ToString() == "Celeste.Mod.JungleHelper.JungleHelperModule")

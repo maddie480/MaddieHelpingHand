@@ -68,7 +68,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             IL.Celeste.Actor.MoveVExact += addUpsideDownJumpthrusInMoveVExact;
             IL.Celeste.Platform.MoveVExactCollideSolids += addUpsideDownJumpthrusInCollideSolids;
 
-            using (new DetourContext { After = { "*" } }) {
+            using (new DetourConfigContext(new DetourConfig("MaddieHelpingHand_AfterAll").WithPriority(int.MaxValue)).Use()) {
                 // fix player specific behavior allowing them to go through upside-down jumpthrus.
                 On.Celeste.Player.OnCollideV += onPlayerOnCollideV;
 

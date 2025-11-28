@@ -15,10 +15,7 @@ namespace Celeste.Mod.MaxHelpingHand.Effects {
             IL.Celeste.Tentacles.Update -= modTentaclesUpdate;
         }
 
-        private Side side;
-
         public AllSideTentacles(Side side, Color color, float outwardsOffset) : base(side, color, outwardsOffset) {
-            this.side = side;
         }
 
         private static void modTentaclesUpdate(ILContext il) {

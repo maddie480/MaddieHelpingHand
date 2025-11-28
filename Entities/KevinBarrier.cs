@@ -14,7 +14,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
     [CustomEntity("MaxHelpingHand/KevinBarrier")]
     [Tracked]
     public class KevinBarrier : Solid {
-        private static List<IDetour> allSetHooks = new List<IDetour>();
+        private static List<IDisposable> allSetHooks = new List<IDisposable>();
 
         private static bool frostHelperHooked = false;
         private static bool cherryHelperHooked = false;
@@ -89,7 +89,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             On.Celeste.Actor.MoveHExact -= onActorMoveHExact;
             On.Celeste.Actor.MoveVExact -= onActorMoveVExact;
 
-            foreach (IDetour h in allSetHooks) {
+            foreach (IDisposable h in allSetHooks) {
                 h.Dispose();
             }
             allSetHooks.Clear();

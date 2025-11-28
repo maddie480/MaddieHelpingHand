@@ -75,81 +75,83 @@ namespace Celeste.Mod.MaxHelpingHand.Module {
         public override void Load() {
             Logger.SetLogLevel("MaxHelpingHand", LogLevel.Info);
 
-            TempleEyeTrackingMadeline.Load();
-            CameraCatchupSpeedTrigger.Load();
-            FlagTouchSwitch.Load();
-            UpsideDownJumpThru.Load();
-            SidewaysJumpThru.Load();
-            GroupedDustTriggerSpikes.Load();
-            StaticPuffer.Load();
-            BlackholeCustomColors.Load();
-            ColorGradeFadeTrigger.Load();
-            RainbowSpinnerColorController.Load();
-            ReskinnableSwapBlock.Load();
-            ReskinnableCrushBlock.Load();
-            KevinBarrier.Load();
-            GradientDustTrigger.Load();
-            GoldenStrawberryCustomConditions.Load();
-            MadelineSilhouetteTrigger.Load();
-            BumperNotCoreMode.Load();
-            MultiRoomStrawberrySeed.Load();
-            SpeedBasedMusicParamTrigger.Load();
-            AnimatedParallax.Load();
-            NorthernLightsCustomColors.Load();
-            ReskinnableFloatingDebris.Load();
-            GuiStrawberryReskin.Load();
-            SeekerBarrierColorController.Load();
-            CustomTutorialWithNoBird.Load();
-            NonPoppingStrawberrySeed.Load();
-            CustomizableCrumblePlatform.Load();
-            HintDecal.Load();
-            CameraOffsetBorder.Load();
-            DisableIcePhysicsTrigger.Load();
-            ReskinnableBillboard.Load();
-            OneWayCameraTrigger.Load();
-            MadelinePonytailTrigger.Load();
-            SecretBerry.Load();
-            CustomizableGlassBlockController.Load();
-            CustomWipe.Load();
-            AllSideTentacles.Load();
-            SetFlagOnSpawnController.Load();
-            NoDashRefillSpring.Load();
-            HdParallax.Load();
-            HeatWaveNoColorGrade.Load();
-            ActivateTimedTouchSwitchesTimerTrigger.Load();
-            SetBloomStrengthTrigger.Load();
-            InstantLavaBlockerTrigger.Load();
-            MadelineSprite.Load();
-            StaticMoverWithLiftSpeed.Load();
-            SpinnerBreakingBallVanilla.Load();
-            ReskinnableCrystalHeart.Load();
-            SetFlagOnButtonPressController.Load();
-            FlagPickup.Load();
-            RespawningJellyfishGeneric<RespawningJellyfish, Glider>.Load();
-            SetFlagOnSpawnTrigger.Load();
-            CustomSeekerBarrier.Load();
-            MoreCustomNPC.Load();
-            ReskinnableTouchSwitch.Load();
-            ReskinnableSwitchGate.Load();
-            ParallaxFadeSpeedController.Load();
-            ParallaxFadeOutController.Load();
-            RainbowSpinnerColorAreaController.Load();
-            StylegroundFadeController.Load();
-            DisableControlsController.Load();
-            FancyTextTutorial.Load();
-            CustomChapterNumber.Load();
-            FrozenJelly.Load();
-            ReverseJelly.Load();
-            ReversibleRetentionBooster.Load();
-            SpikeRefillController.Load();
-            SideSpecificEndscreens.Load();
-            Pico8FlagController.Load();
+            using (new DetourConfigContext(new DetourConfig("MaddieHelpingHand_Default")).Use()) {
+                TempleEyeTrackingMadeline.Load();
+                CameraCatchupSpeedTrigger.Load();
+                FlagTouchSwitch.Load();
+                UpsideDownJumpThru.Load();
+                SidewaysJumpThru.Load();
+                GroupedDustTriggerSpikes.Load();
+                StaticPuffer.Load();
+                BlackholeCustomColors.Load();
+                ColorGradeFadeTrigger.Load();
+                RainbowSpinnerColorController.Load();
+                ReskinnableSwapBlock.Load();
+                ReskinnableCrushBlock.Load();
+                KevinBarrier.Load();
+                GradientDustTrigger.Load();
+                GoldenStrawberryCustomConditions.Load();
+                MadelineSilhouetteTrigger.Load();
+                BumperNotCoreMode.Load();
+                MultiRoomStrawberrySeed.Load();
+                SpeedBasedMusicParamTrigger.Load();
+                AnimatedParallax.Load();
+                NorthernLightsCustomColors.Load();
+                ReskinnableFloatingDebris.Load();
+                GuiStrawberryReskin.Load();
+                SeekerBarrierColorController.Load();
+                CustomTutorialWithNoBird.Load();
+                NonPoppingStrawberrySeed.Load();
+                CustomizableCrumblePlatform.Load();
+                HintDecal.Load();
+                CameraOffsetBorder.Load();
+                DisableIcePhysicsTrigger.Load();
+                ReskinnableBillboard.Load();
+                OneWayCameraTrigger.Load();
+                MadelinePonytailTrigger.Load();
+                SecretBerry.Load();
+                CustomizableGlassBlockController.Load();
+                CustomWipe.Load();
+                AllSideTentacles.Load();
+                SetFlagOnSpawnController.Load();
+                NoDashRefillSpring.Load();
+                HdParallax.Load();
+                HeatWaveNoColorGrade.Load();
+                ActivateTimedTouchSwitchesTimerTrigger.Load();
+                SetBloomStrengthTrigger.Load();
+                InstantLavaBlockerTrigger.Load();
+                MadelineSprite.Load();
+                StaticMoverWithLiftSpeed.Load();
+                SpinnerBreakingBallVanilla.Load();
+                ReskinnableCrystalHeart.Load();
+                SetFlagOnButtonPressController.Load();
+                FlagPickup.Load();
+                RespawningJellyfishGeneric<RespawningJellyfish, Glider>.Load();
+                SetFlagOnSpawnTrigger.Load();
+                CustomSeekerBarrier.Load();
+                MoreCustomNPC.Load();
+                ReskinnableTouchSwitch.Load();
+                ReskinnableSwitchGate.Load();
+                ParallaxFadeSpeedController.Load();
+                ParallaxFadeOutController.Load();
+                RainbowSpinnerColorAreaController.Load();
+                StylegroundFadeController.Load();
+                DisableControlsController.Load();
+                FancyTextTutorial.Load();
+                CustomChapterNumber.Load();
+                FrozenJelly.Load();
+                ReverseJelly.Load();
+                ReversibleRetentionBooster.Load();
+                SpikeRefillController.Load();
+                SideSpecificEndscreens.Load();
+                Pico8FlagController.Load();
 
-            Everest.Events.Level.OnLoadBackdrop += onLoadBackdrop;
+                Everest.Events.Level.OnLoadBackdrop += onLoadBackdrop;
 
-            modRegister = new Hook(
-                typeof(Everest).GetMethod("Register"),
-                typeof(MaxHelpingHandModule).GetMethod("onModRegister", BindingFlags.NonPublic | BindingFlags.Instance), this);
+                modRegister = new Hook(
+                    typeof(Everest).GetMethod("Register"),
+                    typeof(MaxHelpingHandModule).GetMethod("onModRegister", BindingFlags.NonPublic | BindingFlags.Instance), this);
+            }
 
             typeof(LuaCutscenesUtils).ModInterop();
             typeof(EntityNameRegistry).ModInterop();
@@ -266,10 +268,12 @@ namespace Celeste.Mod.MaxHelpingHand.Module {
         public override void LoadContent(bool firstLoad) {
             base.LoadContent(firstLoad);
 
-            MultiRoomStrawberryCounter.Initialize();
-            BeeFireball.LoadContent();
-            SaveFileStrawberryGate.Initialize();
-            ReversibleRetentionBooster.LoadContent();
+            using (new DetourConfigContext(new DetourConfig("MaddieHelpingHand_Default")).Use()) {
+                MultiRoomStrawberryCounter.Initialize();
+                BeeFireball.LoadContent();
+                SaveFileStrawberryGate.Initialize();
+                ReversibleRetentionBooster.LoadContent();
+            }
             HookMods();
         }
 
@@ -298,45 +302,47 @@ namespace Celeste.Mod.MaxHelpingHand.Module {
         }
 
         private void HookMods() {
-            KevinBarrier.HookMods();
-            MovingFlagTouchSwitch.HookMods();
-            MadelinePonytailTrigger.LoadContent();
-            InstantLavaBlockerTrigger.HookMods();
-            MadelineSprite.HookMods();
-            ReskinnableCrystalHeart.HookMods();
-            AvBdaySpeechBubbleFixup.LoadMods();
-            ReskinnableStarRotateSpinner.LoadMods();
-            ReskinnableStarTrackSpinner.LoadMods();
-            SaveFileStrawberryGate.HookMods();
-            RainbowSpinnerColorController.LoadMods();
-            RainbowSpinnerColorAreaController.LoadMods();
-            VivHelperGrowBlockFixup.LoadMods();
-            UpsideDownMovingPlatformGravityHelper.LoadMods();
-            MiniHeartDoorUnfixController.Initialize();
-            CustomSeekerBarrier.LoadMods();
+            using (new DetourConfigContext(new DetourConfig("MaddieHelpingHand_Default")).Use()) {
+                KevinBarrier.HookMods();
+                MovingFlagTouchSwitch.HookMods();
+                MadelinePonytailTrigger.LoadContent();
+                InstantLavaBlockerTrigger.HookMods();
+                MadelineSprite.HookMods();
+                ReskinnableCrystalHeart.HookMods();
+                AvBdaySpeechBubbleFixup.LoadMods();
+                ReskinnableStarRotateSpinner.LoadMods();
+                ReskinnableStarTrackSpinner.LoadMods();
+                SaveFileStrawberryGate.HookMods();
+                RainbowSpinnerColorController.LoadMods();
+                RainbowSpinnerColorAreaController.LoadMods();
+                VivHelperGrowBlockFixup.LoadMods();
+                UpsideDownMovingPlatformGravityHelper.LoadMods();
+                MiniHeartDoorUnfixController.Initialize();
+                CustomSeekerBarrier.LoadMods();
 
-            if (!hookedSineParallax && Everest.Loader.DependencyLoaded(new EverestModuleMetadata() { Name = "FlaglinesAndSuch", Version = new Version(1, 4, 17) })) {
-                hookSineParallax();
-            }
+                if (!hookedSineParallax && Everest.Loader.DependencyLoaded(new EverestModuleMetadata() { Name = "FlaglinesAndSuch", Version = new Version(1, 4, 17) })) {
+                    hookSineParallax();
+                }
 
-            if (!bounceHelperLoaded && Everest.Loader.DependencyLoaded(new EverestModuleMetadata { Name = "BounceHelper", Version = new Version(1, 8, 0) })) {
-                loadBounceHelper();
-            }
+                if (!bounceHelperLoaded && Everest.Loader.DependencyLoaded(new EverestModuleMetadata { Name = "BounceHelper", Version = new Version(1, 8, 0) })) {
+                    loadBounceHelper();
+                }
 
-            if (!frostBreakingBallLoaded && Everest.Loader.DependencyLoaded(new EverestModuleMetadata { Name = "FrostHelper", Version = new Version(1, 46, 0) })) {
-                loadFrostBreakingBall();
-            }
+                if (!frostBreakingBallLoaded && Everest.Loader.DependencyLoaded(new EverestModuleMetadata { Name = "FrostHelper", Version = new Version(1, 46, 0) })) {
+                    loadFrostBreakingBall();
+                }
 
-            if (!extendedCameraDynamicsHookEnabled && Everest.Loader.DependencyLoaded(new EverestModuleMetadata { Name = "ExtendedCameraDynamics", Version = new Version(1, 0, 3) })) {
-                On.Celeste.LevelLoader.StartLevel += checkExtendedCameraDynamics;
-                extendedCameraDynamicsHookEnabled = true;
-            }
+                if (!extendedCameraDynamicsHookEnabled && Everest.Loader.DependencyLoaded(new EverestModuleMetadata { Name = "ExtendedCameraDynamics", Version = new Version(1, 0, 3) })) {
+                    On.Celeste.LevelLoader.StartLevel += checkExtendedCameraDynamics;
+                    extendedCameraDynamicsHookEnabled = true;
+                }
 
-            if (!zoomOutHelperPrototypeHookEnabled && Everest.Loader.DependencyLoaded(new EverestModuleMetadata { Name = "ZoomOutHelperPrototype", Version = new Version(0, 1, 1) })) {
-                On.Celeste.LevelLoader.StartLevel += checkZoomOutHelperPrototype;
-                zoomOutHelperPrototypeCheckMethod = Everest.Modules.First(mod => mod.GetType().ToString() == "Celeste.Mod.FunctionalZoomOut.FunctionalZoomOutModule")
-                    .GetType().GetMethod("SessionHasZoomOut", BindingFlags.NonPublic | BindingFlags.Static);
-                zoomOutHelperPrototypeHookEnabled = true;
+                if (!zoomOutHelperPrototypeHookEnabled && Everest.Loader.DependencyLoaded(new EverestModuleMetadata { Name = "ZoomOutHelperPrototype", Version = new Version(0, 1, 1) })) {
+                    On.Celeste.LevelLoader.StartLevel += checkZoomOutHelperPrototype;
+                    zoomOutHelperPrototypeCheckMethod = Everest.Modules.First(mod => mod.GetType().ToString() == "Celeste.Mod.FunctionalZoomOut.FunctionalZoomOutModule")
+                        .GetType().GetMethod("SessionHasZoomOut", BindingFlags.NonPublic | BindingFlags.Static);
+                    zoomOutHelperPrototypeHookEnabled = true;
+                }
             }
         }
 

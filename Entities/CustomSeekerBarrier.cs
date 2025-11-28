@@ -24,7 +24,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
         }
 
         public static void LoadMods() {
-            using (new DetourContext { After = { "*" } }) {
+            using (new DetourConfigContext(new DetourConfig("MaddieHelpingHand_AfterAll").WithPriority(int.MaxValue)).Use()) {
                 if (eeveeHoldableContainerUpdateHook == null && Everest.Loader.DependencyLoaded(new EverestModuleMetadata { Name = "EeveeHelper", Version = new Version(1, 12, 2) })) {
                     Type holdableContainerType = Everest.Modules.First(mod => mod.GetType().ToString() == "Celeste.Mod.EeveeHelper.EeveeHelperModule")
                         .GetType().Assembly.GetType("Celeste.Mod.EeveeHelper.Entities.HoldableContainer");

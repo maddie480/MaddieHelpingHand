@@ -13,11 +13,11 @@ namespace Celeste.Mod.MaxHelpingHand.Triggers {
         private static Color silhouetteOutOfStaminaZeroDashBlinkColor = Calc.HexToColor("348DC1");
 
         public static void Load() {
-            using (new DetourContext() { Before = { "*" } }) { // we won't break Spring Collab 2020, but it will break us if it goes first.
+            using (new DetourConfigContext(new DetourConfig("MaddieHelpingHand_BeforeAll").WithPriority(int.MinValue)).Use()) { // we won't break Spring Collab 2020, but it will break us if it goes first.
                 IL.Celeste.Player.Render += patchPlayerRender;
             }
 
-            using (new DetourContext() { After = { "*" } }) { // prevent Madeline being unable to turn into a Silhouette if other mods goes first.
+            using (new DetourConfigContext(new DetourConfig("MaddieHelpingHand_AfterAll").WithPriority(int.MaxValue)).Use()) { // prevent Madeline being unable to turn into a Silhouette if other mods goes first.
                 On.Celeste.PlayerSprite.ctor += onPlayerSpriteConstructor;
                 On.Celeste.Player.ResetSprite += onPlayerResetSprite;
             }
