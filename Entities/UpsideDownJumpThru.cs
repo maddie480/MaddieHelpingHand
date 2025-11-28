@@ -11,6 +11,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using System.Runtime.CompilerServices;
 
 namespace Celeste.Mod.MaxHelpingHand.Entities {
     [CustomEntity("MaxHelpingHand/UpsideDownJumpThru")]
@@ -212,8 +213,10 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
 
         // those 2 methods are extracted for easier hooking by Gravity Helper. (see https://github.com/maddie480/MaddieHelpingHand/pull/1)
 
+        [MethodImpl(MethodImplOptions.NoInlining)]
         private static bool playerMovingUp(Player player) => player.Speed.Y < 0;
 
+        [MethodImpl(MethodImplOptions.NoInlining)]
         private static int updateClimbMove(Player player, int lastClimbMove) {
             if (Input.MoveY.Value == -1 && player.CollideCheckOutside<UpsideDownJumpThru>(player.Position - Vector2.UnitY)) {
                 player.Speed.Y = 0;
@@ -222,6 +225,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             return lastClimbMove;
         }
 
+        [MethodImpl(MethodImplOptions.NoInlining)]
         private static void onPlayerOnCollideV(On.Celeste.Player.orig_OnCollideV orig, Player self, CollisionData data) {
             // we just want to kill a piece of code that executes in these conditions (supposed to push the player left or right when hitting a wall angle).
             if (self.StateMachine.State != 19 && self.StateMachine.State != 3 && self.StateMachine.State != 9 && playerMovingUp(self)
@@ -509,6 +513,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             base.MoveVExact(move);
         }
 
+        [MethodImpl(MethodImplOptions.NoInlining)]
         private static bool onJumpthruHasPlayerRider(On.Celeste.JumpThru.orig_HasPlayerRider orig, JumpThru self) {
             if (self is UpsideDownJumpThru) {
                 // upside-down jumpthrus never have a player rider because... well, they're upside-down.

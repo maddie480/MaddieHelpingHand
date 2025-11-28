@@ -4,6 +4,7 @@ using Monocle;
 using MonoMod.Utils;
 using System;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 
 namespace Celeste.Mod.MaxHelpingHand.Entities {
     /// <summary>
@@ -78,6 +79,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
                   data.Bool("killIfSameDirection", defaultValue: data.Bool("triggerIfSameDirection", false))) {
         }
 
+        [MethodImpl(MethodImplOptions.NoInlining)]
         public GroupedTriggerSpikes(Vector2 position, int size, Directions direction, string overrideType, bool behindMoveBlocks)
             : this(position, size, direction, overrideType, behindMoveBlocks, triggerIfSameDirection: false, killIfSameDirection: false) {
         }
@@ -247,6 +249,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             }
         }
 
+        [MethodImpl(MethodImplOptions.NoInlining)]
         private void GetPlayerCollideIndex(Player player, out int minIndex, out int maxIndex) {
             minIndex = maxIndex = -1;
 
