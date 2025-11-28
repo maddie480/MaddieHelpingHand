@@ -55,13 +55,15 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
 
                 cursor.Emit(OpCodes.Dup);
                 cursor.Index++;
-                cursor.EmitDelegate<Func<Backdrop, bool, bool>>((backdrop, orig) => {
-                    if (!backdropRendererHookEnabled) return orig;
-
-                    // force the game into rendering parallax backdrop that have fadeIn > 0 even if not visible.
-                    return orig || IsParallaxVisible(backdrop);
-                });
+                cursor.EmitDelegate<Func<Backdrop, bool, bool>>(modIsVisible);
             }
+        }
+
+        private static bool modIsVisible(Backdrop backdrop, bool orig) {
+            if (!backdropRendererHookEnabled) return orig;
+
+            // force the game into rendering parallax backdrop that have fadeIn > 0 even if not visible.
+            return orig || IsParallaxVisible(backdrop);
         }
 
         public static bool IsParallaxVisible(Backdrop backdrop) {

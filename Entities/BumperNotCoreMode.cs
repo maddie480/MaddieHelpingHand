@@ -23,14 +23,10 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
 
         private readonly bool notCoreMode;
         private readonly bool wobble;
-        protected SineWave sine;
-
-        private Vector2 anchor;
 
         public BumperNotCoreMode(Vector2 position, Vector2? node, bool notCoreMode, bool wobble) : base(position, node) {
             this.notCoreMode = notCoreMode;
             this.wobble = wobble;
-            sine = Get<SineWave>();
 
             anchor = Position;
 

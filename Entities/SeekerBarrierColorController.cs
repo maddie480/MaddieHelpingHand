@@ -81,7 +81,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
         private float transparency;
         private float particleTransparency;
         private float particleDirection;
-        private int? depth;
+        private int? barrierDepth;
         private bool wavy;
         private bool renderBloom;
         private bool persistent;
@@ -112,7 +112,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             entityID = data.ID;
 
             if (int.TryParse(data.Attr("depth"), out int depthInt)) {
-                depth = depthInt;
+                barrierDepth = depthInt;
 
                 // we are going to need this for bloom rendering.
                 ensureBufferIsCorrect();
@@ -133,7 +133,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
                     Transparency = data.Float("transparency", 0.15f),
                     ParticleTransparency = data.Float("particleTransparency", 0.5f),
                     ParticleDirection = data.Float("particleDirection", 0f),
-                    Depth = depth,
+                    Depth = barrierDepth,
                     Wavy = data.Bool("wavy", defaultValue: true),
                     RenderBloom = data.Bool("renderBloom", defaultValue: true)
                 };
@@ -156,12 +156,12 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             base.Awake(scene);
 
             // apply depth to all barriers and to the renderer.
-            if (depth.HasValue) {
+            if (barrierDepth.HasValue) {
                 foreach (SeekerBarrier barrier in scene.Tracker.GetEntities<SeekerBarrier>()) {
-                    barrier.Depth = depth.Value;
+                    barrier.Depth = barrierDepth.Value;
                 }
                 foreach (SeekerBarrierRenderer renderer in scene.Tracker.GetEntities<SeekerBarrierRenderer>()) {
-                    renderer.Depth = depth.Value + 1;
+                    renderer.Depth = barrierDepth.Value + 1;
                 }
             }
         }
@@ -395,7 +395,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             }
 
             // only run RenderBloom if no depth setting is activated, or if we are allowed to do so.
-            if ((controllerOnScreen?.renderBloom ?? true) && (!(controllerOnScreen?.depth.HasValue ?? false) || allowedToRenderBloom)) {
+            if ((controllerOnScreen?.renderBloom ?? true) && (!(controllerOnScreen?.barrierDepth.HasValue ?? false) || allowedToRenderBloom)) {
                 orig(self);
             }
         }
@@ -404,23 +404,25 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             ILCursor cursor = new ILCursor(il);
             if (cursor.TryGotoNext(MoveType.After, instr => instr.MatchCallvirt<Tracker>("GetEntities"))) {
                 Logger.Log("MaxHelpingHand/SeekerBarrierColorController", $"Disabling seeker barrier rendering in BloomRenderer.Apply at {cursor.Index} in IL");
-                cursor.EmitDelegate<Func<List<Entity>, List<Entity>>>(orig => {
-                    if (!seekerBarrierRendererHookEnabled) return orig;
-
-                    if ((controllerOnScreen?.depth.HasValue ?? false) || !(controllerOnScreen?.renderBloom ?? true)) {
-                        // pretend there is no seeker barrier.
-                        return new List<Entity>();
-                    }
-                    return orig;
-                });
+                cursor.EmitDelegate<Func<List<Entity>, List<Entity>>>(hideBarrierToBloomRenderer);
             }
+        }
+
+        private static List<Entity> hideBarrierToBloomRenderer(List<Entity> orig) {
+            if (!seekerBarrierRendererHookEnabled) return orig;
+
+            if ((controllerOnScreen?.barrierDepth.HasValue ?? false) || !(controllerOnScreen?.renderBloom ?? true)) {
+                // pretend there is no seeker barrier.
+                return new List<Entity>();
+            }
+            return orig;
         }
 
         private static void onSeekerBarrierRendererRender(On.Celeste.SeekerBarrierRenderer.orig_Render orig, SeekerBarrierRenderer self) {
             orig(self);
             if (!seekerBarrierRendererHookEnabled) return;
 
-            if ((controllerOnScreen?.renderBloom ?? true) && (controllerOnScreen?.depth.HasValue ?? false) && controllerOnScreen.Scene is Level level) {
+            if ((controllerOnScreen?.renderBloom ?? true) && (controllerOnScreen?.barrierDepth.HasValue ?? false) && controllerOnScreen.Scene is Level level) {
                 // stop rendering gameplay: we're going to render BLOOM now. Yeaaaaah
                 GameplayRenderer.End();
 

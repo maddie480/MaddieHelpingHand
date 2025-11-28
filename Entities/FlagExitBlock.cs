@@ -8,8 +8,6 @@ using System;
 namespace Celeste.Mod.MaxHelpingHand.Entities {
     [CustomEntity("MaxHelpingHand/FlagExitBlock")]
     public class FlagExitBlock : ExitBlock {
-        private TileGrid tiles;
-        private EffectCutout cutout;
         private readonly string flag;
         private readonly bool inverted;
         private readonly bool playSound;
@@ -34,11 +32,6 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
 
         public override void Awake(Scene scene) {
             base.Awake(scene);
-
-            // get some variables from the parent class.
-            DynData<ExitBlock> self = new DynData<ExitBlock>(this);
-            tiles = self.Get<TileGrid>("tiles");
-            cutout = self.Get<EffectCutout>("cutout");
 
             // hide the block if the flag is initially inactive.
             if (SceneAs<Level>().Session.GetFlag(flag) == inverted) {

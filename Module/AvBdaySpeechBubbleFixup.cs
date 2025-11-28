@@ -28,17 +28,19 @@ namespace Celeste.Mod.MaxHelpingHand.Module {
             if (cursor.TryGotoNext(MoveType.After, instr => instr.MatchCall<Vector2>("op_Subtraction"))) {
                 Logger.Log("MaxHelpingHand/AvBdaySpeechBubbleFixup", $"Hooking entity position to reposition bubble at {cursor.Index} in IL for TalkComponentUI.Render");
 
-                cursor.EmitDelegate<Func<Vector2, Vector2>>(orig => {
-                    // we only have work to do if the camera has any form of angle.
-                    Level level = Engine.Scene as Level;
-                    if (level == null || level.Camera.Angle == 0f) {
-                        return orig;
-                    }
-
-                    // rotate the relative position to the screen!
-                    return orig.Rotate(level.Camera.Angle);
-                });
+                cursor.EmitDelegate<Func<Vector2, Vector2>>(fixPosition);
             }
+        }
+
+        private static Vector2 fixPosition(Vector2 orig) {
+            // we only have work to do if the camera has any form of angle.
+            Level level = Engine.Scene as Level;
+            if (level == null || level.Camera.Angle == 0f) {
+                return orig;
+            }
+
+            // rotate the relative position to the screen!
+            return orig.Rotate(level.Camera.Angle);
         }
     }
 }

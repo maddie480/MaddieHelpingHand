@@ -73,10 +73,12 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
         private static void onPico8End(ILContext il) {
             ILCursor cursor = new ILCursor(il);
             cursor.GotoNext(instr => instr.MatchStfld<Classic.flag>("show"));
-            cursor.EmitDelegate(() => {
-                completed = true;
-                Logger.Log(LogLevel.Debug, "MaxHelpingHand/Pico8FlagController", "Player completed PICO-8!");
-            });
+            cursor.EmitDelegate(markPico8AsCompleted);
+        }
+
+        private static void markPico8AsCompleted() {
+            completed = true;
+            Logger.Log(LogLevel.Debug, "MaxHelpingHand/Pico8FlagController", "Player completed PICO-8!");
         }
 
         private static void onPico8Berry(ILContext il) {
@@ -86,10 +88,12 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             cursor.Emit(OpCodes.Ldarg_0);
             cursor.Emit(OpCodes.Ldfld, typeof(Classic.ClassicObject).GetField("G"));
             cursor.Emit(OpCodes.Ldfld, typeof(Classic).GetField("got_fruit", BindingFlags.NonPublic | BindingFlags.Instance));
-            cursor.EmitDelegate<Action<HashSet<int>>>(berryList => {
-                berries = berryList.Count;
-                Logger.Log(LogLevel.Debug, "MaxHelpingHand/Pico8FlagController", $"Player got {berries} berries in PICO-8");
-            });
+            cursor.EmitDelegate<Action<HashSet<int>>>(signalPico8BerryCount);
+        }
+
+        private static void signalPico8BerryCount(HashSet<int> berryList) {
+            berries = berryList.Count;
+            Logger.Log(LogLevel.Debug, "MaxHelpingHand/Pico8FlagController", $"Player got {berries} berries in PICO-8");
         }
     }
 }

@@ -142,18 +142,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
                     // insert our check for upside-down jumpthrus
                     cursor.Emit(OpCodes.Ldarg_0);
                     cursor.Emit(OpCodes.Ldarg_1);
-                    cursor.EmitDelegate<Func<Actor, int, JumpThru>>((self, moveV) => {
-                        int moveDirection = Math.Sign(moveV);
-                        if (moveV < 0 && !self.IgnoreJumpThrus) {
-                            JumpThru jumpthru = self.CollideFirstOutside<UpsideDownJumpThru>(self.Position + Vector2.UnitY * moveDirection);
-                            if (jumpthru != null) {
-                                // hit upside-down jumpthru while going up
-                                return jumpthru;
-                            }
-                        }
-
-                        return null;
-                    });
+                    cursor.EmitDelegate<Func<Actor, int, JumpThru>>(modCollideFirstOutside);
 
                     // store the platform in the local variable dedicated to it: if it is non-null, the variable will be used
                     // to build the collision data.
@@ -164,6 +153,18 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
                     cursor.Emit(OpCodes.Brtrue, cursor2.Next);
                 }
             }
+        }
+        private static JumpThru modCollideFirstOutside(Actor self, int moveV) {
+            int moveDirection = Math.Sign(moveV);
+            if (moveV < 0 && !self.IgnoreJumpThrus) {
+                JumpThru jumpthru = self.CollideFirstOutside<UpsideDownJumpThru>(self.Position + Vector2.UnitY * moveDirection);
+                if (jumpthru != null) {
+                    // hit upside-down jumpthru while going up
+                    return jumpthru;
+                }
+            }
+
+            return null;
         }
 
         private static void addUpsideDownJumpthrusInCollideSolids(ILContext il) {
@@ -188,13 +189,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
                     // inject our check for jumpthrus
                     cursor.Emit(OpCodes.Ldarg_0);
                     cursor.Emit(OpCodes.Ldarg_1);
-                    cursor.EmitDelegate<Func<Platform, int, Platform>>((self, moveV) => {
-                        int moveDirection = Math.Sign(moveV);
-                        if (moveV < 0) {
-                            return self.CollideFirstOutside<UpsideDownJumpThru>(self.Position + Vector2.UnitY * moveDirection);
-                        }
-                        return null;
-                    });
+                    cursor.EmitDelegate<Func<Platform, int, Platform>>(modCollideFirst);
 
                     // store the platform in the local variable dedicated to it: if it is non-null, the variable will be used
                     // to build the collision data.
@@ -205,6 +200,14 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
                     cursor.Emit(OpCodes.Brtrue_S, cursor2.Prev.Operand);
                 }
             }
+        }
+
+        private static Platform modCollideFirst(Platform self, int moveV) {
+            int moveDirection = Math.Sign(moveV);
+            if (moveV < 0) {
+                return self.CollideFirstOutside<UpsideDownJumpThru>(self.Position + Vector2.UnitY * moveDirection);
+            }
+            return null;
         }
 
         // those 2 methods are extracted for easier hooking by Gravity Helper. (see https://github.com/maddie480/MaddieHelpingHand/pull/1)
@@ -250,11 +253,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
                             cursor.Index++;
 
                             // nullify if mod jumpthru.
-                            cursor.EmitDelegate<Func<JumpThru, JumpThru>>(jumpThru => {
-                                if (jumpThru?.GetType() == typeof(UpsideDownJumpThru) || jumpThru?.GetType() == typeof(UpsideDownMovingPlatform))
-                                    return null;
-                                return jumpThru;
-                            });
+                            cursor.EmitDelegate<Func<JumpThru, JumpThru>>(suppressUpsideDownJumpThru);
                             break;
                         case "System.Boolean Monocle.Entity::CollideCheckOutside<Celeste.JumpThru>(Microsoft.Xna.Framework.Vector2)":
                             Logger.Log("MaxHelpingHand/UpsideDownJumpThru", $"Patching CollideCheckOutside at {cursor.Index} in IL for {il.Method.Name}");
@@ -262,7 +261,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
                             callOrigMethodKeepingEverythingOnStack(cursor, checkAtPositionStore);
 
                             // check if colliding with a jumpthru but not an upside-down jumpthru.
-                            cursor.EmitDelegate<Func<bool, Entity, Vector2, bool>>((orig, self, at) => orig && !self.CollideCheckOutside<UpsideDownJumpThru>(at));
+                            cursor.EmitDelegate<Func<bool, Entity, Vector2, bool>>(notCollideCheckOutside);
                             break;
                         case "System.Boolean Monocle.Entity::CollideCheck<Celeste.JumpThru>()":
                             Logger.Log("MaxHelpingHand/UpsideDownJumpThru", $"Patching CollideCheck at {cursor.Index} in IL for {il.Method.Name}");
@@ -272,7 +271,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
                             cursor.Emit(OpCodes.Ldarg_0);
 
                             // turn check to false if colliding with an upside-down jumpthru.
-                            cursor.EmitDelegate<Func<bool, Player, bool>>((vanillaCheck, self) => vanillaCheck && !self.CollideCheck<UpsideDownJumpThru>());
+                            cursor.EmitDelegate<Func<bool, Player, bool>>(notCollideCheck);
                             break;
 
                         case "System.Collections.Generic.List`1<Monocle.Entity> Monocle.Tracker::GetEntities<Celeste.JumpThru>()":
@@ -281,21 +280,37 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
                             cursor.Index++;
 
                             // remove all mod jumpthrus from the returned list.
-                            cursor.EmitDelegate<Func<List<Entity>, List<Entity>>>(matches => {
-                                for (int i = 0; i < matches.Count; i++) {
-                                    if (matches[i].GetType() == typeof(UpsideDownJumpThru) || matches[i].GetType() == typeof(UpsideDownMovingPlatform)) {
-                                        matches.RemoveAt(i);
-                                        i--;
-                                    }
-                                }
-                                return matches;
-                            });
+                            cursor.EmitDelegate<Func<List<Entity>, List<Entity>>>(filterOutUpsideDownJumpthrus);
                             break;
                     }
                 }
 
                 cursor.Index++;
             }
+        }
+
+        private static bool notCollideCheckOutside(bool orig, Entity self, Vector2 at) {
+            return orig && !self.CollideCheckOutside<UpsideDownJumpThru>(at);
+        }
+
+        private static bool notCollideCheck(bool vanillaCheck, Player self) {
+            return vanillaCheck && !self.CollideCheck<UpsideDownJumpThru>();
+        }
+
+        private static List<Entity> filterOutUpsideDownJumpthrus(List<Entity> matches) {
+            for (int i = 0; i < matches.Count; i++) {
+                if (matches[i].GetType() == typeof(UpsideDownJumpThru) || matches[i].GetType() == typeof(UpsideDownMovingPlatform)) {
+                    matches.RemoveAt(i);
+                    i--;
+                }
+            }
+            return matches;
+        }
+
+        private static JumpThru suppressUpsideDownJumpThru(JumpThru jumpThru) {
+            if (jumpThru?.GetType() == typeof(UpsideDownJumpThru) || jumpThru?.GetType() == typeof(UpsideDownMovingPlatform))
+                return null;
+            return jumpThru;
         }
 
         private static void callOrigMethodKeepingEverythingOnStack(ILCursor cursor, VariableDefinition checkAtPositionStore) {

@@ -27,25 +27,27 @@ namespace Celeste.Mod.MaxHelpingHand.Effects {
 
                 cursor.Emit(OpCodes.Ldarg_0);
                 cursor.Emit(OpCodes.Ldarg_1);
-                cursor.EmitDelegate<Func<float, Tentacles, Scene, float>>((orig, self, scene) => {
-                    if (self is AllSideTentacles allSideSelf && self.IsVisible(scene as Level)) {
-                        // replicate the code vanilla already has for Right and Bottom.
-                        Camera camera = (scene as Level).Camera;
-                        Player player = scene.Tracker.GetEntity<Player>();
-
-                        if (player != null) {
-                            if (allSideSelf.side == Side.Left) {
-                                return (player.X - camera.X) - (MaxHelpingHandModule.CameraWidth / 2f);
-                            } else if (allSideSelf.side == Side.Top) {
-                                return player.Y - camera.Y - MaxHelpingHandModule.CameraHeight;
-                            }
-                        }
-                    }
-
-                    // vanilla tentacles or Right/Bottom tentacles => nothing to do
-                    return orig;
-                });
+                cursor.EmitDelegate<Func<float, Tentacles, Scene, float>>(handleLeftAndTopTentacles);
             }
+        }
+
+        private static float handleLeftAndTopTentacles(float orig, Tentacles self, Scene scene) {
+            if (self is AllSideTentacles allSideSelf && self.IsVisible(scene as Level)) {
+                // replicate the code vanilla already has for Right and Bottom.
+                Camera camera = (scene as Level).Camera;
+                Player player = scene.Tracker.GetEntity<Player>();
+
+                if (player != null) {
+                    if (allSideSelf.side == Side.Left) {
+                        return (player.X - camera.X) - (MaxHelpingHandModule.CameraWidth / 2f);
+                    } else if (allSideSelf.side == Side.Top) {
+                        return player.Y - camera.Y - MaxHelpingHandModule.CameraHeight;
+                    }
+                }
+            }
+
+            // vanilla tentacles or Right/Bottom tentacles => nothing to do
+            return orig;
         }
     }
 }

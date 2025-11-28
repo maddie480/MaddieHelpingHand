@@ -45,16 +45,7 @@ namespace Celeste.Mod.MaxHelpingHand.Triggers {
 
                 // when Madeline blinks red, make the hair blink red.
                 cursor.Emit(OpCodes.Ldarg_0);
-                cursor.EmitDelegate<Func<Color, Player, Color>>((color, player) => {
-                    if (MaxHelpingHandModule.Instance.Session.MadelineIsSilhouette) {
-                        if (player.Dashes == 0) {
-                            // blink to another shade of blue instead, to avoid red/blue flashes that are hard on the eyes.
-                            color = silhouetteOutOfStaminaZeroDashBlinkColor;
-                        }
-                        player.Hair.Color = color;
-                    }
-                    return color;
-                });
+                cursor.EmitDelegate<Func<Color, Player, Color>>(overrideBlinking);
             }
 
             // jump to the usage of the White color
@@ -63,17 +54,31 @@ namespace Celeste.Mod.MaxHelpingHand.Triggers {
 
                 // intercept Color.White (or whatever Spring Collab 2020 returned) and mod it if required.
                 cursor.Emit(OpCodes.Ldarg_0);
-                cursor.EmitDelegate<Func<Color, Player, Color>>((orig, self) => {
-                    if (MaxHelpingHandModule.Instance.Session.MadelineIsSilhouette) {
-                        return self.Hair.Color;
-                    } else {
-                        return orig;
-                    }
-                });
+                cursor.EmitDelegate<Func<Color, Player, Color>>(overrideBodyColorWithHairColor);
             }
         }
 
-        private static void onPlayerAdded() { /* this is completely useless but Extended Variants 0.19.6 and earlier will crash if they don't find this method. */  }
+        private static Color overrideBlinking(Color color, Player player) {
+            if (MaxHelpingHandModule.Instance.Session.MadelineIsSilhouette) {
+                if (player.Dashes == 0) {
+                    // blink to another shade of blue instead, to avoid red/blue flashes that are hard on the eyes.
+                    color = silhouetteOutOfStaminaZeroDashBlinkColor;
+                }
+                player.Hair.Color = color;
+            }
+            return color;
+        }
+
+        private static Color overrideBodyColorWithHairColor(Color orig, Player self) {
+            if (MaxHelpingHandModule.Instance.Session.MadelineIsSilhouette) {
+                return self.Hair.Color;
+            } else {
+                return orig;
+            }
+        }
+
+        private static void onPlayerAdded() { /* this is completely useless but Extended Variants 0.19.6 and earlier will crash if they don't find this method. */
+        }
 
         private static void refreshPlayerSpriteMode(Player player, bool enableSilhouette) {
             PlayerSpriteMode targetSpriteMode;

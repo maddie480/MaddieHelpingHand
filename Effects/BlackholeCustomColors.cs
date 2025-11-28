@@ -9,7 +9,7 @@ using System.Collections.Generic;
 
 namespace Celeste.Mod.MaxHelpingHand.Effects {
     public class BlackholeCustomColors : BlackholeBG {
-        private static Color[] colorsMild;
+        private static Color[] colorsMildOverride;
         private static List<MTexture> replacementAtlasSubtextures;
 
         public static void Load() {
@@ -36,12 +36,7 @@ namespace Celeste.Mod.MaxHelpingHand.Effects {
 
                 Logger.Log("MaxHelpingHand/BlackholeCustomColors", $"Replacing colorsMild at {cursor.Index} in IL code for BlackholeBG constructor");
                 cursor.Emit(OpCodes.Ldarg_0);
-                cursor.EmitDelegate<Action<BlackholeBG>>(self => {
-                    if (colorsMild != null) {
-                        new DynData<BlackholeBG>(self)["colorsMild"] = colorsMild;
-                        colorsMild = null;
-                    }
-                });
+                cursor.EmitDelegate<Action<BlackholeBG>>(applyColorsMildOverride);
             }
 
             if (cursor.TryGotoNext(MoveType.After,
@@ -49,15 +44,24 @@ namespace Celeste.Mod.MaxHelpingHand.Effects {
                 instr => instr.MatchCallvirt<Atlas>("GetAtlasSubtextures"))) {
 
                 Logger.Log("MaxHelpingHand/BlackholeCustomColors", $"Replacing particle textures at {cursor.Index} in IL code for BlackholeBG constructor");
-                cursor.EmitDelegate<Func<List<MTexture>, List<MTexture>>>(orig => {
-                    if (replacementAtlasSubtextures != null) {
-                        List<MTexture> result = replacementAtlasSubtextures;
-                        replacementAtlasSubtextures = null;
-                        return result;
-                    }
-                    return orig;
-                });
+                cursor.EmitDelegate<Func<List<MTexture>, List<MTexture>>>(applyOverrideAtlasSubtextures);
             }
+        }
+
+        private static void applyColorsMildOverride(BlackholeBG self) {
+            if (colorsMildOverride != null) {
+                new DynData<BlackholeBG>(self)["colorsMild"] = colorsMildOverride;
+                colorsMildOverride = null;
+            }
+        }
+
+        private static List<MTexture> applyOverrideAtlasSubtextures(List<MTexture> orig) {
+            if (replacementAtlasSubtextures != null) {
+                List<MTexture> result = replacementAtlasSubtextures;
+                replacementAtlasSubtextures = null;
+                return result;
+            }
+            return orig;
         }
 
         public static BlackholeBG CreateBlackholeWithCustomColors(BinaryPacker.Element effectData) {
@@ -87,9 +91,9 @@ namespace Celeste.Mod.MaxHelpingHand.Effects {
                 // there is no gradient on any color, wind should affect the blackhole, and there is no fade: we can just instanciate a vanilla blackhole and mess with its properties.
 
                 // set up colorsMild for the hook above. we can't use DynData to pass this over, since the object does not exist yet!
-                colorsMild = parseColors(effectData.Attr("colorsMild", "6e3199,851f91,3026b0"));
-                for (int i = 0; i < colorsMild.Length; i++) {
-                    colorsMild[i] *= 0.8f;
+                colorsMildOverride = parseColors(effectData.Attr("colorsMild", "6e3199,851f91,3026b0"));
+                for (int i = 0; i < colorsMildOverride.Length; i++) {
+                    colorsMildOverride[i] *= 0.8f;
                 }
 
                 // build the blackhole: the hook will take care of setting colorsMild.
@@ -121,7 +125,7 @@ namespace Celeste.Mod.MaxHelpingHand.Effects {
                 }
 
                 // set up colorsMild for the hook above. we can't use DynData to pass this over, since the object does not exist yet!
-                colorsMild = new ColorCycle(effectData.Attr("colorsMild", "6e3199,851f91,3026b0"), 0.8f * fgAlpha).GetColors();
+                colorsMildOverride = new ColorCycle(effectData.Attr("colorsMild", "6e3199,851f91,3026b0"), 0.8f * fgAlpha).GetColors();
 
                 // build the blackhole: the hook will take care of setting colorsMild.
                 BlackholeCustomColors blackhole = new BlackholeCustomColors(
@@ -327,44 +331,47 @@ namespace Celeste.Mod.MaxHelpingHand.Effects {
         private static void modBlackholeUpdate(ILContext il) {
             ILCursor cursor = new ILCursor(il);
 
-            replacerHook<Color>(cursor, cursor => cursor.TryGotoNext(MoveType.After, instr => instr.MatchCall<Color>("get_Black")), 0, (orig, self) => orig * self.fgAlpha);
+            replacerHook<Color>(cursor, cursor => cursor.TryGotoNext(MoveType.After, instr => instr.MatchCall<Color>("get_Black")), 0, replaceFgAlpha);
         }
+
+        private static Color replaceFgAlpha(Color orig, BlackholeBG self) => self is BlackholeCustomColors b ? orig * b.fgAlpha : orig;
 
         private static void modBlackholeBeforeRender(ILContext il) {
             ILCursor cursor = new ILCursor(il);
 
             // if inverted is enabled, reverse the loop: for (int i = 19; 19 - i < 20; i--), 19 - i < 20 => i > -1 => i >= 0
             replacerHook<int>(cursor, cursor => cursor.TryGotoNext(instr => instr.MatchLdcI4(0), instr => instr.MatchStloc(1)),
-                1, (orig, self) => self.invertedRendering ? 19 : orig);
+                1, replaceInvertedRendering1);
             replacerHook<int>(cursor, cursor => cursor.TryGotoNext(instr => instr.MatchLdcI4(1), instr => instr.MatchAdd(), instr => instr.MatchStloc(1)),
-                1, (orig, self) => self.invertedRendering ? -1 : orig);
+                1, replaceInvertedRendering2);
             replacerHook<int>(cursor, cursor => cursor.TryGotoNext(instr => instr.MatchLdloc(1), instr => instr.MatchLdcI4(20), instr => instr.OpCode == OpCodes.Blt),
-                1, (orig, self) => self.invertedRendering ? 19 - orig : orig);
+                1, replaceInvertedRendering3);
             replacerHook<Color>(cursor, cursor => cursor.TryGotoNext(instr => instr.MatchLdfld<BlackholeBG>("bgColorInner"), instr => instr.MatchCallvirt<GraphicsDevice>("Clear")),
-                1, (orig, self) => self.invertedRendering ? Color.Transparent : orig);
+                1, replaceInvertedRendering4);
 
             // replace the particle texture if any was provided
             replacerHook<Texture2D>(cursor, cursor => cursor.TryGotoNext(MoveType.After, instr => instr.MatchCallvirt<VirtualTexture>("get_Texture_Safe")),
-                0, (orig, self) => self.particleTexture != null ? self.particleTexture.Texture.Texture : orig);
+                0, replaceParticleTexture);
         }
+
+        private static int replaceInvertedRendering1(int orig, BlackholeBG self) => self is BlackholeCustomColors { invertedRendering: true } ? 19 : orig;
+        private static int replaceInvertedRendering2(int orig, BlackholeBG self) => self is BlackholeCustomColors { invertedRendering: true } ? -1 : orig;
+        private static int replaceInvertedRendering3(int orig, BlackholeBG self) => self is BlackholeCustomColors { invertedRendering: true } ? 19 - orig : orig;
+        private static Color replaceInvertedRendering4(Color orig, BlackholeBG self) => self is BlackholeCustomColors { invertedRendering: true } ? Color.Transparent : orig;
+        private static Texture2D replaceParticleTexture(Texture2D orig, BlackholeBG self) => self is BlackholeCustomColors { particleTexture: not null } b ? b.particleTexture.Texture.Texture : orig;
 
         /**
          * The given condition should move the cursor after a method returning a T (optionally using the offset to do that).
          * Then, if "this" is a BlackholeCustomColors, the return value of the method will be replaced with what replaceWith returns.
          */
-        private static void replacerHook<T>(ILCursor cursor, Func<ILCursor, bool> condition, int offset, Func<T, BlackholeCustomColors, T> replaceWith) {
+        private static void replacerHook<T>(ILCursor cursor, Func<ILCursor, bool> condition, int offset, Func<T, BlackholeBG, T> replaceWith) {
             while (condition(cursor)) {
                 Logger.Log("MaxHelpingHand/BlackholeCustomColors", $"Applying patch in {cursor.Index} in IL for {cursor.Method.FullName}");
 
                 cursor.Index += offset;
 
                 cursor.Emit(OpCodes.Ldarg_0);
-                cursor.EmitDelegate<Func<T, BlackholeBG, T>>((orig, self) => {
-                    if (self is BlackholeCustomColors blackhole) {
-                        return replaceWith(orig, blackhole);
-                    }
-                    return orig;
-                });
+                cursor.EmitDelegate<Func<T, BlackholeBG, T>>(replaceWith);
             }
 
             cursor.Index = 0;

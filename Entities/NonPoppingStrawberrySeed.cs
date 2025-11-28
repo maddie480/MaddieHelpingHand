@@ -53,13 +53,15 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
                 Logger.Log("MaxHelpingHand/NonPoppingStrawberrySeed", $"Preventing strawberry seeds from popping at {cursor.Index} in IL for StrawberrySeed.Update");
 
                 cursor.Emit(OpCodes.Ldarg_0);
-                cursor.EmitDelegate<Func<bool, StrawberrySeed, bool>>((orig, self) => {
-                    if (self is NonPoppingStrawberrySeed) {
-                        return false; // pretend the player is not on ground, so that the seed does not pop.
-                    }
-                    return orig;
-                });
+                cursor.EmitDelegate<Func<bool, StrawberrySeed, bool>>(preventPopping);
             }
+        }
+
+        private static bool preventPopping(bool orig, StrawberrySeed self) {
+            if (self is NonPoppingStrawberrySeed) {
+                return false; // pretend the player is not on ground, so that the seed does not pop.
+            }
+            return orig;
         }
 
         private readonly bool pulseEffect;

@@ -73,46 +73,48 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
                 cursor.Emit(OpCodes.Ldarg_0);
                 cursor.Emit(OpCodes.Ldfld, typeof(BirdTutorialGui).GetField("bgColor", BindingFlags.NonPublic | BindingFlags.Instance));
 
-                cursor.EmitDelegate<Func<int, BirdTutorialGui, float, float, float, Color, Color, int>>((orig, self, controlsWidth, infoWidth, infoHeight, lineColor, bgColor) => {
-                    if (self.Entity is CustomTutorialWithNoBird tutorial && tutorial.direction != Direction.Down) {
-                        Vector2 position = (self.Entity.Position + self.Position - self.SceneAs<Level>().Camera.Position.Floor()) * 6f;
-                        float width = (Math.Max(controlsWidth, infoWidth) + 64f) * self.Scale;
-                        float height = infoHeight + ActiveFont.LineHeight + 32f;
-                        float left = position.X - width / 2f;
-                        float top = position.Y - height - 32f;
-
-                        // draw a replacement pointer if the direction is Up, Left or Right
-                        for (int i = 0; i <= 36; i++) {
-                            float bubbleWidth = (73 - i * 2) * self.Scale;
-
-                            switch (tutorial.direction) {
-                                case Direction.Up:
-                                    Draw.Rect(position.X - bubbleWidth / 2f, top - i - 1, bubbleWidth, 1f, lineColor);
-                                    if (bubbleWidth > 12f) {
-                                        Draw.Rect(position.X - bubbleWidth / 2f + 6f, top - i, bubbleWidth - 12f, 1f, bgColor);
-                                    }
-                                    break;
-                                case Direction.Left:
-                                    Draw.Rect(left - i - 1, top + height / 2f - bubbleWidth / 2f, 1f, bubbleWidth, lineColor);
-                                    if (bubbleWidth > 12f) {
-                                        Draw.Rect(left - i, top + height / 2f - bubbleWidth / 2f + 6f, 1f, bubbleWidth - 12f, bgColor);
-                                    }
-                                    break;
-                                case Direction.Right:
-                                    Draw.Rect(left + width + i, top + height / 2f - bubbleWidth / 2f, 1f, bubbleWidth, lineColor);
-                                    if (bubbleWidth > 12f) {
-                                        Draw.Rect(left + width + i, top + height / 2f - bubbleWidth / 2f + 6f, 1f, bubbleWidth - 12f, bgColor);
-                                    }
-                                    break;
-                            }
-                        }
-
-                        // remove the vanilla pointer by breaking the for loop drawing it (either we just drew the pointer ourselves, or we want no pointer).
-                        return -1;
-                    }
-                    return orig;
-                });
+                cursor.EmitDelegate<Func<int, BirdTutorialGui, float, float, float, Color, Color, int>>(modTutorialPointer);
             }
+        }
+
+        private static int modTutorialPointer(int orig, BirdTutorialGui self, float controlsWidth, float infoWidth, float infoHeight, Color lineColor, Color bgColor) {
+            if (self.Entity is CustomTutorialWithNoBird tutorial && tutorial.direction != Direction.Down) {
+                Vector2 position = (self.Entity.Position + self.Position - self.SceneAs<Level>().Camera.Position.Floor()) * 6f;
+                float width = (Math.Max(controlsWidth, infoWidth) + 64f) * self.Scale;
+                float height = infoHeight + ActiveFont.LineHeight + 32f;
+                float left = position.X - width / 2f;
+                float top = position.Y - height - 32f;
+
+                // draw a replacement pointer if the direction is Up, Left or Right
+                for (int i = 0; i <= 36; i++) {
+                    float bubbleWidth = (73 - i * 2) * self.Scale;
+
+                    switch (tutorial.direction) {
+                        case Direction.Up:
+                            Draw.Rect(position.X - bubbleWidth / 2f, top - i - 1, bubbleWidth, 1f, lineColor);
+                            if (bubbleWidth > 12f) {
+                                Draw.Rect(position.X - bubbleWidth / 2f + 6f, top - i, bubbleWidth - 12f, 1f, bgColor);
+                            }
+                            break;
+                        case Direction.Left:
+                            Draw.Rect(left - i - 1, top + height / 2f - bubbleWidth / 2f, 1f, bubbleWidth, lineColor);
+                            if (bubbleWidth > 12f) {
+                                Draw.Rect(left - i, top + height / 2f - bubbleWidth / 2f + 6f, 1f, bubbleWidth - 12f, bgColor);
+                            }
+                            break;
+                        case Direction.Right:
+                            Draw.Rect(left + width + i, top + height / 2f - bubbleWidth / 2f, 1f, bubbleWidth, lineColor);
+                            if (bubbleWidth > 12f) {
+                                Draw.Rect(left + width + i, top + height / 2f - bubbleWidth / 2f + 6f, 1f, bubbleWidth - 12f, bgColor);
+                            }
+                            break;
+                    }
+                }
+
+                // remove the vanilla pointer by breaking the for loop drawing it (either we just drew the pointer ourselves, or we want no pointer).
+                return -1;
+            }
+            return orig;
         }
     }
 }

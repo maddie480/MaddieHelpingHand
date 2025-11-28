@@ -34,12 +34,14 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
                 cursor.Emit(OpCodes.Ldarg_0);
                 cursor.Emit(OpCodes.Ldarg_0);
                 cursor.Emit(OpCodes.Ldfld, typeof(Puffer).GetField("idleSine", BindingFlags.NonPublic | BindingFlags.Instance));
-                cursor.EmitDelegate<Action<Puffer, SineWave>>((self, idleSine) => {
-                    if (self is StaticPuffer) {
-                        // unrandomize the initial pufferfish position.
-                        idleSine.Reset();
-                    }
-                });
+                cursor.EmitDelegate<Action<Puffer, SineWave>>(resetSine);
+            }
+        }
+
+        private static void resetSine(Puffer self, SineWave idleSine) {
+            if (self is StaticPuffer) {
+                // unrandomize the initial pufferfish position.
+                idleSine.Reset();
             }
         }
 
@@ -74,29 +76,31 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
 
                 cursor.Emit(OpCodes.Ldarg_0);
                 cursor.Emit(OpCodes.Ldarg_1);
-                cursor.EmitDelegate<Func<Vector2, Player, Vector2, Vector2>>((orig, self, from) => {
-                    if (currentDownboostTolerance == null) {
-                        // the current explode launching does not come from a static puffer, don't mess with it!
-                        return orig;
-                    }
+                cursor.EmitDelegate<Func<Vector2, Player, Vector2, Vector2>>(modExplodeLaunch);
+            }
+        }
 
-                    float offsetX = Math.Abs(self.Center.X - from.X);
-                    if (offsetX <= currentDownboostTolerance) {
-                        // we shall downboost
-                        if (orig.Y != 0) {
-                            // we're already downboosting
-                            return orig;
-                        }
-                        return (self.Center - from).SafeNormalize(-Vector2.UnitY) * orig.Length();
-                    } else {
-                        // we shall not downboost
-                        if (orig.Y == 0) {
-                            // we're already not downboosting
-                            return orig;
-                        }
-                        return Vector2.UnitX * orig.Length() * (currentPufferFacesRight ? 1 : -1);
-                    }
-                });
+        private static Vector2 modExplodeLaunch(Vector2 orig, Player self, Vector2 from) {
+            if (currentDownboostTolerance == null) {
+                // the current explode launching does not come from a static puffer, don't mess with it!
+                return orig;
+            }
+
+            float offsetX = Math.Abs(self.Center.X - from.X);
+            if (offsetX <= currentDownboostTolerance) {
+                // we shall downboost
+                if (orig.Y != 0) {
+                    // we're already downboosting
+                    return orig;
+                }
+                return (self.Center - from).SafeNormalize(-Vector2.UnitY) * orig.Length();
+            } else {
+                // we shall not downboost
+                if (orig.Y == 0) {
+                    // we're already not downboosting
+                    return orig;
+                }
+                return Vector2.UnitX * orig.Length() * (currentPufferFacesRight ? 1 : -1);
             }
         }
     }

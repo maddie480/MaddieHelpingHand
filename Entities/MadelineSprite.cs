@@ -48,13 +48,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
                 Logger.Log("MaxHelpingHand/MadelineSprite", $"Modding hair color on Prologue inventory at {cursor.Index} in IL for Player.UpdateHair");
 
                 cursor.Emit(OpCodes.Ldarg_0);
-                cursor.EmitDelegate<Func<int, Player, int>>((orig, self) => {
-                    if (self is MadelineSprite) {
-                        // pretend the player has 1 dash inventory.
-                        return 1;
-                    }
-                    return orig;
-                });
+                cursor.EmitDelegate<Func<int, Player, int>>(modDashCount);
             }
 
             cursor.Index = 0;
@@ -63,14 +57,24 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
                 Logger.Log("MaxHelpingHand/MadelineSprite", $"Making lerps instant at {cursor.Index} in IL for Player.UpdateHair");
 
                 cursor.Emit(OpCodes.Ldarg_0);
-                cursor.EmitDelegate<Func<float, Player, float>>((orig, self) => {
-                    if (self is MadelineSprite) {
-                        // pretend delta time is 1 second, so that the lerp ends right away.
-                        return 1;
-                    }
-                    return orig;
-                });
+                cursor.EmitDelegate<Func<float, Player, float>>(modLerp);
             }
+        }
+
+        private static int modDashCount(int orig, Player self) {
+            if (self is MadelineSprite) {
+                // pretend the player has 1 dash inventory.
+                return 1;
+            }
+            return orig;
+        }
+
+        private static float modLerp(float orig, Player self) {
+            if (self is MadelineSprite) {
+                // pretend delta time is 1 second, so that the lerp ends right away.
+                return 1;
+            }
+            return orig;
         }
 
         private static void modHyperlineHairFlash(ILContext il) {
@@ -80,20 +84,19 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
                 Logger.Log("MaxHelpingHand/MadelineSprite", $"Hooking Hyperline hair flash at {cursor.Index} in IL for Hyperline.GetHairColor");
 
                 cursor.Emit(OpCodes.Ldarg_1);
-                cursor.EmitDelegate<Func<bool, PlayerHair, bool>>((orig, self) => {
-                    if (self.Entity is MadelineSprite) {
-                        // no flashing!
-                        return false;
-                    }
-                    return orig;
-                });
+                cursor.EmitDelegate<Func<bool, PlayerHair, bool>>(modFlashing);
             }
         }
 
-        private readonly int dashCount;
+        private static bool modFlashing(bool orig, PlayerHair self) {
+            if (self.Entity is MadelineSprite) {
+                // no flashing!
+                return false;
+            }
+            return orig;
+        }
 
-        private float windHairTimer = 0f;
-        private float windTimeout = 0f;
+        private readonly int dashCount;
 
         public MadelineSprite(EntityData data, Vector2 offset) : base(data.Position + offset, data.Bool("hasBackpack") ? PlayerSpriteMode.Madeline : PlayerSpriteMode.MadelineNoBackpack) {
             if (data.Bool("left")) {

@@ -202,28 +202,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
                 // before the rendering, switch to a dedicated render target if required.
                 cursor.Emit(OpCodes.Ldarg_0);
                 cursor.Emit(OpCodes.Ldloc, backdropLocal);
-                cursor.EmitDelegate<Action<BackdropRenderer, Backdrop>>((self, backdrop) => {
-                    if (controllers.Count == 0) return;
-
-                    bool hasFlag = backdrop.OnlyIfFlag != null && tryGetValue(fades, backdrop.OnlyIfFlag, false, out float fade) && fade < 1;
-                    bool hasNotFlag = backdrop.OnlyIfNotFlag != null && tryGetValue(fades, backdrop.OnlyIfNotFlag, true, out fade) && fade < 1;
-
-                    if (hasFlag || hasNotFlag) {
-                        self.EndSpritebatch();
-
-                        ensureBufferIsCorrect();
-                        Engine.Graphics.GraphicsDevice.SetRenderTarget(tempRenderTarget);
-                        Engine.Graphics.GraphicsDevice.Clear(Color.Transparent);
-
-                        if (backdrop.UseSpritebatch) {
-                            if (backdrop is Parallax) {
-                                self.StartSpritebatchLooping(BlendState.AlphaBlend);
-                            } else {
-                                self.StartSpritebatch(BlendState.AlphaBlend);
-                            }
-                        }
-                    }
-                });
+                cursor.EmitDelegate<Action<BackdropRenderer, Backdrop>>(renderStylegroundStart);
 
                 cursor.Index++;
 
@@ -231,29 +210,54 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
                 cursor.Emit(OpCodes.Ldarg_0);
                 cursor.Emit(OpCodes.Ldloc, backdropLocal);
                 cursor.Emit(OpCodes.Ldloc, blendStateLocal);
-                cursor.EmitDelegate<Action<BackdropRenderer, Backdrop, BlendState>>((self, backdrop, blendState) => {
-                    if (controllers.Count == 0) return;
+                cursor.EmitDelegate<Action<BackdropRenderer, Backdrop, BlendState>>(renderStylegroundEnd);
+            }
+        }
 
-                    string flag = null;
-                    bool notFlag = false;
-                    if (backdrop.OnlyIfFlag != null && tryGetValue(fades, backdrop.OnlyIfFlag, false, out float fade) && fade < 1) {
-                        flag = backdrop.OnlyIfFlag;
-                        notFlag = false;
+        private static void renderStylegroundStart(BackdropRenderer self, Backdrop backdrop) {
+            if (controllers.Count == 0) return;
+
+            bool hasFlag = backdrop.OnlyIfFlag != null && tryGetValue(fades, backdrop.OnlyIfFlag, false, out float fade) && fade < 1;
+            bool hasNotFlag = backdrop.OnlyIfNotFlag != null && tryGetValue(fades, backdrop.OnlyIfNotFlag, true, out fade) && fade < 1;
+
+            if (hasFlag || hasNotFlag) {
+                self.EndSpritebatch();
+
+                ensureBufferIsCorrect();
+                Engine.Graphics.GraphicsDevice.SetRenderTarget(tempRenderTarget);
+                Engine.Graphics.GraphicsDevice.Clear(Color.Transparent);
+
+                if (backdrop.UseSpritebatch) {
+                    if (backdrop is Parallax) {
+                        self.StartSpritebatchLooping(BlendState.AlphaBlend);
+                    } else {
+                        self.StartSpritebatch(BlendState.AlphaBlend);
                     }
-                    if (backdrop.OnlyIfNotFlag != null && tryGetValue(fades, backdrop.OnlyIfNotFlag, true, out fade) && fade < 1) {
-                        flag = backdrop.OnlyIfNotFlag;
-                        notFlag = true;
-                    }
+                }
+            }
+        }
 
-                    if (flag != null) {
-                        self.EndSpritebatch();
+        private static void renderStylegroundEnd(BackdropRenderer self, Backdrop backdrop, BlendState blendState) {
+            if (controllers.Count == 0) return;
 
-                        Engine.Graphics.GraphicsDevice.SetRenderTarget(GameplayBuffers.Level);
+            string flag = null;
+            bool notFlag = false;
+            if (backdrop.OnlyIfFlag != null && tryGetValue(fades, backdrop.OnlyIfFlag, false, out float fade) && fade < 1) {
+                flag = backdrop.OnlyIfFlag;
+                notFlag = false;
+            }
+            if (backdrop.OnlyIfNotFlag != null && tryGetValue(fades, backdrop.OnlyIfNotFlag, true, out fade) && fade < 1) {
+                flag = backdrop.OnlyIfNotFlag;
+                notFlag = true;
+            }
 
-                        self.StartSpritebatch(blendState);
-                        Draw.SpriteBatch.Draw(tempRenderTarget, Vector2.Zero, Color.White * fades[flag][notFlag]);
-                    }
-                });
+            if (flag != null) {
+                self.EndSpritebatch();
+
+                Engine.Graphics.GraphicsDevice.SetRenderTarget(GameplayBuffers.Level);
+
+                self.StartSpritebatch(blendState);
+                Draw.SpriteBatch.Draw(tempRenderTarget, Vector2.Zero, Color.White * fades[flag][notFlag]);
             }
         }
     }

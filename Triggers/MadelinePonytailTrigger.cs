@@ -58,14 +58,7 @@ namespace Celeste.Mod.MaxHelpingHand.Triggers {
 
                 cursor.Emit(OpCodes.Ldarg_0);
                 cursor.Emit(cursor.Prev.Previous.Previous.OpCode, cursor.Prev.Previous.Previous.Operand); // load the index local variable.
-                cursor.EmitDelegate<Func<Vector2, PlayerHair, int, Vector2>>((orig, self, index) => {
-                    if (new Func<bool>(() => MaxHelpingHandModule.Instance.Session.MadelineHasPonytail && self.Entity is Player && index != 0)()) {
-                        // shrink Maddy's hair, except for index 0 (over her head) to avoid... shrinking her head.
-                        float scale = 0.25f + (1f - index / 6f) * 0.6f;
-                        return new Vector2(scale * 0.75f * Math.Abs(self.Sprite.Scale.X), scale * 0.75f);
-                    }
-                    return orig;
-                });
+                cursor.EmitDelegate<Func<Vector2, PlayerHair, int, Vector2>>(modHairScaleAndCount);
             }
 
             // reset the cursor
@@ -73,6 +66,15 @@ namespace Celeste.Mod.MaxHelpingHand.Triggers {
 
             // === hook "hair count" (Maddy's hair length).
             hookHairCount(cursor);
+        }
+
+        private static Vector2 modHairScaleAndCount(Vector2 orig, PlayerHair self, int index) {
+            if (MaxHelpingHandModule.Instance.Session.MadelineHasPonytail && self.Entity is Player && index != 0) {
+                // shrink Maddy's hair, except for index 0 (over her head) to avoid... shrinking her head.
+                float scale = 0.25f + (1f - index / 6f) * 0.6f;
+                return new Vector2(scale * 0.75f * Math.Abs(self.Sprite.Scale.X), scale * 0.75f);
+            }
+            return orig;
         }
 
         private static void hookHairCount(ILContext il) {
@@ -84,14 +86,16 @@ namespace Celeste.Mod.MaxHelpingHand.Triggers {
                 Logger.Log("MaxHelpingHand/MadelinePonytailTrigger", $"Modifying Madeline hair size at {cursor.Index} in IL for PlayerHair.Render");
 
                 cursor.Emit(OpCodes.Ldarg_0);
-                cursor.EmitDelegate<Func<int, PlayerHair, int>>((orig, self) => {
-                    if (MaxHelpingHandModule.Instance.Session.MadelineHasPonytail && (self.Entity == null || self.Entity is Player)) {
-                        // make Madeline's hair longer.
-                        return 6;
-                    }
-                    return orig;
-                });
+                cursor.EmitDelegate<Func<int, PlayerHair, int>>(makeHairLonger);
             }
+        }
+
+        private static int makeHairLonger(int orig, PlayerHair self) {
+            if (MaxHelpingHandModule.Instance.Session.MadelineHasPonytail && (self.Entity == null || self.Entity is Player)) {
+                // make Madeline's hair longer.
+                return 6;
+            }
+            return orig;
         }
 
         private static Color hookHairColor(On.Celeste.PlayerHair.orig_GetHairColor orig, PlayerHair self, int index) {

@@ -20,22 +20,24 @@ namespace Celeste.Mod.MaxHelpingHand.Effects {
             while (cursor.TryGotoNext(MoveType.After, instr => instr.MatchNewobj(typeof(Parallax)))) {
                 Logger.Log("MaxHelpingHand/AnimatedParallax", $"Handling animated parallaxes at {cursor.Index} in IL for MapData.ParseBackdrop");
 
-                cursor.EmitDelegate<Func<Parallax, Parallax>>(orig => {
-                    if (orig.Texture?.AtlasPath?.StartsWith("bgs/MaxHelpingHand/animatedParallax/") ?? false) {
-                        // nah, this is an ANIMATED parallax, mind you!
-                        return new AnimatedParallax(orig.Texture);
-                    }
-                    if (orig.Texture?.AtlasPath?.StartsWith("bgs/MaxHelpingHand/hdParallax/") ?? false) {
-                        // and this is an HD parallax.
-                        return new HdParallax(orig.Texture);
-                    }
-                    if (orig.Texture?.AtlasPath?.StartsWith("bgs/MaxHelpingHand/animatedHdParallax/") ?? false) {
-                        // ... why not both?
-                        return new AnimatedHdParallax(orig.Texture);
-                    }
-                    return orig;
-                });
+                cursor.EmitDelegate<Func<Parallax, Parallax>>(handleSpecialParallaxes);
             }
+        }
+
+        private static Parallax handleSpecialParallaxes(Parallax orig) {
+            if (orig.Texture?.AtlasPath?.StartsWith("bgs/MaxHelpingHand/animatedParallax/") ?? false) {
+                // nah, this is an ANIMATED parallax, mind you!
+                return new AnimatedParallax(orig.Texture);
+            }
+            if (orig.Texture?.AtlasPath?.StartsWith("bgs/MaxHelpingHand/hdParallax/") ?? false) {
+                // and this is an HD parallax.
+                return new HdParallax(orig.Texture);
+            }
+            if (orig.Texture?.AtlasPath?.StartsWith("bgs/MaxHelpingHand/animatedHdParallax/") ?? false) {
+                // ... why not both?
+                return new AnimatedHdParallax(orig.Texture);
+            }
+            return orig;
         }
 
         private class ParallaxMeta {

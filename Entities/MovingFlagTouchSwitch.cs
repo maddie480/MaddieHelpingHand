@@ -174,13 +174,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
 
                 cursor.Emit(OpCodes.Ldarg_0);
                 cursor.Emit(OpCodes.Ldfld, movingTouchSwitchStateMachineType.GetField("<>4__this"));
-                cursor.EmitDelegate<Func<Color, TouchSwitch, Color>>((orig, self) => {
-                    DynData<TouchSwitch> data = new DynData<TouchSwitch>(self);
-                    if (data.Data.ContainsKey("movingColor")) {
-                        return data.Get<Color>("movingColor");
-                    }
-                    return orig;
-                });
+                cursor.EmitDelegate<Func<Color, TouchSwitch, Color>>(modTouchSwitchColor);
             }
 
             cursor.Index = 0;
@@ -190,14 +184,24 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
 
                 cursor.Emit(OpCodes.Ldarg_0);
                 cursor.Emit(OpCodes.Ldfld, movingTouchSwitchStateMachineType.GetField("<>4__this"));
-                cursor.EmitDelegate<Func<float, TouchSwitch, float>>((orig, self) => {
-                    DynData<TouchSwitch> data = new DynData<TouchSwitch>(self);
-                    if (data.Data.ContainsKey("movingDelay")) {
-                        return data.Get<float>("movingDelay");
-                    }
-                    return orig;
-                });
+                cursor.EmitDelegate<Func<float, TouchSwitch, float>>(modTouchSwitchDelay);
             }
+        }
+
+        private static Color modTouchSwitchColor(Color orig, TouchSwitch self) {
+            DynData<TouchSwitch> data = new DynData<TouchSwitch>(self);
+            if (data.Data.ContainsKey("movingColor")) {
+                return data.Get<Color>("movingColor");
+            }
+            return orig;
+        }
+
+        private static float modTouchSwitchDelay(float orig, TouchSwitch self) {
+            DynData<TouchSwitch> data = new DynData<TouchSwitch>(self);
+            if (data.Data.ContainsKey("movingDelay")) {
+                return data.Get<float>("movingDelay");
+            }
+            return orig;
         }
 
         private static bool onSwitchActivate(On.Celeste.Switch.orig_Activate orig, Switch self) {

@@ -51,13 +51,15 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
                 Logger.Log("MaxHelpingHand/ReversibleRetentionBooster", $"Modding booster skin at {cursor.Index} in IL for Booster constructor");
 
                 cursor.Emit(OpCodes.Ldarg_0);
-                cursor.EmitDelegate<Func<string, Booster, string>>((orig, self) => {
-                    if (self is ReversibleRetentionBooster) {
-                        return "MaxHelpingHand_reversibleRetentionBooster";
-                    }
-                    return orig;
-                });
+                cursor.EmitDelegate<Func<string, Booster, string>>(modBoosterSkin);
             }
+        }
+
+        private static string modBoosterSkin(string orig, Booster self) {
+            if (self is ReversibleRetentionBooster) {
+                return "MaxHelpingHand_reversibleRetentionBooster";
+            }
+            return orig;
         }
 
         private static void reskinParticles(On.Celeste.Booster.orig_Update orig, Booster self) {
@@ -95,19 +97,21 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
 
                 cursor.Emit(OpCodes.Ldloc_3);
 
-                cursor.EmitDelegate<Func<Player, Vector2, Vector2, Vector2>>((self, beforeDashSpeed, speed) => {
-                    if (self.CurrentBooster is ReversibleRetentionBooster) {
-                        if (Math.Sign(beforeDashSpeed.X) == -Math.Sign(speed.X) && Math.Abs(beforeDashSpeed.X) > Math.Abs(speed.X)) {
-                            // reverse beforeDashSpeed so that the retention direction is reversed!
-                            return -beforeDashSpeed;
-                        }
-                    }
-                    return beforeDashSpeed;
-                });
+                cursor.EmitDelegate<Func<Player, Vector2, Vector2, Vector2>>(reverseRetention);
 
                 // the return value should be assigned to beforeDashSpeed
                 cursor.Emit(OpCodes.Stfld, typeof(Player).GetField("beforeDashSpeed", BindingFlags.NonPublic | BindingFlags.Instance));
             }
+        }
+
+        private static Vector2 reverseRetention(Player self, Vector2 beforeDashSpeed, Vector2 speed) {
+            if (self.CurrentBooster is ReversibleRetentionBooster) {
+                if (Math.Sign(beforeDashSpeed.X) == -Math.Sign(speed.X) && Math.Abs(beforeDashSpeed.X) > Math.Abs(speed.X)) {
+                    // reverse beforeDashSpeed so that the retention direction is reversed!
+                    return -beforeDashSpeed;
+                }
+            }
+            return beforeDashSpeed;
         }
 
         public ReversibleRetentionBooster(EntityData data, Vector2 offset) : base(data, offset) {

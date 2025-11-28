@@ -33,8 +33,12 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
 
             while (cursor.TryGotoNext(MoveType.After, instr => instr.MatchLdstr("objects/touchswitch/icon"))) {
                 Logger.Log("MaxHelpingHand/ReskinnableTouchSwitch", $"Modding touch switch icon at {cursor.Index} in IL for TouchSwitch constructor");
-                cursor.EmitDelegate<Func<string, string>>(orig => iconPath != null ? iconPath : orig);
+                cursor.EmitDelegate<Func<string, string>>(modIcon);
             }
+        }
+
+        private static string modIcon(string orig) {
+            return iconPath != null ? iconPath : orig;
         }
 
         public ReskinnableTouchSwitch(EntityData data, Vector2 offset) : base(data, offset) {

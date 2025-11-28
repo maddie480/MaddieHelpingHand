@@ -1,4 +1,5 @@
 ﻿using Celeste.Mod.Entities;
+using Celeste.Mod.Helpers;
 using Microsoft.Xna.Framework;
 using Monocle;
 using MonoMod.Cil;
@@ -73,12 +74,12 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             ILCursor cursor = new ILCursor(il);
             while (cursor.TryGotoNext(MoveType.After, instr => instr.MatchLdstr("scenery/debris"))) {
                 Logger.Log("MaxHelpingHand/ReskinnableFloatingDebris", $"Reskinning floating debris @ {cursor.Index} in IL for FloatingDebris constructor");
-                cursor.EmitDelegate<Func<string, string>>(orig => floatingDebrisSkin ?? orig); // use floatingDebrisSkin instead of scenery/debris, unless it is null.
+                cursor.EmitDelegate<Func<string, string>>(reskinDebris); // use floatingDebrisSkin instead of scenery/debris, unless it is null.
             }
 
             // change width and height
             cursor.Index = 0;
-            if (cursor.TryGotoNext(MoveType.After,
+            if (cursor.TryGotoNextBestFit(MoveType.After,
                 instr => instr.MatchMul(),
                 instr => instr.MatchLdcI4(0),
                 instr => instr.MatchLdcI4(8),
@@ -86,16 +87,27 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
                 Logger.Log("MaxHelpingHand/ReskinnableFloatingDebris", $"Resizing floating debris @ {cursor.Index} in IL for FloatingDebris constructor");
 
                 // the last 8 here refers to the height (new MTexture(parent, x, y, width, <<height>>)).
-                cursor.EmitDelegate<Func<int, int>>(orig => floatingDebrisHeight ?? orig);
+                cursor.EmitDelegate<Func<int, int>>(modDebrisHeight);
 
                 // all 8's before that are referring to the width.
                 cursor.Index--;
                 while (cursor.TryGotoPrev(MoveType.After, instr => instr.MatchLdcI4(8))) {
                     int index = cursor.Index;
-                    cursor.EmitDelegate<Func<int, int>>(orig => floatingDebrisWidth ?? orig);
+                    cursor.EmitDelegate<Func<int, int>>(modDebrisWidth);
                     cursor.Index = index - 1;
                 }
             }
+        }
+        private static string reskinDebris(string orig) {
+            return floatingDebrisSkin ?? orig;
+        }
+
+        private static int modDebrisHeight(int orig) {
+            return floatingDebrisHeight ?? orig;
+        }
+
+        private static int modDebrisWidth(int orig) {
+            return floatingDebrisWidth ?? orig;
         }
 
         private class DebrisParallaxThingy : Component {

@@ -21,14 +21,16 @@ namespace Celeste.Mod.MaxHelpingHand.Triggers {
             while (cursor.TryGotoNext(MoveType.After, instr => instr.MatchCallvirt<Level>("get_CoreMode"))) {
                 Logger.Log("MaxHelpingHand/DisableIcePhysicsTrigger", $"Patching ice mode checking at {cursor.Index} in IL for Player.NormalUpdate");
 
-                cursor.EmitDelegate<Func<Session.CoreModes, Session.CoreModes>>(coreMode => {
-                    if (MaxHelpingHandModule.Instance.Session.IcePhysicsDisabled) {
-                        // pretend there is no core mode, so that the ground is not slippery anymore.
-                        return Session.CoreModes.None;
-                    }
-                    return coreMode;
-                });
+                cursor.EmitDelegate<Func<Session.CoreModes, Session.CoreModes>>(replaceCoreModeForIcePhysics);
             }
+        }
+
+        private static Session.CoreModes replaceCoreModeForIcePhysics(Session.CoreModes coreMode) {
+            if (MaxHelpingHandModule.Instance.Session.IcePhysicsDisabled) {
+                // pretend there is no core mode, so that the ground is not slippery anymore.
+                return Session.CoreModes.None;
+            }
+            return coreMode;
         }
 
         private bool disableIcePhysics;

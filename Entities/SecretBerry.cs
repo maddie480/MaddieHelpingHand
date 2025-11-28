@@ -60,13 +60,13 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             string[] vanillaPaths = new string[] {
                 "event:/game/general/strawberry_pulse", "event:/game/general/strawberry_blue_touch", "event:/game/general/strawberry_touch", "event:/game/general/strawberry_get", "strawberry", "ghostberry"
             };
-            Func<SecretBerry, string>[] customPathGetters = new Func<SecretBerry, string>[] {
-                b => b.strawberryPulseSound, b => b.strawberryBlueTouchSound, b => b.strawberryTouchSound, b => b.strawberryGetSound, b => b.strawberrySprite, b => b.ghostberrySprite
+            Func<string, Strawberry, string>[] customPathGetters = new Func<string, Strawberry, string>[] {
+                getStrawberryPulseSound, getStrawberryBlueTouchSound, getStrawberryTouchSound, getStrawberryGetSound, getStrawberrySprite, getGhostberrySprite
             };
 
             // replace all listed sounds.
             for (int i = 0; i < vanillaPaths.Length; i++) {
-                Func<SecretBerry, string> customPathGetter = customPathGetters[i];
+                Func<string, Strawberry, string> customPathGetter = customPathGetters[i];
                 while (cursor.TryGotoNext(MoveType.After, instr => instr.MatchLdstr(vanillaPaths[i]))) {
                     Logger.Log("MaxHelpingHand/SecretBerry", $"Replacing string \"{vanillaPaths[i]}\" at {cursor.Index} in IL for {il.Method.FullName}");
                     cursor.Emit(OpCodes.Ldarg_0);
@@ -74,16 +74,18 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
                         // we are hooking the collect coroutine: get the actual "this".
                         cursor.Emit(OpCodes.Ldfld, typeof(Strawberry).GetMethod("CollectRoutine", BindingFlags.NonPublic | BindingFlags.Instance).GetStateMachineTarget().DeclaringType.GetField("<>4__this"));
                     }
-                    cursor.EmitDelegate<Func<string, Strawberry, string>>((orig, self) => {
-                        if (self is SecretBerry berry) {
-                            return customPathGetter(berry);
-                        }
-                        return orig;
-                    });
+                    cursor.EmitDelegate<Func<string, Strawberry, string>>(customPathGetter);
                 }
                 cursor.Index = 0;
             }
         }
+
+        private static string getStrawberryPulseSound(string orig, Strawberry self) => self is SecretBerry b ? b.strawberryPulseSound : orig;
+        private static string getStrawberryBlueTouchSound(string orig, Strawberry self) => self is SecretBerry b ? b.strawberryBlueTouchSound : orig;
+        private static string getStrawberryTouchSound(string orig, Strawberry self) => self is SecretBerry b ? b.strawberryTouchSound : orig;
+        private static string getStrawberryGetSound(string orig, Strawberry self) => self is SecretBerry b ? b.strawberryGetSound : orig;
+        private static string getStrawberrySprite(string orig, Strawberry self) => self is SecretBerry b ? b.strawberrySprite : orig;
+        private static string getGhostberrySprite(string orig, Strawberry self) => self is SecretBerry b ? b.ghostberrySprite : orig;
 
         private static void injectMoonBerrySound(ILContext il) {
             ILCursor cursor = new ILCursor(il);
@@ -96,13 +98,15 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
                 cursor.Emit(OpCodes.Ldfld, typeof(Strawberry).GetMethod("CollectRoutine", BindingFlags.NonPublic | BindingFlags.Instance)
                     .GetStateMachineTarget().DeclaringType.GetField("<>4__this"));
 
-                cursor.EmitDelegate<Func<bool, Strawberry, bool>>((orig, self) => {
-                    if (self is SecretBerry berry && berry.moonBerrySound) {
-                        return true; // this will set the "colour" music param to 3, which obviously means "make a moon berry sound"
-                    }
-                    return orig;
-                });
+                cursor.EmitDelegate<Func<bool, Strawberry, bool>>(enableMoonBerrySound);
             }
+        }
+
+        private static bool enableMoonBerrySound(bool orig, Strawberry self) {
+            if (self is SecretBerry berry && berry.moonBerrySound) {
+                return true; // this will set the "colour" music param to 3, which obviously means "make a moon berry sound"
+            }
+            return orig;
         }
 
         private static IEnumerator onStrawberryCollect(On.Celeste.Strawberry.orig_CollectRoutine orig, Strawberry self, int collectIndex) {
@@ -157,19 +161,21 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
                 Logger.Log("MaxHelpingHand/SecretBerry", $"Disabling pulse animation on demand at {cursor.Index} in IL for Strawberry.OnAnimate");
 
                 cursor.Emit(OpCodes.Ldarg_0);
-                cursor.EmitDelegate<Func<int, Strawberry, int>>((orig, self) => {
-                    if (self is SecretBerry berry && !berry.pulseEnabled) {
-                        // trigger the sound ourselves
-                        if (self.Get<Sprite>().CurrentAnimationFrame == orig) {
-                            Audio.Play(berry.strawberryPulseSound, berry.Position);
-                        }
-
-                        // make the branch triggering the pulse light + displacement effect always false
-                        return -1;
-                    }
-                    return orig;
-                });
+                cursor.EmitDelegate<Func<int, Strawberry, int>>(interceptPulse);
             }
+        }
+
+        private static int interceptPulse(int orig, Strawberry self) {
+            if (self is SecretBerry berry && !berry.pulseEnabled) {
+                // trigger the sound ourselves
+                if (self.Get<Sprite>().CurrentAnimationFrame == orig) {
+                    Audio.Play(berry.strawberryPulseSound, berry.Position);
+                }
+
+                // make the branch triggering the pulse light + displacement effect always false
+                return -1;
+            }
+            return orig;
         }
 
 

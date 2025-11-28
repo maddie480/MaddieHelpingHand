@@ -37,8 +37,12 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
 
                 Logger.Log("MaxHelpingHand/ReverseJelly", $"Reversing jelly Y axis at {cursor.Index} in IL for Glider.Update");
                 cursor.Emit(OpCodes.Ldarg_0);
-                cursor.EmitDelegate<Func<int, Glider, int>>((orig, self) => (self is ReverseJelly) ? (-orig) : orig);
+                cursor.EmitDelegate<Func<int, Glider, int>>(invertYMovement);
             }
+        }
+
+        private static int invertYMovement(int orig, Glider self) {
+            return (self is ReverseJelly) ? (-orig) : orig;
         }
 
         private static void reverseYAxisPlayer(ILContext il) {
@@ -53,11 +57,19 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
 
                 cursor.Emit(OpCodes.Ldarg_0);
                 if (returnsFloat) {
-                    cursor.EmitDelegate<Func<float, Player, float>>((orig, self) => (self.Holding?.Entity is ReverseJelly) ? -orig : orig);
+                    cursor.EmitDelegate<Func<float, Player, float>>(invertYMovementPlayerFloat);
                 } else {
-                    cursor.EmitDelegate<Func<int, Player, int>>((orig, self) => (self.Holding?.Entity is ReverseJelly) ? -orig : orig);
+                    cursor.EmitDelegate<Func<int, Player, int>>(invertYMovementPlayerInt);
                 }
             }
+        }
+
+        private static float invertYMovementPlayerFloat(float orig, Player self) {
+            return (self.Holding?.Entity is ReverseJelly) ? -orig : orig;
+        }
+
+        private static int invertYMovementPlayerInt(int orig, Player self) {
+            return (self.Holding?.Entity is ReverseJelly) ? -orig : orig;
         }
 
         private static void reverseYAxisThrow(ILContext il) {
@@ -68,7 +80,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
 
                 Logger.Log("MaxHelpingHand/ReverseJelly", $"Reversing jelly Y axis at {cursor.Index} in IL for Player.Throw");
                 cursor.Emit(OpCodes.Ldarg_0);
-                cursor.EmitDelegate<Func<int, Player, int>>((orig, self) => (self.Holding?.Entity is ReverseJelly) ? -orig : orig);
+                cursor.EmitDelegate<Func<int, Player, int>>(invertYAxisPlayerThrow);
             }
 
             cursor.Index = 0;
@@ -76,13 +88,19 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             while (cursor.TryGotoNext(MoveType.After, instr => ILPatternMatchingExt.MatchLdfld<Player>(instr, "Facing"))) {
                 Logger.Log("MaxHelpingHand/ReverseJelly", $"Reversing facing at {cursor.Index} in IL for Player.Throw");
                 cursor.Emit(OpCodes.Ldarg_0);
-                cursor.EmitDelegate<Func<Facings, Player, Facings>>((orig, self) => {
-                    if (!(self.Holding?.Entity is ReverseJelly)) {
-                        return orig;
-                    }
-                    return (orig != Facings.Right) ? Facings.Right : Facings.Left;
-                });
+                cursor.EmitDelegate<Func<Facings, Player, Facings>>(invertThrowFacing);
             }
+        }
+
+        private static int invertYAxisPlayerThrow(int orig, Player self) {
+            return (self.Holding?.Entity is ReverseJelly) ? -orig : orig;
+        }
+
+        private static Facings invertThrowFacing(Facings orig, Player self) {
+            if (!(self.Holding?.Entity is ReverseJelly)) {
+                return orig;
+            }
+            return (orig != Facings.Right) ? Facings.Right : Facings.Left;
         }
     }
 }

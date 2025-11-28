@@ -48,8 +48,12 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             while (cursor.TryGotoNext(MoveType.After, instr => instr.MatchLdcR4(30f))) {
                 Logger.Log("MaxHelpingHand/FrozenJelly", $"Changing terminal falling velocity of jelly at {cursor.Index} in IL for Glider.Update");
                 cursor.Emit(OpCodes.Ldarg_0);
-                cursor.EmitDelegate<Func<float, Glider, float>>((orig, self) => (self is FrozenJelly) ? 0f : orig);
+                cursor.EmitDelegate<Func<float, Glider, float>>(modGravity);
             }
+        }
+
+        private static float modGravity(float orig, Glider self) {
+            return (self is FrozenJelly) ? 0f : orig;
         }
 
         private static void slowDownVerticalMovement(ILContext il) {
@@ -59,12 +63,16 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
 
                 bool lastMatched = (float) cursor.Prev.Operand == 40f;
                 cursor.Emit(OpCodes.Ldarg_0);
-                cursor.EmitDelegate<Func<float, Player, float>>((orig, self) => (self.Holding?.Entity is FrozenJelly) ? (orig / 2f) : orig);
+                cursor.EmitDelegate<Func<float, Player, float>>(modVerticalMovement);
 
                 if (lastMatched) {
                     break;
                 }
             }
+        }
+
+        private static float modVerticalMovement(float orig, Player self) {
+            return (self.Holding?.Entity is FrozenJelly) ? (orig / 2f) : orig;
         }
     }
 }

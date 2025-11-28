@@ -35,37 +35,42 @@ namespace Celeste.Mod.MaxHelpingHand.Module {
         private static void modStrawberrySkin(ILContext il) {
             // replace the strawberry, then the golden berry icon.
             ILCursor iLCursor = new ILCursor(il);
-            replaceStrawberrySprite(iLCursor, "strawberry");
+            replaceStrawberrySprite(iLCursor, "strawberry", replaceStrawberrySprite);
             iLCursor.Index = 0;
-            replaceStrawberrySprite(iLCursor, "goldberry");
+            replaceStrawberrySprite(iLCursor, "goldberry", replaceGoldberrySprite);
         }
 
-        private static void replaceStrawberrySprite(ILCursor iLCursor, string name) {
+        private static void replaceStrawberrySprite(ILCursor iLCursor, string name, Func<string, string> replacer) {
             while (iLCursor.TryGotoNext(MoveType.After, instr => instr.MatchLdstr($"collectables/{name}"))) {
                 Logger.Log("MaxHelpingHand/GuiStrawberryReskin", $"Changing {name} icon w/ custom one at {iLCursor.Index} in IL for {iLCursor.Method.FullName}");
-                iLCursor.EmitDelegate<Func<string, string>>(orig => {
-                    if (isFileSelect) {
-                        return orig;
-                    }
-
-                    // try figuring out the current area, and if we can't, bail out!
-                    AreaKey? area = (Engine.Scene as Overworld)?.GetUI<OuiChapterPanel>()?.Area;
-                    if (area == null) {
-                        area = (Engine.Scene as Level)?.Session?.Area;
-                    }
-                    if (area == null) {
-                        return orig;
-                    }
-
-                    if (GFX.Gui.Has($"MaxHelpingHand/{area.Value.SID}_{name}")) {
-                        return $"MaxHelpingHand/{area.Value.SID}_{name}";
-                    }
-                    if (GFX.Gui.Has($"MaxHelpingHand/{area.Value.LevelSet}/{name}")) {
-                        return $"MaxHelpingHand/{area.Value.LevelSet}/{name}";
-                    }
-                    return orig;
-                });
+                iLCursor.EmitDelegate<Func<string, string>>(replacer);
             }
+        }
+
+        private static string replaceStrawberrySprite(string orig) => replaceBerrySprite("strawberry", orig);
+        private static string replaceGoldberrySprite(string orig) => replaceBerrySprite("goldberry", orig);
+
+        private static string replaceBerrySprite(string name, string orig) {
+            if (isFileSelect) {
+                return orig;
+            }
+
+            // try figuring out the current area, and if we can't, bail out!
+            AreaKey? area = (Engine.Scene as Overworld)?.GetUI<OuiChapterPanel>()?.Area;
+            if (area == null) {
+                area = (Engine.Scene as Level)?.Session?.Area;
+            }
+            if (area == null) {
+                return orig;
+            }
+
+            if (GFX.Gui.Has($"MaxHelpingHand/{area.Value.SID}_{name}")) {
+                return $"MaxHelpingHand/{area.Value.SID}_{name}";
+            }
+            if (GFX.Gui.Has($"MaxHelpingHand/{area.Value.LevelSet}/{name}")) {
+                return $"MaxHelpingHand/{area.Value.LevelSet}/{name}";
+            }
+            return orig;
         }
 
         private static IEnumerator onFileSelectEnter(On.Celeste.OuiFileSelect.orig_Enter orig, OuiFileSelect self, Oui from) {

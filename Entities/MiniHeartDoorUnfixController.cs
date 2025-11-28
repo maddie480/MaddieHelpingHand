@@ -35,15 +35,17 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
 
             while(cursor.TryGotoNext(MoveType.After, instr => instr.MatchCall<HeartGemDoor>("get_Opened"))) {
                 cursor.Emit(OpCodes.Ldarg_0);
-                cursor.EmitDelegate<Func<bool, HeartGemDoor, bool>>((orig, self) => {
-                    if (self.Scene.Tracker.CountEntities<MiniHeartDoorUnfixController>() > 0) {
-                        // this condition wasn't here before the fix, so we want to make it true!
-                        return true;
-                    }
-
-                    return orig;
-                });
+                cursor.EmitDelegate<Func<bool, HeartGemDoor, bool>>(modHeartDoor);
             }
+        }
+
+        private static bool modHeartDoor(bool orig, HeartGemDoor self) {
+            if (self.Scene.Tracker.CountEntities<MiniHeartDoorUnfixController>() > 0) {
+                // this condition wasn't here before the fix, so we want to make it true!
+                return true;
+            }
+
+            return orig;
         }
 
         public MiniHeartDoorUnfixController(EntityData data, Vector2 offset) : base(data.Position + offset) { }

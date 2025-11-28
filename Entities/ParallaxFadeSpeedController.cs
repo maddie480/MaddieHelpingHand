@@ -56,17 +56,19 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
 
                 Logger.Log("MaxHelpingHand/ParallaxFadeSpeedController", $"Injecting hook to change parallax fade speed at {cursor.Index} in IL for Backdrop.Update");
 
-                cursor.EmitDelegate<Func<float, float>>(orig => {
-                    if (!backdropHookEnabled) return orig;
-
-                    ParallaxFadeSpeedController controller = Engine.Scene.Tracker.GetEntity<ParallaxFadeSpeedController>();
-                    if (controller != null) {
-                        return orig / controller.fadeTime;
-                    }
-
-                    return orig;
-                });
+                cursor.EmitDelegate<Func<float, float>>(modFadeSpeed);
             }
+        }
+
+        private static float modFadeSpeed(float orig) {
+            if (!backdropHookEnabled) return orig;
+
+            ParallaxFadeSpeedController controller = Engine.Scene.Tracker.GetEntity<ParallaxFadeSpeedController>();
+            if (controller != null) {
+                return orig / controller.fadeTime;
+            }
+
+            return orig;
         }
     }
 }

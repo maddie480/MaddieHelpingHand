@@ -68,13 +68,15 @@ namespace Celeste.Mod.MaxHelpingHand.Effects {
                 Logger.Log("MaxHelpingHand/HeatWaveNoColorGrade", $"Hiding particles at {cursor.Index} in IL for HeatWave.Render");
 
                 cursor.Emit(OpCodes.Ldarg_0);
-                cursor.EmitDelegate<Func<int, HeatWave, int>>((orig, self) => {
-                    if (self is HeatWaveNoColorGrade heatWave && !heatWave.renderParticles) {
-                        return 0; // there are no particles.
-                    }
-                    return orig;
-                });
+                cursor.EmitDelegate<Func<int, HeatWave, int>>(hideParticles);
             }
+        }
+
+        private static int hideParticles(int orig, HeatWave self) {
+            if (self is HeatWaveNoColorGrade heatWave && !heatWave.renderParticles) {
+                return 0; // there are no particles.
+            }
+            return orig;
         }
     }
 }

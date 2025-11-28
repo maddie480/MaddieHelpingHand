@@ -89,13 +89,15 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
 
             if (cursor.TryGotoNext(MoveType.After, instr => instr.MatchIsinst<TrackSpinner>())) {
                 Logger.Log("MaxHelpingHand/ReskinnableStarTrackSpinner", $"Making spinner immune to Guneline at {cursor.Index} in IL for CollisionCheck");
-                cursor.EmitDelegate<Func<TrackSpinner, TrackSpinner>>(spinner => {
-                    if (spinner is ReskinnableStarTrackSpinner reskinnableSpinner && reskinnableSpinner.immuneToGuneline) {
-                        return null;
-                    }
-                    return spinner;
-                });
+                cursor.EmitDelegate<Func<TrackSpinner, TrackSpinner>>(suppressSpinnerFromGuneline);
             }
+        }
+
+        private static TrackSpinner suppressSpinnerFromGuneline(TrackSpinner spinner) {
+            if (spinner is ReskinnableStarTrackSpinner reskinnableSpinner && reskinnableSpinner.immuneToGuneline) {
+                return null;
+            }
+            return spinner;
         }
     }
 }

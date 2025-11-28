@@ -145,7 +145,7 @@ namespace Celeste.Mod.MaxHelpingHand.Triggers {
                 while (cursor.TryGotoNext(MoveType.After, instr => instr.MatchLdfld<Language>("FontFace"))) {
                     Logger.Log("MaxHelpingHand/ExtendedDialogCutsceneTrigger", $"Replacing font at {cursor.Index} in IL for FancyText constructor");
                     cursor.Emit(OpCodes.Pop);
-                    cursor.EmitDelegate<Func<string>>(() => fontName);
+                    cursor.Emit(OpCodes.Ldstr, fontName);
                 }
             };
         }

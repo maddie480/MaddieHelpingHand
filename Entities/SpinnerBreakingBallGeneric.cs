@@ -22,8 +22,6 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
         protected readonly ColorType color;
         private readonly EntityID entityID;
 
-        protected Sprite sprite;
-
         private bool floating;
 
         private Task computeSpinnerNeighbors;

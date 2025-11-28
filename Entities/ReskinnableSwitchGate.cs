@@ -33,8 +33,12 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
 
             while (cursor.TryGotoNext(MoveType.After, instr => instr.MatchLdstr("objects/switchgate/icon"))) {
                 Logger.Log("MaxHelpingHand/ReskinnableSwitchGate", $"Modding switch gate icon at {cursor.Index} in IL for SwitchGate constructor");
-                cursor.EmitDelegate<Func<string, string>>(orig => iconPath != null ? iconPath : orig);
+                cursor.EmitDelegate<Func<string, string>>(modIcon);
             }
+        }
+
+        private static string modIcon(string orig) {
+            return iconPath != null ? iconPath : orig;
         }
 
         public ReskinnableSwitchGate(EntityData data, Vector2 offset) : base(data, offset) {

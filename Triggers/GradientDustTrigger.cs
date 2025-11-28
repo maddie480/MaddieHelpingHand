@@ -2,6 +2,8 @@
 using Celeste.Mod.MaxHelpingHand.Module;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Mono.Cecil;
+using Mono.Cecil.Cil;
 using Monocle;
 using MonoMod.Cil;
 using MonoMod.RuntimeDetour;
@@ -152,22 +154,25 @@ namespace Celeste.Mod.MaxHelpingHand.Triggers {
 
         private static void modDustEyesRender(ILContext il) {
             ILCursor cursor = new ILCursor(il);
-            while (cursor.TryGotoNext(instr => instr.MatchCallvirt<MTexture>("DrawCentered"))) {
-                Logger.Log("MaxHelpingHand/GradientDustController", $"Proxying DrawCentered calls at {cursor.Index} in IL for Eyeballs.Render");
+            while (cursor.TryGotoNext(MoveType.Before,
+                instr => instr.MatchLdarg0(),
+                instr => instr.OpCode == OpCodes.Ldfld && ((FieldReference) instr.Operand).Name == "Color")) {
+                Logger.Log("MaxHelpingHand/GradientDustController", $"Modifying eye color at {cursor.Index} in IL for Eyeballs.Render");
 
-                cursor.Remove();
-                cursor.EmitDelegate<Action<MTexture, Vector2, Color, float>>((texture, position, color, scale) => {
-                    if (!hookEnabled) {
-                        texture.DrawCentered(position, color, scale);
-                        return;
-                    }
+                cursor.Emit(OpCodes.Dup); // make a clone of the position that our delegate will be able to consume
+                cursor.Index += 2;
 
-                    // compute the eye color to make the color match the dust edges.
-                    float shift = (Engine.Scene.TimeActive * speed) % image.Width;
-                    float cameraX = (Engine.Scene as Level)?.Camera?.Left ?? 0f;
-                    texture.DrawCentered(position, colors[mod((int) (position.X - cameraX + shift), image.Width)], scale);
-                });
+                cursor.EmitDelegate<Func<Vector2, Color, Color>>(modGradientDustEyeColor);
             }
+        }
+
+        private static Color modGradientDustEyeColor(Vector2 position, Color orig) {
+            if (!hookEnabled) return orig;
+
+            // compute the eye color to make the color match the dust edges.
+            float shift = (Engine.Scene.TimeActive * speed) % image.Width;
+            float cameraX = (Engine.Scene as Level)?.Camera?.Left ?? 0f;
+            return colors[mod((int) (position.X - cameraX + shift), image.Width)];
         }
 
         private static int mod(int a, int b) {

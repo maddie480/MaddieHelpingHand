@@ -67,47 +67,49 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
                 if (isPathRenderer) {
                     cursor.Emit(OpCodes.Ldfld, pathRendererType.GetField("block", BindingFlags.NonPublic | BindingFlags.Instance));
                 }
-                cursor.EmitDelegate<Func<string, SwapBlock, string>>((orig, self) => {
-                    if (self is ReskinnableSwapBlock swapBlock) {
-                        if (swapBlock.transparentBackground && orig == "objects/swapblock/path") {
-                            return orig.Replace("objects/swapblock", "MaxHelpingHand/swapblocktransparentbg");
-                        } else {
-                            return orig.Replace("objects/swapblock", swapBlock.spriteDirectory);
-                        }
-                    }
-                    return orig;
-                });
+                cursor.EmitDelegate<Func<string, SwapBlock, string>>(reskinSwapBlock);
             }
+        }
+
+        private static string reskinSwapBlock(string orig, SwapBlock self) {
+            if (self is ReskinnableSwapBlock swapBlock) {
+                if (swapBlock.transparentBackground && orig == "objects/swapblock/path") {
+                    return orig.Replace("objects/swapblock", "MaxHelpingHand/swapblocktransparentbg");
+                } else {
+                    return orig.Replace("objects/swapblock", swapBlock.spriteDirectory);
+                }
+            }
+            return orig;
         }
 
         private static void modSwapBlockSounds(ILContext il) {
             ILCursor cursor = new ILCursor(il);
 
-            Dictionary<string, Func<ReskinnableSwapBlock, string>> stuffToLookUp = new Dictionary<string, Func<ReskinnableSwapBlock, string>>() {
-                { "event:/game/05_mirror_temple/swapblock_move", block => block.moveSound },
-                { "event:/game/05_mirror_temple/swapblock_move_end", block => block.moveEndSound },
-                { "event:/game/05_mirror_temple/swapblock_return", block => block.returnSound },
-                { "event:/game/05_mirror_temple/swapblock_return_end", block => block.returnEndSound }
+            Dictionary<string, Func<string, SwapBlock, string>> stuffToLookUp = new Dictionary<string, Func<string, SwapBlock, string>>() {
+                { "event:/game/05_mirror_temple/swapblock_move", modMoveSound },
+                { "event:/game/05_mirror_temple/swapblock_move_end", modMoveEndSound },
+                { "event:/game/05_mirror_temple/swapblock_return", modReturnSound },
+                { "event:/game/05_mirror_temple/swapblock_return_end", modReturnEndSound }
             };
 
-            foreach (KeyValuePair<string, Func<ReskinnableSwapBlock, string>> replace in stuffToLookUp) {
+            foreach (KeyValuePair<string, Func<string, SwapBlock, string>> replace in stuffToLookUp) {
                 cursor.Index = 0;
 
                 while (cursor.TryGotoNext(MoveType.After, instr => instr.MatchLdstr(replace.Key))) {
                     Logger.Log("MaxHelpingHand/ReskinnableSwapBlock", $"Changing sounds of swap block at {cursor.Index} in IL for {il.Method.Name} ({replace.Key})");
 
-                    Func<ReskinnableSwapBlock, string> valueGetter = replace.Value;
+                    Func<string, SwapBlock, string> valueGetter = replace.Value;
 
                     cursor.Emit(OpCodes.Ldarg_0);
-                    cursor.EmitDelegate<Func<string, SwapBlock, string>>((orig, self) => {
-                        if (self is ReskinnableSwapBlock swapBlock) {
-                            return valueGetter(swapBlock);
-                        }
-                        return orig;
-                    });
+                    cursor.EmitDelegate<Func<string, SwapBlock, string>>(valueGetter);
                 }
             }
         }
+
+        private static string modMoveSound(string orig, SwapBlock self) => self is ReskinnableSwapBlock b ? b.moveSound : orig;
+        private static string modMoveEndSound(string orig, SwapBlock self) => self is ReskinnableSwapBlock b ? b.moveEndSound : orig;
+        private static string modReturnSound(string orig, SwapBlock self) => self is ReskinnableSwapBlock b ? b.returnSound : orig;
+        private static string modReturnEndSound(string orig, SwapBlock self) => self is ReskinnableSwapBlock b ? b.returnEndSound : orig;
 
         private string spriteDirectory;
         private ParticleType customParticleColor;

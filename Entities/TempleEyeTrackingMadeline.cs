@@ -1,7 +1,9 @@
 ﻿using Celeste.Mod.Entities;
+using Celeste.Mod.Helpers;
 using Microsoft.Xna.Framework;
 using Mono.Cecil;
 using Mono.Cecil.Cil;
+using Monocle;
 using MonoMod.Cil;
 using System;
 
@@ -31,19 +33,21 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
                 Logger.Log("MaxHelpingHand/TempleEyeTrackingMadeline", $"Replacing sprite path {cursor.Prev.Operand} at {cursor.Index} in TempleEye.Added");
 
                 cursor.Emit(OpCodes.Ldarg_0);
-                cursor.EmitDelegate<Func<string, TempleEye, string>>((orig, self) => {
-                    if (self is TempleEyeTrackingMadeline eye) {
-                        return orig.Replace("scenery/temple/eye/", eye.spriteDirectory + "/");
-                    }
-                    return orig;
-                });
+                cursor.EmitDelegate<Func<string, TempleEye, string>>(replaceTempleEyeTexture);
             }
+        }
+
+        private static string replaceTempleEyeTexture(string orig, TempleEye self) {
+            if (self is TempleEyeTrackingMadeline eye) {
+                return orig.Replace("scenery/temple/eye/", eye.spriteDirectory + "/");
+            }
+            return orig;
         }
 
         private static void modTempleEyeUpdate(ILContext il) {
             ILCursor cursor = new ILCursor(il);
 
-            if (cursor.TryGotoNext(MoveType.Before,
+            if (cursor.TryGotoNextBestFit(MoveType.After,
                 i => i.OpCode == OpCodes.Ldarg_0,
                 i => i.OpCode == OpCodes.Call && ((MethodReference) i.Operand).Name.Contains("get_Scene"),
                 i => i.OpCode == OpCodes.Callvirt && ((MethodReference) i.Operand).Name.Contains("get_Tracker"),
@@ -53,18 +57,17 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
 
                 Logger.Log("MaxHelpingHand/TempleEyeTrackingMadeline", $"Patching TempleEye at CIL index {cursor.Index} to be able to mod target");
 
-                // replace "this.Scene.Tracker.GetEntity<TheoCrystal>" with "ReturnTrackedActor(this)"
-                cursor.Index++;
-                cursor.RemoveRange(3);
-                cursor.EmitDelegate<Func<TempleEye, Actor>>(returnTrackedActor);
+                cursor.Index--;
+                cursor.Emit(OpCodes.Ldarg_0);
+                cursor.EmitDelegate<Func<Entity, TempleEye, Entity>>(modTrackedActor);
             }
         }
 
-        private static Actor returnTrackedActor(TempleEye self) {
+        private static Entity modTrackedActor(Entity orig, TempleEye self) {
             if (self is TempleEyeTrackingMadeline) {
                 return self.Scene.Tracker.GetEntity<Player>();
             }
-            return self.Scene.Tracker.GetEntity<TheoCrystal>();
+            return orig;
         }
     }
 }

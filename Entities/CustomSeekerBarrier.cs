@@ -1,4 +1,5 @@
 ﻿using Celeste.Mod.Entities;
+using Celeste.Mod.Helpers;
 using Microsoft.Xna.Framework;
 using Mono.Cecil.Cil;
 using Monocle;
@@ -47,7 +48,8 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
 
         private static void onBloomRendererApply(ILContext il) {
             ILCursor cursor = new ILCursor(il);
-            if (cursor.TryGotoNext(
+            if (cursor.TryGotoNextBestFit(
+                MoveType.Before,
                 ins => ins.MatchLdloca(9),
                 ins => ins.MatchCall(out MethodReference _),
                 ins => ins.MatchCallvirt(out MethodReference _),
@@ -62,13 +64,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
                 cursor.Emit(OpCodes.Call, getCurrentMethod);
                 cursor.Index -= 2;
                 // should render?
-                cursor.EmitDelegate<Func<Entity, int>>(entity => {
-                    if (entity is CustomSeekerBarrier barrier) {
-                        return barrier.isDisabled ? 0 : 1;
-                    }
-
-                    return 1;
-                });
+                cursor.EmitDelegate<Func<Entity, int>>(seekerBarrierDisable);
                 ILLabel skipRenderLabel = cursor.DefineLabel();
                 cursor.Emit(OpCodes.Brfalse, skipRenderLabel);
 
@@ -78,23 +74,29 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             }
         }
 
-        private static void onSeekerUpdate(ILContext il) {
-            onSeekerOrJellyUpdate(il, seekerBarrier => seekerBarrier.killSeekers);
+        private static int seekerBarrierDisable(Entity entity) {
+            if (entity is CustomSeekerBarrier barrier) {
+                return barrier.isDisabled ? 0 : 1;
+            }
+
+            return 1;
         }
 
+        private static void onSeekerUpdate(ILContext il) {
+            onSeekerOrJellyUpdate(il, collideConditionSeekers);
+        }
         private static void onJellyUpdate(ILContext il) {
-            onSeekerOrJellyUpdate(il, seekerBarrier => seekerBarrier.killJellyfish);
+            onSeekerOrJellyUpdate(il, collideConditionJellyfish);
+        }
+
+        private static bool collideConditionSeekers(Entity seekerBarrier, bool orig) {
+            return seekerBarrier is CustomSeekerBarrier b ? b.killSeekers && !b.isDisabled : orig;
+        }
+        private static bool collideConditionJellyfish(Entity seekerBarrier, bool orig) {
+            return seekerBarrier is CustomSeekerBarrier b ? b.killJellyfish && !b.isDisabled : orig;
         }
 
         private static void onHoldableContainerUpdate(ILContext il) {
-            onHoldableUpdate(il, (seekerBarrier, container) => {
-                bool slowFall = new DynamicData(container).Get<bool>("slowFall");
-                return (slowFall && seekerBarrier.killHoldableContainerSlowFall)
-                    || (!slowFall && seekerBarrier.killHoldableContainerNonSlowFall);
-            });
-        }
-
-        private static void onHoldableUpdate(ILContext il, Func<CustomSeekerBarrier, Entity, bool> collideCondition) {
             ILCursor cursor = new ILCursor(il);
             cursor.TryGotoNext(instr => instr.MatchStloc(9));
             if (cursor.TryGotoNext(instr => instr.MatchLdcI4(1), instr => instr.MatchStfld<Entity>("Collidable"))) {
@@ -103,16 +105,21 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
                 cursor.Emit(OpCodes.Dup);
                 cursor.Emit(OpCodes.Ldarg_0);
                 cursor.Index++;
-                cursor.EmitDelegate<Func<Entity, Entity, bool, bool>>((entity, holdableContainer, orig) => {
-                    if (entity is CustomSeekerBarrier seekerBarrier) {
-                        return collideCondition(seekerBarrier, holdableContainer) && !seekerBarrier.isDisabled;
-                    }
-                    return orig;
-                });
+                cursor.EmitDelegate<Func<Entity, Entity, bool, bool>>(modHoldableCollideCondition);
             }
         }
 
-        private static void onSeekerOrJellyUpdate(ILContext il, Func<CustomSeekerBarrier, bool> collideCondition) {
+        private static bool modHoldableCollideCondition(Entity entity, Entity holdableContainer, bool orig) {
+            if (entity is CustomSeekerBarrier seekerBarrier) {
+                bool slowFall = new DynamicData(holdableContainer).Get<bool>("slowFall");
+                return !seekerBarrier.isDisabled && (
+                    (slowFall && seekerBarrier.killHoldableContainerSlowFall)
+                    || (!slowFall && seekerBarrier.killHoldableContainerNonSlowFall));
+            }
+            return orig;
+        }
+
+        private static void onSeekerOrJellyUpdate(ILContext il, Func<Entity, bool, bool> collideCondition) {
             ILCursor cursor = new ILCursor(il);
 
             while (cursor.TryGotoNext(instr => instr.MatchLdcI4(1), instr => instr.MatchStfld<Entity>("Collidable"))) {
@@ -120,12 +127,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
 
                 cursor.Emit(OpCodes.Dup);
                 cursor.Index++;
-                cursor.EmitDelegate<Func<Entity, bool, bool>>((entity, orig) => {
-                    if (entity is CustomSeekerBarrier seekerBarrier) {
-                        return collideCondition(seekerBarrier) && !seekerBarrier.isDisabled;
-                    }
-                    return orig;
-                });
+                cursor.EmitDelegate<Func<Entity, bool, bool>>(collideCondition);
             }
         }
 

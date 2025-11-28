@@ -37,7 +37,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             }
         }
 
-        private readonly string sprite;
+        private readonly string overrideSprite;
         private readonly string ghostSprite;
         private readonly string particleColor;
         private readonly string flagOnCollect;
@@ -45,7 +45,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
         private readonly bool disableGhostSprite;
 
         public ReskinnableCrystalHeart(EntityData data, Vector2 offset) : base(data, offset) {
-            sprite = data.Attr("sprite");
+            overrideSprite = data.Attr("sprite");
             ghostSprite = data.Attr("ghostSprite");
             particleColor = data.Attr("particleColor");
             flagOnCollect = data.Attr("flagOnCollect");
@@ -86,12 +86,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
                 Logger.Log("MaxHelpingHand/ReskinnableCrystalHeart", $"Disabling ghost sprite at {cursor.Index} in HeartGem::Awake");
 
                 cursor.Emit(OpCodes.Ldarg_0);
-                cursor.EmitDelegate<Func<bool, HeartGem, bool>>((orig, self) => {
-                    if (self is ReskinnableCrystalHeart heart && heart.disableGhostSprite) {
-                        return false;
-                    }
-                    return orig;
-                });
+                cursor.EmitDelegate<Func<bool, HeartGem, bool>>(modGhostSprite);
             }
 
             // mod the Sprite and Ghost Sprite options in
@@ -99,18 +94,27 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
                 Logger.Log("MaxHelpingHand/ReskinnableCrystalHeart", $"Reskinning crystal heart at {cursor.Index} in HeartGem::Awake");
 
                 cursor.Emit(OpCodes.Ldarg_0);
-                cursor.EmitDelegate<Func<string, HeartGem, string>>((orig, self) => {
-                    if (self is ReskinnableCrystalHeart heart) {
-                        if (!heart.IsGhost && !string.IsNullOrEmpty(heart.sprite)) {
-                            return heart.sprite;
-                        }
-                        if (heart.IsGhost && !string.IsNullOrEmpty(heart.ghostSprite)) {
-                            return heart.ghostSprite;
-                        }
-                    }
-                    return orig;
-                });
+                cursor.EmitDelegate<Func<string, HeartGem, string>>(modHeartSprites);
             }
+        }
+
+        private static bool modGhostSprite(bool orig, HeartGem self) {
+            if (self is ReskinnableCrystalHeart heart && heart.disableGhostSprite) {
+                return false;
+            }
+            return orig;
+        }
+
+        private static string modHeartSprites(string orig, HeartGem self) {
+            if (self is ReskinnableCrystalHeart heart) {
+                if (!heart.IsGhost && !string.IsNullOrEmpty(heart.overrideSprite)) {
+                    return heart.overrideSprite;
+                }
+                if (heart.IsGhost && !string.IsNullOrEmpty(heart.ghostSprite)) {
+                    return heart.ghostSprite;
+                }
+            }
+            return orig;
         }
 
         private static void onHeartGemCollect(On.Celeste.HeartGem.orig_Collect orig, HeartGem self, Player player) {
@@ -141,7 +145,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             if (isGhost && !heart.disableGhostSprite) {
                 isReskinned = !string.IsNullOrEmpty(heart.ghostSprite);
             } else {
-                isReskinned = !string.IsNullOrEmpty(heart.sprite);
+                isReskinned = !string.IsNullOrEmpty(heart.overrideSprite);
             }
 
             if (isReskinned) {

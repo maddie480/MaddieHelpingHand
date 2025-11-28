@@ -23,30 +23,12 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             };
         }
 
-        private Sprite sprite;
         private bool isFacingLeft;
         private bool isFacingLeftAtStartOfTrack;
-
-        private DynData<FireBall> selfData;
-
-        private readonly Vector2[] nodes;
-        private readonly int amount;
-        private readonly int index;
-        private readonly float offset;
-        private readonly float mult;
 
         public BeeFireball(EntityData data, Vector2 offset) : this(data.NodesWithPosition(offset), data.Int("amount", 1), 0, data.Float("offset"), data.Float("speed", 1f)) { }
 
         public BeeFireball(Vector2[] nodes, int amount, int index, float offset, float speedMult) : base(nodes, amount, index, offset, speedMult, notCoreMode: true) {
-            // save all parameters to be able to reuse it for other fireballs we will instantiate.
-            this.nodes = nodes;
-            this.amount = amount;
-            this.index = index;
-            this.offset = offset;
-            mult = speedMult;
-
-            selfData = new DynData<FireBall>(this);
-
             // replace fireball sprites with bee sprites
             sprite = Get<Sprite>();
             GFX.SpriteBank.CreateOn(sprite, "MaxHelpingHand_beeFireball");
@@ -105,7 +87,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
 
         public override void Update() {
             Vector2 prev = Position;
-            float prevPercent = selfData.Get<float>("percent");
+            float prevPercent = percent;
 
             // modify the fire particles
             ParticleType prevFireTrail = P_FireTrail;
@@ -126,7 +108,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             }
 
             // if the percentage was reset, this means we teleported back to the start of the track...
-            if (selfData.Get<float>("percent") < prevPercent) {
+            if (percent < prevPercent) {
                 // ... so we need to adjust the facing immediately.
                 sprite.Play("idle");
                 sprite.Scale.X = isFacingLeftAtStartOfTrack ? -1 : 1;

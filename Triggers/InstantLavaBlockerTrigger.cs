@@ -46,15 +46,17 @@ namespace Celeste.Mod.MaxHelpingHand.Triggers {
 
                 cursor.Emit(OpCodes.Dup);
                 cursor.Index++;
-                cursor.EmitDelegate<Func<Player, bool, bool>>((player, orig) => {
-                    if (orig && player.CollideCheck<InstantLavaBlockerTrigger>()) {
-                        // pretend the player didn't just respawn to disable some code that makes the lava advance in that specific case.
-                        return false;
-                    }
-
-                    return orig;
-                });
+                cursor.EmitDelegate<Func<Player, bool, bool>>(blockLava);
             }
+        }
+
+        private static bool blockLava(Player player, bool orig) {
+            if (orig && player.CollideCheck<InstantLavaBlockerTrigger>()) {
+                // pretend the player didn't just respawn to disable some code that makes the lava advance in that specific case.
+                return false;
+            }
+
+            return orig;
         }
 
         public override void OnLeave(Player player) {

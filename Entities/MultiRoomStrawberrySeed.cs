@@ -50,13 +50,15 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
 
                 // isinst is misleading. It's actually the equivalent of "entity as StrawberrySeed" in C#.
                 // so, if our seed is a multi-room strawberry seed, we want to return null to make the game think it isn't a StrawberrySeed.
-                cursor.EmitDelegate<Func<StrawberrySeed, StrawberrySeed>>(strawberrySeed => {
-                    if (strawberrySeed == null || !(strawberrySeed is MultiRoomStrawberrySeed || strawberrySeed is NonPoppingStrawberrySeed)) {
-                        return strawberrySeed;
-                    }
-                    return null;
-                });
+                cursor.EmitDelegate<Func<StrawberrySeed, StrawberrySeed>>(interceptMultiRoomSeeds);
             }
+        }
+
+        private static StrawberrySeed interceptMultiRoomSeeds(StrawberrySeed strawberrySeed) {
+            if (strawberrySeed == null || !(strawberrySeed is MultiRoomStrawberrySeed || strawberrySeed is NonPoppingStrawberrySeed)) {
+                return strawberrySeed;
+            }
+            return null;
         }
 
         private static IEnumerator onStrawberrySeedReturnRoutine(On.Celeste.StrawberrySeed.orig_ReturnRoutine orig, StrawberrySeed self) {
@@ -70,7 +72,6 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
 
         private DynData<StrawberrySeed> selfStrawberrySeed;
 
-        private int index;
         public EntityID BerryID;
         private int seedCount;
         private bool displaySeedCount;
@@ -78,22 +79,18 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
         private string startingRoom;
 
         private float canLoseTimerMirror;
-        private Player player;
         private bool spawnedAsFollower = false;
 
-        private string sprite;
-        private bool ghost;
+        private string spriteName;
 
         public MultiRoomStrawberrySeed(Vector2 position, int index, bool ghost, string sprite, string ghostSprite) : base(null, position, index, ghost) {
             selfStrawberrySeed = new DynData<StrawberrySeed>(this);
 
-            this.index = index;
-            this.ghost = ghost;
-            this.sprite = ghost ? ghostSprite : sprite;
+            this.spriteName = ghost ? ghostSprite : sprite;
 
             foreach (Component component in this) {
                 if (component is PlayerCollider playerCollider) {
-                    playerCollider.OnCollide = OnPlayer;
+                    playerCollider.OnCollide = OnPlayerOverride;
                 }
                 if (component is Follower follower) {
                     follower.ParentEntityID = EntityID.None;
@@ -148,15 +145,15 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
         public override void Awake(Scene scene) {
             base.Awake(scene);
 
-            if ((ghost && sprite != "ghostberry/seed") || (!ghost && sprite != "strawberry/seed")) {
+            if ((ghost && spriteName != "ghostberry/seed") || (!ghost && spriteName != "strawberry/seed")) {
                 // the sprite is non-default. replace it.
                 Sprite vanillaSprite = selfStrawberrySeed.Get<Sprite>("sprite");
 
                 // build the new sprite.
-                MTexture frame0 = GFX.Game["collectables/" + sprite + "00"];
-                MTexture frame1 = GFX.Game["collectables/" + sprite + "01"];
+                MTexture frame0 = GFX.Game["collectables/" + spriteName + "00"];
+                MTexture frame1 = GFX.Game["collectables/" + spriteName + "01"];
 
-                Sprite modSprite = new Sprite(GFX.Game, sprite);
+                Sprite modSprite = new Sprite(GFX.Game, spriteName);
                 modSprite.CenterOrigin();
                 modSprite.Justify = new Vector2(0.5f, 0.5f);
                 modSprite.AddLoop("idle", 0.1f, new MTexture[] {
@@ -187,7 +184,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             }
         }
 
-        private void OnPlayer(Player player) {
+        private void OnPlayerOverride(Player player) {
             Audio.Play("event:/game/general/seed_touch", Position, "count", index);
             player.Leader.GainFollower(selfStrawberrySeed.Get<Follower>("follower"));
             canLoseTimerMirror = 0.25f;
@@ -199,7 +196,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             MaxHelpingHandSession.MultiRoomStrawberrySeedInfo sessionSeedInfo = new MaxHelpingHandSession.MultiRoomStrawberrySeedInfo();
             sessionSeedInfo.Index = index;
             sessionSeedInfo.BerryID = BerryID;
-            sessionSeedInfo.Sprite = sprite;
+            sessionSeedInfo.Sprite = spriteName;
             sessionSeedInfo.StartingRoom = startingRoom;
             sessionSeedInfo.StartingPoint = new DynData<StrawberrySeed>(this).Get<Vector2>("start");
             MaxHelpingHandModule.Instance.Session.CollectedMultiRoomStrawberrySeeds.Add(sessionSeedInfo);

@@ -35,14 +35,16 @@ namespace Celeste.Mod.MaxHelpingHand.Triggers {
 
                 // this delegate will allow us to turn num2 into something else.
                 cursor.Emit(OpCodes.Ldarg_0);
-                cursor.EmitDelegate<Func<float, Player, float>>((orig, self) => {
-                    CameraCatchupSpeedTrigger trigger = self.CollideFirst<CameraCatchupSpeedTrigger>();
-                    if (trigger != null) {
-                        return trigger.catchupSpeed;
-                    }
-                    return MaxHelpingHandModule.Instance.Session.CameraCatchupSpeed ?? orig;
-                });
+                cursor.EmitDelegate<Func<float, Player, float>>(replaceCatchupSpeed);
             }
+        }
+
+        private static float replaceCatchupSpeed(float orig, Player self) {
+            CameraCatchupSpeedTrigger trigger = self.CollideFirst<CameraCatchupSpeedTrigger>();
+            if (trigger != null) {
+                return trigger.catchupSpeed;
+            }
+            return MaxHelpingHandModule.Instance.Session.CameraCatchupSpeed ?? orig;
         }
 
 

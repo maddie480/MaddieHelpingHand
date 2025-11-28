@@ -134,26 +134,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
                 cursor.Emit(OpCodes.Ldfld, typeof(StrawberryGate).GetMethod("Routine", BindingFlags.NonPublic | BindingFlags.Instance)
                     .GetStateMachineTarget().DeclaringType.GetField("<>4__this"));
 
-                cursor.EmitDelegate<Func<int, StrawberryGate, int>>((orig, self) => {
-                    BerryCountModdingThingy thing = self.Get<BerryCountModdingThingy>();
-                    if (thing == null) {
-                        return orig;
-                    }
-
-                    Session session = (self.Scene as Level).Session;
-                    switch (thing.CountFrom) {
-                        case CountFrom.Side:
-                            return SaveData.Instance.GetAreaStatsFor(session.Area).Modes[(int) session.Area.Mode].TotalStrawberries;
-                        case CountFrom.Chapter:
-                            return SaveData.Instance.GetAreaStatsFor(session.Area).TotalStrawberries;
-                        case CountFrom.Campaign:
-                            return SaveData.Instance.GetLevelSetStatsFor(session.Area.GetLevelSet()).TotalStrawberries;
-                        case CountFrom.SaveFile:
-                            return SaveData.Instance.TotalStrawberries;
-                        default:
-                            throw new Exception("Invalid enum value " + thing.CountFrom + "!");
-                    }
-                });
+                cursor.EmitDelegate<Func<int, StrawberryGate, int>>(modBerryCount);
             }
 
             cursor.Index = 0;
@@ -169,17 +150,40 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
                 cursor.Emit(OpCodes.Ldfld, typeof(StrawberryGate).GetMethod("Routine", BindingFlags.NonPublic | BindingFlags.Instance)
                     .GetStateMachineTarget().DeclaringType.GetField("<>4__this"));
 
-                cursor.EmitDelegate<Action<StrawberryGate>>(self => {
-                    BerryCountModdingThingy thing = self.Get<BerryCountModdingThingy>();
-                    if (thing != null && thing.Persistent) {
-                        string sid = (self.Scene as Level).Session.Area.GetSID();
+                cursor.EmitDelegate<Action<StrawberryGate>>(saveFilePersist);
+            }
+        }
 
-                        if (!MaxHelpingHandModule.Instance.SaveData.OpenedSaveFileStrawberryGates.ContainsKey(sid)) {
-                            MaxHelpingHandModule.Instance.SaveData.OpenedSaveFileStrawberryGates[sid] = new HashSet<int>();
-                        }
-                        MaxHelpingHandModule.Instance.SaveData.OpenedSaveFileStrawberryGates[sid].Add(thing.EntityID);
-                    }
-                });
+        private static int modBerryCount(int orig, StrawberryGate self) {
+            BerryCountModdingThingy thing = self.Get<BerryCountModdingThingy>();
+            if (thing == null) {
+                return orig;
+            }
+
+            Session session = (self.Scene as Level).Session;
+            switch (thing.CountFrom) {
+                case CountFrom.Side:
+                    return SaveData.Instance.GetAreaStatsFor(session.Area).Modes[(int) session.Area.Mode].TotalStrawberries;
+                case CountFrom.Chapter:
+                    return SaveData.Instance.GetAreaStatsFor(session.Area).TotalStrawberries;
+                case CountFrom.Campaign:
+                    return SaveData.Instance.GetLevelSetStatsFor(session.Area.GetLevelSet()).TotalStrawberries;
+                case CountFrom.SaveFile:
+                    return SaveData.Instance.TotalStrawberries;
+                default:
+                    throw new Exception("Invalid enum value " + thing.CountFrom + "!");
+            }
+        }
+
+        private static void saveFilePersist(StrawberryGate self) {
+            BerryCountModdingThingy thing = self.Get<BerryCountModdingThingy>();
+            if (thing != null && thing.Persistent) {
+                string sid = (self.Scene as Level).Session.Area.GetSID();
+
+                if (!MaxHelpingHandModule.Instance.SaveData.OpenedSaveFileStrawberryGates.ContainsKey(sid)) {
+                    MaxHelpingHandModule.Instance.SaveData.OpenedSaveFileStrawberryGates[sid] = new HashSet<int>();
+                }
+                MaxHelpingHandModule.Instance.SaveData.OpenedSaveFileStrawberryGates[sid].Add(thing.EntityID);
             }
         }
 
@@ -191,18 +195,20 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
                 Logger.Log("MaxHelpingHand/SaveFileStrawberryGate", $"Modding flag result at {cursor.Index} in IL for StrawberryGate.Added");
 
                 cursor.Emit(OpCodes.Ldarg_0);
-                cursor.EmitDelegate<Func<bool, StrawberryGate, bool>>((orig, self) => {
-                    BerryCountModdingThingy thing = self.Get<BerryCountModdingThingy>();
-                    if (thing == null) {
-                        return orig;
-                    }
-
-                    // if the strawberry gate is persistent, also check if it was already opened in the past.
-                    return orig || (thing.Persistent
-                        && MaxHelpingHandModule.Instance.SaveData.OpenedSaveFileStrawberryGates.TryGetValue((self.Scene as Level).Session.Area.GetSID(), out HashSet<int> openedIDs)
-                        && openedIDs.Contains(thing.EntityID));
-                });
+                cursor.EmitDelegate<Func<bool, StrawberryGate, bool>>(checkGateWasOpened);
             }
+        }
+
+        private static bool checkGateWasOpened(bool orig, StrawberryGate self) {
+            BerryCountModdingThingy thing = self.Get<BerryCountModdingThingy>();
+            if (thing == null) {
+                return orig;
+            }
+
+            // if the strawberry gate is persistent, also check if it was already opened in the past.
+            return orig || (thing.Persistent
+                && MaxHelpingHandModule.Instance.SaveData.OpenedSaveFileStrawberryGates.TryGetValue((self.Scene as Level).Session.Area.GetSID(), out HashSet<int> openedIDs)
+                && openedIDs.Contains(thing.EntityID));
         }
 
         private static void modStrawberryGateRender(Action<Entity> orig, Entity self) {
@@ -236,8 +242,12 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             ILCursor cursor = new ILCursor(il);
             if (cursor.TryGotoNext(instr => instr.MatchCallvirt<MTexture>("DrawCentered")) && cursor.TryGotoPrev(MoveType.After, instr => instr.MatchCall<Vector2>("op_Addition"))) {
                 Logger.Log("MaxHelpingHand/SaveFileStrawberryGate", $"Fixing strawberry gate offset at {cursor.Index} in IL for StrawberryGate.Render");
-                cursor.EmitDelegate<Func<Vector2, Vector2>>(orig => new Vector2((float) Math.Round(orig.X), (float) Math.Floor(orig.Y)));
+                cursor.EmitDelegate<Func<Vector2, Vector2>>(modStrawberryGateOffset);
             }
+        }
+
+        private static Vector2 modStrawberryGateOffset(Vector2 orig) {
+            return new Vector2((float) Math.Round(orig.X), (float) Math.Floor(orig.Y));
         }
 
         private static void drawNumber(int numberI, Vector2 anchor, Color color) {

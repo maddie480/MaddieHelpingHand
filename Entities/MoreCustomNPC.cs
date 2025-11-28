@@ -57,26 +57,30 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
                 };
 
                 emitThis();
-                cursor.EmitDelegate<Func<Func<IEnumerator>[], CustomNPC, Func<IEnumerator>[]>>((orig, self) => {
-                    if (self is MoreCustomNPC customNPC && customNPC.autoSkipEnabled) {
-                        // we want to register {trigger 0} and {trigger 1} to start and stop auto-skip in this dialogue.
-                        return new Func<IEnumerator>[] { customNPC.startSkipping, customNPC.stopSkipping };
-                    }
-
-                    // don't mess with "vanilla" Everest. orig should be null (considering we're injecting ourselves just after an ldnull), but hey.
-                    return orig;
-                });
+                cursor.EmitDelegate<Func<Func<IEnumerator>[], CustomNPC, Func<IEnumerator>[]>>(registerTriggers);
 
                 // intercept the Textbox.Say call right before it's yield returned if necessary!
                 cursor.Index++;
                 emitThis();
-                cursor.EmitDelegate<Func<IEnumerator, CustomNPC, IEnumerator>>((orig, self) => {
-                    if (self is MoreCustomNPC npc && !string.IsNullOrEmpty(npc.customFont)) {
-                        return ExtendedDialogCutsceneTrigger.ReplaceFancyTextFontFor(orig, npc.customFont);
-                    }
-                    return orig;
-                });
+                cursor.EmitDelegate<Func<IEnumerator, CustomNPC, IEnumerator>>(modTextboxSay);
             }
+        }
+
+        private static Func<IEnumerator>[] registerTriggers(Func<IEnumerator>[] orig, CustomNPC self) {
+            if (self is MoreCustomNPC customNPC && customNPC.autoSkipEnabled) {
+                // we want to register {trigger 0} and {trigger 1} to start and stop auto-skip in this dialogue.
+                return new Func<IEnumerator>[] { customNPC.startSkipping, customNPC.stopSkipping };
+            }
+
+            // don't mess with "vanilla" Everest. orig should be null (considering we're injecting ourselves just after an ldnull), but hey.
+            return orig;
+        }
+
+        private static IEnumerator modTextboxSay(IEnumerator orig, CustomNPC self) {
+            if (self is MoreCustomNPC npc && !string.IsNullOrEmpty(npc.customFont)) {
+                return ExtendedDialogCutsceneTrigger.ReplaceFancyTextFontFor(orig, npc.customFont);
+            }
+            return orig;
         }
 
 

@@ -16,6 +16,8 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
         private static MethodInfo jellyDashRefill = typeof(BaseType).GetMethod("refillDash", BindingFlags.Public | BindingFlags.Instance);
         private static MethodInfo trySquishWiggle = typeof(Actor).GetMethod("TrySquishWiggle", BindingFlags.NonPublic | BindingFlags.Instance,
             null, new Type[] { typeof(CollisionData) }, null);
+        private static MethodInfo destroyThenRespawnRoutineRef =
+            typeof(RespawningType).GetMethod("destroyThenRespawnRoutine", BindingFlags.NonPublic | BindingFlags.Instance);
 
         public static void Load() {
             hookGliderUpdate = new ILHook(typeof(BaseType).GetMethod("Update"), modGliderUpdate);
@@ -103,18 +105,19 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             ILCursor cursor = new ILCursor(il);
 
             if (cursor.TryGotoNext(MoveType.After, instr => instr.MatchNewobj<Coroutine>())) {
-                MethodInfo method = typeof(RespawningType).GetMethod("destroyThenRespawnRoutine", BindingFlags.NonPublic | BindingFlags.Instance);
-                Logger.Log("MaxHelpingHand/RespawningJellyfish", $"Replacing coroutine to make jellyfish respawn at {cursor.Index} in IL for {cursor.Method.FullName}, calling {method.DeclaringType.FullName}.{method.Name}");
+                Logger.Log("MaxHelpingHand/RespawningJellyfish", $"Replacing coroutine to make jellyfish respawn at {cursor.Index} in IL for {cursor.Method.FullName}");
 
                 cursor.Emit(OpCodes.Ldarg_0);
-                cursor.EmitDelegate<Func<Coroutine, Glider, Coroutine>>((orig, self) => {
-                    if (self is RespawningType) {
-                        return new Coroutine((IEnumerator) method.Invoke(self, new object[0]));
-                    }
-
-                    return orig;
-                });
+                cursor.EmitDelegate<Func<Coroutine, Glider, Coroutine>>(swapCoroutine);
             }
+        }
+
+        private static Coroutine swapCoroutine(Coroutine orig, Glider self) {
+            if (self is RespawningType) {
+                return new Coroutine((IEnumerator) destroyThenRespawnRoutineRef.Invoke(self, new object[0]));
+            }
+
+            return orig;
         }
 
         public void OnSquish(Action<CollisionData> baseOnSquish, CollisionData data) {

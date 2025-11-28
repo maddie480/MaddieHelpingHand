@@ -33,14 +33,17 @@ namespace Celeste.Mod.MaxHelpingHand.Effects {
                 && cursor.TryGotoNext(instr => instr.MatchCallvirt<SpriteBatch>("Begin"))) {
 
                 Logger.Log("MaxHelpingHand/HdParallax", $"Inserting HD BG parallax rendering at {cursor.Index} in IL for Level.Render");
-                cursor.EmitDelegate<Action>(() => renderHdParallaxes(fg: false));
+                cursor.EmitDelegate<Action>(renderHdParallaxesBg);
 
                 if (cursor.TryGotoNext(MoveType.After, instr => instr.MatchCallvirt<SpriteBatch>("End"))) {
                     Logger.Log("MaxHelpingHand/HdParallax", $"Inserting HD FG parallax rendering at {cursor.Index} in IL for Level.Render");
-                    cursor.EmitDelegate<Action>(() => renderHdParallaxes(fg: true));
+                    cursor.EmitDelegate<Action>(renderHdParallaxesFg);
                 }
             }
         }
+
+        private static void renderHdParallaxesBg() => renderHdParallaxes(fg: false);
+        private static void renderHdParallaxesFg() => renderHdParallaxes(fg: true);
 
         private static void renderHdParallaxes(bool fg) {
             if (Engine.Scene is Level level) {
@@ -85,13 +88,15 @@ namespace Celeste.Mod.MaxHelpingHand.Effects {
                 Logger.Log("MaxHelpingHand/HdParallax", $"Replacing parallax resolution at {cursor.Index} in IL for Parallax.Render");
 
                 cursor.Emit(OpCodes.Ldarg_0);
-                cursor.EmitDelegate<Func<float, Parallax, float>>((orig, self) => {
-                    if (self is HdParallax or AnimatedHdParallax) {
-                        return orig * 6; // 1920x1080 is 6 times 320x180.
-                    }
-                    return orig;
-                });
+                cursor.EmitDelegate<Func<float, Parallax, float>>(makeParallaxHD);
             }
+        }
+
+        private static float makeParallaxHD(float orig, Parallax self) {
+            if (self is HdParallax or AnimatedHdParallax) {
+                return orig * 6; // 1920x1080 is 6 times 320x180.
+            }
+            return orig;
         }
     }
 }

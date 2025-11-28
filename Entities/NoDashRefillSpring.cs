@@ -131,7 +131,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
 
             // replace it with our own collider.
             if (data.Bool("playerCanUse", true)) {
-                Add(new PlayerCollider(OnCollide));
+                Add(new PlayerCollider(OnCollideOverride));
             }
 
             // replace the vanilla sprite with our custom one.
@@ -187,7 +187,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             if (inactiveTimer > 0f) inactiveTimer -= Engine.DeltaTime;
         }
 
-        private void OnCollide(Player player) {
+        private void OnCollideOverride(Player player) {
             if (player.StateMachine.State == 9) {
                 return;
             }

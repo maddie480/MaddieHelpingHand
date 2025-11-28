@@ -155,12 +155,17 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
                 Logger.Log("MaxHelpingHand/KevinBarrier", $"Modding Kevin collide check to add barrier hit at {cursor.Index} in IL for {il.Method.FullName}");
 
                 // replace onCollide (which is of type Action<Vector2, Vector2, Platform>) to notify Kevin barriers that are being hit.
-                cursor.EmitDelegate<Func<Action<Vector2, Vector2, Platform>, Action<Vector2, Vector2, Platform>>>(orig => (a, b, collidedPlatform) => {
-                    if (collidedPlatform is KevinBarrier barrier) {
-                        barrier.hitByKevin();
-                    }
-                });
+                cursor.EmitDelegate<Func<Action<Vector2, Vector2, Platform>, Action<Vector2, Vector2, Platform>>>(notifyKevinBarriers);
             }
+        }
+        private static Action<Vector2, Vector2, Platform> notifyKevinBarriers(Action<Vector2, Vector2, Platform> orig) {
+            return (a, b, collidedPlatform) => {
+                if (collidedPlatform is KevinBarrier barrier) {
+                    barrier.hitByKevin();
+                } else {
+                    orig(a, b, collidedPlatform);
+                }
+            };
         }
 
         private static bool onActorMoveHExact(On.Celeste.Actor.orig_MoveHExact orig, Actor self, int moveH, Collision onCollide, Solid pusher) {

@@ -37,14 +37,6 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
         private static MethodInfo crumblePlatformTileOut = typeof(CrumblePlatform).GetMethod("TileOut", BindingFlags.NonPublic | BindingFlags.Instance);
         private static MethodInfo crumblePlatformTileIn = typeof(CrumblePlatform).GetMethod("TileIn", BindingFlags.NonPublic | BindingFlags.Instance);
 
-        // private variables made accessible through DynData
-        private Coroutine outlineFader;
-        private List<Coroutine> falls;
-        private List<int> fallOrder;
-        private ShakerList shaker;
-        private LightOcclude occluder;
-        private List<Image> images;
-
         private string outlineTexture;
         private bool oneUse;
         private float respawnDelay;
@@ -110,13 +102,15 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
                 Logger.Log("MaxHelpingHand/CustomizableCrumblePlatform", $"Modding crumble platform outline texture at {cursor.Index} in IL for CrumblePlatform.orig_Added");
 
                 cursor.Emit(OpCodes.Ldarg_0);
-                cursor.EmitDelegate<Func<string, CrumblePlatform, string>>((orig, self) => {
-                    if (self is CustomizableCrumblePlatform customPlatform) {
-                        return customPlatform.outlineTexture;
-                    }
-                    return orig;
-                });
+                cursor.EmitDelegate<Func<string, CrumblePlatform, string>>(overrideOutlineTexture);
             }
+        }
+
+        private static string overrideOutlineTexture(string orig, CrumblePlatform self) {
+            if (self is CustomizableCrumblePlatform customPlatform) {
+                return customPlatform.outlineTexture;
+            }
+            return orig;
         }
 
         private static void onCrumblePlatformTileOut(ILContext il) {
@@ -127,25 +121,19 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
 
                 cursor.Emit(OpCodes.Ldarg_0);
                 cursor.Emit(OpCodes.Ldfld, crumblePlatformTileOut.GetStateMachineTarget().DeclaringType.GetField("img"));
-                cursor.EmitDelegate<Func<Color, Image, Color>>((orig, self) => {
-                    if (self.Entity is CustomizableCrumblePlatform customPlatform) {
-                        return customPlatform.fadeOutTint;
-                    }
-                    return orig;
-                });
+                cursor.EmitDelegate<Func<Color, Image, Color>>(modFadeOutTint);
             }
+        }
+
+        private static Color modFadeOutTint(Color orig, Image self) {
+            if (self.Entity is CustomizableCrumblePlatform customPlatform) {
+                return customPlatform.fadeOutTint;
+            }
+            return orig;
         }
 
         public override void Added(Scene scene) {
             base.Added(scene);
-
-            DynData<CrumblePlatform> self = new DynData<CrumblePlatform>(this);
-            outlineFader = self.Get<Coroutine>("outlineFader");
-            falls = self.Get<List<Coroutine>>("falls");
-            fallOrder = self.Get<List<int>>("fallOrder");
-            shaker = self.Get<ShakerList>("shaker");
-            occluder = self.Get<LightOcclude>("occluder");
-            images = self.Get<List<Image>>("images");
 
             foreach (Component component in this) {
                 if (component is Coroutine coroutine && coroutine != outlineFader && !falls.Contains(coroutine)) {

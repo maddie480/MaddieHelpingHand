@@ -34,13 +34,15 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
                 Logger.Log("MaxHelpingHand/ReskinnableBillboard", $"Making billboard reskinnable at {cursor.Index} in IL for PlaybackBillboard.Awake");
 
                 cursor.Emit(OpCodes.Ldarg_0);
-                cursor.EmitDelegate<Func<string, PlaybackBillboard, string>>((orig, self) => {
-                    if (self is ReskinnableBillboard b) {
-                        return b.borderTexture;
-                    }
-                    return orig;
-                });
+                cursor.EmitDelegate<Func<string, PlaybackBillboard, string>>(replaceTexture);
             }
+        }
+
+        private static string replaceTexture(string orig, PlaybackBillboard self) {
+            if (self is ReskinnableBillboard b) {
+                return b.borderTexture;
+            }
+            return orig;
         }
     }
 }

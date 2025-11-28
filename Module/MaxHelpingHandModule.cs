@@ -34,7 +34,7 @@ namespace Celeste.Mod.MaxHelpingHand.Module {
 
         private static bool zoomOutHelperPrototypeEnabled = false;
         private bool zoomOutHelperPrototypeHookEnabled = false;
-        private MethodInfo zoomOutHelperPrototypeCheckMethod;
+        private static MethodInfo zoomOutHelperPrototypeCheckMethod;
 
         // size of the screen, taking zooming out into account (Extended Camera Dynamics mod)
 
@@ -287,16 +287,16 @@ namespace Celeste.Mod.MaxHelpingHand.Module {
             }
         }
 
-        private void checkExtendedCameraDynamics(On.Celeste.LevelLoader.orig_StartLevel orig, LevelLoader self) {
+        private static void checkExtendedCameraDynamics(On.Celeste.LevelLoader.orig_StartLevel orig, LevelLoader self) {
             checkForExtendedCameraDynamics(self);
             orig(self);
         }
 
-        private void checkForExtendedCameraDynamics(LevelLoader self) {
+        private static void checkForExtendedCameraDynamics(LevelLoader self) {
             extendedCameraDynamicsEnabled = ExCameraAreaMetadata.TryGetCameraMetadata(self.Level.Session)?.EnableExtendedCamera ?? false;
         }
 
-        private void checkZoomOutHelperPrototype(On.Celeste.LevelLoader.orig_StartLevel orig, LevelLoader self) {
+        private static void checkZoomOutHelperPrototype(On.Celeste.LevelLoader.orig_StartLevel orig, LevelLoader self) {
             zoomOutHelperPrototypeEnabled = (bool) zoomOutHelperPrototypeCheckMethod.Invoke(null, new object[] { self.Level.Session, null, null });
             orig(self);
         }
