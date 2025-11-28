@@ -75,7 +75,7 @@ namespace Celeste.Mod.MaxHelpingHand.Module {
         public override void Load() {
             Logger.SetLogLevel("MaxHelpingHand", LogLevel.Info);
 
-            using (new DetourConfigContext(new DetourConfig("MaddieHelpingHand_Default")).Use()) {
+            using (new DetourConfigContext(new DetourConfig("MaxHelpingHand")).Use()) {
                 TempleEyeTrackingMadeline.Load();
                 CameraCatchupSpeedTrigger.Load();
                 FlagTouchSwitch.Load();
