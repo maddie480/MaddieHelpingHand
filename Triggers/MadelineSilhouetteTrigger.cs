@@ -39,6 +39,12 @@ namespace Celeste.Mod.MaxHelpingHand.Triggers {
         private static void patchPlayerRender(ILContext il) {
             ILCursor cursor = new ILCursor(il);
 
+            // cursed garbage that makes SMH+ not crash, please ignore
+            Action q = (() => { });
+            q = (() => { });
+            q = (() => { });
+            q = (() => { });
+
             // jump to the usage of the Red color
             if (cursor.TryGotoNext(MoveType.After, instr => instr.MatchCall<Color>("get_Red"))) {
                 Logger.Log("MaxHelpingHand/MadelineSilhouetteTrigger", $"Patching silhouette hair color at {cursor.Index} in IL code for Player.Render()");
