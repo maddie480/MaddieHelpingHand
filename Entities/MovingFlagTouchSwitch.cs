@@ -102,11 +102,11 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
                 switchData["hideIfFlag"] = entityData.Attr("hideIfFlag");
 
                 // these attributes actually exist in TouchSwitch and as such, they work!
-                switchData["inactiveColor"] = Calc.HexToColor(entityData.Attr("inactiveColor", "5FCDE4"));
-                switchData["activeColor"] = Calc.HexToColor(entityData.Attr("activeColor", "FFFFFF"));
-                switchData["finishColor"] = Calc.HexToColor(entityData.Attr("finishColor", "F141DF"));
+                movingTouchSwitch.inactiveColor = Calc.HexToColor(entityData.Attr("inactiveColor", "5FCDE4"));
+                movingTouchSwitch.activeColor = Calc.HexToColor(entityData.Attr("activeColor", "FFFFFF"));
+                movingTouchSwitch.finishColor = Calc.HexToColor(entityData.Attr("finishColor", "F141DF"));
                 switchData["P_RecoloredFire"] = new ParticleType(TouchSwitch.P_Fire) {
-                    Color = (Color) switchData["finishColor"]
+                    Color = movingTouchSwitch.finishColor
                 };
 
                 // set up the icon
@@ -115,12 +115,12 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
                 icon.Add("idle", "", 0f, default(int));
                 icon.Add("spin", "", 0.1f, new Chooser<string>("spin", 1f), 0, 1, 2, 3, 4, 5);
                 icon.Play("spin");
-                icon.Color = (Color) switchData["inactiveColor"];
+                icon.Color = movingTouchSwitch.inactiveColor;
                 icon.CenterOrigin();
                 movingTouchSwitch.Remove(movingTouchSwitch.Get<Sprite>());
                 movingTouchSwitch.Add(icon);
                 movingTouchSwitchIcon.SetValue(movingTouchSwitch, icon);
-                switchData["icon"] = icon;
+                movingTouchSwitch.icon = icon;
 
                 // collect the list of flag touch switches in the room as soon as the entity is awake, like regular flag touch switches.
                 movingTouchSwitch.Add(new TouchSwitchListAttacher(entityData.Attr("flag")));
