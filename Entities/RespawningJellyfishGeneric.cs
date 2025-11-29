@@ -3,10 +3,8 @@ using Mono.Cecil.Cil;
 using Monocle;
 using MonoMod.Cil;
 using MonoMod.RuntimeDetour;
-using MonoMod.Utils;
 using System;
 using System.Collections;
-using System.Reflection;
 
 namespace Celeste.Mod.MaxHelpingHand.Entities {
     public abstract class RespawningJellyfishGeneric<RespawningType, BaseType> where RespawningType : Actor, BaseType where BaseType : Actor {
@@ -104,14 +102,23 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
         }
 
         private static Coroutine swapCoroutine(Coroutine orig, Entity self) {
-            if (self is RespawningBounceJellyfish f) {
-                return new Coroutine(f.manager.destroyThenRespawnRoutine());
+            if (self.GetType().Name == "RespawningBounceJellyfish") {
+                IEnumerator routine = destroyThenRespawnCoroutineBounce(self);
+                if (routine != null) return new Coroutine(routine);
             }
-            if (self is RespawningJellyfish g) {
-                return new Coroutine(g.manager.destroyThenRespawnRoutine());
+            if (self is RespawningJellyfish f) {
+                return new Coroutine(f.manager.destroyThenRespawnRoutine());
             }
 
             return orig;
+        }
+
+        private static IEnumerator destroyThenRespawnCoroutineBounce(Entity self) {
+            // in its own method because resolving RespawningBounceJellyfish requires Bounce Helper
+            if (self is RespawningBounceJellyfish f) {
+                return f.manager.destroyThenRespawnRoutine();
+            }
+            return null;
         }
 
         public void OnSquish(Action<CollisionData> baseOnSquish, CollisionData data) {
