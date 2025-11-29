@@ -162,7 +162,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             return (a, b, collidedPlatform) => {
                 if (collidedPlatform is KevinBarrier barrier) {
                     barrier.hitByKevin();
-                } else {
+                } else if (orig != null) {
                     orig(a, b, collidedPlatform);
                 }
             };
