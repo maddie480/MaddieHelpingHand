@@ -6,6 +6,7 @@ using Monocle;
 using MonoMod.Cil;
 using MonoMod.RuntimeDetour;
 using System;
+using System.Runtime.CompilerServices;
 
 namespace Celeste.Mod.MaxHelpingHand.Triggers {
     [CustomEntity("MaxHelpingHand/MadelineSilhouetteTrigger")]
@@ -29,6 +30,7 @@ namespace Celeste.Mod.MaxHelpingHand.Triggers {
             On.Celeste.Player.ResetSprite -= onPlayerResetSprite;
         }
 
+        [MethodImpl(MethodImplOptions.NoInlining)]
         private static void onPlayerSpriteConstructor(On.Celeste.PlayerSprite.orig_ctor orig, PlayerSprite self, PlayerSpriteMode mode) {
             if (MaxHelpingHandModule.Instance.Session.MadelineIsSilhouette && (mode == PlayerSpriteMode.Madeline || mode == PlayerSpriteMode.MadelineAsBadeline || mode == PlayerSpriteMode.MadelineNoBackpack)) {
                 mode = PlayerSpriteMode.Playback;
@@ -64,6 +66,7 @@ namespace Celeste.Mod.MaxHelpingHand.Triggers {
             }
         }
 
+        [MethodImpl(MethodImplOptions.NoInlining)]
         private static Color overrideBlinking(Color color, Player player) {
             if (MaxHelpingHandModule.Instance.Session.MadelineIsSilhouette) {
                 if (player.Dashes == 0) {
@@ -75,6 +78,7 @@ namespace Celeste.Mod.MaxHelpingHand.Triggers {
             return color;
         }
 
+        [MethodImpl(MethodImplOptions.NoInlining)]
         private static Color overrideBodyColorWithHairColor(Color orig, Player self) {
             if (MaxHelpingHandModule.Instance.Session.MadelineIsSilhouette) {
                 return self.Hair.Color;
@@ -101,6 +105,7 @@ namespace Celeste.Mod.MaxHelpingHand.Triggers {
             }
         }
 
+        [MethodImpl(MethodImplOptions.NoInlining)]
         private static void onPlayerResetSprite(On.Celeste.Player.orig_ResetSprite orig, Player self, PlayerSpriteMode mode) {
             if (MaxHelpingHandModule.Instance.Session.MadelineIsSilhouette && (mode == PlayerSpriteMode.Madeline || mode == PlayerSpriteMode.MadelineAsBadeline || mode == PlayerSpriteMode.MadelineNoBackpack)) {
                 mode = PlayerSpriteMode.Playback;
