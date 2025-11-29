@@ -18,9 +18,6 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
     [Tracked]
     public class UpsideDownJumpThru : JumpThru {
 
-        private static FieldInfo playerVarJumpTimer = typeof(Player).GetField("varJumpTimer", BindingFlags.Instance | BindingFlags.NonPublic);
-        private static MethodInfo playerJumpthruBoostBlockedCheck = typeof(Player).GetMethod("JumpThruBoostBlockedCheck", BindingFlags.Instance | BindingFlags.NonPublic);
-
         private static ILHook playerOrigUpdateHook;
         private static Hook canUnDuckHook;
 
@@ -235,7 +232,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
                 self.Speed.Y = 0;
 
                 // reset varJumpTimer to prevent a weird "stuck on ceiling" effect.
-                playerVarJumpTimer.SetValue(self, 0);
+                self.varJumpTimer = 0;
             }
 
             orig(self, data);
@@ -528,11 +525,9 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             // if we are supposed to push the player and the player is hitting us...
             Player p;
             if (pushPlayer && (p = CollideFirst<Player>()) != null) {
-                DynData<Player> playerData = new DynData<Player>(p);
-
                 // player is moving down, not on the ground, not climbing, not blocked => push them down
-                if (p.Speed.Y >= 0f && !playerData.Get<bool>("onGround") && (p.StateMachine.State != 1 || playerData.Get<int>("lastClimbMove") == -1)
-                    && !((bool) playerJumpthruBoostBlockedCheck.Invoke(p, new object[0]))) {
+                if (p.Speed.Y >= 0f && !p.onGround && (p.StateMachine.State != 1 || p.lastClimbMove == -1)
+                    && !p.JumpThruBoostBlockedCheck()) {
 
                     p.MoveV(40f * Engine.DeltaTime);
                 }

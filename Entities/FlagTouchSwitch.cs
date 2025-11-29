@@ -22,10 +22,6 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
     [CustomEntity("MaxHelpingHand/FlagTouchSwitch")]
     [Tracked(inherited: true)]
     public class FlagTouchSwitch : Entity {
-        private static FieldInfo seekerPushRadius = typeof(Seeker).GetField("pushRadius", BindingFlags.NonPublic | BindingFlags.Instance);
-        private static FieldInfo seekerPhysicsHitbox = typeof(Seeker).GetField("physicsHitbox", BindingFlags.NonPublic | BindingFlags.Instance);
-        private static FieldInfo pufferPushRadius = typeof(Puffer).GetField("pushRadius", BindingFlags.NonPublic | BindingFlags.Instance);
-
         private static FieldInfo dreamSwitchGateIsFlagSwitchGate = null;
         private static MethodInfo dreamSwitchGateTriggeredSetter = null;
         private static MethodInfo dreamSwitchGateFlagGetter = null;
@@ -47,9 +43,9 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             }
 
             // make the seeker check for flag touch switches as well.
-            self.Collider = (Collider) seekerPushRadius.GetValue(self);
+            self.Collider = self.pushRadius;
             turnOnTouchSwitchesCollidingWith(self);
-            self.Collider = (Collider) seekerPhysicsHitbox.GetValue(self);
+            self.Collider = self.physicsHitbox;
         }
 
         private static void onPufferExplode(On.Celeste.Puffer.orig_Explode orig, Puffer self) {
@@ -57,7 +53,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
 
             // make the puffer check for flag touch switches as well.
             Collider oldCollider = self.Collider;
-            self.Collider = (Collider) pufferPushRadius.GetValue(self);
+            self.Collider = self.pushRadius;
             turnOnTouchSwitchesCollidingWith(self);
             self.Collider = oldCollider;
         }
@@ -236,8 +232,8 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             allMovingFlagTouchSwitchesInRoom = Scene.Entities.OfType<TouchSwitch>()
                 .Where(touchSwitch =>
                     touchSwitch.GetType().ToString() == "Celeste.Mod.OutbackHelper.MovingTouchSwitch" &&
-                    new DynData<TouchSwitch>(touchSwitch).Data.ContainsKey("flag") &&
-                    new DynData<TouchSwitch>(touchSwitch).Get<string>("flag") == flag).ToList();
+                    MovingFlagTouchSwitch.flagMapping.TryGetValue(touchSwitch, out Dictionary<string, object> map) &&
+                    (string) map["flag"] == flag).ToList();
         }
 
         protected void onPlayer(Player player) {

@@ -74,7 +74,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
                     Color = Calc.HexToColor(particleColor)
                 };
 
-                new DynData<HeartGem>(this)["shineParticle"] = particle;
+                shineParticle = particle;
             }
         }
 

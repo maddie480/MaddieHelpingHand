@@ -48,7 +48,6 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             sprite.CenterOrigin();
             sprite.Position.Y = -10;
             Add(sprite);
-            new DynData<TheoCrystal>(this)["sprite"] = sprite;
 
             Add(new TransitionListener() {
                 OnOutBegin = onTransitionOut
@@ -82,7 +81,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
                 floating = false;
             }
             if (floating) {
-                new DynData<Holdable>(Hold)["gravityTimer"] = 1f;
+                Hold.gravityTimer = 1f;
             }
 
             base.Update();

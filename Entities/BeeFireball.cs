@@ -12,8 +12,6 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
     /// </summary>
     [CustomEntity("MaxHelpingHand/BeeFireball")]
     public class BeeFireball : FireBall {
-        private static MethodInfo fireballGetPercentPosition = typeof(FireBall).GetMethod("GetPercentPosition", BindingFlags.NonPublic | BindingFlags.Instance);
-
         private static ParticleType P_Noop;
 
         public static void LoadContent() {
@@ -53,26 +51,24 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
         public override void Added(Scene scene) {
             base_Added(scene);
 
-            DynData<FireBall> selfData = new DynData<FireBall>(this);
-
-            selfData["iceMode"] = false;
-            selfData["speedMult"] = 1;
+            iceMode = false;
+            speedMult = 1;
             if (index == 0) {
                 for (int i = 1; i < amount; i++) {
                     Scene.Add(new BeeFireball(nodes, amount, i, offset, mult));
                 }
             }
 
-            selfData.Get<SoundSource>("trackSfx")?.RemoveSelf();
+            trackSfx?.RemoveSelf();
         }
 
         public override void Awake(Scene scene) {
             base.Awake(scene);
 
             // what will be the initial facing? determine it by computing (position at percent + 0.01) - (position at percent).
-            float initPercent = new DynData<FireBall>(this).Get<float>("percent");
-            float firstMoveX = ((Vector2) fireballGetPercentPosition.Invoke(this, new object[] { (initPercent + 0.01f) % 1f })).X
-                - ((Vector2) fireballGetPercentPosition.Invoke(this, new object[] { initPercent })).X;
+            float initPercent = percent;
+            float firstMoveX = GetPercentPosition((initPercent + 0.01f) % 1f).X
+                - GetPercentPosition(initPercent).X;
 
             if (firstMoveX < 0) {
                 // facing left!
@@ -81,8 +77,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             }
 
             // check if the bee is facing left at the start of the track (if it is moving left between 0% and 1% of the track).
-            isFacingLeftAtStartOfTrack = ((Vector2) fireballGetPercentPosition.Invoke(this, new object[] { 0f })).X
-                > ((Vector2) fireballGetPercentPosition.Invoke(this, new object[] { 0.01f })).X;
+            isFacingLeftAtStartOfTrack = GetPercentPosition(0f).X > GetPercentPosition(0.01f).X;
         }
 
         public override void Update() {

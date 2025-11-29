@@ -11,7 +11,7 @@ using System.Linq;
 using System.Reflection;
 
 namespace Celeste.Mod.MaxHelpingHand.Entities {
-    // this instanciates a moving touch switch from Outback Helper, but applies hooks and DynData to make it act like a flag touch switch.
+    // this instanciates a moving touch switch from Outback Helper, but applies hooks to make it act like a flag touch switch.
     [CustomEntity("MaxHelpingHand/MovingFlagTouchSwitch")]
     public static class MovingFlagTouchSwitch {
         private static Type movingTouchSwitchType;
@@ -19,6 +19,8 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
         private static Type movingTouchSwitchStateMachineType;
 
         private static ILHook hookMovingTouchSwitch;
+
+        internal static readonly Dictionary<Entity, Dictionary<string, object>> flagMapping = new Dictionary<Entity, Dictionary<string, object>>();
 
         public static void HookMods() {
             if (hookMovingTouchSwitch == null && Everest.Loader.DependencyLoaded(new EverestModuleMetadata { Name = "OutbackHelper", Version = new Version(1, 4, 0) })) {
@@ -32,6 +34,8 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
 
                 On.Celeste.Switch.Activate += onSwitchActivate;
                 On.Celeste.TouchSwitch.Update += onTouchSwitchUpdate;
+                On.Monocle.Entity.Removed += onEntityRemoved;
+                On.Celeste.Level.End += onLevelEnd;
             }
         }
 
@@ -45,6 +49,18 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
 
             On.Celeste.Switch.Activate -= onSwitchActivate;
             On.Celeste.TouchSwitch.Update -= onTouchSwitchUpdate;
+            On.Monocle.Entity.Removed -= onEntityRemoved;
+            On.Celeste.Level.End -= onLevelEnd;
+        }
+
+        private static void onEntityRemoved(On.Monocle.Entity.orig_Removed orig, Entity self, Scene scene) {
+            orig(self, scene);
+            flagMapping.Remove(self);
+        }
+
+        private static void onLevelEnd(On.Celeste.Level.orig_End orig, Level self) {
+            orig(self);
+            flagMapping.Clear();
         }
 
         private class ErrorSpawner : Entity {
@@ -75,8 +91,9 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
                 TouchSwitch movingTouchSwitch = (TouchSwitch) Activator.CreateInstance(movingTouchSwitchType,
                     new object[] { entityData.NodesOffset(offset), entityData, offset });
 
-                // save its attributes as DynData
-                DynData<TouchSwitch> switchData = new DynData<TouchSwitch>(movingTouchSwitch);
+                // save its attributes
+                Dictionary<string, object> switchData = new Dictionary<string, object>();
+                flagMapping[movingTouchSwitch] = switchData;
                 switchData["flag"] = entityData.Attr("flag");
                 switchData["id"] = entityData.ID;
                 switchData["persistent"] = entityData.Bool("persistent", false);
@@ -89,7 +106,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
                 switchData["activeColor"] = Calc.HexToColor(entityData.Attr("activeColor", "FFFFFF"));
                 switchData["finishColor"] = Calc.HexToColor(entityData.Attr("finishColor", "F141DF"));
                 switchData["P_RecoloredFire"] = new ParticleType(TouchSwitch.P_Fire) {
-                    Color = switchData.Get<Color>("finishColor")
+                    Color = (Color) switchData["finishColor"]
                 };
 
                 // set up the icon
@@ -98,7 +115,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
                 icon.Add("idle", "", 0f, default(int));
                 icon.Add("spin", "", 0.1f, new Chooser<string>("spin", 1f), 0, 1, 2, 3, 4, 5);
                 icon.Play("spin");
-                icon.Color = switchData.Get<Color>("inactiveColor");
+                icon.Color = (Color) switchData["inactiveColor"];
                 icon.CenterOrigin();
                 movingTouchSwitch.Remove(movingTouchSwitch.Get<Sprite>());
                 movingTouchSwitch.Add(icon);
@@ -128,7 +145,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             public override void EntityAwake() {
                 base.EntityAwake();
 
-                DynData<TouchSwitch> data = new DynData<TouchSwitch>((TouchSwitch) Entity);
+                Dictionary<string, object> data = flagMapping[(TouchSwitch) Entity];
 
                 // get all flag touch switches in the room.
                 List<FlagTouchSwitch> allTouchSwitchesInRoom = Scene.Tracker.GetEntities<FlagTouchSwitch>()
@@ -136,10 +153,9 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
                 List<TouchSwitch> allMovingFlagTouchSwitchesInRoom = Scene.Entities.OfType<TouchSwitch>()
                     .Where(touchSwitch =>
                         touchSwitch.GetType().ToString() == "Celeste.Mod.OutbackHelper.MovingTouchSwitch" &&
-                        new DynData<TouchSwitch>(touchSwitch).Data.ContainsKey("flag") &&
-                        new DynData<TouchSwitch>(touchSwitch).Get<string>("flag") == flag).ToList();
+                        flagMapping.TryGetValue(touchSwitch, out Dictionary<string, object> data) &&
+                        (string) data["flag"] == flag).ToList();
 
-                // store them in DynData.
                 data["allTouchSwitchesInRoom"] = allTouchSwitchesInRoom;
                 data["allMovingFlagTouchSwitchesInRoom"] = allMovingFlagTouchSwitchesInRoom;
             }
@@ -189,41 +205,37 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
         }
 
         private static Color modTouchSwitchColor(Color orig, TouchSwitch self) {
-            DynData<TouchSwitch> data = new DynData<TouchSwitch>(self);
-            if (data.Data.ContainsKey("movingColor")) {
-                return data.Get<Color>("movingColor");
+            if (flagMapping.TryGetValue(self, out Dictionary<string, object> map)) {
+                return (Color) map["movingColor"];
             }
             return orig;
         }
 
         private static float modTouchSwitchDelay(float orig, TouchSwitch self) {
-            DynData<TouchSwitch> data = new DynData<TouchSwitch>(self);
-            if (data.Data.ContainsKey("movingDelay")) {
-                return data.Get<float>("movingDelay");
+            if (flagMapping.TryGetValue(self, out Dictionary<string, object> map)) {
+                return (float) map["movingDelay"];
             }
             return orig;
         }
 
         private static bool onSwitchActivate(On.Celeste.Switch.orig_Activate orig, Switch self) {
             if (self.Entity.GetType().ToString() == "Celeste.Mod.OutbackHelper.MovingTouchSwitch") {
-                DynData<TouchSwitch> selfData = new DynData<TouchSwitch>((TouchSwitch) self.Entity);
-                if (selfData.Data.ContainsKey("flag")) {
-                    DynData<Switch> selfSwitch = new DynData<Switch>(self);
-                    string flag = selfData.Get<string>("flag");
+                if (flagMapping.TryGetValue(self.Entity, out Dictionary<string, object> map)) {
+                    string flag = (string) map["flag"];
                     Level level = self.Entity.SceneAs<Level>();
 
                     // do what the regular Switch.Activate() method does
                     if (self.Finished || self.Activated) {
                         return false;
                     }
-                    selfSwitch["Activated"] = true;
+                    self.Activated = true;
                     if (self.OnActivate != null) {
                         self.OnActivate();
                     }
 
                     // use the same logic as flag touch switches to determine if the group is complete.
-                    return FlagTouchSwitch.HandleCollectedFlagTouchSwitch(flag, inverted: false, selfData.Get<bool>("persistent"), level, selfData.Get<int>("id"),
-                        selfData.Get<List<FlagTouchSwitch>>("allTouchSwitchesInRoom"), selfData.Get<List<TouchSwitch>>("allMovingFlagTouchSwitchesInRoom"), () => { });
+                    return FlagTouchSwitch.HandleCollectedFlagTouchSwitch(flag, inverted: false, (bool) map["persistent"], level, (int) map["id"],
+                        (List<FlagTouchSwitch>) map["allTouchSwitchesInRoom"], (List<TouchSwitch>) map["allMovingFlagTouchSwitchesInRoom"], () => { });
                 }
             }
 
@@ -234,10 +246,9 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
 
         private static void onTouchSwitchUpdate(On.Celeste.TouchSwitch.orig_Update orig, TouchSwitch self) {
             if (self.GetType().ToString() == "Celeste.Mod.OutbackHelper.MovingTouchSwitch") {
-                DynData<TouchSwitch> selfData = new DynData<TouchSwitch>(self);
-                if (selfData.Data.ContainsKey("P_RecoloredFire")) {
+                if (flagMapping.TryGetValue(self, out Dictionary<string, object> map)) {
                     ParticleType oldParticle = TouchSwitch.P_Fire;
-                    TouchSwitch.P_Fire = selfData.Get<ParticleType>("P_RecoloredFire");
+                    TouchSwitch.P_Fire = (ParticleType) map["P_RecoloredFire"];
                     orig(self);
                     TouchSwitch.P_Fire = oldParticle;
                     return;
@@ -248,9 +259,8 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
         }
 
         internal static bool IsHidden(TouchSwitch touchSwitch) {
-            DynData<TouchSwitch> selfData = new DynData<TouchSwitch>(touchSwitch);
-            if (selfData.Data.ContainsKey("hideIfFlag")) {
-                string hideIfFlag = selfData.Get<string>("hideIfFlag");
+            if (flagMapping.TryGetValue(touchSwitch, out Dictionary<string, object> map)) {
+                string hideIfFlag = (string) map["hideIfFlag"];
                 return !string.IsNullOrEmpty(hideIfFlag) && (touchSwitch.Scene as Level).Session.GetFlag(hideIfFlag);
             }
             return false;

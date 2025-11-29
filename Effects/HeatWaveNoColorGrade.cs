@@ -9,7 +9,6 @@ namespace Celeste.Mod.MaxHelpingHand.Effects {
     /// A heatwave effect that does not affect the colorgrade.
     /// </summary>
     public class HeatWaveNoColorGrade : HeatWave {
-        private DynData<HeatWave> self = new DynData<HeatWave>();
         private bool controlColorGradeWhenActive;
         private bool renderParticles;
 
@@ -22,7 +21,6 @@ namespace Celeste.Mod.MaxHelpingHand.Effects {
         }
 
         public HeatWaveNoColorGrade(bool controlColorGradeWhenActive, bool renderParticles) : base() {
-            self = new DynData<HeatWave>(this);
             this.controlColorGradeWhenActive = controlColorGradeWhenActive;
             this.renderParticles = renderParticles;
         }
@@ -33,23 +31,21 @@ namespace Celeste.Mod.MaxHelpingHand.Effects {
 
             if (!show || !controlColorGradeWhenActive) {
                 // if not fading out, the heatwave is invisible, so don't even bother updating it.
-                if (show || self.Get<float>("fade") > 0) {
+                if (show || fade > 0) {
                     // be sure to lock color grading to prevent it from becoming "none".
-                    DynData<Level> levelData = new DynData<Level>(level);
-
-                    string lastColorGrade = levelData.Get<string>("lastColorGrade");
-                    float colorGradeEase = levelData.Get<float>("colorGradeEase");
-                    float colorGradeEaseSpeed = levelData.Get<float>("colorGradeEaseSpeed");
+                    string lastColorGrade = level.lastColorGrade;
+                    float colorGradeEase = level.colorGradeEase;
+                    float colorGradeEaseSpeed = level.colorGradeEaseSpeed;
                     string colorGrade = level.Session.ColorGrade;
 
                     base.Update(scene);
 
-                    levelData["lastColorGrade"] = lastColorGrade;
-                    levelData["colorGradeEase"] = colorGradeEase;
-                    levelData["colorGradeEaseSpeed"] = colorGradeEaseSpeed;
+                    level.lastColorGrade = lastColorGrade;
+                    level.colorGradeEase = colorGradeEase;
+                    level.colorGradeEaseSpeed = colorGradeEaseSpeed;
                     level.Session.ColorGrade = colorGrade;
 
-                    if (self.Get<float>("heat") <= 0) {
+                    if (heat <= 0) {
                         // the heat hit 0, we should now restore the water sine direction
                         // ... because if we don't, waterfalls will flow backwards
                         Distort.WaterSineDirection = 1f;

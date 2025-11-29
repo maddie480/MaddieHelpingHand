@@ -445,8 +445,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             for (int i = 0; i < Width / 8f; i++) {
                 for (int j = 0; j < Height / 8f; j++) {
                     Debris debris = new Debris().orig_Init(Position + new Vector2(4 + i * 8, 4 + j * 8), '1').BlastFrom(Center);
-                    DynData<Debris> debrisData = new DynData<Debris>(debris);
-                    debrisData.Get<Image>("image").Texture = GFX.Game[debrisPath];
+                    debris.image.Texture = GFX.Game[debrisPath];
                     Scene.Add(debris);
                 }
             }

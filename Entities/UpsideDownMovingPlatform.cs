@@ -11,9 +11,6 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
     [CustomEntity("MaxHelpingHand/UpsideDownMovingPlatform")]
     [TrackedAs(typeof(UpsideDownJumpThru))]
     public class UpsideDownMovingPlatform : UpsideDownJumpThru {
-        // this variable is private, static, and never modified: so we only need reflection once to get it!
-        private static readonly HashSet<Actor> solidRiders = (HashSet<Actor>) typeof(Solid).GetField("riders", BindingFlags.NonPublic | BindingFlags.Static).GetValue(null);
-
         // settings
         private readonly EntityData thisEntityData;
         private readonly Vector2 thisOffset;
@@ -106,8 +103,8 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             platform.Position += move;
 
             // back up the riders, because we don't want to mess up the static variable by moving a solid while moving another solid.
-            HashSet<Actor> ridersBackup = new HashSet<Actor>(solidRiders);
-            solidRiders.Clear();
+            HashSet<Actor> ridersBackup = new HashSet<Actor>(Solid.riders);
+            Solid.riders.Clear();
 
             // move the hidden solid, making it actually solid if needed. When solid, it will push the player and carry them if they climb the platform.
             playerInteractingSolid.Collidable = playerHasToMove;
@@ -116,9 +113,9 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             playerInteractingSolid.Collidable = false;
 
             // restore the riders
-            solidRiders.Clear();
+            Solid.riders.Clear();
             foreach (Actor rider in ridersBackup) {
-                solidRiders.Add(rider);
+                Solid.riders.Add(rider);
             }
         }
 

@@ -6,11 +6,18 @@ using MonoMod.Cil;
 using MonoMod.Utils;
 using System;
 using System.Collections.Generic;
+using System.Reflection;
 
 namespace Celeste.Mod.MaxHelpingHand.Effects {
     public class BlackholeCustomColors : BlackholeBG {
         private static Color[] colorsMildOverride;
         private static List<MTexture> replacementAtlasSubtextures;
+
+        // those fields are readonly, so the publicizer isn't powerful enough to let us modify them :destareline:
+        private static FieldInfo blackholeBgColorInner = typeof(BlackholeBG).GetField("bgColorInner", BindingFlags.NonPublic | BindingFlags.Instance);
+        private static FieldInfo blackholeBgColorOuterMild = typeof(BlackholeBG).GetField("bgColorOuterMild", BindingFlags.NonPublic | BindingFlags.Instance);
+        private static FieldInfo blackholeBgColorOuterWild = typeof(BlackholeBG).GetField("bgColorOuterWild", BindingFlags.NonPublic | BindingFlags.Instance);
+        private static FieldInfo blackholeBgTexture = typeof(BlackholeBG).GetField("bgTexture", BindingFlags.NonPublic | BindingFlags.Instance);
 
         public static void Load() {
             IL.Celeste.BlackholeBG.ctor += onBlackholeConstructor;
@@ -50,7 +57,7 @@ namespace Celeste.Mod.MaxHelpingHand.Effects {
 
         private static void applyColorsMildOverride(BlackholeBG self) {
             if (colorsMildOverride != null) {
-                new DynData<BlackholeBG>(self)["colorsMild"] = colorsMildOverride;
+                self.colorsMild = colorsMildOverride;
                 colorsMildOverride = null;
             }
         }
@@ -90,7 +97,7 @@ namespace Celeste.Mod.MaxHelpingHand.Effects {
 
                 // there is no gradient on any color, wind should affect the blackhole, and there is no fade: we can just instanciate a vanilla blackhole and mess with its properties.
 
-                // set up colorsMild for the hook above. we can't use DynData to pass this over, since the object does not exist yet!
+                // set up colorsMild for the hook above. we can't use pass the values over to the object, since the object does not exist yet!
                 colorsMildOverride = parseColors(effectData.Attr("colorsMild", "6e3199,851f91,3026b0"));
                 for (int i = 0; i < colorsMildOverride.Length; i++) {
                     colorsMildOverride[i] *= 0.8f;
@@ -100,16 +107,15 @@ namespace Celeste.Mod.MaxHelpingHand.Effects {
                 BlackholeBG blackhole = new BlackholeBG();
 
                 // ... now we've got to set everything else.
-                DynData<BlackholeBG> blackholeData = new DynData<BlackholeBG>(blackhole);
-                blackholeData["colorsWild"] = parseColors(effectData.Attr("colorsWild", "ca4ca7,b14cca,ca4ca7"));
-                blackholeData["bgColorInner"] = Calc.HexToColor(effectData.Attr("bgColorInner", "000000")) * bgAlphaInner;
-                blackholeData["bgColorOuterMild"] = Calc.HexToColor(effectData.Attr("bgColorOuterMild", "512a8b")) * bgAlphaOuter;
-                blackholeData["bgColorOuterWild"] = Calc.HexToColor(effectData.Attr("bgColorOuterWild", "bd2192")) * bgAlphaOuter;
+                blackhole.colorsWild = parseColors(effectData.Attr("colorsWild", "ca4ca7,b14cca,ca4ca7"));
+                blackholeBgColorInner.SetValue(blackhole, Calc.HexToColor(effectData.Attr("bgColorInner", "000000")) * bgAlphaInner);
+                blackholeBgColorOuterMild.SetValue(blackhole, Calc.HexToColor(effectData.Attr("bgColorOuterMild", "512a8b")) * bgAlphaOuter);
+                blackholeBgColorOuterWild.SetValue(blackhole, Calc.HexToColor(effectData.Attr("bgColorOuterWild", "bd2192")) * bgAlphaOuter);
                 blackhole.Alpha = effectData.AttrFloat("alpha", 1f);
                 blackhole.Direction = effectData.AttrFloat("direction", 1f);
 
                 if (!string.IsNullOrEmpty(effectData.Attr("texture"))) {
-                    blackholeData["bgTexture"] = GFX.Game[effectData.Attr("texture")];
+                    blackholeBgTexture.SetValue(blackhole, GFX.Game[effectData.Attr("texture")]);
                 }
 
                 return blackhole;
@@ -124,7 +130,7 @@ namespace Celeste.Mod.MaxHelpingHand.Effects {
                     replacementAtlasSubtextures = cutIntoSubtextures(particleTexture, effectData.AttrInt("particleTextureCount"));
                 }
 
-                // set up colorsMild for the hook above. we can't use DynData to pass this over, since the object does not exist yet!
+                // set up colorsMild for the hook above. we can't pass this over to the object, since it does not exist yet!
                 colorsMildOverride = new ColorCycle(effectData.Attr("colorsMild", "6e3199,851f91,3026b0"), 0.8f * fgAlpha).GetColors();
 
                 // build the blackhole: the hook will take care of setting colorsMild.
@@ -141,15 +147,15 @@ namespace Celeste.Mod.MaxHelpingHand.Effects {
                     particleTexture);
 
                 // ... now we've got to set the initial values of everything else.
-                blackhole.blackholeData["colorsWild"] = blackhole.cycleColorsWild.GetColors();
-                blackhole.blackholeData["bgColorInner"] = blackhole.cycleBgColorInner.GetColors()[0];
-                blackhole.blackholeData["bgColorOuterMild"] = blackhole.cycleBgColorOuterMild.GetColors()[0];
-                blackhole.blackholeData["bgColorOuterWild"] = blackhole.cycleBgColorOuterWild.GetColors()[0];
+                blackhole.colorsWild = blackhole.cycleColorsWild.GetColors();
+                blackholeBgColorInner.SetValue(blackhole, blackhole.cycleBgColorInner.GetColors()[0]);
+                blackholeBgColorOuterMild.SetValue(blackhole, blackhole.cycleBgColorOuterMild.GetColors()[0]);
+                blackholeBgColorOuterWild.SetValue(blackhole, blackhole.cycleBgColorOuterWild.GetColors()[0]);
                 blackhole.Alpha = effectData.AttrFloat("alpha", 1f);
                 blackhole.Direction = effectData.AttrFloat("direction", 1f);
 
                 if (!string.IsNullOrEmpty(effectData.Attr("texture"))) {
-                    blackhole.blackholeData["bgTexture"] = GFX.Game[effectData.Attr("texture")];
+                    blackholeBgTexture.SetValue(blackhole, GFX.Game[effectData.Attr("texture")]);
                 }
 
                 return blackhole;
@@ -244,8 +250,6 @@ namespace Celeste.Mod.MaxHelpingHand.Effects {
             }
         }
 
-        private readonly DynData<BlackholeBG> blackholeData;
-
         private readonly ColorCycle cycleColorsMild;
         private readonly ColorCycle cycleColorsWild;
         private readonly ColorCycle cycleBgColorInner;
@@ -263,8 +267,6 @@ namespace Celeste.Mod.MaxHelpingHand.Effects {
         public BlackholeCustomColors(string colorsMild, string colorsWild, string bgColorInner, string bgColorOuterMild, string bgColorOuterWild,
             float bgAlphaInner, float bgAlphaOuter, float fgAlpha, bool affectedByWind, Vector2 additionalWind, bool invertedRendering, MTexture particleTexture) : base() {
 
-            blackholeData = new DynData<BlackholeBG>(this);
-
             // parse all color cycles.
             cycleColorsMild = new ColorCycle(colorsMild, 0.8f * fgAlpha);
             cycleColorsWild = new ColorCycle(colorsWild, fgAlpha);
@@ -281,7 +283,7 @@ namespace Celeste.Mod.MaxHelpingHand.Effects {
             this.invertedRendering = invertedRendering;
 
             if (invertedRendering) {
-                blackholeData["bgTexture"] = GFX.Game["objects/MaxHelpingHand/temple/portal_inverted"];
+                blackholeBgTexture.SetValue(this, GFX.Game["objects/MaxHelpingHand/temple/portal_inverted"]);
             }
         }
 
@@ -312,11 +314,11 @@ namespace Celeste.Mod.MaxHelpingHand.Effects {
             cycleBgColorOuterWild.Update();
 
             // ... and apply them.
-            blackholeData["colorsMild"] = cycleColorsMild.GetColors();
-            blackholeData["colorsWild"] = cycleColorsWild.GetColors();
-            blackholeData["bgColorInner"] = cycleBgColorInner.GetColors()[0];
-            blackholeData["bgColorOuterMild"] = cycleBgColorOuterMild.GetColors()[0];
-            blackholeData["bgColorOuterWild"] = cycleBgColorOuterWild.GetColors()[0];
+            colorsMild = cycleColorsMild.GetColors();
+            colorsWild = cycleColorsWild.GetColors();
+            blackholeBgColorInner.SetValue(this, cycleBgColorInner.GetColors()[0]);
+            blackholeBgColorOuterMild.SetValue(this, cycleBgColorOuterMild.GetColors()[0]);
+            blackholeBgColorOuterWild.SetValue(this, cycleBgColorOuterWild.GetColors()[0]);
         }
 
         public override void Render(Scene scene) {

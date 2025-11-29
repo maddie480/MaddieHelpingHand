@@ -35,7 +35,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
 
             // Rotate Speed option
             if (!string.IsNullOrEmpty(entityData.Attr("rotateSpeed"))) {
-                new DynData<FloatingDebris>(debris)["rotateSpeed"] = float.Parse(entityData.Attr("rotateSpeed"));
+                debris.rotateSpeed = float.Parse(entityData.Attr("rotateSpeed"));
             }
 
             // Scroll X and Scroll Y options

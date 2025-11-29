@@ -17,6 +17,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
     [TrackedAs(typeof(SeekerBarrier))]
     public class CustomSeekerBarrier : SeekerBarrier {
         private static ILHook eeveeHoldableContainerUpdateHook;
+        private static FieldInfo holdableContainerSlowFall;
 
         public static void Load() {
             IL.Celeste.Seeker.Update += onSeekerUpdate;
@@ -34,6 +35,8 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
                         holdableContainerType.GetMethod("Update", BindingFlags.Public | BindingFlags.Instance),
                         onHoldableContainerUpdate
                     );
+
+                    holdableContainerSlowFall = holdableContainerType.GetField("slowFall", BindingFlags.NonPublic | BindingFlags.Instance);
                 }
             }
         }
@@ -44,6 +47,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
 
             eeveeHoldableContainerUpdateHook?.Dispose();
             eeveeHoldableContainerUpdateHook = null;
+            holdableContainerSlowFall = null;
         }
 
         private static void onBloomRendererApply(ILContext il) {
@@ -111,7 +115,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
 
         private static bool modHoldableCollideCondition(Entity entity, Entity holdableContainer, bool orig) {
             if (entity is CustomSeekerBarrier seekerBarrier) {
-                bool slowFall = new DynamicData(holdableContainer).Get<bool>("slowFall");
+                bool slowFall = (bool) holdableContainerSlowFall.GetValue(holdableContainer);
                 return !seekerBarrier.isDisabled && (
                     (slowFall && seekerBarrier.killHoldableContainerSlowFall)
                     || (!slowFall && seekerBarrier.killHoldableContainerNonSlowFall));

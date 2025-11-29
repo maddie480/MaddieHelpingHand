@@ -39,7 +39,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             }
 
             if (self is GroupedDustTriggerSpikes groupedSpikes) {
-                int spikeCount = new DynData<TriggerSpikes>(self).Get<int>("size") / 4;
+                int spikeCount = self.size / 4;
 
                 if (maxIndex >= 0 && minIndex < spikeCount) {
                     // let's pretend the player is pressing every trigger spike at once.

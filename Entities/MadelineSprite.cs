@@ -132,7 +132,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             }
 
             // initialize the hair color.
-            new DynData<Player>(this)["lastDashes"] = dashCount;
+            lastDashes = dashCount;
             UpdateHair(true);
         }
 

@@ -48,7 +48,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
 
             if ((SaveData.Instance.CheatMode || (unlockedCSides && completed)) && notDiedOrVisitedFurtherRooms) {
                 Strawberry berry = new Strawberry(entityData, offset, entityID);
-                new DynData<Strawberry>(berry)["Golden"] = true;
+                berry.Golden = true;
                 return berry;
             }
             return null;

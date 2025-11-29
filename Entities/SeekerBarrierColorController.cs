@@ -231,9 +231,8 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             }
 
             // save all particles
-            DynData<SeekerBarrier> selfData = new DynData<SeekerBarrier>(self);
-            List<Vector2> particles = new List<Vector2>(selfData.Get<List<Vector2>>("particles"));
-            float[] speeds = selfData.Get<float[]>("speeds");
+            List<Vector2> particles = self.particles;
+            float[] speeds = self.speeds;
 
             // run vanilla code
             orig(self);
@@ -254,7 +253,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             }
 
             // replace them.
-            selfData["particles"] = particles;
+            self.particles = particles;
 
             if (!wavy) {
                 // this is normally used to cancel out the waviness when a seeker hits the barrier...

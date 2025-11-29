@@ -20,6 +20,10 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
         private static Type customNPCTalkCoroutineType;
         private static ILHook hookCustomNPCTalk;
 
+        // Everest fields are not publicized, mind you
+        private static FieldInfo customNpcTextures = typeof(CustomNPC).GetField("textures", BindingFlags.NonPublic | BindingFlags.Instance);
+        private static FieldInfo customNpcScale = typeof(CustomNPC).GetField("scale", BindingFlags.NonPublic | BindingFlags.Instance);
+
         public static void Load() {
             MethodInfo customNPCTalkCoroutine = typeof(CustomNPC).GetMethod("Talk", BindingFlags.NonPublic | BindingFlags.Instance).GetStateMachineTarget();
 
@@ -110,27 +114,25 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             autoSkipEnabled = data.Bool("autoSkipEnabled");
             customFont = data.Attr("customFont");
 
-            DynData<CustomNPC> npcData = new DynData<CustomNPC>(this);
-
             spriteName = data.Attr("spriteName", "");
             if (!string.IsNullOrEmpty(spriteName)) {
                 // replace the NPC texture with a sprite.
-                npcData["textures"] = null;
+                customNpcTextures.SetValue(this, null);
 
                 sprite = GFX.SpriteBank.Create(spriteName);
-                sprite.Scale = npcData.Get<Vector2>("scale");
+                sprite.Scale = (Vector2) customNpcScale.GetValue(this);
                 Add(sprite);
             }
 
             string frames = data.Attr("frames", "");
             if (!string.IsNullOrEmpty(frames)) {
                 // "textures" currently contains all frames, but we only want some.
-                List<MTexture> npcTextures = npcData.Get<List<MTexture>>("textures");
+                List<MTexture> npcTextures = (List<MTexture>) customNpcTextures.GetValue(this);
                 List<MTexture> allTextures = new List<MTexture>(npcTextures);
 
                 // clear the texture list, then only add back the textures we want!
                 npcTextures = new List<MTexture>();
-                npcData["textures"] = npcTextures;
+                customNpcTextures.SetValue(this, npcTextures);
                 foreach (int frame in Calc.ReadCSVIntWithTricks(frames)) {
                     npcTextures.Add(allTextures[frame]);
                 }
@@ -152,7 +154,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             if (!string.IsNullOrEmpty(setFlag)) {
                 OnEnd += () => {
                     Session session = SceneAs<Level>().Session;
-                    List<Component> toRemove = new DynData<ComponentList>(Components).Get<List<Component>>("toRemove");
+                    List<Component> toRemove = Components.toRemove;
 
                     // for dialogue that plays only once: the talker (speech bubble) is removed when it is over.
                     // for dialogue that loops: the session counter is reset to 0 once all dialog IDs have been played.
@@ -216,8 +218,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
 
         public void SetHorizontalScale(float scale) {
             if (sprite == null) {
-                DynData<CustomNPC> thisData = new DynData<CustomNPC>(this);
-                thisData["scale"] = new Vector2(scale, thisData.Get<Vector2>("scale").Y);
+                customNpcScale.SetValue(this, new Vector2(scale, ((Vector2) customNpcScale.GetValue(this)).Y));
             } else {
                 sprite.Scale.X = scale;
             }
@@ -232,13 +233,13 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
 
         // this is triggered with {trigger 0}
         private IEnumerator startSkipping() {
-            new DynData<Textbox>(Scene.Tracker.GetEntity<Textbox>())["autoPressContinue"] = !MaxHelpingHandModule.Instance.Settings.DisableDialogueAutoSkip;
+            Scene.Tracker.GetEntity<Textbox>().autoPressContinue = !MaxHelpingHandModule.Instance.Settings.DisableDialogueAutoSkip;
             yield break;
         }
 
         // this is triggered with {trigger 1}
         private IEnumerator stopSkipping() {
-            new DynData<Textbox>(Scene.Tracker.GetEntity<Textbox>())["autoPressContinue"] = false;
+            Scene.Tracker.GetEntity<Textbox>().autoPressContinue = false;
             yield break;
         }
     }

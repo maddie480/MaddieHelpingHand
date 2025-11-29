@@ -41,9 +41,6 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             jungleHelperHook = null;
         }
 
-        private static readonly FieldInfo spinnerColor = typeof(CrystalStaticSpinner).GetField("color", BindingFlags.NonPublic | BindingFlags.Instance);
-        private static readonly MethodInfo spinnerUpdateHue = typeof(CrystalStaticSpinner).GetMethod("UpdateHue", BindingFlags.NonPublic | BindingFlags.Instance);
-
         private static void onLoadLevel(On.Celeste.Level.orig_LoadLevel orig, Level self, Player.IntroTypes playerIntro, bool isFromLoader) {
             orig(self, playerIntro, isFromLoader);
 
@@ -232,11 +229,10 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             if (flagState != flagLatestState) {
                 flagLatestState = flagState;
 
-                object[] noParameters = new object[0];
                 foreach (CrystalStaticSpinner speen in Scene.Tracker.GetEntities<CrystalStaticSpinner>().Cast<CrystalStaticSpinner>()) {
                     // run UpdateHue on all rainbow spinners through reflection (both spinner.color and spinner.UpdateHue are private :a:)
-                    if ((CrystalColor) spinnerColor.GetValue(speen) == CrystalColor.Rainbow) {
-                        spinnerUpdateHue.Invoke(speen, noParameters);
+                    if (speen.color == CrystalColor.Rainbow) {
+                        speen.UpdateHue();
                     }
                 }
             }

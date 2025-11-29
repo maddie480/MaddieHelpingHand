@@ -120,15 +120,11 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
         private bool transparentBackground;
 
         public ReskinnableSwapBlock(EntityData data, Vector2 offset) : base(data, offset) {
-            DynData<SwapBlock> self = new DynData<SwapBlock>(this);
-
             // replace the sprites for the middle of the blocks.
-            Sprite middleGreen = self.Get<Sprite>("middleGreen");
             middleGreen.Reset(GFX.Game, spriteDirectory + "/");
             middleGreen.AddLoop("idle", "midBlock", 0.08f);
             middleGreen.Play("idle");
 
-            Sprite middleRed = self.Get<Sprite>("middleRed");
             middleRed.Reset(GFX.Game, spriteDirectory + "/");
             middleRed.AddLoop("idle", "midBlockRed", 0.08f);
             middleRed.Play("idle");

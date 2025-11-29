@@ -9,9 +9,8 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
      */
     [CustomEntity("MaxHelpingHand/SpinnerBreakingBall")]
     public class SpinnerBreakingBallVanilla : SpinnerBreakingBallGeneric<CrystalStaticSpinner, CrystalColor> {
-        private static MethodInfo crystalSpinnerGetHue = typeof(CrystalStaticSpinner).GetMethod("GetHue", BindingFlags.NonPublic | BindingFlags.Instance);
+        // For some reason, the spinner ID field isn't publicized
         private static FieldInfo spinnerIDField = typeof(CrystalStaticSpinner).GetField("ID", BindingFlags.NonPublic | BindingFlags.Instance);
-        private static FieldInfo spinnerColorField = typeof(CrystalStaticSpinner).GetField("color", BindingFlags.NonPublic | BindingFlags.Instance);
 
         private CrystalStaticSpinner rainbowSpinner;
         private bool rainbowTinting;
@@ -43,7 +42,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
 
             if (rainbowSpinner != null) {
                 // sync the ball's color with the color of the spinners around it
-                sprite.Color = (Color) crystalSpinnerGetHue.Invoke(rainbowSpinner, new object[] { Position });
+                sprite.Color = rainbowSpinner.GetHue(Position);
             }
         }
 
@@ -52,7 +51,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
         }
 
         protected override CrystalColor getColor(CrystalStaticSpinner spinner) {
-            return (CrystalColor) spinnerColorField.GetValue(spinner);
+            return spinner.color;
         }
 
         protected override bool getAttachToSolid(CrystalStaticSpinner spinner) {

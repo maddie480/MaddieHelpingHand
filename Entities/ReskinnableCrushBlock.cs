@@ -108,10 +108,6 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
         private ParticleType activateParticleColor;
 
         public ReskinnableCrushBlock(EntityData data, Vector2 offset) : base(data, offset) {
-            DynData<CrushBlock> self = new DynData<CrushBlock>(this);
-            bool giant = self.Get<bool>("giant");
-            Sprite face = self.Get<Sprite>("face");
-
             // rebuild the face in code with the sprites in our custom directory.
             face.Reset(GFX.Game, spriteDirectory + "/");
             if (giant) {
@@ -148,7 +144,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             face.Play("idle");
 
             // customize the fill color.
-            self["fill"] = Calc.HexToColor(data.Attr("fillColor", "62222b"));
+            fill = Calc.HexToColor(data.Attr("fillColor", "62222b"));
 
             crushParticleColor = new ParticleType(P_Crushing) {
                 Color = Calc.HexToColor(data.Attr("crushParticleColor1", "ff66e2")),

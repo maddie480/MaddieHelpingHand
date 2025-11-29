@@ -60,7 +60,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
         private static void onPufferExplode(On.Celeste.Puffer.orig_Explode orig, Puffer self) {
             if (self is StaticPuffer puffer) {
                 currentDownboostTolerance = puffer.downboostTolerance;
-                currentPufferFacesRight = new DynData<Puffer>(puffer).Get<Vector2>("facing").X > 0;
+                currentPufferFacesRight = puffer.facing.X > 0;
             }
 
             orig(self);

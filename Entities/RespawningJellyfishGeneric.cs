@@ -9,15 +9,8 @@ using System.Collections;
 using System.Reflection;
 
 namespace Celeste.Mod.MaxHelpingHand.Entities {
-    public class RespawningJellyfishGeneric<RespawningType, BaseType> where RespawningType : Actor, BaseType where BaseType : Actor {
+    public abstract class RespawningJellyfishGeneric<RespawningType, BaseType> where RespawningType : Actor, BaseType where BaseType : Actor {
         private static ILHook hookGliderUpdate = null;
-        private static MethodInfo jellyfishSpritePlay = typeof(BaseType).GetMethod("spritePlay", BindingFlags.NonPublic | BindingFlags.Instance)
-            ?? typeof(RespawningType).GetMethod("spritePlay", BindingFlags.NonPublic | BindingFlags.Instance);
-        private static MethodInfo jellyDashRefill = typeof(BaseType).GetMethod("refillDash", BindingFlags.Public | BindingFlags.Instance);
-        private static MethodInfo trySquishWiggle = typeof(Actor).GetMethod("TrySquishWiggle", BindingFlags.NonPublic | BindingFlags.Instance,
-            null, new Type[] { typeof(CollisionData) }, null);
-        private static MethodInfo destroyThenRespawnRoutineRef =
-            typeof(RespawningType).GetMethod("destroyThenRespawnRoutine", BindingFlags.NonPublic | BindingFlags.Instance);
 
         public static void Load() {
             hookGliderUpdate = new ILHook(typeof(BaseType).GetMethod("Update"), modGliderUpdate);
@@ -30,8 +23,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
 
         private static ParticleType P_NotGlow;
 
-        private RespawningType self;
-        private DynData<BaseType> selfData;
+        protected RespawningType self;
 
         private float respawnTime;
         private bool bubble;
@@ -65,9 +57,8 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             respawning = false;
 
             // get the sprite, and replace it depending on the path in entity properties.
-            selfData = new DynData<BaseType>(self);
-            sprite = selfData.Get<Sprite>("sprite");
-            new DynData<Sprite>(sprite)["atlas"] = GFX.Game;
+            sprite = getSprite();
+            sprite.atlas = GFX.Game;
             sprite.Path = data.Attr("spriteDirectory", defaultValue: "objects/MaxHelpingHand/glider") + "/";
             sprite.Stop();
             sprite.ClearAnimations();
@@ -108,13 +99,16 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
                 Logger.Log("MaxHelpingHand/RespawningJellyfish", $"Replacing coroutine to make jellyfish respawn at {cursor.Index} in IL for {cursor.Method.FullName}");
 
                 cursor.Emit(OpCodes.Ldarg_0);
-                cursor.EmitDelegate<Func<Coroutine, Glider, Coroutine>>(swapCoroutine);
+                cursor.EmitDelegate<Func<Coroutine, Entity, Coroutine>>(swapCoroutine);
             }
         }
 
-        private static Coroutine swapCoroutine(Coroutine orig, Glider self) {
-            if (self is RespawningType) {
-                return new Coroutine((IEnumerator) destroyThenRespawnRoutineRef.Invoke(self, new object[0]));
+        private static Coroutine swapCoroutine(Coroutine orig, Entity self) {
+            if (self is RespawningBounceJellyfish f) {
+                return new Coroutine(f.manager.destroyThenRespawnRoutine());
+            }
+            if (self is RespawningJellyfish g) {
+                return new Coroutine(g.manager.destroyThenRespawnRoutine());
             }
 
             return orig;
@@ -122,7 +116,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
 
         public void OnSquish(Action<CollisionData> baseOnSquish, CollisionData data) {
             if (shouldRespawn) {
-                if (!((bool) trySquishWiggle.Invoke(self, new object[] { data }))) {
+                if (!self.TrySquishWiggle(data)) {
                     // the jellyfish was squished.
                     removeAndRespawn();
                 }
@@ -135,14 +129,14 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
         private void removeAndRespawn() {
             self.Collidable = false;
             self.Visible = false;
-            selfData["destroyed"] = true;
             self.Add(new Coroutine(respawnRoutine()));
+            onDestroy();
         }
 
         internal IEnumerator destroyThenRespawnRoutine() {
             // do like vanilla, but instead of removing the jelly, wait then have it respawn.
             Audio.Play("event:/new_content/game/10_farewell/glider_emancipate", self.Position);
-            jellyfishSpritePlay.Invoke(self, new object[] { "death" });
+            jellySpritePlay(self, "death");
 
             return respawnRoutine();
         }
@@ -157,19 +151,26 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             self.Visible = true;
             self.Position = initialPosition;
             setSpeed(Vector2.Zero);
-            jellyfishSpritePlay.Invoke(self, new object[] { "respawn" });
+            jellySpritePlay(self, "respawn");
 
             // refill dashes and cancel ongoing dashes (bounce jellies only)
-            jellyDashRefill?.Invoke(self, new object[] { -1 });
-            selfData["dashBufferTimer"] = 0f;
+            jellyDashRefill(self);
+
+            resetDashBufferTimer();
 
             yield return 0.24f;
 
             respawning = false;
-            selfData["destroyed"] = false;
-            selfData["bubble"] = bubble;
-            selfData["platform"] = bubble;
             self.Collidable = true;
+            onRespawn(bubble);
         }
+
+        protected abstract void onDestroy();
+        protected virtual void resetDashBufferTimer() { }
+        protected abstract void onRespawn(bool bubble);
+        protected abstract Sprite getSprite();
+        protected abstract void jellySpritePlay(BaseType self, string anim);
+        protected virtual void jellyDashRefill(BaseType self) { }
+
     }
 }

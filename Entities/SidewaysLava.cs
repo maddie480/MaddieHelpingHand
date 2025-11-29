@@ -18,6 +18,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
     /// </summary>
     [CustomEntity("MaxHelpingHand/SidewaysLava")]
     public class SidewaysLava : Entity {
+        // Everest stuff isn't publicized
         private static FieldInfo lavaBlockerTriggerEnabled = typeof(LavaBlockerTrigger).GetField("enabled", BindingFlags.NonPublic | BindingFlags.Instance);
 
         private enum LavaMode {

@@ -70,8 +70,6 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             }
         }
 
-        private DynData<StrawberrySeed> selfStrawberrySeed;
-
         public EntityID BerryID;
         private int seedCount;
         private bool displaySeedCount;
@@ -84,8 +82,6 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
         private string spriteName;
 
         public MultiRoomStrawberrySeed(Vector2 position, int index, bool ghost, string sprite, string ghostSprite) : base(null, position, index, ghost) {
-            selfStrawberrySeed = new DynData<StrawberrySeed>(this);
-
             this.spriteName = ghost ? ghostSprite : sprite;
 
             foreach (Component component in this) {
@@ -118,7 +114,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             spawnedAsFollower = true;
 
             // set the starting point so that the berry seed can go back there if it pops.
-            new DynData<StrawberrySeed>(this)["start"] = sessionSeedInfo.StartingPoint;
+            start = sessionSeedInfo.StartingPoint;
         }
 
         public override void Added(Scene scene) {
@@ -147,7 +143,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
 
             if ((ghost && spriteName != "ghostberry/seed") || (!ghost && spriteName != "strawberry/seed")) {
                 // the sprite is non-default. replace it.
-                Sprite vanillaSprite = selfStrawberrySeed.Get<Sprite>("sprite");
+                Sprite vanillaSprite = sprite;
 
                 // build the new sprite.
                 MTexture frame0 = GFX.Game["collectables/" + spriteName + "00"];
@@ -172,11 +168,11 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
                 // and replace it for good
                 Remove(vanillaSprite);
                 Add(modSprite);
-                selfStrawberrySeed["sprite"] = modSprite;
+                sprite = modSprite;
             }
 
             if (spawnedAsFollower) {
-                player.Leader.GainFollower(selfStrawberrySeed.Get<Follower>("follower"));
+                player.Leader.GainFollower(follower);
                 canLoseTimerMirror = 0.25f;
                 Collidable = false;
                 Depth = -1000000;
@@ -186,7 +182,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
 
         private void OnPlayerOverride(Player player) {
             Audio.Play("event:/game/general/seed_touch", Position, "count", index);
-            player.Leader.GainFollower(selfStrawberrySeed.Get<Follower>("follower"));
+            player.Leader.GainFollower(follower);
             canLoseTimerMirror = 0.25f;
             Collidable = false;
             Depth = -1000000;
@@ -198,7 +194,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             sessionSeedInfo.BerryID = BerryID;
             sessionSeedInfo.Sprite = spriteName;
             sessionSeedInfo.StartingRoom = startingRoom;
-            sessionSeedInfo.StartingPoint = new DynData<StrawberrySeed>(this).Get<Vector2>("start");
+            sessionSeedInfo.StartingPoint = start;
             MaxHelpingHandModule.Instance.Session.CollectedMultiRoomStrawberrySeeds.Add(sessionSeedInfo);
 
             if (displaySeedCount) {
@@ -225,7 +221,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             canLoseTimerMirror -= Engine.DeltaTime;
             if (canLoseTimerMirror < 1f) {
                 canLoseTimerMirror = 1000f;
-                selfStrawberrySeed["canLoseTimer"] = 1000f;
+                canLoseTimer = 1000f;
             }
         }
     }

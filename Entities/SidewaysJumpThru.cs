@@ -23,8 +23,6 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
         private static ILHook hookOnUpdateSprite;
         private static ILHook hookOnOrigUpdate;
 
-        private static MethodInfo playerJumpthruBoostBlockedCheck = typeof(Player).GetMethod("JumpThruBoostBlockedCheck", BindingFlags.Instance | BindingFlags.NonPublic);
-
         private static bool hooksActive = false;
 
         public static void Load() {
@@ -485,18 +483,17 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
 
             // if we are supposed to push the player and the player is hitting us...
             if (pushPlayer) {
-                DynData<Player> playerData = new DynData<Player>(p);
                 if (AllowLeftToRight) {
                     // player is moving right, not on the ground, not climbing, not blocked => push them to the right
-                    if (p.Speed.X >= 0f && !playerData.Get<bool>("onGround") && (p.StateMachine.State != 1 || playerData.Get<int>("lastClimbMove") == -1)
-                        && !((bool) playerJumpthruBoostBlockedCheck.Invoke(p, new object[0]))) {
+                    if (p.Speed.X >= 0f && !p.onGround && (p.StateMachine.State != 1 || p.lastClimbMove == -1)
+                        && !p.JumpThruBoostBlockedCheck()) {
 
                         p.MoveH(40f * Engine.DeltaTime);
                     }
                 } else {
                     // player is moving left, not on the ground, not climbing, not blocked => push them to the left
-                    if (p.Speed.X <= 0f && !playerData.Get<bool>("onGround") && (p.StateMachine.State != 1 || playerData.Get<int>("lastClimbMove") == -1)
-                        && !((bool) playerJumpthruBoostBlockedCheck.Invoke(p, new object[0]))) {
+                    if (p.Speed.X <= 0f && !p.onGround && (p.StateMachine.State != 1 || p.lastClimbMove == -1)
+                        && !p.JumpThruBoostBlockedCheck()) {
 
                         p.MoveH(-40f * Engine.DeltaTime);
                     }

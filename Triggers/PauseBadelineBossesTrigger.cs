@@ -14,9 +14,8 @@ namespace Celeste.Mod.MaxHelpingHand.Triggers {
 
             // kick the attack coroutines from Badeline bosses so that they don't attack anymore.
             foreach (FinalBoss badelineBoss in Scene.Tracker.GetEntities<FinalBoss>()) {
-                DynData<FinalBoss> bossData = new DynData<FinalBoss>(badelineBoss);
                 if (badelineBoss.Sprite?.CurrentAnimationID == "idle") {
-                    badelineBoss.Remove(bossData.Get<Coroutine>("attackCoroutine"));
+                    badelineBoss.Remove(badelineBoss.attackCoroutine);
                 }
             }
         }
@@ -27,7 +26,7 @@ namespace Celeste.Mod.MaxHelpingHand.Triggers {
             if (!player.Dead) {
                 // add the attack coroutines back.
                 foreach (FinalBoss badelineBoss in Scene.Tracker.GetEntities<FinalBoss>()) {
-                    Coroutine attackCoroutine = new DynData<FinalBoss>(badelineBoss).Get<Coroutine>("attackCoroutine");
+                    Coroutine attackCoroutine = badelineBoss.attackCoroutine;
                     if (!badelineBoss.Components.Contains(attackCoroutine)) {
                         badelineBoss.Add(attackCoroutine);
                     }

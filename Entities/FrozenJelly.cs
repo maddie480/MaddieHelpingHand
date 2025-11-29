@@ -37,9 +37,8 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             sprite.JustifyOrigin(new Vector2(0.5f, 0.58f));
             sprite.Play("idle");
 
-            DynData<Glider> jellyData = new DynData<Glider>(jelly);
-            jelly.Remove(jellyData.Get<Sprite>("sprite"));
-            jellyData["sprite"] = sprite;
+            jelly.Remove(jelly.sprite);
+            jelly.sprite = sprite;
             jelly.Add(sprite);
         }
 

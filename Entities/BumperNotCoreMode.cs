@@ -41,10 +41,9 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
 
             if (notCoreMode) {
                 // revert the activation of fire mode bumper.
-                DynData<Bumper> thisBumper = new DynData<Bumper>(this);
-                thisBumper["fireMode"] = false;
-                thisBumper.Get<Sprite>("spriteEvil").Visible = false;
-                thisBumper.Get<Sprite>("sprite").Visible = true;
+                fireMode = false;
+                spriteEvil.Visible = false;
+                sprite.Visible = true;
             }
         }
 

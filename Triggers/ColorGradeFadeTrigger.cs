@@ -24,23 +24,21 @@ namespace Celeste.Mod.MaxHelpingHand.Triggers {
             ColorGradeFadeTrigger trigger = self.Tracker.GetEntities<ColorGradeFadeTrigger>().OfType<ColorGradeFadeTrigger>()
                 .FirstOrDefault(t => t.evenDuringReflectionFall ? player?.Collider.Collide(t) ?? false : t.playerInside);
             if (player != null && trigger != null) {
-                DynData<Level> selfData = new DynData<Level>(self);
-
                 // the game fades from lastColorGrade to Session.ColorGrade using colorGradeEase as a lerp value.
                 // let's hijack that!
                 float positionLerp = trigger.GetPositionLerp(player, trigger.direction);
                 if (positionLerp > 0.5f) {
                     // we are closer to B. let B be the target color grade when player exits the trigger / dies in it
-                    selfData["lastColorGrade"] = trigger.colorGradeA;
+                    self.lastColorGrade = trigger.colorGradeA;
                     self.Session.ColorGrade = trigger.colorGradeB;
-                    selfData["colorGradeEase"] = positionLerp;
+                    self.colorGradeEase = positionLerp;
                 } else {
                     // we are closer to A. let A be the target color grade when player exits the trigger / dies in it
-                    selfData["lastColorGrade"] = trigger.colorGradeB;
+                    self.lastColorGrade = trigger.colorGradeB;
                     self.Session.ColorGrade = trigger.colorGradeA;
-                    selfData["colorGradeEase"] = 1 - positionLerp;
+                    self.colorGradeEase = 1 - positionLerp;
                 }
-                selfData["colorGradeEaseSpeed"] = 1f;
+                self.colorGradeEaseSpeed = 1f;
             }
         }
 

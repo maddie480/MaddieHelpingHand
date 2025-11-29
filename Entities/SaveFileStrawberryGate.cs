@@ -25,6 +25,8 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
         private static Hook hookStrawberryGateRender = null;
         private static ILHook fixStrawberryGateRender = null;
 
+        private static FieldInfo strawberryGateIcon;
+
         private static MTexture[] numbers;
 
         public static void HookMods() {
@@ -55,6 +57,8 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             MethodInfo strawberryGateRender = typeof(StrawberryGate).GetMethod("Render");
             hookStrawberryGateRender = new Hook(strawberryGateRender, typeof(SaveFileStrawberryGate).GetMethod("modStrawberryGateRender", BindingFlags.NonPublic | BindingFlags.Static));
             fixStrawberryGateRender = new ILHook(strawberryGateRender, fixForStrawberryGateRender);
+
+            strawberryGateIcon = typeof(StrawberryGate).GetField("icon", BindingFlags.NonPublic | BindingFlags.Instance);
 
             openAmount = typeof(StrawberryGate).GetMethod("get_openAmount", BindingFlags.NonPublic | BindingFlags.Instance);
             heartAlpha = typeof(StrawberryGate).GetField("heartAlpha", BindingFlags.NonPublic | BindingFlags.Instance);
@@ -113,7 +117,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             };
 
             if (data.Bool("showCounter")) {
-                new DynData<StrawberryGate>(gate)["icon"] = GFX.Game.GetAtlasSubtextures("objects/MaxHelpingHand/strawberry_gate_no_icon");
+                strawberryGateIcon.SetValue(gate, GFX.Game.GetAtlasSubtextures("objects/MaxHelpingHand/strawberry_gate_no_icon"));
             }
 
             return gate;

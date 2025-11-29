@@ -33,9 +33,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             crumblePlatformTileOutHook = null;
         }
 
-        private static MethodInfo crumblePlatformOutlineFade = typeof(CrumblePlatform).GetMethod("OutlineFade", BindingFlags.NonPublic | BindingFlags.Instance);
         private static MethodInfo crumblePlatformTileOut = typeof(CrumblePlatform).GetMethod("TileOut", BindingFlags.NonPublic | BindingFlags.Instance);
-        private static MethodInfo crumblePlatformTileIn = typeof(CrumblePlatform).GetMethod("TileIn", BindingFlags.NonPublic | BindingFlags.Instance);
 
         private string outlineTexture;
         private bool oneUse;
@@ -243,7 +241,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
                 }
 
                 // make the platform disappear
-                outlineFader.Replace((IEnumerator) crumblePlatformOutlineFade.Invoke(this, new object[] { 1f }));
+                outlineFader.Replace(OutlineFade(1f));
                 occluder.Visible = false;
                 Collidable = false;
                 if (attachStaticMovers) {
@@ -256,7 +254,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
                 for (int m = 0; m < 4; m++) {
                     for (int i = 0; i < images.Count; i++) {
                         if (i % 4 - m == 0) {
-                            falls[i].Replace((IEnumerator) crumblePlatformTileOut.Invoke(this, new object[] { images[fallOrder[i]], delay * (float) m }));
+                            falls[i].Replace(TileOut(images[fallOrder[i]], delay * m));
                         }
                     }
                 }
@@ -283,7 +281,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
                 }
 
                 // make the platform reappear
-                outlineFader.Replace((IEnumerator) crumblePlatformOutlineFade.Invoke(this, new object[] { 0f }));
+                outlineFader.Replace(OutlineFade(0f));
                 occluder.Visible = true;
                 Collidable = true;
                 if (attachStaticMovers) {
@@ -297,9 +295,9 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
                         if (i % 4 - m == 0) {
                             // only emit sound if we should emit sound no matter what, or if the current platform is the one that got triggered.
                             if (!onlyEmitSoundForPlayer || triggeredPlatform == this) {
-                                falls[i].Replace((IEnumerator) crumblePlatformTileIn.Invoke(this, new object[] { i, images[fallOrder[i]], 0.05f * (float) m }));
+                                falls[i].Replace(TileIn(i, images[fallOrder[i]], 0.05f * m));
                             } else {
-                                falls[i].Replace(tileInNoSound(i, images[fallOrder[i]], 0.05f * (float) m));
+                                falls[i].Replace(tileInNoSound(i, images[fallOrder[i]], 0.05f * m));
                             }
                         }
                     }

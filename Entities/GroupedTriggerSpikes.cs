@@ -183,7 +183,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
 
             // if we happen to be attached to a cassette block, take its color.
             if (collides && solid is CassetteBlock cassetteBlock) {
-                enabledColor = new DynData<CassetteBlock>(cassetteBlock).Get<Color>("color");
+                enabledColor = cassetteBlock.color;
 
                 // same formula as cassette blocks do.
                 Color color = Calc.HexToColor("667da5");

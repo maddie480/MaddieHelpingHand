@@ -115,7 +115,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
         }
 
         public ReversibleRetentionBooster(EntityData data, Vector2 offset) : base(data, offset) {
-            new DynData<Booster>(this)["particleType"] = P_Burst;
+            particleType = P_Burst;
         }
     }
 }

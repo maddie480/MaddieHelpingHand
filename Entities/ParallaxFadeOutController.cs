@@ -67,7 +67,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
         }
 
         public static bool IsParallaxVisible(Backdrop backdrop) {
-            return Engine.Scene.TimeActive > 1f && backdrop is Parallax parallax && parallax.DoFadeIn && new DynData<Parallax>(parallax).Get<float>("fadeIn") > 0f;
+            return Engine.Scene.TimeActive > 1f && backdrop is Parallax parallax && parallax.DoFadeIn && parallax.fadeIn > 0f;
         }
     }
 }

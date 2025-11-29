@@ -4,19 +4,45 @@ using Monocle;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Reflection;
 
 namespace Celeste.Mod.MaxHelpingHand.Entities {
+    file class RespawningBounceJellyfishExt : RespawningJellyfishGeneric<RespawningBounceJellyfish, BounceJellyfish> {
+        public RespawningBounceJellyfishExt(RespawningBounceJellyfish self, EntityData data, Action<Sprite> setupSpriteCallback, Func<Vector2> getSpeed, Action<Vector2> setSpeed) : base(self, data, setupSpriteCallback, getSpeed, setSpeed) {
+        }
+        protected override void onDestroy() => self.destroyed = true;
+        protected override void resetDashBufferTimer() => RespawningBounceJellyfish.bounceJellyDashBufferTimer.SetValue(self, 0f);
+        protected override void onRespawn(bool bubble) {
+            self.destroyed = false;
+            RespawningBounceJellyfish.bounceJellyPlatform.SetValue(self, bubble);
+        }
+        protected override Sprite getSprite() => (Sprite) RespawningBounceJellyfish.bounceJellySprite.GetValue(self);
+        protected override void jellySpritePlay(BounceJellyfish self, string anim) => RespawningBounceJellyfish.bounceJellySpritePlay.Invoke(self, new object[] { anim });
+        protected override void jellyDashRefill(BounceJellyfish self) => self.refillDash();
+    }
     public class RespawningBounceJellyfish : BounceJellyfish {
+        internal static FieldInfo bounceJellyPlatform;
+        internal static FieldInfo bounceJellyDashBufferTimer;
+        internal static FieldInfo bounceJellySprite;
+        internal static MethodInfo bounceJellySpritePlay;
+
         public static void LoadBounceHelper() {
             RespawningJellyfishGeneric<RespawningBounceJellyfish, BounceJellyfish>.Load();
             Everest.Events.Level.OnLoadEntity += onLoadEntity;
             On.Monocle.Tracker.Initialize += onTrackerInitialize;
+
+            bounceJellyPlatform = typeof(BounceJellyfish).GetField("platform", BindingFlags.NonPublic | BindingFlags.Instance);
+            bounceJellyDashBufferTimer = typeof(BounceJellyfish).GetField("dashBufferTimer", BindingFlags.NonPublic | BindingFlags.Instance);
+            bounceJellySprite = typeof(BounceJellyfish).GetField("sprite", BindingFlags.NonPublic | BindingFlags.Instance);
+            bounceJellySpritePlay = typeof(BounceJellyfish).GetMethod("spritePlay", BindingFlags.NonPublic | BindingFlags.Instance);
         }
 
         public static void UnloadBounceHelper() {
             RespawningJellyfishGeneric<RespawningBounceJellyfish, BounceJellyfish>.Unload();
             Everest.Events.Level.OnLoadEntity -= onLoadEntity;
             On.Monocle.Tracker.Initialize -= onTrackerInitialize;
+
+            bounceJellyPlatform = null;
         }
 
         private static bool onLoadEntity(Level level, LevelData levelData, Vector2 offset, EntityData entityData) {
@@ -34,10 +60,10 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
         }
 
 
-        private RespawningJellyfishGeneric<RespawningBounceJellyfish, BounceJellyfish> manager;
+        internal RespawningJellyfishGeneric<RespawningBounceJellyfish, BounceJellyfish> manager;
 
         public RespawningBounceJellyfish(EntityData data, Vector2 offset) : base(data, offset) {
-            manager = new RespawningJellyfishGeneric<RespawningBounceJellyfish, BounceJellyfish>(this, data, sprite => {
+            manager = new RespawningBounceJellyfishExt(this, data, sprite => {
                 foreach (string variant in new string[] { "blue", "red", "pink", "flash" }) {
                     string suffix = variant.Substring(0, 1).ToUpperInvariant();
 
@@ -59,10 +85,6 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
 
         public override void OnSquish(CollisionData data) {
             manager.OnSquish(base.OnSquish, data);
-        }
-
-        private IEnumerator destroyThenRespawnRoutine() {
-            return manager.destroyThenRespawnRoutine();
         }
     }
 }

@@ -15,7 +15,7 @@ namespace Celeste.Mod.MaxHelpingHand.Module {
 
             string dialogId = ("maddiehelpinghand_chapternumber_" + self.Area.GetSID()).DialogKeyify();
             if (Dialog.Has(dialogId)) {
-                new DynData<OuiChapterPanel>(self)["chapter"] = Dialog.Clean(dialogId);
+                self.chapter = Dialog.Clean(dialogId);
             }
         }
     }

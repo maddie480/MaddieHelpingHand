@@ -16,12 +16,6 @@ namespace Celeste.Mod.MaxHelpingHand.Triggers {
     // - allows to set a custom font for the dialogue
     [CustomEntity("MaxHelpingHand/AutoSkipDialogCutsceneTrigger", "MaxHelpingHand/ExtendedDialogCutsceneTrigger")]
     public class ExtendedDialogCutsceneTrigger : Trigger {
-        private static readonly Dictionary<string, List<string>> fontPaths;
-        static ExtendedDialogCutsceneTrigger() {
-            // Fonts.paths is private static and never instantiated besides in the static constructor, so we only need to get the reference to it once.
-            fontPaths = (Dictionary<string, List<string>>) typeof(Fonts).GetField("paths", BindingFlags.NonPublic | BindingFlags.Static).GetValue(null);
-        }
-
         private readonly string dialogEntry;
         private readonly EntityID id;
         private readonly bool onlyOnce;
@@ -85,13 +79,13 @@ namespace Celeste.Mod.MaxHelpingHand.Triggers {
 
             // this is triggered with {trigger 0}
             private IEnumerator startSkipping() {
-                new DynData<Textbox>(Scene.Tracker.GetEntity<Textbox>())["autoPressContinue"] = !MaxHelpingHandModule.Instance.Settings.DisableDialogueAutoSkip;
+                Scene.Tracker.GetEntity<Textbox>().autoPressContinue = !MaxHelpingHandModule.Instance.Settings.DisableDialogueAutoSkip;
                 yield break;
             }
 
             // this is triggered with {trigger 1}
             private IEnumerator stopSkipping() {
-                new DynData<Textbox>(Scene.Tracker.GetEntity<Textbox>())["autoPressContinue"] = false;
+                Scene.Tracker.GetEntity<Textbox>().autoPressContinue = false;
                 yield break;
             }
 
@@ -116,7 +110,7 @@ namespace Celeste.Mod.MaxHelpingHand.Triggers {
 
                 if (Fonts.Get(font) == null) {
                     // this is a font we need to load for the cutscene specifically!
-                    if (!fontPaths.ContainsKey(font)) {
+                    if (!Fonts.paths.ContainsKey(font)) {
                         // the font isn't in the list... so we need to list fonts again first.
                         Logger.Log(LogLevel.Warn, "MaxHelpingHand/ExtendedDialogCutsceneTrigger", $"We need to list fonts again, {font} does not exist!");
                         Fonts.Prepare();

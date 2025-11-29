@@ -10,7 +10,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
 
         public override void Added(Scene scene) {
             // by turning on startLit in Added but not in the constructor, we make the torch blue instead of yellow.
-            new DynData<Torch>(this)["startLit"] = true;
+            startLit = true;
 
             base.Added(scene);
         }

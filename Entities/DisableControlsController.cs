@@ -105,13 +105,13 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
                 newMoveX = Math.Min(0, newMoveX);
             }
 
-            new DynData<VirtualJoystick>(Input.Aim)["Value"] = newAim;
+            Input.Aim.Value = newAim;
             Input.MoveX.Value = newMoveX;
             Input.MoveY.Value = newMoveY;
 
             orig(self);
 
-            new DynData<VirtualJoystick>(Input.Aim)["Value"] = oldAim;
+            Input.Aim.Value = oldAim;
             Input.MoveX.Value = oldMoveX;
             Input.MoveY.Value = oldMoveY;
         }

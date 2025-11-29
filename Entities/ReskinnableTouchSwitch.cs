@@ -42,16 +42,14 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
         }
 
         public ReskinnableTouchSwitch(EntityData data, Vector2 offset) : base(data, offset) {
-            DynData<TouchSwitch> thisData = new DynData<TouchSwitch>(this);
-
             // replace the other components of the touch switch, that are conveniently stored as local variables.
-            thisData["border"] = GFX.Game[data.Attr("borderTexture")];
-            thisData["inactiveColor"] = Calc.HexToColor(data.Attr("inactiveColor"));
-            thisData["activeColor"] = Calc.HexToColor(data.Attr("activeColor"));
-            thisData["finishColor"] = Calc.HexToColor(data.Attr("finishColor"));
+            border = GFX.Game[data.Attr("borderTexture")];
+            inactiveColor = Calc.HexToColor(data.Attr("inactiveColor"));
+            activeColor = Calc.HexToColor(data.Attr("activeColor"));
+            finishColor = Calc.HexToColor(data.Attr("finishColor"));
 
             // the initial color of the switch is inactiveColor, but we might have changed it!
-            thisData.Get<Sprite>("icon").Color = thisData.Get<Color>("inactiveColor");
+            icon.Color = inactiveColor;
         }
     }
 }
