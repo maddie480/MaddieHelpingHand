@@ -50,6 +50,6 @@ jobs:
         DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
       run: |
         COMMIT_REF="[\`MaddieHelpingHand@${GITHUB_SHA:0:8}\`](<https://github.com/maddie480/MaddieHelpingHand/commit/${GITHUB_SHA}>)"
-        docker run --rm --entrypoint bash max480/everest:tas-check -c "curl --fail -Lo '/home/ubuntu/celeste/Mods/ExtendedVariantMode.zip' 'https://cdn.discordapp.com/attachments/791795741919674388/1444363783429427321/ExtendedVariantMode-e7de6de8.zip?ex=692c7018&is=692b1e98&hm=9cf333fccc71742710c724aa8e67b6e0dfde799348dd753c4ac9fac42c6dd15f&' && /home/ubuntu/tas-check.sh MaxHelpingHand '`cat zip.url`'" \
+        docker run --rm max480/everest:tas-check MaxHelpingHand "`cat zip.url`" \
             && curl -H 'Content-Type: application/json' -d "{\"content\": \":white_check_mark: TAS Check for ${COMMIT_REF} successful.\"}" "$DISCORD_WEBHOOK" \
             || (curl -H 'Content-Type: application/json' -d "{\"content\": \":x: TAS Check for ${COMMIT_REF} failed!\"}" "$DISCORD_WEBHOOK" && exit 1)
