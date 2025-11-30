@@ -5,14 +5,17 @@ using Mono.Cecil.Cil;
 using Monocle;
 using MonoMod;
 using MonoMod.Cil;
+using MonoMod.RuntimeDetour;
 using System;
 using System.Linq;
 
 namespace Celeste.Mod.MaxHelpingHand.Effects {
     public class HdParallax : Parallax {
         public static void Load() {
-            IL.Celeste.Level.Render += onLevelRender;
-            IL.Celeste.Parallax.Render += onParallaxRender;
+            using (new DetourConfigContext(new DetourConfig("MaddieHelpingHand_AfterAll").WithPriority(int.MaxValue)).Use()) {
+                IL.Celeste.Level.Render += onLevelRender;
+                IL.Celeste.Parallax.Render += onParallaxRender;
+            }
         }
 
         public static void Unload() {
