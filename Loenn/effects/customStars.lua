@@ -18,6 +18,7 @@ effect.defaultData = {
     tint = "ffffff",
     starCount = "",
     wrapHeight = 180.0,
+    width = 320.0,
     starAlpha = "",
     bgAlpha = 1.0,
     fadex = "",

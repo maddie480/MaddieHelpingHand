@@ -30,7 +30,7 @@ namespace Celeste.Mod.MaxHelpingHand.Effects {
         private Vector2 center;
         private Vector2? scroll;
 
-        public CustomStars(int? starCount, Color? tint, string spriteDirectory, float wrapHeight, float? starAlpha, float bgAlpha, Vector2? scroll) {
+        public CustomStars(int? starCount, Color? tint, string spriteDirectory, float wrapHeight, float width, float? starAlpha, float bgAlpha, Vector2? scroll) {
             this.starCount = starCount;
             this.tint = tint;
             this.wrapHeight = wrapHeight;
@@ -63,7 +63,7 @@ namespace Celeste.Mod.MaxHelpingHand.Effects {
             stars = new Star[starCount ?? 100];
             for (int i = 0; i < stars.Length; i++) {
                 stars[i] = new Star {
-                    Position = new Vector2(Calc.Random.NextFloat(MaxHelpingHandModule.BufferWidth), Calc.Random.NextFloat(wrapHeight)),
+                    Position = new Vector2(Calc.Random.NextFloat(width), Calc.Random.NextFloat(wrapHeight)),
                     Timer = Calc.Random.NextFloat((float) Math.PI * 2f),
                     Rate = 2f + Calc.Random.NextFloat(2f),
                     TextureSet = Calc.Random.Next(textures.Count)

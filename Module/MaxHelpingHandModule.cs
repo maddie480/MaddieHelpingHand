@@ -409,7 +409,7 @@ namespace Celeste.Mod.MaxHelpingHand.Module {
                 }
 
                 return new CustomStars(starCount, string.IsNullOrEmpty(tint) ? (Color?) null : Calc.HexToColor(tint), child.Attr("spriteDirectory", "bgs/02/stars"),
-                    child.AttrFloat("wrapHeight", 180f), alpha, child.AttrFloat("bgAlpha", 1f), scroll);
+                    child.AttrFloat("wrapHeight", 180f), child.AttrFloat("width", 320f), alpha, child.AttrFloat("bgAlpha", 1f), scroll);
             }
             if (child.Name.Equals("MaxHelpingHand/CustomStarfield", StringComparison.OrdinalIgnoreCase)) {
                 string[] paths = child.Attr("paths", "starfield").Split(',');
