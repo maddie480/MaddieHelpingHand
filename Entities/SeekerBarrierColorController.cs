@@ -230,8 +230,8 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
                 return;
             }
 
-            // save all particles
-            List<Vector2> particles = self.particles;
+            // save a copy of the particles list
+            List<Vector2> particles = new List<Vector2>(self.particles);
             float[] speeds = self.speeds;
 
             // run vanilla code
