@@ -4,7 +4,7 @@
   DLL: bin/MaxHelpingHand.dll
   Dependencies:
     - Name: Everest
-      Version: 1.5806.0
+      Version: 1.5986.0
   OptionalDependencies:
     - Name: FlaglinesAndSuch
       Version: 1.6.8
