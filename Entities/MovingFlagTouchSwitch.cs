@@ -20,7 +20,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
 
         private static ILHook hookMovingTouchSwitch;
 
-        internal static readonly Dictionary<Entity, Dictionary<string, object>> flagMapping = new Dictionary<Entity, Dictionary<string, object>>();
+        internal static Dictionary<Entity, Dictionary<string, object>> flagMapping = new Dictionary<Entity, Dictionary<string, object>>();
 
         public static void HookMods() {
             if (hookMovingTouchSwitch == null && Everest.Loader.DependencyLoaded(new EverestModuleMetadata { Name = "OutbackHelper", Version = new Version(1, 4, 0) })) {

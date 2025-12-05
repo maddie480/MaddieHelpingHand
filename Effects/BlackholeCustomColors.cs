@@ -10,7 +10,7 @@ using System.Reflection;
 
 namespace Celeste.Mod.MaxHelpingHand.Effects {
     public class BlackholeCustomColors : BlackholeBG {
-        private static Color[] colorsMildOverride;
+        internal static Color[] colorsMildOverride;
         private static List<MTexture> replacementAtlasSubtextures;
 
         // those fields are readonly, so the publicizer isn't powerful enough to let us modify them :destareline:

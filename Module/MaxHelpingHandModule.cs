@@ -158,6 +158,11 @@ namespace Celeste.Mod.MaxHelpingHand.Module {
             typeof(GravityHelperImports.Interop).ModInterop();
         }
 
+        public override void Initialize() {
+            // either do this when mod initialize, or add speedrun tool as optional dependency
+            SpeedrunToolInterop.Initialize();
+        }
+
         public override void Unload() {
             TempleEyeTrackingMadeline.Unload();
             CameraCatchupSpeedTrigger.Unload();
@@ -235,6 +240,7 @@ namespace Celeste.Mod.MaxHelpingHand.Module {
             MiniHeartDoorUnfixController.Unload();
             SideSpecificEndscreens.Unload();
             Pico8FlagController.Unload();
+            SpeedrunToolInterop.Unload();
 
             Everest.Events.Level.OnLoadBackdrop -= onLoadBackdrop;
 
