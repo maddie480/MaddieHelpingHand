@@ -18,9 +18,11 @@ namespace Celeste.Mod.MaxHelpingHand.Module {
                 Action<Level> beforeLoadState,
                 Action preCloneEntities);
 
+#pragma warning disable CS0649 // those fields are assigned by ModInterop
             public static RegisterSaveLoadActionDelegate RegisterSaveLoadAction;
             public static Action<object> Unregister;
             public static Func<object, object> DeepClone;
+#pragma warning restore CS0649
         }
 
         private static object saveLoadAction = null;
