@@ -33,15 +33,15 @@ namespace Celeste.Mod.MaxHelpingHand.Module {
                 saveLoadAction = register.Invoke(
                     saveState: (savedValues, _) => {
                         var dict = new Dictionary<string, object> {
-                            [nameof(BlackholeCustomColors)] = BlackholeCustomColors.colorsMildOverride,
-                            [nameof(MovingFlagTouchSwitch)] = MovingFlagTouchSwitch.flagMapping
+                            [nameof(BlackholeCustomColors.colorsMildOverride)] = BlackholeCustomColors.colorsMildOverride,
+                            [nameof(MovingFlagTouchSwitch.flagMapping)] = MovingFlagTouchSwitch.flagMapping
                         };
                         savedValues[typeof(SpeedrunToolInterop)] = dict.DeepClone();
                     },
                     loadState: (savedValues, _) => {
                         var dict = savedValues[typeof(SpeedrunToolInterop)].DeepClone();
-                        BlackholeCustomColors.colorsMildOverride = (Color[])dict[nameof(BlackholeCustomColors)];
-                        MovingFlagTouchSwitch.flagMapping = (Dictionary<Entity, Dictionary<string, object>>)dict[nameof(MovingFlagTouchSwitch)];
+                        BlackholeCustomColors.colorsMildOverride = (Color[])dict[nameof(BlackholeCustomColors.colorsMildOverride)];
+                        MovingFlagTouchSwitch.flagMapping = (Dictionary<Entity, Dictionary<string, object>>)dict[nameof(MovingFlagTouchSwitch.flagMapping)];
                     },
                     null, null, null, null
                 );
@@ -54,7 +54,7 @@ namespace Celeste.Mod.MaxHelpingHand.Module {
             }
         }
         private static T DeepClone<T>(this T from) where T : notnull {
-            return DeepClone(from) ?? default;
+            return (T)Interop.DeepClone(from) ?? default;
         }
     }
 }
