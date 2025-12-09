@@ -14,7 +14,7 @@ namespace Celeste.Mod.MaxHelpingHand.Triggers {
         private static ILHook playerOrigUpdateHook;
 
         public static void Load() {
-            using (new DetourConfigContext(new DetourConfig("MaddieHelpingHand_AfterAll").WithPriority(int.MaxValue)).Use()) { // be sure to be applied after Spring Collab 2020 because we don't want to break it
+            using (new DetourConfigContext(new DetourConfig("MaddieHelpingHand_BeforeAll").WithPriority(int.MinValue)).Use()) { // be sure to be applied after Spring Collab 2020 because we don't want to break it
                 playerOrigUpdateHook = new ILHook(typeof(Player).GetMethod("orig_Update"), modPlayerOrigUpdate);
             }
         }
