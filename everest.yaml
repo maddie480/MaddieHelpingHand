@@ -1,10 +1,10 @@
 # The mod used to be known as "max480's Helping Hand", and wasn't renamed for compatibility reasons
 - Name: MaxHelpingHand
-  Version: 1.39.10
+  Version: 1.39.11
   DLL: bin/MaxHelpingHand.dll
   Dependencies:
     - Name: Everest
-      Version: 1.6088.0
+      Version: 1.6129.0
   OptionalDependencies:
     - Name: FlaglinesAndSuch
       Version: 1.6.8
