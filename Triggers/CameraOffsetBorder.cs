@@ -89,7 +89,7 @@ namespace Celeste.Mod.MaxHelpingHand.Triggers {
 
             foreach (CameraOffsetBorder border in self.Scene.Tracker.GetEntities<CameraOffsetBorder>()) {
                 if (!border.Collidable) continue;
-                
+
                 while (true) {
                     float viewLeft = target.X;
                     float viewRight = target.X + MaxHelpingHandModule.CameraWidth;
@@ -98,7 +98,6 @@ namespace Celeste.Mod.MaxHelpingHand.Triggers {
 
                     // Check for overlap
                     bool overlaps = viewLeft < border.Right && viewRight > border.Left && viewTop < border.Bottom && viewBottom > border.Top;
-
                     if (!overlaps) break;
 
                     if (self.Left <= border.Right && viewRight > border.Left && (border.topLeft || border.centerLeft || border.bottomLeft)) {
