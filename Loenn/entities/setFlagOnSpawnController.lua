@@ -13,4 +13,13 @@ controller.placements = {
     }
 }
 
+controller.fieldInformation = {
+    flag = {
+        fieldType = "list",
+        elementOptions = {
+            fieldType = "string",
+        }
+    }
+}
+
 return controller
