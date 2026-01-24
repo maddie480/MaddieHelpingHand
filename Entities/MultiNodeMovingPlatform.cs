@@ -40,6 +40,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
         private int prevNodeIndex = 0;
         private int nextNodeIndex = 1;
         private float percent;
+        private float? percentRemainder;
         private int direction = 1;
         private bool teleporting = false;
         private bool movingHorizontally = false;
@@ -363,7 +364,18 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
                 }
 
                 // move forward...
-                percent = Calc.Approach(percent, 1f, Engine.DeltaTime / moveTime);
+                if (percentRemainder.HasValue) {
+                    percent += percentRemainder.Value;
+                    percentRemainder = null;
+                }
+                percent += Engine.DeltaTime / moveTime;
+
+                // if we overshot 100%, keep the remainder so that we can apply it after the pause.
+                if (percent >= 1f) {
+                    percentRemainder = percent - 1f;
+                    percent = 1f;
+                }
+
                 updatePosition();
             }
         }
