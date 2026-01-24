@@ -40,7 +40,6 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
         internal static readonly string[] StaticFieldsToClone = [nameof(controllerSet), nameof(fades), nameof(fadeInTimes), nameof(fadeOutTimes), nameof(controllers)];
 
         // some utility methods for our makeshift "2-dimension dictionaries"
-
         private static bool tryGetValue<T>(Dictionary<string, Dictionary<bool, T>> dictionary, string flag, bool notFlag, out T value) {
             value = default; // we have to set value no matter what
             return dictionary.TryGetValue(flag, out Dictionary<bool, T> inner) && inner.TryGetValue(notFlag, out value);
