@@ -1,6 +1,6 @@
 # The mod used to be known as "max480's Helping Hand", and wasn't renamed for compatibility reasons
 - Name: MaxHelpingHand
-  Version: 1.39.13
+  Version: 1.39.14
   DLL: bin/MaxHelpingHand.dll
   Dependencies:
     - Name: Everest
