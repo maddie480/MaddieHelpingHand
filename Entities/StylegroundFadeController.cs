@@ -37,6 +37,8 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
         private static readonly Dictionary<string, Dictionary<bool, StylegroundFadeController>> controllers = new Dictionary<string, Dictionary<bool, StylegroundFadeController>>();
 
         // some utility methods for our makeshift "2-dimension dictionaries"
+
+        internal static string[] StaticFieldsToClone = [nameof(controllerSet), nameof(fades), nameof(fadeInTimes), nameof(fadeOutTimes), nameof(controllers)];
         private static bool tryGetValue<T>(Dictionary<string, Dictionary<bool, T>> dictionary, string flag, bool notFlag, out T value) {
             value = default; // we have to set value no matter what
             return dictionary.TryGetValue(flag, out Dictionary<bool, T> inner) && inner.TryGetValue(notFlag, out value);
