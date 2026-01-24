@@ -3,9 +3,11 @@
 using ..Ahorn, Maple
 
 @pardef SidewaysMovingPlatform(x::Integer, y::Integer, height::Integer=Maple.defaultBlockHeight, left::Bool=true, mode::String="Loop", texture::String="default",
-    moveTime::Number=2.0, pauseTime::Number=0.0, easing::Bool=true, amount::Int=1, offset::Number=0.0, flag::String="", emitSound::Bool=true, drawTracks::Bool=true) =
+    moveTime::Number=2.0, pauseTime::Number=0.0, easing::Bool=true, amount::Int=1, offset::Number=0.0, flag::String="", emitSound::Bool=true, drawTracks::Bool=true,
+    accurateTiming::Bool=false) =
     Entity("MaxHelpingHand/SidewaysMovingPlatform", x=x, y=y, nodes=Tuple{Int, Int}[], height=height, left=left, mode=mode, texture=texture,
-    moveTime=moveTime, pauseTime=pauseTime, easing=easing, amount=amount, offset=offset, flag=flag, emitSound=emitSound, drawTracks=drawTracks)
+    moveTime=moveTime, pauseTime=pauseTime, easing=easing, amount=amount, offset=offset, flag=flag, emitSound=emitSound, drawTracks=drawTracks,
+    accurateTiming=accurateTiming)
 
 const placements = Ahorn.PlacementDict()
 

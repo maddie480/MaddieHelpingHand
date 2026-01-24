@@ -31,7 +31,8 @@ for i, texture in ipairs(textures) do
             offset = 0.0,
             flag = "",
             emitSound = true,
-            drawTracks = true
+            drawTracks = true,
+            accurateTiming = true
         },
     }
 end

@@ -16,7 +16,8 @@ bumper.placements = {
         amount = 1,
         offset = 0.0,
         wobble = false,
-        flag = ""
+        flag = "",
+        accurateTiming = true
     }
 }
 

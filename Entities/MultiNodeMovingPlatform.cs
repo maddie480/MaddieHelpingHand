@@ -26,6 +26,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
         private bool emitSound;
         internal readonly bool giveHorizontalBoost;
         private bool drawTracks;
+        private bool accurateTiming;
 
         private MTexture[] textures;
         private float[] nodePercentages;
@@ -82,6 +83,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             emitSound = data.Bool("emitSound", defaultValue: true);
             giveHorizontalBoost = data.Bool("giveHorizontalBoost", defaultValue: false);
             drawTracks = data.Bool("drawTracks", defaultValue: true);
+            accurateTiming = data.Bool("accurateTiming", defaultValue: false);
 
             entityProperties = data.Values;
             entityPosition = data.Position;
@@ -363,17 +365,22 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
                     }
                 }
 
-                // move forward...
-                if (percentRemainder.HasValue) {
-                    percent += percentRemainder.Value;
-                    percentRemainder = null;
-                }
-                percent += Engine.DeltaTime / moveTime;
+                if (accurateTiming) {
+                    // move forward...
+                    if (percentRemainder.HasValue) {
+                        percent += percentRemainder.Value;
+                        percentRemainder = null;
+                    }
+                    percent += Engine.DeltaTime / moveTime;
 
-                // if we overshot 100%, keep the remainder so that we can apply it after the pause.
-                if (percent >= 1f) {
-                    percentRemainder = percent - 1f;
-                    percent = 1f;
+                    // if we overshot 100%, keep the remainder so that we can apply it after the pause.
+                    if (percent >= 1f) {
+                        percentRemainder = percent - 1f;
+                        percent = 1f;
+                    }
+                } else {
+                    // legacy behavior that just throws the remainder away
+                    percent = Calc.Approach(percent, 1f, Engine.DeltaTime / moveTime);
                 }
 
                 updatePosition();

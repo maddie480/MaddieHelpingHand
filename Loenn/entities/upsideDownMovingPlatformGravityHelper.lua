@@ -31,7 +31,8 @@ for i, texture in ipairs(textures) do
             moveLater = true,
             emitSound = true,
             drawTracks = true,
-            giveHorizontalBoost = false
+            giveHorizontalBoost = false,
+            accurateTiming = true
         }
     }
 end

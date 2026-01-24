@@ -4,17 +4,17 @@ using ..Ahorn, Maple
 
 @pardef UpsideDownMovingPlatform(x::Integer, y::Integer, width::Integer=Maple.defaultBlockWidth, mode::String="Loop", texture::String="default",
     moveTime::Number=2.0, pauseTime::Number=0.0, easing::Bool=true, amount::Int=1, offset::Number=0.0, flag::String="", moveLater::Bool=true,
-    emitSound::Bool=true, pushPlayer::Bool=false, drawTracks::Bool=true) =
+    emitSound::Bool=true, pushPlayer::Bool=false, drawTracks::Bool=true, accurateTiming::Bool=false) =
     Entity("MaxHelpingHand/UpsideDownMovingPlatform", x=x, y=y, nodes=Tuple{Int, Int}[], width=width, mode=mode, texture=texture,
     moveTime=moveTime, pauseTime=pauseTime, easing=easing, amount=amount, offset=offset, flag=flag, moveLater=moveLater,
-    emitSound=emitSound, pushPlayer=pushPlayer, drawTracks=drawTracks)
+    emitSound=emitSound, pushPlayer=pushPlayer, drawTracks=drawTracks, accurateTiming=accurateTiming)
 
 @pardef UpsideDownMovingPlatformGravityHelper(x::Integer, y::Integer, width::Integer=Maple.defaultBlockWidth, mode::String="Loop", texture::String="default",
     moveTime::Number=2.0, pauseTime::Number=0.0, easing::Bool=true, amount::Int=1, offset::Number=0.0, flag::String="", moveLater::Bool=true,
-    emitSound::Bool=true, drawTracks::Bool=true, giveHorizontalBoost::Bool=false) =
+    emitSound::Bool=true, drawTracks::Bool=true, giveHorizontalBoost::Bool=false, accurateTiming::Bool=false) =
     Entity("MaxHelpingHand/UpsideDownMovingPlatformGravityHelper", x=x, y=y, nodes=Tuple{Int, Int}[], width=width, mode=mode, texture=texture,
     moveTime=moveTime, pauseTime=pauseTime, easing=easing, amount=amount, offset=offset, flag=flag, moveLater=moveLater,
-    emitSound=emitSound, drawTracks=drawTracks, giveHorizontalBoost=giveHorizontalBoost)
+    emitSound=emitSound, drawTracks=drawTracks, giveHorizontalBoost=giveHorizontalBoost, accurateTiming=accurateTiming)
 
 const placements = Ahorn.PlacementDict()
 

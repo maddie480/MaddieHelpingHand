@@ -409,6 +409,7 @@ entities.MaxHelpingHand/MultiNodeBumper.attributes.description.amount=The number
 entities.MaxHelpingHand/MultiNodeBumper.attributes.description.offset=An offset in starting position, between 0 and 1.
 entities.MaxHelpingHand/MultiNodeBumper.attributes.description.wobble=Whether the bumper should wobble, like vanilla bumpers.
 entities.MaxHelpingHand/MultiNodeBumper.attributes.description.flag=If specified, the bumper will only move when the specified flag is active.
+entities.MaxHelpingHand/MultiNodeBumper.attributes.description.accurateTiming=Makes the timing of Move Time more accurate, especially with small values.\nUseful to synchronize bumpers with different Move Times.
 
 # Multi-Node Flag Switch Gate
 entities.MaxHelpingHand/MultiNodeFlagSwitchGate.placements.name.block=Flag Switch Gate (Block, Multi-Node)
@@ -450,6 +451,7 @@ entities.MaxHelpingHand/MultiNodeMovingPlatform.attributes.description.moveLater
 entities.MaxHelpingHand/MultiNodeMovingPlatform.attributes.description.emitSound=Whether the platform should emit sound when moving.
 entities.MaxHelpingHand/MultiNodeMovingPlatform.attributes.description.giveHorizontalBoost=Whether the platform should give the player a horizontal boost when moving purely horizontally, unlike vanilla moving platforms.
 entities.MaxHelpingHand/MultiNodeMovingPlatform.attributes.description.drawTracks=Whether the tracks of the platform (the path it follows) should be visible.
+entities.MaxHelpingHand/MultiNodeMovingPlatform.attributes.description.accurateTiming=Makes the timing of Move Time more accurate, especially with small values.\nUseful to synchronize platforms with different Move Times.
 
 # Multi-Room Strawberry
 entities.MaxHelpingHand/MultiRoomStrawberry.placements.name.normal=Multi-Room Strawberry
@@ -854,6 +856,7 @@ entities.MaxHelpingHand/SidewaysMovingPlatform.attributes.description.left=Wheth
 entities.MaxHelpingHand/SidewaysMovingPlatform.attributes.description.flag=If specified, the platform will only move when the specified flag is active.
 entities.MaxHelpingHand/SidewaysMovingPlatform.attributes.description.emitSound=Whether the platform should emit sound when moving.
 entities.MaxHelpingHand/SidewaysMovingPlatform.attributes.description.drawTracks=Whether the tracks of the platform (the path it follows) should be visible.
+entities.MaxHelpingHand/SidewaysMovingPlatform.attributes.description.accurateTiming=Makes the timing of Move Time more accurate, especially with small values.\nUseful to synchronize platforms with different Move Times.
 
 # Static Puffer
 entities.MaxHelpingHand/StaticPuffer.placements.name.left=Static Puffer (Left)
@@ -884,6 +887,7 @@ entities.MaxHelpingHand/UpsideDownMovingPlatform.attributes.description.moveLate
 entities.MaxHelpingHand/UpsideDownMovingPlatform.attributes.description.emitSound=Whether the platform should emit sound when moving.
 entities.MaxHelpingHand/UpsideDownMovingPlatform.attributes.description.pushPlayer=Whether the platform should push the player down, like vanilla jumpthrus push the player up.
 entities.MaxHelpingHand/UpsideDownMovingPlatform.attributes.description.drawTracks=Whether the tracks of the platform (the path it follows) should be visible.
+entities.MaxHelpingHand/UpsideDownMovingPlatform.attributes.description.accurateTiming=Makes the timing of Move Time more accurate, especially with small values.\nUseful to synchronize platforms with different Move Times.
 
 # Upside-Down Moving Platform (w/ Gravity Helper support)
 entities.MaxHelpingHand/UpsideDownMovingPlatformGravityHelper.placements.name.default=Upside-Down Moving Platform (Default)
@@ -900,6 +904,7 @@ entities.MaxHelpingHand/UpsideDownMovingPlatformGravityHelper.attributes.descrip
 entities.MaxHelpingHand/UpsideDownMovingPlatformGravityHelper.attributes.description.emitSound=Whether the platform should emit sound when moving.
 entities.MaxHelpingHand/UpsideDownMovingPlatformGravityHelper.attributes.description.drawTracks=Whether the tracks of the platform (the path it follows) should be visible.
 entities.MaxHelpingHand/UpsideDownMovingPlatformGravityHelper.attributes.description.giveHorizontalBoost=Whether the platform should give the player a horizontal boost when moving purely horizontally, unlike vanilla moving platforms.
+entities.MaxHelpingHand/UpsideDownMovingPlatformGravityHelper.attributes.description.accurateTiming=Makes the timing of Move Time more accurate, especially with small values.\nUseful to synchronize platforms with different Move Times.
 
 # Activate Timed Touch Switches Timer Trigger
 triggers.MaxHelpingHand/ActivateTimedTouchSwitchesTimerTrigger.placements.name.trigger=Activate Timed Touch Switches Timer

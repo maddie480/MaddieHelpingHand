@@ -550,6 +550,7 @@ placements.entities.MaxHelpingHand/MultiNodeMovingPlatform.tooltips.moveLater=If
 placements.entities.MaxHelpingHand/MultiNodeMovingPlatform.tooltips.emitSound=Whether the platform should emit sound when moving.
 placements.entities.MaxHelpingHand/MultiNodeMovingPlatform.tooltips.giveHorizontalBoost=Whether the platform should give the player a horizontal boost when moving purely horizontally, unlike vanilla moving platforms.
 placements.entities.MaxHelpingHand/MultiNodeMovingPlatform.tooltips.drawTracks=Whether the tracks of the platform (the path it follows) should be visible.
+placements.entities.MaxHelpingHand/MultiNodeMovingPlatform.tooltips.accurateTiming=Makes the timing of Move Time more accurate, especially with small values.\nUseful to synchronize platforms with different Move Times.
 
 # Upside-Down Moving Platform
 placements.entities.MaxHelpingHand/UpsideDownMovingPlatform.tooltips.moveTime=The time the platform takes to move between two successive positions. Default is 2 seconds.
@@ -564,6 +565,7 @@ placements.entities.MaxHelpingHand/UpsideDownMovingPlatform.tooltips.moveLater=I
 placements.entities.MaxHelpingHand/UpsideDownMovingPlatform.tooltips.emitSound=Whether the platform should emit sound when moving.
 placements.entities.MaxHelpingHand/UpsideDownMovingPlatform.tooltips.pushPlayer=Whether the platform should push the player down, like vanilla jumpthrus push the player up.
 placements.entities.MaxHelpingHand/UpsideDownMovingPlatform.tooltips.drawTracks=Whether the tracks of the platform (the path it follows) should be visible.
+placements.entities.MaxHelpingHand/UpsideDownMovingPlatform.tooltips.accurateTiming=Makes the timing of Move Time more accurate, especially with small values.\nUseful to synchronize platforms with different Move Times.
 
 # Upside-Down Moving Platform (w/ Gravity Helper support)
 placements.entities.MaxHelpingHand/UpsideDownMovingPlatformGravityHelper.tooltips.moveTime=The time the platform takes to move between two successive positions. Default is 2 seconds.
@@ -578,6 +580,7 @@ placements.entities.MaxHelpingHand/UpsideDownMovingPlatformGravityHelper.tooltip
 placements.entities.MaxHelpingHand/UpsideDownMovingPlatformGravityHelper.tooltips.emitSound=Whether the platform should emit sound when moving.
 placements.entities.MaxHelpingHand/UpsideDownMovingPlatformGravityHelper.tooltips.drawTracks=Whether the tracks of the platform (the path it follows) should be visible.
 placements.entities.MaxHelpingHand/UpsideDownMovingPlatformGravityHelper.tooltips.giveHorizontalBoost=Whether the platform should give the player a horizontal boost when moving purely horizontally, unlike vanilla moving platforms.
+placements.entities.MaxHelpingHand/UpsideDownMovingPlatformGravityHelper.tooltips.accurateTiming=Makes the timing of Move Time more accurate, especially with small values.\nUseful to synchronize platforms with different Move Times.
 
 # Multi-Node Bumper
 placements.entities.MaxHelpingHand/MultiNodeBumper.tooltips.moveTime=The time the bumper takes to move between two successive positions. Default is 2 seconds.
@@ -589,6 +592,7 @@ placements.entities.MaxHelpingHand/MultiNodeBumper.tooltips.amount=The number of
 placements.entities.MaxHelpingHand/MultiNodeBumper.tooltips.offset=An offset in starting position, between 0 and 1.
 placements.entities.MaxHelpingHand/MultiNodeBumper.tooltips.wobble=Whether the bumper should wobble, like vanilla bumpers.
 placements.entities.MaxHelpingHand/MultiNodeBumper.tooltips.flag=If specified, the bumper will only move when the specified flag is active.
+placements.entities.MaxHelpingHand/MultiNodeBumper.tooltips.accurateTiming=Makes the timing of Move Time more accurate, especially with small values.\nUseful to synchronize bumpers with different Move Times.
 
 # Madeline Silhouette Trigger
 placements.triggers.MaxHelpingHand/MadelineSilhouetteTrigger.tooltips.enable=If checked, the trigger will turn Madeline into a silhouette. If unchecked, it will turn Madeline back to normal.
@@ -743,6 +747,7 @@ placements.entities.MaxHelpingHand/SidewaysMovingPlatform.tooltips.left=Whether 
 placements.entities.MaxHelpingHand/SidewaysMovingPlatform.tooltips.flag=If specified, the platform will only move when the specified flag is active.
 placements.entities.MaxHelpingHand/SidewaysMovingPlatform.tooltips.emitSound=Whether the platform should emit sound when moving.
 placements.entities.MaxHelpingHand/SidewaysMovingPlatform.tooltips.drawTracks=Whether the tracks of the platform (the path it follows) should be visible.
+placements.entities.MaxHelpingHand/SidewaysMovingPlatform.tooltips.accurateTiming=Makes the timing of Move Time more accurate, especially with small values.\nUseful to synchronize platforms with different Move Times.
 
 # No Dash Refill Spring
 placements.entities.MaxHelpingHand/NoDashRefillSpring.tooltips.spriteDirectory=The directory to take the sprites from.\nTo reskin the no-dash refill springs, place the sprites in your mod in Graphics/Atlases/Gameplay/mymod/myspring, and write "mymod/myspring" here. The default sprites are in the zip for Maddie's Helping Hand, in Graphics/Atlases/Gameplay/objects/MaxHelpingHand/noDashRefillSpring.
