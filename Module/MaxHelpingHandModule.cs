@@ -156,6 +156,7 @@ namespace Celeste.Mod.MaxHelpingHand.Module {
             typeof(LuaCutscenesUtils).ModInterop();
             typeof(EntityNameRegistry).ModInterop();
             typeof(GravityHelperImports.Interop).ModInterop();
+            typeof(LuckyHelperImports.Interop).ModInterop();
         }
 
         public override void Initialize() {
