@@ -7,6 +7,7 @@ using ..Ahorn, Maple
     paths::String="starfield", colors::String="ffffff", alphas::String="1",
     shuffle::Bool=true,
     speed::Number=1.0,
+    fps::Number=0.0,
     fadex::String="", fadey::String="",
     scrollx::Number=1.0, scrolly::Number=1.0)
 

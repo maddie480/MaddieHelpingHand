@@ -433,7 +433,7 @@ namespace Celeste.Mod.MaxHelpingHand.Module {
                     alphas[i] = float.Parse(alphasAsStrings[i]);
                 }
 
-                return new CustomStarfield(paths, colors, alphas, child.AttrBool("shuffle", true), child.AttrFloat("speed", 1f));
+                return new CustomStarfield(paths, colors, alphas, child.AttrBool("shuffle", true), child.AttrFloat("speed", 1f), child.AttrFloat("fps", 0f));
             }
             if (child.Name.Equals("MaxHelpingHand/SnowCustomColors", StringComparison.OrdinalIgnoreCase)) {
                 float alpha = child.AttrFloat("alpha", 1f);

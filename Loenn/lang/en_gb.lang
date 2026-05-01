@@ -1293,6 +1293,8 @@ style.effects.MaxHelpingHand/CustomStarfield.description.fadex=Advanced horizont
 style.effects.MaxHelpingHand/CustomStarfield.description.fadey=Advanced vertical fading zones.\nFormat is "FromPosition-ToPosition,FromAlpha-ToAlpha". Example "n500-500,1-0".\nNegative numbers in position are denoted with "n" rather than minus. Position numbers are in pixels and use map coordinates.\nMultiple zones can be set up by using ":" as separator.
 style.effects.MaxHelpingHand/CustomStarfield.description.scrollx=Determines the parallax scrolling of the starfield along the X axis.
 style.effects.MaxHelpingHand/CustomStarfield.description.scrolly=Determines the parallax scrolling of the starfield along the Y axis.
+style.effects.MaxHelpingHand/CustomStarfield.attribute.fps=FPS
+style.effects.MaxHelpingHand/CustomStarfield.description.fps=The speed of the star animations, in frames per second. Leave at 0 if you don't need them animated.\nNon-animated stars are called 00.png, 01.png, ... and animated stars with 3 frames of animation are called 00_0.png/00_1.png/00_2.png, 01_0.png/01_1.png/02_2.png, ...
 
 # Custom Stars
 style.effects.MaxHelpingHand/CustomStars.name=Stars (Custom)

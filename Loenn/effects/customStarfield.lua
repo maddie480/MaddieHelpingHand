@@ -13,7 +13,8 @@ effect.defaultData = {
     fadex = "",
     fadey = "",
     scrollx = 1.0,
-    scrolly = 1.0
+    scrolly = 1.0,
+    fps = 0.0
 }
 
 return effect
