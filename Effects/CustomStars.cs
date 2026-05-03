@@ -40,7 +40,8 @@ namespace Celeste.Mod.MaxHelpingHand.Effects {
 
             // look up all the stars in the folder, and group frames belonging to the same stars.
             textures = new List<List<MTexture>>();
-            List<MTexture> folderContents = GFX.Game.Textures.Keys.Where(path => path.StartsWith(spriteDirectory + "/")).Select(path => GFX.Game[path]).ToList();
+            string pathPrefix = spriteDirectory + "/";
+            List<MTexture> folderContents = GFX.Game.Textures.Keys.Where(path => path.StartsWith(pathPrefix)).Select(path => GFX.Game[path]).ToList();
             Dictionary<string, List<MTexture>> starList = new Dictionary<string, List<MTexture>>();
             foreach (MTexture texture in folderContents) {
                 string starName = Regex.Replace(texture.AtlasPath, "\\d+$", string.Empty);
