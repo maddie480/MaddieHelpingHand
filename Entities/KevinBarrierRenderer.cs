@@ -175,7 +175,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
                     Vector2 position = edge.Parent.Position + edge.A;
                     for (int i = 0; i <= edge.Length; i++) {
                         Vector2 positionPlusNormal = position + edge.Normal * i;
-                        Draw.Line(positionPlusNormal, positionPlusNormal + edge.Perpendicular * edge.Wave[i], edge.Parent.Color);
+                        Draw.Line(positionPlusNormal, Calc.Round(positionPlusNormal + edge.Perpendicular * edge.Wave[i]), edge.Parent.Color);
                     }
                 }
             }
