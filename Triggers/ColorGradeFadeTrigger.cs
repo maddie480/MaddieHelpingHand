@@ -1,79 +1,76 @@
-﻿using System.Collections.Generic;
-using Celeste.Mod.Entities;
+﻿using Celeste.Mod.Entities;
+using Celeste.Mod.Helpers;
 using Microsoft.Xna.Framework;
 using Monocle;
-using MonoMod.Utils;
 using System.Linq;
-using Celeste.Mod.MaxHelpingHand.Module;
+using MonoMod.Cil;
 
 namespace Celeste.Mod.MaxHelpingHand.Triggers {
     [CustomEntity("MaxHelpingHand/ColorGradeFadeTrigger")]
     [Tracked]
     public class ColorGradeFadeTrigger : Trigger {
         public static void Load() {
-            On.Celeste.Level.Update += onLevelUpdate;
+            IL.Celeste.Level.Update += modLevelUpdate;
         }
 
         public static void Unload() {
-            On.Celeste.Level.Update -= onLevelUpdate;
+            IL.Celeste.Level.Update -= modLevelUpdate;
         }
 
-        private static void onLevelUpdate(On.Celeste.Level.orig_Update orig, Level self) {
-            orig(self);
-
-            Player player = self.Tracker.GetEntity<Player>();
-
-            // if a Lucky Helper Dummy Player is inside a trigger, it takes priority over the actual player
-            foreach (Player dummyPlayer in LuckyHelperImports.GetDummyPlayers()) {
-                if (dummyPlayer.CollideCheck<ColorGradeFadeTrigger>()) {
-                    player = dummyPlayer;
-                    break;
-                }
-            }
-
-            // check if the player is in a color grade fade trigger
-            ColorGradeFadeTrigger trigger = self.Tracker.GetEntities<ColorGradeFadeTrigger>().OfType<ColorGradeFadeTrigger>()
-                .FirstOrDefault(t => t.evenDuringReflectionFall ? player?.Collider.Collide(t) ?? false : t.playerInside);
-            if (player != null && trigger != null) {
-                // the game fades from lastColorGrade to Session.ColorGrade using colorGradeEase as a lerp value.
-                // let's hijack that!
-                float positionLerp = trigger.GetPositionLerp(player, trigger.direction);
-                if (positionLerp > 0.5f) {
-                    // we are closer to B. let B be the target color grade when player exits the trigger / dies in it
-                    self.lastColorGrade = trigger.colorGradeA;
-                    self.Session.ColorGrade = trigger.colorGradeB;
-                    self.colorGradeEase = positionLerp;
-                } else {
-                    // we are closer to A. let A be the target color grade when player exits the trigger / dies in it
-                    self.lastColorGrade = trigger.colorGradeB;
-                    self.Session.ColorGrade = trigger.colorGradeA;
-                    self.colorGradeEase = 1 - positionLerp;
-                }
-                self.colorGradeEaseSpeed = 1f;
+        private static void modLevelUpdate(ILContext il) {
+            ILCursor cursor = new(il);
+            
+            ILLabel skipColorGradeUpdate = null;
+            if (cursor.TryGotoNextBestFit(MoveType.Before,
+                instr => instr.MatchLdarg0(),
+                instr => instr.MatchLdfld<Level>("lastColorGrade"),
+                instr => instr.MatchLdarg0(),
+                instr => instr.MatchLdfld<Level>("Session"),
+                instr => instr.MatchLdfld<Session>("ColorGrade"),
+                instr => instr.MatchCall<string>("op_Inequality"),
+                instr => instr.MatchBrfalse(out skipColorGradeUpdate))) {
+                cursor.EmitLdarg0();
+                cursor.EmitDelegate(modColorGradeUpdate);
+                cursor.EmitBrtrue(skipColorGradeUpdate!);
             }
         }
 
+        private static bool modColorGradeUpdate(Level level) {
+            return level.Tracker.GetEntities<ColorGradeFadeTrigger>().Cast<ColorGradeFadeTrigger>().Any(t => t.PlayerIsInside);
+        }
 
         private string colorGradeA;
         private string colorGradeB;
         private PositionModes direction;
         private bool evenDuringReflectionFall;
 
-        private bool playerInside = false;
-
         public ColorGradeFadeTrigger(EntityData data, Vector2 offset) : base(data, offset) {
             colorGradeA = data.Attr("colorGradeA");
             colorGradeB = data.Attr("colorGradeB");
             direction = data.Enum<PositionModes>("direction");
             evenDuringReflectionFall = data.Bool("evenDuringReflectionFall", true); // true by default for backwards compatibility
+
+            if (evenDuringReflectionFall) {
+                Add(new TriggerDuringReflectionFall());
+            }
         }
 
-        public override void OnEnter(Player player) {
-            playerInside = true;
-        }
-
-        public override void OnLeave(Player player) {
-            playerInside = false;
+        public override void OnStay(Player player) {
+            Level level = SceneAs<Level>();
+            
+            float positionLerp = GetPositionLerp(player, direction);
+            if (positionLerp > 0.5f) {
+                // we are closer to B. let B be the target color grade when player exits the trigger / dies in it
+                level.lastColorGrade = colorGradeA;
+                level.Session.ColorGrade = colorGradeB;
+                level.colorGradeEase = positionLerp;
+            } else {
+                // we are closer to A. let A be the target color grade when player exits the trigger / dies in it
+                level.lastColorGrade = colorGradeB;
+                level.Session.ColorGrade = colorGradeA;
+                level.colorGradeEase = 1 - positionLerp;
+            }
+            level.colorGradeEaseSpeed = 1f;
         }
     }
 }
