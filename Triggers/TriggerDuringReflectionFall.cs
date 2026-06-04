@@ -27,7 +27,7 @@ namespace Celeste.Mod.MaxHelpingHand.Triggers {
                 instr => instr.MatchLdarg0(),
                 instr => instr.MatchLdfld<Player>("StateMachine"),
                 instr => instr.MatchCallvirt<StateMachine>("get_State"),
-                instr => instr.MatchLdcI4(18),
+                instr => instr.MatchLdcI4(Player.StReflectionFall),
                 instr => instr.MatchBeq(out _))) {
                 ILLabel skipStateCheck = cursor.DefineLabel();
                 
