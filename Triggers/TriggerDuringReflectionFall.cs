@@ -24,19 +24,10 @@ namespace Celeste.Mod.MaxHelpingHand.Triggers {
             ILCursor cursor = new(il);
 
             if (cursor.TryGotoNextBestFit(MoveType.Before,
-                instr => instr.MatchLdarg0(),
-                instr => instr.MatchLdfld<Player>("StateMachine"),
-                instr => instr.MatchCallvirt<StateMachine>("get_State"),
                 instr => instr.MatchLdcI4(Player.StReflectionFall),
                 instr => instr.MatchBeq(out _))) {
-                ILLabel skipStateCheck = cursor.DefineLabel();
-                
                 cursor.EmitLdarg0();
                 cursor.EmitDelegate(modStateCheck);
-                cursor.EmitBrtrue(skipStateCheck);
-                
-                cursor.GotoNext(MoveType.After, instr => instr.MatchBeq(out _));
-                cursor.MarkLabel(skipStateCheck);
             }
             
             ILLabel loopStart = null;
@@ -53,8 +44,8 @@ namespace Celeste.Mod.MaxHelpingHand.Triggers {
             }
         }
 
-        private static bool modStateCheck(Player player) {
-            return player.Scene.Tracker.GetComponent<TriggerDuringReflectionFall>() != null;
+        private static int modStateCheck(int origState, Player player) {
+            return player.Scene.Tracker.GetComponent<TriggerDuringReflectionFall>() == null ? origState : -1;
         }
         
         private static bool modSkipTrigger(Player player, Trigger trigger) {
