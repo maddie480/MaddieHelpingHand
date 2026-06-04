@@ -12,7 +12,7 @@ namespace Celeste.Mod.MaxHelpingHand.Triggers {
         private static ILHook hookModPlayerOrigUpdate;
         
         public static void Load() {
-            hookModPlayerOrigUpdate = new ILHook(typeof(Player).GetMethod("orig_Update", BindingFlags.NonPublic | BindingFlags.Instance)!, modPlayerOrigUpdate);
+            hookModPlayerOrigUpdate = new ILHook(typeof(Player).GetMethod("orig_Update", BindingFlags.Public | BindingFlags.Instance)!, modPlayerOrigUpdate);
         }
 
         public static void Unload() {
