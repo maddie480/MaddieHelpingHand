@@ -36,7 +36,7 @@ namespace Celeste.Mod.MaxHelpingHand.Triggers {
         }
 
         private static bool modColorGradeUpdate(Level level) {
-            return level.Tracker.GetEntities<ColorGradeFadeTrigger>().Cast<ColorGradeFadeTrigger>().Any(t => t.PlayerIsInside);
+            return level.Tracker.GetEntities<ColorGradeFadeTrigger>().Cast<ColorGradeFadeTrigger>().Any(t => t.Triggered);
         }
 
         private string colorGradeA;
