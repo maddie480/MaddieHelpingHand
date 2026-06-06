@@ -78,6 +78,7 @@ entities.MaxHelpingHand/CustomizableRefill.attributes.description.shatterParticl
 entities.MaxHelpingHand/CustomizableRefill.attributes.description.glowParticleColor1=One of the 2 colors of the particles the refill emits when glowing or respawning. If one of the colors is left empty, the refill will use vanilla particle colors.
 entities.MaxHelpingHand/CustomizableRefill.attributes.description.glowParticleColor2=One of the 2 colors of the particles the refill emits when glowing or respawning. If one of the colors is left empty, the refill will use vanilla particle colors.
 entities.MaxHelpingHand/CustomizableRefill.attributes.description.wave=Whether the refill should wave up and down, like vanilla refills. This is only visual, the hitbox does not move.
+entities.MaxHelpingHand/CustomizableRefill.attributes.description.rotation=The clockwise rotation angle of the refill, in degrees.
 
 # Custom Memorial (with Dreaming attribute)
 entities.MaxHelpingHand/CustomMemorialWithDreamingAttribute.placements.name.dreaming=Custom Memorial (Dreaming)
@@ -726,6 +727,7 @@ entities.MaxHelpingHand/SecretBerry.attributes.description.particleColor1=One of
 entities.MaxHelpingHand/SecretBerry.attributes.description.particleColor2=One of the colors to use for the particles the strawberry emits when not already collected.
 entities.MaxHelpingHand/SecretBerry.attributes.description.ghostParticleColor1=One of the colors to use for the particles the strawberry emits when already collected.
 entities.MaxHelpingHand/SecretBerry.attributes.description.ghostParticleColor2=One of the colors to use for the particles the strawberry emits when already collected.
+entities.MaxHelpingHand/SecretBerry.attributes.description.rotation=The clockwise rotation angle of the strawberry, in degrees.
 entities.MaxHelpingHand/SecretBerry.attributes.description.visibleIfFlag=If filled out, the strawberry will only be visible (and collectable) when the given flag is set.\nThis will stop having an effect when the berry is grabbed by the player.
 entities.MaxHelpingHand/SecretBerry.attributes.name.strawberryPulseSound=Pulse Sound
 entities.MaxHelpingHand/SecretBerry.attributes.name.strawberryBlueTouchSound=Collected Touch Sound
@@ -755,6 +757,7 @@ entities.MaxHelpingHand/CustomizableBerry.attributes.description.particleColor1=
 entities.MaxHelpingHand/CustomizableBerry.attributes.description.particleColor2=One of the colors to use for the particles the strawberry emits when not already collected.
 entities.MaxHelpingHand/CustomizableBerry.attributes.description.ghostParticleColor1=One of the colors to use for the particles the strawberry emits when already collected.
 entities.MaxHelpingHand/CustomizableBerry.attributes.description.ghostParticleColor2=One of the colors to use for the particles the strawberry emits when already collected.
+entities.MaxHelpingHand/CustomizableBerry.attributes.description.rotation=The clockwise rotation angle of the strawberry, in degrees.
 entities.MaxHelpingHand/CustomizableBerry.attributes.description.visibleIfFlag=If filled out, the strawberry will only be visible (and collectable) when the given flag is set.\nThis will stop having an effect when the berry is grabbed by the player.
 entities.MaxHelpingHand/CustomizableBerry.attributes.name.strawberryPulseSound=Pulse Sound
 entities.MaxHelpingHand/CustomizableBerry.attributes.name.strawberryBlueTouchSound=Collected Touch Sound
@@ -1178,6 +1181,7 @@ entities.MaxHelpingHand/ReskinnableCrystalHeart.attributes.description.particleC
 entities.MaxHelpingHand/ReskinnableCrystalHeart.attributes.description.flagOnCollect=The session flag to set when the heart is collected.\nLeave blank if you do not want any flag to be set.
 entities.MaxHelpingHand/ReskinnableCrystalHeart.attributes.description.flagInverted=If enabled, the flag specified in "Flag On Collect" will be disabled when the heart is collected, instead of being enabled.
 entities.MaxHelpingHand/ReskinnableCrystalHeart.attributes.description.disableGhostSprite=If this option is enabled, the heart will look the same no matter if it was already collected or not, and will never use its ghost sprite.
+entities.MaxHelpingHand/ReskinnableCrystalHeart.attributes.description.rotation=The clockwise rotation angle of the heart, in degrees.
 
 # Set Flag on Button Press Controller
 entities.MaxHelpingHand/SetFlagOnButtonPressController.placements.name.controller=Set Flag On Button Press Controller

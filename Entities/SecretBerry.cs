@@ -10,6 +10,7 @@ using System;
 using System.Collections;
 using System.Linq;
 using System.Reflection;
+using Celeste.Mod.Helpers;
 
 namespace Celeste.Mod.MaxHelpingHand.Entities {
     [CustomEntity("MaxHelpingHand/SecretBerry")]
@@ -17,6 +18,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
     public class SecretBerry : Strawberry {
         private static ILHook strawberryCollectRoutineHook;
         private static ILHook strawberryCollectRoutineHook2;
+        private static ILHook strawberryOrigUpdateHook;
 
         public static void Load() {
             IL.Celeste.Strawberry.OnAnimate += replaceStrawberryStrings;
@@ -29,6 +31,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
 
             On.Celeste.Strawberry.CollectRoutine += onStrawberryCollect;
             On.Celeste.Strawberry.Update += onStrawberryUpdate;
+            strawberryOrigUpdateHook = new ILHook(typeof(Strawberry).GetMethod(nameof(orig_Update)), modStrawberryOrigUpdate);
 
             On.Celeste.MapData.Load += onMapDataLoad;
 
@@ -48,6 +51,8 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
 
             On.Celeste.Strawberry.CollectRoutine -= onStrawberryCollect;
             On.Celeste.Strawberry.Update -= onStrawberryUpdate;
+            strawberryOrigUpdateHook?.Dispose();
+            strawberryOrigUpdateHook = null;
 
             On.Celeste.MapData.Load -= onMapDataLoad;
 
@@ -144,6 +149,32 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             P_GhostGlow = origGhostGlow;
         }
 
+        private static void modStrawberryOrigUpdate(ILContext il) {
+            ILCursor cursor = new ILCursor(il);
+
+            ILLabel skipWiggle = null;
+            if (!cursor.TryGotoNextBestFit(
+                MoveType.After,
+                static instr => instr.MatchLdarg0(),
+                static instr => instr.MatchCallvirt<Strawberry>("get_Winged"),
+                instr => instr.MatchBrtrue(out skipWiggle)))
+                return;
+
+            Logger.Log("MaxHelpingHand/SecretBerry", $"Inserting rotated Y oscillation and branch at {cursor.Index} in IL for Strawberry.orig_Update");
+
+            cursor.EmitLdarg0();
+            cursor.EmitDelegate(tryRotatedWiggle);
+            cursor.EmitBrtrue(skipWiggle);
+        }
+
+        private static bool tryRotatedWiggle(Strawberry self) {
+            if (self is not SecretBerry berry)
+                return false;
+
+            berry.RotatedWiggle();
+            return true;
+        }
+
         private static void onMapDataLoad(On.Celeste.MapData.orig_Load orig, MapData self) {
             orig(self);
 
@@ -193,6 +224,16 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
         private readonly string visibleIfFlag;
         private StrawberryToggler toggler;
 
+        private float _rotationDegrees;
+        public float rotationDegrees {
+            get => _rotationDegrees;
+            set {
+                _rotationDegrees = value;
+                if (sprite is not null)
+                    sprite.Rotation = rotationDegrees * Calc.DegToRad;
+            }
+        }
+
         public SecretBerry(EntityData data, Vector2 offset, EntityID gid) : base(data, offset, gid) {
             strawberrySprite = data.Attr("strawberrySprite");
             ghostberrySprite = data.Attr("ghostberrySprite");
@@ -204,6 +245,9 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             spotlightEnabled = data.Bool("spotlightEnabled", defaultValue: true);
             moonBerrySound = data.Bool("moonBerrySound", defaultValue: false);
             visibleIfFlag = data.Attr("visibleIfFlag");
+
+            // need to set sprite rotation in Added, as this is where it's set
+            _rotationDegrees = data.Float("rotation");
 
             strawberryParticleType = new ParticleType(P_Glow) {
                 Color = Calc.HexToColor(data.Attr("particleColor1")),
@@ -218,6 +262,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
         public override void Added(Scene scene) {
             base.Added(scene);
 
+            sprite.Rotation = rotationDegrees * Calc.DegToRad;
             if (!string.IsNullOrEmpty(visibleIfFlag) && scene is Level level) {
                 scene.Add(toggler = new StrawberryToggler(this, visibleIfFlag, level));
             }
@@ -227,6 +272,17 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
                 Remove(Get<BloomPoint>());
             }
         }
+
+        private void RotatedWiggle() {
+            wobble += Engine.DeltaTime * 4f;
+            Vector2 rotatedWobbleVector = GetRotationVector(MathF.Sin(wobble) * 2);
+            sprite.Position = rotatedWobbleVector;
+            if (spotlightEnabled)
+                bloom.Position = light.Position = rotatedWobbleVector;
+        }
+
+        public Vector2 GetRotationVector(float length)
+            => Calc.AngleToVector(Calc.Up + rotationDegrees * Calc.DegToRad, length);
 
         // this is in a separate entity, because it can freeze the berry entirely...
         // without freezing the process that unfreezes it when the flag is set.
