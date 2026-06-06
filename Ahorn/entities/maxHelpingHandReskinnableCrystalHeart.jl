@@ -3,7 +3,8 @@
 using ..Ahorn, Maple
 
 @mapdef Entity "MaxHelpingHand/ReskinnableCrystalHeart" ReskinnableCrystalHeart(x::Integer, y::Integer, fake::Bool=false, removeCameraTriggers::Bool=false, fakeHeartDialog::String="CH9_FAKE_HEART",
-    keepGoingDialog::String="CH9_KEEP_GOING", sprite::String="", ghostSprite::String="", particleColor::String="", flagOnCollect::String="", flagInverted::Bool=false, disableGhostSprite::Bool=false)
+    keepGoingDialog::String="CH9_KEEP_GOING", sprite::String="", ghostSprite::String="", particleColor::String="", flagOnCollect::String="", flagInverted::Bool=false, disableGhostSprite::Bool=false,
+    rotation::Integer=0)
 
 const placements = Ahorn.PlacementDict(
     "Crystal Heart (Reskinnable) (Maddie's Helping Hand)" => Ahorn.EntityPlacement(

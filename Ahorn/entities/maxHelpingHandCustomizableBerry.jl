@@ -7,7 +7,7 @@ using ..Ahorn, Maple
     strawberryPulseSound::String="event:/game/general/strawberry_pulse", strawberryBlueTouchSound::String="event:/game/general/strawberry_blue_touch",
     strawberryTouchSound::String="event:/game/general/strawberry_touch", strawberryGetSound::String="event:/game/general/strawberry_get", countTowardsTotal::Bool=true,
     pulseEnabled::Bool=true, spotlightEnabled::Bool=true, moonBerrySound::Bool=false, particleColor1::String="FF8563", particleColor2::String="FFF4A8",
-    ghostParticleColor1::String="6385FF", ghostParticleColor2::String="72F0FF")
+    ghostParticleColor1::String="6385FF", ghostParticleColor2::String="72F0FF", rotation::Integer=0)
 
 const placements = Ahorn.PlacementDict(
     "Customizable Berry (Maddie's Helping Hand)" => Ahorn.EntityPlacement(

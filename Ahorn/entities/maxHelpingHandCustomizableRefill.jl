@@ -3,7 +3,7 @@
 using ..Ahorn, Maple
 
 @mapdef Entity "MaxHelpingHand/CustomizableRefill" CustomizableRefill(x::Integer, y::Integer, twoDash::Bool=false, oneUse::Bool=false, respawnTime::Number=2.5, sprite::String="",
-    shatterParticleColor1::String="", shatterParticleColor2::String="", glowParticleColor1::String="", glowParticleColor2::String="", wave::Bool=true)
+    shatterParticleColor1::String="", shatterParticleColor2::String="", glowParticleColor1::String="", glowParticleColor2::String="", wave::Bool=true, rotation::Integer=0)
 
 const placements = Ahorn.PlacementDict(
     "Refill (Customizable) (Maddie's Helping Hand)" => Ahorn.EntityPlacement(
