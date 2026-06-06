@@ -10,7 +10,7 @@ namespace Celeste.Mod.MaxHelpingHand.Triggers {
     [Tracked]
     public class TriggerDuringReflectionFall() : Component(false, false) {
         private static ILHook hookModPlayerOrigUpdate;
-        
+
         public static void Load() {
             hookModPlayerOrigUpdate = new ILHook(typeof(Player).GetMethod("orig_Update", BindingFlags.Public | BindingFlags.Instance)!, modPlayerOrigUpdate);
         }
@@ -29,7 +29,7 @@ namespace Celeste.Mod.MaxHelpingHand.Triggers {
                 cursor.EmitLdarg0();
                 cursor.EmitDelegate(modStateCheck);
             }
-            
+
             ILLabel loopStart = null;
             if (cursor.TryGotoNextBestFit(MoveType.After,
                 instr => instr.MatchBr(out loopStart),
@@ -47,7 +47,7 @@ namespace Celeste.Mod.MaxHelpingHand.Triggers {
         private static int modStateCheck(int origState, Player player) {
             return player.Scene.Tracker.GetComponent<TriggerDuringReflectionFall>() == null ? origState : -1;
         }
-        
+
         private static bool modSkipTrigger(Player player, Trigger trigger) {
             return player.StateMachine.State == Player.StReflectionFall && trigger.Get<TriggerDuringReflectionFall>() == null;
         }

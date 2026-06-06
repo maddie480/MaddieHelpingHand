@@ -19,7 +19,7 @@ namespace Celeste.Mod.MaxHelpingHand.Triggers {
 
         private static void modLevelUpdate(ILContext il) {
             ILCursor cursor = new(il);
-            
+
             ILLabel skipColorGradeUpdate = null;
             if (cursor.TryGotoNextBestFit(MoveType.Before,
                 instr => instr.MatchLdarg0(),
@@ -57,7 +57,7 @@ namespace Celeste.Mod.MaxHelpingHand.Triggers {
 
         public override void OnStay(Player player) {
             Level level = SceneAs<Level>();
-            
+
             float positionLerp = GetPositionLerp(player, direction);
             if (positionLerp > 0.5f) {
                 // we are closer to B. let B be the target color grade when player exits the trigger / dies in it
