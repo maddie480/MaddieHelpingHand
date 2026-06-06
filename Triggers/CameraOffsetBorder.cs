@@ -15,13 +15,6 @@ namespace Celeste.Mod.MaxHelpingHand.Triggers {
         private readonly string flag;
         private bool transitioningOut = false;
 
-        internal static void Load() {
-            On.Celeste.Level.TransitionRoutine += onTransitionRoutine;
-        }
-        internal static void Unload() {
-            On.Celeste.Level.TransitionRoutine -= onTransitionRoutine;
-        }
-
         private static IEnumerator onTransitionRoutine(On.Celeste.Level.orig_TransitionRoutine orig, Level self, LevelData next, Vector2 direction) {
             // kill all camera offset borders from the screen we're leaving
             foreach (CameraOffsetBorder border in self.Scene.Tracker.GetEntities<CameraOffsetBorder>()) {
@@ -91,11 +84,15 @@ namespace Celeste.Mod.MaxHelpingHand.Triggers {
             hookPlayerCameraTarget = new Hook(
                 typeof(Player).GetMethod("get_CameraTarget"),
                 typeof(CameraOffsetBorder).GetMethod("modCameraTarget", BindingFlags.NonPublic | BindingFlags.Static));
+
+            On.Celeste.Level.TransitionRoutine += onTransitionRoutine;
         }
 
         public static void Unload() {
             hookPlayerCameraTarget?.Dispose();
             hookPlayerCameraTarget = null;
+
+            On.Celeste.Level.TransitionRoutine -= onTransitionRoutine;
         }
 
 
