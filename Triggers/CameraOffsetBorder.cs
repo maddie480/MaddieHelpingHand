@@ -13,6 +13,23 @@ namespace Celeste.Mod.MaxHelpingHand.Triggers {
     public class CameraOffsetBorder : Trigger {
         private readonly bool topLeft, topCenter, topRight, centerLeft, centerRight, bottomLeft, bottomCenter, bottomRight, inside, inverted;
         private readonly string flag;
+        private bool transitioningOut = false;
+
+        internal static void Load() {
+            On.Celeste.Level.TransitionRoutine += onTransitionRoutine;
+        }
+        internal static void Unload() {
+            On.Celeste.Level.TransitionRoutine -= onTransitionRoutine;
+        }
+
+        private static IEnumerator onTransitionRoutine(On.Celeste.Level.orig_TransitionRoutine orig, Level self, LevelData next, Vector2 direction) {
+            // kill all camera offset borders from the screen we're leaving
+            foreach (CameraOffsetBorder border in self.Scene.Tracker.GetEntities<CameraOffsetBorder>()) {
+                border.Active = border.Collidable = false;
+            }
+
+            return orig(self, next, direction);
+        }
 
         public CameraOffsetBorder(EntityData data, Vector2 offset) : base(data, offset) {
             topLeft = data.Bool("topLeft");
