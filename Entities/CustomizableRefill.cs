@@ -1,13 +1,35 @@
 ﻿using Celeste.Mod.Entities;
 using Microsoft.Xna.Framework;
 using Monocle;
-using MonoMod.Utils;
 using System;
-using System.Reflection;
 
 namespace Celeste.Mod.MaxHelpingHand.Entities {
     [CustomEntity("MaxHelpingHand/CustomizableRefill")]
     public class CustomizableRefill : Refill {
+        internal static void Load() {
+            On.Celeste.Refill.UpdateY += modUpdateY;
+        }
+
+        internal static void Unload() {
+            On.Celeste.Refill.UpdateY -= modUpdateY;
+        }
+
+        private static void modUpdateY(On.Celeste.Refill.orig_UpdateY orig, Refill self) {
+            if (self is CustomizableRefill refill)
+                refill.RotatedUpdateY();
+            else
+                orig(self);
+        }
+
+        private float _rotationDegrees;
+        public float rotationDegrees {
+            get => _rotationDegrees;
+            set {
+                _rotationDegrees = value;
+                outline.Rotation = sprite.Rotation = flash.Rotation = _rotationDegrees * Calc.DegToRad;
+            }
+        }
+
         public CustomizableRefill(EntityData data, Vector2 offset) : base(data, offset) {
             float respawnTime = data.Float("respawnTime", 2.5f);
 
@@ -55,13 +77,23 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
                 };
             }
 
+            // we can set the property right here, as the outline and sprites are non-null after the constructor
+            rotationDegrees = data.Float("rotation");
+
             if (!data.Bool("wave", true)) {
                 // freeze the sine wave and remove it so that it stops updating.
                 SineWave sine = Get<SineWave>();
                 Remove(sine);
                 sine.Counter = 0f;
-                UpdateY();
+                RotatedUpdateY();
             }
         }
+
+        private void RotatedUpdateY() {
+            sprite.Position = flash.Position = bloom.Position = GetRotationVector(sine.Value * 2);
+        }
+
+        public Vector2 GetRotationVector(float length)
+            => Calc.AngleToVector(Calc.Up + rotationDegrees * Calc.DegToRad, length);
     }
 }

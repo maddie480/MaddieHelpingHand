@@ -5,10 +5,10 @@ using Mono.Cecil.Cil;
 using Monocle;
 using MonoMod.Cil;
 using MonoMod.RuntimeDetour;
-using MonoMod.Utils;
 using System;
 using System.Linq;
 using System.Reflection;
+using Celeste.Mod.Helpers;
 
 namespace Celeste.Mod.MaxHelpingHand.Entities {
     [CustomEntity("MaxHelpingHand/ReskinnableCrystalHeart")]
@@ -19,11 +19,13 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
         public static void Load() {
             IL.Celeste.HeartGem.Awake += onHeartGemAwake;
             On.Celeste.HeartGem.Collect += onHeartGemCollect;
+            IL.Celeste.HeartGem.Update += modHeartGemUpdate;
         }
 
         public static void Unload() {
             IL.Celeste.HeartGem.Awake -= onHeartGemAwake;
             On.Celeste.HeartGem.Collect -= onHeartGemCollect;
+            IL.Celeste.HeartGem.Update -= modHeartGemUpdate;
 
             altSidesHelperHook?.Dispose();
             altSidesHelperHook = null;
@@ -44,6 +46,16 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
         private readonly bool flagInverted;
         private readonly bool disableGhostSprite;
 
+        private float _rotationDegrees;
+        public float rotationDegrees {
+            get => _rotationDegrees;
+            set {
+                _rotationDegrees = value;
+                if (sprite is not null)
+                    sprite.Rotation = _rotationDegrees * Calc.DegToRad;
+            }
+        }
+
         public ReskinnableCrystalHeart(EntityData data, Vector2 offset) : base(data, offset) {
             overrideSprite = data.Attr("sprite");
             ghostSprite = data.Attr("ghostSprite");
@@ -51,6 +63,9 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             flagOnCollect = data.Attr("flagOnCollect");
             flagInverted = data.Bool("flagInverted");
             disableGhostSprite = data.Bool("disableGhostSprite");
+
+            // need to set sprite rotation in Awake, as this is where it's set
+            _rotationDegrees = data.Float("rotation");
         }
 
         public override void Added(Scene scene) {
@@ -76,7 +91,16 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
 
                 shineParticle = particle;
             }
+
+            sprite.Rotation = _rotationDegrees * Calc.DegToRad;
         }
+
+        private void RotatedWiggle() {
+            sprite.Position = GetRotationVector(MathF.Sin(timer * 2f) * 2f) + moveWiggleDir * (moveWiggler.Value * -8f);
+        }
+
+        public Vector2 GetRotationVector(float length)
+            => Calc.AngleToVector(Calc.Up + rotationDegrees * Calc.DegToRad, length);
 
         private static void onHeartGemAwake(ILContext il) {
             ILCursor cursor = new ILCursor(il);
@@ -123,6 +147,48 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             }
 
             orig(self, player);
+        }
+
+        private static void modHeartGemUpdate(ILContext il) {
+            ILCursor cursor = new ILCursor(il);
+
+            // we need to mess with the y oscillation of the heart.
+            // the il making up this section is veeeeeery long, so let's just match the beginning and the end.
+            // ...and Pray
+            if (!cursor.TryGotoNextBestFit(
+                MoveType.Before,
+                static instr => instr.MatchLdarg(0),
+                static instr => instr.MatchLdfld<HeartGem>("sprite"),
+                static instr => instr.MatchCall<Vector2>("get_UnitY")))
+                return;
+
+            ILLabel skipWiggle = cursor.DefineLabel();
+            int emitIndex = cursor.Index;
+
+            if (!cursor.TryGotoNextBestFit(
+                MoveType.After,
+                static instr => instr.MatchLdcR4(-8),
+                static instr => instr.MatchCall<Vector2>("op_Multiply"),
+                static instr => instr.MatchCall<Vector2>("op_Addition"),
+                static instr => instr.MatchStfld<GraphicsComponent>("Position")))
+                return;
+
+            cursor.MarkLabel(skipWiggle);
+            cursor.Index = emitIndex;
+
+            Logger.Log("MaxHelpingHand/ReskinnableCrystalHeart", $"Inserting rotated Y oscillation and branch at {cursor.Index} in IL for HeartGem.Update");
+
+            cursor.EmitLdarg0();
+            cursor.EmitDelegate(tryRotatedWiggle);
+            cursor.EmitBrtrue(skipWiggle);
+        }
+
+        private static bool tryRotatedWiggle(HeartGem self) {
+            if (self is not ReskinnableCrystalHeart heart)
+                return false;
+
+            heart.RotatedWiggle();
+            return true;
         }
 
         private static void disableAltSidesHelperReskinning(Action<EverestModule, On.Celeste.HeartGem.orig_Awake, HeartGem, Scene> orig, EverestModule self,

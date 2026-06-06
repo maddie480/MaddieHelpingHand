@@ -4,6 +4,9 @@ strawberry.name = "MaxHelpingHand/CustomizableBerry"
 strawberry.depth = -100
 
 strawberry.texture = "collectables/strawberry/normal00"
+function strawberry.rotation(room, entity)
+    return entity.rotation and (entity.rotation / 180 * math.pi) or 0
+end
 
 strawberry.placements = {
     name = "berry",
@@ -24,11 +27,23 @@ strawberry.placements = {
         particleColor2 = "FFF4A8",
         ghostParticleColor1 = "6385FF",
         ghostParticleColor2 = "72F0FF",
+        rotation = 0,
         visibleIfFlag = ""
     }
 }
 
-strawberry.fieldOrder = {"x", "y", "strawberrySprite", "ghostberrySprite", "strawberryPulseSound", "strawberryTouchSound", "strawberryBlueTouchSound", "strawberryGetSound", "particleColor1", "particleColor2", "ghostParticleColor1", "ghostParticleColor2"}
+strawberry.fieldOrder = {
+    "x", "y",
+    "strawberrySprite", "ghostberrySprite",
+    "strawberryPulseSound", "strawberryTouchSound",
+    "strawberryBlueTouchSound", "strawberryGetSound",
+    "particleColor1", "particleColor2",
+    "ghostParticleColor1", "ghostParticleColor2",
+    "checkpointID", "order",
+    "rotation", "visibleIfFlag",
+    "moonBerrySound", "pulseEnabled", "spotlightEnabled"
+}
+
 strawberry.ignoredFields = {"_id", "_name", "countTowardsTotal"}
 
 strawberry.fieldInformation = {
@@ -49,6 +64,9 @@ strawberry.fieldInformation = {
     },
     checkpointID = {
         fieldType = "integer"
+    },
+    rotation = {
+        default = 0
     }
 }
 
