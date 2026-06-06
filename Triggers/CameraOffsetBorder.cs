@@ -17,7 +17,7 @@ namespace Celeste.Mod.MaxHelpingHand.Triggers {
 
         private static IEnumerator onTransitionRoutine(On.Celeste.Level.orig_TransitionRoutine orig, Level self, LevelData next, Vector2 direction) {
             // kill all camera offset borders from the screen we're leaving
-            foreach (CameraOffsetBorder border in self.Scene.Tracker.GetEntities<CameraOffsetBorder>()) {
+            foreach (CameraOffsetBorder border in self.Tracker.GetEntities<CameraOffsetBorder>()) {
                 border.Active = border.Collidable = false;
             }
 
