@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework;
 using Monocle;
 using MonoMod.RuntimeDetour;
 using System;
+using System.Collections;
 using System.Reflection;
 
 namespace Celeste.Mod.MaxHelpingHand.Triggers {
@@ -13,7 +14,6 @@ namespace Celeste.Mod.MaxHelpingHand.Triggers {
     public class CameraOffsetBorder : Trigger {
         private readonly bool topLeft, topCenter, topRight, centerLeft, centerRight, bottomLeft, bottomCenter, bottomRight, inside, inverted;
         private readonly string flag;
-        private bool transitioningOut = false;
 
         private static IEnumerator onTransitionRoutine(On.Celeste.Level.orig_TransitionRoutine orig, Level self, LevelData next, Vector2 direction) {
             // kill all camera offset borders from the screen we're leaving
