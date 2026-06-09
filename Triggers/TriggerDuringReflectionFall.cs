@@ -49,7 +49,7 @@ namespace Celeste.Mod.MaxHelpingHand.Triggers {
         }
 
         private static bool modSkipTrigger(Player player, Trigger trigger) {
-            return player.StateMachine.State == Player.StReflectionFall && trigger.Get<TriggerDuringReflectionFall>() == null;
+            return player.StateMachine.State == Player.StReflectionFall && trigger.Get<TriggerDuringReflectionFall>() != null;
         }
 
         public override void Added(Entity entity) {
