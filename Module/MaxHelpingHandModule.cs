@@ -146,7 +146,6 @@ namespace Celeste.Mod.MaxHelpingHand.Module {
                 SideSpecificEndscreens.Load();
                 Pico8FlagController.Load();
                 CustomizableRefill.Load();
-                TriggerDuringReflectionFall.Load();
 
                 Everest.Events.Level.OnLoadBackdrop += onLoadBackdrop;
 
@@ -245,7 +244,6 @@ namespace Celeste.Mod.MaxHelpingHand.Module {
             Pico8FlagController.Unload();
             SpeedrunToolInterop.Unload();
             CustomizableRefill.Unload();
-            TriggerDuringReflectionFall.Unload();
 
             Everest.Events.Level.OnLoadBackdrop -= onLoadBackdrop;
 
