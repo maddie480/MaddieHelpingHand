@@ -61,17 +61,17 @@ namespace Celeste.Mod.MaxHelpingHand.Triggers {
 
             // do trigger collision logic manually if the player is in reflection fall state
             if (CollideCheck(player)) {
-				if (!Triggered) {
-					Triggered = true;
-					player.triggersInside.Add(this);
-					OnEnter(player);
-				}
-				OnStay(player);
-			} else if (Triggered) {
-				player.triggersInside.Remove(this);
-				Triggered = false;
-				OnLeave(player);
-			}
+                if (!Triggered) {
+                    Triggered = true;
+                    player.triggersInside.Add(this);
+                    OnEnter(player);
+                }
+                OnStay(player);
+            } else if (Triggered) {
+                player.triggersInside.Remove(this);
+                Triggered = false;
+                OnLeave(player);
+            }
         }
 
         public override void OnStay(Player player) {
