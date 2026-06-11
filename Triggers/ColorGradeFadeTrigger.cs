@@ -49,10 +49,29 @@ namespace Celeste.Mod.MaxHelpingHand.Triggers {
             colorGradeB = data.Attr("colorGradeB");
             direction = data.Enum<PositionModes>("direction");
             evenDuringReflectionFall = data.Bool("evenDuringReflectionFall", true); // true by default for backwards compatibility
+        }
 
-            if (evenDuringReflectionFall) {
-                Add(new TriggerDuringReflectionFall());
+        public override void Update() {
+            base.Update();
+
+            Player player = SceneAs<Level>().Tracker.GetEntity<Player>();
+            if (!evenDuringReflectionFall || player.StateMachine.State != Player.StReflectionFall) {
+                return;
             }
+
+            // do trigger collision logic manually if the player is in reflection fall state
+            if (CollideCheck(player)) {
+				if (!Triggered) {
+					Triggered = true;
+					player.triggersInside.Add(this);
+					OnEnter(player);
+				}
+				OnStay(player);
+			} else if (Triggered) {
+				player.triggersInside.Remove(this);
+				Triggered = false;
+				OnLeave(player);
+			}
         }
 
         public override void OnStay(Player player) {
