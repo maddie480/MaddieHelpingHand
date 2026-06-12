@@ -1,4 +1,4 @@
-﻿using Celeste.Mod.Entities;
+using Celeste.Mod.Entities;
 using Celeste.Mod.Helpers;
 using Microsoft.Xna.Framework;
 using Monocle;
@@ -55,7 +55,7 @@ namespace Celeste.Mod.MaxHelpingHand.Triggers {
             base.Update();
 
             Player player = SceneAs<Level>().Tracker.GetEntity<Player>();
-            if (!evenDuringReflectionFall || player.StateMachine.State != Player.StReflectionFall) {
+            if (!evenDuringReflectionFall || player == null || player.StateMachine.State != Player.StReflectionFall) {
                 return;
             }
 
