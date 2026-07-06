@@ -445,7 +445,10 @@ namespace Celeste.Mod.MaxHelpingHand.Module {
                     colors[i] = Calc.HexToColor(colorsAsStrings[i]) * alpha;
                 }
 
-                return new SnowCustomColors(colors, child.AttrFloat("speedMin", 40f), child.AttrFloat("speedMax", 100f), child.AttrInt("particleCount", 60));
+                float angle = child.AttrFloat("angle", 0f) * Calc.DegToRad;
+                float sineAmplitudeMult = child.AttrFloat("sineAmplitudeMult", 0.2f);
+
+                return new SnowCustomColors(colors, child.AttrFloat("speedMin", 40f), child.AttrFloat("speedMax", 100f), child.AttrInt("particleCount", 60), angle, sineAmplitudeMult);
             }
             if (child.Name.Equals("MaxHelpingHand/NorthernLightsCustomColors", StringComparison.OrdinalIgnoreCase)) {
                 string[] colorsAsStrings = child.Attr("colors").Split(',');

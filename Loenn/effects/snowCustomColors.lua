@@ -9,7 +9,15 @@ effect.defaultData = {
     speedMin = 40.0,
     speedMax = 100.0,
     alpha = 1.0,
-    particleCount = 60
+    particleCount = 60,
+    angle = 0.0,
+    sineAmplitudeMult = 0.2
+}
+
+effect.fieldOrder = {
+    "only", "exclude", "tag", "flag",
+    "colors", "alpha", "particleCount", "notflag",
+    "speedMin", "speedMax", "angle", "sineAmplitudeMult"
 }
 
 effect.fieldInformation = {
