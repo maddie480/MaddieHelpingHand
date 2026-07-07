@@ -1335,6 +1335,10 @@ style.effects.MaxHelpingHand/NorthernLightsCustomColors.description.strandCount=
 
 # Snow with Custom Colors
 style.effects.MaxHelpingHand/SnowCustomColors.name=Snow (Custom)
+style.effects.MaxHelpingHand/SnowCustomColors.attribute.scrollx=Scroll X
+style.effects.MaxHelpingHand/SnowCustomColors.attribute.scrolly=Scroll Y
+style.effects.MaxHelpingHand/SnowCustomColors.attribute.fadex=Fade X
+style.effects.MaxHelpingHand/SnowCustomColors.attribute.fadey=Fade Y
 style.effects.MaxHelpingHand/SnowCustomColors.description.colors=Comma-separated list of all colors the particles can take from.\nVanilla uses 333333,19337F for background snow, FFFFFF,6495ED for foreground snow.
 style.effects.MaxHelpingHand/SnowCustomColors.description.speedMin=The minimum speed a snow particle can have. Vanilla uses 40 for background snow, 120 for foreground snow.
 style.effects.MaxHelpingHand/SnowCustomColors.description.speedMax=The maximum speed a snow particle can have. Vanilla uses 100 for background snow, 300 for foreground snow.
@@ -1342,6 +1346,11 @@ style.effects.MaxHelpingHand/SnowCustomColors.description.alpha=The alpha of the
 style.effects.MaxHelpingHand/SnowCustomColors.description.particleCount=The number of snow particles to render. Vanilla uses 60.
 style.effects.MaxHelpingHand/SnowCustomColors.description.angle=The angle of the snow particles, in degrees, going clockwise from the left.
 style.effects.MaxHelpingHand/SnowCustomColors.description.sineAmplitudeMult=The multiplier applied to the speed of each snow particle to get the amplitude of its sine wave. Vanilla uses 0.2.
+style.effects.MaxHelpingHand/SnowCustomColors.description.texturePath=The path to the texture to use for the snow particles, relative to Graphics/Atlases/Gameplay.\nLeave empty make them render as a single pixel.
+style.effects.MaxHelpingHand/SnowCustomColors.description.scrollx=Determines the parallax scrolling of the snow particles along the X axis.
+style.effects.MaxHelpingHand/SnowCustomColors.description.scrolly=Determines the parallax scrolling of the snow particles along the Y axis.
+style.effects.MaxHelpingHand/SnowCustomColors.description.fadex=Advanced horizontal fading zones.\nFormat is "FromPosition-ToPosition,FromAlpha-ToAlpha". Example "n500-500,1-0".\nNegative numbers in position are denoted with "n" rather than minus. Position numbers are in pixels and use map coordinates.\nMultiple zones can be set up by using ":" as separator.
+style.effects.MaxHelpingHand/SnowCustomColors.description.fadey=Advanced vertical fading zones.\nFormat is "FromPosition-ToPosition,FromAlpha-ToAlpha". Example "n500-500,1-0".\nNegative numbers in position are denoted with "n" rather than minus. Position numbers are in pixels and use map coordinates.\nMultiple zones can be set up by using ":" as separator.
 
 # Custom Bird Tutorial: extra "Show Hints" placement
 entities.everest/customBirdTutorial.placements.name.maxhelpinghand_showhints=Custom Bird Tutorial (Show Hints)

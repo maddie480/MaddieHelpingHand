@@ -11,13 +11,20 @@ effect.defaultData = {
     alpha = 1.0,
     particleCount = 60,
     angle = 0.0,
-    sineAmplitudeMult = 0.2
+    sineAmplitudeMult = 0.2,
+    texturePath = "",
+    scrollx = 1.0,
+    scrolly = 1.0,
+    fadex = "",
+    fadey = ""
 }
 
 effect.fieldOrder = {
     "only", "exclude", "tag", "flag",
     "colors", "alpha", "particleCount", "notflag",
-    "speedMin", "speedMax", "angle", "sineAmplitudeMult"
+    "speedMin", "speedMax", "scrollx", "scrolly",
+    "angle", "sineAmplitudeMult", "fadex", "fadey",
+    "texturePath"
 }
 
 effect.fieldInformation = {
