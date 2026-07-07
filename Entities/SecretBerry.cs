@@ -304,7 +304,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             public override void Update() {
                 bool isVisible = level.Session.GetFlag(flag);
                 berry.Active = berry.Visible = berry.Collidable = isVisible;
-                berry.Get<BloomPoint>().Visible = isVisible;
+                berry.Get<BloomPoint>()?.Visible = isVisible;
             }
         }
 
