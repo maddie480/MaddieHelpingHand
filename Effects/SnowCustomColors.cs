@@ -22,7 +22,7 @@ namespace Celeste.Mod.MaxHelpingHand.Effects {
             }
 
             dir = Calc.AngleToVector(angle, 1f);
-            perp = dir.Perpendicular();
+            perp = -dir.Perpendicular();
             this.sineAmplitudeMult = sineAmplitudeMult;
             // possible future ideas: support for multiple textures and/or animations, texture rotation/scale options?
             particleTexture = string.IsNullOrWhiteSpace(texturePath) ? Draw.Pixel : GFX.Game[texturePath];
@@ -48,7 +48,7 @@ namespace Celeste.Mod.MaxHelpingHand.Effects {
             }
 
             for (int i = 0; i < particles.Length; i++) {
-                particles[i].Position -= dir * particles[i].Speed * Engine.DeltaTime;
+                particles[i].Position += dir * particles[i].Speed * Engine.DeltaTime;
                 particles[i].Position += perp * MathF.Sin(particles[i].Sin) * particles[i].Speed * sineAmplitudeMult * Engine.DeltaTime;
                 particles[i].Sin += Engine.DeltaTime;
             }
