@@ -78,6 +78,8 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             }
 
             string flag = entityData.Attr("flag");
+            FlagTouchSwitch.ResetFlagIfNecessary(level, flag, inverted: false);
+
             if (level.Session.GetFlag(flag) || level.Session.GetFlag(flag + "_switch" + entityData.ID)) {
                 // moving touch switches can't be persistent, but we can very much spawn a flag touch switch instead!
                 Vector2[] nodes = entityData.Nodes;

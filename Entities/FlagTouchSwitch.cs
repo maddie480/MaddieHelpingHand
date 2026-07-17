@@ -2,7 +2,6 @@
 using Celeste.Mod.MaxHelpingHand.Module;
 using Microsoft.Xna.Framework;
 using Monocle;
-using MonoMod.Utils;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -183,6 +182,11 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             // leverage the Set Flag On Spawn Controller technology to access the level early
             Level level = Engine.Scene as Level ?? (Engine.Scene as LevelLoader)?.Level;
             if (level == null) return;
+
+            ResetFlagIfNecessary(level, flag, inverted);
+        }
+
+        internal static void ResetFlagIfNecessary(Level level, string flag, bool inverted) {
             // disable the flag if it isn't supposed to be persistent, unless if we're in Legacy Flag Mode,
             // since the flag won't have been activated in the first place... because this seemed like a good idea at the time.
             if (!isLegacyFlagMode(level, flag, inverted) && !isFlagPersistent(level, flag, inverted)) {
