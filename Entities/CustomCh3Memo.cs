@@ -17,6 +17,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
         private readonly EntityID id;
 
         // controller options
+        private readonly bool isController;
         private readonly string flag;
         private readonly bool flagInverted;
         private readonly bool flagReusable;
@@ -37,6 +38,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             id = gid;
 
             // controller options
+            isController = data.Name == "MaxHelpingHand/CustomCh3MemoOnFlagController";
             flag = data.Attr("flag");
             flagInverted = data.Bool("flagInverted");
             flagReusable = data.Bool("flagReusable");
@@ -58,7 +60,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
         public override void Update() {
             base.Update();
 
-            if (SceneAs<Level>().Session.GetFlag(flag) != flagInverted) {
+            if (isController && SceneAs<Level>().Session.GetFlag(flag) != flagInverted) {
                 // cutscene should be triggered!
                 Player player = Scene.Tracker.GetEntity<Player>();
                 if (player != null) {
