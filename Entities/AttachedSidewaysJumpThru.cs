@@ -32,6 +32,9 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
                 SolidChecker = solid => solid.CollideRect(new Rectangle((int) X, (int) Y - 1, (int) Width, (int) Height + 2)),
                 OnMove = move => SidewaysMovingPlatform.SidewaysJumpthruOnMove(this, playerInteractingSolid, Left, move),
                 OnShake = onShake,
+                OnDisable = onDisable,
+                OnEnable = onEnable,
+                OnDestroy = onDestroy,
                 OnSetLiftSpeed = liftSpeed => playerInteractingSolid.LiftSpeed = liftSpeed
             };
             Add(staticMover);
@@ -40,6 +43,21 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
         private void onShake(Vector2 move) {
             shakeOffset += move;
             playerInteractingSolid.ShakeStaticMovers(move);
+        }
+
+        private void onEnable() {
+            Active = Visible = Collidable = true;
+            playerInteractingSolid.EnableStaticMovers();
+        }
+
+        private void onDisable() {
+            Active = Visible = Collidable = false;
+            playerInteractingSolid.DisableStaticMovers();
+        }
+
+        private void onDestroy() {
+            RemoveSelf();
+            playerInteractingSolid.DestroyStaticMovers();
         }
 
         public override void Added(Scene scene) {
