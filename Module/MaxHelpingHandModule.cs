@@ -38,30 +38,36 @@ namespace Celeste.Mod.MaxHelpingHand.Module {
 
         // size of the screen, taking zooming out into account (Extended Camera Dynamics mod)
 
+        public static bool ZoomOutEnabled {
+            get {
+                return extendedCameraDynamicsEnabled || zoomOutHelperPrototypeEnabled;
+            }
+        }
+
         public static int CameraWidth {
             get {
-                if (!extendedCameraDynamicsEnabled && !zoomOutHelperPrototypeEnabled) return 320;
+                if (!ZoomOutEnabled) return 320;
                 return (Engine.Scene as Level)?.Camera.Viewport.Width ?? 320;
             }
         }
 
         public static int CameraHeight {
             get {
-                if (!extendedCameraDynamicsEnabled && !zoomOutHelperPrototypeEnabled) return 180;
+                if (!ZoomOutEnabled) return 180;
                 return (Engine.Scene as Level)?.Camera.Viewport.Height ?? 180;
             }
         }
 
         public static int BufferWidth {
             get {
-                if (!extendedCameraDynamicsEnabled && !zoomOutHelperPrototypeEnabled) return 320;
+                if (!ZoomOutEnabled) return 320;
                 return GameplayBuffers.Gameplay?.Width ?? 320;
             }
         }
 
         public static int BufferHeight {
             get {
-                if (!extendedCameraDynamicsEnabled && !zoomOutHelperPrototypeEnabled) return 180;
+                if (!ZoomOutEnabled) return 180;
                 return GameplayBuffers.Gameplay?.Height ?? 180;
             }
         }
@@ -385,7 +391,7 @@ namespace Celeste.Mod.MaxHelpingHand.Module {
             frostBreakingBallLoaded = false;
         }
 
-        private Backdrop onLoadBackdrop(MapData map, BinaryPacker.Element child, BinaryPacker.Element above) {
+        private static Backdrop onLoadBackdrop(MapData map, BinaryPacker.Element child, BinaryPacker.Element above) {
             if (child.Name.Equals("MaxHelpingHand/HeatWaveNoColorGrade", StringComparison.OrdinalIgnoreCase)) {
                 return new HeatWaveNoColorGrade(child.AttrBool("controlColorGradeWhenActive"), child.AttrBool("renderParticles", defaultValue: true));
             }
@@ -445,7 +451,8 @@ namespace Celeste.Mod.MaxHelpingHand.Module {
                     colors[i] = Calc.HexToColor(colorsAsStrings[i]) * alpha;
                 }
 
-                return new SnowCustomColors(colors, child.AttrFloat("speedMin", 40f), child.AttrFloat("speedMax", 100f), child.AttrInt("particleCount", 60));
+                return new SnowCustomColors(colors, child.AttrFloat("speedMin", 40f), child.AttrFloat("speedMax", 100f), child.AttrInt("particleCount", 60),
+                    child.AttrFloat("angle", 180f) * Calc.DegToRad, child.AttrFloat("sineAmplitudeMult", 0.2f), child.Attr("texturePath"));
             }
             if (child.Name.Equals("MaxHelpingHand/NorthernLightsCustomColors", StringComparison.OrdinalIgnoreCase)) {
                 string[] colorsAsStrings = child.Attr("colors").Split(',');
