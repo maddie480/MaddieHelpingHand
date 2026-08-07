@@ -1222,6 +1222,8 @@ placements.entities.MaxHelpingHand/FlagBreakerBox.tooltips.color=First particle 
 placements.entities.MaxHelpingHand/FlagBreakerBox.names.color2=Particle Color 2
 placements.entities.MaxHelpingHand/FlagBreakerBox.tooltips.color2=Second particle color.
 placements.entities.MaxHelpingHand/FlagBreakerBox.tooltips.refill=Whether the box should refill the player's dash when broken.
+placements.entities.MaxHelpingHand/FlagBreakerBox.tooltips.refillDashCount=The amount of dashes that will be refilled. Leave empty to use the default amount.
+placements.entities.MaxHelpingHand/FlagBreakerBox.tooltips.refillOnEveryDash=Whether the box should refill the player's dash whenever it is dashed on, even if it doesn't break.
 
 # Bloom Base Fade Trigger
 placements.triggers.MaxHelpingHand/BloomBaseFadeTrigger.tooltips.fadeA=Determines the bloom base at the start of the fade.

@@ -20,6 +20,8 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
     /// - surfaceIndex: determines which sound the box will make when the player climbs on it.
     /// - color, color2: particle colors.
     /// - refill: whether the box should refill the player's dash when broken.
+    /// - refillDashCount (optional): the amount of dashes that will be refilled.
+    /// - refillOnEveryDash: whether to refill dashes every time the breaker box is dashed into.
     /// </summary>
     [CustomEntity("MaxHelpingHand/FlagBreakerBox")]
     [Tracked]
@@ -51,6 +53,8 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
         private bool opened;
 
         private bool refillOnBreak;
+        private int? refillDashCount;
+        private bool refillOnEveryDash;
 
         private SoundSource firstHitSfx;
 
@@ -104,6 +108,9 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             };
 
             refillOnBreak = data.Bool("refill", true);
+            refillDashCount = int.TryParse(data.Attr("refillDashCount"), out int count) ? count : 0;
+            refillOnEveryDash = data.Bool("refillOnEveryDash");
+
             OnDashCollide = Dashed;
         }
 
@@ -194,6 +201,9 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
                     Remove(firstHitSfx);
                 }
                 Add(firstHitSfx = new SoundSource("event:/new_content/game/10_farewell/fusebox_hit_1"));
+                if (refillOnEveryDash) {
+                    RefillDash(player);
+                }
                 Celeste.Freeze(0.1f);
                 shakeCounter = 0.2f;
                 shaker.On = true;
@@ -208,7 +218,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
                 Audio.Play("event:/new_content/game/10_farewell/fusebox_hit_2", Position);
                 Celeste.Freeze(0.2f);
                 if (refillOnBreak) {
-                    player.RefillDash();
+                    RefillDash(player);
                 }
                 Break();
                 Input.Rumble(RumbleStrength.Strong, RumbleLength.Long);
@@ -279,6 +289,14 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             }
             amount += 2;
             SceneAs<Level>().Particles.Emit(P_RecolouredSmash, amount, position, positionRange, direction);
+        }
+
+        private void RefillDash(Player player) {
+            if (!refillDashCount.HasValue) {
+                player.RefillDash();
+            } else {
+                player.Dashes = Math.Max(player.Dashes, refillDashCount.Value);
+            }
         }
     }
 }

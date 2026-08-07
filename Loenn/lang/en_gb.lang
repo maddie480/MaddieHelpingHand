@@ -183,6 +183,8 @@ entities.MaxHelpingHand/FlagBreakerBox.attributes.description.color=First partic
 entities.MaxHelpingHand/FlagBreakerBox.attributes.name.color2=Particle Color 2
 entities.MaxHelpingHand/FlagBreakerBox.attributes.description.color2=Second particle color.
 entities.MaxHelpingHand/FlagBreakerBox.attributes.description.refill=Whether the box should refill the player's dash when broken.
+entities.MaxHelpingHand/FlagBreakerBox.attributes.description.refillDashCount=The amount of dashes that will be refilled. Leave empty to use the default amount.
+entities.MaxHelpingHand/FlagBreakerBox.attributes.description.refillOnEveryDash=Whether the box should refill the player's dash whenever it is dashed on, even if it doesn't break.
 
 # Flag Exit Block
 entities.MaxHelpingHand/FlagExitBlock.placements.name.exit_block=Flag Exit Block
