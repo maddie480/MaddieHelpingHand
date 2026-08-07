@@ -165,6 +165,7 @@ entities.MaxHelpingHand/AttachedSidewaysJumpThru.attributes.description.letSeeke
 entities.MaxHelpingHand/AttachedSidewaysJumpThru.attributes.description.surfaceIndex=Determines which sound the jumpthru will make when the player climbs on it.
 entities.MaxHelpingHand/AttachedSidewaysJumpThru.attributes.description.pushPlayer=Whether the jumpthru should push the player to its solid side for more leniency, like vanilla jumpthrus do.
 entities.MaxHelpingHand/AttachedSidewaysJumpThru.attributes.description.cornerCorrect=Causes the jumpthru to immediately align the player with it if they dash vertically into it, with a maximum correction of 6 pixels.
+entities.MaxHelpingHand/AttachedSidewaysJumpThru.attributes.description.toggleStaticMovers=Whether the jumpthru should make attached objects disappear/appear/destroy them whenever the jumpthru itself disappears/appears/gets destroyed.
 
 # Flag Breaker Box
 entities.MaxHelpingHand/FlagBreakerBox.placements.name.breaker_box=Flag Breaker Box

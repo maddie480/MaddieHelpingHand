@@ -28,16 +28,31 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             }
 
             // create the StaticMover that will make this jumpthru attached.
-            StaticMover staticMover = new StaticMoverWithLiftSpeed() {
-                SolidChecker = solid => solid.CollideRect(new Rectangle((int) X, (int) Y - 1, (int) Width, (int) Height + 2)),
-                OnMove = move => SidewaysMovingPlatform.SidewaysJumpthruOnMove(this, playerInteractingSolid, Left, move),
-                OnShake = onShake,
-                OnDisable = onDisable,
-                OnEnable = onEnable,
-                OnDestroy = onDestroy,
-                OnSetLiftSpeed = liftSpeed => playerInteractingSolid.LiftSpeed = liftSpeed
-            };
+            StaticMover staticMover = data.Bool("toggleStaticMovers") ?
+                new StaticMoverWithLiftSpeed {
+                    SolidChecker = solidChecker,
+                    OnMove = onMove,
+                    OnShake = onShake,
+                    OnDisable = onDisable,
+                    OnEnable = onEnable,
+                    OnDestroy = onDestroy,
+                    OnSetLiftSpeed = onSetLiftSpeed
+                } : new StaticMoverWithLiftSpeed {
+                    SolidChecker = solidChecker,
+                    OnMove = onMove,
+                    OnShake = onShake,
+                    OnSetLiftSpeed = onSetLiftSpeed
+                };
             Add(staticMover);
+        }
+        private bool solidChecker(Solid solid) {
+            return solid.CollideRect(new Rectangle((int) X, (int) Y - 1, (int) Width, (int) Height + 2));
+        }
+        private void onMove(Vector2 move) {
+            SidewaysMovingPlatform.SidewaysJumpthruOnMove(this, playerInteractingSolid, Left, move);
+        }
+        private void onSetLiftSpeed(Vector2 liftSpeed) {
+            playerInteractingSolid.LiftSpeed = liftSpeed;
         }
 
         private void onShake(Vector2 move) {

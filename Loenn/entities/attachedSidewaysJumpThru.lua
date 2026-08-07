@@ -36,7 +36,8 @@ jumpthru.placements = {
             letSeekersThrough = false,
             surfaceIndex = -1,
             pushPlayer = false,
-            cornerCorrect = false
+            cornerCorrect = false,
+            toggleStaticMovers = true
         },
     },
     {
@@ -49,7 +50,8 @@ jumpthru.placements = {
             letSeekersThrough = false,
             surfaceIndex = -1,
             pushPlayer = false,
-            cornerCorrect = false
+            cornerCorrect = false,
+            toggleStaticMovers = true
         },
     }
 }
