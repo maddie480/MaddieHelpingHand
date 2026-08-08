@@ -108,7 +108,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             };
 
             refillOnBreak = data.Bool("refill", true);
-            refillDashCount = int.TryParse(data.Attr("refillDashCount"), out int count) ? count : 0;
+            refillDashCount = int.TryParse(data.Attr("refillDashCount"), out int count) ? count : null;
             refillOnEveryDash = data.Bool("refillOnEveryDash");
 
             OnDashCollide = Dashed;
