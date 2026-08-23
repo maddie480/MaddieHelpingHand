@@ -276,7 +276,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
                 }
 
                 // wait if something is where the platform is supposed to respawn
-                while (isGroupCollidingWithSomething()) {
+                while (isGroupCollidingWithSomething() || CollideCheck<Actor>() || CollideCheck<Solid>()) {
                     yield return null;
                 }
 
