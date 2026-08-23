@@ -276,7 +276,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
                 }
 
                 // wait if something is where the platform is supposed to respawn
-                while (CollideCheck<Actor>() || CollideCheck<Solid>() || isGroupCollidingWithSomething()) {
+                while (isGroupCollidingWithSomething()) {
                     yield return null;
                 }
 
@@ -335,8 +335,8 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
         }
 
         private CustomizableCrumblePlatform getOnePlatformWithPlayerOnTop() {
-            return getBuddyCached(cache => cache.getOnePlatformWithPlayerOnTop, () => {
-                foreach (CustomizableCrumblePlatform platform in groupMembers) {
+            return getBuddyCached(cache => cache.getOnePlatformWithPlayerOnTop, members => {
+                foreach (CustomizableCrumblePlatform platform in members) {
                     if (platform.GetPlayerOnTop() != null) {
                         return platform;
                     }
@@ -346,8 +346,8 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
         }
 
         private CustomizableCrumblePlatform getOnePlatformWithPlayerClimbing() {
-            return getBuddyCached(cache => cache.getOnePlatformWithPlayerClimbing, () => {
-                foreach (CustomizableCrumblePlatform platform in groupMembers) {
+            return getBuddyCached(cache => cache.getOnePlatformWithPlayerClimbing, members => {
+                foreach (CustomizableCrumblePlatform platform in members) {
                     if (platform.GetPlayerClimbing() != null) {
                         return platform;
                     }
@@ -357,8 +357,8 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
         }
 
         private bool isGroupCollidingWithSomething() {
-            return getBuddyCached(cache => cache.isGroupCollidingWithSomething, () => {
-                foreach (CustomizableCrumblePlatform platform in groupMembers) {
+            return getBuddyCached(cache => cache.isGroupCollidingWithSomething, members => {
+                foreach (CustomizableCrumblePlatform platform in members) {
                     if (platform.CollideCheck<Actor>() || platform.CollideCheck<Solid>()) {
                         return true;
                     }
@@ -367,12 +367,12 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             });
         }
 
-        private T getBuddyCached<T>(Func<BuddyCache, BuddyCache.Result<T>> buddyCacheGetter, Func<T> compute) {
+        private T getBuddyCached<T>(Func<BuddyCache, BuddyCache.Result<T>> buddyCacheGetter, Func<List<CustomizableCrumblePlatform>, T> compute) {
             BuddyCache.Result<T> myResult = buddyCacheGetter(buddyCache);
             if (myResult.computed) return myResult.result;
 
             // compute and tell our buddies about it
-            T result = compute();
+            T result = compute(groupMembers);
             foreach (CustomizableCrumblePlatform platform in groupMembers) {
                 BuddyCache.Result<T> buddyResult = buddyCacheGetter(platform.buddyCache);
                 buddyResult.computed = true;
