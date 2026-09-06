@@ -164,17 +164,15 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             orig(self, scene);
             if (controllers.Count == 0) return;
 
-            if (scene is Level level) {
-                // there are 2 backdrop renderers in that scene (bg and fg), so we are going to be double updating on each frame.
-                float delta = Engine.DeltaTime / 2f;
-
+            // there is more than one backdrop renderer in the level updating each frame, so make sure we only update the fades from one of them (the bg one) so fade times are accurate
+            if (scene is Level level && self == level.Background) {
                 // update the fades of all the flags that are in the scene.
                 foreach (string flag in fades.Keys) {
                     foreach (bool notFlag in fades[flag].Keys) {
                         if (level.Session.GetFlag(flag) != notFlag) {
-                            fades[flag][notFlag] = Calc.Approach(fades[flag][notFlag], 1, delta / fadeInTimes[flag][notFlag]);
+                            fades[flag][notFlag] = Calc.Approach(fades[flag][notFlag], 1, Engine.DeltaTime / fadeInTimes[flag][notFlag]);
                         } else {
-                            fades[flag][notFlag] = Calc.Approach(fades[flag][notFlag], 0, delta / fadeOutTimes[flag][notFlag]);
+                            fades[flag][notFlag] = Calc.Approach(fades[flag][notFlag], 0, Engine.DeltaTime / fadeOutTimes[flag][notFlag]);
                         }
                     }
                 }
@@ -186,6 +184,8 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
 
             VariableDefinition blendStateLocal = null;
             VariableDefinition backdropLocal = null;
+            VariableDefinition previousRenderTargetsLocal = new VariableDefinition(il.Import(typeof(RenderTargetBinding[])));
+            il.Body.Variables.Add(previousRenderTargetsLocal);
 
             foreach (VariableDefinition variable in il.Body.Variables) {
                 if (variable.VariableType.FullName == "Microsoft.Xna.Framework.Graphics.BlendState") {
@@ -199,25 +199,27 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             Logger.Log("MaxHelpingHand/StylegroundFadeController", $"The blend state is local variable {blendStateLocal.Index}, the backdrop is local variable {backdropLocal.Index}");
 
 
-            if (cursor.TryGotoNext(instr => instr.MatchCallvirt<Backdrop>("Render"))) {
+            if (cursor.TryGotoNext(MoveType.Before, instr => instr.MatchCallvirt<Backdrop>("Render"))) {
                 Logger.Log("MaxHelpingHand/StylegroundFadeController", $"Modding backdrop rendering at {cursor.Index} in IL for BackdropRenderer.Render");
 
                 // before the rendering, switch to a dedicated render target if required.
-                cursor.Emit(OpCodes.Ldarg_0);
-                cursor.Emit(OpCodes.Ldloc, backdropLocal);
-                cursor.EmitDelegate<Action<BackdropRenderer, Backdrop>>(renderStylegroundStart);
+                cursor.EmitLdarg0();
+                cursor.EmitLdloc(backdropLocal);
+                cursor.EmitLdloca(previousRenderTargetsLocal);
+                cursor.EmitDelegate(beforeRenderStyleground);
 
                 cursor.Index++;
 
-                // after the rendering, switch back to the regular render target and render our render target with alpha if necessary.
-                cursor.Emit(OpCodes.Ldarg_0);
-                cursor.Emit(OpCodes.Ldloc, backdropLocal);
-                cursor.Emit(OpCodes.Ldloc, blendStateLocal);
-                cursor.EmitDelegate<Action<BackdropRenderer, Backdrop, BlendState>>(renderStylegroundEnd);
+                // after the rendering, switch back to the previous render target and render our render target with alpha if necessary.
+                cursor.EmitLdarg0();
+                cursor.EmitLdloc(backdropLocal);
+                cursor.EmitLdloc(blendStateLocal);
+                cursor.EmitLdloc(previousRenderTargetsLocal);
+                cursor.EmitDelegate(afterRenderStyleground);
             }
         }
 
-        private static void renderStylegroundStart(BackdropRenderer self, Backdrop backdrop) {
+        private static void beforeRenderStyleground(BackdropRenderer self, Backdrop backdrop, ref RenderTargetBinding[] previousRenderTargets) {
             if (controllers.Count == 0) return;
 
             bool hasFlag = backdrop.OnlyIfFlag != null && tryGetValue(fades, backdrop.OnlyIfFlag, false, out float fade) && fade < 1;
@@ -225,6 +227,12 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
 
             if (hasFlag || hasNotFlag) {
                 self.EndSpritebatch();
+
+                int renderTargetCount = Engine.Graphics.GraphicsDevice.GetRenderTargetsNoAllocEXT(null);
+                if (previousRenderTargets == null || previousRenderTargets.Length != renderTargetCount) {
+                    previousRenderTargets = new RenderTargetBinding[renderTargetCount];
+                }
+                Engine.Graphics.GraphicsDevice.GetRenderTargetsNoAllocEXT(previousRenderTargets);
 
                 ensureBufferIsCorrect();
                 Engine.Graphics.GraphicsDevice.SetRenderTarget(tempRenderTarget);
@@ -240,7 +248,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             }
         }
 
-        private static void renderStylegroundEnd(BackdropRenderer self, Backdrop backdrop, BlendState blendState) {
+        private static void afterRenderStyleground(BackdropRenderer self, Backdrop backdrop, BlendState blendState, RenderTargetBinding[] previousRenderTargets) {
             if (controllers.Count == 0) return;
 
             string flag = null;
@@ -257,7 +265,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             if (flag != null) {
                 self.EndSpritebatch();
 
-                Engine.Graphics.GraphicsDevice.SetRenderTarget(GameplayBuffers.Level);
+                Engine.Graphics.GraphicsDevice.SetRenderTargets(previousRenderTargets);
 
                 self.StartSpritebatch(blendState);
                 Draw.SpriteBatch.Draw(tempRenderTarget, Vector2.Zero, Color.White * fades[flag][notFlag]);
