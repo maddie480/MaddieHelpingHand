@@ -48,7 +48,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
 
         private const float DelayTime = 0.4f;
 
-        public bool Triggered = false;
+        public bool Triggered;
         public float DelayTimer;
         public float Lerp;
 
@@ -57,6 +57,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
         private string overrideType;
         private bool triggerIfSameDirection;
         private bool killIfSameDirection;
+        private bool clippableTopPixelGlitch;
 
         private Vector2 outwards;
 
@@ -72,19 +73,18 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
         private Color disabledColor = Color.White;
         private bool visibleWhenDisabled = false;
 
-        private bool blockingLedge = false;
-
         public GroupedTriggerSpikes(EntityData data, Vector2 offset, Directions dir)
             : this(data.Position + offset, GetSize(data, dir), dir, data.Attr("type", "default"), data.Bool("behindMoveBlocks", false), data.Bool("triggerIfSameDirection", false),
-                  data.Bool("killIfSameDirection", defaultValue: data.Bool("triggerIfSameDirection", false))) {
+                  data.Bool("killIfSameDirection", defaultValue: data.Bool("triggerIfSameDirection", false)),
+                  data.Bool("clippableTopPixelGlitch", defaultValue: true)) {
         }
 
         [MethodImpl(MethodImplOptions.NoInlining)]
         public GroupedTriggerSpikes(Vector2 position, int size, Directions direction, string overrideType, bool behindMoveBlocks)
-            : this(position, size, direction, overrideType, behindMoveBlocks, triggerIfSameDirection: false, killIfSameDirection: false) {
+            : this(position, size, direction, overrideType, behindMoveBlocks, triggerIfSameDirection: false, killIfSameDirection: false, clippableTopPixelGlitch: true) {
         }
 
-        public GroupedTriggerSpikes(Vector2 position, int size, Directions direction, string overrideType, bool behindMoveBlocks, bool triggerIfSameDirection, bool killIfSameDirection)
+        public GroupedTriggerSpikes(Vector2 position, int size, Directions direction, string overrideType, bool behindMoveBlocks, bool triggerIfSameDirection, bool killIfSameDirection, bool clippableTopPixelGlitch)
             : base(position) {
 
             this.size = size;
@@ -92,6 +92,13 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             this.overrideType = overrideType;
             this.triggerIfSameDirection = triggerIfSameDirection;
             this.killIfSameDirection = killIfSameDirection;
+
+            // When Maddy hits the top pixel of the spikes with the bottom of her hitbox,
+            // minIndex just crosses over to -1 because she's 9px tall, so her top is 8px above the spikes.
+            // The "clippable top pixel glitch" mistakenly checks minIndex instead of maxIndex, so Maddy goes through.
+            // Since she's 8px wide, this never happens horizontally.
+            // Long story short: clippableTopPixelGlitch is forced to false on horizontal spikes.
+            this.clippableTopPixelGlitch = (direction is Directions.Left or Directions.Right) && clippableTopPixelGlitch;
 
             switch (direction) {
                 case Directions.Up:
@@ -134,9 +141,9 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             });
 
             if (behindMoveBlocks) {
-                Depth = 0; // move blocks have Depth = -1.
+                Depth = Depths.Player; // move blocks have Depth = -1.
             } else {
-                Depth = -50;
+                Depth = Depths.Dust;
             }
         }
 
@@ -214,8 +221,8 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
 
         private bool UpSafeBlockCheck(Player player) {
             int dir = 8 * (int) player.Facing;
-            int left = (int) ((player.Left + dir - Left) / 4f);
-            int right = (int) ((player.Right + dir - Left) / 4f);
+            int left = (int) ((player.Left + dir - Left) / 8f);
+            int right = (int) ((player.Right + dir - Left) / 8f);
 
             if (right < 0 || left >= spikePositions.Length) {
                 return false;
@@ -225,8 +232,8 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
         }
 
         private bool SideSafeBlockCheck(Player player) {
-            int top = (int) ((player.Top - Top) / 4f);
-            int bottom = (int) ((player.Bottom - Top) / 4f);
+            int top = (int) ((player.Top - Top) / 8f);
+            int bottom = (int) ((player.Bottom - Top) / 8f);
 
             if (bottom < 0 || top >= spikePositions.Length)
                 return false;
@@ -236,12 +243,13 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
 
         private void OnCollide(Player player) {
             GetPlayerCollideIndex(player, out int minIndex, out int maxIndex);
-            if (minIndex < 0 || minIndex >= spikePositions.Length) {
+            if ((clippableTopPixelGlitch ? minIndex : maxIndex) < 0 || minIndex >= spikePositions.Length) {
                 return;
             }
 
             if (!Triggered) {
-                Audio.Play("event:/game/03_resort/fluff_tendril_touch", Position + spikePositions[minIndex]);
+                int middleIndex = Calc.Clamp((int) Math.Round((minIndex + maxIndex) / 2f), 0, spikePositions.Length - 1);
+                Audio.Play(SFX.game_03_fluff_tendril_touch, Position + spikePositions[middleIndex]);
                 Triggered = true;
                 DelayTimer = DelayTime;
             } else if (Lerp >= 1f) {
@@ -309,7 +317,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
                         if (CollideCheck<Player>()) {
                             DelayTimer = 0.05f;
                         } else {
-                            Audio.Play("event:/game/03_resort/fluff_tendril_emerge", Position + spikePositions[spikePositions.Length / 2]);
+                            Audio.Play(SFX.game_03_fluff_tendril_emerge, Position + spikePositions[spikePositions.Length / 2]);
                         }
                     }
                 } else {
@@ -319,24 +327,6 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
                 Lerp = Calc.Approach(Lerp, 0f, 4f * Engine.DeltaTime);
                 if (Lerp <= 0f) {
                     Triggered = false;
-                }
-            }
-
-            // "climb hopping" should be blocked if trigger spikes are going to kill Madeline (Lerp >= 1).
-            // this is done by adding a LedgeBlocker component.
-            if (blockingLedge != (Lerp >= 1f)) {
-                blockingLedge = !blockingLedge;
-
-                // add or remove the ledge blocker depending on the need.
-                if (blockingLedge) {
-                    Add(new LedgeBlocker());
-                } else {
-                    foreach (Component component in this) {
-                        if (component is LedgeBlocker) {
-                            Remove(component);
-                            break;
-                        }
-                    }
                 }
             }
         }

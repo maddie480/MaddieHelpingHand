@@ -76,6 +76,12 @@ for key, value in ipairs(allSpikes) do
     end
 end
 
+for key, value in ipairs({ spikeLeft, spikeRight }) do
+    for key2, placement in ipairs(value.placements) do
+        placement.data.clippableTopPixelGlitch = false
+    end
+end
+
 return {
     spikeUp,
     spikeDown,

@@ -320,6 +320,8 @@ entities.MaxHelpingHand/GroupedTriggerSpikesUp.attributes.description.killIfSame
 entities.MaxHelpingHand/GroupedTriggerSpikesDown.attributes.description.killIfSameDirection=Whether the spikes should kill the player even if they move in the direction they are pointing. Useful to make them more consistent if they are attached to Kevins.
 entities.MaxHelpingHand/GroupedTriggerSpikesLeft.attributes.description.killIfSameDirection=Whether the spikes should kill the player even if they move in the direction they are pointing. Useful to make them more consistent if they are attached to Kevins.
 entities.MaxHelpingHand/GroupedTriggerSpikesRight.attributes.description.killIfSameDirection=Whether the spikes should kill the player even if they move in the direction they are pointing. Useful to make them more consistent if they are attached to Kevins.
+entities.MaxHelpingHand/GroupedTriggerSpikesLeft.attributes.description.clippableTopPixelGlitch=Whether Madeline can clip through the top pixel of extended trigger spikes.\nThis is a backwards compatibility option, since this was the behavior of those spikes for 6 years.
+entities.MaxHelpingHand/GroupedTriggerSpikesRight.attributes.description.clippableTopPixelGlitch=Whether Madeline can clip through the top pixel of extended trigger spikes.\nThis is a backwards compatibility option, since this was the behavior of those spikes for 6 years.
 
 # Hint Decal
 entities.MaxHelpingHand/HintDecal.placements.name.decal=Hint Decal
