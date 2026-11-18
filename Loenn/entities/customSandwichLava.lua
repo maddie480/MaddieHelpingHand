@@ -7,6 +7,7 @@ lavaSandwich.placements = {
     data = {
         direction = "CoreModeBased",
         speed = 20.0,
+        resetSpeed = 128.0,
         sandwichGap = 160.0,
         hotSurfaceColor = "ff8933",
         hotEdgeColor = "f25e29",
