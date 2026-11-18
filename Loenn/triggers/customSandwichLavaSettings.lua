@@ -10,7 +10,8 @@ trigger.placements = {
     data = {
         onlyOnce = false,
         direction = "CoreModeBased",
-        speed = 20.0
+        speed = 20.0,
+        resetSpeed = 128.0,
     }
 }
 
