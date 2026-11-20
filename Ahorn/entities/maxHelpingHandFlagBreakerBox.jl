@@ -5,7 +5,7 @@ using ..Ahorn, Maple
 @mapdef Entity "MaxHelpingHand/FlagBreakerBox" FlagBreakerBox(x::Integer, y::Integer,
     flag::String="", health::Int=2, floaty::Bool=true, bouncy::Bool=true, sprite::String="breakerBox", flipX::Bool=false,
     music::String="", music_progress::Int=-1, music_session::Bool=false, surfaceIndex::Int=9, color::String="fffc75", color2::String="6bffff",
-    refill::Bool=true, refillDashCount::String="", refillOnEveryDash::Bool=false)
+    refill::Bool=true, refillDashCount::String="", refillOnEveryDash::Bool=false, breakLightning::Bool=false)
 
 const placements = Ahorn.PlacementDict(
     "Flag Breaker Box (Maddie's Helping Hand)" => Ahorn.EntityPlacement(

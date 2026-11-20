@@ -264,8 +264,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
                 }
             }
 
-            if (breakLightning)
-            {
+            if (breakLightning) {
                 SceneAs<Level>().Session.SetFlag("disable_lightning");
                 Add(new Coroutine(Lightning.RemoveRoutine(SceneAs<Level>(), RemoveSelf)));
             }
