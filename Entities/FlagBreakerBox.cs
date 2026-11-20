@@ -109,7 +109,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
                 Color2 = color2
             };
 
-            breakLightning = data.Bool("breakLighting");
+            breakLightning = data.Bool("breakLightning");
 
             refillOnBreak = data.Bool("refill", true);
             refillDashCount = int.TryParse(data.Attr("refillDashCount"), out int count) ? count : null;

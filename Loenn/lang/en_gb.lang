@@ -186,7 +186,7 @@ entities.MaxHelpingHand/FlagBreakerBox.attributes.description.color2=Second part
 entities.MaxHelpingHand/FlagBreakerBox.attributes.description.refill=Whether the box should refill the player's dash when broken.
 entities.MaxHelpingHand/FlagBreakerBox.attributes.description.refillDashCount=The amount of dashes that will be refilled. Leave empty to use the default amount.
 entities.MaxHelpingHand/FlagBreakerBox.attributes.description.refillOnEveryDash=Whether the box should refill the player's dash whenever it is dashed on, even if it doesn't break.
-entities.MaxHelpingHand/FlagBreakerBox.attributes.description.breakLighting=Whether the box removes lightning in the room when broken. Also sets the "disable_lightning" flag, like vanilla does.
+entities.MaxHelpingHand/FlagBreakerBox.attributes.description.breakLightning=Whether the box removes lightning in the room when broken. Also sets the "disable_lightning" flag, like vanilla does.
 
 # Flag Exit Block
 entities.MaxHelpingHand/FlagExitBlock.placements.name.exit_block=Flag Exit Block
