@@ -22,6 +22,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
     /// - refill: whether the box should refill the player's dash when broken.
     /// - refillDashCount (optional): the amount of dashes that will be refilled.
     /// - refillOnEveryDash: whether to refill dashes every time the breaker box is dashed into.
+    /// - breakLightning: whether to remove lightning in the room when broken
     /// </summary>
     [CustomEntity("MaxHelpingHand/FlagBreakerBox")]
     [Tracked]
@@ -47,6 +48,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
         private Wiggler bounce;
         private float shakeCounter;
         private Shaker shaker;
+        private bool breakLightning;
 
         private bool makeSparks;
         private bool smashParticles;
@@ -106,6 +108,8 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
                 Color = color,
                 Color2 = color2
             };
+
+            breakLightning = data.Bool("breakLighting");
 
             refillOnBreak = data.Bool("refill", true);
             refillDashCount = int.TryParse(data.Attr("refillDashCount"), out int count) ? count : null;
@@ -258,6 +262,12 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
                 if (!string.IsNullOrEmpty(music) && Audio.CurrentMusicEventInstance != null) {
                     Audio.CurrentMusicEventInstance.start();
                 }
+            }
+
+            if (breakLightning)
+            {
+                SceneAs<Level>().Session.SetFlag("disable_lightning");
+                Add(new Coroutine(Lightning.RemoveRoutine(SceneAs<Level>(), RemoveSelf)));
             }
         }
 

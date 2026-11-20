@@ -21,6 +21,7 @@ breakerBox.placements = {
         surfaceIndex = 9,
         color = "fffc75",
         color2 = "6bffff",
+        breakLighting = false,
         refill = true,
         refillDashCount = "",
         refillOnEveryDash = false
