@@ -9,11 +9,13 @@ namespace Celeste.Mod.MaxHelpingHand.Triggers {
         private bool onlyOnce;
         private CustomSandwichLava.DirectionMode direction;
         private float speed;
+        private float resetSpeed;
 
         public CustomSandwichLavaSettingsTrigger(EntityData data, Vector2 offset) : base(data, offset) {
             onlyOnce = data.Bool("onlyOnce");
             direction = data.Enum("direction", CustomSandwichLava.DirectionMode.CoreModeBased);
             speed = data.Float("speed", 20f);
+            resetSpeed = data.Float("resetSpeed", 128f);
         }
 
         public override void OnEnter(Player player) {
@@ -23,6 +25,7 @@ namespace Celeste.Mod.MaxHelpingHand.Triggers {
             if (target != null) {
                 target.Direction = direction;
                 target.Speed = speed;
+                target.ResetSpeed = resetSpeed;
             }
 
             if (onlyOnce) {

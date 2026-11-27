@@ -31,6 +31,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
         private float startX;
         public DirectionMode Direction;
         public float Speed;
+        public float ResetSpeed;
         private string flag;
         // the extra pixels each side has to be shifted towards each other compared to vanilla
         // to comply with the "sandwichGap" setting.
@@ -64,6 +65,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             startX = data.Position.X + offset.X;
             Direction = data.Enum("direction", DirectionMode.CoreModeBased);
             Speed = data.Float("speed", 20f);
+            ResetSpeed = data.Float("resetSpeed", 128f);
             flag = data.Attr("flag");
 
             hot[0] = Calc.HexToColor(data.Attr("hotSurfaceColor", "ff8933"));
@@ -265,7 +267,7 @@ namespace Celeste.Mod.MaxHelpingHand.Entities {
             }
 
             if (Waiting) {
-                Y = Calc.Approach(Y, centerY, 128f * Engine.DeltaTime);
+                Y = Calc.Approach(Y, centerY, ResetSpeed * Engine.DeltaTime);
 
                 loopSfx.Param("rising", 0f);
                 if (player != null && player.X >= startX && !player.JustRespawned && player.StateMachine.State != 11) {
